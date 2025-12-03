@@ -156,22 +156,22 @@ class Strumline extends FlxSpriteGroup
 	/**
 	 * A group containing the strums of this strumline.
 	 */
-	public var strums(default, null):FlxSpriteGroup<StrumNote> = new FlxSpriteGroup<StrumNote>();
+	public var strums(default, null):FlxSpriteGroup = new FlxSpriteGroup();
 
 	/**
 	 * A group containing the notes currently being rendered.
 	 */
-	public var notes(default, null):FlxSpriteGroup<Note> = new FlxSpriteGroup<Note>();
+	public var notes(default, null):FlxSpriteGroup = new FlxSpriteGroup();
 
 	/**
 	 * A group containing the notes currently being rendered.
 	 */
-	public var sustains(default, null):FlxSpriteGroup<SustainNote> = new FlxSpriteGroup<SustainNote>();
+	public var sustains(default, null):FlxSpriteGroup = new FlxSpriteGroup();
 
 	/**
 	 * A group containing the currently rendered hold covers.
 	 */
-	public var holdCovers(default, null):FlxSpriteGroup<HoldCover> = new FlxSpriteGroup<HoldCover>();
+	public var holdCovers(default, null):FlxSpriteGroup = new FlxSpriteGroup();
 
 	/**
 	 * A list of the current notes that have yet to be spawned.
@@ -181,17 +181,17 @@ class Strumline extends FlxSpriteGroup
 	/**
 	 * A group containing notes that have been used, but are able to be recycled.
 	 */
-	private var recyclableNotes(default, null):FlxTypedGroup<Note> = new FlxTypedGroup<Note>();
+	private var recyclableNotes(default, null):FlxTypedGroup = new FlxTypedGroup();
 	
 	/**
 	 * A group containing hold notes that have been used, but are able to be recycled.
 	 */
-	private var recyclableHoldNotes(default, null):FlxTypedGroup<SustainNote> = new FlxTypedGroup<SustainNote>();
+	private var recyclableHoldNotes(default, null):FlxTypedGroup = new FlxTypedGroup();
 
 	/**
 	 * A group containing hold covers that have been used, but are able to be recycled.
 	 */
-	private var recyclableHoldCovers(default, null):FlxTypedGroup<HoldCover> = new FlxTypedGroup<HoldCover>();
+	private var recyclableHoldCovers(default, null):FlxTypedGroup = new FlxTypedGroup();
 
 
 	// SIGNALS // 
@@ -1020,7 +1020,7 @@ class Strumline extends FlxSpriteGroup
 	 * Gets a list of notes that are within the hit window.
 	 * @return A list of note that this strumline is able to hit.
 	 */
-	public function getPossibleNotes():Array<Note>
+	public function getPossibleNotes():Array
 	{
 		return notes.members.filter(function(note:Note) {
 			return note != null && note.alive && note.canBeHit && !note.tooEarly && !note.tooLate && !note.hasBeenHit;
