@@ -131,7 +131,7 @@ class OSTMenuState extends MusicBeatState
     /**
      * A group that holds all of the song options that the user can select.
      */
-    var grpSongsList:FlxSpriteGroup<OSTSongOption> = new FlxSpriteGroup<OSTSongOption>();
+    var grpSongsList:FlxSpriteGroup = new FlxSpriteGroup();
 
     /**
      * The left arrow button used for switching between categories.
