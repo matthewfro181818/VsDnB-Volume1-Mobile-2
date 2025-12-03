@@ -7,7 +7,7 @@ import data.animation.Animation;
 import data.dialogue.SpeakerData;
 import data.dialogue.SpeakerRegistry;
 import flixel.FlxSprite;
-import flixel.sound.FlxSound;
+import flixel.system.FlxSound;
 import scripting.IScriptedClass.IDialogueScriptedClass;
 import scripting.events.ScriptEvent;
 
