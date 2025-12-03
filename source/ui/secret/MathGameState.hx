@@ -6,9 +6,7 @@ import backend.Conductor;
 import data.language.LanguageManager;
 import data.song.SongRegistry;
 import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.graphics.FlxGraphic;
-import flixel.group.FlxTypedSpriteGroup;
 import flixel.text.FlxText;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.system.FlxAssets.FlxSoundAsset;
@@ -21,6 +19,10 @@ import play.song.Song;
 import ui.Cursor;
 import ui.menu.freeplay.FreeplayState;
 import util.PlatformUtil;
+import flixel.group.FlxTypedSpriteGroup;
+import flixel.FlxSprite;
+
+typedef FlxSpriteGroup = FlxTypedSpriteGroup<FlxSprite>;
 
 typedef QueuedSound =
 {
