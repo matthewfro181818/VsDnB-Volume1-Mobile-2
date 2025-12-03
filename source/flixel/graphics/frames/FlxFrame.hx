@@ -7,6 +7,7 @@ import flash.geom.Rectangle;
 import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
+import flixel.graphics.frames.FlxFramesCollection;
 
 class FlxFrame
 {
