@@ -53,13 +53,9 @@ class FlxAnimation extends FlxBaseAnimation {
 	 */
 	public function new(controller:FlxAnimationController, name:String, frames:Array<Int> = null, frameRate:Float = 0, looped:Bool = true, flipX:Bool = false,
 			flipY:Bool = false) {
-		super(controller, name);
+		super(controller, name, (frames == null) ? [] : frames, frameRate, looped, flipX, flipY);
 
-		this.frames = (frames == null) ? [] : frames;
-		this.frameRate = frameRate;
-		this.looped = looped;
-		this.flipX = flipX;
-		this.flipY = flipY;
+		this.frameDuration = (frameRate > 0 ? 1.0 / frameRate : 0);
 	}
 
 	/**
