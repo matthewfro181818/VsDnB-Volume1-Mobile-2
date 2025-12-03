@@ -67,7 +67,6 @@ class FlxAnimation extends FlxBaseAnimation {
 	override public function destroy():Void {
 		frames = null;
 		name = null;
-		super.destroy();
 	}
 
 	/**
