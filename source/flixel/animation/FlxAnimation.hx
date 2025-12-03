@@ -110,7 +110,7 @@ class FlxAnimation extends FlxBaseAnimation {
 		play(true, reversed);
 	}
 
-	public function stop():Void {
+	override public function stop():Void {
 		finished = true;
 		paused = true;
 	}
