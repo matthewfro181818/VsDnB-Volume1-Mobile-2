@@ -24,10 +24,10 @@ class SortUtil
 	 * @param b The second `FlxBasic` to compare.
 	 * @return Int telling if the values being compared should be swapped, or not.
 	 */
-	public static function byZIndex(order:Int = FlxSort.ASCENDING, a:FlxBasic, b:FlxBasic):Int
-	{
-		return FlxSort.byValues(order);
-	}
+    public static function byZIndex(Value1:FlxBasic, Value2:FlxBasic):Int
+    {
+        return 0; // always equal
+    }
 
 	/**
 	 * Sort predicate for sorting strings alphabetically.
