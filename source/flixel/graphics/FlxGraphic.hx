@@ -4,7 +4,6 @@ import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxFrame;
 import flixel.graphics.frames.FlxFramesCollection;
-import flixel.graphics.frames.FlxFrameCollectionType;
 import flixel.graphics.frames.FlxImageFrame;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
@@ -350,7 +349,7 @@ class FlxGraphic implements IFlxDestroyable
 	/**
 	 * Storage for all available frame collection of all types for this graphic object.
 	 */
-	var frameCollections:Map<FlxFrameCollectionType, Array<Dynamic>>;
+	var frameCollections:Map<Array<Dynamic>>;
 
 	/**
 	 * All types of frames collection which had been added to this graphic object.
@@ -406,8 +405,7 @@ class FlxGraphic implements IFlxDestroyable
 		this.key = key;
 		this.persist = (persist != null) ? persist : defaultPersist;
 
-		frameCollections = new Map<FlxFrameCollectionType, Array<Dynamic>>();
-		frameCollectionTypes = new Array<FlxFrameCollectionType>();
+		frameCollections = new Map<Array<Dynamic>>();
 		this.bitmap = bitmap;
 
 		shader = new FlxShader();
@@ -456,15 +454,7 @@ class FlxGraphic implements IFlxDestroyable
 		if (frameCollections == null) // no need to destroy frame collections if it's already null
 			return;
 
-		var collections:Array<FlxFramesCollection>;
-		for (collectionType in frameCollectionTypes)
-		{
-			collections = cast frameCollections.get(collectionType);
-			FlxDestroyUtil.destroyArray(collections);
-		}
-
 		frameCollections = null;
-		frameCollectionTypes = null;
 	}
 
 	/**
