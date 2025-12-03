@@ -7,8 +7,7 @@ import flixel.graphics.frames.FlxFrame;
 import flixel.util.FlxDestroyUtil.IFlxDestroyable;
 import flixel.util.FlxSignal.FlxTypedSignal;
 
-class FlxAnimationController implements IFlxDestroyable
-{
+class FlxAnimationController implements IFlxDestroyable {
 	public var frameIndex(default, set):Int = -1;
 	public var frameName(get, set):String;
 	public var name(get, set):String;
@@ -23,10 +22,10 @@ class FlxAnimationController implements IFlxDestroyable
 	public var loopCallback:(animName:String) -> Void;
 
 	public final onFrameChange = new FlxTypedSignal<(animName:String, frameNumber:Int, frameIndex:Int) -> Void>();
-	public final onFinish      = new FlxTypedSignal<(animName:String) -> Void>();
-	public final onFinishEnd   = new FlxTypedSignal<(animName:String) -> Void>();
-	public final onPlay        = new FlxTypedSignal<(animName:String, forced:Bool, reversed:Bool, frame:Int) -> Void>();
-	public final onLoop        = new FlxTypedSignal<(animName:String) -> Void>();
+	public final onFinish = new FlxTypedSignal<(animName:String) -> Void>();
+	public final onFinishEnd = new FlxTypedSignal<(animName:String) -> Void>();
+	public final onPlay = new FlxTypedSignal<(animName:String, forced:Bool, reversed:Bool, frame:Int) -> Void>();
+	public final onLoop = new FlxTypedSignal<(animName:String) -> Void>();
 
 	public var timeScale:Float = 1.0;
 
@@ -36,19 +35,16 @@ class FlxAnimationController implements IFlxDestroyable
 
 	var _animations:Map<String, FlxAnimation> = new Map();
 
-	public function new(sprite:FlxSprite)
-	{
+	public function new(sprite:FlxSprite) {
 		_sprite = sprite;
 	}
 
-	public function update(elapsed:Float):Void
-	{
+	public function update(elapsed:Float):Void {
 		if (_curAnim != null)
 			_curAnim.update(elapsed * (timeScale * FlxG.animationTimeScale));
 	}
 
-	public function copyFrom(controller:FlxAnimationController):FlxAnimationController
-	{
+	public function copyFrom(controller:FlxAnimationController):FlxAnimationController {
 		clearAnimations();
 
 		for (anim in controller._animations)
@@ -61,8 +57,7 @@ class FlxAnimationController implements IFlxDestroyable
 		return this;
 	}
 
-	public function destroy():Void
-	{
+	public function destroy():Void {
 		FlxDestroyUtil.destroy(onFrameChange);
 		FlxDestroyUtil.destroy(onFinish);
 		FlxDestroyUtil.destroy(onFinishEnd);
@@ -77,12 +72,11 @@ class FlxAnimationController implements IFlxDestroyable
 		_sprite = null;
 	}
 
-	inline function clearAnimations():Void
-	{
-		for (k in _animations.keys())
-		{
+	inline function clearAnimations():Void {
+		for (k in _animations.keys()) {
 			final anim = _animations[k];
-			if (anim != null) anim.destroy();
+			if (anim != null)
+				anim.destroy();
 		}
 		_animations = new Map();
 		_curAnim = null;
@@ -92,10 +86,8 @@ class FlxAnimationController implements IFlxDestroyable
 	// Animation Creation
 	// ------------------------------------------------------
 
-	public function add(name:String, frames:Array<Int>, frameRate = 30.0, looped = true, flipX = false, flipY = false):Void
-	{
-		if (numFrames == 0)
-		{
+	public function add(name:String, frames:Array<Int>, frameRate = 30.0, looped = true, flipX = false, flipY = false):Void {
+		if (numFrames == 0) {
 			FlxG.log.warn('Could not create animation "$name": no frames');
 			return;
 		}
@@ -103,16 +95,14 @@ class FlxAnimationController implements IFlxDestroyable
 		var valid = [];
 		var invalid = false;
 
-		for (i in frames)
-		{
+		for (i in frames) {
 			if (i < numFrames)
 				valid.push(i);
 			else
 				invalid = true;
 		}
 
-		if (valid.length == 0)
-		{
+		if (valid.length == 0) {
 			FlxG.log.warn('Could not create animation "$name": no valid frames');
 			return;
 		}
@@ -123,13 +113,12 @@ class FlxAnimationController implements IFlxDestroyable
 			FlxG.log.warn('Frames above ${numFrames - 1} were excluded from "$name"');
 	}
 
-	public function addByNames(Name:String, FrameNames:Array<String>, FrameRate = 30.0, Looped = true, FlipX = false, FlipY = false):Void
-	{
-		if (_sprite.frames == null) return;
+	public function addByNames(Name:String, FrameNames:Array<String>, FrameRate = 30.0, Looped = true, FlipX = false, FlipY = false):Void {
+		if (_sprite.frames == null)
+			return;
 
 		var out = [];
-		for (n in FrameNames)
-		{
+		for (n in FrameNames) {
 			if (_sprite.frames.framesHash.exists(n))
 				out.push(getFrameIndex(_sprite.frames.framesHash[n]));
 		}
@@ -138,8 +127,7 @@ class FlxAnimationController implements IFlxDestroyable
 			_animations.set(Name, new FlxAnimation(this, Name, out, FrameRate, Looped, FlipX, FlipY));
 	}
 
-	public function addByPrefix(name:String, prefix:String, frameRate = 30.0, looped = true, flipX = false, flipY = false):Void
-	{
+	public function addByPrefix(name:String, prefix:String, frameRate = 30.0, looped = true, flipX = false, flipY = false):Void {
 		if (_sprite.frames == null)
 			return;
 
@@ -148,7 +136,8 @@ class FlxAnimationController implements IFlxDestroyable
 			if (frame.name != null && StringTools.startsWith(frame.name, prefix))
 				arr.push(frame);
 
-		if (arr.length == 0) return;
+		if (arr.length == 0)
+			return;
 
 		FlxFrame.sort(arr, prefix.length, arr[0].name.split(".")[1].length);
 
@@ -156,22 +145,51 @@ class FlxAnimationController implements IFlxDestroyable
 		_animations.set(name, new FlxAnimation(this, name, ids, frameRate, looped, flipX, flipY));
 	}
 
+	public function addByIndices(name:String, prefix:String, indices:Array<Int>, frameRate:Float = 30.0, looped:Bool = false, flipX:Bool = false,
+			flipY:Bool = false):Void {
+		if (_sprite.frames == null)
+			return;
+
+		var arr = [];
+
+		// collect frames that start with prefix
+		for (frame in _sprite.frames.frames) {
+			if (frame.name != null && StringTools.startsWith(frame.name, prefix))
+				arr.push(frame);
+		}
+
+		if (arr.length == 0)
+			return;
+
+		// Sort matching frames the same way addByPrefix does
+		FlxFrame.sort(arr, prefix.length, arr[0].name.split(".")[1].length);
+
+		var out = [];
+
+		// Pick frames by indices
+		for (i in indices) {
+			if (i >= 0 && i < arr.length)
+				out.push(getFrameIndex(arr[i]));
+		}
+
+		if (out.length > 0)
+			_animations.set(name, new FlxAnimation(this, name, out, frameRate, looped, flipX, flipY));
+	}
+
 	// ------------------------------------------------------
 	// Playback
 	// ------------------------------------------------------
 
-	public function play(anim:String, force=false, reversed=false, frame:Int = 0):Void
-	{
-		if (anim == null)
-		{
-			if (_curAnim != null) _curAnim.stop();
+	public function play(anim:String, force = false, reversed = false, frame:Int = 0):Void {
+		if (anim == null) {
+			if (_curAnim != null)
+				_curAnim.stop();
 			_curAnim = null;
 			return;
 		}
 
 		var a = _animations.get(anim);
-		if (a == null)
-		{
+		if (a == null) {
 			FlxG.log.warn('No animation called "$anim"');
 			return;
 		}
@@ -183,29 +201,29 @@ class FlxAnimationController implements IFlxDestroyable
 		_curAnim.play(force, reversed, frame);
 	}
 
-	public inline function reset():Void
-	{
-		if (_curAnim != null) _curAnim.reset();
+	public inline function reset():Void {
+		if (_curAnim != null)
+			_curAnim.reset();
 	}
 
-	public inline function finish():Void
-	{
-		if (_curAnim != null) _curAnim.finish();
+	public inline function finish():Void {
+		if (_curAnim != null)
+			_curAnim.finish();
 	}
 
-	public inline function stop():Void
-	{
-		if (_curAnim != null) _curAnim.stop();
+	public inline function stop():Void {
+		if (_curAnim != null)
+			_curAnim.stop();
 	}
 
-	public inline function pause():Void
-	{
-		if (_curAnim != null) _curAnim.pause();
+	public inline function pause():Void {
+		if (_curAnim != null)
+			_curAnim.pause();
 	}
 
-	public inline function resume():Void
-	{
-		if (_curAnim != null) _curAnim.resume();
+	public inline function resume():Void {
+		if (_curAnim != null)
+			_curAnim.resume();
 	}
 
 	// ------------------------------------------------------
@@ -215,9 +233,9 @@ class FlxAnimationController implements IFlxDestroyable
 	public inline function getByName(name:String):FlxAnimation
 		return _animations.get(name);
 
-	public function randomFrame():Void
-	{
-		if (_curAnim != null) _curAnim.stop();
+	public function randomFrame():Void {
+		if (_curAnim != null)
+			_curAnim.stop();
 		_curAnim = null;
 		frameIndex = FlxG.random.int(0, numFrames - 1);
 	}
@@ -226,10 +244,8 @@ class FlxAnimationController implements IFlxDestroyable
 	// Frame Access
 	// ------------------------------------------------------
 
-	function set_frameIndex(i:Int):Int
-	{
-		if (_sprite.frames != null && numFrames > 0)
-		{
+	function set_frameIndex(i:Int):Int {
+		if (_sprite.frames != null && numFrames > 0) {
 			i %= numFrames;
 			_sprite.frame = _sprite.frames.frames[i];
 			frameIndex = i;
@@ -241,11 +257,10 @@ class FlxAnimationController implements IFlxDestroyable
 	inline function get_frameName():String
 		return _sprite.frame.name;
 
-	function set_frameName(v:String):String
-	{
-		if (_sprite.frames != null && _sprite.frames.framesHash.exists(v))
-		{
-			if (_curAnim != null) _curAnim.stop();
+	function set_frameName(v:String):String {
+		if (_sprite.frames != null && _sprite.frames.framesHash.exists(v)) {
+			if (_curAnim != null)
+				_curAnim.stop();
 			_curAnim = null;
 
 			frameIndex = getFrameIndex(_sprite.frames.framesHash[v]);
@@ -256,8 +271,7 @@ class FlxAnimationController implements IFlxDestroyable
 	function get_name():String
 		return _curAnim == null ? null : _curAnim.name;
 
-	function set_name(n:String):String
-	{
+	function set_name(n:String):String {
 		play(n);
 		return n;
 	}
@@ -273,8 +287,7 @@ class FlxAnimationController implements IFlxDestroyable
 	// ------------------------------------------------------
 
 	@:haxe.warning("-WDeprecated")
-	function fireCallback():Void
-	{
+	function fireCallback():Void {
 		final name = (_curAnim != null) ? _curAnim.name : null;
 		final num = (_curAnim != null) ? _curAnim.curFrame : frameIndex;
 
@@ -286,15 +299,14 @@ class FlxAnimationController implements IFlxDestroyable
 
 	@:allow(flixel.animation)
 	@:haxe.warning("-WDeprecated")
-	function fireFinishCallback(?name:String):Void
-	{
-		if (finishCallback != null) finishCallback(name);
+	function fireFinishCallback(?name:String):Void {
+		if (finishCallback != null)
+			finishCallback(name);
 		onFinish.dispatch(name);
 	}
 
 	@:allow(flixel.animation)
-	function fireLoopCallback(?name:String):Void
-	{
+	function fireLoopCallback(?name:String):Void {
 		onLoop.dispatch(name);
 	}
 
