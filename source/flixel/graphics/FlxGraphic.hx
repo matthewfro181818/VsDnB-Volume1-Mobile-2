@@ -6,6 +6,7 @@ import flixel.graphics.frames.FlxFrame;
 import flixel.graphics.frames.FlxFramesCollection;
 import flixel.graphics.frames.FlxFrameCollectionType;
 import flixel.graphics.frames.FlxImageFrame;
+import flixel.graphics.frames.FlxFrame.FlxFrameType;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.system.FlxAssets;
