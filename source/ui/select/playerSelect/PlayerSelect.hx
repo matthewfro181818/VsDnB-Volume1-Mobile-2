@@ -322,7 +322,13 @@ abstract class PlayerSelect extends MusicBeatState
 		new FlxTimer().start(1, function(timer:FlxTimer)
 		{
             PlayStatePlaylist.isStoryMode = false;
-			LoadingState.loadAndSwitchState(() -> new PlayState({targetSong: song, targetVariation: '', playerType: players.indexOf(selectedPlayerData)}));
+			LoadingState.loadAndSwitchState(
+	new PlayState({
+		targetSong: song,
+		targetVariation: '',
+		playerType: players.indexOf(selectedPlayerData)
+	})
+);
 		});
     }
 
