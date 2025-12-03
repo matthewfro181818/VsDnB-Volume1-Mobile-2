@@ -2,7 +2,7 @@ package flixel.animation;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.system.layer.frames.FlxFrame;
+import flixel.graphics.frames.FlxFrame;
 import flixel.system.layer.frames.FlxSpriteFrames;
 import flixel.util.FlxArrayUtil;
 import flixel.util.FlxDestroyUtil.IFlxDestroyable;
