@@ -5,7 +5,6 @@ import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flixel.math.FlxPoint;
-import flixel.system.layer.TileSheetData;
 import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
 
@@ -33,11 +32,9 @@ class FlxFrame
 	private var _hReversedBitmapData:BitmapData;
 	private var _vReversedBitmapData:BitmapData;
 	private var _hvReversedBitmapData:BitmapData;
-	private var _tileSheet:TileSheetData;
 	
-	public function new(tileSheet:TileSheetData)
+	public function new()
 	{
-		_tileSheet = tileSheet;
 		additionalAngle = 0;
 		
 		sourceSize = FlxPoint.get();
