@@ -32,9 +32,8 @@ jobs:
           haxelib install hxcpp
           haxelib install thx.core
           haxelib install thx.semver
-          haxelib install lime 8.0.2
-          haxelib install openfl 9.2.0
-          haxelib remove flixel
+          haxelib install lime
+          haxelib install openfl
           haxelib install flixel 5.2.2
           haxelib install flixel-tools 1.5.1
           haxelib install flixel-ui 2.5.0
@@ -45,7 +44,6 @@ jobs:
           haxelib git hscript https://github.com/T5mpler/hscript-dnb
           haxelib install hxvlc
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
-
 
       - name: Generate iOS C++
         run: |
