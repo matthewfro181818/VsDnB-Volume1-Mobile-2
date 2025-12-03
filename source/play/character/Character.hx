@@ -204,7 +204,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
     {
         animation.finishCallback = function(name:String)
         {
-            if (hasEase(anim))
+            if (hasEase(name))
             {
                 holdTimer = 0;
                 dance(true);
