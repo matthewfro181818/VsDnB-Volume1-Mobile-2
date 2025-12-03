@@ -6,7 +6,7 @@ import flixel.graphics.frames.FlxFrame;
 import flixel.util.FlxDestroyUtil;
 import flixel.util.FlxSignal;
 
-// Compatibility layer for engines without FlxAnimation.hx
+// compatibility: some engines removed FlxAnimation.hx
 import flixel.animation.FlxBaseAnimation;
 typedef FlxAnimation = flixel.animation.FlxBaseAnimation;
 
@@ -47,40 +47,36 @@ class FlxAnimationController implements IFlxDestroyable
 	public function update(elapsed:Float):Void
 	{
 		if (_curAnim != null)
-		{
 			_curAnim.update(elapsed * (timeScale * FlxG.animationTimeScale));
-		}
 		else if (_prerotated != null)
-		{
 			_prerotated.angle = _sprite.angle;
-		}
 	}
 
-	public function copyFrom(controller:FlxAnimationController):FlxAnimationController
+	public function copyFrom(other:FlxAnimationController):FlxAnimationController
 	{
 		destroyAnimations();
 
-		for (anim in controller._animations)
+		for (anim in other._animations)
 		{
 			add(anim.name, anim.frames, anim.frameRate, anim.looped, anim.flipX, anim.flipY);
 		}
 
-		if (controller._prerotated != null)
+		if (other._prerotated != null)
 			createPrerotated();
 
-		if (controller.name != null)
-			name = controller.name;
+		if (other.name != null)
+			name = other.name;
 
-		frameIndex = controller.frameIndex;
-
+		frameIndex = other.frameIndex;
 		return this;
 	}
 
-	public function createPrerotated(?Controller:FlxAnimationController):Void
+	public function createPrerotated(?c:FlxAnimationController):Void
 	{
 		destroyAnimations();
-		Controller = (Controller != null) ? Controller : this;
-		_prerotated = new FlxPrerotatedAnimation(Controller, Controller._sprite.bakedRotationAngle);
+		c = (c != null) ? c : this;
+
+		_prerotated = new FlxPrerotatedAnimation(c, c._sprite.bakedRotationAngle);
 		_prerotated.angle = _sprite.angle;
 	}
 
@@ -98,6 +94,7 @@ class FlxAnimationController implements IFlxDestroyable
 		FlxDestroyUtil.destroy(onLoop);
 
 		destroyAnimations();
+
 		_animations = null;
 		callback = null;
 		finishCallback = null;
@@ -114,11 +111,11 @@ class FlxAnimationController implements IFlxDestroyable
 
 	function clearAnimations():Void
 	{
-		for (key in _animations.keys())
+		for (k in _animations.keys())
 		{
-			var anim = _animations.get(key);
-			if (anim != null)
-				anim.destroy();
+			var a = _animations.get(k);
+			if (a != null)
+				a.destroy();
 		}
 
 		_animations = new Map<String, FlxAnimation>();
@@ -129,7 +126,7 @@ class FlxAnimationController implements IFlxDestroyable
 	{
 		if (numFrames == 0)
 		{
-			FlxG.log.warn('Could not create animation "$name", this sprite has no frames');
+			FlxG.log.warn('Could not create animation "$name": sprite has no frames.');
 			return;
 		}
 
@@ -139,11 +136,11 @@ class FlxAnimationController implements IFlxDestroyable
 
 	public function remove(name:String):Void
 	{
-		var anim = _animations.get(name);
-		if (anim != null)
+		var a = _animations.get(name);
+		if (a != null)
 		{
+			a.destroy();
 			_animations.remove(name);
-			anim.destroy();
 		}
 	}
 
@@ -162,20 +159,20 @@ class FlxAnimationController implements IFlxDestroyable
 			return;
 		}
 
-		var oldFlipX = false;
-		var oldFlipY = false;
+		var oldX = false;
+		var oldY = false;
 
 		if (_curAnim != null && name != _curAnim.name)
 		{
-			oldFlipX = _curAnim.flipX;
-			oldFlipY = _curAnim.flipY;
+			oldX = _curAnim.flipX;
+			oldY = _curAnim.flipY;
 			_curAnim.stop();
 		}
 
 		_curAnim = _animations.get(name);
 		_curAnim.play(force, reversed, frame);
 
-		if (oldFlipX != _curAnim.flipX || oldFlipY != _curAnim.flipY)
+		if (oldX != _curAnim.flipX || oldY != _curAnim.flipY)
 			_sprite.dirty = true;
 	}
 
@@ -215,10 +212,8 @@ class FlxAnimationController implements IFlxDestroyable
 			_curAnim.reverse();
 	}
 
-	public inline function getByName(name:String):FlxAnimation
-	{
-		return _animations.get(name);
-	}
+	public inline function getByName(n:String):FlxAnimation
+		return _animations.get(n);
 
 	public function randomFrame():Void
 	{
@@ -227,19 +222,20 @@ class FlxAnimationController implements IFlxDestroyable
 			_curAnim.stop();
 			_curAnim = null;
 		}
+
 		frameIndex = FlxG.random.int(0, numFrames - 1);
 	}
 
 	@:haxe.warning("-WDeprecated")
 	function fireCallback():Void
 	{
-		var name = (_curAnim != null) ? _curAnim.name : null;
-		var number = (_curAnim != null) ? _curAnim.curFrame : frameIndex;
+		var n = (_curAnim != null) ? _curAnim.name : null;
+		var f = (_curAnim != null) ? _curAnim.curFrame : frameIndex;
 
 		if (callback != null)
-			callback(name, number, frameIndex);
+			callback(n, f, frameIndex);
 
-		onFrameChange.dispatch(name, number, frameIndex);
+		onFrameChange.dispatch(n, f, frameIndex);
 	}
 
 	@:allow(flixel.animation)
@@ -254,9 +250,7 @@ class FlxAnimationController implements IFlxDestroyable
 
 	@:allow(flixel.animation)
 	function fireLoopCallback(n:String):Void
-	{
 		onLoop.dispatch(n);
-	}
 
 	inline function get_frameName():String
 		return _sprite.frame.name;
@@ -271,9 +265,9 @@ class FlxAnimationController implements IFlxDestroyable
 				_curAnim = null;
 			}
 
-			var frame = _sprite.frames.getByName(v);
-			if (frame != null)
-				frameIndex = getFrameIndex(frame);
+			var f = _sprite.frames.getByName(v);
+			if (f != null)
+				frameIndex = getFrameIndex(f);
 		}
 		return v;
 	}
@@ -290,16 +284,14 @@ class FlxAnimationController implements IFlxDestroyable
 	public function getAnimationList():Array<FlxAnimation>
 	{
 		var list = [];
-		for (a in _animations)
-			list.push(a);
+		for (a in _animations) list.push(a);
 		return list;
 	}
 
 	public function getNameList():Array<String>
 	{
 		var list = [];
-		for (k in _animations.keys())
-			list.push(k);
+		for (k in _animations.keys()) list.push(k);
 		return list;
 	}
 
@@ -308,32 +300,30 @@ class FlxAnimationController implements IFlxDestroyable
 
 	public function rename(old:String, New:String)
 	{
-		var anim = _animations.get(old);
-		if (anim == null)
+		var a = _animations.get(old);
+		if (a == null)
 		{
 			FlxG.log.warn('No animation called "$old"');
 			return;
 		}
 
-		anim.name = New;
-		_animations.set(New, anim);
+		a.name = New;
+		_animations.set(New, a);
 		_animations.remove(old);
 	}
 
 	inline function get_curAnim():FlxAnimation
 		return _curAnim;
 
-	inline function set_curAnim(anim:FlxAnimation):FlxAnimation
+	inline function set_curAnim(a:FlxAnimation):FlxAnimation
 	{
-		if (anim != _curAnim)
+		if (a != _curAnim)
 		{
-			if (_curAnim != null)
-				_curAnim.stop();
-			if (anim != null)
-				anim.play();
+			if (_curAnim != null) _curAnim.stop();
+			if (a != null) a.play();
 		}
-		_curAnim = anim;
-		return anim;
+		_curAnim = a;
+		return a;
 	}
 
 	inline function get_paused():Bool
@@ -362,8 +352,8 @@ class FlxAnimationController implements IFlxDestroyable
 	inline function get_numFrames():Int
 		return _sprite.numFrames;
 
-	public inline function getFrameIndex(frame:FlxFrame):Int
-		return _sprite.frames.frames.indexOf(frame);
+	public inline function getFrameIndex(f:FlxFrame):Int
+		return _sprite.frames.frames.indexOf(f);
 
 	function set_frameIndex(i:Int):Int
 	{
