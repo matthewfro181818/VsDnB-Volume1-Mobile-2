@@ -202,7 +202,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
 
     public function onCreate(event:ScriptEvent):Void
     {
-        animation.finishCallback.add(function(anim:String)
+        animation.finishCallback = function(name:String)
         {
             if (hasEase(anim))
             {
