@@ -34,7 +34,6 @@ jobs:
 
       - name: Install Haxelib Dependencies
         run: |
-
           haxelib install hxcpp
           haxelib install thx.core
           haxelib install thx.semver
