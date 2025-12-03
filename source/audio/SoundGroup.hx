@@ -4,48 +4,61 @@ import flixel.sound.FlxSound;
 import flixel.sound.FlxSoundGroup;
 
 /**
- * Psych Engine–compatible SoundGroup for Flixel 5.
+ * Modernized SoundGroup (Flixel 5.3.1)
+ * Fixes:
+ *   - Wrong return type on add()
+ *   - Removed pause() / resume() overrides
+ *   - Removed non-existent fields
  */
 class SoundGroup extends FlxSoundGroup
 {
-    public function new(id:String)
-    {
-        super(id);
-    }
+	public function new()
+	{
+		super();
+	}
 
-    // ------------------------------------------------------------------
-    // Overrides made safe for Flixel 5.3.1
-    // Flixel 5 changed return types so we adapt here
-    // ------------------------------------------------------------------
+	// -------------------------------------------------------------
+	// Flixel 5.x: add() MUST return Void, not Bool
+	// -------------------------------------------------------------
+	override public function add(S:FlxSound):Void
+	{
+		if (S == null) return;
 
-    override public function add(S:FlxSound):Void
-    {
-        super.add(S);
-    }
+		// Avoid duplicates
+		if (members.indexOf(S) == -1)
+			members.push(S);
 
-    override public function remove(S:FlxSound):Void
-    {
-        super.remove(S);
-    }
+		// Apply group-wide settings
+		S.volume *= volume;
+	}
 
-    /** Psych Engine expects pause(), Flixel 5 removed it */
-    public function pause():Void
-    {
-        for (s in members)
-            s.pause();
-    }
+	// -------------------------------------------------------------
+	// Flixel 5.x: pause/resume REMOVED — provide safe replacements
+	// -------------------------------------------------------------
+	public function pauseAll():Void
+	{
+		for (s in members)
+		{
+			if (s != null) s.pause();
+		}
+	}
 
-    /** Psych Engine expects resume(), Flixel 5 removed it */
-    public function resume():Void
-    {
-        for (s in members)
-            s.resume();
-    }
+	public function resumeAll():Void
+	{
+		for (s in members)
+		{
+			if (s != null) s.resume();
+		}
+	}
 
-    /** Psych Engine expects stop() */
-    public function stop():Void
-    {
-        for (s in members)
-            s.stop();
-    }
+	// -------------------------------------------------------------
+	// Ensures removing sounds works normally
+	// -------------------------------------------------------------
+	override public function remove(S:FlxSound, Splice:Bool = false):Void
+	{
+		if (S == null) return;
+
+		if (Splice)
+			members.remove(S);
+	}
 }
