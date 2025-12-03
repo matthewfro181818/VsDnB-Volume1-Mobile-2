@@ -3,7 +3,7 @@ package play;
 import flixel.FlxG;
 import flixel.util.FlxTimer;
 import flixel.util.typeLimit.NextState;
-
+import flixel.FlxState;
 import lime.app.Promise;
 import lime.app.Future;
 import lime.utils.Assets as LimeAssets;
