@@ -410,9 +410,9 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
 		{
 			this.canDance = false;
 			this.playAnim('cheer', true);
-			this.animation.finishCallback.addOnce(function(anim:String) {
+			this.animation.finishCallback = function(anim:String) {
 				this.canDance = true;
-			});
+			}
 		}
 	}
 
