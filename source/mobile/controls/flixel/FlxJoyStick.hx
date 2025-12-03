@@ -4,7 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.input.touch.FlxTouch;
 import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
@@ -18,7 +18,7 @@ import flixel.util.FlxDestroyUtil;
  * @author Ka Wing Chin
  * @author Mihai Alexandru (M.A. Jigsaw) to work only with touch and to use custom assets
  */
-class FlxJoyStick extends FlxSpriteGroup
+class FlxJoyStick extends FlxSpriteContainer
 {
 	/**
 	 * This function is called when the button is released.

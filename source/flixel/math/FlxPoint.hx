@@ -1720,7 +1720,7 @@ abstract FlxReadOnlyPoint(FlxPoint) from FlxPoint
 }
 
 /**
- * A FlxPoint that calls a function when set_x(), set_y() or set() is called. Used in FlxSpriteGroup.
+ * A FlxPoint that calls a function when set_x(), set_y() or set() is called. Used in FlxSpriteContainer.
  * IMPORTANT: Calling set(x, y); is MUCH FASTER than setting x and y separately. Needs to be destroyed unlike simple FlxPoints!
  */
 class FlxCallbackPoint extends FlxBasePoint

@@ -4,7 +4,7 @@ import data.language.LanguageManager;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.math.FlxMath;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.text.FlxText;
 import flixel.text.FlxText.FlxTextAlign;
 import flixel.system.FlxAssets.FlxGraphicAsset;
@@ -37,12 +37,12 @@ class CreditsMenuState extends MusicBeatState
     var versionText:FlxText;
     var devTeamText:FlxText;
     
-    var developersGroup:FlxSpriteGroup = new FlxSpriteGroup();
-    var contributorsGroup:FlxSpriteGroup = new FlxSpriteGroup();
-    var translatorsGroup:FlxSpriteGroup = new FlxSpriteGroup();
-    var menuBackgroundGroup:FlxSpriteGroup = new FlxSpriteGroup();
-    var specialThanksGroup:FlxSpriteGroup = new FlxSpriteGroup();
-    var playtestersGroup:FlxSpriteGroup = new FlxSpriteGroup();
+    var developersGroup:FlxSpriteContainer = new FlxSpriteContainer();
+    var contributorsGroup:FlxSpriteContainer = new FlxSpriteContainer();
+    var translatorsGroup:FlxSpriteContainer = new FlxSpriteContainer();
+    var menuBackgroundGroup:FlxSpriteContainer = new FlxSpriteContainer();
+    var specialThanksGroup:FlxSpriteContainer = new FlxSpriteContainer();
+    var playtestersGroup:FlxSpriteContainer = new FlxSpriteContainer();
 
     // DEVELOPERS //
 
@@ -167,7 +167,7 @@ class CreditsMenuState extends MusicBeatState
 
     function buildDevelopers():Void
     {
-        developersGroup = new FlxSpriteGroup();
+        developersGroup = new FlxSpriteContainer();
         developersGroup.y = 25;
         add(developersGroup);
 
@@ -238,7 +238,7 @@ class CreditsMenuState extends MusicBeatState
 
     function buildContributors():Void
     {
-        contributorsGroup = new FlxSpriteGroup();
+        contributorsGroup = new FlxSpriteContainer();
         contributorsGroup.y = developersGroup.y + 600;
         add(contributorsGroup);
 
@@ -361,7 +361,7 @@ class CreditsMenuState extends MusicBeatState
 
     function buildTranslators():Void
     {
-        translatorsGroup = new FlxSpriteGroup();
+        translatorsGroup = new FlxSpriteContainer();
         translatorsGroup.y = contributorsGroup.y + contributorsGroup.height + 150;
         add(translatorsGroup);
 
@@ -442,7 +442,7 @@ class CreditsMenuState extends MusicBeatState
 
     function buildMenuBackgroundGroup():Void
     {
-        menuBackgroundGroup = new FlxSpriteGroup();
+        menuBackgroundGroup = new FlxSpriteContainer();
         menuBackgroundGroup.y = specialThanksGroup.y + specialThanksGroup.height + 50;
         add(menuBackgroundGroup);
         
@@ -469,7 +469,7 @@ class CreditsMenuState extends MusicBeatState
 
     function buildPlaytesters():Void
     {
-        playtestersGroup = new FlxSpriteGroup();
+        playtestersGroup = new FlxSpriteContainer();
         playtestersGroup.y = menuBackgroundGroup.y + menuBackgroundGroup.height + 25;
         add(playtestersGroup);
 
@@ -498,7 +498,7 @@ class CreditsMenuState extends MusicBeatState
     }
 }
 
-class CreditsPerson extends FlxSpriteGroup
+class CreditsPerson extends FlxSpriteContainer
 {
     public function new(x:Float, y:Float, params:CreditsPersonParams)
     {

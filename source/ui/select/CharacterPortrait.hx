@@ -4,10 +4,10 @@ import data.player.PlayerData.PlayerCharacterSelectData;
 import data.animation.Animation;
 import data.animation.Animation.AnimationData;
 import flixel.FlxSprite;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import play.ui.HealthIcon;
 
-class CharacterPortrait extends FlxSpriteGroup
+class CharacterPortrait extends FlxSpriteContainer
 {
 	/**
 	 * The data used for this portrait.

@@ -13,7 +13,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.animation.FlxAnimationController;
 import flixel.effects.particles.FlxEmitter.FlxTypedEmitter;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.input.mouse.FlxMouse;
@@ -93,7 +93,7 @@ class Tracker extends Watch {
 			], [FlxSprite]));
 
 			addProfile(new TrackerProfile(FlxTypedGroup, ["length", "members.length", "maxSize"], [FlxBasic]));
-			addProfile(new TrackerProfile(FlxSpriteGroup, null, [FlxSprite, FlxTypedGroup]));
+			addProfile(new TrackerProfile(FlxSpriteContainer, null, [FlxSprite, FlxTypedGroup]));
 			addProfile(new TrackerProfile(FlxState, ["persistentUpdate", "persistentDraw", "destroySubStates", "bgColor"], [FlxTypedGroup]));
 
 			addProfile(new TrackerProfile(FlxCamera, [

@@ -4,13 +4,13 @@ import flixel.FlxCamera;
 import flixel.FlxSprite;
 import flixel.group.FlxContainer;
 import flixel.group.FlxGroup;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.util.FlxDestroyUtil;
 
 /**
  * `FlxSpriteContainer` is a special `FlxSprite` that can be treated like a single sprite even
  * if it's made up of several member sprites. It shares the `FlxGroup` API, but it doesn't inherit
- * from it. Note that `FlxSpriteContainer` is a `FlxSpriteGroup` but the group is a `FlxContainer`.
+ * from it. Note that `FlxSpriteContainer` is a `FlxSpriteContainer` but the group is a `FlxContainer`.
  * 
  * ## When to use a group or container
  * `FlxGroups` are better for organising arbitrary groups for things like iterating or collision.
@@ -18,7 +18,7 @@ import flixel.util.FlxDestroyUtil;
  * child (or grandchild, and so on) of the state.
  * Since `FlxSpriteGroups` and `FlxSpriteContainers` are usually meant to draw groups of sprites
  * rather than organizing them for collision or iterating, it's recommended to always use
- * `FlxSpriteContainer` instead of `FlxSpriteGroup`.
+ * `FlxSpriteContainer` instead of `FlxSpriteContainer`.
  * @since 5.7.0
  */
 typedef FlxSpriteContainer = FlxTypedSpriteContainer<FlxSprite>;
@@ -29,7 +29,7 @@ typedef FlxSpriteContainer = FlxTypedSpriteContainer<FlxSprite>;
  * `FlxTypedSpriteContainer<FlxSprite>`.
  * @since 5.7.0
  */
-class FlxTypedSpriteContainer<T:FlxSprite> extends FlxTypedSpriteGroup<T>
+class FlxTypedSpriteContainer<T:FlxSprite> extends FlxSpriteContainer<T>
 {
 	override function initGroup(maxSize):Void
 	{

@@ -11,7 +11,7 @@ import flixel.FlxSprite;
 import flixel.addons.text.FlxTypeText;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxPoint;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.sound.FlxSound;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
@@ -35,7 +35,7 @@ enum DialogueState
  * 
  * This runs on a state machine, and runs scripted functions to control how the dialogue acts. 
  */
-class Dialogue extends FlxSpriteGroup implements IDialogueScriptedClass implements IRegistryEntry<DialogueData> 
+class Dialogue extends FlxSpriteContainer implements IDialogueScriptedClass implements IRegistryEntry<DialogueData> 
 {
 	public final id:String;
 

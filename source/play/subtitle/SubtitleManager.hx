@@ -7,7 +7,7 @@ import backend.Conductor;
 import data.IRegistryEntry;
 import data.subtitle.SubtitleData;
 import data.subtitle.SubtitleRegistry;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import play.subtitle.Subtitle;
 import scripting.events.ScriptEvent;
 import scripting.events.ScriptEventDispatcher;
@@ -18,7 +18,7 @@ import scripting.IScriptedClass.IPlayStateScriptedClass;
  * 
  * Users can further extend this class to customize the way this subtitle container looks in-game.
  */
-class SubtitleManager extends FlxSpriteGroup implements IRegistryEntry<SongSubtitleData> implements IPlayStateScriptedClass
+class SubtitleManager extends FlxSpriteContainer implements IRegistryEntry<SongSubtitleData> implements IPlayStateScriptedClass
 {
     /**
      * The id of the entry.
@@ -68,7 +68,7 @@ class SubtitleManager extends FlxSpriteGroup implements IRegistryEntry<SongSubti
 	/**
 	 * A group used to contain all of the subtitles that appear on this sprite.
 	 */
-	var subtitlesGroup:FlxTypedSpriteGroup<Subtitle> = new FlxTypedSpriteGroup<Subtitle>();
+	var subtitlesGroup:FlxSpriteContainer<Subtitle> = new FlxSpriteContainer<Subtitle>();
 
 	function get_conductor():Conductor
 	{

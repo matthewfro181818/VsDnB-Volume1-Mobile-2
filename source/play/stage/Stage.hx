@@ -7,7 +7,7 @@ import data.stage.StageData;
 import data.stage.StageRegistry;
 
 import flixel.FlxSprite;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.util.FlxColor;
 
 import play.character.Character;
@@ -21,7 +21,7 @@ import scripting.events.ScriptEventDispatcher;
 /**
  * A group of props designed as a background for any characters to be.
  */
-class Stage extends FlxSpriteGroup implements IPlayStateScriptedClass implements IStageScriptedClass implements IRegistryEntry<StageData>
+class Stage extends FlxSpriteContainer implements IPlayStateScriptedClass implements IStageScriptedClass implements IRegistryEntry<StageData>
 {
 	/**
 	 * The default constant color used for if the stage is at night.

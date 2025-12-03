@@ -2,7 +2,7 @@ package flixel.addons.ui;
 
 import flixel.addons.ui.interfaces.IFlxUIButton;
 import flixel.FlxSprite;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.util.FlxColor;
 
 /**
@@ -48,9 +48,9 @@ class FlxUISpriteButton extends FlxUITypedButton<FlxSprite> implements IFlxUIBut
 	{
 		if (label != null)
 		{
-			if ((label is FlxSpriteGroup))
+			if ((label is FlxSpriteContainer))
 			{
-				var g:FlxSpriteGroup = cast label;
+				var g:FlxSpriteContainer = cast label;
 				for (sprite in g.group.members)
 				{ // line up all their center points at 0,0
 					sprite.x = (-sprite.width / 2);

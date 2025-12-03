@@ -29,7 +29,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.system.FlxAssets;
 import flixel.text.FlxText;
 import flixel.ui.FlxBar.FlxBarFillDirection;
@@ -3948,7 +3948,7 @@ class FlxUI extends FlxUIGroup implements IEventGetter
 		}
 		else
 		{
-			var tempGroup:FlxSpriteGroup = null;
+			var tempGroup:FlxSpriteContainer = null;
 			if (label != "")
 			{
 				// We have a Sprite AND a Label, so we package it up in a group
@@ -3957,7 +3957,7 @@ class FlxUI extends FlxUIGroup implements IEventGetter
 
 				labelTxt.setFormat(null, 8, 0x333333, "center");
 
-				tempGroup = new FlxSpriteGroup();
+				tempGroup = new FlxSpriteContainer();
 
 				tempGroup.add(sprite);
 				tempGroup.add(labelTxt);
@@ -4265,9 +4265,9 @@ class FlxUI extends FlxUIGroup implements IEventGetter
 		if ((fb is FlxUISpriteButton))
 		{
 			var fbs:FlxUISpriteButton = cast fb;
-			if ((fbs.label is FlxSpriteGroup))
+			if ((fbs.label is FlxSpriteContainer))
 			{
-				var g:FlxSpriteGroup = cast fbs.label;
+				var g:FlxSpriteContainer = cast fbs.label;
 				for (sprite in g.group.members)
 				{
 					if ((sprite is FlxUIText))
@@ -5879,9 +5879,9 @@ class FlxUI extends FlxUIGroup implements IEventGetter
 					{
 						the_label = cast fsb.label;
 					}
-					else if ((fsb.label is FlxSpriteGroup)) // if label is group, look for first flxtext label
+					else if ((fsb.label is FlxSpriteContainer)) // if label is group, look for first flxtext label
 					{
-						var fsg:FlxSpriteGroup = cast fsb.label;
+						var fsg:FlxSpriteContainer = cast fsb.label;
 						for (fs in fsg.group.members)
 						{
 							if ((fs is FlxText))

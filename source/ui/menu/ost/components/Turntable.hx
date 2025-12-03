@@ -6,7 +6,7 @@ import data.song.SongData.SongTimeChange;
 import data.language.LanguageManager;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
@@ -27,7 +27,7 @@ enum RemixModeType
 /**
  * A component used in the OST menu to play, edit, and manipulate features of a song.
  */
-class Turntable extends FlxSpriteGroup
+class Turntable extends FlxSpriteContainer
 {
     /**
      * The default font used when there's text on this turntable.

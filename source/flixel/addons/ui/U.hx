@@ -10,7 +10,7 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.addons.ui.interfaces.IFlxUIButton;
 import flixel.graphics.FlxGraphic;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.text.FlxText;
 import flixel.util.FlxDestroyUtil.IFlxDestroyable;
 import flixel.util.FlxColor;
@@ -2256,9 +2256,9 @@ class U
 			var fuisb:FlxUISpriteButton = cast btn;
 			if (fuisb.label == null)
 				return;
-			if ((fuisb.label is FlxSpriteGroup))
+			if ((fuisb.label is FlxSpriteContainer))
 			{
-				var g:FlxSpriteGroup = cast fuisb.label;
+				var g:FlxSpriteContainer = cast fuisb.label;
 				if (g.members == null)
 					return;
 				for (sprite in g.members)

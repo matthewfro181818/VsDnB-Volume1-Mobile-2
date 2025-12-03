@@ -1,13 +1,13 @@
 package ui.menu.settings.categories;
 
 import controls.PlayerSettings;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import ui.menu.settings.SettingsMenu.SettingsOption;
 
 /**
  * A list containers for the available options in the settings menu.
  */
-class SettingsCategory extends FlxSpriteGroup
+class SettingsCategory extends FlxSpriteContainer
 {
 	var parent:SettingsMenu;
 

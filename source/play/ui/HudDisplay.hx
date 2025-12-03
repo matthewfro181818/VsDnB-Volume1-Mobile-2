@@ -5,7 +5,7 @@ import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.util.FlxStringUtil;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.text.FlxText;
 import play.PlayState;
 import play.ui.IHudItem;
@@ -43,7 +43,7 @@ typedef HudDisplayParams =
 /**
  * A HUD element that visually displays the scoring for a usr..
  */
-class HudDisplay extends FlxSpriteGroup implements IHudItem
+class HudDisplay extends FlxSpriteContainer implements IHudItem
 {
 	/**
 	 * The parameters for this display.

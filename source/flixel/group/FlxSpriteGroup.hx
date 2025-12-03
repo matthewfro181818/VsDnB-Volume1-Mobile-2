@@ -20,11 +20,11 @@ import flixel.util.FlxSort;
 private typedef Point = FlxPoint;
 
 /**
- * A `FlxSpriteGroup` that only allows specific members to be a specific type of `FlxSprite`.
- * To use any kind of `FlxSprite` use `FlxSpriteGroup`, which is an alias for
- * `FlxTypedSpriteGroup<FlxSprite>`.
+ * A `FlxSpriteContainer` that only allows specific members to be a specific type of `FlxSprite`.
+ * To use any kind of `FlxSprite` use `FlxSpriteContainer`, which is an alias for
+ * `FlxSpriteContainer`.
  */
-class FlxTypedSpriteGroup<T:FlxSprite> extends FlxSprite
+class FlxSpriteContainer<T:FlxSprite> extends FlxSprite
 {
 	/**
 	 * The actual group which holds all sprites.
@@ -131,9 +131,9 @@ class FlxTypedSpriteGroup<T:FlxSprite> extends FlxSprite
 	 *
 	 * @return  copy of this sprite group
 	 */
-	override public function clone():FlxTypedSpriteGroup<T>
+	override public function clone():FlxSpriteContainer<T>
 	{
-		var newGroup = new FlxTypedSpriteGroup<T>(x, y, maxSize);
+		var newGroup = new FlxSpriteContainer<T>(x, y, maxSize);
 		for (sprite in group.members)
 		{
 			if (sprite != null)
@@ -849,7 +849,7 @@ class FlxTypedSpriteGroup<T:FlxSprite> extends FlxSprite
 			
 			var minX:Float;
 			if (member.flixelType == SPRITEGROUP)
-				minX = (cast member:FlxSpriteGroup).findMinX();
+				minX = (cast member:FlxSpriteContainer).findMinX();
 			else
 				minX = member.x;
 			
@@ -880,7 +880,7 @@ class FlxTypedSpriteGroup<T:FlxSprite> extends FlxSprite
 			
 			var maxX:Float;
 			if (member.flixelType == SPRITEGROUP)
-				maxX = (cast member:FlxSpriteGroup).findMaxX();
+				maxX = (cast member:FlxSpriteContainer).findMaxX();
 			else
 				maxX = member.x + member.width;
 			
@@ -927,7 +927,7 @@ class FlxTypedSpriteGroup<T:FlxSprite> extends FlxSprite
 			
 			var minY:Float;
 			if (member.flixelType == SPRITEGROUP)
-				minY = (cast member:FlxSpriteGroup).findMinY();
+				minY = (cast member:FlxSpriteContainer).findMinY();
 			else
 				minY = member.y;
 			
@@ -958,7 +958,7 @@ class FlxTypedSpriteGroup<T:FlxSprite> extends FlxSprite
 			
 			var maxY:Float;
 			if (member.flixelType == SPRITEGROUP)
-				maxY = (cast member:FlxSpriteGroup).findMaxY();
+				maxY = (cast member:FlxSpriteContainer).findMaxY();
 			else
 				maxY = member.y + member.height;
 			
@@ -1100,7 +1100,7 @@ class FlxTypedSpriteGroup<T:FlxSprite> extends FlxSprite
 	override public function loadGraphicFromSprite(Sprite:FlxSprite):FlxSprite
 	{
 		#if FLX_DEBUG
-		throw "This function is not supported in FlxSpriteGroup";
+		throw "This function is not supported in FlxSpriteContainer";
 		#end
 		return this;
 	}
@@ -1123,7 +1123,7 @@ class FlxTypedSpriteGroup<T:FlxSprite> extends FlxSprite
 			AutoBuffer:Bool = false, ?Key:String):FlxSprite
 	{
 		#if FLX_DEBUG
-		throw "This function is not supported in FlxSpriteGroup";
+		throw "This function is not supported in FlxSpriteContainer";
 		#end
 		return this;
 	}
@@ -1135,7 +1135,7 @@ class FlxTypedSpriteGroup<T:FlxSprite> extends FlxSprite
 	override public function makeGraphic(Width:Int, Height:Int, Color:Int = FlxColor.WHITE, Unique:Bool = false, ?Key:String):FlxSprite
 	{
 		#if FLX_DEBUG
-		throw "This function is not supported in FlxSpriteGroup";
+		throw "This function is not supported in FlxSpriteContainer";
 		#end
 		return this;
 	}

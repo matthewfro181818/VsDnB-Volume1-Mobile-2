@@ -5,7 +5,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.text.FlxText;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.util.FlxColor;
 import flixel.util.FlxSignal;
 
@@ -16,7 +16,7 @@ enum ManualState
     SELECTION_BAR;
     TURNTABLE;
 }
-class OSTManual extends FlxSpriteGroup
+class OSTManual extends FlxSpriteContainer
 {
     /**
      * The current state the user is in through the manual.
@@ -39,9 +39,9 @@ class OSTManual extends FlxSpriteGroup
      */
     var delayTimer:Float = 0.01;
 
-    public var selectionBarManual:FlxSpriteGroup = new FlxSpriteGroup();
-    public var turnTableManual:FlxSpriteGroup = new FlxSpriteGroup();
-    public var uiManual:FlxSpriteGroup = new FlxSpriteGroup();
+    public var selectionBarManual:FlxSpriteContainer = new FlxSpriteContainer();
+    public var turnTableManual:FlxSpriteContainer = new FlxSpriteContainer();
+    public var uiManual:FlxSpriteContainer = new FlxSpriteContainer();
 
     public var onManualOpen:FlxSignal = new FlxSignal();
     public var onManualClose:FlxSignal = new FlxSignal();
@@ -178,7 +178,7 @@ class OSTManual extends FlxSpriteGroup
     }
 }
 
-class OSTManualInstruction extends FlxSpriteGroup
+class OSTManualInstruction extends FlxSpriteContainer
 {
     public function new(x:Float = 0, y:Float = 0, text:String = '', size:Int = 15, graphic:String, textAlign:FlxTextAlign, direction:String)
     {

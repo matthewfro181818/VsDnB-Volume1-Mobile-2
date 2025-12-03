@@ -5,7 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.input.touch.FlxTouch;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;

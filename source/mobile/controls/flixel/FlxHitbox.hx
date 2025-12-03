@@ -1,7 +1,7 @@
 package mobile.controls.flixel;
 
 import flixel.FlxG;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
 import openfl.display.BitmapData;
@@ -14,7 +14,7 @@ import mobile.controls.flixel.FlxButton;
  *
  * @author Mihai Alexandru (M.A. Jigsaw)
  */
-class FlxHitbox extends FlxSpriteGroup
+class FlxHitbox extends FlxSpriteContainer
 {
 	public var hints(default, null):Array<FlxButton>;
 

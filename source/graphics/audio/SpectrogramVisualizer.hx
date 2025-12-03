@@ -1,7 +1,7 @@
 package graphics.audio;
 
 import flixel.FlxSprite;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.sound.FlxSound;
 import flixel.util.FlxColor;
 import flixel.util.FlxGradient;
@@ -32,10 +32,10 @@ typedef VisualizerParams = {
     var ?gradient:Array<FlxColor>;
 }
 
-class SpectrogramVisualizer extends FlxSpriteGroup {
+class SpectrogramVisualizer extends FlxSpriteContainer {
 	public var analyzer:SpectralAnalyzerLite = new SpectralAnalyzerLite();
-	public var bars:FlxSpriteGroup = new FlxSpriteGroup();
-	public var peakLines:FlxSpriteGroup = new FlxSpriteGroup();
+	public var bars:FlxSpriteContainer = new FlxSpriteContainer();
+	public var peakLines:FlxSpriteContainer = new FlxSpriteContainer();
 	public var sound:FlxSound;
 	public var visualizerColor:FlxColor = FlxColor.WHITE;
 	public var peakColor:FlxColor = FlxColor.WHITE;
