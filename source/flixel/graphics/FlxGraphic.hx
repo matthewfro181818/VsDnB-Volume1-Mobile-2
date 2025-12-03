@@ -471,11 +471,13 @@ class FlxGraphic implements IFlxDestroyable
 	 */
 	public inline function getFramesCollections(type:FlxFrameCollectionType):Array<Dynamic>
 	{
-		if (this.isDestroyed)
+		var collections:Array<Dynamic> = frameCollections.get(type);
+		if (collections == null)
 		{
-			FlxG.log.warn('Invalid call to getFramesCollections on a destroyed graphic');
-			return [];
+			collections = new Array<FlxFramesCollection>();
+			frameCollections.set(type, collections);
 		}
+		return collections;
 	}
 
 	/**
