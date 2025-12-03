@@ -117,6 +117,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		#if mobileC
 		addVirtualPad(NONE, A_B);
+		addVirtualPadCamera();
         #end
 	}
 

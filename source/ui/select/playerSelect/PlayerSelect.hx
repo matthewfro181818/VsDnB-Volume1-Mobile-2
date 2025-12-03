@@ -11,7 +11,7 @@ import flixel.util.FlxColor;
 import flixel.text.FlxText;
 import flixel.math.FlxPoint;
 import flixel.effects.FlxFlicker;
-import flixel.group.FlxSpriteGroup.FlxSpriteGroup;
+import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
@@ -120,7 +120,7 @@ abstract class PlayerSelect extends MusicBeatState
     /**
      * The group that holds all of the current rendering portraits.
      */
-    var portraitGroup:FlxSpriteGroup = new FlxSpriteGroup();
+    var portraitGroup:FlxTypedSpriteGroup<CharacterPortrait> = new FlxTypedSpriteGroup<CharacterPortrait>();
     
 	/**
 	 * The text that displays the current player selected.
@@ -160,6 +160,11 @@ abstract class PlayerSelect extends MusicBeatState
         buildMusic();
 
         updateSelection();
+
+        #if mobileC
+        addVirtualPad(LEFT_RIGHT, A_B);
+        addVirtualPadCamera();
+        #end
     }
 
     override function update(elapsed:Float)
