@@ -173,22 +173,7 @@ class FlxAnimation extends FlxBaseAnimation {
 	}
 
 	function getCurrentFrameDuration():Float {
-		// Use atlas frame durations if available
-		var duration = 0.0;
-
-		if (sprite != null && sprite._sprite != null) {
-			var framesObj = sprite._sprite.frames;
-			if (framesObj != null) {
-				// If the frame itself has its own duration (TexturePacker / Aseprite)
-				duration = framesObj.frames[curIndex].duration;
-			}
-		}
-
-		// Otherwise use the animation-level duration
-		if (duration <= 0)
-			duration = frameDuration;
-
-		return duration;
+		 return frameDuration;
 	}
 
 	override public function clone(newsprite:FlxAnimationController):FlxAnimation {
