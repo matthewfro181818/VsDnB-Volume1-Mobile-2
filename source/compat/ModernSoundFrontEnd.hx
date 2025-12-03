@@ -1,7 +1,7 @@
 package compat;
 
 import flixel.system.frontEnds.SoundFrontEnd;
-import flixel.sound.FlxSound;
+import flixel.system.FlxSound;
 import flixel.FlxG;
 
 /**
