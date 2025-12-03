@@ -410,17 +410,3 @@ class FlxFramesCollection implements IFlxDestroyable
 		return framesByName = value;
 	}
 }
-
-/**
- * An enumeration of all types of frame collections.
- * Added for faster type detection with less usage of casting.
- */
-enum FlxFrameCollectionType
-{
-	IMAGE;
-	TILES;
-	ATLAS;
-	FONT;
-	USER(type:String);
-	FILTER;
-}
