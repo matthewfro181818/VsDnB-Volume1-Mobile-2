@@ -12,7 +12,7 @@ import flixel.addons.text.FlxTypeText;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxPoint;
 import flixel.group.FlxSpriteGroup;
-import flixel.sound.FlxSound;
+import flixel.system.FlxSound;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import scripting.events.ScriptEvent;
