@@ -65,7 +65,6 @@ class FlxAnimation extends FlxBaseAnimation
                 frame = frames.length - 1;
         }
         curFrame = frame;
-        curIndex = frames[frame];
         return frame;
     }
 }
