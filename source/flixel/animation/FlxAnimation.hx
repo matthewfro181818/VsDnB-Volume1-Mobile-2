@@ -51,9 +51,9 @@ class FlxAnimation extends FlxBaseAnimation {
 	 * @param   flipX       Whether or not the frames of this animation are horizontally flipped.
 	 * @param   flipY       Whether or not the frames of this animation are vertically flipped.
 	 */
-	public function new(parent:FlxAnimationController, name:String, frames:Array<Int>, frameRate:Int = 0, looped:Bool = true, flipX:Bool = false,
+	public function new(controller:FlxAnimationController, name:String, frames:Array<Int>, frameRate:Int = 0, looped:Bool = true, flipX:Bool = false,
 			flipY:Bool = false) {
-		super(sprite, name);
+        super(controller, name);
 
 		this.frameRate = frameRate;
 		this.frames = frames;
