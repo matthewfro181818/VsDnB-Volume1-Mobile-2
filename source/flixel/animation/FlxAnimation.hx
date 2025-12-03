@@ -80,7 +80,7 @@ class FlxAnimation extends FlxBaseAnimation {
 	 *                     (`Frame = numFrames - 1 - Frame`), so `Frame` value will mean frame index
 	 *                     from the animation's end in this case.
 	 */
-	public function play(Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void {
+	override public function play(Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void {
 		if (!Force && !finished && reversed == Reversed) {
 			paused = false;
 			return;
