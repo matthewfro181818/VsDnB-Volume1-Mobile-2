@@ -1,10 +1,12 @@
 package ui;
 
-import flixel.FlxSprite;
+import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.animation.FlxAnimationController;
 import flixel.FlxG;
+import flixel.tweens.FlxTween;
+import flixel.animation.FlxAnimationController;
+import flixel.math.FlxMath;
 import openfl.geom.Point;
 
 enum AlphabetShadowMode
@@ -13,7 +15,7 @@ enum AlphabetShadowMode
     SIMPLE;
 }
 
-class Alphabet extends FlxSprite
+class Alphabet extends FlxSpriteGroup
 {
     public var text:String = "";
     public var targetY:Float = 0;
@@ -32,13 +34,12 @@ class Alphabet extends FlxSprite
     public var dropShadowColor:FlxColor = FlxColor.BLACK;
 
     public var letterText:FlxText;
+
     public var wobble:Bool = false;
     public var wobbleIntensity:Float = 1.0;
 
     public var scrollSpeed:Float = 120;
     public var scrollOffset:Float = 0;
-
-    public var animationActive:Bool = false;
 
     public var alphaTarget:Float = 1;
     public var alphaLerpSpeed:Float = 6;
@@ -50,11 +51,12 @@ class Alphabet extends FlxSprite
     public function new(x:Float, y:Float, text:String)
     {
         super(x, y);
+
         this.text = text;
 
         letterText = new FlxText(0, 0, 0, text, 32);
-        letterText.setFormat("VCR OSD Mono", 32, textColor, CENTER);
-        letterText.scrollFactor.set(0, 0);
+        letterText.setFormat("VCR OSD Mono", 32, textColor);
+        letterText.scrollFactor.set();
         add(letterText);
 
         rebuild();
@@ -71,29 +73,7 @@ class Alphabet extends FlxSprite
     }
 
     // ---------------------------------------------------------
-    // Animation Cleanup (Fixes: destroyAnimations missing)
-    // ---------------------------------------------------------
-
-    public function destroyAnimations():Void
-    {
-        // Compatibility stub—Psych Engine expects this.
-        if (letterText.animation != null)
-        {
-            // Safely stop and clear animations without calling non-existent APIs
-            if (letterText.animation.curAnim != null)
-                letterText.animation.stop();
-
-            #if (flixel >= "5.0.0")
-            // remove all animations safely
-            letterText.animation._animations.clear();
-            #else
-            letterText.animation.animations.clear();
-            #end
-        }
-    }
-
-    // ---------------------------------------------------------
-    // Shadow Rendering (Fixes unmatched SHADOW_XY pattern)
+    // Shadow Rendering
     // ---------------------------------------------------------
 
     inline function drawShadow():Void
@@ -114,6 +94,17 @@ class Alphabet extends FlxSprite
     }
 
     // ---------------------------------------------------------
+    // Menu Tween (REPLACES setupMenuTween)
+    // ---------------------------------------------------------
+
+    public function menuTween(targetY:Float):Void
+    {
+        var targetPos = (targetY * 70) + 30;
+
+        FlxTween.tween(this, { y: targetPos }, 0.25, { ease: flixel.tweens.FlxEase.quadOut });
+    }
+
+    // ---------------------------------------------------------
     // Update
     // ---------------------------------------------------------
 
@@ -121,14 +112,12 @@ class Alphabet extends FlxSprite
     {
         super.update(elapsed);
 
-        // Apply wobble if enabled
         if (wobble)
         {
             scrollOffset += elapsed * scrollSpeed;
-            letterText.y = Math.sin(scrollOffset) * wobbleIntensity + this.y;
+            letterText.y = Math.sin(scrollOffset) * wobbleIntensity;
         }
 
-        // Smooth alpha transition
         if (Math.abs(alpha - alphaTarget) > 0.01)
             alpha += (alphaTarget - alpha) * elapsed * alphaLerpSpeed;
 
@@ -146,7 +135,6 @@ class Alphabet extends FlxSprite
 
         letterText.color = textColor;
         letterText.alpha = this.alpha;
-
         letterText.draw();
     }
 
@@ -156,7 +144,6 @@ class Alphabet extends FlxSprite
 
     override public function destroy()
     {
-        destroyAnimations();
         letterText.destroy();
         super.destroy();
     }

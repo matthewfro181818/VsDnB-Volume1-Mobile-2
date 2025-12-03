@@ -246,7 +246,7 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		for (item in grpMenuShit.members)
 		{
-			item.setupMenuTween(item.targetY);
+			item.menuTween(item.targetY);
 		}
 	}
 
@@ -311,7 +311,7 @@ class PauseSubState extends MusicBeatSubstate
 		add(backBg);
 		FlxTween.tween(backBg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		
-		bg = new FlxBackdrop(Paths.image('checkeredBG', 'shared'), XY, 1, 1);
+		bg = new FlxBackdrop(Paths.image("checkeredBG", "shared"), flixel.util.FlxAxes.XY, 1, 1);
 		bg.alpha = FlxMath.EPSILON;
 		bg.antialiasing = false;
 		bg.scrollFactor.set();
@@ -504,9 +504,10 @@ class PauseSubState extends MusicBeatSubstate
 	static function returnToPlayerSelect(state:PauseSubState):Void
 	{
 		// TODO: See if there's a way to softcoded this ?
-		var selectToGo:NextState = switch (PlayState.instance.currentSong.id.toLowerCase()) {
-			case 'backseat': () -> new BackseatSelect(); 
-			default: () -> new MainMenuState();
+		var selectToGo:Void->FlxState = switch (PlayState.instance.currentSong.id.toLowerCase())
+        {
+			case "backseat": function() return new BackseatSelect();
+			default: function() return new MainMenuState();
 		}
 
 		returnToMenu(selectToGo);
@@ -517,22 +518,20 @@ class PauseSubState extends MusicBeatSubstate
 	 * Reverts any needed changes before switching back
 	 * @param state The state to return back to.
 	 */
-	static function returnToMenu(state:NextState)
-	{
-		if (MathGameState.failedGame)
-			MathGameState.failedGame = false;
+static function returnToMenu(buildState:Void->FlxState)
+{
+    if (MathGameState.failedGame)
+        MathGameState.failedGame = false;
 
-		Application.current.window.title = Main.applicationName;
+    Application.current.window.title = Main.applicationName;
 
-		PlayState.instance.shakeCam = false;
-		PlayState.instance.camZooming = false;
-		Cursor.hide();
-		
-		if (!SoundController.music.playing)
-		{
-			SoundController.playMusic(Paths.music('freakyMenu'));
-		}
+    PlayState.instance.shakeCam = false;
+    PlayState.instance.camZooming = false;
+    Cursor.hide();
 
-		FlxG.switchState(state);
-	}
+    if (!SoundController.music.playing)
+        SoundController.playMusic(Paths.music('freakyMenu'));
+
+    FlxG.switchState(buildState());
+}
 }

@@ -78,7 +78,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		add(camFollow);
 
 		FlxG.camera.alpha = 1;
-		FlxG.camera.filters = [];
+		FlxG.camera.setFilters(null);
 		FlxG.camera.scroll.set();
 		FlxG.camera.target = null;
 
@@ -99,14 +99,14 @@ class GameOverSubstate extends MusicBeatSubstate
 		SoundController.play(deathSfx);
 		
 		bf.playAnim('firstDeath', true);
-		bf.animation.onFinish.add((anim:String) -> 
+		bf.animation.finishCallback = function(anim:String)
 		{
 			if (anim == 'firstDeath')
 			{
-				bf.playAnim('deathLoop', true);
+				bf.playAnim("deathLoop", true);
 				SoundController.playMusic(gameOverMusic);
 			}
-		});
+		}
 		
 		FlxG.camera.follow(camFollow, LOCKON, 0.01);
 	}
@@ -121,31 +121,33 @@ class GameOverSubstate extends MusicBeatSubstate
         #end
 	}
 
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+override function update(elapsed:Float)
+{
+    super.update(elapsed);
 
-		if (controls.ACCEPT)
-			endBullshit();
+    if (controls.ACCEPT)
+        endBullshit();
 
-		if (controls.BACK)
-		{
-			SoundController.playMusic(Paths.music('freakyMenu'));
-			Conductor.instance.loadMusicData('freakyMenu');
+    if (controls.BACK)
+    {
+        SoundController.playMusic(Paths.music('freakyMenu'));
+        Conductor.instance.loadMusicData('freakyMenu');
 
-			Application.current.window.title = Main.applicationName;
+        Application.current.window.title = Main.applicationName;
 
-			if (PlayStatePlaylist.isStoryMode)
-				FlxG.switchState(() -> new StoryMenuState());
-			else
-				FlxG.switchState(() -> new FreeplayState());
-		}
-		if (FlxG.keys.justPressed.SEVEN)
-		{
-			FlxG.switchState(() -> new AnimationDebug(bf));
-		}
-		Conductor.instance.update();
-	}
+        if (PlayStatePlaylist.isStoryMode)
+            FlxG.switchState(new StoryMenuState());
+        else
+            FlxG.switchState(new FreeplayState());
+    }
+
+    if (FlxG.keys.justPressed.SEVEN)
+    {
+        FlxG.switchState(new AnimationDebug(bf));
+    }
+
+    Conductor.instance.update();
+}
 
 	override function destroy():Void
 	{

@@ -159,7 +159,7 @@ class EndingState extends MusicBeatState
 
 	public function endIt()
 	{
-		FlxG.switchState(() -> new StoryMenuState());
+		FlxG.switchState(new StoryMenuState());
 		SoundController.playMusic(Paths.music('freakyMenu'));
 	}
 }
