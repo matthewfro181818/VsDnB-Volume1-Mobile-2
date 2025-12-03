@@ -6,7 +6,7 @@ import flixel.graphics.frames.FlxFrame;
 import flixel.util.FlxDestroyUtil;
 import flixel.util.FlxSignal;
 
-// compatibility: some engines removed FlxAnimation.hx
+// animation layer typedef (must be here)
 import flixel.animation.FlxBaseAnimation;
 typedef FlxAnimation = flixel.animation.FlxBaseAnimation;
 
