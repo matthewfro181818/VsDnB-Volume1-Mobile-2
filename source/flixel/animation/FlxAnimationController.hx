@@ -193,30 +193,9 @@ class FlxAnimationController {
 		animations.set(name, anim);
 	}
 
-	/**
-	 * Append additional frames that match a prefix.
-	 */
-	public function appendByPrefix(name:String, prefix:String) {
-		var anim = animations.get(name);
-		if (anim == null)
-			return;
-
-		var frames = _sprite.frames.getFrameKeysStartingWith(prefix);
-
-		for (frame in frames)
-			anim.frames.push(frame.index);
-	}
-
 	// --------------------------------------------------------------
 	// CLEANUP
 	// --------------------------------------------------------------
-
-	public function destroyAnimations():Void {
-		for (anim in animations)
-			anim.destroy();
-		animations.clear();
-		curAnim = null;
-	}
 
 	public function destroy():Void {
 		destroyAnimations();
