@@ -212,11 +212,9 @@ class Stage extends FlxSpriteGroup implements IPlayStateScriptedClass implements
      */
     function refresh():Void
     {
-        // Stable ordering by y-position, no zIndex system anymore
-sort(function(a:FlxSprite, b:FlxSprite):Int {
-    return Std.int(a.y - b.y);
-});
-
+        sort(function(a:FlxSprite, b:FlxSprite):Int {
+            return Std.int(a.y - b.y);
+	    });
     }
 
     /**
