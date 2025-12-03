@@ -1429,13 +1429,6 @@ class FlxSprite extends FlxObject
 			var frameIndex:Int = animation.frameIndex;
 			var currName:String = null;
 
-			if (animation.curAnim != null)
-			{
-				reverse = animation.curAnim.reversed;
-				index = animation.curAnim.curFrame;
-				currName = animation.curAnim.name;
-			}
-
 			animation._animations = null;
 			this.frames = Frames;
 			frame = frames.frames[frameIndex];
@@ -1718,10 +1711,6 @@ class FlxSprite extends FlxObject
 	inline function checkFlipY():Bool
 	{
 		var doFlipY = (flipY != _frame.flipY);
-		if (animation.curAnim != null)
-		{
-			return doFlipY != animation.curAnim.flipY;
-		}
 		return doFlipY;
 	}
 }
