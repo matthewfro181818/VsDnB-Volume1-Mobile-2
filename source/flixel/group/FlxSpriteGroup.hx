@@ -16,20 +16,8 @@ import flixel.util.FlxDestroyUtil;
 import flixel.util.FlxDirectionFlags;
 import flixel.util.FlxSort;
 
-/**
- * `FlxSpriteGroup` is a special `FlxSprite` that can be treated like a single sprite even if it's
- * made up of several member sprites. It shares the `FlxGroup` API, but it doesn't inherit from it.
- * Note that `FlxSpriteContainer` also exists.
- * 
- * ## When to use a group or container
- * `FlxGroups` are better for organising arbitrary groups for things like iterating or collision.
- * `FlxContainers` are recommended when you are adding them to the current `FlxState`, or a
- * child (or grandchild, and so on) of the state.
- * Since `FlxSpriteGroups` and `FlxSpriteContainers` are usually meant to draw groups of sprites
- * rather than organizing them for collision or iterating, it's recommended to always use
- * `FlxSpriteContainer` instead of `FlxSpriteGroup`.
- */
-typedef FlxSpriteGroup = FlxTypedSpriteGroup<FlxSprite>;
+// BLOCK openfl.geom.Point from bleeding in
+private typedef Point = FlxPoint;
 
 /**
  * A `FlxSpriteGroup` that only allows specific members to be a specific type of `FlxSprite`.
