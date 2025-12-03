@@ -131,32 +131,33 @@ class LoadingState extends MusicBeatState
 		return Paths.voicesPath(id, variation);
 	}
 
-	inline static public function loadAndSwitchState(target:NextState, stopMusic = false)
-	{
-		FlxG.switchState(getNextState(target, stopMusic));
-	}
+inline static public function loadAndSwitchState(target:FlxState, stopMusic:Bool = false)
+{
+    FlxG.switchState(getNextState(target, stopMusic));
+}
 
-	static function getNextState(target:NextState, stopMusic = false):NextState
-	{
-		#if NO_PRELOAD_ALL
-		var targetSongId:String = playStateParams.targetSong.id;
-		var targetVariation:String = playStateParams.targetVariation;
-		
-		var voicesPath:String = getVocalPath(targetSongId, targetVariation);
-		var hasVoices:Bool = Assets.exists(voicesPath);
+static function getNextState(target:FlxState, stopMusic:Bool = false):FlxState
+{
+    #if NO_PRELOAD_ALL
+    var targetSongId:String = playStateParams.targetSong.id;
+    var targetVariation:String = playStateParams.targetVariation;
 
-		var loaded = isSoundLoaded(getSongPath(targetSongId, targetVariation))
-			&& (!hasVoices || isSoundLoaded(voicesPath))
-			&& isLibraryLoaded("shared");
+    var voicesPath:String = getVocalPath(targetSongId, targetVariation);
+    var hasVoices:Bool = Assets.exists(voicesPath);
 
-		if (!loaded)
-			return new LoadingState(target, stopMusic);
-		#end
-		if (stopMusic && SoundController.music != null)
-			SoundController.music.stop();
+    var loaded = isSoundLoaded(getSongPath(targetSongId, targetVariation))
+        && (!hasVoices || isSoundLoaded(voicesPath))
+        && isLibraryLoaded("shared");
 
-		return target;
-	}
+    if (!loaded)
+        return new LoadingState(target, stopMusic);
+    #end
+
+    if (stopMusic && SoundController.music != null)
+        SoundController.music.stop();
+
+    return target;
+}
 
 	#if NO_PRELOAD_ALL
 	static function isSoundLoaded(path:String):Bool

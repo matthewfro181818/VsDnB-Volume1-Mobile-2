@@ -122,12 +122,10 @@ class Cursor
         visible = false;
     }
 
-    static function setVisible(visible:Bool):Void
-    {
-        FlxG.mouse.visible = visible;
-        FlxG.mouse.cursor.visible = visible;
-        FlxG.mouse.cursorContainer.visible = visible;
-    }
+static function setVisible(visible:Bool):Void
+{
+    FlxG.mouse.visible = visible;
+}
 
     /**
      * Toggles the cursor current visibility.
