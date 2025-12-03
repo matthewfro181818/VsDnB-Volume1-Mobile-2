@@ -208,16 +208,6 @@ class Stage extends FlxSpriteGroup implements IPlayStateScriptedClass implements
     }
 
     /**
-     * Refreshes the stage's sorting layers by comparing each element by it's `zIndex`
-     */
-    function refresh():Void
-    {
-        sort(function(a:FlxSprite, b:FlxSprite):Int {
-            return Std.int(a.y - b.y);
-	    });
-    }
-
-    /**
      * Retrieves a prop from this stage given its name.
      * @param name The name of the prop.
      * @return A `BGSprite`
@@ -462,9 +452,6 @@ class Stage extends FlxSpriteGroup implements IPlayStateScriptedClass implements
         // Safe to remove them from the Stage now.
         var sprite:FlxSprite = super.remove(sprite, splice);
 
-        // Make sure to refresh the group so everything's ordered properly.
-        refresh();
-
         return sprite;
     }
 
@@ -504,9 +491,6 @@ class Stage extends FlxSpriteGroup implements IPlayStateScriptedClass implements
             event = new AddPropScriptEvent(sprite, true);
         }
         super.add(sprite);
-
-        // Make sure to refresh the group so everything's ordered properly.
-        refresh();
 
         ScriptEventDispatcher.callEvent(this, event);
 
