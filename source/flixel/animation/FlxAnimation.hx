@@ -101,9 +101,6 @@ class FlxAnimation extends FlxBaseAnimation {
 				Frame = (maxFrameIndex - Frame);
 			curFrame = Frame;
 		}
-
-		if (finished)
-			sprite.fireFinishCallback(name);
 	}
 
 	public function restart():Void {
