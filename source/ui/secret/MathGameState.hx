@@ -19,7 +19,7 @@ import play.song.Song;
 import ui.Cursor;
 import ui.menu.freeplay.FreeplayState;
 import util.PlatformUtil;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.FlxSprite;
 
 typedef QueuedSound =
@@ -215,7 +215,7 @@ class MathGameState extends MusicBeatState
 		white.updateHitbox();
 		add(white);
 
-		resultsGroup = new FlxSpriteGroup();
+		resultsGroup = new FlxTypedSpriteGroup<FlxSprite>();
 		resultsGroup.scrollFactor.set();
 		add(resultsGroup);
 
