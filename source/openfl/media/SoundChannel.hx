@@ -4,6 +4,7 @@ package openfl.media;
 import openfl.events.Event;
 import openfl.events.EventDispatcher;
 import openfl.media.SoundTransform;
+
 #if lime
 import lime.media.AudioSource;
 #end
@@ -12,13 +13,14 @@ import lime.media.AudioSource;
 	// -----------------------------------------------------
 	// PUBLIC PROPERTIES
 	// -----------------------------------------------------
+
 	public var leftPeak(get, null):Float;
 	public var rightPeak(get, null):Float;
 
 	public var position(get, set):Float;
 	public var soundTransform(get, set):SoundTransform;
 
-	public var loopTime(default, set):Int = -1; // FIXED
+	public var loopTime(default, set):Int = -1;
 	public var endTime(get, set):Null<Int>;
 	public var pitch(get, set):Float;
 	public var loops(get, set):Int;
@@ -26,6 +28,7 @@ import lime.media.AudioSource;
 	// -----------------------------------------------------
 	// INTERNAL FIELDS
 	// -----------------------------------------------------
+
 	@:noCompletion private var __soundTransform:SoundTransform;
 	@:noCompletion private var __left:Float = 0;
 	@:noCompletion private var __right:Float = 0;
@@ -34,10 +37,11 @@ import lime.media.AudioSource;
 
 	#if lime
 	@:noCompletion private var __source:AudioSource;
-	@:noCompletion private var __audioSource(get, never):AudioSource;
 
-	private function get___audioSource():AudioSource
+	@:noCompletion private var __audioSource(get, never):AudioSource;
+	private function get___audioSource():AudioSource {
 		return __source;
+	}
 	#end
 
 	// -----------------------------------------------------
@@ -58,15 +62,19 @@ import lime.media.AudioSource;
 			__source.play();
 		}
 		#end
+
+		// OpenFL 9: SoundMixer auto-manages channels internally
 	}
 
 	// -----------------------------------------------------
 	// STOP / DISPOSE
 	// -----------------------------------------------------
+
 	public function stop():Void {
 		#if lime
-		if (__valid)
+		if (__valid) {
 			__source.stop();
+		}
 		#end
 
 		__dispose();
@@ -79,6 +87,7 @@ import lime.media.AudioSource;
 			__source = null;
 		}
 		#end
+
 		__valid = false;
 	}
 
@@ -114,14 +123,24 @@ import lime.media.AudioSource;
 		if (v != null) {
 			__soundTransform.pan = v.pan;
 			__soundTransform.volume = v.volume;
+
+			#if lime
+			if (__valid) {
+				// Use public global volume — private mixer fields removed in OpenFL 9
+				var globalVol:Float = (SoundMixer.soundTransform != null ? SoundMixer.soundTransform.volume : 1.0);
+				__source.gain = globalVol * __soundTransform.volume;
+			}
+			#end
 		}
 		return v;
 	}
 
 	private function __updateTransform():Void {
 		#if lime
-		if (__valid)
-			__source.gain = SoundMixer.__soundTransform.volume * __soundTransform.volume;
+		if (__valid) {
+			var globalVol:Float = (SoundMixer.soundTransform != null ? SoundMixer.soundTransform.volume : 1.0);
+			__source.gain = globalVol * __soundTransform.volume;
+		}
 		#end
 	}
 
@@ -146,14 +165,16 @@ import lime.media.AudioSource;
 	}
 
 	// -----------------------------------------------------
-	// LOOP TIME (FIXED)
+	// LOOP TIME
 	// -----------------------------------------------------
 
 	private function set_loopTime(v:Int):Int {
 		if (v < 0)
 			v = 0;
+
 		__loopTime = v;
 		loopTime = v;
+
 		return v;
 	}
 
@@ -203,7 +224,8 @@ import lime.media.AudioSource;
 
 	private function get_leftPeak():Float {
 		#if lime
-		__left = __source.gain;
+		if (__valid)
+			__left = __source.gain;
 		return __left * __soundTransform.volume;
 		#else
 		return 0;
@@ -212,7 +234,8 @@ import lime.media.AudioSource;
 
 	private function get_rightPeak():Float {
 		#if lime
-		__right = __source.gain;
+		if (__valid)
+			__right = __source.gain;
 		return __right * __soundTransform.volume;
 		#else
 		return 0;
@@ -222,11 +245,13 @@ import lime.media.AudioSource;
 	// -----------------------------------------------------
 	// COMPLETE
 	// -----------------------------------------------------
+
 	private function onDone():Void {
 		__dispose();
 		dispatchEvent(new Event(Event.SOUND_COMPLETE));
 	}
 }
+
 #else
 typedef SoundChannel = flash.media.SoundChannel;
 #end
