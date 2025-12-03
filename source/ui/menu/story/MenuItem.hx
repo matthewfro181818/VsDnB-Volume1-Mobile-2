@@ -13,7 +13,7 @@ import play.save.Preferences;
 /**
  * A UI object that's displayed in the settings menu,
  */
-class MenuItem extends FlxSpriteGroup<FlxSprite>
+class MenuItem extends FlxSpriteGroup
 {
 	/**
 	 * The ease type to use when moving the menu item.
