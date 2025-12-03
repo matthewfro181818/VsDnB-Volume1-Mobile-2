@@ -26,7 +26,7 @@ class SortUtil
 	 */
 	public static function byZIndex(order:Int = FlxSort.ASCENDING, a:FlxBasic, b:FlxBasic):Int
 	{
-		return FlxSort.byValues(order, a?.zIndex, b?.zIndex);
+		return FlxSort.byValues(order);
 	}
 
 	/**
