@@ -297,6 +297,12 @@ class FlxAnimationController implements IFlxDestroyable
 		onFinish.dispatch(name);
 	}
 
+	@:allow(flixel.animation)
+	function fireLoopCallback(?name:String):Void
+	{
+		onLoop.dispatch(name);
+	}
+
 	//------------------------------------------------------
 	// Basic Getters
 	//------------------------------------------------------
