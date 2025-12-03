@@ -202,7 +202,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
 
     public function onCreate(event:ScriptEvent):Void
     {
-        animation.onFinish.add(function(anim:String)
+        animation.finishCallback.add(function(anim:String)
         {
             if (hasEase(anim))
             {
@@ -410,7 +410,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
 		{
 			this.canDance = false;
 			this.playAnim('cheer', true);
-			this.animation.onFinish.addOnce(function(anim:String) {
+			this.animation.finishCallback.addOnce(function(anim:String) {
 				this.canDance = true;
 			});
 		}
