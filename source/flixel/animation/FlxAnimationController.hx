@@ -38,6 +38,35 @@ class FlxAnimationController {
 		animations = [];
 	}
 
+	// --------------------------------------
+	// Legacy appendByPrefix compatibility
+	// --------------------------------------
+	public function appendByPrefix(name:String, prefix:String, frameRate:Float = 30, looped:Bool = true):Void {
+		// If the animation already exists, extend its frame list.
+		var existing = _animations.get(name);
+		var newFrames:Array<Int> = [];
+
+		if (_sprite.frames != null) {
+			for (frame in _sprite.frames.frames) {
+				if (frame.name != null && StringTools.startsWith(frame.name, prefix)) {
+					newFrames.push(getFrameIndex(frame));
+				}
+			}
+		}
+
+		// Nothing found? Do nothing.
+		if (newFrames.length == 0)
+			return;
+
+		if (existing == null) {
+			// Create new animation
+			_animations.set(name, new FlxAnimation(this, name, newFrames, frameRate, looped, false, false));
+		} else {
+			// Append frames to existing animation
+			existing.frames = existing.frames.concat(newFrames);
+		}
+	}
+
 	public function clearAnimations():Void {
 		animations = [];
 	}
