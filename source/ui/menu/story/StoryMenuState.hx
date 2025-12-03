@@ -97,8 +97,8 @@ class StoryMenuState extends MusicBeatState
 
 	var awaitingToPlayMasterWeek:Bool;
 
-	var weekBanners:FlxSpriteGroup<FlxSprite> = new FlxSpriteGroup<FlxSprite>()
-	var weekRenders:FlxSpriteGroup<FlxSprite> = new FlxSpriteGroup<FlxSprite>()
+	var weekBanners:FlxSpriteGroup<FlxSprite> = new FlxSpriteGroup<FlxSprite>();
+	var weekRenders:FlxSpriteGroup<FlxSprite> = new FlxSpriteGroup<FlxSprite>();
 
 	override function create()
 	{
