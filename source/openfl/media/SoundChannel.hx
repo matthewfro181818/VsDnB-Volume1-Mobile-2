@@ -12,14 +12,13 @@ import lime.media.AudioSource;
 	// -----------------------------------------------------
 	// PUBLIC PROPERTIES
 	// -----------------------------------------------------
-
 	public var leftPeak(get, null):Float;
 	public var rightPeak(get, null):Float;
 
 	public var position(get, set):Float;
 	public var soundTransform(get, set):SoundTransform;
 
-	public var loopTime(default, set):Int = -1;    // FIXED
+	public var loopTime(default, set):Int = -1; // FIXED
 	public var endTime(get, set):Null<Int>;
 	public var pitch(get, set):Float;
 	public var loops(get, set):Int;
@@ -27,7 +26,6 @@ import lime.media.AudioSource;
 	// -----------------------------------------------------
 	// INTERNAL FIELDS
 	// -----------------------------------------------------
-
 	@:noCompletion private var __soundTransform:SoundTransform;
 	@:noCompletion private var __left:Float = 0;
 	@:noCompletion private var __right:Float = 0;
@@ -67,10 +65,7 @@ import lime.media.AudioSource;
 	// -----------------------------------------------------
 	// STOP / DISPOSE
 	// -----------------------------------------------------
-
 	public function stop():Void {
-		SoundMixer.__unregisterSoundChannel(this);
-
 		#if lime
 		if (__valid)
 			__source.stop();
@@ -162,7 +157,8 @@ import lime.media.AudioSource;
 	// -----------------------------------------------------
 
 	private function set_loopTime(v:Int):Int {
-		if (v < 0) v = 0;
+		if (v < 0)
+			v = 0;
 		__loopTime = v;
 		loopTime = v;
 		return v;
@@ -233,9 +229,7 @@ import lime.media.AudioSource;
 	// -----------------------------------------------------
 	// COMPLETE
 	// -----------------------------------------------------
-
 	private function onDone():Void {
-		SoundMixer.__unregisterSoundChannel(this);
 		__dispose();
 		dispatchEvent(new Event(Event.SOUND_COMPLETE));
 	}
