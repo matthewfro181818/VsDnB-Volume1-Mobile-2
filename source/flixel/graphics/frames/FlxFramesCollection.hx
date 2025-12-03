@@ -400,3 +400,13 @@ class FlxFramesCollection implements IFlxDestroyable
 		return framesByName = value;
 	}
 }
+
+enum FlxFrameCollectionType
+{
+    IMAGE;
+    TILES;
+    ATLAS;
+    FONT;
+    USER(type:String);
+    FILTER;
+}
