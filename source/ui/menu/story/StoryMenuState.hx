@@ -13,7 +13,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxSpriteContainer;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -27,8 +27,6 @@ import flixel.util.FlxTimer;
 import api.Discord.DiscordClient;
 #end
 using StringTools;
-
-typedef FlxSpriteGroup = flixel.group.FlxSpriteGroup;
 
 typedef StoryModeRender = 
 {
@@ -99,8 +97,8 @@ class StoryMenuState extends MusicBeatState
 
 	var awaitingToPlayMasterWeek:Bool;
 
-	var weekBanners:FlxSpriteGroup = new FlxSpriteGroup();
-	var weekRenders:FlxSpriteGroup = new FlxSpriteGroup();
+	var weekBanners:FlxSpriteContainer = new FlxSpriteContainer();
+	var weekRenders:FlxSpriteContainer = new FlxSpriteContainer();
 
 	override function create()
 	{
