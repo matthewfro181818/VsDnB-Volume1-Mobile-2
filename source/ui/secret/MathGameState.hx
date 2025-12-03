@@ -19,8 +19,8 @@ import play.song.Song;
 import ui.Cursor;
 import ui.menu.freeplay.FreeplayState;
 import util.PlatformUtil;
-import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.FlxSprite;
+import flixel.group.FlxSpriteGroup;
 
 typedef QueuedSound =
 {
@@ -93,7 +93,7 @@ class MathGameState extends MusicBeatState
 	/**
 	 * The group that holds the players resulting for each question.
 	 */
-	var resultsGroup:FlxSpriteGroup;
+	var resultsGroup:FlxSpriteGroup<FlxSprite>;
 
 	/**
 	 * The baldi display shown on the YCTP.
