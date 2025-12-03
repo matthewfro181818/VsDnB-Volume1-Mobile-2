@@ -3,7 +3,6 @@ package flixel.graphics.frames;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.atlas.AtlasBase;
 import flixel.graphics.atlas.TexturePackerAtlas;
-import flixel.graphics.frames.FlxFrame;
 import flixel.graphics.frames.FlxFramesCollection;
 import flixel.graphics.frames.FlxFramesCollection.FlxFrameCollectionType;
 import flixel.math.FlxPoint;
