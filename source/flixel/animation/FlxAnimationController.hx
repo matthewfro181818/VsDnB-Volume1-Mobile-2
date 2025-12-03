@@ -1,33 +1,39 @@
 package flixel.animation;
 
 import flixel.FlxG;
-import flixel.util.FlxSignal;
 import flixel.FlxSprite;
-import flixel.animation.FlxAnimation;
-import flixel.animation.FlxAnimationCluster;
+import flixel.graphics.frames.FlxFrame;
 import flixel.util.FlxDestroyUtil;
+import flixel.util.FlxSignal;
 
-/**
- * Controls all animations attached to a FlxSprite.
- */
+using StringTools;
+
 class FlxAnimationController implements IFlxDestroyable
 {
+	public var curAnim(get, set):FlxAnimation;
+	public var frameIndex(default, set):Int = -1;
+	public var frameName(get, set):String;
 	public var name(get, set):String;
 	public var paused(get, set):Bool;
 	public var finished(get, set):Bool;
-	public var curAnim(default, null):FlxAnimation;
-	public var frameIndex(default, set):Int = -1;
 	public var numFrames(get, never):Int;
 
-	public final onFrameChange = new FlxTypedSignal<(anim:String, frame:Int, index:Int)->Void>();
-	public final onFinish      = new FlxTypedSignal<(anim:String)->Void>();
-	public final onLoop        = new FlxTypedSignal<(anim:String)->Void>();
+	@:deprecated("callback is deprecated, use onFrameChange.add")
+	public var callback:(animName:String, frameNumber:Int, frameIndex:Int)->Void;
+
+	@:deprecated("finishCallback is deprecated, use onFinish.add")
+	public var finishCallback:(animName:String)->Void;
+
+	public final onFrameChange = new FlxTypedSignal<(animName:String, frameNumber:Int, frameIndex:Int)->Void>();
+	public final onFinish = new FlxTypedSignal<(animName:String)->Void>();
+	public final onLoop = new FlxTypedSignal<(animName:String)->Void>();
+
+	public var timeScale:Float = 1.0;
 
 	var _sprite:FlxSprite;
+	var _curAnim:FlxAnimation;
 	var _animations:Map<String, FlxAnimation> = [];
-	var _clusters:Map<String, FlxAnimationCluster> = [];
 	var _prerotated:FlxPrerotatedAnimation;
-	public var timeScale:Float = 1.0;
 
 	public function new(sprite:FlxSprite)
 	{
@@ -36,35 +42,105 @@ class FlxAnimationController implements IFlxDestroyable
 
 	public function update(elapsed:Float):Void
 	{
-		if (curAnim != null)
-			curAnim.update(elapsed * (timeScale * FlxG.animationTimeScale));
+		if (_curAnim != null)
+		{
+			_curAnim.update(elapsed * (timeScale * FlxG.animationTimeScale));
+		}
 		else if (_prerotated != null)
+		{
 			_prerotated.angle = _sprite.angle;
+		}
 	}
 
-	public function add(name:String, frames:Array<Int>, frameRate:Float = 30,
-			looped:Bool = true, flipX:Bool = false, flipY:Bool = false)
+	public function copyFrom(controller:FlxAnimationController):FlxAnimationController
+	{
+		destroyAnimations();
+
+		for (anim in controller._animations)
+		{
+			add(anim.name, anim.frames, anim.frameRate, anim.looped, anim.flipX, anim.flipY);
+		}
+
+		if (controller._prerotated != null)
+		{
+			createPrerotated();
+		}
+
+		if (controller.name != null)
+		{
+			name = controller.name;
+		}
+
+		frameIndex = controller.frameIndex;
+
+		return this;
+	}
+
+	public function createPrerotated(?Controller:FlxAnimationController):Void
+	{
+		destroyAnimations();
+		Controller = (Controller != null) ? Controller : this;
+		_prerotated = new FlxPrerotatedAnimation(Controller, Controller._sprite.bakedRotationAngle);
+		_prerotated.angle = _sprite.angle;
+	}
+
+	public function destroyAnimations():Void
+	{
+		clearAnimations();
+		clearPrerotated();
+	}
+
+	@:haxe.warning("-WDeprecated")
+	public function destroy():Void
+	{
+		FlxDestroyUtil.destroy(onFrameChange);
+		FlxDestroyUtil.destroy(onFinish);
+		FlxDestroyUtil.destroy(onLoop);
+
+		destroyAnimations();
+		_animations = null;
+		callback = null;
+		finishCallback = null;
+		_sprite = null;
+	}
+
+	function clearPrerotated():Void
+	{
+		if (_prerotated != null)
+		{
+			_prerotated.destroy();
+		}
+		_prerotated = null;
+	}
+
+	function clearAnimations():Void
+	{
+		if (_animations != null)
+		{
+			var anim:FlxAnimation;
+			for (key in _animations.keys())
+			{
+				anim = _animations.get(key);
+				if (anim != null)
+				{
+					anim.destroy();
+				}
+			}
+		}
+
+		_animations = new Map<String, FlxAnimation>();
+		_curAnim = null;
+	}
+
+	public function add(name:String, frames:Array<Int>, frameRate = 30.0, looped = true, flipX = false, flipY = false):Void
 	{
 		if (numFrames == 0)
 		{
-			FlxG.log.warn('Could not create animation "$name": sprite has no frames');
+			FlxG.log.warn('Could not create animation: "$name", this sprite has no frames');
 			return;
 		}
 
-		var clean:Array<Int> = [];
-		for (f in frames)
-		{
-			if (f >= 0 && f < numFrames)
-				clean.push(f);
-		}
-
-		if (clean.length == 0)
-		{
-			FlxG.log.warn('Animation "$name" has no valid frames.');
-			return;
-		}
-
-		var anim = new FlxAnimation(this, name, clean, frameRate, looped, flipX, flipY);
+		var anim = new FlxAnimation(this, name, frames, frameRate, looped, flipX, flipY);
 		_animations.set(name, anim);
 	}
 
@@ -73,150 +149,278 @@ class FlxAnimationController implements IFlxDestroyable
 		var anim = _animations.get(name);
 		if (anim != null)
 		{
-			anim.destroy();
 			_animations.remove(name);
+			anim.destroy();
 		}
 	}
 
-	public function play(name:String, force:Bool = false, reversed:Bool = false, frame:Int = 0):Void
+	public function play(name:String, force = false, reversed = false, frame = 0):Void
 	{
 		if (name == null)
 		{
-			if (curAnim != null)
-				curAnim.stop();
-			curAnim = null;
+			if (_curAnim != null)
+			{
+				_curAnim.stop();
+			}
+			_curAnim = null;
 			return;
 		}
 
-		var anim = _animations.get(name);
-		if (anim == null)
+		if (!_animations.exists(name))
 		{
-			FlxG.log.warn('No animation named "$name"');
+			FlxG.log.warn('No animation called "$name"');
 			return;
 		}
 
-		if (curAnim != null && curAnim != anim)
-			curAnim.stop();
+		var oldFlipX = false;
+		var oldFlipY = false;
 
-		curAnim = anim;
-		curAnim.play(force, reversed, frame);
+		if (_curAnim != null && name != _curAnim.name)
+		{
+			oldFlipX = _curAnim.flipX;
+			oldFlipY = _curAnim.flipY;
+			_curAnim.stop();
+		}
+
+		_curAnim = _animations.get(name);
+		_curAnim.play(force, reversed, frame);
+
+		if (oldFlipX != _curAnim.flipX || oldFlipY != _curAnim.flipY)
+		{
+			_sprite.dirty = true;
+		}
 	}
 
-	public function reset():Void
+	public inline function reset():Void
 	{
-		if (curAnim != null)
-			curAnim.reset();
+		if (_curAnim != null)
+		{
+			_curAnim.reset();
+		}
+	}
+
+	public function finish():Void
+	{
+		if (_curAnim != null)
+		{
+			_curAnim.finish();
+		}
 	}
 
 	public function stop():Void
 	{
-		if (curAnim != null)
-			curAnim.stop();
+		if (_curAnim != null)
+		{
+			_curAnim.stop();
+		}
 	}
 
 	public function pause():Void
 	{
-		if (curAnim != null)
-			curAnim.pause();
+		if (_curAnim != null)
+		{
+			_curAnim.pause();
+		}
 	}
 
 	public function resume():Void
 	{
-		if (curAnim != null)
-			curAnim.resume();
+		if (_curAnim != null)
+		{
+			_curAnim.resume();
+		}
 	}
 
 	public function reverse():Void
 	{
-		if (curAnim != null)
-			curAnim.reverse();
+		if (_curAnim != null)
+		{
+			_curAnim.reverse();
+		}
 	}
 
-	public function exists(name:String):Bool
-		return _animations.exists(name);
-
-	public function getByName(name:String):FlxAnimation
-		return _animations.get(name);
-
-	public function getNameList():Array<String>
+	public inline function getByName(name:String):FlxAnimation
 	{
-		var arr:Array<String> = [];
-		for (n in _animations.keys())
-			arr.push(n);
-		return arr;
+		return _animations.get(name);
+	}
+
+	public function randomFrame():Void
+	{
+		if (_curAnim != null)
+		{
+			_curAnim.stop();
+			_curAnim = null;
+		}
+		frameIndex = FlxG.random.int(0, numFrames - 1);
+	}
+
+	@:haxe.warning("-WDeprecated")
+	function fireCallback():Void
+	{
+		var name = (_curAnim != null) ? _curAnim.name : null;
+		var number = (_curAnim != null) ? _curAnim.curFrame : frameIndex;
+
+		if (callback != null)
+		{
+			callback(name, number, frameIndex);
+		}
+
+		onFrameChange.dispatch(name, number, frameIndex);
+	}
+
+	@:allow(flixel.animation)
+	@:haxe.warning("-WDeprecated")
+	function fireFinishCallback(name:String):Void
+	{
+		if (finishCallback != null)
+		{
+			finishCallback(name);
+		}
+
+		onFinish.dispatch(name);
+	}
+
+	@:allow(flixel.animation)
+	function fireLoopCallback(name:String):Void
+	{
+		onLoop.dispatch(name);
+	}
+
+	inline function get_frameName():String
+	{
+		return _sprite.frame.name;
+	}
+
+	function set_frameName(Value:String):String
+	{
+		if (_sprite.frames != null && _sprite.frames.exists(Value))
+		{
+			if (_curAnim != null)
+			{
+				_curAnim.stop();
+				_curAnim = null;
+			}
+
+			var frame = _sprite.frames.getByName(Value);
+			if (frame != null)
+			{
+				frameIndex = getFrameIndex(frame);
+			}
+		}
+
+		return Value;
 	}
 
 	function get_name():String
-		return curAnim != null ? curAnim.name : null;
-
-	function set_name(v:String):String
 	{
-		play(v);
-		return v;
+		return (_curAnim != null) ? _curAnim.name : null;
 	}
 
-	function get_paused():Bool
-		return curAnim != null ? curAnim.paused : false;
-
-	function set_paused(v:Bool):Bool
+	function set_name(AnimName:String):String
 	{
-		if (curAnim != null)
+		play(AnimName);
+		return AnimName;
+	}
+
+	public function getAnimationList():Array<FlxAnimation>
+	{
+		var list = [];
+		for (a in _animations)
+			list.push(a);
+		return list;
+	}
+
+	public function getNameList():Array<String>
+	{
+		var list = [];
+		for (n in _animations.keys())
+			list.push(n);
+		return list;
+	}
+
+	public function exists(name:String):Bool
+	{
+		return _animations.exists(name);
+	}
+
+	public function rename(old:String, New:String):Void
+	{
+		var anim = _animations.get(old);
+		if (anim == null)
 		{
-			if (v) curAnim.pause(); else curAnim.resume();
+			FlxG.log.warn('No animation called "$old"');
+			return;
+		}
+
+		_animations.set(New, anim);
+		anim.name = New;
+		_animations.remove(old);
+	}
+
+	inline function get_curAnim():FlxAnimation
+	{
+		return _curAnim;
+	}
+
+	inline function set_curAnim(anim:FlxAnimation):FlxAnimation
+	{
+		if (anim != _curAnim)
+		{
+			if (_curAnim != null)
+				_curAnim.stop();
+
+			if (anim != null)
+				anim.play();
+		}
+		return _curAnim = anim;
+	}
+
+	inline function get_paused():Bool
+	{
+		return (_curAnim != null) ? _curAnim.paused : false;
+	}
+
+	inline function set_paused(v:Bool):Bool
+	{
+		if (_curAnim != null)
+		{
+			if (v) _curAnim.pause();
+			else _curAnim.resume();
 		}
 		return v;
 	}
 
 	function get_finished():Bool
-		return curAnim != null ? curAnim.finished : true;
-
-	function set_finished(v:Bool):Bool
 	{
-		if (v && curAnim != null)
-			curAnim.finish();
+		return (_curAnim != null) ? _curAnim.finished : true;
+	}
+
+	inline function set_finished(v:Bool):Bool
+	{
+		if (v && _curAnim != null)
+			_curAnim.finish();
 		return v;
 	}
 
-	function get_numFrames():Int
+	inline function get_numFrames():Int
+	{
 		return _sprite.numFrames;
+	}
+
+	public inline function getFrameIndex(frame:FlxFrame):Int
+	{
+		return _sprite.frames.frames.indexOf(frame);
+	}
 
 	function set_frameIndex(i:Int):Int
 	{
-		if (numFrames > 0)
+		if (_sprite.frames != null && numFrames > 0)
 		{
 			i = i % numFrames;
 			_sprite.frame = _sprite.frames.frames[i];
 			frameIndex = i;
-
-			if (curAnim != null)
-				onFrameChange.dispatch(curAnim.name, curAnim.curFrame, i);
-			else
-				onFrameChange.dispatch(null, -1, i);
+			fireCallback();
 		}
 		return frameIndex;
-	}
-
-	@:allow(flixel.animation)
-	public function fireFinishCallback(name:String)
-		onFinish.dispatch(name);
-
-	@:allow(flixel.animation)
-	public function fireLoopCallback(name:String)
-		onLoop.dispatch(name);
-
-	public function destroy():Void
-	{
-		for (a in _animations)
-			a.destroy();
-		_animations = null;
-
-		if (_prerotated != null)
-			_prerotated.destroy();
-
-		FlxDestroyUtil.destroy(onFrameChange);
-		FlxDestroyUtil.destroy(onFinish);
-		FlxDestroyUtil.destroy(onLoop);
-
-		_sprite = null;
 	}
 }
