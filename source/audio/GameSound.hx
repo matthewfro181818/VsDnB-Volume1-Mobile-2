@@ -1,7 +1,7 @@
 package audio;
 
 import flixel.FlxG;
-import flixel.sound.FlxSound;
+import flixel.system.FlxSound;
 import flixel.system.FlxAssets.FlxSoundAsset;
 import play.save.Preferences;
 
