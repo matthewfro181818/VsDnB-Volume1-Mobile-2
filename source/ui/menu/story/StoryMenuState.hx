@@ -65,7 +65,7 @@ class StoryMenuState extends MusicBeatState
 
 	var grpWeekText:FlxTypedGroup<MenuItem>;
 
-	var grpLocks:FlxTypedGroup<FlxSprite>;
+	var grpLocks:FlxTypedGroup;
 
 	var weeks:Array<Week> = [
 		// WARMUP
@@ -97,8 +97,8 @@ class StoryMenuState extends MusicBeatState
 
 	var awaitingToPlayMasterWeek:Bool;
 
-	var weekBanners:FlxSpriteGroup<FlxSprite> = new FlxSpriteGroup<FlxSprite>();
-	var weekRenders:FlxSpriteGroup<FlxSprite> = new FlxSpriteGroup<FlxSprite>();
+	var weekBanners:FlxSpriteGroup = new FlxSpriteGroup();
+	var weekRenders:FlxSpriteGroup = new FlxSpriteGroup();
 
 	override function create()
 	{
@@ -158,7 +158,7 @@ class StoryMenuState extends MusicBeatState
 		var blackBarThingie:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, 57, FlxColor.BLACK);
 		add(blackBarThingie);
 
-		grpLocks = new FlxTypedGroup<FlxSprite>();
+		grpLocks = new FlxTypedGroup();
 		add(grpLocks);
 
 		for (i in 0...weeks.length)
