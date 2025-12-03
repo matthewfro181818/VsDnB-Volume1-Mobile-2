@@ -68,7 +68,7 @@ class SubtitleManager extends FlxSpriteGroup implements IRegistryEntry<SongSubti
 	/**
 	 * A group used to contain all of the subtitles that appear on this sprite.
 	 */
-	var subtitlesGroup:FlxSpriteGroup<Subtitle> = new FlxSpriteGroup<Subtitle>();
+	var subtitlesGroup:FlxSpriteGroup = new FlxSpriteGroup();
 
 	function get_conductor():Conductor
 	{
