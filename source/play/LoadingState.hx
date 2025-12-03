@@ -2,7 +2,6 @@ package play;
 
 import flixel.FlxG;
 import flixel.util.FlxTimer;
-import flixel.util.typeLimit.NextState;
 import flixel.FlxState;
 import lime.app.Promise;
 import lime.app.Future;
@@ -25,13 +24,13 @@ class LoadingState extends MusicBeatState
 
 	inline static var MIN_TIME = 1.0;
 
-	var target:NextState;
+	var target:FlxState;
 	var stopMusic = false;
 	var callbacks:MultiCallback;
 
 	var danceLeft = false;
 
-	function new(target:NextState, stopMusic:Bool)
+	function new(target:FlxState, stopMusic:Bool)
 	{
 		super();
 		this.target = target;
@@ -131,7 +130,7 @@ class LoadingState extends MusicBeatState
 		return Paths.voicesPath(id, variation);
 	}
 
-inline static public function loadAndSwitchState(target:FlxState, stopMusic:Bool = false)
+static public function loadAndSwitchState(target:FlxState, stopMusic = false)
 {
     FlxG.switchState(getNextState(target, stopMusic));
 }
