@@ -9,11 +9,7 @@ import flixel.graphics.frames.FlxFramesCollection;
  */
 class FlxAnimation extends FlxBaseAnimation
 {
-    public var name:String;
-    public var frames:Array<Int>;
     public var delay:Float;
-    public var flipX:Bool = false;
-    public var flipY:Bool = false;
 
     public function new(
         name:String,
