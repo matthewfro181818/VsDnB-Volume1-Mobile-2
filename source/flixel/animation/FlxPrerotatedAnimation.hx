@@ -1,37 +1,19 @@
 package flixel.animation;
 
 import flixel.FlxSprite;
-import flixel.math.FlxAngle;
-import flixel.util.FlxDestroyUtil;
 
-/**
- * Generates baked rotated copies for fast rotation display.
- */
-class FlxPrerotatedAnimation implements IFlxDestroyable
+class FlxPrerotatedAnimation
 {
-	public var angle(default, set):Float = 0;
+	public var angle:Float = 0;
+	public var bakedRotationAngle:Float = 0;
 
-	var _controller:FlxAnimationController;
-	var _sprite:FlxSprite;
-	var _bakedAngle:Float;
+	var controller:FlxAnimationController;
 
-	public function new(controller:FlxAnimationController, bakedAngle:Float)
+	public function new(controller:FlxAnimationController, bakedRotationAngle:Float)
 	{
-		_controller = controller;
-		_sprite = controller._sprite;
-		_bakedAngle = bakedAngle;
+		this.controller = controller;
+		this.bakedRotationAngle = bakedRotationAngle;
 	}
 
-	function set_angle(v:Float):Float
-	{
-		var snapped = FlxAngle.wrapAngle(v);
-		_sprite.angle = snapped - (snapped % _bakedAngle);
-		return angle = v;
-	}
-
-	public function destroy():Void
-	{
-		_controller = null;
-		_sprite = null;
-	}
+	public function destroy():Void {}
 }
