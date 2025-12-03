@@ -592,7 +592,6 @@ class FlxSprite extends FlxObject
 		}
 
 		bakedRotationAngle = 360 / Rotations;
-		animation.createPrerotated();
 		return this;
 	}
 
