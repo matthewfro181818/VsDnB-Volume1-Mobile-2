@@ -125,8 +125,9 @@ class FlxAnimationController implements IFlxDestroyable
 	{
 		if (_curAnim != null)
 		{
-			_curAnim.update(elapsed * (timeScale * FlxG.animationTimeScale));
-		}
+			// FlxFrame has no update(): use updateUV()
+           _curAnim.updateUV();
+        }
 		else if (_prerotated != null)
 		{
 			_prerotated.angle = _sprite.angle;
