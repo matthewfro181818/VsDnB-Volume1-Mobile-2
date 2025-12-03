@@ -1623,7 +1623,8 @@ class FlxSprite extends FlxObject
 	{
 		if (animation != null)
 		{
-			animation.destroyAnimations();
+			animation.destroy(); // correct method in Psych Engine
+			animation = new FlxAnimationController(this); // recreate clean animation controller
 		}
 
 		if (Frames != null)
