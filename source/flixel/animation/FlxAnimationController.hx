@@ -6,7 +6,7 @@ import flixel.graphics.frames.FlxFrame;
 import flixel.util.FlxDestroyUtil;
 import flixel.util.FlxSignal;
 
-// Force compatibility layer:
+// Compatibility layer for engines without FlxAnimation.hx
 import flixel.animation.FlxBaseAnimation;
 typedef FlxAnimation = flixel.animation.FlxBaseAnimation;
 
@@ -66,14 +66,10 @@ class FlxAnimationController implements IFlxDestroyable
 		}
 
 		if (controller._prerotated != null)
-		{
 			createPrerotated();
-		}
 
 		if (controller.name != null)
-		{
 			name = controller.name;
-		}
 
 		frameIndex = controller.frameIndex;
 
@@ -111,25 +107,18 @@ class FlxAnimationController implements IFlxDestroyable
 	function clearPrerotated():Void
 	{
 		if (_prerotated != null)
-		{
 			_prerotated.destroy();
-		}
+
 		_prerotated = null;
 	}
 
 	function clearAnimations():Void
 	{
-		if (_animations != null)
+		for (key in _animations.keys())
 		{
-			var anim:FlxAnimation;
-			for (key in _animations.keys())
-			{
-				anim = _animations.get(key);
-				if (anim != null)
-				{
-					anim.destroy();
-				}
-			}
+			var anim = _animations.get(key);
+			if (anim != null)
+				anim.destroy();
 		}
 
 		_animations = new Map<String, FlxAnimation>();
@@ -140,7 +129,7 @@ class FlxAnimationController implements IFlxDestroyable
 	{
 		if (numFrames == 0)
 		{
-			FlxG.log.warn('Could not create animation: "$name", this sprite has no frames');
+			FlxG.log.warn('Could not create animation "$name", this sprite has no frames');
 			return;
 		}
 
@@ -162,10 +151,7 @@ class FlxAnimationController implements IFlxDestroyable
 	{
 		if (name == null)
 		{
-			if (_curAnim != null)
-			{
-				_curAnim.stop();
-			}
+			if (_curAnim != null) _curAnim.stop();
 			_curAnim = null;
 			return;
 		}
@@ -190,57 +176,43 @@ class FlxAnimationController implements IFlxDestroyable
 		_curAnim.play(force, reversed, frame);
 
 		if (oldFlipX != _curAnim.flipX || oldFlipY != _curAnim.flipY)
-		{
 			_sprite.dirty = true;
-		}
 	}
 
 	public inline function reset():Void
 	{
 		if (_curAnim != null)
-		{
 			_curAnim.reset();
-		}
 	}
 
 	public function finish():Void
 	{
 		if (_curAnim != null)
-		{
 			_curAnim.finish();
-		}
 	}
 
 	public function stop():Void
 	{
 		if (_curAnim != null)
-		{
 			_curAnim.stop();
-		}
 	}
 
 	public function pause():Void
 	{
 		if (_curAnim != null)
-		{
 			_curAnim.pause();
-		}
 	}
 
 	public function resume():Void
 	{
 		if (_curAnim != null)
-		{
 			_curAnim.resume();
-		}
 	}
 
 	public function reverse():Void
 	{
 		if (_curAnim != null)
-		{
 			_curAnim.reverse();
-		}
 	}
 
 	public inline function getByName(name:String):FlxAnimation
@@ -265,39 +237,33 @@ class FlxAnimationController implements IFlxDestroyable
 		var number = (_curAnim != null) ? _curAnim.curFrame : frameIndex;
 
 		if (callback != null)
-		{
 			callback(name, number, frameIndex);
-		}
 
 		onFrameChange.dispatch(name, number, frameIndex);
 	}
 
 	@:allow(flixel.animation)
 	@:haxe.warning("-WDeprecated")
-	function fireFinishCallback(name:String):Void
+	function fireFinishCallback(n:String):Void
 	{
 		if (finishCallback != null)
-		{
-			finishCallback(name);
-		}
+			finishCallback(n);
 
-		onFinish.dispatch(name);
+		onFinish.dispatch(n);
 	}
 
 	@:allow(flixel.animation)
-	function fireLoopCallback(name:String):Void
+	function fireLoopCallback(n:String):Void
 	{
-		onLoop.dispatch(name);
+		onLoop.dispatch(n);
 	}
 
 	inline function get_frameName():String
-	{
 		return _sprite.frame.name;
-	}
 
-	function set_frameName(Value:String):String
+	function set_frameName(v:String):String
 	{
-		if (_sprite.frames != null && _sprite.frames.exists(Value))
+		if (_sprite.frames != null && _sprite.frames.exists(v))
 		{
 			if (_curAnim != null)
 			{
@@ -305,25 +271,20 @@ class FlxAnimationController implements IFlxDestroyable
 				_curAnim = null;
 			}
 
-			var frame = _sprite.frames.getByName(Value);
+			var frame = _sprite.frames.getByName(v);
 			if (frame != null)
-			{
 				frameIndex = getFrameIndex(frame);
-			}
 		}
-
-		return Value;
+		return v;
 	}
 
 	function get_name():String
-	{
 		return (_curAnim != null) ? _curAnim.name : null;
-	}
 
-	function set_name(AnimName:String):String
+	function set_name(v:String):String
 	{
-		play(AnimName);
-		return AnimName;
+		play(v);
+		return v;
 	}
 
 	public function getAnimationList():Array<FlxAnimation>
@@ -337,17 +298,15 @@ class FlxAnimationController implements IFlxDestroyable
 	public function getNameList():Array<String>
 	{
 		var list = [];
-		for (n in _animations.keys())
-			list.push(n);
+		for (k in _animations.keys())
+			list.push(k);
 		return list;
 	}
 
-	public function exists(name:String):Bool
-	{
-		return _animations.exists(name);
-	}
+	public function exists(n:String):Bool
+		return _animations.exists(n);
 
-	public function rename(old:String, New:String):Void
+	public function rename(old:String, New:String)
 	{
 		var anim = _animations.get(old);
 		if (anim == null)
@@ -356,15 +315,13 @@ class FlxAnimationController implements IFlxDestroyable
 			return;
 		}
 
-		_animations.set(New, anim);
 		anim.name = New;
+		_animations.set(New, anim);
 		_animations.remove(old);
 	}
 
 	inline function get_curAnim():FlxAnimation
-	{
 		return _curAnim;
-	}
 
 	inline function set_curAnim(anim:FlxAnimation):FlxAnimation
 	{
@@ -372,17 +329,15 @@ class FlxAnimationController implements IFlxDestroyable
 		{
 			if (_curAnim != null)
 				_curAnim.stop();
-
 			if (anim != null)
 				anim.play();
 		}
-		return _curAnim = anim;
+		_curAnim = anim;
+		return anim;
 	}
 
 	inline function get_paused():Bool
-	{
 		return (_curAnim != null) ? _curAnim.paused : false;
-	}
 
 	inline function set_paused(v:Bool):Bool
 	{
@@ -395,9 +350,7 @@ class FlxAnimationController implements IFlxDestroyable
 	}
 
 	function get_finished():Bool
-	{
 		return (_curAnim != null) ? _curAnim.finished : true;
-	}
 
 	inline function set_finished(v:Bool):Bool
 	{
@@ -407,14 +360,10 @@ class FlxAnimationController implements IFlxDestroyable
 	}
 
 	inline function get_numFrames():Int
-	{
 		return _sprite.numFrames;
-	}
 
 	public inline function getFrameIndex(frame:FlxFrame):Int
-	{
 		return _sprite.frames.frames.indexOf(frame);
-	}
 
 	function set_frameIndex(i:Int):Int
 	{
