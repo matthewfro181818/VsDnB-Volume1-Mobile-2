@@ -5,8 +5,7 @@ import flixel.FlxG;
 /**
  * Just a helper structure for the `FlxSprite` animation system.
  */
-class FlxAnimation extends FlxBaseAnimation
-{
+class FlxAnimation extends FlxBaseAnimation {
 	/**
 	 * Accessor for `frames.length`
 	 */
@@ -14,7 +13,7 @@ class FlxAnimation extends FlxBaseAnimation
 
 	/**
 	 * Seconds between frames (inverse of the framerate)
-	 * 
+	 *
 	 * Note: `FlxFrameCollections` and `FlxAtlasFrames` may have their own duration set per-frame,
 	 * those values will override this value.
 	 */
@@ -30,10 +29,10 @@ class FlxAnimation extends FlxBaseAnimation
 	 * Whether or not this animation is being played backwards.
 	 */
 	public var reversed(default, null):Bool = false;
-	
+
 	/**
 	 * How fast or slow time should pass for this animation.
-	 * 
+	 *
 	 * Similar to `FlxAnimationController`'s `timeScale`, but won't effect other animations.
 	 * @since 5.4.1
 	 */
@@ -52,8 +51,7 @@ class FlxAnimation extends FlxBaseAnimation
 	 * @param   flipX       Whether or not the frames of this animation are horizontally flipped.
 	 * @param   flipY       Whether or not the frames of this animation are vertically flipped.
 	 */
-	public function new(sprite:FlxAnimationController, name:String, frames:Array<Int>, frameRate = 0.0, looped = true, flipX = false, flipY = false)
-	{
+	public function new(sprite:FlxAnimationController, name:String, frames:Array<Int>, frameRate = 0.0, looped = true, flipX = false, flipY = false) {
 		super(sprite, name);
 
 		this.frameRate = frameRate;
@@ -66,8 +64,7 @@ class FlxAnimation extends FlxBaseAnimation
 	/**
 	 * Clean up memory.
 	 */
-	override public function destroy():Void
-	{
+	override public function destroy():Void {
 		frames = null;
 		name = null;
 		super.destroy();
@@ -84,10 +81,8 @@ class FlxAnimation extends FlxBaseAnimation
 	 *                     (`Frame = numFrames - 1 - Frame`), so `Frame` value will mean frame index
 	 *                     from the animation's end in this case.
 	 */
-	public function play(Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
-	{
-		if (!Force && !finished && reversed == Reversed)
-		{
+	public function play(Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void {
+		if (!Force && !finished && reversed == Reversed) {
 			paused = false;
 			return;
 		}
@@ -100,8 +95,7 @@ class FlxAnimation extends FlxBaseAnimation
 		var maxFrameIndex:Int = numFrames - 1;
 		if (Frame < 0)
 			curFrame = FlxG.random.int(0, maxFrameIndex);
-		else
-		{
+		else {
 			if (Frame > maxFrameIndex)
 				Frame = maxFrameIndex;
 			if (reversed)
@@ -113,123 +107,112 @@ class FlxAnimation extends FlxBaseAnimation
 			sprite.fireFinishCallback(name);
 	}
 
-	public function restart():Void
-	{
+	public function restart():Void {
 		play(true, reversed);
 	}
 
-	public function stop():Void
-	{
+	public function stop():Void {
 		finished = true;
 		paused = true;
 	}
 
-	public function reset():Void
-	{
+	public function reset():Void {
 		stop();
 		curFrame = reversed ? (numFrames - 1) : 0;
 	}
 
-	public function finish():Void
-	{
+	public function finish():Void {
 		stop();
 		curFrame = reversed ? 0 : (numFrames - 1);
 	}
 
-	public function pause():Void
-	{
+	public function pause():Void {
 		paused = true;
 	}
 
-	public inline function resume():Void
-	{
+	public inline function resume():Void {
 		paused = false;
 	}
 
-	public function reverse():Void
-	{
+	public function reverse():Void {
 		reversed = !reversed;
 		if (finished)
 			play(false, reversed);
 	}
 
-	override public function update(elapsed:Float):Void
-	{
+	override public function update(elapsed:Float):Void {
 		var curFrameDuration = getCurrentFrameDuration();
 		if (curFrameDuration == 0 || finished || paused)
 			return;
 
 		_frameTimer += elapsed * timeScale;
-		while (_frameTimer > curFrameDuration && !finished)
-		{
+		while (_frameTimer > curFrameDuration && !finished) {
 			_frameTimer -= curFrameDuration;
-			if (reversed)
-			{
-				if (looped && curFrame == loopPoint)
-				{
+			if (reversed) {
+				if (looped && curFrame == loopPoint) {
 					curFrame = numFrames - 1;
 					sprite.fireLoopCallback(name);
-				}
-				else
-				{
+				} else {
 					curFrame--;
 				}
-			}
-			else
-			{
-				if (looped && curFrame == numFrames - 1)
-				{
+			} else {
+				if (looped && curFrame == numFrames - 1) {
 					curFrame = loopPoint;
 					sprite.fireLoopCallback(name);
-				}
-				else
-				{
+				} else {
 					curFrame++;
 				}
 			}
-			
+
 			// prevents null ref when the sprite is destroyed on finishCallback (#2782)
 			if (finished)
 				break;
-			
+
 			curFrameDuration = getCurrentFrameDuration();
 		}
 	}
 
-	function getCurrentFrameDuration()
-	{
+	function getCurrentFrameDuration():Float {
+		// Use atlas frame durations if available
+		var duration = 0.0;
+
+		if (sprite != null && sprite._sprite != null) {
+			var framesObj = sprite._sprite.frames;
+			if (framesObj != null) {
+				// If the frame itself has its own duration (TexturePacker / Aseprite)
+				duration = framesObj.frames[curIndex].duration;
+			}
+		}
+
+		// Otherwise use the animation-level duration
+		if (duration <= 0)
+			duration = frameDuration;
+
+		return duration;
 	}
 
-	override public function clone(newsprite:FlxAnimationController):FlxAnimation
-	{
+	override public function clone(newsprite:FlxAnimationController):FlxAnimation {
 		return new FlxAnimation(newsprite, name, frames, frameRate, looped, flipX, flipY);
 	}
 
-	function set_frameRate(value:Float):Float
-	{
+	function set_frameRate(value:Float):Float {
 		frameRate = value;
 		frameDuration = (value > 0 ? 1.0 / value : 0);
 		return value;
 	}
 
-	function set_curFrame(frame:Int):Int
-	{
+	function set_curFrame(frame:Int):Int {
 		var maxFrameIndex:Int = numFrames - 1;
 		var tempFrame:Int = (reversed) ? (maxFrameIndex - frame) : frame;
 
-		if (tempFrame >= 0)
-		{
-			if (!looped && tempFrame > maxFrameIndex)
-			{
+		if (tempFrame >= 0) {
+			if (!looped && tempFrame > maxFrameIndex) {
 				finished = true;
 				curFrame = reversed ? 0 : maxFrameIndex;
-			}
-			else
-			{
+			} else {
 				curFrame = frame;
 			}
-		}
-		else
+		} else
 			curFrame = FlxG.random.int(0, maxFrameIndex);
 
 		curIndex = frames[curFrame];
@@ -240,8 +223,7 @@ class FlxAnimation extends FlxBaseAnimation
 		return frame;
 	}
 
-	inline function get_numFrames():Int
-	{
+	inline function get_numFrames():Int {
 		return frames.length;
 	}
 }
