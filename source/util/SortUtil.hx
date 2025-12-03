@@ -29,6 +29,26 @@ class SortUtil
         return 0; // always equal
     }
 
+    // Generic alphabetical sorter
+    public static function defaultThenAlphabetically(defaultValue:String, a:String, b:String):Int
+    {
+        if (a == defaultValue && b != defaultValue) return -1;
+        if (b == defaultValue && a != defaultValue) return 1;
+        return Reflect.compare(a, b);
+    }
+
+    // Sort by priority, used for modules & OST sort
+    public static function sortByPriority(a:Dynamic, b:Dynamic):Int
+    {
+        return Reflect.compare(a.priority, b.priority);
+    }
+
+    // Replacement for zIndex sorting — sort by y-position
+    public static function byY(a:FlxSprite, b:FlxSprite):Int
+    {
+        return Std.int(a.y - b.y);
+    }
+
 	/**
 	 * Sort predicate for sorting strings alphabetically.
 	 * @param a The first string to compare.
