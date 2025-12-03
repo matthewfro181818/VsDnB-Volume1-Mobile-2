@@ -37,12 +37,11 @@ class LoadingState extends MusicBeatState
 		this.stopMusic = stopMusic;
 	}
 
-	public static function loadPlayState(params:PlayStateParams, stopMusic:Bool)
-	{
-		playStateParams = params;
-
-		loadAndSwitchState(() -> new PlayState(params), stopMusic);
-	}
+public static function loadPlayState(params:PlayStateParams, stopMusic:Bool)
+{
+    playStateParams = params;
+    loadAndSwitchState(new PlayState(params), stopMusic);
+}
 
 	override function create()
 	{
