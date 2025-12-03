@@ -1,114 +1,100 @@
 package flixel.animation;
 
-class FlxBaseAnimation
+import flixel.math.FlxMath;
+import flixel.util.FlxDestroyUtil.IFlxDestroyable;
+
+/**
+ * Modernized base animation used by FlxAnimation.
+ * Compatible with Flixel 5.3.1 and OpenFL 9.
+ */
+class FlxBaseAnimation implements IFlxDestroyable
 {
 	public var name:String;
-	public var frames:Array<Int>;
-	public var frameRate:Float;
-	public var looped:Bool;
-	public var flipX:Bool;
-	public var flipY:Bool;
-
+	public var curFrame:Int = 0;
+	public var numFrames(get, never):Int;
 	public var finished:Bool = false;
 	public var paused:Bool = false;
-	public var curFrame:Int = 0;
+	public var looped:Bool = true;
+	public var reversed:Bool = false;
 
-	public var controller:FlxAnimationController;
-	var timer:Float = 0;
+	public var frameRate:Float = 0;
+	public var delay:Float = 0;
+	public var timer:Float = 0;
 
-	public function new(controller:FlxAnimationController, name:String, frames:Array<Int>, frameRate:Float, looped:Bool, flipX:Bool, flipY:Bool)
+	public var parent:FlxAnimationController;
+
+	public function new(parent:FlxAnimationController, name:String)
 	{
-		this.controller = controller;
+		this.parent = parent;
 		this.name = name;
-		this.frames = frames.copy();
-		this.frameRate = frameRate;
-		this.looped = looped;
-		this.flipX = flipX;
-		this.flipY = flipY;
 	}
 
-	public function play(force:Bool=false, reversed:Bool=false, startFrame:Int=0)
+	public function destroy():Void {}
+
+	// ------------------------------
+	// FRAME AND PLAYBACK HELPERS
+	// ------------------------------
+
+	public function play(force:Bool, reversed:Bool, frame:Int):Void
 	{
 		finished = false;
 		paused = false;
+		this.reversed = reversed;
 
-		if (force)
-		{
-			curFrame = startFrame;
-			timer = 0;
-		}
-		else if (startFrame >= 0)
-		{
-			curFrame = startFrame;
-		}
+		if (frame >= 0)
+			curFrame = frame;
+		else
+			curFrame = 0;
 
-		applyFrame();
-	}
-
-	public function update(dt:Float)
-	{
-		if (paused || finished || frameRate <= 0 || frames.length <= 1)
-			return;
-
-		timer += dt;
-		var duration:Float = 1 / frameRate;
-
-		while (timer >= duration)
-		{
-			timer -= duration;
-			advanceFrame();
-		}
-	}
-
-	function advanceFrame()
-	{
-		curFrame++;
-
-		if (curFrame >= frames.length)
-		{
-			if (looped)
-			{
-				curFrame = 0;
-				controller.fireLoopCallback(name);
-			}
-			else
-			{
-				curFrame = frames.length - 1;
-				finished = true;
-				controller.fireFinishCallback(name);
-			}
-		}
-
-		applyFrame();
-	}
-
-	function applyFrame() {}
-
-	public function stop() paused = true;
-
-	public function reset()
-	{
-		curFrame = 0;
-		finished = false;
-		paused = false;
 		timer = 0;
-		applyFrame();
 	}
 
-	public function finish()
+	public function stop():Void
 	{
-		curFrame = frames.length - 1;
+		paused = true;
+	}
+
+	public function reset():Void
+	{
+		finished = false;
+		paused = false;
+		curFrame = 0;
+		timer = 0;
+	}
+
+	public function update(elapsed:Float):Void {}
+
+	public function finish():Void
+	{
 		finished = true;
-		applyFrame();
+		paused = true;
 	}
 
-	public function pause() paused = true;
-
-	public function resume() paused = false;
-
-	public function reverse()
+	public function pause():Void
 	{
-		frames.reverse();
-		curFrame = frames.length - 1 - curFrame;
+		paused = true;
 	}
+
+	public function resume():Void
+	{
+		paused = false;
+	}
+
+	public function reverse():Void
+	{
+		reversed = !reversed;
+	}
+
+	public function clone(parent:FlxAnimationController):FlxBaseAnimation
+	{
+		var a = new FlxBaseAnimation(parent, name);
+		a.curFrame = curFrame;
+		a.frameRate = frameRate;
+		a.looped = looped;
+		a.reversed = reversed;
+		return a;
+	}
+
+	inline function get_numFrames():Int
+		return 0;
 }
