@@ -1,4 +1,4 @@
-package flixel.system.layer.frames;
+package flixel.graphics.frames;
 
 import flash.display.BitmapData;
 import flash.geom.Matrix;
