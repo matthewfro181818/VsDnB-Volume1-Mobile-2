@@ -8,7 +8,7 @@ import data.song.SongRegistry;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.FlxGraphic;
-import flixel.group.FlxSpriteGroup; // ✔ correct import
+import flixel.group.FlxTypedSpriteGroup;
 import flixel.text.FlxText;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.system.FlxAssets.FlxSoundAsset;
@@ -21,9 +21,6 @@ import play.song.Song;
 import ui.Cursor;
 import ui.menu.freeplay.FreeplayState;
 import util.PlatformUtil;
-
-// ❌ REMOVE THIS — do not redefine FlxSpriteGroup
-// typedef FlxSpriteGroup = FlxTypedSpriteGroup<FlxSprite>;
 
 typedef QueuedSound =
 {
