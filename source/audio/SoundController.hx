@@ -56,7 +56,6 @@ class SoundController
 	public static function add(sound:GameSound):GameSound
 	{
 		pool.add(sound);
-		FlxG.sound.list.add(sound);
 		return sound;
 	}
 
