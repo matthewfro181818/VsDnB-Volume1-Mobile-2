@@ -55,7 +55,7 @@ class FlxAnimation extends FlxBaseAnimation
 
     var _frameTimer:Float = 0;
 
-    override function set_curFrame(frame:Int):Int
+    function set_curFrame(frame:Int):Int
     {
         if (frame >= frames.length)
         {
