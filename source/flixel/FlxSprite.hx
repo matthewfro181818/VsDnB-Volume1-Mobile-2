@@ -1711,10 +1711,6 @@ class FlxSprite extends FlxObject
 	inline function checkFlipX():Bool
 	{
 		var doFlipX = (flipX != _frame.flipX);
-		if (animation.curAnim != null)
-		{
-			return doFlipX != animation.curAnim.flipX;
-		}
 		return doFlipX;
 	}
 
