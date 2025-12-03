@@ -8,17 +8,6 @@ import flixel.FlxG;
 class FlxAnimation extends FlxBaseAnimation
 {
 	/**
-	 * Animation frameRate - the speed in frames per second that the animation should play at.
-	 */
-	public var frameRate(default, set):Float;
-
-	/**
-	 * Keeps track of the current frame of animation.
-	 * This is NOT an index into the tile sheet, but the frame number in the animation object.
-	 */
-	public var curFrame(default, set):Int = 0;
-
-	/**
 	 * Accessor for `frames.length`
 	 */
 	public var numFrames(get, never):Int;
@@ -30,21 +19,6 @@ class FlxAnimation extends FlxBaseAnimation
 	 * those values will override this value.
 	 */
 	public var frameDuration:Float = 0;
-	
-	/**
-	 * Whether the current animation has finished.
-	 */
-	public var finished(default, null):Bool = true;
-
-	/**
-	 * Whether the current animation gets updated or not.
-	 */
-	public var paused:Bool = true;
-
-	/**
-	 * Whether or not the animation is looped.
-	 */
-	public var looped:Bool = true;
 
 	/**
 	 * The custom loop point for this animation.
@@ -56,22 +30,6 @@ class FlxAnimation extends FlxBaseAnimation
 	 * Whether or not this animation is being played backwards.
 	 */
 	public var reversed(default, null):Bool = false;
-
-	/**
-	 * Whether or not the frames of this animation are horizontally flipped
-	 */
-	public var flipX:Bool = false;
-
-	/**
-	 * Whether or not the frames of this animation are vertically flipped
-	 */
-	public var flipY:Bool = false;
-
-	/**
-	 * A list of frames stored as int indices
-	 * @since 4.2.0
-	 */
-	public var frames:Array<Int>;
 	
 	/**
 	 * How fast or slow time should pass for this animation.
