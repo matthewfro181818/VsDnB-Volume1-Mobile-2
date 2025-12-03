@@ -1,102 +1,152 @@
 package flixel.animation;
 
 import flixel.FlxG;
+import flixel.graphics.frames.FlxFrame;
 
+/**
+ * Modernized FlxAnimation compatible with Flixel 5.3.1.
+ * No prerotated / FlxAnimate references.
+ */
 class FlxAnimation extends FlxBaseAnimation
 {
-	public var numFrames(get, never):Int;
+	public var frames:Array<Int> = [];
+	public var flipX:Bool = false;
+	public var flipY:Bool = false;
 
-	public var frameDuration:Float = 0;
-	public var loopPoint:Int = 0;
-	public var reversed:Bool = false;
-	public var timeScale:Float = 1.0;
+	// current frame's FlxFrame
+	public var frame(default, null):FlxFrame;
 
-	var _frameTimer:Float = 0;
+	public function new(
+		parent:FlxAnimationController,
+		name:String,
+		frames:Array<Int>,
+		frameRate:Float,
+		looped:Bool,
+		flipX:Bool,
+		flipY:Bool
+	){
+		super(parent, name);
+		this.frames = frames.copy();
+		this.frameRate = frameRate;
+		this.looped = looped;
+		this.flipX = flipX;
+		this.flipY = flipY;
 
-	public function new(controller:FlxAnimationController, name:String, frames:Array<Int>, frameRate:Float, looped:Bool, flipX:Bool, flipY:Bool)
-	{
-		super(controller, name, frames, frameRate, looped, flipX, flipY);
-		set_frameRate(frameRate);
-	}
-
-	override public function play(Force:Bool=false, Reversed:Bool=false, Frame:Int=0)
-	{
-		reversed = Reversed;
-		paused = false;
-		finished = frameDuration == 0;
-		_frameTimer = 0;
-
-		var max:Int = numFrames - 1;
-
-		if (Frame < 0)
-			curFrame = FlxG.random.int(0, max);
+		if (frameRate > 0)
+			delay = 1.0 / frameRate;
 		else
+			delay = 0;
+
+		if (frames.length > 0 && parent._sprite != null && parent._sprite.frames != null)
 		{
-			if (Frame > max) Frame = max;
-			if (reversed) Frame = max - Frame;
-			curFrame = Frame;
+			frame = parent._sprite.frames.frames[frames[0]];
 		}
-
-		applyFrame();
 	}
 
-	override public function stop()
+	override public function destroy():Void
 	{
-		paused = true;
-		finished = true;
+		frames = null;
+		frame = null;
+		super.destroy();
 	}
 
-	override public function reset()
-	{
-		stop();
-		curFrame = reversed ? (numFrames - 1) : 0;
-	}
+	// ------------------------------
+	// UPDATE
+	// ------------------------------
 
-	override public function finish()
+	override public function update(elapsed:Float):Void
 	{
-		stop();
-		curFrame = reversed ? 0 : (numFrames - 1);
-	}
-
-	override public function pause() paused = true;
-	override public function resume() paused = false;
-
-	override public function reverse()
-	{
-		reversed = !reversed;
-	}
-
-	override public function update(elapsed:Float)
-	{
-		if (finished || paused || frameDuration == 0)
+		if (paused || finished || frame == null || frames == null || frames.length == 0)
 			return;
 
-		_frameTimer += elapsed * timeScale;
+		timer += elapsed;
 
-		while (_frameTimer >= frameDuration)
+		while (timer >= delay && delay > 0)
 		{
-			_frameTimer -= frameDuration;
-			curFrame += reversed ? -1 : 1;
+			timer -= delay;
 
-			if (curFrame >= numFrames)
+			if (!reversed)
+				curFrame++;
+			else
+				curFrame--;
+
+			if (curFrame >= frames.length)
 			{
-				if (looped) curFrame = loopPoint;
-				else { finished = true; controller.fireFinishCallback(name); }
+				if (looped)
+					curFrame = 0;
+				else {
+					curFrame = frames.length - 1;
+					finish();
+					parent.fireFinishCallback(name);
+					return;
+				}
+				parent.fireLoopCallback(name);
 			}
 			else if (curFrame < 0)
 			{
-				if (looped) curFrame = numFrames - 1;
-				else { finished = true; controller.fireFinishCallback(name); }
+				if (looped)
+					curFrame = frames.length - 1;
+				else {
+					curFrame = 0;
+					finish();
+					parent.fireFinishCallback(name);
+					return;
+				}
+				parent.fireLoopCallback(name);
 			}
+		}
+
+		if (parent._sprite != null && parent._sprite.frames != null)
+		{
+			frame = parent._sprite.frames.frames[frames[curFrame]];
+			parent._sprite.set_frameIndex(frames[curFrame]);
+			parent.fireCallback();
 		}
 	}
 
-	public function set_frameRate(v:Float):Float
+	// ------------------------------
+	// CONTROLS
+	// ------------------------------
+
+	override public function reset():Void
 	{
-		frameRate = v;
-		frameDuration = (v <= 0 ? 0 : 1 / v);
-		return v;
+		super.reset();
+		frame = parent._sprite.frames.frames[frames[0]];
 	}
 
-	inline function get_numFrames():Int return frames.length;
+	override public function finish():Void
+	{
+		super.finish();
+	}
+
+	override public function pause():Void
+	{
+		super.pause();
+	}
+
+	override public function resume():Void
+	{
+		super.resume();
+	}
+
+	override public function reverse():Void
+	{
+		super.reverse();
+	}
+
+	override public function clone(parent:FlxAnimationController):FlxAnimation
+	{
+		return new FlxAnimation(
+			parent,
+			name,
+			frames,
+			frameRate,
+			looped,
+			flipX,
+			flipY
+		);
+	}
+
+	override function get_numFrames():Int
+		return frames != null ? frames.length : 0;
 }
