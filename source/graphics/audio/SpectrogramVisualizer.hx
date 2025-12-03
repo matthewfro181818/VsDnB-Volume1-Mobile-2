@@ -2,7 +2,7 @@ package graphics.audio;
 
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
-import flixel.sound.FlxSound;
+import flixel.system.FlxSound;
 import flixel.util.FlxColor;
 import flixel.util.FlxGradient;
 import openfl.display.BlendMode;
