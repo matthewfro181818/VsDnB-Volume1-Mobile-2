@@ -13,7 +13,6 @@ import flixel.util.FlxSignal.FlxTypedSignal;
  */
 class FlxAnimationController implements IFlxDestroyable
 {
-	public var curAnim(get, set):FlxAnimation;
 	public var frameIndex(default, set):Int = -1;
 	public var frameName(get, set):String;
 	public var name(get, set):String;
