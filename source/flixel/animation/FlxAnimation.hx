@@ -51,7 +51,8 @@ class FlxAnimation extends FlxBaseAnimation {
 	 * @param   flipX       Whether or not the frames of this animation are horizontally flipped.
 	 * @param   flipY       Whether or not the frames of this animation are vertically flipped.
 	 */
-	public function new(sprite:FlxAnimationController, name:String, frames:Array<Int>, frameRate = 0.0, looped = true, flipX = false, flipY = false) {
+	public function new(parent:FlxAnimationController, name:String, frames:Array<Int>, frameRate:Int = 0, looped:Bool = true, flipX:Bool = false,
+			flipY:Bool = false) {
 		super(sprite, name);
 
 		this.frameRate = frameRate;
@@ -166,7 +167,7 @@ class FlxAnimation extends FlxBaseAnimation {
 	}
 
 	function getCurrentFrameDuration():Float {
-		 return frameDuration;
+		return frameDuration;
 	}
 
 	override public function clone(newsprite:FlxAnimationController):FlxAnimation {
