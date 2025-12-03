@@ -347,11 +347,6 @@ class FlxGraphic implements IFlxDestroyable
 	public var atlasFrames(get, never):FlxAtlasFrames;
 
 	/**
-	 * Storage for all available frame collection of all types for this graphic object.
-	 */
-	var frameCollections:Map<Array<Dynamic>>;
-
-	/**
 	 * All types of frames collection which had been added to this graphic object.
 	 * It helps to avoid map iteration, which produces a lot of garbage.
 	 */
@@ -405,7 +400,6 @@ class FlxGraphic implements IFlxDestroyable
 		this.key = key;
 		this.persist = (persist != null) ? persist : defaultPersist;
 
-		frameCollections = new Map<Array<Dynamic>>();
 		this.bitmap = bitmap;
 
 		shader = new FlxShader();
@@ -450,11 +444,6 @@ class FlxGraphic implements IFlxDestroyable
 
 		assetsClass = null;
 		imageFrame = FlxDestroyUtil.destroy(imageFrame);
-
-		if (frameCollections == null) // no need to destroy frame collections if it's already null
-			return;
-
-		frameCollections = null;
 	}
 
 	/**
@@ -487,14 +476,6 @@ class FlxGraphic implements IFlxDestroyable
 			FlxG.log.warn('Invalid call to getFramesCollections on a destroyed graphic');
 			return [];
 		}
-		
-		var collections:Array<Dynamic> = frameCollections.get(type);
-		if (collections == null)
-		{
-			collections = new Array<FlxFramesCollection>();
-			frameCollections.set(type, collections);
-		}
-		return collections;
 	}
 
 	/**
