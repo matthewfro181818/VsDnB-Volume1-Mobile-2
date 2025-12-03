@@ -26,8 +26,9 @@ import flixel.util.FlxTimer;
 #if desktop
 import api.Discord.DiscordClient;
 #end
-
 using StringTools;
+
+typedef FlxSpriteGroup = flixel.group.FlxSpriteGroup;
 
 typedef StoryModeRender = 
 {
