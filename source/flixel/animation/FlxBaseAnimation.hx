@@ -1,8 +1,5 @@
 package flixel.animation;
 
-import flixel.FlxG;
-import flixel.FlxSprite;
-
 class FlxBaseAnimation
 {
 	public var name:String;
@@ -16,7 +13,7 @@ class FlxBaseAnimation
 	public var paused:Bool = false;
 	public var curFrame:Int = 0;
 
-	var controller:FlxAnimationController;
+	public var controller:FlxAnimationController;
 	var timer:Float = 0;
 
 	public function new(controller:FlxAnimationController, name:String, frames:Array<Int>, frameRate:Float, looped:Bool, flipX:Bool, flipY:Bool)
@@ -30,14 +27,14 @@ class FlxBaseAnimation
 		this.flipY = flipY;
 	}
 
-	public function play(force:Bool = false, reversed:Bool = false, startFrame:Int = 0)
+	public function play(force:Bool=false, reversed:Bool=false, startFrame:Int=0)
 	{
 		finished = false;
 		paused = false;
 
 		if (force)
 		{
-			curFrame = 0;
+			curFrame = startFrame;
 			timer = 0;
 		}
 		else if (startFrame >= 0)
@@ -54,7 +51,7 @@ class FlxBaseAnimation
 			return;
 
 		timer += dt;
-		var duration = 1 / frameRate;
+		var duration:Float = 1 / frameRate;
 
 		while (timer >= duration)
 		{
@@ -85,16 +82,9 @@ class FlxBaseAnimation
 		applyFrame();
 	}
 
-	function applyFrame()
-	{
-		if (frames.length == 0)
-			return;
-	}
+	function applyFrame() {}
 
-	public function stop()
-	{
-		paused = true;
-	}
+	public function stop() paused = true;
 
 	public function reset()
 	{
@@ -112,19 +102,13 @@ class FlxBaseAnimation
 		applyFrame();
 	}
 
-	public function pause()
-	{
-		paused = true;
-	}
+	public function pause() paused = true;
 
-	public function resume()
-	{
-		paused = false;
-	}
+	public function resume() paused = false;
 
 	public function reverse()
 	{
 		frames.reverse();
-		curFrame = Std.int(Math.abs(curFrame - (frames.length - 1)));
+		curFrame = frames.length - 1 - curFrame;
 	}
 }
