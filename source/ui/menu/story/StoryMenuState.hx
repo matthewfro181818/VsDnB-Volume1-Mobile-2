@@ -65,8 +65,8 @@ class StoryMenuState extends MusicBeatState
 
 	var grpWeekText:FlxTypedGroup<MenuItem>;
 
-	var grpLocks:FlxTypedGroup;
-
+	var grpLocks:FlxTypedGroup<FlxSprite>;
+	
 	var weeks:Array<Week> = [
 		// WARMUP
 		new Week(['warmup'], LanguageManager.getTextString('story_tutorial'), [0xFF8A42B7], 'warmup', {
@@ -158,7 +158,7 @@ class StoryMenuState extends MusicBeatState
 		var blackBarThingie:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, 57, FlxColor.BLACK);
 		add(blackBarThingie);
 
-		grpLocks = new FlxTypedGroup();
+		grpLocks = new FlxTypedGroup<FlxSprite>();
 		add(grpLocks);
 
 		for (i in 0...weeks.length)
