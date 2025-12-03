@@ -4,7 +4,6 @@ package openfl.media;
 import openfl.events.Event;
 import openfl.events.EventDispatcher;
 import openfl.media.SoundTransform;
-
 #if lime
 import lime.media.AudioSource;
 #end
@@ -13,7 +12,6 @@ import lime.media.AudioSource;
 	// -----------------------------------------------------
 	// PUBLIC PROPERTIES
 	// -----------------------------------------------------
-
 	public var leftPeak(get, null):Float;
 	public var rightPeak(get, null):Float;
 
@@ -28,7 +26,6 @@ import lime.media.AudioSource;
 	// -----------------------------------------------------
 	// INTERNAL FIELDS
 	// -----------------------------------------------------
-
 	@:noCompletion private var __soundTransform:SoundTransform;
 	@:noCompletion private var __left:Float = 0;
 	@:noCompletion private var __right:Float = 0;
@@ -39,6 +36,7 @@ import lime.media.AudioSource;
 	@:noCompletion private var __source:AudioSource;
 
 	@:noCompletion private var __audioSource(get, never):AudioSource;
+
 	private function get___audioSource():AudioSource {
 		return __source;
 	}
@@ -251,7 +249,6 @@ import lime.media.AudioSource;
 		dispatchEvent(new Event(Event.SOUND_COMPLETE));
 	}
 }
-
 #else
 typedef SoundChannel = flash.media.SoundChannel;
 #end
