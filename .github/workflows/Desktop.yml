@@ -49,6 +49,7 @@ jobs:
           haxelib install hxCodec
           haxelib install hscript-iris
           haxelib install hxvlc
+          haxelib install flxanimate
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
           haxelib list
       - name: Create Version Tag
