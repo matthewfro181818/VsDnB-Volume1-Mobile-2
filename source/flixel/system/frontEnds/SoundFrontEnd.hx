@@ -1,59 +1,71 @@
 package flixel.system.frontEnds;
 
-import flixel.FlxG;
 import flixel.sound.FlxSound;
 import flixel.sound.FlxSoundGroup;
+import flixel.util.FlxSignal;
 
+/**
+ * Modernized SoundFrontEnd for Flixel 5.3.1 compatibility
+ * + Psych Engine compatibility layer.
+ */
 class SoundFrontEnd
 {
-	public var list(default, null):Array<FlxSound> = [];
-	public var muteKeys:Array<Int> = [];
-	public var volumeDownKeys:Array<Int> = [];
-	public var volumeUpKeys:Array<Int> = [];
+    // Flixel-managed groups
+    public var list(default, null):Array<FlxSound> = [];
+    public var defaultGroup:FlxSoundGroup;
 
-	public var soundGroup(default, null):FlxSoundGroup;
+    // Psych compatibility events
+    public var onSoundCreated:FlxTypedSignal<FlxSound->Void>;
 
-	public function new()
-	{
-		soundGroup = new FlxSoundGroup();
-	}
+    public function new()
+    {
+        defaultGroup = new FlxSoundGroup("default");
+        onSoundCreated = new FlxTypedSignal<FlxSound->Void>();
+    }
 
-	public function destroy():Void
-	{
-		for (s in list)
-			s.destroy();
+    /** COMPAT: Psych Engine expects destroy(), but Flixel 5 removed it */
+    public function destroy():Void
+    {
+        for (s in list)
+            s.kill();
+        list.resize(0);
+    }
 
-		list.resize(0);
-		soundGroup.destroy();
-	}
+    /** COMPAT: Psych Engine expects update(), but Flixel 5 removed it */
+    public function update():Void
+    {
+        // No-op for compatibility
+        // Flixel 5 handles sounds differently now
+    }
 
-	public function update():Void
-	{
-		for (s in list)
-		{
-			if (s != null && !s.destroyed)
-				s.update();
-		}
-	}
+    // ----------------------------------------------------------------------
+    // Modern Flixel 5 wrappers
+    // ----------------------------------------------------------------------
 
-	public function play(sound:FlxSound):FlxSound
-	{
-		list.push(sound);
-		return sound;
-	}
+    public function play(path:String, volume:Float = 1, looped:Bool = false):FlxSound
+    {
+        var s = new FlxSound();
+        s.loadEmbedded(path, looped, false);
+        s.volume = volume;
+        s.play();
 
-	public function remove(sound:FlxSound):Void
-	{
-		list.remove(sound);
-	}
+        list.push(s);
+        defaultGroup.add(s);
 
-	public function pause():Void
-	{
-		for (s in list) if (s != null) s.pause();
-	}
+        onSoundCreated.dispatch(s);
 
-	public function resume():Void
-	{
-		for (s in list) if (s != null) s.resume();
-	}
+        return s;
+    }
+
+    public function pause():Void
+        for (s in list) s.pause();
+
+    public function resume():Void
+        for (s in list) s.resume();
+
+    public function stop():Void
+        for (s in list) s.stop();
+
+    public function reset():Void
+        for (s in list) s.stop();
 }
