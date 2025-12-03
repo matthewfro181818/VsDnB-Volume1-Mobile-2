@@ -537,6 +537,12 @@ class Dialogue extends FlxSpriteGroup
 
     public function fetchData(id:String):DialogueData
         return DialogueRegistry.instance.parseEntryDataWithMigration(id);
+                    
+public function onScriptEvent(event:ScriptEvent):Void
+{
+    // Relay events to dialogue children
+    dispatchToChildren(event);
+}
 
     public function onScriptEventPost(event:ScriptEvent):Void {}
     public function onPreferenceChanged(event:PreferenceScriptEvent):Void {}
