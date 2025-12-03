@@ -114,11 +114,6 @@ import lime.media.AudioSource;
 		if (v != null) {
 			__soundTransform.pan = v.pan;
 			__soundTransform.volume = v.volume;
-
-			#if lime
-			if (__valid)
-				__source.gain = SoundMixer.__soundTransform.volume * __soundTransform.volume;
-			#end
 		}
 		return v;
 	}
