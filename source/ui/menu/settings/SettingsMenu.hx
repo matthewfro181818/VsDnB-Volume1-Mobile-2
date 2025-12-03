@@ -84,12 +84,12 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 	/**
 	 * The group that holds all the objects in the menu. This exists to help with transitions.
 	 */
-	var clipboard:FlxSpriteGroup = new FlxSpriteGroup();
+	var clipboard:FlxSpriteGroup = new FlxSpriteGroup<FlxSprite>();
 
 	/**
 	 * The group that contains all of elements of the selected category.
 	 */
-	public var categorySelectGroup:FlxSpriteGroup = new FlxSpriteGroup();
+	public var categorySelectGroup:FlxSpriteGroup = new FlxSpriteGroup<FlxSprite>();
 
 	/**
 	 * The sprite that holds all of the settings.
@@ -418,7 +418,7 @@ typedef BaseOptionParams =
 	var description:String;
 }
 
-class SettingsOption extends FlxSpriteGroup
+class SettingsOption extends FlxSpriteGroup<FlxSprite>
 {
 	public var menu:SettingsMenu;
 
