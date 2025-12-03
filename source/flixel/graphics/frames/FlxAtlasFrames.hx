@@ -5,6 +5,7 @@ import flixel.graphics.atlas.AtlasBase;
 import flixel.graphics.atlas.TexturePackerAtlas;
 import flixel.graphics.frames.FlxFrame;
 import flixel.graphics.frames.FlxFramesCollection;
+import flixel.graphics.frames.FlxFramesCollection.FlxFrameCollectionType;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.system.FlxAssets;
