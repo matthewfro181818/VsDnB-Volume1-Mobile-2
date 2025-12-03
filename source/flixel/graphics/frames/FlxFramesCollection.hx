@@ -45,21 +45,14 @@ class FlxFramesCollection implements IFlxDestroyable
 	public var parent:FlxGraphic;
 
 	/**
-	 * Type of this frame collection.
-	 * Used for faster type detection (less casting).
-	 */
-	public var type(default, null):FlxFrameCollectionType;
-
-	/**
 	 * How much space was trimmed around the original frames.
 	 * Use `addBorder()` to add borders.
 	 */
 	public var border(default, null):FlxPoint;
 
-	public function new(parent:FlxGraphic, ?type:FlxFrameCollectionType, ?border:FlxPoint)
+	public function new(parent:FlxGraphic, ?border:FlxPoint)
 	{
 		this.parent = parent;
-		this.type = type;
 		this.border = (border == null) ? FlxPoint.get() : border;
 		frames = [];
 		framesByName = new Map<String, FlxFrame>();
@@ -135,7 +128,6 @@ class FlxFramesCollection implements IFlxDestroyable
 		border = FlxDestroyUtil.put(border);
 		framesByName = null;
 		parent = null;
-		type = null;
 	}
 
 	/**
@@ -148,7 +140,6 @@ class FlxFramesCollection implements IFlxDestroyable
 	public function addEmptyFrame(size:FlxRect):FlxFrame
 	{
 		var frame = new FlxFrame(parent);
-		frame.type = FlxFrameType.EMPTY;
 		frame.frame = FlxRect.get();
 		frame.sourceSize.set(size.width, size.height);
 		frames.push(frame);
@@ -392,7 +383,7 @@ class FlxFramesCollection implements IFlxDestroyable
 
 	public function toString():String
 	{
-		return FlxStringUtil.getDebugString([LabelValuePair.weak("frames", frames), LabelValuePair.weak("type", type)]);
+		return FlxStringUtil.getDebugString([LabelValuePair.weak("frames", frames), LabelValuePair.weak("type")]);
 	}
 
 	inline function get_numFrames():Int
