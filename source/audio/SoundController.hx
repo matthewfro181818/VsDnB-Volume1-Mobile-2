@@ -67,7 +67,6 @@ class SoundController
 	public static function remove(sound:GameSound):GameSound
 	{
 		pool.remove(sound);
-		FlxG.sound.list.remove(sound);
 		return sound;
 	}
 
