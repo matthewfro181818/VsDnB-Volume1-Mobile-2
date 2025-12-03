@@ -350,13 +350,13 @@ class FlxGraphic implements IFlxDestroyable
 	/**
 	 * Storage for all available frame collection of all types for this graphic object.
 	 */
-	var frameCollections:Map<Array<Dynamic>;
+	var frameCollections:Map<Array<Dynamic>>;
 
 	/**
 	 * All types of frames collection which had been added to this graphic object.
 	 * It helps to avoid map iteration, which produces a lot of garbage.
 	 */
-	var frameCollectionTypes:Map<Array<Dynamic>;
+	var frameCollectionTypes:Map<Array<Dynamic>>;
 
 	/**
 	 * Shows whether this object unique in cache or not.
