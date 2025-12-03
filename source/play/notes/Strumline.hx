@@ -181,17 +181,17 @@ class Strumline extends FlxSpriteGroup
 	/**
 	 * A group containing notes that have been used, but are able to be recycled.
 	 */
-	private var recyclableNotes(default, null):FlxTypedGroup = new FlxTypedGroup();
+	private var recyclableNotes(default, null):FlxTypedGroup<Note> = new FlxTypedGroup<Note>();
 	
 	/**
 	 * A group containing hold notes that have been used, but are able to be recycled.
 	 */
-	private var recyclableHoldNotes(default, null):FlxTypedGroup = new FlxTypedGroup();
+	private var recyclableHoldNotes(default, null):FlxTypedGroup<SustainNote> = new FlxTypedGroup<SustainNote>();
 
 	/**
 	 * A group containing hold covers that have been used, but are able to be recycled.
 	 */
-	private var recyclableHoldCovers(default, null):FlxTypedGroup = new FlxTypedGroup();
+	private var recyclableHoldCovers(default, null):FlxTypedGroup<HoldCover> = new FlxTypedGroup<HoldCover>();
 
 
 	// SIGNALS // 
