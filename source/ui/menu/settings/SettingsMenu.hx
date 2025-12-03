@@ -11,7 +11,6 @@ import flixel.math.FlxPoint;
 import flixel.math.FlxPoint.FlxCallbackPoint;
 import flixel.group.FlxGroup;
 import flixel.group.FlxSpriteGroup;
-import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -84,12 +83,12 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 	/**
 	 * The group that holds all the objects in the menu. This exists to help with transitions.
 	 */
-	var clipboard:FlxSpriteGroup = new FlxSpriteGroup<FlxSprite>();
+	var clipboard:FlxSpriteGroup = new FlxSpriteGroup();
 
 	/**
 	 * The group that contains all of elements of the selected category.
 	 */
-	public var categorySelectGroup:FlxSpriteGroup = new FlxSpriteGroup<FlxSprite>();
+	public var categorySelectGroup:FlxSpriteGroup = new FlxSpriteGroup();
 
 	/**
 	 * The sprite that holds all of the settings.
@@ -418,7 +417,7 @@ typedef BaseOptionParams =
 	var description:String;
 }
 
-class SettingsOption extends FlxSpriteGroup<FlxSprite>
+class SettingsOption extends FlxSpriteGroup
 {
 	public var menu:SettingsMenu;
 
