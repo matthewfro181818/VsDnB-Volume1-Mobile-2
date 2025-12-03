@@ -93,7 +93,7 @@ class MathGameState extends MusicBeatState
 	/**
 	 * The group that holds the players resulting for each question.
 	 */
-	var resultsGroup:FlxSpriteGroup<FlxSprite>;
+	var resultsGroup:FlxSpriteGroup;
 
 	/**
 	 * The baldi display shown on the YCTP.
