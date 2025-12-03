@@ -125,8 +125,8 @@ class FlxAnimationController implements IFlxDestroyable
 	{
 		if (_curAnim != null)
 		{
-			// FlxFrame has no update(): use updateUV()
-           _curAnim.updateUV();
+			// No update needed for FlxFrame.
+            // Frame changes are handled by FlxAnimation, not FlxFrame.
         }
 		else if (_prerotated != null)
 		{
