@@ -87,17 +87,8 @@ class FlxBaseAnimation
 
 	function applyFrame()
 	{
-		var sprite = controller._sprite;
-
-		if (frames.length == 0 || sprite == null || sprite.frames == null)
+		if (frames.length == 0)
 			return;
-
-		var idx = frames[curFrame];
-		if (idx < 0 || idx >= sprite.frames.frames.length)
-			return;
-
-		sprite.frame = sprite.frames.frames[idx];
-		(sprite:FlxSprite).dirty = true;
 	}
 
 	public function stop()
