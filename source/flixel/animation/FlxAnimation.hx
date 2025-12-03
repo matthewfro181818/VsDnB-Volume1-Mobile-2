@@ -151,20 +151,20 @@ class FlxAnimation extends FlxBaseAnimation {
 			if (reversed) {
 				if (looped && curFrame == loopPoint) {
 					curFrame = numFrames - 1;
-					sprite.fireLoopCallback(name);
+					parent.fireLoopCallback(name);
 				} else {
 					curFrame--;
 				}
 			} else {
 				if (looped && curFrame == numFrames - 1) {
 					curFrame = loopPoint;
-					sprite.fireLoopCallback(name);
+					parent.fireLoopCallback(name);
 				} else {
 					curFrame++;
 				}
 			}
 
-			// prevents null ref when the sprite is destroyed on finishCallback (#2782)
+			// prevents null ref when the parent is destroyed on finishCallback (#2782)
 			if (finished)
 				break;
 
