@@ -198,8 +198,6 @@ class FlxAnimation extends FlxBaseAnimation
 
 	function getCurrentFrameDuration()
 	{
-		final curframeDuration = sprite.getFrameDuration(frames[curFrame]);
-		return curframeDuration > 0 ? curframeDuration : frameDuration;
 	}
 
 	override public function clone(newsprite:FlxAnimationController):FlxAnimation
