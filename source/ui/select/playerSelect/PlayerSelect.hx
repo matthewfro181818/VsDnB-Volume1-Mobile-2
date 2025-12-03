@@ -181,7 +181,7 @@ abstract class PlayerSelect extends MusicBeatState
             if (controls.BACK)
             {
                 SoundController.playMusic(Paths.music('freakyMenu'));
-                FlxG.switchState(() -> new FreeplayState());
+                FlxG.switchState(new FreeplayState());
             }
             if (controls.LEFT_P)
                 changeSelection(-1);
