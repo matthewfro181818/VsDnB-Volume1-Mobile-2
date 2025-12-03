@@ -58,8 +58,6 @@ import lime.media.AudioSource;
 			__source.play();
 		}
 		#end
-
-		SoundMixer.__registerSoundChannel(this);
 	}
 
 	// -----------------------------------------------------
