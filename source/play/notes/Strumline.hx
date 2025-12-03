@@ -1020,7 +1020,7 @@ class Strumline extends FlxSpriteGroup
 	 * Gets a list of notes that are within the hit window.
 	 * @return A list of note that this strumline is able to hit.
 	 */
-	public function getPossibleNotes():Array
+	public function getPossibleNotes():Array<Note>
 	{
 		return notes.members.filter(function(note:Note) {
 			return note != null && note.alive && note.canBeHit && !note.tooEarly && !note.tooLate && !note.hasBeenHit;
