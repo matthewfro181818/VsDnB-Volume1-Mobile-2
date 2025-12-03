@@ -1,5 +1,6 @@
 package flixel;
 
+import flixel.util.FlxColor;
 import flixel.animation.FlxAnimationController;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxFrame;
