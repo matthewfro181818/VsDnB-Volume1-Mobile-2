@@ -21,7 +21,7 @@ import flixel.util.FlxDestroyUtil;
  * `FlxSpriteContainer` instead of `FlxSpriteContainer`.
  * @since 5.7.0
  */
-typedef FlxSpriteContainer = FlxTypedSpriteContainer<FlxSprite>;
+typedef FlxSpriteGroup = FlxSpriteContainer;
 
 /**
  * A `FlxSpriteContainer` that only allows specific members to be a specific type of `FlxSprite`.
