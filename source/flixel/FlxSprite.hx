@@ -5,6 +5,7 @@ import flixel.animation.FlxAnimationController;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxFrame;
 import flixel.graphics.frames.FlxFramesCollection;
+import flixel.graphics.frames.FlxFramesCollection.FlxFrameCollectionType;
 import flixel.graphics.frames.FlxTileFrames;
 import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
