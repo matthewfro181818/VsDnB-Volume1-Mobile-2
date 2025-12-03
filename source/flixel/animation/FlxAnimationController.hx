@@ -706,7 +706,7 @@ class FlxAnimationController implements IFlxDestroyable
 	function fireCallback():Void
 	{
 		final name = (_curAnim != null) ? (_curAnim.name) : null;
-		final number = (_curAnim != null) ? (_curAnim.curFrame) : frameIndex;
+		final number = (_curAnim != null) ? _curAnim.curFrame : frameIndex;
 		if (callback != null)
 		{
 			callback(name, number, frameIndex);
