@@ -18,14 +18,6 @@ import flixel.util.FlxColor;
 import openfl.utils.Assets;
 import play.notes.Note;
 import scripting.events.ScriptEvent;
-import scripting.events.NoteScriptEvent;
-import scripting.events.GhostNoteScriptEvent;
-import scripting.events.HoldNoteScriptEvent;
-import scripting.events.CountdownScriptEvent;
-import scripting.events.CameraScriptEvent;
-import scripting.events.UpdateScriptEvent;
-import scripting.events.PreferenceScriptEvent;
-import scripting.events.ConductorScriptEvent;
 import scripting.events.ScriptEventDispatcher;
 import scripting.IScriptedClass.IPlayStateScriptedClass;
 
