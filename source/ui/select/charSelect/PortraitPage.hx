@@ -4,7 +4,7 @@ import flixel.group.FlxSpriteGroup;
 import ui.select.CharacterPortrait;
 import play.player.PlayableCharacter;
 
-class PortraitPage extends FlxSpriteGroup<CharacterPortrait>
+class PortraitPage extends FlxSpriteGroup
 {
     var characters:Array<PlayableCharacter>;
 
