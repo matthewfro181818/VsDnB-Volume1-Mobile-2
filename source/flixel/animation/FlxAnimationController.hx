@@ -40,10 +40,11 @@ class FlxAnimationController implements IFlxDestroyable
 
 	var _animations:Map<String, FlxAnimation> = new Map();
 
-	public function new(sprite:FlxSprite)
-	{
-		_sprite = sprite;
-	}
+    public function new(parent:FlxAnimationController, name:String)
+    {
+        this.parent = parent;
+        this.name = name;
+    }
 
 	public function update(elapsed:Float):Void
 	{
