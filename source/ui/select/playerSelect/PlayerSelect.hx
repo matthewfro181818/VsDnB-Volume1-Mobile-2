@@ -120,7 +120,7 @@ abstract class PlayerSelect extends MusicBeatState
     /**
      * The group that holds all of the current rendering portraits.
      */
-    var portraitGroup:FlxSpriteGroup<CharacterPortrait> = new FlxSpriteGroup<CharacterPortrait>();
+    var portraitGroup:FlxSpriteGroup = new FlxSpriteGroup();
     
 	/**
 	 * The text that displays the current player selected.
