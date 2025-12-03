@@ -209,7 +209,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
                 holdTimer = 0;
                 dance(true);
             }
-        });
+        }
 
         setupConductor(conductor);
         load();
