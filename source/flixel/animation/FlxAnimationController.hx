@@ -17,7 +17,6 @@ class FlxAnimationController implements IFlxDestroyable
 	public var frameIndex(default, set):Int = -1;
 	public var frameName(get, set):String;
 	public var name(get, set):String;
-	public var paused(get, set):Bool;
 
 	public var numFrames(get, never):Int;
 	@:deprecated("frames is deprecated, use numFrames")
