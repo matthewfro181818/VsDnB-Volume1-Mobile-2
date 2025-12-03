@@ -198,21 +198,22 @@ class SustainNote extends FlxSprite
 	 */
 	var holdFrame(get, never):FlxFrame;
 
-	function get_holdFrame():FlxFrame
-	{
-		return frames?.frames[holdAnimation?.frames[holdAnimation?.curFrame]] ?? null;
-	}
-
+function get_holdFrame():FlxFrame
+{
+	if (holdAnimation == null) return null;
+	return holdAnimation.frame;
+}
 	/**
 	 * The current frame of the 'end' animation.
 	 * Helps to calculate the UV data to render onto the sprite.
 	 */
 	var holdEndFrame(get, never):FlxFrame;
 
-	function get_holdEndFrame():FlxFrame
-	{
-		return frames?.frames[holdEndAnimation?.frames[holdEndAnimation?.curFrame]] ?? null;
-	}
+function get_holdEndFrame():FlxFrame
+{
+	if (holdEndAnimation == null) return null;
+	return holdEndAnimation.frame;
+}
 
 	// VARIABLES // 
 
