@@ -117,7 +117,7 @@ class SubtitleManager extends FlxSpriteGroup implements IRegistryEntry<SongSubti
      */
     public function onScriptEvent(event:ScriptEvent):Void
     {
-       subtitles.forEach(function(sprite:FlxSprite)
+       this.forEach(function(sprite:FlxSprite)
        {
             sprite.alpha = 1;
        });
