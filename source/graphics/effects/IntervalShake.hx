@@ -16,7 +16,7 @@ import flixel.tweens.FlxEase.EaseFunction;
  */
 class IntervalShake implements IFlxDestroyable
 {
-	static var _pool:FlxPool<IntervalShake> = new FlxPool<IntervalShake>(IntervalShake.new);
+	static var _pool:FlxPool<IntervalShake> = new FlxPool<IntervalShake>(IntervalShake);
 
 	/**
 	 * Internal map for looking up which objects are currently shaking and getting their shake data.
