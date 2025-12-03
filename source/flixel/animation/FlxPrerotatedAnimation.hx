@@ -1,62 +1,37 @@
 package flixel.animation;
 
+import flixel.FlxSprite;
+import flixel.math.FlxAngle;
+import flixel.util.FlxDestroyUtil;
+
 /**
- * @author Zaphod
+ * Generates baked rotated copies for fast rotation display.
  */
-class FlxPrerotatedAnimation extends FlxBaseAnimation
+class FlxPrerotatedAnimation implements IFlxDestroyable
 {
-	public static inline var PREROTATED:String = "prerotated_animation";
-
-	var rotations:Int;
-
-	var baked:Float;
-
-	public function new(Parent:FlxAnimationController, Baked:Float)
-	{
-		super(Parent, PREROTATED);
-		baked = Baked;
-		rotations = Math.round(360 / Baked);
-	}
-
 	public var angle(default, set):Float = 0;
 
-	function set_angle(Value:Float):Float
+	var _controller:FlxAnimationController;
+	var _sprite:FlxSprite;
+	var _bakedAngle:Float;
+
+	public function new(controller:FlxAnimationController, bakedAngle:Float)
 	{
-		if (Math.isNaN(Value))
-			throw "angle must not be NaN";
-
-		var oldIndex:Int = curIndex;
-		var angleHelper:Int = Math.floor(Value % 360);
-
-		while (angleHelper < 0)
-		{
-			angleHelper += 360;
-		}
-
-		var newIndex:Int = Math.floor(angleHelper / baked + 0.5);
-		newIndex = Std.int(newIndex % rotations);
-		if (oldIndex != newIndex)
-		{
-			curIndex = newIndex;
-		}
-
-		return angle = Value;
+		_controller = controller;
+		_sprite = controller._sprite;
+		_bakedAngle = bakedAngle;
 	}
 
-	override function set_curIndex(Value:Int):Int
+	function set_angle(v:Float):Float
 	{
-		curIndex = Value;
-
-		if (parent != null)
-		{
-			parent.frameIndex = Value;
-		}
-
-		return Value;
+		var snapped = FlxAngle.wrapAngle(v);
+		_sprite.angle = snapped - (snapped % _bakedAngle);
+		return angle = v;
 	}
 
-	override public function clone(Parent:FlxAnimationController):FlxPrerotatedAnimation
+	public function destroy():Void
 	{
-		return new FlxPrerotatedAnimation(Parent, baked);
+		_controller = null;
+		_sprite = null;
 	}
 }
