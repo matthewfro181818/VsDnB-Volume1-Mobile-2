@@ -2,8 +2,8 @@ package audio;
 
 import audio.GameSound;
 import flixel.FlxG;
-import flixel.sound.FlxSound;
-import flixel.sound.FlxSoundGroup;
+import flixel.system.FlxSound;
+import flixel.system.FlxSoundGroup;
 import flixel.system.FlxAssets.FlxSoundAsset;
 import flixel.system.frontEnds.SoundFrontEnd;
 import flixel.system.FlxAssets.FlxSoundAsset;
