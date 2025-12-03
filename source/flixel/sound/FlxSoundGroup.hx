@@ -1,30 +1,28 @@
 package flixel.sound;
 
-import flixel.sound.FlxSound;
-
 class FlxSoundGroup
 {
-    public var volume:Float = 1;
-    public var sounds:Array<FlxSound> = [];
+	public var members:Array<FlxSound> = [];
 
-    public function new() {}
+	public function new() {}
 
-    public function add(s:FlxSound):Void
-    {
-        if (sounds.indexOf(s) == -1)
-            sounds.push(s);
-    }
+	public function destroy():Void
+	{
+		members.resize(0);
+	}
 
-    public function remove(s:FlxSound):Void
-    {
-        var i = sounds.indexOf(s);
-        if (i != -1) sounds.splice(i, 1);
-    }
+	public function add(sound:FlxSound):Void
+	{
+		members.push(sound);
+	}
 
-    public function setVolume(v:Float):Void
-    {
-        volume = v;
-        for (s in sounds)
-            s.updateTransform(); // our FlxSound supports this
-    }
+	public function pause():Void
+	{
+		for (s in members) if (s != null) s.pause();
+	}
+
+	public function resume():Void
+	{
+		for (s in members) if (s != null) s.resume();
+	}
 }
