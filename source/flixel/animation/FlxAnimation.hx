@@ -52,9 +52,9 @@ class FlxAnimation extends FlxBaseAnimation
 	 * @param   flipX       Whether or not the frames of this animation are horizontally flipped.
 	 * @param   flipY       Whether or not the frames of this animation are vertically flipped.
 	 */
-	public function new(parent:FlxAnimationController, name:String, frames:Array<Int>, frameRate = 0.0, looped = true, flipX = false, flipY = false)
+	public function new(sprite:FlxAnimationController, name:String, frames:Array<Int>, frameRate = 0.0, looped = true, flipX = false, flipY = false)
 	{
-		super(parent, name);
+		super(sprite, name);
 
 		this.frameRate = frameRate;
 		this.frames = frames;
@@ -110,7 +110,7 @@ class FlxAnimation extends FlxBaseAnimation
 		}
 
 		if (finished)
-			parent.fireFinishCallback(name);
+			sprite.fireFinishCallback(name);
 	}
 
 	public function restart():Void
@@ -168,7 +168,7 @@ class FlxAnimation extends FlxBaseAnimation
 				if (looped && curFrame == loopPoint)
 				{
 					curFrame = numFrames - 1;
-					parent.fireLoopCallback(name);
+					sprite.fireLoopCallback(name);
 				}
 				else
 				{
@@ -180,7 +180,7 @@ class FlxAnimation extends FlxBaseAnimation
 				if (looped && curFrame == numFrames - 1)
 				{
 					curFrame = loopPoint;
-					parent.fireLoopCallback(name);
+					sprite.fireLoopCallback(name);
 				}
 				else
 				{
@@ -198,13 +198,13 @@ class FlxAnimation extends FlxBaseAnimation
 
 	function getCurrentFrameDuration()
 	{
-		final curframeDuration = parent.getFrameDuration(frames[curFrame]);
+		final curframeDuration = sprite.getFrameDuration(frames[curFrame]);
 		return curframeDuration > 0 ? curframeDuration : frameDuration;
 	}
 
-	override public function clone(newParent:FlxAnimationController):FlxAnimation
+	override public function clone(newsprite:FlxAnimationController):FlxAnimation
 	{
-		return new FlxAnimation(newParent, name, frames, frameRate, looped, flipX, flipY);
+		return new FlxAnimation(newsprite, name, frames, frameRate, looped, flipX, flipY);
 	}
 
 	function set_frameRate(value:Float):Float
@@ -236,8 +236,8 @@ class FlxAnimation extends FlxBaseAnimation
 
 		curIndex = frames[curFrame];
 
-		if (finished && parent != null)
-			parent.fireFinishCallback(name);
+		if (finished && sprite != null)
+			sprite.fireFinishCallback(name);
 
 		return frame;
 	}
