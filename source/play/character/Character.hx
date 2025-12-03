@@ -532,4 +532,5 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
     public function onCountdownFinish(event:CountdownScriptEvent):Void {}
     public function onCameraMove(event:CameraScriptEvent):Void {}
     public function onCameraMoveSection(event:CameraScriptEvent):Void {}
+    public function onHoldNoteDrop(event:HoldNoteScriptEvent):Void {}
 }
