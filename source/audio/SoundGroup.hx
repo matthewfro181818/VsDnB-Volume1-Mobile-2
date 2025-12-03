@@ -1,7 +1,7 @@
 package audio;
 
-import flixel.sound.FlxSound;
-import flixel.sound.FlxSoundGroup;
+import flixel.system.FlxSound;
+import flixel.system.FlxSoundGroup;
 
 /**
  * Modernized SoundGroup (Flixel 5.3.1)
