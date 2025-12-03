@@ -1,6 +1,7 @@
 package flixel.system.layer.frames;
 
 import flixel.util.FlxDestroyUtil.IFlxDestroyable;
+import flixel.graphics.frames.FlxFrame;
 
 class FlxSpriteFrames implements IFlxDestroyable
 {
