@@ -2,6 +2,7 @@ package flixel.animation;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.animation.FlxAnimation;
 import flixel.graphics.frames.FlxFrame;
 import flixel.util.FlxDestroyUtil;
 import flixel.util.FlxSignal;
