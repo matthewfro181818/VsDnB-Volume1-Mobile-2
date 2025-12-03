@@ -58,12 +58,6 @@ class FlxAnimationController implements IFlxDestroyable
 	private var _sprite:FlxSprite;
 	
 	/**
-	 * Internal, currently playing animation.
-	 */
-	@:allow(flixel.animation)
-	private var _curAnim:FlxAnimation;
-	
-	/**
 	 * Internal, store all the _animations that were added to this sprite.
 	 */
 	private var _animations(default, null):Map<String, FlxAnimation>;
@@ -72,13 +66,140 @@ class FlxAnimationController implements IFlxDestroyable
 	 */
 	private static var prefixLength:Int = 0;
 	private static var postfixLength:Int = 0;
-	
-	private var _prerotated:FlxPrerotatedAnimation;
-	
-	public function new(Sprite:FlxSprite)
+
+	/**
+	 * The frame index of the current animation. Can be changed manually.
+	 */
+	public var frameIndex(default, set):Int = -1;
+
+	/**
+	 * Tell the sprite to change to a frame with specific name.
+	 * Useful for sprites with loaded TexturePacker atlas.
+	 */
+	public var frameName(get, set):String;
+
+	/**
+	 * Gets or sets the currently playing animation (warning: can be `null`).
+	 */
+	public var name(get, set):String;
+
+	/**
+	 * Pause or resume the current animation.
+	 */
+	public var paused(get, set):Bool;
+
+	/**
+	 * Whether the current animation has finished playing.
+	 */
+	public var finished(get, set):Bool;
+
+	/**
+	 * The total number of frames in this image.
+	 * WARNING: assumes each row in the sprite sheet is full!
+	 */
+	public var numFrames(get, never):Int;
+
+	/**
+	 * The total number of frames in this image.
+	 * WARNING: assumes each row in the sprite sheet is full!
+	 */
+	@:deprecated("frames is deprecated, use numFrames")
+	public var frames(get, never):Int;
+
+	/**
+	 * If assigned, will be called each time the current animation's frame changes.
+	 * A function that has 3 parameters: a string name, a frame number, and a frame index.
+	 */
+	public var callback:(name:String, frameNumber:Int, frameIndex:Int) -> Void;
+
+	/**
+	 * If assigned, will be called each time the current animation finishes.
+	 * A function that has 1 parameter: a string name - animation name.
+	 *
+	 * finishCallback is deprecated, use onFinish.add
+	 */
+	public var finishCallback:(name:String) -> Void;
+
+	/**
+	 * If assigned, will be called each time the current animation is played.
+	 *
+	 * playCallback is deprecated, use onPlay.add
+	 */
+	public var playCallback:(name:String, forced:Bool, reversed:Bool, frame:Int) -> Void;
+
+	/**
+	 * If assigned, will be called each time the current animation loops.
+	 *
+	 * loopCallback is deprecated, use onLoop.add
+	 */
+	public var loopCallback:(animName:String) -> Void;
+
+	/**
+	 * Dispatches each time the current animation's frame changes
+	 *
+	 * @param   animName     The name of the current animation
+	 * @param   frameNumber  The progress of the current animation, in frames
+	 * @param   frameIndex   The current animation's frameIndex in the tile sheet
+	 * @since 5.9.0
+	 */
+	public final onFrameChange = new FlxTypedSignal<(animName:String, frameNumber:Int, frameIndex:Int) -> Void>();
+
+	/**
+	 * Dispatches each time the current animation finishes.
+	 *
+	 * @param   animName  The name of the current animation
+	 * @since 5.9.0
+	 */
+	public final onFinish = new FlxTypedSignal<(animName:String) -> Void>();
+
+	/**
+	 * Dispatches each time the last frame of an animation finishes.
+	 * 
+	 * @param animName The name of the animation that ended
+	 */
+	public final onFinishEnd = new FlxTypedSignal<(animName:String) -> Void>();
+
+	/**
+	 * Dispatches each time the current animation is played.
+	 *
+	 * @param   animName     The name of the current animation
+	 * @param   forced       Whether the animation was forced to play
+	 * @param   reversed     Whether the animation was played in reverse
+	 * @param   frame        The current animation's frameIndex in the tile sheet
+	 * @since 5.9.0
+	 */
+	public final onPlay = new FlxTypedSignal<(animName:String, forced:Bool, reversed:Bool, frame:Int) -> Void>();
+
+	/**
+	 * Dispatches each time the current animation's loop is complete.
+	 * Works only with looped animations.
+	 *
+	 * @param   animName  The name of the current animation
+	 * @since 5.9.0
+	 */
+	public final onLoop = new FlxTypedSignal<(animName:String) -> Void>();
+
+	/**
+	 * How fast or slow time should pass for this animation controller
+	 */
+	public var timeScale:Float = 1.0;
+
+	/**
+	 * Internal, reference to owner sprite.
+	 */
+	var _sprite:FlxSprite;
+
+	/**
+	 * Internal, currently playing animation.
+	 */
+	@:allow(flixel.animation)
+	var _curAnim:FlxAnimation;
+
+	var _prerotated:FlxPrerotatedAnimation;
+
+	public function new(sprite:FlxSprite)
 	{
-		_sprite = Sprite;
-		_animations = new Map<String, FlxAnimation>();
+		_sprite = sprite;
 	}
 	
 	public function update(elapsed:Float):Void
