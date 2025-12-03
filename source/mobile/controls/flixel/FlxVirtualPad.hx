@@ -4,7 +4,7 @@ import flixel.FlxG;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxTileFrames;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
 import flixel.util.FlxDestroyUtil;
 import mobile.controls.flixel.FlxButton;
@@ -44,7 +44,7 @@ enum FlxActionMode
  * @author Ka Wing Chin
  * @author Mihai Alexandru (M.A. Jigsaw)
  */
-class FlxVirtualPad extends FlxSpriteContainer
+class FlxVirtualPad extends FlxSpriteGroup
 {
 	public var buttonLeft:FlxButton = new FlxButton(0, 0);
 	public var buttonUp:FlxButton = new FlxButton(0, 0);

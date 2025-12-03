@@ -3,7 +3,7 @@ package flixel.ui;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.input.FlxPointer;
 import flixel.input.actions.FlxActionInputAnalog;
 import flixel.input.touch.FlxTouch;
@@ -19,7 +19,7 @@ import flixel.util.FlxSignal;
 /**
  * A virtual thumbstick - useful for input on mobile devices.
  */
-class FlxVirtualStick extends FlxSpriteContainer
+class FlxVirtualStick extends FlxSpriteGroup
 {
 	/** The current state of the button */
 	public final value:FlxReadOnlyPoint = FlxPoint.get();

@@ -11,7 +11,7 @@ import flixel.util.FlxColor;
 import flixel.text.FlxText;
 import flixel.math.FlxPoint;
 import flixel.effects.FlxFlicker;
-import flixel.group.FlxSpriteContainer.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup.FlxSpriteGroup;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
@@ -120,7 +120,7 @@ abstract class PlayerSelect extends MusicBeatState
     /**
      * The group that holds all of the current rendering portraits.
      */
-    var portraitGroup:FlxSpriteContainer<CharacterPortrait> = new FlxSpriteContainer<CharacterPortrait>();
+    var portraitGroup:FlxSpriteGroup<CharacterPortrait> = new FlxSpriteGroup<CharacterPortrait>();
     
 	/**
 	 * The text that displays the current player selected.

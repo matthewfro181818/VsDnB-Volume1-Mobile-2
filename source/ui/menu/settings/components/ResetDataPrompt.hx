@@ -2,11 +2,11 @@ package ui.menu.settings.components;
 
 import controls.PlayerSettings;
 import flixel.FlxSprite;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 
-class Prompt extends FlxSpriteContainer
+class Prompt extends FlxSpriteGroup
 {
 	var curSelected:Int = 0;
 

@@ -3,7 +3,7 @@ package play.ui;
 import ui.select.playerSelect.PlayerSelect.SelectedPlayerType;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
@@ -40,7 +40,7 @@ typedef TimerType =
 /**
  * A UI graphic that displays the current time of a song.
  */
-class HudTimer extends FlxSpriteContainer implements IHudItem
+class HudTimer extends FlxSpriteGroup implements IHudItem
 {
 	/**
 	 * The constant size of the pie graphics.

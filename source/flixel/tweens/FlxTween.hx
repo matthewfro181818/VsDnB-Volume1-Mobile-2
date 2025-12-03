@@ -321,7 +321,7 @@ class FlxTween implements IFlxDestroyable
 	 * FlxTween.linearMotion(Object, 0, 0, 500, 20, 5, false, { ease: easeFunction, onStart: onStart, onUpdate: onUpdate, onComplete: onComplete, type: ONESHOT });
 	 * ```
 	 *
-	 * @param	Object			The object to move (FlxObject or FlxSpriteContainer)
+	 * @param	Object			The object to move (FlxObject or FlxSpriteGroup)
 	 * @param	FromX			X start.
 	 * @param	FromY			Y start.
 	 * @param	ToX				X finish.
@@ -344,7 +344,7 @@ class FlxTween implements IFlxDestroyable
 	 * FlxTween.quadMotion(Object, 0, 100, 300, 500, 100, 2, 5, false, { ease: easeFunction, onStart: onStart, onUpdate: onUpdate, onComplete: onComplete, type: ONESHOT });
 	 * ```
 	 *
-	 * @param	Object			The object to move (FlxObject or FlxSpriteContainer)
+	 * @param	Object			The object to move (FlxObject or FlxSpriteGroup)
 	 * @param	FromX			X start.
 	 * @param	FromY			Y start.
 	 * @param	ControlX		X control, used to determine the curve.
@@ -369,7 +369,7 @@ class FlxTween implements IFlxDestroyable
 	 * FlxTween.cubicMotion(_sprite, 0, 0, 500, 100, 400, 200, 100, 100, 2, { ease: easeFunction, onStart: onStart, onUpdate: onUpdate, onComplete: onComplete, type: ONESHOT });
 	 * ```
 	 *
-	 * @param	Object 		The object to move (FlxObject or FlxSpriteContainer)
+	 * @param	Object 		The object to move (FlxObject or FlxSpriteGroup)
 	 * @param	FromX		X start.
 	 * @param	FromY		Y start.
 	 * @param	aX			First control x.
@@ -395,7 +395,7 @@ class FlxTween implements IFlxDestroyable
 	 * FlxTween.circularMotion(Object, 250, 250, 50, 0, true, 2, true, { ease: easeFunction, onStart: onStart, onUpdate: onUpdate, onComplete: onComplete, type: ONESHOT });
 	 * ```
 	 *
-	 * @param	Object			The object to move (FlxObject or FlxSpriteContainer)
+	 * @param	Object			The object to move (FlxObject or FlxSpriteGroup)
 	 * @param	CenterX			X position of the circle's center.
 	 * @param	CenterY			Y position of the circle's center.
 	 * @param	Radius			Radius of the circle.
@@ -420,7 +420,7 @@ class FlxTween implements IFlxDestroyable
 	 * FlxTween.linearPath(Object, [FlxPoint.get(0, 0), FlxPoint.get(100, 100)], 2, true, { ease: easeFunction, onStart: onStart, onUpdate: onUpdate, onComplete: onComplete, type: ONESHOT });
 	 * ```
 	 *
-	 * @param	Object 			The object to move (FlxObject or FlxSpriteContainer)
+	 * @param	Object 			The object to move (FlxObject or FlxSpriteGroup)
 	 * @param	Points			An array of at least 2 FlxPoints defining the path
 	 * @param	DurationOrSpeed	Duration (in seconds) or speed of the movement.
 	 * @param	UseDuration		Whether to use the previous param as duration or speed.
@@ -440,7 +440,7 @@ class FlxTween implements IFlxDestroyable
 	 * FlxTween.quadPath(Object, [FlxPoint.get(0, 0), FlxPoint.get(200, 200), FlxPoint.get(400, 0)], 2, true, { ease: easeFunction, onStart: onStart, onUpdate: onUpdate, onComplete: onComplete, type: ONESHOT });
 	 * ```
 	 *
-	 * @param	Object			The object to move (FlxObject or FlxSpriteContainer)
+	 * @param	Object			The object to move (FlxObject or FlxSpriteGroup)
 	 * @param	Points			An array of at least 3 FlxPoints defining the path
 	 * @param	DurationOrSpeed	Duration (in seconds) or speed of the movement.
 	 * @param	UseDuration		Whether to use the previous param as duration or speed.
@@ -1120,7 +1120,7 @@ class FlxTweenManager extends FlxBasic
 	 * FlxTween.linearMotion(Object, 0, 0, 500, 20, 5, false, { ease: easeFunction, onStart: onStart, onUpdate: onUpdate, onComplete: onComplete, type: ONESHOT });
 	 * ```
 	 *
-	 * @param	Object			The object to move (FlxObject or FlxSpriteContainer)
+	 * @param	Object			The object to move (FlxObject or FlxSpriteGroup)
 	 * @param	FromX			X start.
 	 * @param	FromY			Y start.
 	 * @param	ToX				X finish.
@@ -1147,7 +1147,7 @@ class FlxTweenManager extends FlxBasic
 	 * FlxTween.quadMotion(Object, 0, 100, 300, 500, 100, 2, 5, false, { ease: easeFunction, onStart: onStart, onUpdate: onUpdate, onComplete: onComplete, type: ONESHOT });
 	 * ```
 	 *
-	 * @param	Object			The object to move (FlxObject or FlxSpriteContainer)
+	 * @param	Object			The object to move (FlxObject or FlxSpriteGroup)
 	 * @param	FromX			X start.
 	 * @param	FromY			Y start.
 	 * @param	ControlX		X control, used to determine the curve.
@@ -1176,7 +1176,7 @@ class FlxTweenManager extends FlxBasic
 	 * FlxTween.cubicMotion(_sprite, 0, 0, 500, 100, 400, 200, 100, 100, 2, { ease: easeFunction, onStart: onStart, onUpdate: onUpdate, onComplete: onComplete, type: ONESHOT });
 	 * ```
 	 *
-	 * @param	Object 		The object to move (FlxObject or FlxSpriteContainer)
+	 * @param	Object 		The object to move (FlxObject or FlxSpriteGroup)
 	 * @param	FromX		X start.
 	 * @param	FromY		Y start.
 	 * @param	aX			First control x.
@@ -1206,7 +1206,7 @@ class FlxTweenManager extends FlxBasic
 	 * FlxTween.circularMotion(Object, 250, 250, 50, 0, true, 2, true, { ease: easeFunction, onStart: onStart, onUpdate: onUpdate, onComplete: onComplete, type: ONESHOT });
 	 * ```
 	 *
-	 * @param	Object			The object to move (FlxObject or FlxSpriteContainer)
+	 * @param	Object			The object to move (FlxObject or FlxSpriteGroup)
 	 * @param	CenterX			X position of the circle's center.
 	 * @param	CenterY			Y position of the circle's center.
 	 * @param	Radius			Radius of the circle.
@@ -1235,7 +1235,7 @@ class FlxTweenManager extends FlxBasic
 	 * FlxTween.linearPath(Object, [FlxPoint.get(0, 0), FlxPoint.get(100, 100)], 2, true, { ease: easeFunction, onStart: onStart, onUpdate: onUpdate, onComplete: onComplete, type: ONESHOT });
 	 * ```
 	 *
-	 * @param	Object 			The object to move (FlxObject or FlxSpriteContainer)
+	 * @param	Object 			The object to move (FlxObject or FlxSpriteGroup)
 	 * @param	Points			An array of at least 2 FlxPoints defining the path
 	 * @param	DurationOrSpeed	Duration (in seconds) or speed of the movement.
 	 * @param	UseDuration		Whether to use the previous param as duration or speed.
@@ -1267,7 +1267,7 @@ class FlxTweenManager extends FlxBasic
 	 * FlxTween.quadPath(Object, [FlxPoint.get(0, 0), FlxPoint.get(200, 200), FlxPoint.get(400, 0)], 2, true, { ease: easeFunction, onStart: onStart, onUpdate: onUpdate, onComplete: onComplete, type: ONESHOT });
 	 * ```
 	 *
-	 * @param	Object			The object to move (FlxObject or FlxSpriteContainer)
+	 * @param	Object			The object to move (FlxObject or FlxSpriteGroup)
 	 * @param	Points			An array of at least 3 FlxPoints defining the path
 	 * @param	DurationOrSpeed	Duration (in seconds) or speed of the movement.
 	 * @param	UseDuration		Whether to use the previous param as duration or speed.

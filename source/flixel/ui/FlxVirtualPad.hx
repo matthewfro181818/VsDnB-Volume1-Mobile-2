@@ -3,7 +3,7 @@ package flixel.ui;
 import flixel.ui.FlxAnalog;
 import flixel.FlxG;
 import flixel.graphics.frames.FlxTileFrames;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets;
 import flixel.util.FlxColor;
@@ -16,7 +16,7 @@ import flixel.util.FlxSpriteUtil;
  *
  * @author Ka Wing Chin
  */
-class FlxVirtualPad extends FlxSpriteContainer
+class FlxVirtualPad extends FlxSpriteGroup
 {
 	/**
 	 * Group of directions buttons.

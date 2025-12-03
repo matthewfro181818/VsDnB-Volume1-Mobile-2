@@ -2,7 +2,7 @@ package flixel.group;
 
 import flixel.FlxBasic;
 import flixel.FlxG;
-import flixel.group.FlxSpriteContainer.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup.FlxSpriteGroup;
 import flixel.util.FlxArrayUtil;
 import flixel.util.FlxDestroyUtil;
 import flixel.util.FlxSignal.FlxTypedSignal;
@@ -47,7 +47,7 @@ class FlxTypedGroup<T:FlxBasic> extends FlxBasic
 			}
 			else if (basic.flixelType == SPRITEGROUP)
 			{
-				return cast (cast basic:FlxSpriteContainer<Dynamic>).group;
+				return cast (cast basic:FlxSpriteGroup<Dynamic>).group;
 			}
 		}
 		return null;

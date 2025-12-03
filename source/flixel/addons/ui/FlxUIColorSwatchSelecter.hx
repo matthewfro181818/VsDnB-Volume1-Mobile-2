@@ -4,7 +4,7 @@ import openfl.geom.Rectangle;
 import flixel.addons.ui.FlxUIColorSwatchSelecter.SwatchGraphic;
 import flixel.addons.ui.interfaces.IFlxUIClickable;
 import flixel.FlxSprite;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
 /**

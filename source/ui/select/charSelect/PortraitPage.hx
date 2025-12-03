@@ -1,10 +1,10 @@
 package ui.select.charSelect;
 
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import ui.select.CharacterPortrait;
 import play.player.PlayableCharacter;
 
-class PortraitPage extends FlxSpriteContainer<CharacterPortrait>
+class PortraitPage extends FlxSpriteGroup<CharacterPortrait>
 {
     var characters:Array<PlayableCharacter>;
 

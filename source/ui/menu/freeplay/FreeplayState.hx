@@ -9,7 +9,7 @@ import data.song.SongRegistry;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxObject;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
@@ -216,7 +216,7 @@ class FreeplayState extends MusicBeatState
 	/**
 	 * The group that holds all of the hint text objects for easy transitioning, and rendering.
 	 */
-	var lockHintGroup:FlxSpriteContainer = new FlxSpriteContainer();
+	var lockHintGroup:FlxSpriteGroup = new FlxSpriteGroup();
 
 	/**
 	 * The border shown in the hint text.

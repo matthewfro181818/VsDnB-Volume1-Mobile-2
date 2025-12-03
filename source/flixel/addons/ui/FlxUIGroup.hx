@@ -1,11 +1,11 @@
 package flixel.addons.ui;
 
 import flixel.FlxSprite;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxRect;
 import flixel.addons.ui.interfaces.IFlxUIWidget;
 #if (flixel >= version("5.7.0"))
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 #end
 
 #if (flixel < version("5.4.0") && FLX_NO_POINT_POOL)
@@ -17,18 +17,18 @@ import flixel.group.FlxSpriteContainer;
 #end
 
 /**
- * A cheap extension of FlxSpriteContainer that lets you move all the children around
+ * A cheap extension of FlxSpriteGroup that lets you move all the children around
  * without having to call reset()
  * @author Lars Doucet
  */
 typedef FlxUIGroup = FlxTypedUIGroup<FlxSprite>;
 /**
- * A cheap extension of FlxSpriteContainer that lets you move all the children around
+ * A cheap extension of FlxSpriteGroup that lets you move all the children around
  * without having to call reset()
  * @author Lars Doucet
  */
 class FlxTypedUIGroup<T:FlxSprite>
-	extends #if(flixel < "5.7.0") FlxSpriteContainer<T> #else FlxTypedSpriteContainer<T> #end
+	extends #if(flixel < "5.7.0") FlxSpriteGroup<T> #else FlxTypedSpriteContainer<T> #end
 	implements IFlxUIWidget
 {
 	/** a handy string handler name for this thing */

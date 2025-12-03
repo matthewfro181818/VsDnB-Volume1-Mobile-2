@@ -4,7 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 
@@ -13,7 +13,7 @@ import play.save.Preferences;
 /**
  * A UI object that's displayed in the settings menu,
  */
-class MenuItem extends FlxSpriteContainer
+class MenuItem extends FlxSpriteGroup
 {
 	/**
 	 * The ease type to use when moving the menu item.

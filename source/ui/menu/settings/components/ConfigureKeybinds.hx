@@ -11,7 +11,7 @@ import flixel.FlxSprite;
 import flixel.effects.FlxFlicker;
 import flixel.input.keyboard.FlxKey;
 import flixel.group.FlxGroup;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 
@@ -569,7 +569,7 @@ class ConfigureKeybinds extends FlxGroup
  * Represents a control that the user's able to configure.
  * Contains all of the current keybinds.
  */
-class ControlGroup extends FlxSpriteContainer
+class ControlGroup extends FlxSpriteGroup
 {
 	/**
 	 * Whether this control's able to be selected.

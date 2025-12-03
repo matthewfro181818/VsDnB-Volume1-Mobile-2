@@ -249,8 +249,8 @@ class FlxBasic implements IFlxDestroyable
 		return _cameras = Value;
 	}
 	
-	// Only needed for FlxSpriteContainer.SpriteContainer
-	// TODO: remove this when FlxSpriteContainer is removed
+	// Only needed for FlxSpriteGroup.SpriteContainer
+	// TODO: remove this when FlxSpriteGroup is removed
 	@:noCompletion
 	function get_container()
 	{

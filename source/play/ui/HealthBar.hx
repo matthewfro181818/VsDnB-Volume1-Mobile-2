@@ -3,7 +3,7 @@ package play.ui;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.ui.FlxBar;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
 import play.character.Character;
@@ -65,7 +65,7 @@ typedef HealthBarParams =
 /**
  * A visual HUD element that displays how much health the user has in-comparison to the opponent.
  */
-class HealthBar extends FlxSpriteContainer implements IHudItem
+class HealthBar extends FlxSpriteGroup implements IHudItem
 {
 	/**
 	 * The parameters passed on that are used for this health bar.

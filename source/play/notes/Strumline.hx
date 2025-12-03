@@ -7,7 +7,7 @@ import controls.PlayerSettings;
 
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxAngle;
 import flixel.math.FlxPoint;
 import flixel.tweens.FlxTween;
@@ -50,7 +50,7 @@ typedef StrumlineParams =
  * A group of group of sprites that handles logic behind with the strum receptors, rendering, positioning notes, and more.
  */
 @:access(play.notes)
-class Strumline extends FlxSpriteContainer
+class Strumline extends FlxSpriteGroup
 {
 	// STATIC VARIABLES // 
 
@@ -156,22 +156,22 @@ class Strumline extends FlxSpriteContainer
 	/**
 	 * A group containing the strums of this strumline.
 	 */
-	public var strums(default, null):FlxSpriteContainer<StrumNote> = new FlxSpriteContainer<StrumNote>();
+	public var strums(default, null):FlxSpriteGroup<StrumNote> = new FlxSpriteGroup<StrumNote>();
 
 	/**
 	 * A group containing the notes currently being rendered.
 	 */
-	public var notes(default, null):FlxSpriteContainer<Note> = new FlxSpriteContainer<Note>();
+	public var notes(default, null):FlxSpriteGroup<Note> = new FlxSpriteGroup<Note>();
 
 	/**
 	 * A group containing the notes currently being rendered.
 	 */
-	public var sustains(default, null):FlxSpriteContainer<SustainNote> = new FlxSpriteContainer<SustainNote>();
+	public var sustains(default, null):FlxSpriteGroup<SustainNote> = new FlxSpriteGroup<SustainNote>();
 
 	/**
 	 * A group containing the currently rendered hold covers.
 	 */
-	public var holdCovers(default, null):FlxSpriteContainer<HoldCover> = new FlxSpriteContainer<HoldCover>();
+	public var holdCovers(default, null):FlxSpriteGroup<HoldCover> = new FlxSpriteGroup<HoldCover>();
 
 	/**
 	 * A list of the current notes that have yet to be spawned.

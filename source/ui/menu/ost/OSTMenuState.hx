@@ -1,7 +1,7 @@
 package ui.menu.ost;
 
 import openfl.display.BitmapData;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.math.FlxMath;
@@ -122,16 +122,16 @@ class OSTMenuState extends MusicBeatState
     /**
      * The group that holds all of the sprites related to the song selection side of the menu.
      */
-    var selectionBarGroup:FlxSpriteContainer;
+    var selectionBarGroup:FlxSpriteGroup;
 
     var selectSongTween:FlxTween;
 
-    var grpSongSelection:FlxSpriteContainer = new FlxSpriteContainer();
+    var grpSongSelection:FlxSpriteGroup = new FlxSpriteGroup();
 
     /**
      * A group that holds all of the song options that the user can select.
      */
-    var grpSongsList:FlxSpriteContainer<OSTSongOption> = new FlxSpriteContainer<OSTSongOption>();
+    var grpSongsList:FlxSpriteGroup<OSTSongOption> = new FlxSpriteGroup<OSTSongOption>();
 
     /**
      * The left arrow button used for switching between categories.
@@ -373,7 +373,7 @@ class OSTMenuState extends MusicBeatState
      */
     function buildSelectionBar():Void
     {
-        selectionBarGroup = new FlxSpriteContainer();
+        selectionBarGroup = new FlxSpriteGroup();
         add(selectionBarGroup);
 
         categoryBlackBorder = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
@@ -763,7 +763,7 @@ class OSTMenuState extends MusicBeatState
     }
 }
 
-class OSTSongOption extends FlxSpriteContainer
+class OSTSongOption extends FlxSpriteGroup
 {
     public var playData(default, null):Map<String, OSTPlayData>;
 

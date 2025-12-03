@@ -4,7 +4,7 @@ import play.save.Preferences;
 import backend.Conductor;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.tweens.FlxTween;
 import flixel.util.typeLimit.OneOfTwo;
 import util.tools.Preloader;
@@ -27,7 +27,7 @@ typedef RatingsType =
 	var antialiasing:Bool;
 }
 
-class RatingsGroup extends FlxSpriteContainer
+class RatingsGroup extends FlxSpriteGroup
 {
 	/**
 	 * List of all the types of ratings used, and the data for each.

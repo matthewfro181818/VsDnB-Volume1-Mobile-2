@@ -2,7 +2,7 @@ package flixel.ui;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.input.touch.FlxTouch;
 import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
@@ -17,7 +17,7 @@ import flixel.util.FlxDestroyUtil;
  * @author Ka Wing Chin
  */
 @:deprecated("FlxAnalog is deprecated, use FlxVirtualStick or FlxVirtualPad, instead")
-class FlxAnalog extends FlxSpriteContainer
+class FlxAnalog extends FlxSpriteGroup
 {
 	/**
 	 * Shows the current state of the button.

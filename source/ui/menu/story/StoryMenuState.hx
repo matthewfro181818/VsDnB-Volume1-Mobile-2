@@ -13,7 +13,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -97,8 +97,8 @@ class StoryMenuState extends MusicBeatState
 
 	var awaitingToPlayMasterWeek:Bool;
 
-	var weekBanners:FlxSpriteContainer = new FlxSpriteContainer();
-	var weekRenders:FlxSpriteContainer = new FlxSpriteContainer();
+	var weekBanners:FlxSpriteGroup = new FlxSpriteGroup();
+	var weekRenders:FlxSpriteGroup = new FlxSpriteGroup();
 
 	override function create()
 	{

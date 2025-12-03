@@ -1,7 +1,7 @@
 package mobile.controls;
 
 import flixel.FlxG;
-import flixel.group.FlxSpriteContainer;
+import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
 import flixel.util.FlxDestroyUtil;
 import mobile.controls.flixel.FlxHitbox;
@@ -10,7 +10,7 @@ import mobile.controls.flixel.FlxVirtualPad;
 /**
  * @author Mihai Alexandru (M.A. Jigsaw)
  */
-class MobileControls extends FlxSpriteContainer
+class MobileControls extends FlxSpriteGroup
 {
 	public static var customVirtualPad(get, set):FlxVirtualPad;
 	public static var mode(get, set):String;

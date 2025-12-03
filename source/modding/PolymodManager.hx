@@ -277,7 +277,7 @@ class PolymodManager
         Polymod.addDefaultImport(flixel.tweens.FlxEase);
         Polymod.addDefaultImport(flixel.tweens.FlxTween);
         Polymod.addDefaultImport(flixel.group.FlxGroup);
-        Polymod.addDefaultImport(flixel.group.FlxSpriteContainer);
+        Polymod.addDefaultImport(flixel.group.FlxSpriteGroup);
         Polymod.addDefaultImport(flixel.math.FlxPoint.FlxBasePoint, 'flixel.math.FlxPoint');
         Polymod.addDefaultImport(flixel.util.FlxTimer);
         
