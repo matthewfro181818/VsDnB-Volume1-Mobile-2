@@ -1,128 +1,145 @@
-name: Desktop Builds
+# THE FOLLOWING ACTIONS CODE IS FROM THE PSYCH ENGINE REPO: https://github.com/ShadowMario/FNF-PsychEngine/blob/main/.github/workflows/main.yml
 
+name: Build
+
+# Controls when the action will run.
 on:
+  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    tags:
-      - "v*.*.*"     # ← Release builds only when a version tag is pushed
-    branches:
-      - main          # allow dev builds on main
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  Build-Desktop:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+  # This workflow contains a single job called "build"
+  buildLinux:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
 
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4.1.7
+
+      - uses: krdlab/setup-haxe@master
         with:
-          fetch-depth: 0     # Required for Git tags
-
-      - name: Determine Version
-        id: ver
-        shell: bash
+          haxe-version: 4.3.4
+      # Runs a set of commands using the runners shell
+      - name: Install Haxelib
         run: |
-          if git describe --tags --exact-match >/dev/null 2>&1; then
-            TAG=$(git describe --tags --exact-match)
-            echo "version=$TAG" >> $GITHUB_OUTPUT
-          else
-            VERSION=dev-$(date +'%Y%m%d-%H%M')
-            echo "version=$VERSION" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Install Haxe
-        uses: krdlab/setup-haxe@master
-        with:
-          haxe-version: 4.3.6
-
-      # Linux VLC (required for hxvlc)
-      - name: Install VLC (Linux)
-        if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          sudo apt update
-          sudo apt install -y libvlc-dev libvlccore-dev
-
-      - name: Install Haxelib Dependencies
-        run: |
-          haxelib install hxcpp
-          haxelib install thx.core
-          haxelib install thx.semver
+          sudo apt-get install libvlc-dev libvlccore-dev glibc-source libidn-dev libidn12
+          haxelib setup ~/haxelib
+          haxelib install hmm
+          haxelib run hmm setup
+          hmm install
+          haxelib install hxcpp > /dev/null --quiet
           haxelib install lime
           haxelib install openfl
           haxelib install flixel
+          haxelib install flixel-tools
           haxelib install flixel-ui
           haxelib install flixel-addons
-          haxelib install flxanimate
-          haxelib install json2object
-          haxelib git polymod https://github.com/PabloelproxD210/Polymod.git
-          haxelib git hscript https://github.com/T5mpler/hscript-dnb
+          haxelib install actuate
+          haxelib install tjson
+          haxelib install hxjsonast
+          haxelib install hxCodec
+          haxelib install hscript-iris
           haxelib install hxvlc
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
-          haxelib install hmm
-          haxelib run hmm install
-
-      - name: Install Polymod
-        run: haxelib git polymod https://github.com/larsiusprime/polymod.git hscript-rewrite
-
-      # ------------------------ #
-      #        BUILD JOBS        #
-      # ------------------------ #
-
-      - name: Build Windows
-        if: startsWith(matrix.os, 'windows')
-        run: haxelib run lime build windows -D officialBuild
-
-      - name: Build Linux
-        if: startsWith(matrix.os, 'ubuntu')
-        run: haxelib run lime build linux -D officialBuild
-
-      - name: Build macOS
-        if: startsWith(matrix.os, 'macos')
-        run: haxelib run lime build mac -D officialBuild
-
-      # ------------------------ #
-      #     ZIP OUTPUT BUILDS    #
-      # ------------------------ #
-
-      - name: Zip Desktop Build
-        run: |
-          mkdir -p build
-          zip -r build/desktop-${{ steps.ver.outputs.version }}-${{ matrix.os }}.zip export/release/*/*
-
-      - name: Upload Artifact
+          haxelib list
+      - name: Create Version Tag
+        run: echo "${{github.run_id}}" > VERSION
+      - name: Compile
+        run: haxelib run lime build Project.xml linux --app-version="4.0.0-${{ github.run_id}}"
+      - name: Publish Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: desktop-${{ matrix.os }}
-          path: build/*.zip
-
-  # -------------------------------------------------------------
-  #                   AUTOMATIC RELEASE JOB
-  # -------------------------------------------------------------
-  Release:
-    # Only run when a tag push triggers the workflow
-    if: startsWith(github.ref, 'refs/tags/')
-    needs: Build-Desktop
-    runs-on: ubuntu-latest
+          name: linuxBuild
+          path: 'export/release/linux/bin'
+  buildWindows:
+    runs-on: windows-latest
 
     steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: release
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4.1.7
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
+      - uses: krdlab/setup-haxe@master
         with:
-          tag_name: ${{ github.ref_name }}
-          name: "VsDave ${{ github.ref_name }}"
-          body: |
-            🎉 **Automated Desktop Release**
-            Built from commit `${{ github.sha }}`
+          haxe-version: 4.3.4
+      # Runs a set of commands using the runners shell
+      - name: Install Haxelib
+        run: |
+          haxelib setup C:/haxelib
+          haxelib install hmm
+          haxelib run hmm setup
+          hmm install
+          haxelib install hxcpp > /dev/null --quiet
+          haxelib install lime
+          haxelib install openfl
+          haxelib install flixel
+          haxelib install flixel-tools
+          haxelib install flixel-ui
+          haxelib install flixel-addons
+          haxelib install actuate
+          haxelib install tjson
+          haxelib install hxjsonast
+          haxelib install hxCodec
+          haxelib install hscript-iris
+          haxelib install hxvlc
+          haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
+          haxelib list
+        shell: cmd
+      - name: Create Version Tag
+        run: echo "${{github.run_id}}" > VERSION
+      - name: Compile
+        run: haxelib run lime build windows --app-version="4.0.0-${{ github.run_id}}"
+      - name: Publish Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windowsBuild
+          path: export/release/windows/bin
+  buildMac:
+    runs-on: macos-latest
 
-          files: |
-            release/**/*.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4.1.7
+
+      - uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.3.4
+      # Runs a set of commands using the runners shell
+      - name: Install Haxelib
+        run: |
+          haxelib setup ~/haxelib
+          haxelib install hmm
+          haxelib run hmm setup
+          hmm install
+          haxelib install hxcpp > /dev/null --quiet
+          haxelib install lime
+          haxelib install openfl
+          haxelib install flixel
+          haxelib install flixel-tools
+          haxelib install flixel-ui
+          haxelib install flixel-addons
+          haxelib install actuate
+          haxelib install tjson
+          haxelib install hxjsonast
+          haxelib install hxCodec
+          haxelib install hscript-iris
+          haxelib install hxvlc
+          haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
+          haxelib list
+      - name: Create Version Tag
+        run: echo "${{github.run_id}}" > VERSION
+      - name: Compile
+        run: haxelib run lime build mac --app-version="4.0.0-${{ github.run_id}}"
+      - name: Publish Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: macBuild
+          path: export/release/macos/bin
