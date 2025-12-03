@@ -321,7 +321,7 @@ class FlxG
 	/**
 	 * Contains a list of all sounds and other things to manage or `play()` sounds.
 	 */
-	public static var sound(default, null):SoundFrontEnd;
+	public static var sound(default, null):compat.ModernSoundFrontEnd;
 	#end
 
 	/**
@@ -578,7 +578,7 @@ class FlxG
 		vcr = new VCRFrontEnd();
 
 		#if FLX_SOUND_SYSTEM
-		sound = new SoundFrontEnd();
+		sound = new compat.ModernSoundFrontEnd();
 		#end
 	}
 
