@@ -22,7 +22,7 @@ import util.PlatformUtil;
 import flixel.group.FlxTypedSpriteGroup;
 import flixel.FlxSprite;
 
-typedef FlxSpriteGroup = FlxTypedSpriteGroup<FlxSprite>;
+typedef FlxSpriteGroup = flixel.group.FlxSpriteGroup;
 
 typedef QueuedSound =
 {
