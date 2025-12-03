@@ -315,3 +315,13 @@ class FlxAnimationController implements IFlxDestroyable
 		return _sprite.frames.frames.indexOf(frame);
 	}
 }
+
+enum FlxFrameCollectionType
+{
+    IMAGE;
+    TILES;
+    ATLAS;
+    FONT;
+    USER(type:String);
+    FILTER;
+}
