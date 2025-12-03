@@ -18,6 +18,14 @@ import flixel.util.FlxColor;
 import openfl.utils.Assets;
 import play.notes.Note;
 import scripting.events.ScriptEvent;
+import scripting.events.NoteScriptEvent;
+import scripting.events.GhostNoteScriptEvent;
+import scripting.events.HoldNoteScriptEvent;
+import scripting.events.CountdownScriptEvent;
+import scripting.events.CameraScriptEvent;
+import scripting.events.UpdateScriptEvent;
+import scripting.events.PreferenceScriptEvent;
+import scripting.events.ConductorScriptEvent;
 import scripting.events.ScriptEventDispatcher;
 import scripting.IScriptedClass.IPlayStateScriptedClass;
 
@@ -336,6 +344,86 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
             offset.set(scaleOffset.x, scaleOffset.y);
     }
 
+
+    /**
+     * Dispatched when the opponent hits a note.
+     * @param event The data associated with this note.
+     */
+    public function onOpponentNoteHit(event:NoteScriptEvent):Void {}
+
+    /**
+     * Dispatched when the player hits a note.
+     * @param event The data associated with this note.
+     */
+    public function onPlayerNoteHit(event:NoteScriptEvent):Void {}
+	
+    public function onNoteMiss(event:NoteScriptEvent):Void
+	{
+		if (event.eventCanceled || event.note.character != this)
+			return;
+
+		switch (characterType)
+		{
+			case GF:
+				playAnim('sad', true);
+			case PLAYER:
+				var note:Note = event.note;
+				switch (note.noteStyle)
+				{
+					default:
+						this.sing(note.direction, true);
+				}
+			default:
+		}
+	}
+	
+    public function onGhostNoteMiss(event:GhostNoteScriptEvent):Void
+	{
+		if (event.eventCanceled || event.character != this)
+			return;
+
+		switch (characterType)
+		{
+			case GF:
+				playAnim('sad', true);
+			case PLAYER:
+				this.sing(event.direction, true);
+			default:
+		}
+	}
+	
+    public function onHoldNoteDrop(event:HoldNoteScriptEvent):Void
+	{
+		if (event.eventCanceled || event.character != this)
+			return;
+
+		switch (characterType)
+		{
+			case GF:
+				playAnim('sad', true);
+			case PLAYER:
+				this.sing(event.holdNote.direction, true);
+			default:
+		}
+	}
+	
+	/**
+	 * Plays the GF hey based on the player's current combo.
+	 * @param combo The current combo the player has.
+	 */
+	public function playComboAnimation(combo:Int)
+	{
+		// Play the GF hey animation every 100 combo hits.
+		if (combo % 100 == 0 && this.animation.getByName("cheer") != null)
+		{
+			this.canDance = false;
+			this.playAnim('cheer', true);
+			this.animation.onFinish.addOnce(function(anim:String) {
+				this.canDance = true;
+			});
+		}
+	}
+
     // ------------------------------------------------------------
     // Easing & Anim Type Helpers
     // ------------------------------------------------------------
@@ -532,5 +620,4 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
     public function onCountdownFinish(event:CountdownScriptEvent):Void {}
     public function onCameraMove(event:CameraScriptEvent):Void {}
     public function onCameraMoveSection(event:CameraScriptEvent):Void {}
-    public function onHoldNoteDrop(event:HoldNoteScriptEvent):Void {}
 }
