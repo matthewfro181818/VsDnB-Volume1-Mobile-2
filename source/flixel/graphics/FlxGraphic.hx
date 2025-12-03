@@ -4,7 +4,6 @@ import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxFrame;
 import flixel.graphics.frames.FlxFramesCollection;
-import flixel.graphics.frames.FlxFramesCollection.FlxFrameCollectionType;
 import flixel.graphics.frames.FlxImageFrame;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
@@ -466,20 +465,13 @@ class FlxGraphic implements IFlxDestroyable
 	 * @param   type   The type of frames collections to search for.
 	 * @return  Array of available frames collections of specified type for this object.
 	 */
-	public inline function getFramesCollections(type:FlxFrameCollectionType):Array<Dynamic>
+	public inline function getFramesCollections():Array<Dynamic>
 	{
 		if (this.isDestroyed)
 		{
 			FlxG.log.warn('Invalid call to getFramesCollections on a destroyed graphic');
 			return [];
 		}
-		
-		var collections:Array<FlxFramesCollection>;
-		if (collections.type == null)
-		{
-			collections = new Array<FlxFramesCollection>();
-		}
-		return collections;
 	}
 
 	/**
