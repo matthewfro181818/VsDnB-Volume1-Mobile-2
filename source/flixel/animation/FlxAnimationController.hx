@@ -546,7 +546,41 @@ class FlxAnimationController implements IFlxDestroyable
 			callback(name, number, frameIndex);
 		}
 	}
-	
+
+	@:allow(flixel.animation)
+	@:haxe.warning("-WDeprecated")
+	function fireFinishCallback(?name:String):Void
+	{
+		if (finishCallback != null)
+		{
+			finishCallback(name);
+		}
+
+		onFinish.dispatch(name);
+	}
+
+	@:allow(flixel.animation)
+	inline function firePlayCallback(name:String, forced:Bool, reversed:Bool, frame:Int):Void
+	{
+		if (playCallback != null)
+		{
+			playCallback(name, forced, reversed, frame);
+		}
+
+		onPlay.dispatch(name, forced, reversed, frame);
+	}
+
+	@:allow(flixel.animation)
+	inline function fireLoopCallback(name:String):Void
+	{
+		if (loopCallback != null)
+		{
+			loopCallback(name);
+		}
+
+		onLoop.dispatch(name);
+	}
+
 	/**
 	 * Private helper method for add- and appendByNames. Gets frames and appends them to AddTo.
 	 */
