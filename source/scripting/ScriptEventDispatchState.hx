@@ -32,7 +32,7 @@ super();
 var event = new StateChangeScriptEvent(SUBSTATE_OPEN, null, true);
 		dispatchEvent(event);
 
- #(event.eventCanceled ? return : null)
+ 
 
  super.openSubState(SubState);
 }
@@ -45,7 +45,7 @@ dispatchEvent(new StateChangeScriptEvent(SUBSTATE_OPEN_POST, subState));
 var event = new StateChangeScriptEvent(SUBSTATE_CLOSE, this.subState, true);
 		dispatchEvent(event);
 
- #(event.eventCanceled ? return : null)
+ 
 
  super.closeSubState();
 }

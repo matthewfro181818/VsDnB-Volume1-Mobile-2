@@ -34,7 +34,7 @@ return parse(f).multiply(thx.Decimal.fromBigInt(m));
 }
 }
 		var pdec = value.indexOf(".");
-		#(pdec < 0 ? return : null)
+		
 #new DecimalImpl(BigInt.fromString(value), 0)
 
 		var i = value.substring(0, pdec) + value.substring(pdec + 1);

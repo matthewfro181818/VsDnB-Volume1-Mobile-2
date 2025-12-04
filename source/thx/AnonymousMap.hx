@@ -1,6 +1,5 @@
 package thx;
 
-##(haxe_ver >= 3.200 ? import : null)
 #haxe.Constraints.IMap
 #else
 import Map.IMap;

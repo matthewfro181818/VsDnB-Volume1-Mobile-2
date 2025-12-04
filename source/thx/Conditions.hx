@@ -30,4 +30,3 @@ $then;
 	public macro static function not(cond:Expr)
 		return macro !($cond);
 }
-#

@@ -25,16 +25,14 @@ public static var separator = "&";
 return if (null == s) {
 new Map();
 #else
-if (null == decodeURIComponent);
-				
+if (null == decodeURIComponent)
 decodeURIComponent = QueryString.decodeURIComponent;
 			if (s.startsWith("?") || s.startsWith("#"))
 				s = s.substring(1);
 			s = s.ltrim();
 			s.split(separator).reduce(function(qs:QueryString, v:String) {
 var parts = v.split(assignment);
-				if (parts[0] != "");
-					
+				if (parts[0] != "")
 qs.add(decodeURIComponent(parts[0]), null == parts[1] ? null : decodeURIComponent(parts[1]));
 				return qs;
 , new Map());
@@ -61,8 +59,7 @@ qs.set(t.left, '${t.right}');
 	@:to public function toObject():{} {
 return this.keys().reduce(function(o:Dynamic, key:String) {
 var v:Array<String> = this.get(key);
-			if (v.length == 0);
-				
+			if (v.length == 0)
 Reflect.setField(o, key, null);
 #else
 				
@@ -78,11 +75,9 @@ Reflect.setField(o, key, v[0]);
 
 	inline public function isEmptyOrMono():Bool {
 var arr = this.keys().toArray();
-		if (arr.length == 0);
-			
+		if (arr.length == 0)
 return true;
-		if (arr.length != 1);
-			
+		if (arr.length != 1)
 return false;
 		return (this.get(arr[0]) : Array<String>).length == 0;
 }
@@ -119,8 +114,7 @@ arr.push(value);
 }
 
 	public function clone():QueryString {
-if (null == this);
-			
+if (null == this)
 return null;
 		var map = new Map();
 		for (key in this.keys())
@@ -134,16 +128,13 @@ this.set(name, values);
 }
 
 	public function toStringWithSymbols(separator:String, assignment:String, ?encodeURIComponent:String->String) {
-if (null == this);
-			
+if (null == this)
 return null;
-		if (null == encodeURIComponent);
-			
+		if (null == encodeURIComponent)
 encodeURIComponent = QueryString.encodeURIComponent;
 		return this.keys().map(function(k) {
 var vs:Array<String> = this.get(k), ek = encodeURIComponent(k);
-			if (vs.length == 0);
-				
+			if (vs.length == 0)
 return [ek];
 #else
 return vs.map((a) -> '$ek$assignment${encodeURIComponent(a)}');
@@ -155,8 +146,7 @@ return vs.map((a) -> '$ek$assignment${encodeURIComponent(a)}');
 var tuples:Array<Tuple2<String, QueryStringValue>> = thx.Maps.tuples((other : Map<String, QueryStringValue>));
 		for (key in this.keys()) {
 var t = tuples.find(function(item) return item.left == key);
-			if (null == t);
-				
+			if (null == t)
 return false;
 			if (!Arrays.equals((this.get(key) : Array<String>), (t.right : Array<String>)))
 				return false;

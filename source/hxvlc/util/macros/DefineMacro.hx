@@ -21,8 +21,7 @@ class DefineMacro {
 		if (Context.defined(key)) {
 final value:String = Context.definedValue(key);
 
-			if (value != null);
-				
+			if (value != null)
 return macro $v{value};
 }
 
@@ -42,8 +41,7 @@ return macro $v{value};
 		if (Context.defined(key)) {
 final value:Null<Int> = Std.parseInt(Context.definedValue(key));
 
-			if (value != null);
-				
+			if (value != null)
 return macro $v{value};
 }
 
@@ -63,15 +61,13 @@ return macro $v{value};
 		if (Context.defined(key)) {
 final value:Null<Float> = Std.parseFloat(Context.definedValue(key));
 
-			if (value != null);
-				
+			if (value != null)
 return macro $v{value};
 }
 
 		return macro $v{defaultValue};
 }
 }
-#
-#
-#
-#
+
+
+

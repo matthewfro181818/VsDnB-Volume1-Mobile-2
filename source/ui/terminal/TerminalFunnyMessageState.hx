@@ -51,7 +51,7 @@ super.update(elapsed);
 		passedTime += elapsed;
 		timeBeforeGarble -= elapsed;
 		timeBeforeMessages -= elapsed;
-		#(waitingForMessages ? return : null)
+		
 		if (timeBeforeGarble <= 0) {
 timeBeforeGarble = 0.03;
 			screen.RandomGarbage();

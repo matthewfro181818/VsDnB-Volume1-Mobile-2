@@ -19,9 +19,9 @@ import flixel.math.FlxPoint;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 
-import scripting.events.ScriptEvent;
-import scripting.events.DialogueScriptEvent;
-import scripting.events.ScriptEventDispatcher;
+import scripting.events.ScriptEvent.UpdateScriptEvent;
+import scripting.events.ScriptEvent.PreferenceScriptEvent;
+import scripting.events.ScriptEvent.DialogueScriptEvent;
 import scripting.IScriptedClass.IDialogueScriptedClass;
 import scripting.IScriptedClass.IEventDispatcher;
 
@@ -298,9 +298,7 @@ class Dialogue extends FlxSpriteGroup
 
 		if (speaker != null) {
 			if (speakerId == "generic")
-				return;
-
-			speaker.revive();
+				return speaker.revive();
 			add(speaker);
 			refresh();
 
@@ -465,9 +463,7 @@ class Dialogue extends FlxSpriteGroup
 	// -----------------------------------------------------
 	public function playOutro():Void {
 		if (isDialogueEnding)
-			return;
-
-		var hasOutro = (_data.fadeOutTime != null && _data.fadeOutTime > 0);
+			return var hasOutro = (_data.fadeOutTime != null && _data.fadeOutTime > 0);
 
 		if (hasOutro) {
 			TweenUtil.completeTweensOf(background);

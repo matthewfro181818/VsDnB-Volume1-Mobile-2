@@ -16,9 +16,9 @@ class JSONPatch {
  * @return The resulting JSON data.
  */
  public static function applyPatches(data:JSONData, patch:Array<JSONData>):JSONData {
-#(data == null || patch == null ? return : null)
+
 #null
- #(patch.length == 0 ? return : null)
+ 
 #data
  
  var result:JSONData = data.copy();
@@ -40,7 +40,7 @@ result = JSONPatch.applyOperation(result, operation);
  * @return The resulting JSON data.
  */
  public static function applyOperation(data:JSONData, operation:JSONData):JSONData {
-#(operation == null ? return : null)
+
 #data
 
  var result = data.copy();
@@ -66,9 +66,9 @@ case "add":
 }
 
  static function applyOperation_add(data:JSONData, path:String, value:Dynamic):JSONData {
-#(path == null ? throw : null)
+
 #'path is required'
- #(value == NoValue ? throw : null)
+ 
 #'value is required'
 
  // If target is an array index, new value is inserted at that index
@@ -98,7 +98,7 @@ throw e;
 }
 
  static function applyOperation_remove(data:JSONData, path:String):JSONData {
-#(path == null ? throw : null)
+
 #'path is required'
  // trace('Remove: Path "${path}"');
 
@@ -118,9 +118,9 @@ throw 'remove target ${targetPath} does not exist';
 }
 
  static function applyOperation_replace(data:JSONData, path:String, value:Dynamic):JSONData {
-#(path == null ? throw : null)
+
 #'path is required'
- #(value == NoValue ? throw : null)
+ 
 #'value is required'
 
  // Replace the value at the target location
@@ -136,9 +136,9 @@ data.setByPath(targetPath, value);
 }
 
  static function applyOperation_move(data:JSONData, from:String, path:String):JSONData {
-#(path == null ? throw : null)
+
 #'path is required'
- #(from == null ? throw : null)
+ 
 #'from is required'
 
  // Get the value at the from location
@@ -164,9 +164,9 @@ data.setByPath(targetPath, value);
 }
 
  static function applyOperation_copy(data:JSONData, from:String, path:String):JSONData {
-#(path == null ? throw : null)
+
 #'path is required'
- #(from == null ? throw : null)
+ 
 #'from is required'
 
  var targetFromPaths = parsePaths(from, data);
@@ -187,9 +187,9 @@ data.setByPath(targetPath, value);
 }
 
  static function applyOperation_test(data:JSONData, path:String, expected:Dynamic):JSONData {
-#(path == null ? throw : null)
+
 #'path is required'
- #(expected == NoValue ? throw : null)
+ 
 #'value is required'
 
  // Query the target location

@@ -13,7 +13,7 @@ import polymod.fs.SysFileSystem;
 #if firetongue
 import firetongue.FireTongue;
 
-typedef PolymodAssetsParams =; {
+typedef PolymodAssetsParams = {
 /**
 	 * the Haxe framework you're using (OpenFL, HEAPS, Kha, NME, etc..)
 	 */
@@ -178,9 +178,9 @@ return library.list(type);
 		return NME;
 #if flixel
 		return FLIXEL;
-		##(openfl && !nme ? return : null)
+
 #OPENFL
-		##(lime && !nme ? return : null)
+
 #LIME
 #if kha
 		return KHA;
@@ -212,14 +212,13 @@ case BYTES, TEXT, IMAGE, VIDEO, FONT, AUDIO_GENERIC, AUDIO_MUSIC, AUDIO_SOUND, M
 		return UNKNOWN;
 }
 }
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+
+
+
+
+
+
+
+
+
+

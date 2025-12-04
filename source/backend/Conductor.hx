@@ -138,9 +138,7 @@ class Conductor
         songPosition = songPos;
 
         if (timeChangeMap.length == 0)
-            return;
-
-        var newTC = getTimeChangeAt(songPosition);
+            return var newTC = getTimeChangeAt(songPosition);
 
         if (currentTimeChange != newTC)
         {
@@ -159,9 +157,7 @@ class Conductor
     public function mapTimeChanges(list:Array<SongTimeChange>):Void
     {
         if (list == null || list.length == 0)
-            return;
-
-        timeChangeMap = [];
+            return timeChangeMap = [];
         list.sort(SortUtil.sortTimeChanges);
 
         for (i in 0...list.length)
@@ -261,9 +257,7 @@ class Conductor
     public function loadMusicData(id:String, ?variation:String):Void
     {
         if (!SongRegistry.instance.hasMusicDataFile(id, variation))
-            return;
-
-        var data = SongRegistry.instance.loadMusicDataFile(id, variation);
+            return var data = SongRegistry.instance.loadMusicDataFile(id, variation);
         applyMusicData(data);
     }
 

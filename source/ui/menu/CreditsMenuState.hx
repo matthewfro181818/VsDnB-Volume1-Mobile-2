@@ -14,7 +14,7 @@ import play.camera.FollowCamera;
 import ui.MusicBeatState;
 import ui.menu.MainMenuState;
 
-typedef CreditsPersonParams = ; {
+typedef CreditsPersonParams = {
 var name:String;
  var description:String;
  var icon:String;
@@ -492,8 +492,7 @@ super(x, y);
  var descSize:Float = 16 * params.scale;
 
  var iconGraphic = Paths.image('credits/${params.icon}');
- if (iconGraphic == null);
- 
+ if (iconGraphic == null)
 iconGraphic = Paths.image('credits/placeholder');
 
  var icon = new FlxSprite().loadGraphic(Paths.image('credits/${params.icon}'));
@@ -519,4 +518,3 @@ iconGraphic = Paths.image('credits/placeholder');
  descriptionText.y = icon.y + icon.height + 5;
 }
 }
-#

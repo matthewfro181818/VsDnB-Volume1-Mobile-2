@@ -24,8 +24,7 @@ var contains = thx.Arrays.containsExact(subtract, item, thx.Dynamics.equals);
 	 * @return Weather both arrays contain the same elements.
 	 */
 	public static function equalsUnordered<T>(a:Array<T>, b:Array<T>):Bool {
-if (a.length != b.length);
-			
+if (a.length != b.length)
 return false;
 		for (element in a) {
 if (!thx.Arrays.containsExact(b, element, thx.Dynamics.equals))

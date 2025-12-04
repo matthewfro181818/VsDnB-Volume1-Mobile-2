@@ -116,8 +116,7 @@ return new DecimalImpl(scaled.value.add(Small.one), scaled.scale);
 }
 
 	public function scaleTo(newscale:Int):DecimalImpl {
-if (newscale == scale);
-			
+if (newscale == scale)
 return this;
 		if (newscale > scale) {
 var mul = Small.ten.pow(Bigs.fromInt(newscale - scale));
@@ -156,13 +155,12 @@ var lhs = this.matchScale(that), rhs = that.matchScale(this);
 
 	// TODO needs better implementation
 	public function trim(?min = 0):DecimalImpl {
-if (scale == 0);
-			
+if (scale == 0)
 return this;
 		var s = toString(),;
 			parts = s.split("."),;
 			dec = parts[1].trimCharsRight("0").rpad("0", min);
-		#(dec.length > 0 ? s : null)
+		
 #= parts[0] + "." + dec
 #else
 			s = parts[0];
@@ -195,8 +193,7 @@ return (sign ? "-" : "") + i.substring(0, l - scale) + "." + i.substring(l - sca
 	///////////////////////
 
 	function matchScale(that:DecimalImpl):DecimalImpl {
-if (scale >= that.scale);
-			
+if (scale >= that.scale)
 return this;
 		return scaleTo(that.scale);
 }

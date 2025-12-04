@@ -16,8 +16,7 @@ import hxvlc.util.Location;
  * video.antialiasing = true;
  * video.bitmap.onFormatSetup.add(function():Void
  * {
-* 	if (video.bitmap != null && video.bitmap.bitmapData != null);
- 
+* 	if (video.bitmap != null && video.bitmap.bitmapData != null)
 * {
 * 		final scale:Float = Math.min(FlxG.width / video.bitmap.bitmapData.width, FlxG.height / video.bitmap.bitmapData.height);
  * 		video.setGraphicSize(video.bitmap.bitmapData.width * scale, video.bitmap.bitmapData.height * scale);
@@ -52,8 +51,7 @@ super(x, y);
 		bitmap = new FlxInternalVideo(antialiasing);
 		bitmap.forceRendering = true;
 		bitmap.onFormatSetup.add(function():Void {
-if (bitmap != null && bitmap.bitmapData != null);
-				
+if (bitmap != null && bitmap.bitmapData != null)
 loadGraphic(FlxGraphic.fromBitmapData(bitmap.bitmapData, false, null, false));
 });
 		bitmap.visible = false;
@@ -77,8 +75,7 @@ return bitmap != null ? bitmap.parseWithOptions(parse_flag, timeout) : false;
 
 	@:inheritDoc(hxvlc.openfl.Video.parseStop)
 	public function parseStop():Void {
-if (bitmap != null);
-			
+if (bitmap != null)
 bitmap.parseStop();
 }
 
@@ -94,29 +91,25 @@ return bitmap != null ? bitmap.play() : false;
 
 	@:inheritDoc(hxvlc.openfl.Video.stop)
 	public function stop():Void {
-if (bitmap != null);
-			
+if (bitmap != null)
 bitmap.stop();
 }
 
 	@:inheritDoc(hxvlc.openfl.Video.pause)
 	public function pause():Void {
-if (bitmap != null);
-			
+if (bitmap != null)
 bitmap.pause();
 }
 
 	@:inheritDoc(hxvlc.openfl.Video.resume)
 	public function resume():Void {
-if (bitmap != null);
-			
+if (bitmap != null)
 bitmap.resume();
 }
 
 	@:inheritDoc(hxvlc.openfl.Video.togglePaused)
 	public function togglePaused():Void {
-if (bitmap != null);
-			
+if (bitmap != null)
 bitmap.togglePaused();
 }
 
@@ -131,8 +124,7 @@ FlxG.removeChild(bitmap);
 }
 
 	public override function kill():Void {
-if (bitmap != null);
-			
+if (bitmap != null)
 bitmap.pause();
 
 		super.kill();
@@ -141,8 +133,7 @@ bitmap.pause();
 	public override function revive():Void {
 super.revive();
 
-		if (bitmap != null);
-			
+		if (bitmap != null)
 bitmap.resume();
 }
 
@@ -151,4 +142,3 @@ bitmap.resume();
 return antialiasing = (bitmap == null ? value : (bitmap.smoothing = value));
 }
 }
-#

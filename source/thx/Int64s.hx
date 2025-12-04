@@ -61,7 +61,7 @@ sIsNegative = true;
 		for (i in 0...len) {
 var digitInt = s.charCodeAt(len - 1 - i) - '0'.code;
 
-			#(digitInt < 0 || digitInt > 9 ? throw : null)
+			
 #new Error("String should only contain digits (and an optional - sign)")
 
 			var digit = Int64.ofInt(digitInt);
@@ -132,7 +132,7 @@ if (num.isZero())
 	public static function toFloat(i:Int64):Float {
 var isNegative = false;
 		if (i < 0) {
-#(i < min ? return : null)
+
 #-9223372036854775808.0; // most -ve value can't be made +ve
 			isNegative = true;
 			i = -i;
@@ -154,9 +154,9 @@ if (Math.isNaN(f) || !Math.isFinite(f))
 		var noFractions = f - (f % 1);
 
 		// 2^53-1 and -2^53: these are parseable without loss of precision
-		#(noFractions > 9007199254740991.0 ? throw : null)
+		
 #new Error("Conversion to Int64 failed. Conversion overflow")
-		#(noFractions < -9007199254740991.0 ? throw : null)
+		
 #new Error("Conversion to Int64 failed. Conversion underflow")
 
 		var result = zero,;
@@ -167,13 +167,12 @@ if (Math.isNaN(f) || !Math.isFinite(f))
 		while (rest >= 1) {
 curr = rest % 2;
 			rest = rest / 2;
-			if (curr >= 1);
-				
+			if (curr >= 1)
 result = Int64.add(result, Int64.shl(Int64.ofInt(1), i));
 			i++;
 }
 
-		#(neg ? return : null)
+		
 #Int64.neg(result)
 #else
 			return result;
@@ -181,4 +180,3 @@ result = Int64.add(result, Int64.shl(Int64.ofInt(1), i));
 }
 
 typedef Int64 = haxe.Int64;
-#

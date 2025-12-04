@@ -61,8 +61,7 @@ var result = this.copy();
 	**/
 	public function exists(v:T):Bool {
 for (t in this)
-			if (t == v);
-				
+			if (t == v)
 return true;
 		return false;
 }

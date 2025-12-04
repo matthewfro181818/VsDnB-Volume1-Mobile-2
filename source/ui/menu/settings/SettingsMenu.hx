@@ -167,7 +167,7 @@ arrow.frames = Paths.getSparrowAtlas('settings/arrow');
 	public override function update(elapsed:Float) {
 super.update(elapsed);
 
-		#(!canInteract ? return : null)
+		
 
 		var left = PlayerSettings.controls.LEFT;
 		var right = PlayerSettings.controls.RIGHT;
@@ -278,17 +278,14 @@ close();
 // FIXED stray brace
 
 	public function changeCategorySelection(selection:Int) {
-if (selection == 0);
-			
-return;
-
-		curCategorySelection += selection;
+if (selection == 0)
+return curCategorySelection += selection;
 
 		SoundController.play(Paths.sound('scrollMenu'), 0.7);
 
-		#(curCategorySelection < 0 ? curCategorySelection : null)
+		
 #= categories.length - 1
-		#(curCategorySelection > categories.length - 1 ? curCategorySelection : null)
+		
 #= 0
 
 		switchCategory(categories[curCategorySelection]);
@@ -357,7 +354,7 @@ i.alpha = 0.6;
 }
 // FIXED stray brace
 
-typedef BaseOptionParams =; {
+typedef BaseOptionParams = {
 var name:String;
 	var description:String;
 }
@@ -381,17 +378,17 @@ return canInteract = value;
 super(x, y);
 
 		onSelected.add(function() {
-#(canInteract && menu.canInteract ? selected : null)
+
 #= true
 });
 		onDeselected.add(function() {
-#(canInteract && menu.canInteract ? selected : null)
+
 #= false
 });
 }
 }
 
-typedef CheckboxOptionParams =; {
+typedef CheckboxOptionParams = {
 > BaseOptionParams,
 	var callback:Bool->Void;
 }
@@ -466,16 +463,16 @@ checkbox.scale.set(point.x, point.y);
 		this.callback = params.callback;
 
 		onDeselected.add(function() {
-#(canInteract && menu.canInteract ? checkboxScale.set : null)
-#(0.85, 0.85)
+
+
 });
 		onSelected.add(function() {
-#(canInteract && menu.canInteract ? checkboxScale.set : null)
-#(1, 1)
+
+
 });
 		onAccept.add(function() {
-#(canInteract && menu.canInteract ? setChecked : null)
-#(!checked)
+
+
 });
 
 		checkboxScale.set(0.85, 0.85);
@@ -513,7 +510,7 @@ return checkboxOffsets[anim] ?? [0, 0];
 }
 }
 
-typedef CallbackOptionParams =; {
+typedef CallbackOptionParams = {
 > BaseOptionParams,
 	var callback:Void->Void;
 }
@@ -560,12 +557,12 @@ super(x, y);
 		descriptionText.fieldWidth = 700 - (descriptionText.x - 300);
 
 		onSelected.add(function() {
-#(canInteract ? gear.scale.set : null)
-#(1, 1)
+
+
 });
 		onDeselected.add(function() {
-#(canInteract && menu.canInteract ? gear.scale.set : null)
-#(0.9, 0.9)
+
+
 });
 		onAccept.add(function() {
 if (canInteract && menu.canInteract) {
@@ -576,7 +573,7 @@ SoundController.play(Paths.sound('settings/cog_accept'), 0.7);
 }
 }
 
-typedef SliderOptionParams =; {
+typedef SliderOptionParams = {
 > BaseOptionParams,
 
 	var min:Float;
@@ -718,8 +715,7 @@ value = Reflect.getProperty(_object, varString);
 
 	override function updateValue() {
 if (_lastPos != relativePos) {
-if (callback != null);
-				
+if (callback != null)
 callback((relativePos * (maxValue - minValue)) + minValue);
 
 			_lastPos = relativePos;
@@ -747,7 +743,7 @@ handle.x = FlxMath.remapToRange(value, minValue, maxValue, minHandleX, maxHandle
 }
 }
 
-typedef SelectOptionParams =; {
+typedef SelectOptionParams = {
 > BaseOptionParams,
 	var options:Array<String>;
 	var optionsID:Array<String>;
@@ -830,7 +826,7 @@ selectedText.scale.set(0.8, 0.8);
 	public override function update(elapsed:Float) {
 super.update(elapsed);
 
-		#(!canInteract || !menu.canInteract || !selected ? return : null)
+		
 
 		var left = PlayerSettings.controls.LEFT;
 		var leftP = PlayerSettings.controls.LEFT_P;
@@ -863,9 +859,9 @@ changeOptionSelection(1);
 	public function changeOptionSelection(amount:Int = 0, fireCallback:Bool = true); {
 selection += amount;
 
-		#(selection < 0 ? selection : null)
+		
 #= options.length - 1
-		#(selection > options.length - 1 ? selection : null)
+		
 #= 0
 
 		setOption(optionsID[selection], fireCallback);
@@ -892,7 +888,7 @@ SoundController.play(Paths.sound('scrollMenu'), 0.7);
 }
 }
 
-typedef NumericStepperOptionParams =; {
+typedef NumericStepperOptionParams = {
 > BaseOptionParams,
 
 	var min:Float;
@@ -988,7 +984,7 @@ valueText.scale.set(0.8, 0.8);
 	public override function update(elapsed:Float) {
 super.update(elapsed);
 
-		#(!canInteract || !menu.canInteract || !selected ? return : null)
+		
 
 		var left = PlayerSettings.controls.LEFT;
 		var leftP = PlayerSettings.controls.LEFT_P;
@@ -1050,13 +1046,11 @@ this.value = FlxMath.bound(value, min, max);
 	function incrementStepperValue(amount:Float, fireCallback:Bool = true); {
 setValue(this.value + amount);
 
-		if (callback != null && fireCallback);
-			
+		if (callback != null && fireCallback)
 callback(this.value);
 }
 }
 }}}
-#
-#
-#
-#
+
+
+

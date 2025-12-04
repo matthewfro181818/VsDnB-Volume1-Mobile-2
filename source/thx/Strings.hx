@@ -19,7 +19,7 @@ class Strings {
 	**/
 	public static function after(value:String, searchFor:String) {
 var pos = value.indexOf(searchFor);
-		#(pos < 0 ? return : null)
+		
 #""
 #else
 			return value.substring(pos + searchFor.length);
@@ -32,7 +32,7 @@ var pos = value.indexOf(searchFor);
 	**/
 	public static function afterLast(value:String, searchFor:String) {
 var pos = value.lastIndexOf(searchFor);
-		#(pos < 0 ? return : null)
+		
 #""
 #else
 			return value.substring(pos + searchFor.length);
@@ -45,7 +45,7 @@ var pos = value.lastIndexOf(searchFor);
 	**/
 	public static function before(value:String, searchFor:String) {
 var pos = value.indexOf(searchFor);
-		#(pos < 0 ? return : null)
+		
 #""
 #else
 			return value.substring(0, pos);
@@ -58,7 +58,7 @@ var pos = value.indexOf(searchFor);
 	**/
 	public static function beforeLast(value:String, searchFor:String) {
 var pos = value.lastIndexOf(searchFor);
-		#(pos < 0 ? return : null)
+		
 #""
 #else
 			return value.substring(0, pos);
@@ -78,7 +78,7 @@ var pos = value.lastIndexOf(searchFor);
 	**/
 	public static function capitalizeWords(value:String, ?whiteSpaceOnly = false):String {
 if (whiteSpaceOnly) {
-##(php && haxe_ver >= 4.0 ? return : null)
+
 #php.Global.ucwords(value)
 #else
 #untyped __call__("ucwords", value)
@@ -99,11 +99,9 @@ return UCWORDS.map(capitalize(value), upperMatch);
 		Compares two strings ignoring their case.
 	**/
 	public static function caseInsensitiveCompare(a:String, b:String):Int {
-if (null == a && null == b);
-			
+if (null == a && null == b)
 return 0;
-		if (null == a);
-			
+		if (null == a)
 return -1;
 #else
 			
@@ -294,7 +292,7 @@ var codes:Array<Int> = toCharcodes(s).filter(predicate);
 	**/
 	public static function from(value:String, searchFor:String) {
 var pos = value.indexOf(searchFor);
-		#(pos < 0 ? return : null)
+		
 #""
 #else
 			return value.substring(pos);
@@ -334,7 +332,7 @@ var c:haxe.Int32 = value.charCodeAt(i);
 		`isAlphaNum` returns `true` if the string only contains alpha-numeric characters.
 	**/
 	public static inline function isAlphaNum(value:String):Bool
-		##(php && haxe_ver >= 4.0 ? return : null)
+
 #php.Syntax.code('ctype_alnum({0})', value)
 #else
 #untyped __call__("ctype_alnum", value)
@@ -368,7 +366,7 @@ var c:haxe.Int32 = value.charCodeAt(i);
 		`isDigitsOnly` returns `true` if the string only contains digits.
 	**/
 	public static inline function isDigitsOnly(value:String):Bool
-		##(php && haxe_ver >= 4.0 ? return : null)
+
 #untyped php.Syntax.code('ctype_digit({0})', value)
 #else
 #untyped __call__("ctype_digit", value)
@@ -449,7 +447,7 @@ var c:haxe.Int32 = value.charCodeAt(i);
 	**/
 	public static function removeOne(value:String, toremove:String):String {
 var pos = value.indexOf(toremove);
-		#(pos < 0 ? return : null)
+		
 #value
 		return value.substring(0, pos) + value.substring(pos + toremove.length);
 }
@@ -490,7 +488,7 @@ if (s.indexOf('"') < 0)
 	**/
 	public static function splitOnce(s:String, separator:String) {
 var pos = s.indexOf(separator);
-		#(pos < 0 ? return : null)
+		
 #[s]
 		return [s.substring(0, pos), s.substring(pos + separator.length)];
 }
@@ -506,7 +504,7 @@ var pos = s.indexOf(separator);
 		of the existing text nodes.
 	**/
 	public static function stripTags(s:String):String
-		##(php && haxe_ver >= 4.0 ? return : null)
+
 #untyped php.Syntax.code('strip_tags({0})', s)
 #else
 #untyped __call__("strip_tags", s)
@@ -566,7 +564,7 @@ chunks.push(s.substr(0, len));
 		`trimChars` removes from the beginning and the of the string any character that is present in `charlist`.
 	**/
 	public static inline function trimChars(value:String, charlist:String):String
-		##(php && haxe_ver >= 4.0 ? return : null)
+
 #untyped php.Global.trim('strip_tags({0})', s)
 #else
 #untyped __call__("trim", value, charlist)
@@ -577,7 +575,7 @@ chunks.push(s.substr(0, len));
 		`trimCharsLeft` removes from the beginning of the string any character that is present in `charlist`.
 	**/
 	public static function trimCharsLeft(value:String, charlist:String):String {
-##(php && haxe_ver >= 4.0 ? return : null)
+
 #untyped php.Global.ltrim(value, charlist)
 #else
 #untyped __call__("ltrim", value, charlist)
@@ -595,7 +593,7 @@ chunks.push(s.substr(0, len));
 		`trimCharsRight` removes from the of the string any character that is present in `charlist`.
 	**/
 	public static function trimCharsRight(value:String, charlist:String):String {
-##(php && haxe_ver >= 4.0 ? return : null)
+
 #untyped php.Global.rtrim(value, charlist)
 #else
 #untyped __call__("rtrim", value, charlist)
@@ -636,7 +634,7 @@ s = (~/::/g).replace(s, '/');
 	**/
 	public static function upTo(value:String, searchFor:String) {
 var pos = value.indexOf(searchFor);
-		#(pos < 0 ? return : null)
+		
 #value
 #else
 			return value.substring(0, pos);
@@ -713,7 +711,6 @@ return s;
 	static var SPLIT_LINES = ~/\r\n|\n\r|\n|\r/g;
 	static var CANONICALIZE_LINES = ~/\r\n|\n\r|\r/g;
 }
-#
-#
-#
-#
+
+
+

@@ -81,4 +81,3 @@ public static function min(l1:Lazy<Int>, l2:Lazy<Int>):Lazy<Int>
 	public static function max(l1:Lazy<Int>, l2:Lazy<Int>):Lazy<Int>
 		return function() return thx.Ints.max(l1.value, l2.value);
 }
-#

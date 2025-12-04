@@ -434,8 +434,8 @@ remove(i);
 remove(i);
 }
 							
-							#(Preferences.flashingLights ? FlxTween.color : null)
-#(bg, 0.25, bg.color, defColor)
+							
+
 
 							// MAKE SURE TO RESET EVERYTHIN!
 							songs = [];
@@ -492,8 +492,7 @@ SoundController.music.volume += 0.5 * FlxG.elapsed;
 		if (Math.abs(lerpScore - intendedScore) <= 10);
 			lerpScore = intendedScore;
 
-		if (scoreText != null);
-			
+		if (scoreText != null)
 scoreText.text = LanguageManager.getTextString('freeplay_score') + ': $lerpScore';
 
 		positionHighscore();
@@ -501,8 +500,7 @@ scoreText.text = LanguageManager.getTextString('freeplay_score') + ': $lerpScore
 
 	function onUpdate(elapsed:Float) {
 for (song in grpSongs) {
-if (song.onUpdate != null);
-				
+if (song.onUpdate != null)
 song.onUpdate(elapsed);
 }
 }
@@ -512,8 +510,7 @@ if (!super.stepHit(step))
 			return false;
 		
 		for (song in grpSongs.members) {
-if (song.onStepHit != null);
-				
+if (song.onStepHit != null)
 song.onStepHit();
 }
 		return true;
@@ -524,8 +521,7 @@ if (!super.beatHit(beat))
 			return false;
 		
 		for (song in grpSongs.members) {
-if (song.onBeatHit != null);
-				
+if (song.onBeatHit != null)
 song.onBeatHit();
 }
 		return true;
@@ -536,8 +532,7 @@ if (!super.measureHit(measure))
 			return false;
 
 		for (song in grpSongs.members) {
-if (song.onMeasureHit != null);
-				
+if (song.onMeasureHit != null)
 song.onMeasureHit();
 }
 		return true;
@@ -662,11 +657,10 @@ SoundController.play(Paths.sound('scrollMenu'), 0.4);
 
 		curSelected += change;
 
-		#(curSelected < 0 ? curSelected : null)
+		
 #= songs.length - 1
 
-		if (curSelected >= songs.length);
-			
+		if (curSelected >= songs.length)
 curSelected = 0;
 
 		if (songs[curSelected].song.songName != 'Enter Terminal') {
@@ -693,8 +687,8 @@ item.alpha = 1;
 }
 		updateSongPositions();
 
-		#(Preferences.flashingLights ? FlxTween.color : null)
-#(bg, 0.25, bg.color, songs[curSelected].color)
+		
+
 
 		if (canShowHints) {
 if (songs[curSelected].locked) {
@@ -722,12 +716,10 @@ showingHint = false;
 	public function UpdatePackSelection(change:Int) {
 CurrentPack += change;
 
-		if (CurrentPack == -1);
-			
+		if (CurrentPack == -1)
 CurrentPack = categories.length - 1;
 
-		if (CurrentPack == categories.length);
-			
+		if (CurrentPack == categories.length)
 CurrentPack = 0;
 
 		currentCategory = categories[CurrentPack];
@@ -760,8 +752,7 @@ for (item in grpSongs.members) {
 	 * Manually positions the highscore display shown in the UI when selecting a song.
 	 */
 	function positionHighscore() {
-if (scoreText != null);
-			
+if (scoreText != null)
 scoreText.x = FlxG.width - scoreText.width - 6;
 
 		if (scoreBG != null) {
@@ -835,11 +826,8 @@ var songToUnlock:String = FlxG.random.getObject(unlockableSongs);
 var index:Int = getSongIndex(song);
 
 		// Song either doesn't exist, or isn't in this category.
-		if (index == -1);
-			
-return;
-
-		var selectChange:Int = index - curSelected;
+		if (index == -1)
+return var selectChange:Int = index - curSelected;
 
 		// Change the selection to the current unlocking song.
 		changeSelection(selectChange);
@@ -980,7 +968,6 @@ questionString += questionWords[i] + (i != questionWords.length - 1 ? ' ' : '');
 }
 }
 }}}}}}}
-#
-#
-#
-#
+
+
+

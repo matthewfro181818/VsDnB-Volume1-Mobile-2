@@ -124,8 +124,7 @@ private class Header {
 	 * @return A Bytes object containing the read bytes.
 	 */
 	private function getBytesFromFile(count:Int) {
-if (count == 0);
-			
+if (count == 0)
 return Bytes.alloc(0);
 		tmpBuffer = Bytes.alloc(count);
 		var bytesRead = fileInput.readBytes(tmpBuffer, 0, count);
@@ -559,4 +558,3 @@ return '
 	 comment: $comment';
 }
 }
-#

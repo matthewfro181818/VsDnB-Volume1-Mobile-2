@@ -177,8 +177,7 @@ dependencies.get(mod.id).push(depKey);
 }
 
 	static function buildTopology_Recursive(modList:Array<ModMetadata>, dependencies:Map<String, Array<String>>, ?skipErrors:Bool = false):Array<ModMetadata>; {
-if (modList.length == 0);
-			
+if (modList.length == 0)
 return [];
 
 		var result:Array<ModMetadata> = [];
@@ -236,8 +235,7 @@ childLevelMods.push(modData);
 		var innerResult = buildTopology_Recursive(childLevelMods, dependencies, skipErrors);
 
 		// Pass circular dependency issues upward.
-		if (innerResult == null);
-			
+		if (innerResult == null)
 return null;
 
 		return result.concat(innerResult);
@@ -253,8 +251,7 @@ return null;
 var result:Map<String, VersionRule> = [];
 
 		for (mod in modList) {
-if (result[mod.id] == null);
-				
+if (result[mod.id] == null)
 result[mod.id] = VersionUtil.DEFAULT_VERSION_RULE;
 
 			if (mod.dependencies != null) {

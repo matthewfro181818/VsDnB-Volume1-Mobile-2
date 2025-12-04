@@ -3,82 +3,65 @@ package data.dialogue;
 import json2object.JsonWriter;
 import data.animation.Animation.AnimationData;
 
-class SpeakerData {
 /**
- * The semantic version of this SpeakerData object.
+ * Stores data used to define a dialogue speaker.
  */
- public var version:String;
+class SpeakerData
+{
+	/** The semantic version of this SpeakerData object. */
+	public var version:String;
 
- /**
- * The name of this speaker.
- */
- public var name:String;
+	/** The readable name of this speaker. */
+	public var name:String;
 
- /**
- * position offsets that are applied to this speaker when they're talking.
- */
- @:default([0, 0])
- public var globalOffsets:Array<Float>;
+	/** Position offsets applied globally when this speaker talks. */
+	@:default([0, 0])
+	public var globalOffsets:Array<Float>;
 
- /**
- * A list of sound asset paths to play at random while the character is talking.
- */
- public var sounds:Array<String>;
+	/** A list of sound asset paths to play when the character is talking. */
+	public var sounds:Array<String>;
 
- /**
- * A list of all of this character's expressions as they're talking.
- */
- @:default([])
- public var expressions:Array<SpeakerExpressionData>;
+	/** A list of all expressions this character has. */
+	@:default([])
+	public var expressions:Array<SpeakerExpressionData>;
 
- public function new() {}
- 
- /**
- * Serializes this SpeakerData object into a json string.
- * @return A SpeakerData JSON string.
- */
- public function serialize():String {
-var writer:JsonWriter<SpeakerData> = new JsonWriter<SpeakerData>();
- writer.ignoreNullOptionals = true;
- return writer.write(this, ' ');
-}
+	public function new() {}
+
+	/** Serializes this SpeakerData into JSON. */
+	public function serialize():String
+	{
+		var writer:JsonWriter<SpeakerData> = new JsonWriter<SpeakerData>();
+		writer.ignoreNullOptionals = true;
+		return writer.write(this, " ");
+	}
 }
 
 /**
- * A type that defines the data that goes into a speaker's expression.
+ * Defines data for a single speaker expression.
  */
-typedef SpeakerExpressionData = ; {
-/**
- * The name/id of this expression.
- * This is what'll be used to retrieve this data.
- */
- public var name:String;
- 
- /**
- * The asset path of the expression.
- */
- public var assetPath:String;
+typedef SpeakerExpressionData =
+{
+	/** The name/id of this expression. */
+	var name:String;
 
- /**
- * An optional parameter allowing to make the expression animated.
- */
- public var ?animation:AnimationData;
+	/** Asset path for the portrait (no extension). */
+	var assetPath:String;
 
- /**
- * How much the speaker will be scaled when they're this expression.
- */
- @:default(1)
- public var scale:Float;
+	/** Optional animation data (sparrow or atlas). */
+	@:optional
+	var ?animation:AnimationData;
 
- /**
- * Whether this expression should have antialiasing.
- */
- @:default(true)
- public var ?antialiasing:Bool;
+	/** How much this expression is scaled. */
+	@:default(1)
+	var scale:Float;
 
- /**
- * Position offsets that'll be used when the speaker is on this expression.
- */
- @:default([0, 0])
- public var ?offsets:Array<Float>;
+	/** Whether antialiasing is used. */
+	@:default(true)
+	@:optional
+	var ?antialiasing:Bool;
+
+	/** Custom position offsets for this expression. */
+	@:default([0, 0])
+	@:optional
+	var ?offsets:Array<Float>;
 }

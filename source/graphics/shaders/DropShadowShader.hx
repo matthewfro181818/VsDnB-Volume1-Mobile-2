@@ -217,8 +217,8 @@ altMaskImage = bmp;
  TODO: figure out why the reference to the attachedSprite breaks on web??
  */
  public function onAttachedFrame(name, frameNum, frameIndex) {
-#(attachedSprite != null ? updateFrameInfo : null)
-#(attachedSprite.frame)
+
+
 }
 
  /*
@@ -253,4 +253,3 @@ super(Paths.frag('dropShadow'));
  setFloat("angOffset", 0);
 }
 }
-#

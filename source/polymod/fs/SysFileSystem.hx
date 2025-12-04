@@ -44,8 +44,7 @@ if (!exists(path))
 }
 
 	public function scanMods(?apiVersionRule:VersionRule):Array<ModMetadata> {
-if (apiVersionRule == null);
-			
+if (apiVersionRule == null)
 apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
 
 		var dirs = readDirectory(modRoot);
@@ -57,8 +56,7 @@ var fullDir = Util.pathJoin(modRoot, dir);
 
 			var meta:ModMetadata = this.getMetadata(dir);
 
-			if (meta == null);
-				
+			if (meta == null)
 continue;
 
 			if (!VersionUtil.match(meta.apiVersion, apiVersionRule))
@@ -88,8 +86,7 @@ var metaText = getFileContent(metaFile);
 				meta = ModMetadata.fromJsonStr(metaText);
 }
 
-			if (meta == null);
-				
+			if (meta == null)
 return null;
 
 			meta.id = modId;
@@ -127,13 +124,11 @@ f = Util.uSubstr(f, Util.uLength(path + '/'), Util.uLength(f));
 	private function _readDirectoryRecursive(str:String):Array<String> {
 if (exists(str) && isDirectory(str)) {
 var all = readDirectory(str);
-			if (all == null);
-				
+			if (all == null)
 return [];
 			var results = [];
 			for (thing in all) {
-if (thing == null);
-					
+if (thing == null)
 continue;
 				var pathToThing = Util.pathJoin(str, thing);
 				if (isDirectory(pathToThing)) {
@@ -151,4 +146,3 @@ results.push(pathToThing);
 		return [];
 }
 }
-#

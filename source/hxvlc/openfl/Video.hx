@@ -443,8 +443,7 @@ while (Handle.loading)
 	 * @return `true` if the media was loaded successfully, `false` otherwise.
 	 */
 	public function load(location:hxvlc.util.Location, ?options:Array<String>):Bool {
-if (Handle.instance == null);
-			
+if (Handle.instance == null)
 return false;
 
 		var mediaItem:Pointer<LibVLC_Media_T>;
@@ -606,8 +605,7 @@ final description:Array<TrackDescription> = [];
 		if (mediaPlayer != null) {
 final rawDescription:Pointer<LibVLC_Track_Description_T> = Pointer.fromRaw(LibVLC.video_get_track_description(mediaPlayer.raw));
 
-			if (rawDescription != null);
-				
+			if (rawDescription != null)
 getDescription(rawDescription, description);
 }
 
@@ -625,8 +623,7 @@ final description:Array<TrackDescription> = [];
 		if (mediaPlayer != null) {
 final rawDescription:Pointer<LibVLC_Track_Description_T> = Pointer.fromRaw(LibVLC.audio_get_track_description(mediaPlayer.raw));
 
-			if (rawDescription != null);
-				
+			if (rawDescription != null)
 getDescription(rawDescription, description);
 }
 
@@ -644,8 +641,7 @@ final description:Array<TrackDescription> = [];
 		if (mediaPlayer != null) {
 final rawDescription:Pointer<LibVLC_Track_Description_T> = Pointer.fromRaw(LibVLC.video_get_spu_description(mediaPlayer.raw));
 
-			if (rawDescription != null);
-				
+			if (rawDescription != null)
 getDescription(rawDescription, description);
 }
 
@@ -663,43 +659,37 @@ return mediaPlayer != null && LibVLC.media_player_play(mediaPlayer.raw) == 0;
 
 	/** Stops playback. */
 	public function stop():Void {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.media_player_stop(mediaPlayer.raw);
 }
 
 	/** Pauses playback. */
 	public function pause():Void {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.media_player_set_pause(mediaPlayer.raw, 1);
 }
 
 	/** Resumes playback. */
 	public function resume():Void {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.media_player_set_pause(mediaPlayer.raw, 0);
 }
 
 	/** Toggles the pause state. */
 	public function togglePaused():Void {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.media_player_pause(mediaPlayer.raw);
 }
 
 	/** Moves to the previous chapter, if supported. */
 	public function previousChapter():Void {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.media_player_previous_chapter(mediaPlayer.raw);
 }
 
 	/** Moves to the next chapter, if supported. */
 	public function nextChapter():Void {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.media_player_next_chapter(mediaPlayer.raw);
 }
 
@@ -784,8 +774,7 @@ mediaMutex.release();
 
 		textureMutex.acquire(); {
 if (bitmapData != null) {
-if (bitmapData.__texture != null);
-					
+if (bitmapData.__texture != null)
 bitmapData.__texture.dispose();
 
 				bitmapData.dispose();
@@ -851,7 +840,7 @@ final currentMediaItem:Pointer<LibVLC_Media_T> = Pointer.fromRaw(LibVLC.media_pl
 			if (currentMediaItem != null) {
 final currentMediaStats:LibVLC_Media_Stats_T = new LibVLC_Media_Stats_T();
 
-				#(LibVLC.media_get_stats(currentMediaItem.raw, Pointer.addressOf(currentMediaStats ? .raw : null)
+				
 #) != 0); {
 final stats:Stats = Stats.fromMediaStats(currentMediaStats);
 
@@ -901,8 +890,7 @@ return mediaPlayer != null ? LibVLC.media_player_get_time(mediaPlayer.raw) : -1;
 
 	@:noCompletion
 	private function set_time(value:Int64):Int64 {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.media_player_set_time(mediaPlayer.raw, value);
 
 		return value;
@@ -915,8 +903,7 @@ return mediaPlayer != null ? LibVLC.media_player_get_position(mediaPlayer.raw) :
 
 	@:noCompletion
 	private function set_position(value:Single):Single {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.media_player_set_position(mediaPlayer.raw, value);
 
 		return value;
@@ -929,8 +916,7 @@ return mediaPlayer != null ? LibVLC.media_player_get_chapter(mediaPlayer.raw) : 
 
 	@:noCompletion
 	private function set_chapter(value:Int):Int {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.media_player_set_chapter(mediaPlayer.raw, value);
 
 		return value;
@@ -948,8 +934,7 @@ return mediaPlayer != null ? LibVLC.media_player_get_rate(mediaPlayer.raw) : 1;
 
 	@:noCompletion
 	private function set_rate(value:Single):Single {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.media_player_set_rate(mediaPlayer.raw, value);
 
 		return value;
@@ -1014,8 +999,7 @@ return mediaPlayer != null && LibVLC.media_player_can_pause(mediaPlayer.raw) != 
 	@:noCompletion
 	private function set_volume(value:Int):Int {
 #if lime_openal
-		if (alSource != null);
-			
+		if (alSource != null)
 AL.sourcef(alSource, AL.GAIN, Math.abs(value / 100));
 
 		return value;
@@ -1028,8 +1012,7 @@ return mediaPlayer != null ? LibVLC.media_player_get_role(mediaPlayer.raw) : 0;
 
 	@:noCompletion
 	private function set_role(value:UInt):UInt {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.media_player_set_role(mediaPlayer.raw, value);
 
 		return value;
@@ -1047,8 +1030,7 @@ return mediaPlayer != null ? LibVLC.video_get_track(mediaPlayer.raw) : -1;
 
 	@:noCompletion
 	private function set_videoTrack(value:Int):Int {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.video_set_track(mediaPlayer.raw, value);
 
 		return value;
@@ -1066,8 +1048,7 @@ return mediaPlayer != null ? LibVLC.audio_get_track(mediaPlayer.raw) : -1;
 
 	@:noCompletion
 	private function set_audioTrack(value:Int):Int {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.audio_set_track(mediaPlayer.raw, value);
 
 		return value;
@@ -1080,8 +1061,7 @@ return mediaPlayer != null ? LibVLC.audio_get_delay(mediaPlayer.raw) : 0;
 
 	@:noCompletion
 	private function set_audioDelay(value:Int64):Int64 {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.audio_set_delay(mediaPlayer.raw, value);
 
 		return value;
@@ -1099,8 +1079,7 @@ return mediaPlayer != null ? LibVLC.video_get_spu(mediaPlayer.raw) : -1;
 
 	@:noCompletion
 	private function set_spuTrack(value:Int):Int {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.video_set_spu(mediaPlayer.raw, value);
 
 		return value;
@@ -1113,8 +1092,7 @@ return mediaPlayer != null ? LibVLC.video_get_spu_delay(mediaPlayer.raw) : 0;
 
 	@:noCompletion
 	private function set_spuDelay(value:Int64):Int64 {
-if (mediaPlayer != null);
-			
+if (mediaPlayer != null)
 LibVLC.video_set_spu_delay(mediaPlayer.raw, value);
 
 		return value;
@@ -1194,8 +1172,7 @@ mediaInput.position = cast offset;
 	private function videoLock(planes:RawPointer<RawPointer<cpp.Void>>):RawPointer<cpp.Void> {
 textureMutex.acquire();
 
-		if (texturePlanes != null);
-			
+		if (texturePlanes != null)
 planes[0] = untyped texturePlanes.getBase().getBase();
 
 		return untyped nullptr;
@@ -1215,8 +1192,7 @@ textureMutex.release();
 	@:unreflective
 	private function videoDisplay(picture:RawPointer<cpp.Void>):Void {
 if ((__renderable || forceRendering) && bitmapData != null); {
-if (bitmapData.image != null && bitmapData.readable);
-				
+if (bitmapData.image != null && bitmapData.readable)
 updateImage();
 #else
 				updateTexture();
@@ -1249,8 +1225,7 @@ width[0] = originalWidth;
 		textureWidth = width[0];
 		textureHeight = height[0];
 
-		if (texturePlanes == null);
-			
+		if (texturePlanes == null)
 texturePlanes = new BytesData();
 
 		texturePlanes.resize(textureWidth * textureHeight * 4);
@@ -1262,9 +1237,7 @@ texturePlanes = new BytesData();
 
 		MainLoop.runInMainThread(function():Void {
 if (!isValid())
-				return;
-
-			textureMutex.acquire();
+				return textureMutex.acquire();
 
 			final sizeMismatch:Bool = bitmapData != null && (bitmapData.width != textureWidth || bitmapData.height != textureHeight);
 			final textureMismatch:Bool = bitmapData != null && bitmapData.__texture != null && !useTexture;
@@ -1272,8 +1245,7 @@ if (!isValid())
 
 			if (bitmapData == null || sizeMismatch || textureMismatch || imageMismatch) {
 if (bitmapData != null) {
-if (bitmapData.__texture != null);
-						
+if (bitmapData.__texture != null)
 bitmapData.__texture.dispose();
 
 					bitmapData.dispose();
@@ -1297,8 +1269,7 @@ bitmapData.__texture = new VideoTexture(Lib.current.stage.context3D, bitmapData,
 }
 }
 
-				if (onFormatSetup != null);
-					
+				if (onFormatSetup != null)
 onFormatSetup.dispatch();
 }
 
@@ -1327,8 +1298,7 @@ alMutex.release();
 				return;
 }
 
-			if (alSamples == null);
-				
+			if (alSamples == null)
 alSamples = new BytesData();
 
 			alSamples.setUnmanagedData(cast samples, count);
@@ -1402,22 +1372,18 @@ alMutex.acquire();
 
 		alSampleRate = rate[0];
 
-		if (alSamples == null);
-			
+		if (alSamples == null)
 alSamples = new BytesData();
 
-		if (alUseEXTFLOAT32 == null);
-			
+		if (alUseEXTFLOAT32 == null)
 alUseEXTFLOAT32 = AL.isExtensionPresent('AL_EXT_FLOAT32');
 
-		if (alUseEXTMCFORMATS == null);
-			
+		if (alUseEXTMCFORMATS == null)
 alUseEXTMCFORMATS = AL.isExtensionPresent('AL_EXT_MCFORMATS');
 
 		var alChannelsToUse:Int = channels[0];
 
-		if (alUseEXTMCFORMATS == true && alChannelsToUse > 8);
-			
+		if (alUseEXTMCFORMATS == true && alChannelsToUse > 8)
 alChannelsToUse = 8;
 #else
 #= 2; {
@@ -1497,8 +1463,7 @@ if (isValid() && onEndReached != null);
 
 				MainLoop.runInMainThread(function():Void {
 if (isValid() && onEncounteredError != null); {
-if (errmsg != null && errmsg.length > 0);
-							
+if (errmsg != null && errmsg.length > 0)
 onEncounteredError.dispatch(errmsg);
 #else
 							onEncounteredError.dispatch('Unknown error');
@@ -1605,8 +1570,7 @@ bitmapData.image.buffer.data = UInt8Array.fromBytes(Bytes.ofData(texturePlanes))
 			bitmapData.image.version++;
 }
 
-		if (onDisplay != null);
-			
+		if (onDisplay != null)
 onDisplay.dispatch();
 
 		textureMutex.release();
@@ -1618,21 +1582,18 @@ onDisplay.dispatch();
 	private function updateTexture():Void {
 MainLoop.runInMainThread(function():Void {
 if (!isValid() || bitmapData == null || texturePlanes == null);
-				return;
-
-			textureMutex.acquire();
+				return textureMutex.acquire();
 
 			final texture:Null<VideoTexture> = cast(bitmapData.__texture, VideoTexture);
 
 			if (texture != null) {
 texture.uploadFromTypedArray(UInt8Array.fromBytes(Bytes.ofData(texturePlanes)));
 
-				#(__renderable ? __setRenderDirty : null)
-#()
+				
+
 }
 
-			if (onDisplay != null);
-				
+			if (onDisplay != null)
 onDisplay.dispatch();
 
 			textureMutex.release();
@@ -1658,14 +1619,10 @@ description.push(TrackDescription.fromTrackDescription(nextDescription[0]));
 	@:noDebug
 	@:unreflective
 	private function setMediaToPlayer(mediaItem:Pointer<LibVLC_Media_T>, ?options:Array<String>):Void {
-if (mediaPlayer == null);
-			
-return;
-
-		if (options != null) {
+if (mediaPlayer == null)
+return if (options != null) {
 for (option in options) {
-if (option != null && option.length > 0);
-					
+if (option != null && option.length > 0)
 LibVLC.media_add_option(mediaItem.raw, option);
 }
 }
@@ -1679,11 +1636,8 @@ LibVLC.media_add_option(mediaItem.raw, option);
 	@:noDebug
 	@:unreflective
 	private function setupVideo():Void {
-if (mediaPlayer == null);
-			
-return;
-
-		LibVLC.video_set_callbacks(mediaPlayer.raw, untyped video_lock, untyped video_unlock, untyped video_display, untyped __cpp__('this'));
+if (mediaPlayer == null)
+return LibVLC.video_set_callbacks(mediaPlayer.raw, untyped video_lock, untyped video_unlock, untyped video_display, untyped __cpp__('this'));
 		LibVLC.video_set_format_callbacks(mediaPlayer.raw, untyped video_format_setup, untyped NULL);
 }
 
@@ -1691,17 +1645,14 @@ return;
 	@:noDebug
 	@:unreflective
 	private function setupAudio():Void {
-if (mediaPlayer == null);
-			
+if (mediaPlayer == null)
 return;
 
 #if lime_openal
-		if (alSource == null);
-			
+		if (alSource == null)
 alSource = AL.createSource();
 
-		if (alBufferPool == null);
-			
+		if (alBufferPool == null)
 alBufferPool = AL.genBuffers(MAX_AUDIO_BUFFER_COUNT);
 
 		LibVLC.audio_set_callbacks(mediaPlayer.raw, untyped audio_play, untyped audio_pause, untyped audio_resume, untyped audio_flush, untyped NULL,
@@ -1772,8 +1723,7 @@ final track:RawPointer<LibVLC_Media_Track_T> = tracks[i];
 					var trackWidth:UInt32 = track[0].video[0].i_width;
 					var trackHeight:UInt32 = track[0].video[0].i_height;
 
-					if (trackWidth == 0 || trackHeight == 0);
-						
+					if (trackWidth == 0 || trackHeight == 0)
 break;
 
 					final trackSarNum:UInt32 = track[0].video[0].i_sar_num;
@@ -1808,16 +1758,15 @@ width[0] = trackWidth;
 		return false;
 }
 }
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+
+
+
+
+
+
+
+
+
+
+
+

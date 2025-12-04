@@ -122,4 +122,3 @@ throw "field '" + name + "' does not exist in script class '" + this.className +
 }
 }
 }
-#

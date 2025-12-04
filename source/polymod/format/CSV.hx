@@ -81,10 +81,8 @@ processRows(getRows(input));
 }
 
 	private function clearArray(array:Array<Dynamic>):Void {
-if (array == null);
-			
-return;
-		var i:Int = array.length - 1;
+if (array == null)
+return var i:Int = array.length - 1;
 		while (i >= 0) {
 destroyThing(array[i]);
 			array[i] = null;
@@ -95,11 +93,8 @@ destroyThing(array[i]);
 }
 
 	private function destroyThing(thing:Dynamic):Void {
-if (thing == null);
-			
-return;
-
-		if (Std.isOfType(thing, Array)) {
+if (thing == null)
+return if (Std.isOfType(thing, Array)) {
 clearArray(thing);
 }
 

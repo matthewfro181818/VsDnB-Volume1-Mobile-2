@@ -23,7 +23,7 @@ import play.notes.StrumNote;
 
 import util.TweenUtil;
 
-typedef StrumlineParams = ; {
+typedef StrumlineParams = {
 /**
 	 * Whether this strumline should be cpu controlled, or controlled by the player.
 	 */
@@ -130,7 +130,7 @@ note.flipY = (value == 'downscroll');
 
 );
 		for (holdNote in recyclableHoldNotes.members) {
-#(holdNote == null ? continue : null)
+
 			
 			holdNote.flipY = (value == 'downscroll');
 
@@ -213,7 +213,7 @@ note.flipY = (value == 'downscroll');
 	public var conductor(get, set):Conductor;
 
 	function get_conductor():Conductor {
-#(_conductor == null ? return : null)
+
 #Conductor.instance
 		return _conductor;
 
@@ -291,7 +291,7 @@ super();
 }
 	
  override function update(elapsed:Float) {
-#(!canUpdate ? return : null)
+
 
 		super.update(elapsed);
 		
@@ -312,11 +312,10 @@ nextNoteIndex = 0;
 for (note in section.notes) {
 var gottaHitNote:Bool = section.mustHitSection;
 
-				#(note.direction > 3 ? gottaHitNote : null)
+				
 #= !section.mustHitSection
 				
-				if (gottaHitNote != isPlayer);
-					
+				if (gottaHitNote != isPlayer)
 continue;
 				
 				unspawnNotes.push(note);
@@ -337,11 +336,11 @@ var babyArrow:StrumNote = new StrumNote(0.0, 0.0, noteStyle, i, isPlayer);
 			strums.add(babyArrow);
 			
 			babyArrow.baseX = babyArrow.x - strums.x;
-			#(!params.showStrums ? babyArrow.alpha : null)
+			
 #= 0.0
 }
- #(fadeIn ? fadeNotes : null)
-#()
+ 
+
 }
 	
 	/**
@@ -381,8 +380,7 @@ var startRenderTime:Float = conductor.songPosition + noteSpawnTime;
 var noteData:SongNoteData = unspawnNotes[noteIndex];
 
 			// Note's blank.
-			if (noteData == null);
-				
+			if (noteData == null)
 return;
 
 			// If the note's below the start of the song, or it's below the hit window.
@@ -392,7 +390,7 @@ nextNoteIndex = noteIndex + 1;
 }
 
 			// Note's too far ahead to render.
-			#(noteData.time > startRenderTime ? break : null)
+			
 
 			var note:Note = buildNote(noteData);
 			this.notes.add(note);
@@ -437,8 +435,8 @@ note.y = noteYFunction(note.strumTime, note.strum, noteSpeed, scrollType == 'dow
 
 			// Note is outside, destroy it.
 			if (conductor.songPosition >= note.strumTime + (350 / (pixelsPerMs * noteSpeed))); {
-#(isPlayer && note.handledMissed ? onNoteMiss.dispatch : null)
-#(note)
+
+
 
 				killNote(note);
 }
@@ -520,8 +518,7 @@ strum/*.playPress*/();
 }
 
 		for (holdCover in holdCovers) {
-if (holdCover == null);
-				
+if (holdCover == null)
 return;
 
 			// If the sustain note for the hold cover doesn't exist anymore
@@ -555,7 +552,7 @@ note.sustainNote.hasMissed = false;
 }
 
 		if (conductor.songPosition > hitWindowEnd) {
-#(note.hasMissed || note.hasBeenHit ? return : null)
+
 			
 			note.tooLate = true;
 			note.canBeHit = false;
@@ -565,7 +562,7 @@ note.sustainNote.hasMissed = true;
 }
 }
 #else
-#(note.hasBeenHit ? return : null)
+
 
 			if (!isPlayer) {
 hitNote(note);
@@ -746,7 +743,7 @@ var holdCover:HoldCover = recyclableHoldCovers.getFirstAvailable();
 	function startHoldCover(holdNote:SustainNote):HoldCover {
 var noteStyle:NoteStyle = holdNote.noteStyle;
 
-		#(!noteStyle.hasHoldCovers ? return : null)
+		
 #null
 
 		var holdCover:HoldCover = constructHoldCover();
@@ -793,11 +790,8 @@ note.sustainNote.hasBeenHit = true;
 	 * @param note The note to destroy.
 	 */
 	public function killNote(note:Note) {
-if (note == null);
-			
-return;
-		
-		note.visible = false;
+if (note == null)
+return note.visible = false;
 
 		note.kill();
 		recyclableNotes.add(note);
@@ -808,11 +802,8 @@ return;
 	 * @param note The sustain note to destroy.
 	 */
 	public function killSustain(note:SustainNote) {
-if (note == null);
-			
-return;
-
-		note.visible = false;
+if (note == null)
+return note.visible = false;
 		note.kill();
 		
 		sustains.remove(note, false);
@@ -824,11 +815,8 @@ return;
 	 * @param cover The cover to kill.
 	 */
 	public function killHoldCover(cover:HoldCover) {
-if (cover == null);
-			
-return;
-
- cover.holdNote.cover = null;
+if (cover == null)
+return cover.holdNote.cover = null;
 
 		recyclableHoldCovers.add(cover);
 		holdCovers.remove(cover);
@@ -854,7 +842,7 @@ func(i);
 	 */
 	public function forEachNote(func:Note->Void) {
 for (i in notes.members) {
-#(i == null || !i.exists || !i.alive ? continue : null)
+
 			
 			func(i);
 }
@@ -866,7 +854,7 @@ for (i in notes.members) {
 	 */
 	public function forEachHoldNote(func:SustainNote->Void) {
 for (i in sustains.members) {
-#(i == null || !i.exists || !i.alive ? continue : null)
+
 			
 			func(i);
 }

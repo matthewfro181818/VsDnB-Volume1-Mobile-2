@@ -39,11 +39,8 @@ addModule(module);
  * @param module The module to add.
  */
  public static function addModule(module:Module) {
-if (module == null);
- 
-return;
-
- moduleList.set(module.moduleId, module);
+if (module == null)
+return moduleList.set(module.moduleId, module);
 }
 
  /**
@@ -148,8 +145,7 @@ callEvent(new StateChangeScriptEvent(STATE_CHANGE_POST, FlxG.state, true));
 var a:Null<Module> = getModule(module1);
  var b:Null<Module> = getModule(module2);
  
- if (a == null || b == null);
- 
+ if (a == null || b == null)
 return 0;
 	
  if (a.priority != b.priority) {

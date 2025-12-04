@@ -93,5 +93,4 @@ var compressedBytes = super.getFileBytes(path);
 return super.getMetadata(modId);
 }
 }
-#
-#
+

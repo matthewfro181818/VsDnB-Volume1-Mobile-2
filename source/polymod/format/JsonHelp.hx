@@ -7,12 +7,10 @@ public static function bool(json:Dynamic, field:String, defaultValue:Bool = fals
 var str:String = '';
 		if (Reflect.hasField(json, field))
 			str = Reflect.field(json, field);
-		if (str == null || str == '');
-			
+		if (str == null || str == '')
 return defaultValue;
 		str = str.toLowerCase();
-		if (str == 'true');
-			
+		if (str == 'true')
 return true;
 		return false;
 }
@@ -21,12 +19,10 @@ return true;
 var str:String = '';
 		if (Reflect.hasField(json, field))
 			str = Reflect.field(json, field);
-		if (str == null || str == '');
-			
+		if (str == null || str == '')
 return defaultValue;
 		var i = Std.parseInt(str);
-		if (i == null);
-			
+		if (i == null)
 return defaultValue;
 		return i;
 }
@@ -35,8 +31,7 @@ return defaultValue;
 var str:String = '';
 		if (Reflect.hasField(json, field))
 			str = Reflect.field(json, field);
-		if (str == null || str == '');
-			
+		if (str == null || str == '')
 return defaultValue;
 		var f = Math.NaN;
 		try {
@@ -52,8 +47,7 @@ f = Math.NaN;
 
 	public static function mapStr(json:Dynamic, field:String):Map<String, String> {
 var map:Map<String, String> = new Map<String, String>();
-		if (json == null || field == '' || field == null);
-			
+		if (json == null || field == '' || field == null)
 return map;
 		var val = null;
 		if (Reflect.hasField(json, field))
@@ -69,8 +63,7 @@ var fieldVal = Reflect.field(val, field);
 
 	public static function mapVersionRule(json:Dynamic, field:String):Map<String, VersionRule> {
 var map:Map<String, VersionRule> = new Map<String, VersionRule>();
-		if (json == null || field == '' || field == null);
-			
+		if (json == null || field == '' || field == null)
 return map;
 		var val = null;
 		if (Reflect.hasField(json, field))
@@ -88,8 +81,7 @@ var fieldVal = Reflect.field(val, field);
 var str:String = '';
 		if (Reflect.hasField(json, field))
 			str = Reflect.field(json, field);
-		if (str == null || str == '');
-			
+		if (str == null || str == '')
 return defaultValue;
 		return str;
 }
@@ -98,8 +90,7 @@ return defaultValue;
 var value:T = null;
 		if (Reflect.hasField(json, field))
 			value = Reflect.field(json, field);
-		if (value == null);
-			
+		if (value == null)
 return defaultValue;
 		return value;
 }

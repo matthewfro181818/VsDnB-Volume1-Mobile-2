@@ -14,154 +14,144 @@ import openfl.utils.Assets;
 import openfl.geom.ColorTransform;
 
 /**
- * An FlxSprite rendered through an FlxAnimate.
- * Used to help implement sprites that are texture atlas.
+ * A wrapper for FlxAnimate that behaves like an atlas-driven FlxSprite.
  */
-class FlxAtlasSprite extends FlxAnimate {
-/**
-	 * The current animation data being played.
-	 */
-	public var curAnim(get, null):FlxSymbol;
+class FlxAtlasSprite extends FlxAnimate
+{
+	/** Currently playing animation symbol. */
+	public var curAnim(get, never):FlxSymbol;
 
-	function get_curAnim():FlxSymbol {
-return anim.curSymbol;
-}
+	function get_curAnim():FlxSymbol
+	{
+		return anim.curSymbol;
+	}
 
-	/**
-	 * The name of the current animation.
-	 */
-	public var curAnimName(get, null):String;
+	/** Current animation name. */
+	public var curAnimName(get, never):String;
 
-	function get_curAnimName():String {
-@:privateAccess
-		for (name => symbol in anim.animsMap) {
-if (symbol.instance.symbol.name == name) {
-return name;
-}
-}
-		return '';
-}
-
-	/**
-	 * A list of all of the animations this sprite has.
-	 */
-	public var animations(get, null):Array<String>;
-	
-	function get_animations():Array<String> {
-var list:Array<String> = [];
+	function get_curAnimName():String
+	{
 		@:privateAccess
-		for (i in anim.animsMap.keys()) {
-list.push(i);
-}
-		return list;
-}
+		for (key in anim.animsMap.keys())
+		{
+			var entry = anim.animsMap.get(key);
+			if (entry != null && entry.instance != null && entry.instance.symbol != null)
+			{
+				return key;
+			}
+		}
+		return "";
+	}
+
+	/** List of animation names. */
+	public var animations(get, never):Array<String>;
+
+	function get_animations():Array<String>
+	{
+		var out:Array<String> = [];
+		@:privateAccess
+		for (key in anim.animsMap.keys())
+			out.push(key);
+		return out;
+	}
+
+	/** Fired when an animation starts. */
+	public var onStart(default, null):FlxTypedSignal<String->Void> =
+		new FlxTypedSignal<String->Void>();
+
+	public function new(X:Float = 0, Y:Float = 0, ?directoryPath:String, ?Settings:Settings)
+	{
+		super(X, Y, directoryPath, Settings);
+	}
 
 	/**
-	 * Dispatched when an animation is played.
+	 * Load atlas directory (folder containing Animation.json).
 	 */
-	public var onStart(default, null):FlxTypedSignal<String->Void> = new FlxTypedSignal<String->Void>();
-
-	public function new(X:Float = 0, Y:Float = 0, ?directoryPath:String, ?Settings:Settings); {
-super(X, Y, directoryPath, Settings);
-}
-
-	/**
-	 * Loads an atlas file.
-	 * @param Path The asset path for the atlas.
-	 */
-	public override function loadAtlas(Path:String) {
-if (!Assets.exists('$Path/Animation.json') && haxe.io.Path.extension(Path) != "zip"); {
-FlxG.log.error('Animation file not found in specified path: "$path", have you written the correct path?');
+	public override function loadAtlas(path:String)
+	{
+		if (!Assets.exists(path + "/Animation.json") && haxe.io.Path.extension(path) != "zip")
+		{
+			FlxG.log.error('Animation file not found: "$path/Animation.json"');
 			return;
-}
-}
-	
+		}
+
+		super.loadAtlas(path);
+	}
+
 	/**
-	 * Plays a given animation.
-	 * @param name The name of the animation to play.
-	 * @param force Whether this animation to play immediately, or wait till the current one's finished.
-	 * @param reverse Should this animation start from the ?
-	 * @param frame The frame of the animation to start on.
+	 * Play an animation by name.
 	 */
-	public function playAnimation(name:String, force:Bool = false, reverse:Bool = false, frame:Int = 0); {
-if ([null, ''].contains(name))
-			return;
-
-		anim.play(name, force, reverse, frame);
-
+	public function playAnimation(name:String, force:Bool = false, reverse:Bool = false, frame:Int = 0):Void
+	{
+		if (name == null || name == "")
+			return anim.play(name, force, reverse, frame);
 		onStart.dispatch(name);
-}
+	}
+
+	/** Add animation by prefix */
+	public inline function addByPrefix(name:String, prefix:String, frameRate:Int, looped:Bool):Void
+	{
+		anim.addBySymbol(name, prefix, frameRate, looped);
+	}
+
+	/** Add animation by specific frame indices */
+	public inline function addByIndices(name:String, prefix:String, frameRate:Int, looped:Bool = false, indices:Array<Int>):Void
+	{
+		anim.addBySymbolIndices(name, prefix, indices, frameRate, looped);
+	}
 
 	/**
-	 * Adds a new animation by the prefix.
-	 * @param name The name to call the animation.
-	 * @param prefix The prefix of the animation to add.
-	 * @param frameRate The frame rate the animation should be.
-	 * @param looped Should this animation restart when finished?
+	 * Remove animation from the atlas sprite.
 	 */
-	public inline function addByPrefix(name:String, prefix:String, frameRate:Int, looped:Bool) {
-anim.addBySymbol(name, prefix, frameRate, looped);
-}
-
-	/**
-	 * Adds a new animation based on a given animation's list of frames.
-	 * @param name The name to call the animation.
-	 * @param prefix The prefix of the animation to add.
-	 * @param frameRate The frame rate the animation should be.
-	 * @param looped Should this animation restart when finished?
-	 * @param Indices A list of frames to build the animation on.
-	 */
-	public inline function addByIndices(name:String, prefix:String, frameRate:Int, looped:Bool = false, Indices:Array<Int>); {
-anim.addBySymbolIndices(name, prefix, Indices, frameRate, looped);
-}
-
-	/**
-	 * Removes a given animation from the sprite.
-	 * @param name The name of the animation to remove.
-	 * @return Whether the animation was able to be successfully removed.
-	 */
-	public inline function remove(name:String):Bool {
-@:privateAccess
-		if (animationExists(name)) {
-var animation = anim.animsMap.get(name);
-
+	public inline function remove(name:String):Bool
+	{
+		@:privateAccess
+		if (anim.animsMap.exists(name))
+		{
+			var entry = anim.animsMap.get(name);
 			anim.animsMap.remove(name);
-			animation.instance.destroy();
+			entry.instance.destroy();
 			return true;
-}
+		}
 		return false;
-}
+	}
 
-	/**
-	 * Pauses the current animation.
-	 */
-	public function pause() {
-anim.pause();
-}
+	/** Pause animation */
+	public function pause():Void
+	{
+		anim.pause();
+	}
 
-	/**
-	 * Resumes the current animation.
-	 */
-	public function resume() // why is this not a thing by default????????????? {
-@:privateAccess
+	/** Resume animation */
+	public function resume():Void
+	{
+		@:privateAccess
 		anim.isPlaying = true;
-}
+	}
 
 	/**
-	 * Checks whether the given animation exists within the sprite.
-	 * @param name The animation to check.
-	 * @return Whether the animation exists, or not.
+	 * Check if animation exists.
 	 */
-	public inline function animationExists(name:String):Bool {
-}
+	public inline function animationExists(name:String):Bool
+	{
+		@:privateAccess
+		return anim.animsMap.exists(name);
+	}
 
 	/**
-	 * Gets an animation data symbol from a given name.
-	 * @param name The name of the animation symbol.
-	 * @return A `FlxSymbol`
+	 * Get symbol by animation name.
 	 */
-	public inline function getByName(name:String):FlxSymbol {
-@:privateAccess
-		return anim.symbolDictionary[anim.animsMap.get(name).instance.symbol.name];
-}
+	public inline function getByName(name:String):FlxSymbol
+	{
+		@:privateAccess
+		if (!anim.animsMap.exists(name))
+			return null;
+
+		var entry = anim.animsMap.get(name);
+		if (entry == null || entry.instance == null)
+			return null;
+
+		var symbolName = entry.instance.symbol.name;
+		return anim.symbolDictionary[symbolName];
+	}
 }

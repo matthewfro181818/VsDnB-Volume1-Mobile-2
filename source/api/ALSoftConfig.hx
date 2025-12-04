@@ -22,5 +22,4 @@ var origin:String = #if hl Sys.getCwd() #else Sys.programPath() #;
 		Sys.putEnv("ALSOFT_CONF", configPath);
 }
 }
-#
-#
+

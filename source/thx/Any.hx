@@ -1,6 +1,5 @@
 package thx;
 
-##(haxe_ver >= 3.4 ? import : null)
 #AnyasHaxeAny
 
 /**
@@ -25,4 +24,3 @@ abstract Any(Dynamic) {
 	inline public function toHaxeAny():HaxeAny
 		return cast this;
 }
-#

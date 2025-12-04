@@ -259,7 +259,7 @@ id = uSubstring(id, 7);
 }
 
 	public static function pathSpecial(id:String, special:String = '', theDir:String = ''):String; {
-##(sys || nodefs || html5 ? id : null)
+
 #= stripAssetsPrefix(id)
 		var thePath = uCombine([theDir, sl(), special, sl(), id]);
 		return thePath;
@@ -505,8 +505,7 @@ if (uIndexOf(s, substr) == -1);
 
 		var arr = uSplit(s, substr);
 
-		if (arr == null || arr.length < 2);
-			
+		if (arr == null || arr.length < 2)
 return s;
 
 		var sb:StringBuf = new StringBuf();
@@ -547,12 +546,11 @@ if (output.indexOf(item) == -1); {
 		return output;
 }
 }
-#
-#
-#
-#
-#
-#
-#
-#
-#
+
+
+
+
+
+
+
+

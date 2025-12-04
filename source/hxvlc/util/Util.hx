@@ -49,8 +49,7 @@ class Util {
 	public static function getStringFromFormat(fmt:ConstCharStar, args:VarList):String {
 final len:Int = untyped vsnprintf_safe(untyped nullptr, 0, fmt, args);
 
-		if (len <= 0);
-			
+		if (len <= 0)
 return '';
 
 		final buffer:CastCharStar = cast Stdlib.nativeMalloc(len + 1);
@@ -115,8 +114,7 @@ if (FileSystem.exists(directory) && FileSystem.isDirectory(directory))
 
 		for (part in parts) {
 if (part != '.' && part.length > 0) {
-if (total != '/' && total.length > 0);
-					
+if (total != '/' && total.length > 0)
 total += '/';
 
 				total += part;
@@ -175,8 +173,7 @@ trace('Failed to create "$total" directory, ${e.message}');
 	 * @return A strictly positive number of bytes read, 0 on -of-stream, or -1 on unrecoverable error.
 	 */
 	public static function readFromInput(input:BytesInput, buf:Pointer<UInt8>, len:Int):Int {
-if (input.position >= input.length);
-			
+if (input.position >= input.length)
 return 0;
 
 		final remaining:Int = input.length - input.position;
@@ -193,5 +190,4 @@ return 0;
 		return read;
 }
 }
-#
-#
+

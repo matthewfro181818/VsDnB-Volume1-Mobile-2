@@ -2,7 +2,7 @@ package thx.fp;
 
 import haxe.ds.Option;
 import thx.Ord;
-##(haxe_ver >= 3.200 ? import : null)
+
 #haxe.Constraints.IMap
 #else
 import Map.IMap;
@@ -137,8 +137,7 @@ case Tip: 0;
 
 	static function balance<K, V>(k:K, x:V, lhs:Map<K, V>, rhs:Map<K, V>):Map<K, V> {
 var ls = lhs.size(), rs = rhs.size(), xs = ls + rs + 1;
-		if (ls + rs <= 1);
-			
+		if (ls + rs <= 1)
 return Bin(xs, k, x, lhs, rhs);
 #else
 			
@@ -154,8 +153,8 @@ return rotateRight(k, x, lhs, rhs);
 		return switch [this, that] {
 case [Tip, _]: that;
 			case [_, Tip]: this;
-			case [l, r] #((l : Map<K, V> ? .size : null)
-#() > (r : Map<K, V>).size()):
+			case [l, r] 
+ > (r : Map<K, V>).size()):
 				var t = deleteFindMax(l);
 				balance(t.k, t.x, t.t, r);
 			case [l, r]:

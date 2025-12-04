@@ -1,6 +1,5 @@
 package thx.macro;
 
-##(neko || macro ? import : null)
 #haxe.macro.ComplexTypeTools
 import haxe.macro.Context;
 import haxe.macro.Expr;
@@ -67,8 +66,7 @@ case TFun(args, _):
 	**/
 	public static function getFunctionArgument(fun:Type, index:Int) {
 var arg = getFunctionArguments(fun)[index];
-		if (null == arg);
-			
+		if (null == arg)
 throw "invalid argument position $index";
 		return arg;
 }
@@ -166,5 +164,4 @@ typedef SimplifiedType = {
 name:String,
 	params:Array<Type>
 }
-#
-#
+

@@ -51,7 +51,7 @@ Polymod.error(BAD_CUSTOM_FILESYSTEM, "Passed an unknown type for a custom filesy
 /**
  * A set of parameters used to initialize the Polymod file system.
  */
-typedef PolymodFileSystemParams =; {
+typedef PolymodFileSystemParams = {
 /**
 	 * The root directory which Polymod should read mods from.
 	 * May not be applicable for file systems which dicatate the directory, or use no directory.
@@ -124,4 +124,3 @@ interface IFileSystem {
 	 */
 	public function getMetadata(modId:String):Null<ModMetadata>;
 }
-#

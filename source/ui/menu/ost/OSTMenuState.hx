@@ -232,7 +232,7 @@ FlxG.autoPause = true;
  FlxG.switchState(() -> Void MainMenuState());
 
  
- #(!canInteract ? return : null)
+ 
 
  if (isSelectionBarVisible) {
 switch (currentSelectType) {
@@ -248,8 +248,8 @@ toggleCategorySelect(false);
  if (FlxG.keys.pressed.LEFT #if mobileC || virtualPad.buttonLeft.pressed # || FlxG.mouse.wheel < 0) {
 arrowLeft.scale.set(0.8, 0.8);
 
- #(FlxG.keys.justPressed.LEFT #if mobileC || virtualPad.buttonLeft.justPressed #? changeCategorySelection : null)
-#(-1)
+ 
+
 
 #else
 arrowLeft.scale.set(1, 1);
@@ -258,8 +258,8 @@ arrowLeft.scale.set(1, 1);
  if (FlxG.keys.pressed.RIGHT #if mobileC || virtualPad.buttonRight.pressed #) {
 arrowRight.scale.set(0.8, 0.8);
 
- #(FlxG.keys.justPressed.RIGHT #if mobileC || virtualPad.buttonRight.justPressed #? changeCategorySelection : null)
-#(1)
+ 
+
 }
 #else
 arrowRight.scale.set(1, 1);
@@ -287,8 +287,8 @@ if (FlxG.keys.pressed.LEFT #if mobileC || virtualPad.buttonLeft.pressed #) {
 arrowLeftVariation.color = FlxColor.LIME;
 							arrowLeftVariation.scale.set(0.8, 0.8);
 
-							#(FlxG.keys.justPressed.LEFT #if mobileC || virtualPad.buttonLeft.justPressed #? changeVariationSelection : null)
-#(-1)
+							
+
 }
 #else
 arrowLeftVariation.color = FlxColor.WHITE;
@@ -299,8 +299,8 @@ arrowLeftVariation.color = FlxColor.WHITE;
 arrowRightVariation.color = FlxColor.LIME;
 							arrowRightVariation.scale.set(0.8, 0.8);
 
-							#(FlxG.keys.justPressed.RIGHT #if mobileC || virtualPad.buttonRight.justPressed #? changeVariationSelection : null)
-#(1)
+							
+
 }
 #else
 arrowRightVariation.color = FlxColor.WHITE;
@@ -507,9 +507,9 @@ SoundController.play(Paths.sound('scrollMenu'), 0.7);
 }
  currentCategorySelected += change;
 
- #(currentCategorySelected > categoryList.length - 1 ? currentCategorySelected : null)
+ 
 #= 0
- #(currentCategorySelected < 0 ? currentCategorySelected : null)
+ 
 #= categoryList.length - 1
 
  currentCategory = Category.getCategory(categoryList[currentCategorySelected]);
@@ -535,15 +535,13 @@ if (amount != 0) {
 SoundController.play(Paths.sound('scrollMenu'), 0.7);
 }
 
- if (selectedSongOption != null);
-
- 
+ if (selectedSongOption != null)
 currentSongSelected += amount;
 
- #(currentSongSelected > categorySongsCount ? currentSongSelected : null)
+ 
 #= 0
 
- #(currentSongSelected < 0 ? currentSongSelected : null)
+ 
 #= categorySongsCount
 
  updateSelectedSong();
@@ -561,10 +559,10 @@ SoundController.play(Paths.sound('scrollMenu'), 0.7);
 
  selectedVariationIndex += amount;
 
- #(selectedVariationIndex > currentSongVariationsList.length - 1 ? selectedVariationIndex : null)
+ 
 #= 0
 
- #(selectedVariationIndex < 0 ? selectedVariationIndex : null)
+ 
 #= currentSongVariationsList.length - 1
 
  selectedSongOption.switchVariation(selectedVariation);
@@ -738,8 +736,7 @@ currentVariation = variationId;
 
  if (playData.icon != null) {
 // Change the icon.
- if (icon != null);
- 
+ if (icon != null)
 icon.char = playData.icon;
 #else
  icon = new HealthIcon(playData.icon);
@@ -790,8 +787,7 @@ songNameText.color = FlxColor.WHITE;
 songNameText.alpha = alpha;
  songComposerText.alpha = alpha;
  
- if (icon != null);
- 
+ if (icon != null)
 icon.alpha = alpha;
 }
 
@@ -814,6 +810,5 @@ var textScale = width / text.width;
 }
 }
 }}}
-#
-#
-#
+
+

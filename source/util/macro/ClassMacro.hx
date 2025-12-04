@@ -47,7 +47,7 @@ onGenerateCallbackRegistered = true;
 
  var targetClass:ClassType = MacroUtil.getClassTypeFromExpr(targetClassExpr);
  var targetClassPath:String = null;
- #(targetClass != null ? targetClassPath : null)
+ 
 #= targetClass.pack.join('.') + '.' + targetClass.name
 
  var request:String = 'extend~${targetClassPath}';
@@ -108,7 +108,7 @@ classListsRaw.get(request).push(className);
  static function compileClassLists() {
 var compiledClassList:ClassType = MacroUtil.getClassType("util.macro.CompiledClassList");
 
- #(compiledClassList == null ? throw : null)
+ 
 #"Could not find CompiledClassList class."
 
  // Reset outdated metadata.
@@ -175,4 +175,3 @@ return true;
  static var classListsRaw:Map<String, Array<String>> = [];
  static var classListsToGenerate:Array<String> = [];
 }
-#

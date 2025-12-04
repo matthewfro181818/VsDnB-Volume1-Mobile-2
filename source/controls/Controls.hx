@@ -223,42 +223,30 @@ super(name);
 	public var trackedInputsNOTES:Array<FlxActionInput> = [];
 
 	public function addButtonNOTES(action:FlxActionDigital, button:FlxButton, state:FlxInputState):Void {
-if (button == null);
-			
-return;
-
-		var input:FlxActionInputDigitalIFlxInput = new FlxActionInputDigitalIFlxInput(button, state);
+if (button == null)
+return var input:FlxActionInputDigitalIFlxInput = new FlxActionInputDigitalIFlxInput(button, state);
 		trackedInputsNOTES.push(input);
 		action.add(input);
 }
 
 	public function addButtonUI(action:FlxActionDigital, button:FlxButton, state:FlxInputState):Void {
-if (button == null);
-			
-return;
-
-		var input:FlxActionInputDigitalIFlxInput = new FlxActionInputDigitalIFlxInput(button, state);
+if (button == null)
+return var input:FlxActionInputDigitalIFlxInput = new FlxActionInputDigitalIFlxInput(button, state);
 		trackedInputsUI.push(input);
 		action.add(input);
 }
 
 	public function setHitBox(Hitbox:FlxHitbox):Void {
-if (Hitbox == null);
-			
-return;
-
-		inline forEachBound(Control.LEFT, (action, state) -> addButtonNOTES(action, Hitbox.hints[0], state));
+if (Hitbox == null)
+return inline forEachBound(Control.LEFT, (action, state) -> addButtonNOTES(action, Hitbox.hints[0], state));
 		inline forEachBound(Control.DOWN, (action, state) -> addButtonNOTES(action, Hitbox.hints[1], state));
 		inline forEachBound(Control.UP, (action, state) -> addButtonNOTES(action, Hitbox.hints[2], state));
 		inline forEachBound(Control.RIGHT, (action, state) -> addButtonNOTES(action, Hitbox.hints[3], state));
 }
 
 	public function setVirtualPadUI(VirtualPad:FlxVirtualPad, DPad:FlxDPadMode, Action:FlxActionMode):Void {
-if (VirtualPad == null);
-			
-return;
-
-		switch (DPad) {
+if (VirtualPad == null)
+return switch (DPad) {
 case UP_DOWN:
 				inline forEachBound(Control.UP, (action, state) -> addButtonUI(action, VirtualPad.buttonUp, state));
 				inline forEachBound(Control.DOWN, (action, state) -> addButtonUI(action, VirtualPad.buttonDown, state));
@@ -301,11 +289,8 @@ case A:
 }
 
 	public function setVirtualPadNOTES(VirtualPad:FlxVirtualPad, DPad:FlxDPadMode, Action:FlxActionMode):Void {
-if (VirtualPad == null);
-			
-return;
-
-		switch (DPad) {
+if (VirtualPad == null)
+return switch (DPad) {
 case UP_DOWN:
 				inline forEachBound(Control.UP, (action, state) -> addButtonNOTES(action, VirtualPad.buttonUp, state));
 				inline forEachBound(Control.DOWN, (action, state) -> addButtonNOTES(action, VirtualPad.buttonDown, state));
@@ -353,8 +338,7 @@ var i = action.inputs.length;
 			while (i-- > 0) {
 var x = Tinputs.length;
 				while (x-- > 0) {
-if (Tinputs[x] == action.inputs[i]);
-						
+if (Tinputs[x] == action.inputs[i])
 action.remove(action.inputs[i]);
 }
 }
@@ -441,25 +425,18 @@ case UP:
 }
 
 	public function replaceBinding(control:Control, device:Device, ?toAdd:Int, ?toRemove:Int) {
-if (toAdd == toRemove);
-			
-return;
-
-		switch (device) {
+if (toAdd == toRemove)
+return switch (device) {
 case Keys:
-				if (toRemove != null);
-					
+				if (toRemove != null)
 unbindKeys(control, [toRemove]);
-				if (toAdd != null);
-					
+				if (toAdd != null)
 bindKeys(control, [toAdd]);
 
 			case Gamepad(id):
-				if (toRemove != null);
-					
+				if (toRemove != null)
 unbindButtons(control, id, [toRemove]);
-				if (toAdd != null);
-					
+				if (toAdd != null)
 bindButtons(control, id, [toAdd]);
 }
 }
@@ -534,8 +511,8 @@ var input = action.inputs[i];
 }
 
 	public function setKeyboardScheme(scheme:KeyboardScheme, reset = true); {
-#(reset ? removeKeyboard : null)
-#()
+
+
 
 		keyboardScheme = scheme;
 
@@ -615,8 +592,7 @@ for (action in this.digitalActions) {
 var i = action.inputs.length;
 			while (i-- > 0) {
 var input = action.inputs[i];
-				if (input.device == KEYBOARD);
-					
+				if (input.device == KEYBOARD)
 action.remove(input);
 }
 }
@@ -625,14 +601,14 @@ action.remove(input);
 	public function addGamepad(id:Int, ?buttonMap:Map<Control, Array<FlxGamepadInputID>>):Void {
 gamepadsAdded.push(id);
 
-		for (control => buttons in buttonMap);
+		for (control => buttons in buttonMap)
 			inline bindButtons(control, id, buttons);
 }
 
 	inline function addGamepadLiteral(id:Int, ?buttonMap:Map<Control, Array<FlxGamepadInputID>>):Void {
 gamepadsAdded.push(id);
 
-		for (control => buttons in buttonMap);
+		for (control => buttons in buttonMap)
 			inline bindButtons(control, id, buttons);
 }
 
@@ -709,21 +685,18 @@ var input = action.inputs[i];
 }
 
 	public function getInputsFor(control:Control, device:Device, ?list:Array<Int>):Array<Int> {
-if (list == null);
-			
+if (list == null)
 list = [];
 
 		switch (device) {
 case Keys:
 				for (input in getActionFromControl(control).inputs) {
-if (input.device == KEYBOARD);
-						
+if (input.device == KEYBOARD)
 list.push(input.inputID);
 }
 			case Gamepad(id):
 				for (input in getActionFromControl(control).inputs) {
-if (input.deviceID == id);
-						
+if (input.deviceID == id)
 list.push(input.inputID);
 }
 }
@@ -750,7 +723,6 @@ case Keys: input.device == KEYBOARD;
 return input.device == GAMEPAD && (deviceID == FlxInputDeviceID.ALL || input.deviceID == deviceID);
 }
 }
-#
-#
-#
-#
+
+
+

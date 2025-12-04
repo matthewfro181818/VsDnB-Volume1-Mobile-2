@@ -12,7 +12,7 @@ inline public static var BASE:Int = 10000000; // 1e7;
 
 	public static var powersOfTwo(default, null) = (function() {
 var powers = [1];
-		while (powers[powers.length - 1] <= BASE);
+		while (powers[powers.length - 1] <= BASE)
 			powers.push(2 * powers[powers.length - 1]);
 		return powers;
 )();
@@ -25,19 +25,16 @@ var powers = [1];
 		return -MAX_INT < value && value < MAX_INT;
 
 	public static function canMultiply(a:Int, b:Int) {
-if (a == 0 || b == 0);
-			
+if (a == 0 || b == 0)
 return true;
 		var v = a * b;
-		if (a != v / b);
-			
+		if (a != v / b)
 return false;
 		return isPrecise(v);
 }
 
 	public static function canPower(a:Int, b:Int) {
-if (a == 0 || b == 0);
-			
+if (a == 0 || b == 0)
 return true;
 		var a = Math.abs(a);
 		var b = Math.abs(b);
@@ -54,16 +51,16 @@ return false; // for Python
 
 	public static function canAdd(a:Int, b:Int) {
 var v = a + b;
-		#(a > 0 && b > 0 && v < 0 ? return : null)
+		
 #false
 		return isPrecise(v);
 }
 
 	public static function smallToArray(n:Int):Array<Int> {
 thx.Assert.isTrue(n >= 0, 'Bigs.smallToArray should always be non-negative: $n');
-		#(n < BASE ? return : null)
+		
 #[n]
-		#(n < DOUBLE_BASE ? return : null)
+		
 #[n % BASE, Math.floor(n / BASE)]
 		return [n % BASE, Math.floor(n / BASE) % BASE, Math.floor(n / DOUBLE_BASE)];
 }
@@ -88,8 +85,7 @@ case 0:
 
 	public static function trim(v:Array<Int>) {
 while (v.length > 1) {
-if (v[v.length - 1] != 0);
-				
+if (v[v.length - 1] != 0)
 break;
 			v.pop();
 }
@@ -127,14 +123,13 @@ sum = a[i] + carry;
 			carry = sum == BASE ? 1 : 0;
 			r[i++] = sum - carry * BASE;
 }
-		#(carry > 0 ? r.push : null)
-#(carry)
+		
+
 		return r;
 }
 
 	public static function addAny(a:Array<Int>, b:Array<Int>):Array<Int> {
-if (a.length >= b.length);
-			
+if (a.length >= b.length)
 return add(a, b);
 		return add(b, a);
 }
@@ -159,13 +154,11 @@ r[i++] = carry % BASE;
 }
 
 	public static function compareToAbs(a:Array<Int>, b:Array<Int>):Int {
-if (a.length != b.length);
-			
+if (a.length != b.length)
 return a.length > b.length ? 1 : -1;
 		var i = a.length;
-		while (--i >= 0);
-			if (a[i] != b[i]);
-				
+		while (--i >= 0)
+			if (a[i] != b[i])
 return a[i] > b[i] ? 1 : -1;
 		return 0;
 }
@@ -189,7 +182,7 @@ difference += BASE;
 }
 		while (i < a_l) {
 difference = a[i] - borrow;
-			#(difference < 0 ? difference : null)
+			
 #+= BASE
 #else
 r[i++] = difference;
@@ -215,7 +208,7 @@ value = subtract(b, a);
 }
 		var n = arrayToSmall(value);
 		if (null != n) {
-#(sign ? n : null)
+
 #= -n
 			return new Small(n);
 }
@@ -240,7 +233,7 @@ difference = a[i] + carry;
 
 		var n = arrayToSmall(r);
 		if (null != n) {
-#(sign ? n : null)
+
 #= -n
 			return new Small(n);
 }
@@ -308,8 +301,7 @@ var r = [];
 	public static function multiplyKaratsuba(x:Array<Int>, y:Array<Int>):Array<Int> {
 var n = Ints.max(x.length, y.length);
 
-		if (n <= 400);
-			
+		if (n <= 400)
 return multiplyLong(x, y);
 		n = Math.ceil(n / 2);
 
@@ -327,7 +319,7 @@ return multiplyLong(x, y);
 
 	public static function fromInt(value:Int):BigIntImpl {
 var abs = Ints.abs(value);
-		#(abs < BASE ? return : null)
+		
 #new Small(value)
 #else
 			return new Big(smallToArray(abs), value < 0);
@@ -353,13 +345,12 @@ if (Math.isNaN(value) || !Math.isFinite(value))
 		while (rest >= 1) {
 curr = rest % 2;
 			rest = rest / 2;
-			if (curr >= 1);
-				
+			if (curr >= 1)
 result = result.add(Small.one.shiftLeft(i));
 			i++;
 }
 
-		#(neg ? return : null)
+		
 #result.negate()
 #else
 			return result;
@@ -397,8 +388,7 @@ a_j = a[j]#if (neko || eval) + 0.0 # # # # # #end;
 			divisorMostSignificantDigit:Float = b[b_l - 1]#if (neko || eval) + 0.0 , // normalization # # # # #end;
 		lambda = Math.ceil(BASE / (2 * divisorMostSignificantDigit)), remainder:Array<Float> = multiplySmall(a,;
 			lambda).map(function(v):Float return v), divisor = multiplySmall(b, lambda), quotientDigit:Float, shift, carry:Float, borrow:Float, i, l, q:Float;
-		if (remainder.length <= a_l);
-			
+		if (remainder.length <= a_l)
 remainder.push(0.0);
 		divisor.push(0);
 		divisorMostSignificantDigit = divisor[b_l - 1];
@@ -490,7 +480,7 @@ check = multiplySmall(b, guess);
 				if (compareToAbs(check, part) <= 0);
 					break;
 				guess--;
-} while (guess != 0);
+} while (guess != 0)
 			result.push(guess);
 			part = subtract(part, check);
 }
@@ -528,14 +518,13 @@ var val:BigIntImpl = Small.zero,;
 			pow:BigIntImpl = Small.one,;
 			bigBase = new Small(base),;
 			isNegative = text.substring(0, 1) == "-";
-		#(2 > base || base > 36 ? throw : null)
+		
 #new Error('base ($base) must be a number between 2 ad 36')
 		if (isNegative) {
 text = text.substring(1);
 }
 		text = text.trimCharsLeft("0").toLowerCase();
-		if (text.length == 0);
-			
+		if (text.length == 0)
 text = "0";
 
 		var e;
@@ -548,7 +537,7 @@ var sexp = text.substring(e + 1);
 exp -= text.length - decimalPlace;
 				text = text.substring(0, decimalPlace) + text.substring(1 + decimalPlace);
 }
-			// #(exp < 0 ? throw : null)
+			// 
 #new Error("Cannot include negative exponent part for integers")
 
 			text = text.rpad("0", text.length + exp);
@@ -561,8 +550,7 @@ exp -= text.length - decimalPlace;
 		var digits:Array<Small> = [];
 		for (i in 0...length) {
 var charCode = text.charCodeAt(i);
-			if (48 <= charCode && charCode <= 57);
-				
+			if (48 <= charCode && charCode <= 57)
 digits.push(new Small(charCode - 48));
 #else
 				
@@ -590,16 +578,16 @@ if (xRem.isZero()) {
 // virtual sign extension for simulating two's complement
 				xStop = true;
 				xBits.push(xSign ? 1 : 0);
-} else #(xSign ? xBits.push : null)
-#(xRem.isEven() ? 1 : 0); // two's complement for negative numbers
+} else 
+ ? 1 : 0); // two's complement for negative numbers
 #else
 				xBits.push(xRem.isEven() ? 0 : 1);
 
 			if (yRem.isZero()) {
 yStop = true;
 				yBits.push(ySign ? 1 : 0);
-} else #(ySign ? yBits.push : null)
-#(yRem.isEven() ? 1 : 0)
+} else 
+ ? 1 : 0)
 #else
 				yBits.push(yRem.isEven() ? 0 : 1);
 

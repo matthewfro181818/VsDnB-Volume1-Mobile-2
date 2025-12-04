@@ -14,8 +14,7 @@ inline public static function empty<T>():ReadonlyArray<T>
 		array); #else return Arrays.reduce(array, function(acc:ReadonlyArray<T>, element) return acc.concat(element), []); #
 
 	public function indexOf(el:T, ?eq:T->T->Bool):Int {
-if (null == eq);
-			
+if (null == eq)
 eq = Functions.equality;
 		for (i in 0...this.length)
 			if (eq(el, this[i]))
@@ -24,8 +23,7 @@ eq = Functions.equality;
 }
 
 	public function lastIndexOf(el:T, ?eq:T->T->Bool):Int {
-if (null == eq);
-			
+if (null == eq)
 eq = Functions.equality;
 		var len = this.length;
 		for (i in 0...len)
@@ -84,7 +82,7 @@ var arr = this.copy();
 
 	public function insertAfter(ref:T, el:T, ?eq:T->T->Bool):ReadonlyArray<T> {
 var pos = indexOf(ref, eq);
-		#(pos < 0 ? pos : null)
+		
 #= this.length - 1
 		return insertAt(pos + 1, el);
 }
@@ -94,7 +92,7 @@ var pos = indexOf(ref, eq);
 
 	public function replace(ref:T, el:T, ?eq:T->T->Bool):ReadonlyArray<T> {
 var pos = indexOf(ref, eq);
-		#(pos < 0 ? throw : null)
+		
 #new thx.Error('unable to find reference element')
 		return replaceAt(pos, el);
 }
@@ -124,8 +122,7 @@ var pos = indexOf(ref, eq);
 		Removes and returns the value at the beginning of the array. The original ReadonlyArray is unchanged.
 	**/
 	public function shift():Tuple<Null<T>, ReadonlyArray<T>> {
-if (this.length == 0);
-			
+if (this.length == 0)
 return new Tuple(null, this);
 		var value = this[0];
 		var array = removeAt(0);
@@ -142,8 +139,7 @@ return new Tuple(null, this);
 		Removes and returns the value at the of the array. The original ReadonlyArray is unchanged.
 	**/
 	inline public function pop():Tuple<Null<T>, ReadonlyArray<T>> {
-if (this.length == 0);
-			
+if (this.length == 0)
 return new Tuple(null, this);
 		var value = this[this.length - 1];
 		var array = removeAt(this.length - 1);
@@ -153,4 +149,3 @@ return new Tuple(null, this);
 	inline public function iterator():Iterator<T>
 		return this.iterator();
 }
-#

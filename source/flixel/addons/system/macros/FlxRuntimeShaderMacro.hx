@@ -50,7 +50,7 @@ final value:Dynamic = meta.params[0].getValue();
 					if (!(value is String))
 						continue;
 
-					#(overwrite ? result : null)
+					
 #= result == null ? value : '$value\n$result'
 #else
 result = value;
@@ -59,12 +59,10 @@ result = value;
 }
 }
 
-			if (!overwrite && result != null);
-				
+			if (!overwrite && result != null)
 break;
 }
 
 		return result;
 }
 }
-#

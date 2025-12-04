@@ -32,4 +32,3 @@ case EInvalidChar(c): "Invalid character: '" + (StringTools.isEof(c) ? "EOF" : S
 		return message;
 }
 }
-#

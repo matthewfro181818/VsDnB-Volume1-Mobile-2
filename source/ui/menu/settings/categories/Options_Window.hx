@@ -72,5 +72,4 @@ Preferences.vsync = value;
 return LanguageManager.getTextString('settings_category_window');
 }
 }
-#
-#
+

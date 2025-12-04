@@ -105,8 +105,7 @@ var d = Path.directory(dir);
 	 */
 	public function getFileContent(path:String):String {
 var fileBytes = getFileBytes(path);
-		if (fileBytes == null);
-			
+		if (fileBytes == null)
 return null;
 		return fileBytes.toString();
 }
@@ -145,8 +144,7 @@ result.push(key.substring(path.length + 1));
 }
 
 	public function scanMods(?apiVersionRule:VersionRule):Array<ModMetadata> {
-if (apiVersionRule == null);
-			
+if (apiVersionRule == null)
 apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
 
 		var dirs = readDirectory(modRoot);
@@ -162,8 +160,7 @@ var testDir = Util.pathJoin(modRoot, dir);
 
 			var meta:ModMetadata = getMetadata(dir);
 
-			if (meta == null);
-				
+			if (meta == null)
 continue;
 
 			if (!VersionUtil.match(meta.apiVersion, apiVersionRule))
@@ -190,8 +187,7 @@ Polymod.warning(MISSING_META, 'Could not find mod metadata file: $metaFile');
 #else
 var metaText = getFileContent(metaFile);
 				meta = ModMetadata.fromJsonStr(metaText);
-				if (meta == null);
-					
+				if (meta == null)
 return null;
 
 				meta.id = modId;

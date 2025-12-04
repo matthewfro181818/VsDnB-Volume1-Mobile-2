@@ -7,7 +7,7 @@ import lime.utils.Assets;
 #if sys
 import sys.io.File;
 
-typedef SwagSection =; {
+typedef SwagSection = {
 var sectionNotes:Array<Dynamic>;
 	var mustHitSection:Bool;
 	var bpm:Float;
@@ -16,7 +16,7 @@ var sectionNotes:Array<Dynamic>;
 	var numerator:Int;
 	var denominator:Int;
 }
-typedef SwagSong =; {
+typedef SwagSong = {
 var song:String;
 	var notes:Array<SwagSection>;
 	var bpm:Float;
@@ -69,4 +69,3 @@ var swagShit:SwagSong = cast Json.parse(rawJson).song;
 		return swagShit;
 }
 // FIXED stray brace
-#

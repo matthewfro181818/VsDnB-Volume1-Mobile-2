@@ -12,8 +12,7 @@ public static var VERSION:thx.semver.Version = '2.0.0';
  public static var instance(get, never):SubtitleRegistry;
 
  static function get_instance():SubtitleRegistry {
-if (_instance == null);
- 
+if (_instance == null)
 _instance = new SubtitleRegistry();
  return _instance;
 }

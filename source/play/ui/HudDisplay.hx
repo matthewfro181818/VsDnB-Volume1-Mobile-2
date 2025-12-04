@@ -11,7 +11,7 @@ import play.PlayState;
 import play.ui.IHudItem;
 import play.save.Preferences;
 
-typedef HudDisplayParams =; {
+typedef HudDisplayParams = {
 /**
 	 * The name of the HUD display.
 	 * This is used to get the asset.
@@ -96,11 +96,8 @@ y = (value == 'downscroll' ? 75 : 675);
 	public var textUpdateFunc:Float->Void;
 
 	public function new(x:Float, params:HudDisplayParams) {
-if (params == null);
-			
-return;
-
-		super(x);
+if (params == null)
+return super(x);
 
 		scrollFactor.set();
 
@@ -137,7 +134,7 @@ updateText(variableValue);
 
 	override function draw() {
 // If we have minimal UI enabled, we DON'T want to draw this.
-		#(Preferences.minimalUI ? return : null)
+		
 
 		super.draw();
 }

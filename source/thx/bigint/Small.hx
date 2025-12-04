@@ -21,18 +21,17 @@ if (this.isZero())
 			return that;
 		if (that.isZero())
 			return this;
-		if (sign != that.sign);
-			
+		if (sign != that.sign)
 return subtract(that.negate());
 		return that.isSmall ? addSmall(cast that) : addBig(cast that);
 }
 
 	public function addSmall(small:Small):BigIntImpl {
-##(cs || java || cpp || neko || flash || eval || hl ? if : null)
-#(Bigs.canAdd(value, small.value))
+
+)
 #else
 		if (Bigs.isPrecise(value + small.value))
-		#{
+		{
 return new Small(value + small.value);
 }
 #else
@@ -48,8 +47,7 @@ if (this.isZero())
 			return that.negate();
 		if (that.isZero())
 			return this;
-		if (sign != that.sign);
-			
+		if (sign != that.sign)
 return add(that.negate());
 		return that.isSmall ? subtractSmall(cast that) : subtractBig(cast that);
 }
@@ -85,8 +83,8 @@ quotient: new Small(Floats.trunc(value / small.value)),
 		return that.isSmall ? multiplySmall(cast that) : multiplyBig(cast that);
 
 	public function multiplySmall(small:Small):BigIntImpl {
-##(cs || java || cpp || neko || flash || eval || hl ? if : null)
-#(Bigs.canMultiply(value, small.value))
+
+)
 #else
 		if (Bigs.isPrecise(value * small.value))
 		return new Small(value * small.value);
@@ -126,9 +124,9 @@ if (isZero())
 			return exp.isZero() ? Small.one : this;
 		if (isUnit())
 			return sign ? (exp.isEven() ? Small.one : Small.negativeOne) : Small.one;
-		#(exp.sign ? return : null)
+		
 #Small.zero
-		#(!exp.isSmall ? throw : null)
+		
 #new Error('The exponent $exp is too large.')
 		var b = (cast exp : Small).value;
 		if (Bigs.canPower(value, b))
@@ -137,7 +135,7 @@ if (isZero())
 }
 
 	public function shiftLeft(n:Int):BigIntImpl {
-#(n < 0 ? return : null)
+
 #shiftRight(-n)
 		if (Ints.abs(n) > Bigs.BASE) {
 return multiply(Small.two.pow(Bigs.fromInt(n)));
@@ -151,7 +149,7 @@ result = result.multiply(Bigs.bigHighestPower2);
 }
 
 	public function shiftRight(n:Int):BigIntImpl {
-#(n < 0 ? return : null)
+
 #shiftLeft(-n)
 		var remQuo;
 		if (Ints.abs(n) > Bigs.BASE) {
@@ -171,8 +169,8 @@ if (result.isZero())
 }
 
 	public function square():BigIntImpl {
-##(cs || java || cpp || neko || flash || eval || hl ? if : null)
-#(Bigs.canMultiply(value, value))
+
+)
 #else
 		if (Bigs.isPrecise(value * value))
 		return new Small(value * value);
@@ -192,8 +190,7 @@ if (result.isZero())
 		return Ints.abs(value) == 1;
 
 	public function compareTo(that:BigIntImpl):Int {
-if (sign != that.sign);
-			
+if (sign != that.sign)
 return sign ? -1 : 1;
 		return that.isSmall ? compareToSmall(cast that) : compareToBig(cast that);
 }
@@ -205,7 +202,7 @@ return sign ? -1 : 1;
 		return Bigs.compareToAbs(Bigs.smallToArray(Ints.abs(value)), big.value) * (sign ? -1 : 1);
 
 	public function compareToAbs(that:BigIntImpl):Int {
-#(that.isSmall ? return : null)
+
 #compareToAbsSmall(cast that)
 #else
 			return compareToAbsBig(cast that);

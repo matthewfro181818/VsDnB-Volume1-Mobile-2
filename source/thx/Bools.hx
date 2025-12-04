@@ -45,6 +45,6 @@ case "true", "1", "on": true;
 	 * in a Some, or None if the condition is false.
 	 */
 	inline public static function option<A>(cond:Bool, a:A):Option<A>
-		return #(cond ? Some : null)
-#(a) else None
+		return 
+ else None
 }

@@ -22,7 +22,7 @@ import util.PlatformUtil;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 
-typedef QueuedSound =; {
+typedef QueuedSound = {
 var sound:FlxSoundAsset;
  var ?soundType:SoundType;
 
@@ -301,8 +301,8 @@ queuedSoundList = [];
 }
 
 	function playQueue():Void {
-#(queuedSoundList.length > 0 ? playNextQueueSound : null)
-#()
+
+
 }
 
 	function playNextQueueSound():Void {
@@ -354,7 +354,7 @@ inputText.text = '';
 
 	function checkAnswer():Void {
 // Make sure the player can't check their answer if the game has ended.
-		#(problem > 3 || isEndingGame ? return : null)
+		
 
 		var playerAnswer:Null<Int> = Std.parseInt(inputText.text.trim());
 		var isRight:Bool = playerAnswer != null && playerAnswer == problemAnswer;
@@ -544,8 +544,7 @@ super.update(elapsed);
 		if (FlxG.mouse.overlaps(this)) {
 switchGraphic(pressedSprite);
 			if (FlxG.mouse.justPressed) {
-if (onClick != null);
-					
+if (onClick != null)
 onClick();
 }
 }

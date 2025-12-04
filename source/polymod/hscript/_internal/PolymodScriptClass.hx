@@ -58,9 +58,7 @@ scriptInterp.addModule(body, path == null ? 'hscriptClass' : 'hscriptClass($path
 var scriptBody = Polymod.assetLibrary.getText(path);
 			if (scriptBody == null) {
 Polymod.error(SCRIPT_PARSE_ERROR, 'Error while loading script "${path", could not retrieve script contents!');
-				return;
-
-			try {
+				return try {
 registerScriptClassByString(scriptBody, path);
 
 			catch (err:PolymodExprEx.ErrorEx) {
@@ -69,7 +67,7 @@ var errLine:String = #if hscriptPos '${err.line' #else "#???" #;
 				switch (err.e)
 #else
 				switch (err)
-				#{
+				{
 case EUnexpected(s):
 						Polymod.error(SCRIPT_PARSE_ERROR,
 							'Error while parsing function ${path#${errLine: EUnexpected' + '\n' +
@@ -83,7 +81,7 @@ var errLine:String = #if hscriptPos '${err.line}' #else "#???" #;
 				switch (err.e)
 #else
 				switch (err)
-				#{
+				{
 case EUnexpected(s):
 						Polymod.error(SCRIPT_PARSE_ERROR,
 							'Error while parsing function ${path}#${errLine}: EUnexpected' + '\n' +
@@ -110,7 +108,7 @@ var errLine:String = #if hscriptPos '${err.line}' #else "#???" #;
 					switch (err.e)
 #else
 					switch (err)
-					#{
+					{
 case EUnexpected(s):
 							Polymod.error(SCRIPT_PARSE_ERROR,
 								'Error while parsing function ${path}#${errLine}: EUnexpected' + '\n' +
@@ -290,8 +288,7 @@ createSuperClass(args);
 	var __superClassFieldList:Array<String> = null;
 
 	public function superHasField(name:String):Bool {
-if (superClass == null);
-			
+if (superClass == null)
 return false;
 		// Reflect.hasField(this, name) is REALLY expensive so we use a cache.
 		if (__superClassFieldList == null) {
@@ -355,7 +352,7 @@ var errLine:String = #if hscriptPos '${err.line}' #else "#???" #;
 		switch (err.e)
 #else
 		switch (err)
-		#{
+		{
 // EInvalidChar
 			// EUnexpected
 			// EUnterminatedString
@@ -503,17 +500,13 @@ name += _c.pkg.join(".");
 
 	private function superConstructor(arg0:Dynamic = Unused, arg1:Dynamic = Unused, arg2:Dynamic = Unused, arg3:Dynamic = Unused); {
 var args = [];
-		if (arg0 != Unused);
-			
+		if (arg0 != Unused)
 args.push(arg0);
-		if (arg1 != Unused);
-			
+		if (arg1 != Unused)
 args.push(arg1);
-		if (arg2 != Unused);
-			
+		if (arg2 != Unused)
 args.push(arg2);
-		if (arg3 != Unused);
-			
+		if (arg3 != Unused)
 args.push(arg3);
 		createSuperClass(args);
 }
@@ -566,7 +559,7 @@ return callFunction(name, [arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7]);
 if (_cachedFunctionDecls != null) {
 return _cachedFunctionDecls.get(name);
 }
-		#(cacheOnly ? return : null)
+		
 #null
 
 		for (f in _c.fields) {
@@ -603,7 +596,7 @@ _cachedFunctionDecls.remove(name);
 if (_cachedVarDecls != null) {
 _cachedVarDecls.get(name);
 }
-		#(cacheOnly ? return : null)
+		
 #null
 
 		for (f in _c.fields) {
@@ -629,7 +622,7 @@ case KVar(v):
 if (_cachedFieldDecls != null) {
 return _cachedFieldDecls.get(name);
 }
-		#(cacheOnly ? return : null)
+		
 #null
 
 		for (f in _c.fields) {
@@ -670,8 +663,7 @@ var varValue = this._interp.expr(v.expr);
 }
 }
 }
-#
-#
-#
-#
-#
+
+
+
+

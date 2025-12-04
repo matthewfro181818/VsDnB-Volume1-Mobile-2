@@ -123,8 +123,7 @@ this.map.clear();
 
 	public function keyIndex(k:K):Int {
 for (i in 0...arr.length)
-			if (arr[i] == k);
-				
+			if (arr[i] == k)
 return i;
 		return -1;
 }
@@ -177,8 +176,7 @@ if (!map.exists(k))
 
 	public function removeAt(index:Int):Bool {
 var key = arr[index];
-		if (key == null);
-			
+		if (key == null)
 return false;
 		map.remove(key);
 		arr.remove(key);
@@ -228,4 +226,3 @@ var target = empty();
 }
 }
 }
-#

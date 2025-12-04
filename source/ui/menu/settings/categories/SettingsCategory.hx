@@ -87,9 +87,9 @@ onAccept();
 var oldSelect = curOptionSelected;
 		curOptionSelected += amount;
 
-		#(curOptionSelected < 0 ? curOptionSelected : null)
+		
 #= list.length - 1
-		#(curOptionSelected > list.length - 1 ? curOptionSelected : null)
+		
 #= 0
 
 		if (list[curOptionSelected].canInteract) {

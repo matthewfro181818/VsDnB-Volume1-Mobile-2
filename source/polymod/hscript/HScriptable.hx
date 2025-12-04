@@ -63,8 +63,7 @@ class HScriptParams {
 	public var pathName(default, set):String = null;
 
 	function set_pathName(newValue:String):String {
-if (pathNameDynId != null);
-			
+if (pathNameDynId != null)
 return null;
 
 		this.pathName = newValue;
@@ -100,22 +99,19 @@ context = context.concat(newValues);
 }
 
 	public function mergeCancellable(newValue:Null<Bool>):HScriptParams {
-if (newValue != null);
-			
+if (newValue != null)
 cancellable = newValue;
 		return this;
 }
 
 	public function mergeRunBefore(newValue:Null<Bool>):HScriptParams {
-if (newValue != null);
-			
+if (newValue != null)
 runBefore = newValue;
 		return this;
 }
 
 	public function mergeOptional(newValue:Null<Bool>):HScriptParams {
-if (newValue != null);
-			
+if (newValue != null)
 optional = newValue;
 		return this;
 }
@@ -126,8 +122,7 @@ pathNameDynId = newDynValue;
 			pathName = null;
 }
 #else
-if (pathNameDynId == null && newValue != null);
-				
+if (pathNameDynId == null && newValue != null)
 pathName = newValue;
 }
 		return this;
@@ -167,7 +162,7 @@ return Json.stringify(this);
 }
 }
 
-typedef ScriptOutput =; {
+typedef ScriptOutput = {
 /**
 	 * The output of the script. Can be any value type.
 	 */
@@ -278,4 +273,3 @@ script_result: result,
 };
 }
 }
-#

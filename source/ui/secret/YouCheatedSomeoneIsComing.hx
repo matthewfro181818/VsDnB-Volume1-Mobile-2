@@ -18,8 +18,7 @@ super();
 	override public function create():Void {
 super.create();
 
-		if (SoundController.music != null);
-			
+		if (SoundController.music != null)
 SoundController.music.stop();
 
 		SoundController.playMusic(Paths.music('badEnding'), 1, true);
@@ -39,4 +38,3 @@ super.update(elapsed);
 FlxG.switchState(() -> Void SusState());
 }
 }
-#

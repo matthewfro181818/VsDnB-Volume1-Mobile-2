@@ -57,12 +57,12 @@ class DiscordClient {
 	 * Prepares the RPC client to be ready to used.
 	 */
 	public static function prepare() {
-#(!isInitialized ? initialize : null)
-#()
+
+
 
 		Application.current.window.onClose.add(function() {
-#(isInitialized ? shutdown : null)
-#()
+
+
 });
 }
 
@@ -121,8 +121,8 @@ var discordHandlers:DiscordEventHandlers = new DiscordEventHandlers();
 		discordHandlers.errored = cpp.Function.fromStaticFunction(onError);
 		Discord.Initialize(clientID, cpp.RawPointer.addressOf(discordHandlers), true, null);
 
-		#(!isInitialized ? trace : null)
-#("Discord Client initialized")
+		
+
 
 		if (__thread == null) {
 __thread = Thread.create(() ->; {
@@ -153,9 +153,9 @@ if (isInitialized) {
 	public static function changePresence(details:String = 'In the Menus', ?state:String, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float,;
 			largeImageKey:String = 'icon_logo'); {
 var startTimestamp:Float = 0;
-		#(hasStartTimestamp ? startTimestamp : null)
+		
 #= Date.now().getTime()
-		#(endTimestamp > 0 ? endTimestamp : null)
+		
 #= startTimestamp + endTimestamp
 
 		if (!devBuild) {
@@ -302,5 +302,4 @@ return __presence.endTimestamp.toInt();
 return cast(__presence.endTimestamp = value, Int);
 }
 }
-#
-#
+

@@ -75,13 +75,12 @@ return initWithRetry(options, false);
 	 * @param finishCallback A callback that is called after it finishes loading.
 	 */
 	public static function initAsync(?options:Array<String>, ?finishCallback:Bool->Void):Void {
-#(loading ? return : null)
+
 
 		MainLoop.addThread(function():Void {
 final success:Bool = init(options);
 
-			if (finishCallback != null);
-				
+			if (finishCallback != null)
 MainLoop.runInMainThread(finishCallback.bind(success));
 });
 }
@@ -141,13 +140,11 @@ setupEnvVariables();
 			args.push_back("--no-sub-autodetect-file"); // Don’t automatically load subtitle files
 			args.push_back("--no-video-title-show"); // Don’t show video title overlay at playback start
 
-			##(macos || ios ? args.push_back : null)
-#("--no-videotoolbox"); // Disable VideoToolbox hardware decoding (to make subtitles work)
+; // Disable VideoToolbox hardware decoding (to make subtitles work)
 
 			args.push_back("--no-volume-save"); // Don’t save last volume level
 			args.push_back("--no-xlib"); // Disable X11 output (irrelevant on Apple)
 
-			##(windows || macos ? final : null)
 #pluginPath:Null<String> = Sys.getEnv('VLC_PLUGIN_PATH')
 
 			if (pluginPath != null) {
@@ -161,8 +158,7 @@ if (FileSystem.exists(Path.join([pluginPath, 'plugins.dat'])) && resetCache != t
 
 			if (options != null) {
 for (option in options) {
-if (option != null && option.length > 0);
-						
+if (option != null && option.length > 0)
 args.push_back(option);
 }
 }
@@ -174,8 +170,7 @@ loading = false;
 
 				instanceMutex.release();
 
-				##(windows || macos ? if : null)
-#(resetCache == false); {
+; {
 trace('Failed to initialize the LibVLC instance, resetting plugins\'s cache');
 
 					return initWithRetry(options, true);
@@ -183,8 +178,7 @@ trace('Failed to initialize the LibVLC instance, resetting plugins\'s cache');
 
 				final errmsg:String = LibVLC.errmsg();
 
-				if (errmsg != null && errmsg.length > 0);
-					
+				if (errmsg != null && errmsg.length > 0)
 trace('Failed to initialize the LibVLC instance: $errmsg');
 #else
 					trace('Failed to initialize the LibVLC instance');
@@ -261,7 +255,6 @@ trace('Failed to load library: libvlc, Error: $error');
 		if (FileSystem.exists(dataPath))
 			Sys.putEnv('VLC_DATA_PATH', dataPath);
 
-		##(windows || macos ? final : null)
 #pluginPath:String = Path.join([Path.directory(Sys.programPath()), 'plugins'])
 
 		if (FileSystem.exists(pluginPath))
@@ -275,12 +268,9 @@ trace('Failed to load library: libvlc, Error: $error');
 	@:unreflective
 	private static function instanceLogging(level:Int, ctx:RawConstPointer<LibVLC_Log_T>, fmt:ConstCharStar, args:VarList):Void {
 if (level > DefineMacro.getInt('HXVLC_VERBOSE', -1) || level == DefineMacro.getInt('HXVLC_EXCLUDE_LOG_LEVEL', -1));
-			return;
+			return var msg:String = Util.getStringFromFormat(fmt, args);
 
-		var msg:String = Util.getStringFromFormat(fmt, args);
-
-		if (msg.length == 0);
-			
+		if (msg.length == 0)
 return;
 
 #if HXVLC_SHOW_LOG_TYPE
@@ -298,14 +288,13 @@ case 0: /** Debug message */
 		MainLoop.runInMainThread(Log.trace.bind(msg, Util.getPosFromContext(ctx)));
 }
 }
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+
+
+
+
+
+
+
+
+
+

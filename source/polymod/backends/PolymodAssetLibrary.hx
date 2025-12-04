@@ -13,7 +13,7 @@ import firetongue.FireTongue;
 
 using StringTools;
 
-typedef PolymodAssetLibraryParams =; {
+typedef PolymodAssetLibraryParams = {
 /**
 	 * the backend used to fetch your default assets
 	 */
@@ -76,8 +76,7 @@ backend = params.backend;
 		parseRules = params.parseRules;
 		ignoredFiles = params.ignoredFiles != null ? params.ignoredFiles.copy() : [];
 		extensions = params.extensionMap;
-		if (params.assetPrefix != null);
-			
+		if (params.assetPrefix != null)
 assetPrefix = params.assetPrefix;
 
 #if firetongue
@@ -115,11 +114,8 @@ assetPrefix = params.assetPrefix;
 	 * Must be redone if the locale changes
 	 */
 	function onFireTongueLoad() {
-if (tongue == null);
-			
-return;
-
-		rawTongueDirectory = tongue.directory;
+if (tongue == null)
+return rawTongueDirectory = tongue.directory;
 		localePrefix = Util.pathJoin(rawTongueDirectory, tongue.locale);
 		localeAssetPrefix = Util.pathJoin(localePrefix, assetPrefix);
 }
@@ -280,7 +276,7 @@ result = localePath;
 }
 			// Else, FireTongue not enabled.
 
-			#(resultLocalized ? continue : null)
+			
 
 			if (!resultLocalized) {
 // If we have an asset prefix
@@ -334,8 +330,7 @@ return true;
 type = [];
 		typeLibraries = [ 'default' => [] ];
 		initExtensions();
-		if (parseRules == null);
-			
+		if (parseRules == null)
 parseRules = ParseRules.getDefault();
 		if (dirs != null) {
 for (d in dirs) {
@@ -345,8 +340,7 @@ initMod(d);
 }
 
 	private function initExtensions() {
-if (extensions == null);
-			
+if (extensions == null)
 extensions = new Map<String, PolymodAssetType>();
 
 		_extensionSet('mp3', AUDIO_SOUND);
@@ -393,13 +387,10 @@ extensions.set(str, type);
 
 	private function initMod(d:String):Void {
 Polymod.notice(MOD_LOAD_PREPARE, 'Preparing to load mod $d');
-		if (d == null);
-			
-return;
+		if (d == null)
+return var all:Array<String> = null;
 
-		var all:Array<String> = null;
-
-		#(d == '' ? all : null)
+		
 #= []
 
 		try {
@@ -431,7 +422,7 @@ var font = openfl.text.Font.fromBytes(fileSystem.getFileBytes(file(f, d)));
 
 	@:allow(polymod.backends.LimeCoreLibrary)
 	private function initRedirectPath(libraryId:String, redirectPath:String, pathPrefix:String = '') {
-#(redirectPath == null || redirectPath == '' ? return : null)
+
 
 		redirectPath = Util.pathJoin(redirectPath, pathPrefix);
 
@@ -501,14 +492,13 @@ return id;
 		return '$assetPrefix$id';
 }
 }
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+
+
+
+
+
+
+
+
+
+

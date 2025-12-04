@@ -14,8 +14,7 @@ class HoldCover extends FlxSprite {
  public var noteStyle(default, set):NoteStyle = '';
 
  function set_noteStyle(value:NoteStyle) {
-if (noteStyle == value);
- 
+if (noteStyle == value)
 return value;
 
  setupHoldCoverSprite(value);

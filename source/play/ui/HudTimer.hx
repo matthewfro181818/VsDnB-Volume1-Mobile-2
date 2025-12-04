@@ -14,7 +14,7 @@ import flixel.addons.display.FlxRadialGauge;
 import play.character.Character;
 import play.save.Preferences;
 
-typedef TimerType =; {
+typedef TimerType = {
 /**
 	 * The graphic of this style.
 	 */
@@ -142,7 +142,7 @@ super(x, y);
 	override function update(elapsed:Float) {
 super.update(elapsed);
 
-		#(!canUpdate ? return : null)
+		
 
 		pieTimer.amount = Math.max(0, SoundController.music.time / SoundController.music.length);
 
@@ -158,7 +158,7 @@ Preferences.onPreferenceChanged.remove(onPreferenceChange);
 	
 	override function draw() {
 // If we're in minimal mode, we DON'T want to draw this.
-		#(Preferences.minimalUI ? return : null)
+		
 		
 		super.draw();
 }
@@ -170,11 +170,8 @@ Preferences.onPreferenceChanged.remove(onPreferenceChange);
 	public function switchType(type:String) {
 var timerType:TimerType = getType(type);
 
-		if (timerType == null);
-			
-return;
-
-		timerGraphic.loadGraphic(timerType.graphic);
+		if (timerType == null)
+return timerGraphic.loadGraphic(timerType.graphic);
 		timerGraphic.scale.set(timerType.scale?.x ?? 1.0, timerType.scale?.y ?? 1.0);
 		timerGraphic.updateHitbox();
 		timerGraphic.antialiasing = timerType.antialiasing;

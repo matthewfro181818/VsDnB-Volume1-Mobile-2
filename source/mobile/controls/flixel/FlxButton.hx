@@ -11,7 +11,7 @@ import flixel.input.FlxPointer;
 import flixel.input.IFlxInput;
 import flixel.input.touch.FlxTouch;
 import flixel.math.FlxPoint;
-##(flixel >= "5.3.0" ? import : null)
+
 #flixel.sound.FlxSound
 #else
 import flixel.system.FlxSound;
@@ -84,8 +84,7 @@ return (label != null) ? label.text : null;
 }
 
 	inline function set_text(Text:String):String {
-if (label == null);
-			
+if (label == null)
 initLabel(Text);
 #else
 			label.text = Text;
@@ -228,7 +227,7 @@ super.graphicLoaded();
 
 	function setupAnimation(animationName:String, frameIndex:Int):Void {
 // make sure the animation doesn't contain an invalid frame
-		frameIndex = Std.int(Math.min(frameIndex, #if (flixel < "5.3.0");
+		frameIndex = Std.int(Math.min(frameIndex, #if (flixel < "5.3.0")
 animation.frames
 ##else animation.numFrames #- 1))
 		animation.add(animationName, [frameIndex]);
@@ -298,8 +297,7 @@ _spriteLabel.cameras = cameras;
 	override public function drawDebug():Void {
 super.drawDebug();
 
-		if (_spriteLabel != null);
-			
+		if (_spriteLabel != null)
 _spriteLabel.drawDebug();
 }
 
@@ -326,8 +324,7 @@ var buttonFrames:FlxTileFrames = cast frames;
 var labelNode:FlxNode = atlas.addNode(label.graphic.bitmap, label.graphic.key);
 			result = result && (labelNode != null);
 
-			if (labelNode != null);
-				
+			if (labelNode != null)
 label.frames = labelNode.getImageFrame();
 }
 
@@ -341,8 +338,7 @@ label.frames = labelNode.getImageFrame();
 	function updateButton():Void {
 var overlapFound = checkTouchOverlap();
 
-		if (currentInput != null && currentInput.justReleased && overlapFound);
-			
+		if (currentInput != null && currentInput.justReleased && overlapFound)
 onUpHandler();
 
 		if (status != FlxButton.NORMAL && (!overlapFound || (currentInput != null && currentInput.justReleased)));
@@ -384,8 +380,8 @@ currentInput = input;
 }
 #else
 // Allow 'swiping' to press a button (dragging it over the button while pressed)
-			#(allowSwiping && input.pressed ? onDownHandler : null)
-#()
+			
+
 #else
 				onOverHandler();
 }
@@ -399,8 +395,7 @@ _spriteLabel.x = (pixelPerfectPosition ? Math.floor(x) : x) + labelOffsets[statu
 }
 
 	function updateLabelAlpha() {
-if (_spriteLabel != null && labelAlphas.length > status);
-			
+if (_spriteLabel != null && labelAlphas.length > status)
 _spriteLabel.alpha = alpha * labelAlphas[status];
 }
 
@@ -532,20 +527,17 @@ callback = null;
 	 * Fires this event (calls the callback and plays the sound)
 	 */
 	public inline function fire():Void {
-if (callback != null);
-			
+if (callback != null)
 callback();
 
 #if FLX_SOUND_SYSTEM
-		if (sound != null);
-			
+		if (sound != null)
 sound.play(true);
 }
 }
-#
-#
-#
-#
-#
-#
-#
+
+
+
+
+
+

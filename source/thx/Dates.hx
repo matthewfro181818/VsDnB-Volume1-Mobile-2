@@ -30,22 +30,22 @@ class Dates {
 // Wrap values that are too large or negative
 		minute += Math.floor(second / 60);
 		second = second % 60;
-		#(second < 0 ? second : null)
+		
 #+= 60
 
 		hour += Math.floor(minute / 60);
 		minute = minute % 60;
-		#(minute < 0 ? minute : null)
+		
 #+= 60
 
 		day += Math.floor(hour / 24);
 		hour = hour % 24;
-		#(hour < 0 ? hour : null)
+		
 #+= 24
 
 		year += Math.floor(month / 12);
 		month = month % 12;
-		#(month < 0 ? month : null)
+		
 #+= 12
 
 		// Normalize month and year before using daysInMonth to avoid invalid months value
@@ -107,10 +107,9 @@ days.push(start);
 		The default `period` range is `Second`.
 	**/
 	public static function nearEquals(self:Date, other:Date, ?units:Int = 1, ?period:TimePeriod) {
-if (null == period);
-			
+if (null == period)
 period = Second;
-		#(units < 0 ? units : null)
+		
 #= -units
 		var min = jump(self, period, -units), max = jump(self, period, units);
 		return lessEquals(min, other) && greaterEquals(max, other);
@@ -358,7 +357,7 @@ var d = date.getDay(), s:Int = day;
 var d = date.getDay(), s:Int = day;
 
 		// get the next occurence of that day (forward in time)
-		#(s < d ? s : null)
+		
 #= s + 7
 		return jump(date, Day, s - d);
 }
@@ -376,7 +375,7 @@ var d = date.getDay(), s:Int = day;
 var d = date.getDay(), s:Int = day;
 
 		// get the previous occurence of that day (backward in time)
-		#(s > d ? s : null)
+		
 #= s - 7
 		return jump(date, Day, s - d);
 }

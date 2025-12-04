@@ -10,9 +10,9 @@ import flixel.FlxSprite;
 import flixel.system.FlxSound;
 import scripting.IScriptedClass.IDialogueScriptedClass;
 import scripting.events.ScriptEvent;
-import scripting.events.UpdateScriptEvent;
-import scripting.events.PreferenceScriptEvent;
-import scripting.events.DialogueScriptEvent;
+import scripting.events.ScriptEvent.UpdateScriptEvent;
+import scripting.events.ScriptEvent.PreferenceScriptEvent;
+import scripting.events.ScriptEvent.DialogueScriptEvent;
 
 /**
  * Dialogue speaker portrait handler.
@@ -119,9 +119,7 @@ class Speaker extends FlxSprite implements IDialogueScriptedClass implements IRe
 	public function switchToExpression(expressionId:String):Void
 	{
 		if (!hasExpression(expressionId))
-			return;
-
-		var expressionData = getExpressionData(expressionId);
+			return var expressionData = getExpressionData(expressionId);
 		var assetPath:String = expressionData.assetPath;
 
 		// Animated expression

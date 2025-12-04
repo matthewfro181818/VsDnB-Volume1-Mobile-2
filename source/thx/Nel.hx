@@ -36,7 +36,7 @@ case Some(nel): cons(hd, nel);
 		is empty, `None` is returned.
 	**/
 	public static function fromArray<A>(arr:ReadonlyArray<A>):Option<Nel<A>>
-		return #if (arr.length == 0);
+		return #if (arr.length == 0)
 None
 #else
 var res:Nel<A> = Single(arr[arr.length - 1]);

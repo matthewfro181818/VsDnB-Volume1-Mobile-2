@@ -7,8 +7,7 @@ class DefineUtil {
 // Only macros should be able to use these.
 #if macro
 	public static function getDefineStringArrayRaw(key:String, ?defaultValue:Array<String> = null):Array<String>; {
-if (defaultValue == null);
-			
+if (defaultValue == null)
 defaultValue = new Array<String>();
 		var value = Context.definedValue(key);
 		return value == null ? defaultValue : value.split(',');
@@ -36,5 +35,4 @@ return macro $v{getDefineStringRaw(key, defaultValue)};
 return macro $v{getDefineBoolRaw(key, defaultValue)};
 }
 }
-#
-#
+

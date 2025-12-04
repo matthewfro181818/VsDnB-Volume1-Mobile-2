@@ -75,5 +75,4 @@ FlxG.switchState(() -> Void TitleState());
 		FlxG.game._gameJustStarted = true;
 }
 }
-#
-#
+

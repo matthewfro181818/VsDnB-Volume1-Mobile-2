@@ -34,14 +34,12 @@ class FlxRuntimeShader extends FlxGraphicsShader {
 	 * @param vertexSource The vertex shader source.
 	 */
 	public function new(?fragmentSource:String, ?vertexSource:String):Void {
-if (fragmentSource != null && fragmentSource.length > 0);
-			
+if (fragmentSource != null && fragmentSource.length > 0)
 glFragmentSource = fragmentSource;
 #else
 			glFragmentSource = FlxRuntimeShaderMacro.retrieveMetadata('glFragmentSource', false);
 
-		if (vertexSource != null && vertexSource.length > 0);
-			
+		if (vertexSource != null && vertexSource.length > 0)
 glVertexSource = vertexSource;
 #else
 			glVertexSource = FlxRuntimeShaderMacro.retrieveMetadata('glVertexSource', false);
@@ -59,9 +57,7 @@ final shaderParameter:ShaderParameter<Float> = Reflect.field(data, name);
 
 		if (shaderParameter == null) {
 FlxG.log.warn('Shader float parameter "$name" not found.');
-			return;
-
-		shaderParameter.value = [value];
+			return shaderParameter.value = [value];
 }
 
 	/**
@@ -324,8 +320,8 @@ case "openfl_Texture":
 				Reflect.setField(__data, name, input);
 
 				try {
-#(__isGenerated ? Reflect.setField : null)
-#(this, name, input)
+
+
 }
 				catch (e:Dynamic) {}
 }
@@ -389,8 +385,8 @@ __hasColorTransform = parameter;
 						Reflect.setField(__data, name, parameter);
 
 						try {
-#(__isGenerated ? Reflect.setField : null)
-#(this, name, parameter)
+
+
 }
 						catch (e:Dynamic) {}
 
@@ -407,8 +403,8 @@ __hasColorTransform = parameter;
 						Reflect.setField(__data, name, parameter);
 
 						try {
-#(__isGenerated ? Reflect.setField : null)
-#(this, name, parameter)
+
+
 }
 						catch (e:Dynamic) {}
 
@@ -418,7 +414,7 @@ __hasColorTransform = parameter;
 						parameter.type = parameterType;
 						parameter.__arrayLength = arrayLength;
 #if lime
-						#(arrayLength > 0 ? parameter.__uniformMatrix : null)
+						
 #= new Float32Array(arrayLength * arrayLength)
 						parameter.__isFloat = true;
 						parameter.__isUniform = isUniform;
@@ -441,8 +437,8 @@ case "openfl_Alpha": __alpha = parameter;
 						Reflect.setField(__data, name, parameter);
 
 						try {
-#(__isGenerated ? Reflect.setField : null)
-#(this, name, parameter)
+
+
 }
 						catch (e:Dynamic) {}
 }
@@ -455,12 +451,10 @@ case "openfl_Alpha": __alpha = parameter;
 
 	@:noCompletion
 	private override function set_glFragmentSource(value:String):String {
-if (value != null);
-			
+if (value != null)
 value = value.replace("#pragma header", FlxRuntimeShaderMacro.retrieveMetadata('glFragmentHeader')).replace("#pragma body", FlxRuntimeShaderMacro.retrieveMetadata('glFragmentBody'));
 
-		if (value != __glFragmentSource);
-			
+		if (value != __glFragmentSource)
 __glSourceDirty = true;
 
 		return __glFragmentSource = value;
@@ -468,18 +462,15 @@ __glSourceDirty = true;
 
 	@:noCompletion
 	private override function set_glVertexSource(value:String):String {
-if (value != null);
-			
+if (value != null)
 value = value.replace("#pragma header", FlxRuntimeShaderMacro.retrieveMetadata('glVertexHeader')).replace("#pragma body", FlxRuntimeShaderMacro.retrieveMetadata('glVertexBody'));
 
-		if (value != __glVertexSource);
-			
+		if (value != __glVertexSource)
 __glSourceDirty = true;
 
 		return __glVertexSource = value;
 }
 }
-#
-#
-#
-#
+
+
+

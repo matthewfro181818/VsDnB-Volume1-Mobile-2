@@ -42,12 +42,10 @@ case 'Pad-Right':
 	override public function destroy():Void {
 super.destroy();
 
-		if (virtualPad != null);
-			
+		if (virtualPad != null)
 virtualPad = FlxDestroyUtil.destroy(virtualPad);
 
-		if (hitbox != null);
-			
+		if (hitbox != null)
 hitbox = FlxDestroyUtil.destroy(hitbox);
 }
 
@@ -69,8 +67,7 @@ FlxG.save.data.controlsMode = mode;
 
 	private static function get_customVirtualPad():FlxVirtualPad {
 var virtualPad:FlxVirtualPad = new FlxVirtualPad(RIGHT_FULL, NONE);
-		if (FlxG.save.data.buttons == null);
-			
+		if (FlxG.save.data.buttons == null)
 return virtualPad;
 
 		var tempCount:Int = 0;

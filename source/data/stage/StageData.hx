@@ -70,7 +70,7 @@ case 'player': {zIndex: 102, position: [770, 450], scroll: [1, 1], cameraOffsets
 /**
  * A data structure that holds the data for a character in a stage.
  */
-typedef StageDataCharacter = ; {
+typedef StageDataCharacter = {
 /**
  * The layer order of the objects.
  */

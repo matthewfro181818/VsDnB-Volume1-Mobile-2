@@ -78,8 +78,8 @@ final pbo:GLBuffer = __context.gl.createBuffer();
 }
 }
 
-		#(optimizeForRenderToTexture ? __getGLFramebuffer : null)
-#(true, 0, 0)
+		
+
 }
 
 	/**
@@ -89,8 +89,7 @@ final pbo:GLBuffer = __context.gl.createBuffer();
 	 * @param data The new pixel data.
 	 */
 	public function uploadFromTypedArray(data:UInt8Array):Void {
-if (data.length != __frameSize);
-			
+if (data.length != __frameSize)
 return;
 
 		@:nullSafety(Off) {
@@ -150,7 +149,7 @@ case ANISOTROPIC2X:
 }
 }
 
-				#(aniso > Context3D.__glMaxTextureMaxAnisotropy ? aniso : null)
+				
 #= Context3D.__glMaxTextureMaxAnisotropy
 
 				__context.gl.texParameterf(__context.gl.TEXTURE_2D, Context3D.__glTextureMaxAnisotropy, aniso);
@@ -162,9 +161,8 @@ case ANISOTROPIC2X:
 		return false;
 }
 }
-#
-#
-#
-#
-#
-#
+
+
+
+
+

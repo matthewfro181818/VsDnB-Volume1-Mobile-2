@@ -47,8 +47,7 @@ if (Std.isOfType(err, Error))
 
 		if (null == stack) {
 stack = try CallStack.exceptionStack() catch (e:Dynamic) [];
-			if (stack.length == 0);
-				
+			if (stack.length == 0)
 stack = try CallStack.callStack() catch (e:Dynamic) [];
 }
 		this.stackItems = stack;
@@ -64,5 +63,4 @@ stack = try CallStack.callStack() catch (e:Dynamic) [];
 	public function stackToString()
 		return CallStack.toString(stackItems);
 }
-#
-#
+

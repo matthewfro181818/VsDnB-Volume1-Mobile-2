@@ -259,12 +259,9 @@ case Second, Minute, Hour, Day, Week, Month:
 		return new LocalYearMonth(this + months);
 
 	public function compareTo(other:LocalYearMonth):Int {
-##(js || php || neko || eval ? if : null)
-#(null == other && this == null)
-			
+
 return 0;
-		if (null == this);
-			
+		if (null == this)
 return -1;
 #else
 			
@@ -325,9 +322,7 @@ return 1;
 
 	// 1997-07-16
 	public function toString() {
-##(js || php || neko || eval ? if : null)
-#(null == this)
-			
+
 return "";
 		return '${year}-${month.lpad("0", 2)}';
 }

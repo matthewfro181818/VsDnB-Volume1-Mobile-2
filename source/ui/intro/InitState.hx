@@ -130,6 +130,5 @@ var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
 		transOut = FlxTransitionableState.defaultTransOut;
 }
 }
-#
-#
-#
+
+

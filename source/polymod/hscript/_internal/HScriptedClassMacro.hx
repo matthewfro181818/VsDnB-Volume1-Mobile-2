@@ -637,8 +637,8 @@ if (fieldMeta.name == ':generic') {
 }
 
 				var func_access = [field.isPublic ? APublic : APrivate];
-				#(field.isFinal ? func_access.push : null)
-#(AFinal)
+				
+
 				if (isStatic) {
 func_access.push(AStatic);
 }
@@ -834,6 +834,6 @@ args: [],
 }
 }
 
-typedef HScriptClassParams =; {
+typedef HScriptClassParams = {
 ?baseClass:String,
 }

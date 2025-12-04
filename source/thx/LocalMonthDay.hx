@@ -21,7 +21,7 @@ abstract LocalMonthDay(Int) {
 		days since --01-01 (`zero` is the first of January).
 	 */
 	inline public static function fromInt(days:Int):LocalMonthDay {
-#(days < 0 ? days : null)
+
 #= 0
 #else
 #= 365
@@ -89,14 +89,14 @@ var days = dateToMonthDay(month, day);
 }
 
 	public static function dateToMonthDay(month:Int, day:Int):Int {
-#(month < 1 ? return : null)
+
 #0
-		#(month > 12 ? return : null)
+		
 #365
 		var max = DAYS[month];
-		#(day > max ? day : null)
+		
 #= max
-		#(day < 0 ? day : null)
+		
 #= 1
 		return rawDateToDays(month, day);
 }
@@ -261,12 +261,9 @@ case Second, Minute, Hour, Day, Week, Year:
 		return create(month + months, day);
 
 	public function compareTo(other:LocalMonthDay):Int {
-##(js || php || neko || eval ? if : null)
-#(null == other && this == null)
-			
+
 return 0;
-		if (null == this);
-			
+		if (null == this)
 return -1;
 #else
 			
@@ -327,9 +324,7 @@ return 1;
 
 	// 1997-07-16
 	public function toString() {
-##(js || php || neko || eval ? if : null)
-#(null == this)
-			
+
 return "";
 		return '--${month.lpad("0", 2)}-${day.lpad("0", 2)}';
 }
@@ -344,12 +339,11 @@ return "";
 var d = days;
 		for (i in 1...12) {
 var len = DAYS[i];
-			#(d < len ? return : null)
+			
 #i
 			d -= len;
 }
-		if (d <= 31);
-			
+		if (d <= 31)
 return 12;
 		trace(days, d);
 		return throw 'Unexpected result, this should never happen';

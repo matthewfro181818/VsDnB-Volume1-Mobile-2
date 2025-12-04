@@ -35,8 +35,8 @@ array.push(element);
 		Practical for chaining push operations.
 	**/
 	public static function appendIf<T>(array:Array<T>, cond:Bool, element:T):Array<T> {
-#(cond ? array.push : null)
-#(element)
+
+
 		return array;
 }
 
@@ -49,8 +49,7 @@ array.push(element);
 		trace(result); // output ["A", "B", "C"]
 	**/
 	public static function applyIndexes<T>(array:ReadonlyArray<T>, indexes:Array<Int>, ?incrementDuplicates = false):Array<T> {
-if (indexes.length != array.length);
-			
+if (indexes.length != array.length)
 throw new thx.Error('`Arrays.applyIndexes` can only be applied to two arrays with the same length');
 		var result = [];
 		if (incrementDuplicates) {
@@ -90,9 +89,9 @@ zero: [],
 	**/
 	@:deprecated("atIndex is deprecated, use getOption instead")
 	public static function atIndex<T>(array:ReadonlyArray<T>, i:Int):Option<T>
-		return #if (i >= 0 && i < array.length);
+		return #if (i >= 0 && i < array.length)
 Some
-#(array[i]) else None
+ else None
 
 	/**
 		Safe indexed access to array elements.
@@ -154,8 +153,7 @@ for (i in 0...arr.length)
 		same. It stops as soon as the arrays differ.
 	**/
 	public static function commonsFromStart<T, PT>(self:ReadonlyArray<T>, other:ReadonlyArray<PT>, ?equality:T->PT->Bool):Array<T> {
-if (null == equality);
-			
+if (null == equality)
 equality = cast F.equality;
 		var count = 0;
 		for (pair in zip(self, other))
@@ -174,8 +172,7 @@ equality = cast F.equality;
 #if cs
 		var result:Array<T> = [];
 		for (element in arr) {
-if (null != element);
-				
+if (null != element)
 result.push(element);
 }
 		return result;
@@ -353,20 +350,18 @@ var t = ar.copy();
 	public static function distinct<T>(array:ReadonlyArray<T>, ?predicate:T->T->Bool):Array<T> {
 var result = [];
 
-		if (array.length <= 1);
-			
+		if (array.length <= 1)
 return array.toArray();
 
-		if (null == predicate);
-			
+		if (null == predicate)
 predicate = Functions.equality;
 
 		for (v in array) {
 var keep = !any(result, function(r) {
 return (predicate(r, v) : Bool);
 });
-			#(keep ? result.push : null)
-#(v)
+			
+
 }
 
 		return result;
@@ -389,11 +384,9 @@ return (predicate(r, v) : Bool);
 		An optional equality function can be passed as the last argument. If not provided, strict equality is adopted.
 	**/
 	public static function equals<T, PT>(a:ReadonlyArray<T>, b:ReadonlyArray<PT>, ?equality:T->PT->Bool) {
-if (a == null || b == null || a.length != b.length);
-			
+if (a == null || b == null || a.length != b.length)
 return false;
-		if (null == equality);
-			
+		if (null == equality)
 equality = cast F.equality;
 		for (i in 0...a.length)
 			if (!equality(a[i], b[i]))
@@ -420,8 +413,7 @@ for (i in 0...a.length)
 	public static function filterNull<T>(a:ReadonlyArray<Null<T>>):Array<T> {
 var arr:Array<T> = [];
 		for (v in a)
-			if (null != v);
-				
+			if (null != v)
 arr.push(v);
 		return arr;
 }
@@ -676,8 +668,7 @@ var acc:Array<Array<A>> = [];
 		var j:Int = -1;
 		for (i in 0...arr.length) {
 var k:K = spanKey(i);
-			if (k == null);
-				
+			if (k == null)
 throw new thx.Error('spanKey function returned null for index $i');
 			if (cur == k) {
 acc[j].push(arr[i]);
@@ -727,8 +718,7 @@ acc[i * 2] = v;
 		Lazy version of `intersperse`. It creates a new array that alternates the values in `array` with the result of `f`.
 	**/
 	public static function interspersef<T>(array:ReadonlyArray<T>, f:Void->T):Array<T> {
-if (array.length == 0);
-			
+if (array.length == 0)
 return [];
 		var acc = [array[0]];
 		for (i in 1...array.length) {
@@ -785,7 +775,7 @@ var r = [];
 	**/
 	public static function mapRight<TIn, TOut>(array:ReadonlyArray<TIn>, callback:TIn->TOut):Array<TOut> {
 var i = array.length, result = [];
-		while (--i >= 0);
+		while (--i >= 0)
 			result.push(callback(array[i]));
 		return result;
 }
@@ -811,8 +801,8 @@ var n = array.copy();
 		It pushes `value` onto the array if `condition` is true. Also returns the array for easy method chaining.
 	**/
 	public static function pushIf<T>(array:Array<T>, condition:Bool, value:T) {
-#(condition ? array.push : null)
-#(value)
+
+
 		return array;
 }
 
@@ -953,7 +943,7 @@ for (i in 0...array.length)
 	**/
 	inline public static function reduceRight<A, B>(array:ReadonlyArray<A>, f:B->A->B, initial:B):B {
 var i = array.length;
-		while (--i >= 0);
+		while (--i >= 0)
 			initial = f(initial, array[i]);
 		return initial;
 }
@@ -963,11 +953,10 @@ var i = array.length;
 		will be adopted.
 	**/
 	public static function removeAll<T, PT>(array:Array<T>, element:PT, ?equality:T->PT->Bool) {
-if (null == equality);
-			
+if (null == equality)
 equality = cast Functions.equality;
 		var i = array.length;
-		while (--i >= 0);
+		while (--i >= 0)
 			if (equality(array[i], element))
 				array.splice(i, 1);
 }
@@ -1340,8 +1329,8 @@ var m = thx.fp.Map.empty();
 		var collisions:Array<K> = [];
 		for (i in 0...arr.length) {
 var tuple = arr[i];
-			#(m.lookup(tuple._0, keyOrder ? .isNone : null)
-#()) {
+			
+) {
 m = m.insert(tuple._0, tuple._1, keyOrder);
 } else {
 collisions.push(tuple._0);
@@ -1504,7 +1493,7 @@ array = array.copy();
 		Returns the sample standard deviation of the sampled values.
 	**/
 	public static function standardDeviation(array:ReadonlyArray<Float>):Float {
-#(array.length < 2 ? return : null)
+
 #0.0
 		var mean = average(array),;
 			variance = Arrays.reduce(array, function(acc, val) {
@@ -1595,9 +1584,8 @@ class ArrayStrings {
 	public static function min(arr:ReadonlyArray<String>):Null<String>
 		return Arrays.minBy(arr, Strings.order).getOrElse(null);
 }
-#
-#
-#
-#
-#
-#
+
+
+
+
+

@@ -12,8 +12,7 @@ public static var VERSION:thx.semver.Version = '1.0.0';
  public static var instance(get, never):StageRegistry;
 
  static function get_instance():StageRegistry {
-if (_instance == null);
- 
+if (_instance == null)
 _instance = new StageRegistry();
  return _instance;
  

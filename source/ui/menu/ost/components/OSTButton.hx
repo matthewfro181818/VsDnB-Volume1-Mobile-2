@@ -6,7 +6,7 @@ import data.animation.Animation;
 import data.animation.Animation.AnimationData;
 import flixel.FlxSprite;
 
-typedef OSTButtonParams = ; {
+typedef OSTButtonParams = {
 /**
  * The id of this button.
  */
@@ -130,12 +130,10 @@ super(x, y);
  Animation.addToSprite(this, idleAnimation);
  Animation.addToSprite(this, pressedAnimation);
  
- if (toggleIdle != null);
- 
+ if (toggleIdle != null)
 Animation.addToSprite(this, toggleIdle);
 
- if (togglePressed != null);
- 
+ if (togglePressed != null)
 Animation.addToSprite(this, togglePressed);
 
  this.selected = params.startingSelect ?? false;
@@ -160,14 +158,12 @@ case TOGGLE:
 					this.selected = !selected;
 					playIdle();
 
-					if (onTogglePress != null);
-						
+					if (onTogglePress != null)
 onTogglePress(this.selected);
 				case SINGLE:
 					playIdle();
 
-					if (onPress != null);
-						
+					if (onPress != null)
 onPress();
 }
 }
@@ -180,8 +176,8 @@ case TOGGLE:
  case SINGLE:
  this.animation.play(pressedAnimation.name, true);
 }
- #(force ? this.animation.finish : null)
-#()
+ 
+
 }
 
  function playIdle(force:Bool = false):Void; {
@@ -191,7 +187,7 @@ case TOGGLE:
  case SINGLE:
  this.animation.play(idleAnimation.name, true);
 }
- #(force ? this.animation.finish : null)
-#()
+ 
+
 }
 }

@@ -12,8 +12,7 @@ abstract Set<T>(Map<T, Bool>) {
 	public static function createString(?it:Iterable<String>) {
 var map = new Map<String, Bool>();
 		var set = new Set<String>(map);
-		if (null != it);
-			
+		if (null != it)
 set.pushMany(it);
 		return set;
 }
@@ -24,8 +23,7 @@ set.pushMany(it);
 	public static function createInt(?it:Iterable<Int>) {
 var map = new Map<Int, Bool>();
 		var set = new Set<Int>(map);
-		if (null != it);
-			
+		if (null != it)
 set.pushMany(it);
 		return set;
 }
@@ -36,8 +34,7 @@ set.pushMany(it);
 	public static function createObject<T:{}>(?it:Iterable<T>) {
 var map = new Map<T, Bool>();
 		var set = new Set<T>(map);
-		if (null != it);
-			
+		if (null != it)
 set.pushMany(it);
 		return set;
 }
@@ -48,8 +45,7 @@ set.pushMany(it);
 	public static function createEnum<T:EnumValue>(?arr:Iterable<T>) {
 var map = new Map<T, Bool>();
 		var set = new Set<T>(map);
-		if (null != arr);
-			
+		if (null != arr)
 set.pushMany(arr);
 		return set;
 }

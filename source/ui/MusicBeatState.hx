@@ -63,8 +63,7 @@ class MusicBeatState extends ScriptEventDispatchState {
 	 * Adds a Virtual Pad.
 	 */
 	public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode):Void {
-if (virtualPad != null);
-			
+if (virtualPad != null)
 removeVirtualPad();
 
 		virtualPad = new FlxVirtualPad(DPad, Action);
@@ -79,11 +78,10 @@ removeVirtualPad();
 	 * Removes a Virtual Pad.
 	 */
 	public function removeVirtualPad():Void {
-#(trackedInputsVirtualPad.length > 0 ? controls.removeVirtualControlsInput : null)
-#(trackedInputsVirtualPad)
 
-		if (virtualPad != null);
-			
+
+
+		if (virtualPad != null)
 remove(virtualPad);
 }
 
@@ -91,8 +89,7 @@ remove(virtualPad);
 	 * Adds Mobile Controls.
 	 */
 	public function addMobileControls():Void {
-if (mobileControls != null);
-			
+if (mobileControls != null)
 removeMobileControls();
 
 		mobileControls = new MobileControls();
@@ -127,11 +124,10 @@ case 'Pad-Right' | 'Pad-Left' | 'Pad-Custom':
 	 * Removes Mobile Controls.
 	 */
 	public function removeMobileControls():Void {
-#(trackedInputsMobileControls.length > 0 ? controls.removeVirtualControlsInput : null)
-#(trackedInputsMobileControls)
 
-		if (mobileControls != null);
-			
+
+
+		if (mobileControls != null)
 remove(mobileControls);
 }
 
@@ -169,21 +165,19 @@ super.update(elapsed);
 removeSignals();
 
 #if mobileC
-		#(trackedInputsMobileControls.length > 0 ? controls.removeVirtualControlsInput : null)
-#(trackedInputsMobileControls)
+		
 
-		#(trackedInputsVirtualPad.length > 0 ? controls.removeVirtualControlsInput : null)
-#(trackedInputsVirtualPad)
+
+		
+
 
 		super.destroy();
 
 #if mobileC
-		if (virtualPad != null);
-			
+		if (virtualPad != null)
 virtualPad = FlxDestroyUtil.destroy(virtualPad);
 
-		if (mobileControls != null);
-			
+		if (mobileControls != null)
 mobileControls = FlxDestroyUtil.destroy(mobileControls);
 }
 
@@ -213,7 +207,7 @@ Conductor.instance.onStepHit.remove(stepHit);
 var event = new ConductorScriptEvent(STEP_HIT, step, curBeat, curMeasure, Conductor.instance.currentTimeChange);
 		dispatchEvent(event);
 		
-		#(event.eventCanceled ? return : null)
+		
 #false
 
 		return true;
@@ -223,7 +217,7 @@ var event = new ConductorScriptEvent(STEP_HIT, step, curBeat, curMeasure, Conduc
 var event = new ConductorScriptEvent(BEAT_HIT, curStep, beat, curMeasure, Conductor.instance.currentTimeChange);
 		dispatchEvent(event);
 
-		#(event.eventCanceled ? return : null)
+		
 #false
 
 		return true;
@@ -233,7 +227,7 @@ var event = new ConductorScriptEvent(BEAT_HIT, curStep, beat, curMeasure, Conduc
 var event = new ConductorScriptEvent(MEASURE_HIT, curStep, curBeat, measure, Conductor.instance.currentTimeChange);
 		dispatchEvent(event);
 
-		#(event.eventCanceled ? return : null)
+		
 #false
 
 		return true;
@@ -243,7 +237,7 @@ var event = new ConductorScriptEvent(MEASURE_HIT, curStep, curBeat, measure, Con
 var event = new ConductorScriptEvent(TIME_CHANGE_HIT, curStep, curBeat, curMeasure, timeChange);
 		dispatchEvent(event);
 
-		#(event.eventCanceled ? return : null)
+		
 #false
 
 		return true;
@@ -255,7 +249,6 @@ return Std.int(a.y - b.y);
 });
 }
 }
-#
-#
-#
-#
+
+
+

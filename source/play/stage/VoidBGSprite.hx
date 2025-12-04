@@ -8,7 +8,7 @@ import graphics.shaders.RuntimeShader;
 /**
  * Parameters for initalizing VoidSprite shader.
  */
-typedef VoidParams =; {
+typedef VoidParams = {
 /**
 	 * The speed at which the shader should go.
 	 */
@@ -40,7 +40,6 @@ super(name, x, y, graphic, animations);
 
 		params = validateParams(params);
 
-		##(SHADERS_ENABLED || mac ? glitchShader : null)
 #= new RuntimeShader(Paths.frag('glitchEffect'))
 		glitchShader.setFloat('uWaveAmplitude', params.amplitude);
 		glitchShader.setFloat('uFrequency', params.frequency);
@@ -65,17 +64,13 @@ glitchShader?.setFloat('uTime', glitchShader?.getFloat('uTime') + elapsed);
 	 * @return A new VoidParams.
 	 */
 	function validateParams(params:VoidParams):VoidParams {
-if (params == null);
-			
+if (params == null)
 params = {speed: 2, frequency: 5, amplitude: 0.1};
-		if (params.speed == null);
-			
+		if (params.speed == null)
 params.speed = 2;
-		if (params.frequency == null);
-			
+		if (params.frequency == null)
 params.frequency = 5;
-		if (params.amplitude == null);
-			
+		if (params.amplitude == null)
 params.amplitude = 0.1;
 
 		return params;

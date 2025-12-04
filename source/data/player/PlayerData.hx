@@ -59,7 +59,7 @@ var writer:JsonWriter<PlayerData> = new JsonWriter<PlayerData>();
 }
 }
 
-typedef PlayerCharacterSelectData = ; {
+typedef PlayerCharacterSelectData = {
 /**
 	 * The asset name for this portrait.
 	 */

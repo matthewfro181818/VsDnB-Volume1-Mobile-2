@@ -166,22 +166,16 @@ object = null;
 	 * Pauses the shake on this object.
 	 */
 	public function pause():Void {
-if (timer == null);
-			
-return;
-
-		timer.active = false;
+if (timer == null)
+return timer.active = false;
 }
 	
 	/**
 	 * Resume the shake on this object.
 	 */
 	public function resume():Void {
-if (timer == null);
-			
-return;
-
-		timer.active = true;
+if (timer == null)
+return timer.active = true;
 }
 
 	/**
@@ -213,24 +207,21 @@ elapsedTime += interval;
 
 		var curInterval = FlxMath.lerp(endInterval, startInterval, normalizedTimeElapsed);
 
-		#(axes.x ? object.x : null)
+		
 #= initialPosition.x + (FlxG.random.float((-curInterval * object.width), (curInterval * object.width)))
-		#(axes.y ? object.y : null)
+		
 #= initialPosition.y + (FlxG.random.float((-curInterval * object.height), (curInterval * object.height)))
 
-		if (progressCallback != null);
-			
+		if (progressCallback != null)
 progressCallback(this);
 
 		if (timer.loops > 0 && timer.loopsLeft == 0) {
 object.setPosition(initialPosition.x, initialPosition.y);
 
-			if (completionCallback != null);
-				
+			if (completionCallback != null)
 completionCallback(this);
 
-			if (this.timer == timer);
-				
+			if (this.timer == timer)
 release();
 }
 }

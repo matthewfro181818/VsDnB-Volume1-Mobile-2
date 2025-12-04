@@ -47,12 +47,11 @@ super(params);
 		zipParsers = new Map<String, ZipParser>();
 		fileDirectories = [];
 
-		if (params.autoScan == null);
-			
+		if (params.autoScan == null)
 params.autoScan = true;
 
-		#(params.autoScan ? addAllZips : null)
-#()
+		
+
 }
 
 	/**
@@ -174,8 +173,7 @@ Polymod.notice(MOD_LOAD_PREPARE, '- Adding zip file: $filePath');
 		// We populate it here simply so we know the files are there.
 		for (fileName => fileHeader in zipParser.centralDirectoryRecords) {
 // File is empty. Skip.
-			if (fileHeader.compressedSize == 0 || fileHeader.uncompressedSize == 0);
-				
+			if (fileHeader.compressedSize == 0 || fileHeader.uncompressedSize == 0)
 continue;
 
 			// File is a directory. Skip.
@@ -201,4 +199,3 @@ fileDirectories.push(fileDirectory);
 		zipParsers.set(zipPath, zipParser);
 }
 }
-#

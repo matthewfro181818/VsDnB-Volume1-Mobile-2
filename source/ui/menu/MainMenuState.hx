@@ -213,7 +213,7 @@ spr.revive();
 	override function update(elapsed:Float) {
 super.update(elapsed);
 
-		#(!canInteract || selected ? return : null)
+		
 
 		var leftP = controls.LEFT_P || FlxG.mouse.wheel < 0;
 		var rightP = controls.RIGHT_P || FlxG.mouse.wheel > 0;
@@ -273,10 +273,9 @@ canInteract = true;
 if (finishedFunnyMove) {
 curSelected += amount;
 
-			if (curSelected >= menuItems.length);
-				
+			if (curSelected >= menuItems.length)
 curSelected = 0;
-			#(curSelected < 0 ? curSelected : null)
+			
 #= menuItems.length - 1
 }
 
@@ -305,8 +304,7 @@ case 'credits':
 		curOptText.text = optionString.format(' ');
 		curOptDesc.text = LanguageManager.getTextString(languagesDescriptions[curSelected]);
 
-		if (amount != 0);
-			
+		if (amount != 0)
 SoundController.play(Paths.sound('scrollMenu'), 0.7);
 }
 
@@ -358,6 +356,5 @@ selected = false;
 }
 // FIXED stray brace
 }
-#
-#
-#
+
+

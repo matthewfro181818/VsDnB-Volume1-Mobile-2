@@ -35,13 +35,11 @@ pos: Context.currentPos(), // TODO improve
 
 	static function resolveReferences(o:{}, prefix:String, module:String, path:String) {
 if (null == prefix || !Reflect.isObject(o));
-			return;
-		var length = prefix.length;
+			return var length = prefix.length;
 		o.tuples().map(function(t) {
 if (t.left.startsWith(prefix)) {
 if (!Std.isOfType(t.right, String))
-					return;
-				var key = t.left.substring(length),;
+					return var key = t.left.substring(length),;
 					value:String = path.isEmpty() ? t.right : '$path/${t.right}',;
 					newvalue = getFromFile(value, module, prefix, true);
 				Reflect.deleteField(o, t.left);
@@ -116,15 +114,14 @@ setField(ob, name, getFromFile(fullPath, module, prefix, null, true));
 
 	static function normalizeName(s:String) {
 var parts = s.split(".");
-		#(parts.length > 1 ? parts.pop : null)
-#()
+		
+
 		return Strings.capitalizeWords(parts.join(" ")).lowerCaseFirst();
 }
 
 	static function getMatchingFile(type:String, module:String, formats:Array<String>, prefix:String) {
 var path = Macros.getModulePath(module);
-		if (null == path);
-			
+		if (null == path)
 return {};
 		// strip extension
 		path = path.split(".").slice(0, -1).join(".");
@@ -173,8 +170,7 @@ var o = {};
 
 	// TODO: add XML? Is anyone using that anymore?
 	static function getFromFile(file:String, module:String, prefix:String, ?format:String, ?allowText:Bool = false):Dynamic {
-if (null == format);
-			
+if (null == format)
 format = file.split(".").pop();
 		var content:String = sys.io.File.getContent(file);
 		Context.registerModuleDependency(module, file);
@@ -187,7 +183,7 @@ case "json":
 				options.maps = false;
 				yaml.Yaml.parse(content, options);
 			case _:
-				#(allowText ? content : null)
+				
 #else
 };
 		resolveReferences(o, prefix, module, file.split("/").slice(0, -1).join("/"));
@@ -195,4 +191,3 @@ case "json":
 }
 // FIXED stray brace
 }}}}}
-#

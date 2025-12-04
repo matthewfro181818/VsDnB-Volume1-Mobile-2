@@ -73,7 +73,7 @@ currentFPS = Main.frameRate;
 }
 
 		if (currentCount != cacheCount /*&& visible*/) {
-#(fuckFps ? text : null)
+
 #= "FPS: -" + (currentFPS * 10000) + " RVhQVU5HRUQgV0lMTCBUQUtFIE9WRVI= " + (currentFPS * 10000)
 #else
 				text = "FPS: " + currentFPS;
@@ -93,9 +93,8 @@ text += "\nMemory:\n" + memoryMegas + " MB";
 		cacheCount = currentCount;
 }
 }
-#
-#
-#
-#
-#
-#
+
+
+
+
+

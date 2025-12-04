@@ -40,7 +40,7 @@ return cast func;
 }
 	
 	public function createInstance():FlxState {
-#(this is FlxState ? return : null)
+
 #cast this
 #else
 #Type.createInstance(this, [])

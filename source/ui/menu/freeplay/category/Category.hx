@@ -4,7 +4,7 @@ import flixel.util.FlxColor;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.typeLimit.OneOfTwo;
 
-typedef CategorySong =; {
+typedef CategorySong = {
 var id:String;
  var color:Array<FlxColor>;
  var ?week:Int;

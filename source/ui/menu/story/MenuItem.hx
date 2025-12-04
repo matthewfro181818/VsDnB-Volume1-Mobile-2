@@ -64,15 +64,12 @@ week = new FlxSprite().loadGraphic(Paths.image('storyMenu/weeks/week' + weekNum)
 	override function update(elapsed:Float) {
 super.update(elapsed);
 
-		#(isFlashing ? flashingInt : null)
+		
 #+= 1
 
 		var fakeFramerate:Int = Math.round((1 / FlxG.elapsed) / 10);
-		if (fakeFramerate == 0);
-			
-return;
-
-		if (flashingInt % fakeFramerate >= Math.floor(fakeFramerate / (!Preferences.flashingLights ? 0.5 : 2))); {
+		if (fakeFramerate == 0)
+return if (flashingInt % fakeFramerate >= Math.floor(fakeFramerate / (!Preferences.flashingLights ? 0.5 : 2))); {
 week.color = 0xFF33ffff;
 }
 #else

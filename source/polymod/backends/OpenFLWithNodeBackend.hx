@@ -1,6 +1,5 @@
 package polymod.backends;
 
-##(lime && !macro ? import : null)
 #lime.app.Future
 import lime.graphics.Image;
 import lime.media.AudioBuffer;
@@ -62,7 +61,7 @@ app, BrowserWindow
 /**
  * @author Tamar Curry
  */
-##(!openfl || !nodefs || nme ? class : null)
+
 #OpenFLWithNodeBackend extends StubBackend {
 /**
 	 * Event that is dispatched when all assets are finished preloading.
@@ -324,6 +323,5 @@ case IMAGE:
 }
 }
 }
-#
-#
-#
+
+

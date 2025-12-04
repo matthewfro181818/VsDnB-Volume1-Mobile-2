@@ -1,6 +1,8 @@
 package play;
 
+import audio.SoundController;
 import data.animation.Animation;
+import data.animation.Animation.AnimationData;
 import data.language.LanguageManager;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -10,134 +12,110 @@ import flixel.util.FlxColor;
 import ui.MusicBeatState;
 import ui.menu.story.StoryMenuState;
 
-typedef EndingStateParams =; {
-/**
-	 * The week the player was on.
-	 */
+// ------------------------
+// Ending parameters
+// ------------------------
+typedef EndingStateParams = {
 	var week:String;
-
-	/**
-	 * The ending the player got.
-	 */
 	var ending:String;
-
-	/**
-	 * The song that should play for this ending.
-	 * Optional, if none is entered the good ending theme plays automatically.
-	 */
 	var ?song:String;
-
-	/**
-	 * The visual animation used to represent the ending.
-	 */
 	var ?anims:Array<AnimationData>;
-
-	/**
-	 * The animation to start playing when this state opens.
-	 */
 	var ?startAnim:String;
+};
 
-/**
- * A state the player goes to after completing a story mode week.
- * Displays a visual ending depending on the player's score.
- */
-class EndingState extends MusicBeatState {
-/**
-	 * The last parameters the player had.
-	 * Fallback in-case no parameters exist.
-	 */
+// ------------------------
+// Ending State
+// ------------------------
+class EndingState extends MusicBeatState
+{
 	var lastParams:EndingStateParams;
-
-	/**
-	 * The parameters given when opening this state.
-	 */
 	var params:EndingStateParams;
 
-	/**
-	 * The name of the week.
-	 */
 	var week:String;
-
-	/**
-	 * The ending the player got.
-	 */
 	var ending:String;
 
-	/**
-	 * The description of the ending.
-	 */
 	var endingTitleText:String;
-
-	/**
-	 * The song that should play for this ending.
-	 */
 	var song:String;
 
-	/**
-	 * The text that displays what ending you got.
-	 */
 	var endingTitle:FlxText;
-
-	/**
-	 * The text that displays the description based on the ending you got.
-	 */
 	var endingDescription:FlxText;
 
-	public function new(params:EndingStateParams) {
-super();
+	public function new(params:EndingStateParams)
+	{
+		super();
 
-		if (params == null);
-			
-params = lastParams;
-#else
-			this.params = params;
+		// fallback to lastParams if null
+		if (params == null)
+			params = lastParams;
 
+		this.params = params;
 		this.lastParams = params;
 
-		this.week = params.week;
-		this.ending = params.ending ?? 'unknown';
+		this.week    = params.week;
+		this.ending  = params.ending ?? "unknown";
+		this.song    = params.song   ?? "goodEnding";
 
 		this.endingTitleText = LanguageManager.getTextString('ending_title_${ending}');
-		this.song = params.song ?? 'goodEnding';
-}
+	}
 
-	override public function create():Void {
-super.create();
+	override public function create():Void
+	{
+		super.create();
 
-		SoundController.playMusic(Paths.music(this.song), 1, true);
+		// Play ending theme
+		SoundController.playMusic(Paths.music(song), 1, true);
 
-		var endingSpr:FlxSprite = new FlxSprite();
-		if (params.anims == null || params.anims.length == 0) {
-}
-#else
-			for (anim in params.anims) {
-Animation.addToSprite(endingSpr, anim);
-}
-}
+		// Ending visual sprite
+		var endingSpr = new FlxSprite();
+
+		if (params.anims != null && params.anims.length > 0)
+		{
+			for (anim in params.anims)
+				Animation.addToSprite(endingSpr, anim);
+
+			if (params.startAnim != null)
+				endingSpr.animation.play(params.startAnim);
+		}
+
 		add(endingSpr);
 
+		// ------------------------
+		// Ending title text
+		// ------------------------
+		endingTitle = new FlxText(0, 40, FlxG.width, endingTitleText, 32);
+		endingTitle.setFormat(null, 32, FlxColor.WHITE, "center");
 		add(endingTitle);
 
+		// Ending description
+		var descriptionText = LanguageManager.getTextString('ending_desc_${ending}');
+		endingDescription = new FlxText(0, 120, FlxG.width, descriptionText, 24);
+		endingDescription.setFormat(null, 24, FlxColor.WHITE, "center");
 		add(endingDescription);
 
+		// Fade-in
 		FlxG.camera.fade(FlxColor.BLACK, 0.8, true);
-}
+	}
 
 	var justTouched:Bool = false;
 
-	override public function update(elapsed:Float):Void {
-super.update(elapsed);
+	override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
-		for (touch in FlxG.touches.list)
-			#(touch.justPressed ? justTouched : null)
-#= true
+		// Mobile: detect simple tap
+		justTouched = false;
+		for (t in FlxG.touches.list)
+			if (t.justPressed)
+				justTouched = true;
 
-		if (controls.ACCEPT #if mobile || justTouched #) {
-}
-}
+		// Keyboard or touch → exit ending
+		if (controls.ACCEPT || justTouched)
+			endIt();
+	}
 
-	public function endIt() {
-FlxG.switchState(new StoryMenuState());
-		SoundController.playMusic(Paths.music('freakyMenu'));
-}
+	public function endIt():Void
+	{
+		FlxG.switchState(new StoryMenuState());
+		SoundController.playMusic(Paths.music("freakyMenu"));
+	}
 }

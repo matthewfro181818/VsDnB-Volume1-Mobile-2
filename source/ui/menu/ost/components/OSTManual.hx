@@ -63,7 +63,7 @@ super();
  override function update(elapsed:Float) {
 super.update(elapsed);
 
- #(delayTimer > 0 ? delayTimer : null)
+ 
 #-= elapsed
 
  if (FlxG.mouse.justPressed && canAdvance && delayTimer <= 0) {
@@ -92,8 +92,7 @@ uiManual.visible = false;
  turnTableManual.visible = false;
 
  // Skip the selection bar tutorial because it's closed.
- if (selectionBarClosed && state == UI);
- 
+ if (selectionBarClosed && state == UI)
 state = SELECTION_BAR;
 
  switch (state) {

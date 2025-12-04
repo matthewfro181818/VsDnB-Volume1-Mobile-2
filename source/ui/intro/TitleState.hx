@@ -135,23 +135,23 @@ FlxG.fullscreen = !FlxG.fullscreen;
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
 		if (gamepad != null) {
-#(gamepad.justPressed.START ? pressedEnter : null)
+
 #= true
 
 #if switch
-			#(gamepad.justPressed.B ? pressedEnter : null)
+			
 #= true
 }
 
 #if mobile
-		#(TouchUtil.justPressed ? pressedEnter : null)
+		
 #= true
 
 		if (pressEnter != null && pressedEnter && !transitioning) {
 FlxTween.tween(pressEnter, {'scale.x': 0, 'scale.y': 0, angle: 10}, 0.5, {ease: FlxEase.backInOut});
 
-			#(Preferences.flashingLights ? FlxG.camera.flash : null)
-#(FlxColor.WHITE, 0.5)
+			
+
 
 			SoundController.play(Paths.sound('confirmMenu'), 0.7);
 
@@ -168,7 +168,7 @@ FlxG.switchState(() -> Void MainMenuState());
 	override function beatHit(beat:Int):Bool {
 if (!super.beatHit(beat)) return false;
 
-		#(logoBl == null ? return : null)
+		
 #false
 
 		logoBl.animation.play('bump');
@@ -216,9 +216,8 @@ introDisplayText.text = introText[1];
 }, 0);
 }
 }
-#
-#
-#
-#
-#
-#
+
+
+
+
+

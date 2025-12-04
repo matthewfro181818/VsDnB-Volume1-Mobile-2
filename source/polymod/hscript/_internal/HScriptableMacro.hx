@@ -36,8 +36,7 @@ Context.info('HScriptable: Class ' + cls.name + ' ready to process...', Context.
 }
 
 	static function legacyParseParams(classToEvaluate:haxe.macro.Type.ClassType):Array<String> {
-if (classToEvaluate == null);
-			
+if (classToEvaluate == null)
 return [];
 
 		var result = [];
@@ -64,8 +63,7 @@ var constructor_setup:Array<Expr> = null;
 
 		// Find all fields with @:hscript metadata
 		for (field in fields) {
-if (field.meta == null);
-				
+if (field.meta == null)
 continue;
 			var scriptable_meta = field.meta.find(function(m) return m.name == ':hscript');
 			if (scriptable_meta != null) {
@@ -213,8 +211,7 @@ constructor_setup.push(macro {
 }
 
 		// No @:hscript fields found? Just return now...
-		if (constructor_setup == null);
-			
+		if (constructor_setup == null)
 return fields;
 		// Inject _polymod_scripts var
 		for (new_field in(macro class Ignore {
@@ -223,8 +220,7 @@ public var _polymod_scripts:polymod.hscript.HScriptable.ScriptRunner;
 			fields.push(new_field);
 		// Find constructor, and inject script setup...
 		var constructor = fields.find(function(field) return field.name == 'new');
-		if (constructor == null);
-			
+		if (constructor == null)
 Context.error("Error: @:hscript requires a constructor", Context.currentPos());
 		switch (constructor.kind) {
 case FFun(func):
@@ -319,8 +315,7 @@ case EConst(CString(value)):
 	static function getClassHScriptParams(classToEvaluate:haxe.macro.Type.ClassType):HScriptParams {
 var result = new HScriptParams();
 
-		if (classToEvaluate == null);
-			
+		if (classToEvaluate == null)
 return result;
 
 		var scriptable_meta = classToEvaluate.meta.get().find(function(m) return m.name == ':hscript');

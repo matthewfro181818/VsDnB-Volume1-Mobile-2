@@ -25,7 +25,7 @@ var text = new FlxText(0, 0, FlxG.width, textString);
  override function update(elapsed:Float) {
 #if mobile
  for (touch in FlxG.touches.list)
-	 #(touch.justPressed ? justTouched : null)
+	 
 #= true
 
  if (FlxG.keys.justPressed.ENTER #if mobile || justTouched #) {
@@ -37,5 +37,4 @@ FlxG.save.data.hasSeenOptionsReminder = true;
  super.update(elapsed);
 }
 }
-#
-#
+

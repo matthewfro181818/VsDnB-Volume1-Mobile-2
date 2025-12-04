@@ -1,6 +1,5 @@
 package thx.macro;
 
-##(neko || macro ? import : null)
 #haxe.macro.Expr
 import thx.Arrays;
 

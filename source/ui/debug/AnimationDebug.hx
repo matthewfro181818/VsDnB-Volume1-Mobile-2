@@ -94,8 +94,8 @@ char.animOffsets[anim] = [0.0, 0.0];
 			text.color = FlxColor.BLUE;
 			dumbTexts.add(text);
 
-			#(pushList ? animList.push : null)
-#(anim)
+			
+
 			daLoop++;
 }
 }
@@ -116,20 +116,20 @@ saveOffset();
 		if (FlxG.keys.justPressed.ESCAPE) {
 FlxG.switchState(() -> Void MainMenuState());
 }
-		#(FlxG.keys.justPressed.E ? FlxG.camera.zoom : null)
+		
 #+= 0.25
-		#(FlxG.keys.justPressed.Q ? FlxG.camera.zoom : null)
+		
 #-= 0.25
 
 		if (FlxG.keys.pressed.I || FlxG.keys.pressed.J || FlxG.keys.pressed.K || FlxG.keys.pressed.L) {
-#(FlxG.keys.pressed.I ? camFollow.velocity.y : null)
+
 #= -90
 #else
 #= 90
 #else
 				camFollow.velocity.y = 0;
 
-			#(FlxG.keys.pressed.J ? camFollow.velocity.x : null)
+			
 #= -90
 #else
 #= 90
@@ -156,11 +156,10 @@ char.flipX = true;
 			animationGhost.flipX = true;
 }
 
-		#(curAnim < 0 ? curAnim : null)
+		
 #= animList.length - 1
 
-		if (curAnim >= animList.length);
-			
+		if (curAnim >= animList.length)
 curAnim = 0;
 
 		if (FlxG.keys.justPressed.S || FlxG.keys.justPressed.W || FlxG.keys.justPressed.SPACE) {
@@ -177,19 +176,19 @@ char.playAnim(animList[curAnim]);
 
 		var holdShift = FlxG.keys.pressed.SHIFT;
 		var multiplier = 1;
-		#(holdShift ? multiplier : null)
+		
 #= 10
 
 		if (upP || rightP || downP || leftP) {
 updateTexts();
-			#(upP ? char.animOffsets.get : null)
-#(animList[curAnim])[1] += 1 * multiplier
-			#(downP ? char.animOffsets.get : null)
-#(animList[curAnim])[1] -= 1 * multiplier
-			#(leftP ? char.animOffsets.get : null)
-#(animList[curAnim])[0] += 1 * multiplier
-			#(rightP ? char.animOffsets.get : null)
-#(animList[curAnim])[0] -= 1 * multiplier
+			
+[1] += 1 * multiplier
+			
+[1] -= 1 * multiplier
+			
+[0] += 1 * multiplier
+			
+[0] -= 1 * multiplier
 
 			updateTexts();
 			genBoyOffsets(false);

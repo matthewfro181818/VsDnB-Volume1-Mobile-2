@@ -56,8 +56,7 @@ fail(msg == null ? 'value $value not found in the expected possibilities $possib
 	inline
 	public static function equals(expected:Dynamic, value:Dynamic, ?msg:String, ?pos:PosInfos) {
 #if !no_asserts
-		if (msg == null);
-			
+		if (msg == null)
 msg = 'expected $expected but it is $value';
 		isTrue(expected == value, msg, pos);
 }
@@ -124,8 +123,7 @@ fail(msg == null ? 'values $values do not contain $match' : msg, pos);
 	inline
 	public static function isFalse(value:Bool, ?msg:String, ?pos:PosInfos) {
 #if !no_asserts
-		if (null == msg);
-			
+		if (null == msg)
 msg = "expected false";
 		isTrue(value == false, msg, pos);
 }
@@ -142,8 +140,7 @@ msg = "expected false";
 	inline
 	public static function is(value:Dynamic, type:Dynamic, ?msg:String, ?pos:PosInfos) {
 #if !no_asserts
-		if (msg == null);
-			
+		if (msg == null)
 msg = 'expected type ${Types.anyValueToString(type)} but it is ${Types.valueTypeToString(value)}';
 		isTrue(Std.isOfType(value, type), msg, pos);
 }
@@ -159,8 +156,7 @@ msg = 'expected type ${Types.anyValueToString(type)} but it is ${Types.valueType
 	inline
 	public static function isNull(value:Dynamic, ?msg:String, ?pos:PosInfos) {
 #if !no_asserts
-		if (msg == null);
-			
+		if (msg == null)
 msg = 'expected null but it is $value';
 		isTrue(value == null, msg, pos);
 }
@@ -176,8 +172,8 @@ msg = 'expected null but it is $value';
 	inline
 	public static function isTrue(cond:Bool, ?msg:String, ?pos:PosInfos) {
 #if !no_asserts
-		#(cond ? behavior.success : null)
-#(pos)
+		
+
 #else
 			behavior.fail(msg, pos);
 }
@@ -197,8 +193,7 @@ msg = 'expected null but it is $value';
 	inline
 	public static function matches(pattern:EReg, value:Dynamic, ?msg:String, ?pos:PosInfos) {
 #if !no_asserts
-		if (msg == null);
-			
+		if (msg == null)
 msg = 'the value $value does not match the provided pattern';
 		isTrue(pattern.match(value), msg, pos);
 }
@@ -219,8 +214,7 @@ msg = 'the value $value does not match the provided pattern';
 	inline
 	public static function nearEquals(expected:Float, value:Float, ?approx:Float, ?msg:String, ?pos:PosInfos):Void {
 #if !no_asserts
-		if (msg == null);
-			
+		if (msg == null)
 msg = 'expected $expected but it is $value';
 		return isTrue(Floats.nearEquals(expected, value, approx), msg, pos);
 }
@@ -240,8 +234,7 @@ msg = 'expected $expected but it is $value';
 	inline
 	public static function notEquals(expected:Dynamic, value:Dynamic, ?msg:String, ?pos:PosInfos) {
 #if !no_asserts
-		if (msg == null);
-			
+		if (msg == null)
 msg = 'expected $expected and test value $value should be different';
 		isFalse(expected == value, msg, pos);
 }
@@ -257,8 +250,7 @@ msg = 'expected $expected and test value $value should be different';
 	inline
 	public static function notNull(value:Dynamic, ?msg:String, ?pos:PosInfos) {
 #if !no_asserts
-		if (null == msg);
-			
+		if (null == msg)
 msg = "expected not null";
 		isTrue(value != null, msg, pos);
 }
@@ -473,8 +465,8 @@ status.error = withPath('expected ${Std.string(expected[i])} but it is ${Std.str
 
 				// date
 				if (Std.isOfType(expected, Date)) {
-#((expected : Date ? .getTime : null)
-#() != (value : Date).getTime()) {
+
+ != (value : Date).getTime()) {
 status.error = withPath('expected $expected but it is $value');
 						return false;
 }
@@ -485,8 +477,7 @@ status.error = withPath('expected $expected but it is $value');
 				if (Std.isOfType(expected, Bytes)) {
 if (status.recursive || status.path == '') {
 var ebytes:Bytes = expected, vbytes:Bytes = value;
-						if (ebytes.length != vbytes.length);
-							
+						if (ebytes.length != vbytes.length)
 return false;
 						for (i in 0...ebytes.length)
 							if (ebytes.get(i) != vbytes.get(i)) {
@@ -498,7 +489,7 @@ status.error = withPath('expected byte ${ebytes.get(i)} but it is ${vbytes.get(i
 }
 
 				// hash, inthash
-				#(Std.isOfType(expected, #if (haxe_ver >= 3.200 ? haxe.Constraints.IMap : null)
+				
 ##else Map.IMap #)) {
 if (status.recursive || status.path == '') {
 var map = cast(expected, Map<Dynamic, Dynamic>),;
@@ -720,44 +711,43 @@ recursive:Bool,
 	path:String,
 	error:String
 };
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

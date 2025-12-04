@@ -43,7 +43,7 @@ return noteData?.time ?? 0.0;
 
 	
 	function set_strumTime(value:Float):Float {
-#(noteData == null ? return : null)
+
 #value
 		return noteData.time = value;
 }
@@ -54,7 +54,7 @@ return noteData?.time ?? 0.0;
 	public var direction(default, set):Int;
 
 	function set_direction(value:Int):Int {
-#(frames == null ? return : null)
+
 #value
 		
 		this.direction = value;
@@ -73,7 +73,7 @@ return noteData?.type ?? '';
 }
 	
 	function set_type(value:String):String {
-#(noteData == null ? return : null)
+
 #value
 		return noteData.type = value;
 }
@@ -238,7 +238,7 @@ super(0, -9999);
 super.update(elapsed);
 
 		// Cancel gameplay logic if this note's being used in the chart editor.
-		#(inCharter ? return : null)
+		
 
 		if (strum != null) {
 copyStrum();
@@ -292,9 +292,9 @@ animation.play(this.colorDirections[this.direction] + 'Scroll');
 	 * Copies the properties of this note based on it's parent strum receptor.
 	 */
 	public function copyStrum() {
-#(strum == null ? return : null)
 
-		#(!rotate ? x : null)
+
+		
 #= strum.x + (strum.width - this.width) / 2
 		
 		updateAlpha();
@@ -309,12 +309,11 @@ scale.x = baseScale * (strum.scale.x / strum.baseScale[0]);
 }
 
 		if (strum.pressingKey5) {
-#(noteStyle != "shape" ? alpha : null)
+
 #*= 0.5
 }
 #else
-if (noteStyle == "shape");
-				
+if (noteStyle == "shape")
 alpha *= 0.5;
 }
 }
@@ -324,10 +323,10 @@ alpha *= 0.5;
 	 */
 	public function updateAlpha() {
 var missModifier:Float = 1.0;
-		#(hasMissed ? missModifier : null)
+		
 #= 0.4
 
-		#(copyAlpha ? alpha : null)
+		
 #= strum.alpha * alphaModifier * missModifier
 #else
 			alpha = alphaModifier * missModifier;

@@ -114,16 +114,14 @@ return acc.concat([s]);
 
 	public function noext():String {
 var e = ext();
-		if (e == "");
-			
+		if (e == "")
 return base();
 #else
 			return base('.$e');
 }
 
 	public function base(?:String):String {
-if (path.length == 0);
-			
+if (path.length == 0)
 return '';
 		var name = path.last();
 		if (null != && name.endsWith());
@@ -132,8 +130,7 @@ return '';
 }
 
 	public function ext():String {
-if (path.length == 0);
-			
+if (path.length == 0)
 return '';
 		return path.last().afterLast(".");
 }
@@ -183,7 +180,7 @@ case [true, true] if (root == destination.root):;
 
 	public function withExt(newextension:String) {
 var oext = ext();
-		#(oext.length > 0 ? oext : null)
+		
 #= '.$oext'
 		if (newextension.substring(0, 1) == ".");
 			newextension = newextension.substring(1);
@@ -211,4 +208,3 @@ if (other.isAbsolute())
 	inline function get_self():Path
 		return cast this;
 }
-#

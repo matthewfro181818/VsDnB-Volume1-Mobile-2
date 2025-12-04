@@ -55,8 +55,7 @@ return _data?.sounds ?? null;
  */
  var conductor(get, set):Conductor;
  function get_conductor():Conductor {
-if (_conductor == null);
- 
+if (_conductor == null)
 _conductor = Conductor.instance;
  return _conductor;
 }

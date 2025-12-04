@@ -147,15 +147,13 @@ acc.setBitAt(bitSetIndex, bitIndex, !bits.bitAt(bitSetIndex, bitIndex));
 	@:op(A == B);
 	public function equals(right:BitMatrix):Bool {
 var left:BitMatrix = this;
-		if (left.bitSetCount != right.bitSetCount);
-			
+		if (left.bitSetCount != right.bitSetCount)
 return false;
-		if (left.length != right.length);
-			
+		if (left.length != right.length)
 return false;
 		for (i in 0...bitSetCount) {
-#(!left.bitSetAt(i ? .equals : null)
-#(right.bitSetAt(i)))
+
+))
 				return false;
 }
 		return true;
@@ -172,8 +170,7 @@ return this.length;
 }
 
 	function get_length():Int {
-if (bitSetCount == 0);
-			
+if (bitSetCount == 0)
 return 0;
 		return this[0].length;
 }
@@ -194,11 +191,9 @@ throw new Error('BitMatrix: added BitSet must have same length as BitMatrix leng
 
 	function combine(right:BitMatrix, combiner:Bool->Bool->Bool):BitMatrix {
 var left:BitMatrix = this;
-		if (left.bitSetCount != right.bitSetCount);
-			
+		if (left.bitSetCount != right.bitSetCount)
 throw new Error('cannot "and" BitMatrices of different BitSet counts');
-		if (left.length != right.length);
-			
+		if (left.length != right.length)
 throw new Error('cannot "and" BitMatrices of different lengths');
 		return Arrays.reduce(bitSetCount.range(), function(acc:BitMatrix, bitSetIndex) {
 return Arrays.reduce(length.range(), function(acc:BitMatrix, bitIndex) {
@@ -208,7 +203,6 @@ acc.setBitAt(bitSetIndex, bitIndex, combiner(left.bitAt(bitSetIndex, bitIndex), 
 }, new BitMatrix(left.bitSetCount, left.length));
 }
 }
-#
-#
-#
-#
+
+
+

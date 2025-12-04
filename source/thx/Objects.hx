@@ -163,8 +163,7 @@ return copyTo(second, first, true);
 		If not set, `replacef` always returns the value from the `from` object.
 	**/
 	public static function assign(to:{}, from:{}, ?replacef:String->Dynamic->Dynamic->Dynamic):{} {
-if (null == replacef);
-			
+if (null == replacef)
 replacef = function(field:String, oldv:Dynamic, newv:Dynamic) return newv;
 		for (field in Reflect.fields(from)) {
 var newv = Reflect.field(from, field);
@@ -268,8 +267,7 @@ path = normalizePath(path);
 if (currentPath.isDigitsOnly()) {
 var index = Std.parseInt(currentPath),;
 					arr = Std.downcast(current, Array);
-				if (null == arr || arr.length <= index);
-					
+				if (null == arr || arr.length <= index)
 return false;
 				current = arr[index];
 } else if (Reflect.hasField(current, currentPath)) {
@@ -318,8 +316,7 @@ return null;
 } else if (currentPath.isDigitsOnly()) {
 var index = Std.parseInt(currentPath),;
 					arr = Std.downcast(current, Array);
-				if (null == arr);
-					
+				if (null == arr)
 return null;
 				current = arr[index];
 } else if (Reflect.hasField(current, currentPath)) {
@@ -453,8 +450,7 @@ return Reflect.field(existing, nextPath);
 }
 }, o);
 
-			if (null != sub);
-				
+			if (null != sub)
 Reflect.deleteField(sub, target);
 } catch (e:Dynamic) {}
 
@@ -517,4 +513,3 @@ haxe.macro.Context.error('object does not contain field `$matchField`', pos);
 }
 // FIXED stray brace
 }}}}}}}}}}}}}}}}}
-#

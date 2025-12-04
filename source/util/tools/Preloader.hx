@@ -225,9 +225,7 @@ class Preloader
 	public static function cacheCharacter(charKey:String, type:CharacterType)
 	{
 		if (trackedCharacters.exists(charKey))
-			return;
-
-		var c = Character.create(0, 0, charKey, type);
+			return var c = Character.create(0, 0, charKey, type);
 		trackedCharacters.set(charKey, c);
 	}
 

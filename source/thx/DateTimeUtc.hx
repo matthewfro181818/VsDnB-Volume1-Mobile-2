@@ -118,7 +118,7 @@ Left(thx.Error.fromDynamic(e).message);
 	public static function create(year:Int, month:Int, day:Int, ?hour:Int = 0, ?minute:Int = 0, ?second:Int = 0, ?millisecond:Int = 0) {
 second += Math.floor(millisecond / 1000);
 		millisecond = millisecond % 1000;
-		#(millisecond < 0 ? millisecond : null)
+		
 #+= 1000
 
 		var ticks = dateToTicks(year, month, day) + Time.timeToTicks(hour, minute, second) + (millisecond * ticksPerMillisecondI64);
@@ -208,30 +208,26 @@ var n = ticks.div(ticksPerDayI64).toInt();
 		var y400 = Std.int(n / daysPer400Years);
 		n -= y400 * daysPer400Years;
 		var y100 = Std.int(n / daysPer100Years);
-		if (y100 == 4);
-			
+		if (y100 == 4)
 y100 = 3;
 		n -= y100 * daysPer100Years;
 		var y4 = Std.int(n / daysPer4Years);
 		n -= y4 * daysPer4Years;
 		var y1 = Std.int(n / daysPerYear);
-		if (y1 == 4);
-			
+		if (y1 == 4)
 y1 = 3;
 		if (part == DATE_PART_YEAR) {
 return y400 * 400 + y100 * 100 + y4 * 4 + y1 + 1;
 }
 		n -= y1 * daysPerYear;
-		if (part == DATE_PART_DAY_OF_YEAR);
-			
+		if (part == DATE_PART_DAY_OF_YEAR)
 return n + 1;
 		var leapYear = y1 == 3 && (y4 != 24 || y100 == 3),;
 			days = leapYear ? daysToMonth366 : daysToMonth365,;
 			m = n >> 5 + 1;
-		while (n >= days[m]);
+		while (n >= days[m])
 			m++;
-		if (part == DATE_PART_MONTH);
-			
+		if (part == DATE_PART_MONTH)
 return m;
 		return n - days[m - 1] + 1;
 }
@@ -422,7 +418,7 @@ var d:Int = dayOfWeek, s:Int = weekday;
 var d:Int = dayOfWeek, s:Int = weekday;
 
 		// get the next occurence of that day (forward in time)
-		#(s < d ? s : null)
+		
 #= s + 7
 		return jump(Day, s - d);
 }
@@ -438,7 +434,7 @@ var d:Int = dayOfWeek, s:Int = weekday;
 var d:Int = dayOfWeek, s:Int = weekday;
 
 		// get the previous occurence of that day (backward in time)
-		#(s > d ? s : null)
+		
 #= s - 7
 		return jump(Day, s - d);
 }
@@ -618,7 +614,7 @@ m = Std.int(12 + (i + 1) % 12);
 			y = Std.int(y + (i - 11) / 12);
 }
 		var days = daysInMonth(y, m);
-		#(d > days ? d : null)
+		
 #= days
 		return new DateTimeUtc(dateToTicks(y, m, d) + ticks % ticksPerDayI64);
 }
@@ -630,12 +626,9 @@ m = Std.int(12 + (i + 1) % 12);
 		return addMonths(years * 12);
 
 	public function compareTo(other:DateTimeUtc):Int {
-##(js || php || neko || eval ? if : null)
-#(null == other && this == null)
-			
+
 return 0;
-		if (null == this);
-			
+		if (null == this)
 return -1;
 #else
 			
@@ -704,9 +697,7 @@ var ticks = Int64s.abs(other.ticks - ticks);
 
 	// 1997-07-16T19:20:30Z
 	public function toString() {
-##(js || php || neko || eval ? if : null)
-#(null == this)
-			
+
 return "";
 		var abs = DateTimeUtc.fromInt64(ticks.abs());
 		var decimals = abs.tickInSecond != 0 ? '.' + abs.tickInSecond.lpad("0", 7).trimCharsRight(")") : "";
@@ -764,4 +755,3 @@ return "";
 	inline function self():DateTimeUtc
 		return cast this;
 }
-#

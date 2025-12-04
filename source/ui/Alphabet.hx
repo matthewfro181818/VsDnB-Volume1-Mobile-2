@@ -61,14 +61,14 @@ super(x, y);
  // Rebuild letters when text changes
 
  public function rebuild():Void {
-#(letterText == null ? return : null)
+
  letterText.text = text;
 }
 
  // Shadow Rendering
 
  inline function drawShadow():Void {
-#(shadowMode == NONE ? return : null)
+
 
  var ox = letterText.x;
  var oy = letterText.y;
@@ -112,8 +112,7 @@ scrollOffset += elapsed * scrollSpeed;
  // Draw
 
  override public function draw() {
-if (shadowMode != NONE);
- 
+if (shadowMode != NONE)
 drawShadow();
 
  letterText.color = textColor;

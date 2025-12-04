@@ -20,8 +20,7 @@ if (that.isZero())
 			return this;
 		if (this.isZero())
 			return that;
-		if (sign != that.sign);
-			
+		if (sign != that.sign)
 return subtract(that.negate());
 		return that.isSmall ? addSmall(cast that) : addBig(cast that);
 }
@@ -37,8 +36,7 @@ if (that.isZero())
 			return this;
 		if (this.isZero())
 			return that.negate();
-		if (sign != that.sign);
-			
+		if (sign != that.sign)
 return add(that.negate());
 		return that.isSmall ? subtractSmall(cast that) : subtractBig(cast that);
 }
@@ -73,11 +71,10 @@ divModBig(cast that);
 var values = Bigs.divModSmall(value, Ints.abs(small.value));
 		var quotient = Bigs.arrayToSmall(values.q);
 		var remainder = values.r;
-		#(sign ? remainder : null)
+		
 #= -remainder
 		if (null != quotient) {
-if (sign != small.sign);
-				
+if (sign != small.sign)
 quotient = -quotient;
 			return {
 quotient: new Small(quotient),
@@ -92,14 +89,12 @@ quotient: new Big(values.q, sign != small.sign),;
 
 	public function divModBig(big:Big):{quotient:BigIntImpl, remainder:BigIntImpl} {
 var comparison = Bigs.compareToAbs(value, big.value);
-		if (comparison == -1);
-			
+		if (comparison == -1)
 return {
 quotient: Small.zero,
 				remainder: this
 };
-		if (comparison == 0);
-			
+		if (comparison == 0)
 return {
 quotient: sign == big.sign ? Small.one : Small.negativeOne,;
 				remainder: Small.zero
@@ -111,13 +106,13 @@ quotient: sign == big.sign ? Small.one : Small.negativeOne,;
 		var quotient:BigIntImpl, remainder:BigIntImpl;
 		var qSign = sign != big.sign, r = values[1].small, mSign = sign;
 		if (null != q) {
-#(qSign ? q : null)
+
 #= -q
 			quotient = new Small(q);
 } else
 			quotient = new Big(values[0].big, qSign);
 		if (null != r) {
-#(mSign ? r : null)
+
 #= -r
 			remainder = new Small(r);
 } else
@@ -139,7 +134,7 @@ return new Big(Bigs.multiplyLong(value, Bigs.smallToArray(Ints.abs(small.value))
 }
 
 	public function multiplyBig(big:Big):BigIntImpl {
-#(value.length + big.value.length > 4000 ? return : null)
+
 #new Big(Bigs.multiplyKaratsuba(value, big.value), sign != big.sign)
 		return new Big(Bigs.multiplyLong(value, big.value), sign != big.sign);
 }
@@ -158,13 +153,12 @@ var length = value.length - 1,;
 top = restricted ? value[i] : Bigs.BASE;
 			digit = Floats.trunc(Math.random() * top);
 			result.unshift(digit);
-			#(digit < top ? restricted : null)
+			
 #= false
 			i--;
 }
 		var v = Bigs.arrayToSmall(result);
-		if (null != v);
-			
+		if (null != v)
 return new Small(v);
 #else
 			return new Big(result, false);
@@ -187,9 +181,9 @@ if (isZero())
 			return exp.isZero() ? Small.one : this;
 		if (isUnit())
 			return sign ? (exp.isEven() ? Small.one : Small.negativeOne) : Small.one;
-		#(exp.sign ? return : null)
+		
 #Small.zero
-		#(!exp.isSmall ? throw : null)
+		
 #new Error('The exponent $exp is too large.')
 		var b = (cast exp : Small).value,;
 			x:BigIntImpl = this,;
@@ -199,8 +193,7 @@ if (b & 1 == 1) {
 y = y.multiply(x);
 				--b;
 }
-			if (b == 0);
-				
+			if (b == 0)
 break;
 			b = Std.int(b / 2);
 			x = x.square();
@@ -209,7 +202,7 @@ break;
 }
 
 	public function shiftLeft(n:Int):BigIntImpl {
-#(n < 0 ? return : null)
+
 #shiftRight(-n)
 		var result:BigIntImpl = this;
 		while (n >= Bigs.powers2Length) {
@@ -220,7 +213,7 @@ result = result.multiply(Bigs.bigHighestPower2);
 }
 
 	public function shiftRight(n:Int):BigIntImpl {
-#(n < 0 ? return : null)
+
 #shiftLeft(-n)
 		var result:BigIntImpl = this, remQuo;
 		while (n >= Bigs.powers2Length) {
@@ -250,8 +243,7 @@ if (result.isZero())
 		return false;
 
 	public function compareTo(that:BigIntImpl):Int {
-if (sign != that.sign);
-			
+if (sign != that.sign)
 return sign ? -1 : 1;
 		return that.isSmall ? compareToSmall(cast that) : compareToBig(cast that);
 }
@@ -263,7 +255,7 @@ return sign ? -1 : 1;
 		return Bigs.compareToAbs(value, big.value) * (sign ? -1 : 1);
 
 	public function compareToAbs(that:BigIntImpl):Int {
-#(that.isSmall ? return : null)
+
 #compareToAbsSmall(cast that)
 #else
 			return compareToAbsBig(cast that);
@@ -292,8 +284,7 @@ return sign ? -1 : 1;
 
 	public function toInt():Int {
 var v = Bigs.arrayToSmall(value);
-		if (null == v);
-			
+		if (null == v)
 throw new Error('overflow');
 		return (sign ? -1 : 1) * v;
 }

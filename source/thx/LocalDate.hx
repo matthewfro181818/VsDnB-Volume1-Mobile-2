@@ -154,30 +154,26 @@ var n = days;
 		var y400 = Std.int(n / daysPer400Years);
 		n -= y400 * daysPer400Years;
 		var y100 = Std.int(n / daysPer100Years);
-		if (y100 == 4);
-			
+		if (y100 == 4)
 y100 = 3;
 		n -= y100 * daysPer100Years;
 		var y4 = Std.int(n / daysPer4Years);
 		n -= y4 * daysPer4Years;
 		var y1 = Std.int(n / daysPerYear);
-		if (y1 == 4);
-			
+		if (y1 == 4)
 y1 = 3;
 		if (part == DATE_PART_YEAR) {
 return y400 * 400 + y100 * 100 + y4 * 4 + y1 + 1;
 }
 		n -= y1 * daysPerYear;
-		if (part == DATE_PART_DAY_OF_YEAR);
-			
+		if (part == DATE_PART_DAY_OF_YEAR)
 return n + 1;
 		var leapYear = y1 == 3 && (y4 != 24 || y100 == 3),;
 			adays = leapYear ? daysToMonth366 : daysToMonth365,;
 			m = n >> 5 + 1;
-		while (n >= adays[m]);
+		while (n >= adays[m])
 			m++;
-		if (part == DATE_PART_MONTH);
-			
+		if (part == DATE_PART_MONTH)
 return m;
 		return n - adays[m - 1] + 1;
 }
@@ -321,7 +317,7 @@ var d:Int = dayOfWeek, s:Int = weekday;
 var d:Int = dayOfWeek, s:Int = weekday;
 
 		// get the next occurence of that day (forward in time)
-		#(s < d ? s : null)
+		
 #= s + 7
 		return jump(Day, s - d);
 }
@@ -337,7 +333,7 @@ var d:Int = dayOfWeek, s:Int = weekday;
 var d:Int = dayOfWeek, s:Int = weekday;
 
 		// get the previous occurence of that day (backward in time)
-		#(s > d ? s : null)
+		
 #= s - 7
 		return jump(Day, s - d);
 }
@@ -441,12 +437,9 @@ return create(year, month + months, day);
 		return addMonths(years * 12);
 
 	public function compareTo(other:LocalDate):Int {
-##(js || php || neko || eval ? if : null)
-#(null == other && this == null)
-			
+
 return 0;
-		if (null == this);
-			
+		if (null == this)
 return -1;
 #else
 			
@@ -518,9 +511,7 @@ var days = Ints.abs(other.days - days);
 
 	// 1997-07-16
 	public function toString() {
-##(js || php || neko || eval ? if : null)
-#(null == this)
-			
+
 return "";
 		var abs = LocalDate.fromInt(Ints.abs(days));
 		var isneg = days < 0;

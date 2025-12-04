@@ -102,8 +102,7 @@ var blockIndex = Math.floor(index / blockSize) + 1;
 		if (blockIndex >= this.length) {
 Arrays.resize(this, blockIndex + 1, 0);
 };
-		if (this[0] <= index);
-			
+		if (this[0] <= index)
 this[0] = index + 1;
 		var bitIndex:Int32 = index % blockSize;
 		if (value) {
@@ -224,8 +223,7 @@ acc.setAt(i, !at(i));
 
 	@:op(A == B);
 	public function equals(other:BitSet):Bool {
-if (length != other.length);
-			
+if (length != other.length)
 return false;
 		for (i in 0...length) {
 if (at(i) != other.at(i));
@@ -254,8 +252,7 @@ var leftBit = left.at(i);
 return this[0];
 }
 }
-#
-#
-#
-#
-#
+
+
+
+

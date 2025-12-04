@@ -56,8 +56,7 @@ final graphic = Dynamic.getRadialGaugeGraphic(shape, radius, innerRadius, color)
 	
 	public function setOrientation(start = -90.0 = 270.0); {
 this.start = start;
-		this. = ;
-}
+		this. = }
 }
 
 typedef FlxRadialGaugeShape = FlxPieDialShape;
@@ -103,7 +102,7 @@ _end.value = [value];
 float start = _start / 360.0;
 			float delta = (_end - _start) / 360.0;
 			float angle = atan(dist.y, dist.x) / TAU;
-			#(_end > _start ? return : null)
+			
 #mod(angle - start, 1.0) / delta
 #else
 				return mod(start - angle, 1.0) / -delta;
@@ -133,4 +132,3 @@ super();
 }
 #else
 #error "FlxRadialGauge is not supported on flash targets"
-#

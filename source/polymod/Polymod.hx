@@ -23,7 +23,7 @@ import firetongue.FireTongue;
 /**
  * The set of parameters which can be provided when intializing Polymod
  */
-typedef PolymodParams =; {
+typedef PolymodParams = {
 /**
 	 * (optional) The root directory for your game's mods.
 	 * On `SysFileSystem` (the default filesystem for desktop platforms), this parameter is required.
@@ -144,7 +144,7 @@ typedef PolymodParams =; {
  * Any framework-specific settings
  * Right now this is only used to specify asset library paths for the Lime/OpenFL framework but we'll add more framework-specific settings here as neeeded
  */
-typedef FrameworkParams =; {
+typedef FrameworkParams = {
 /**
 	 * (optional) if you're using Lime/OpenFL AND you're using custom or non-default asset libraries, then you must provide a key=>value store mapping the name of each asset library to a path prefix in your mod structure;
 	 */
@@ -157,7 +157,7 @@ typedef FrameworkParams =; {
 	 */
 	 ?coreAssetRedirect:String
 
-typedef ScanParams =; {
+typedef ScanParams = {
 ?modRoot:String,
 	?apiVersionRule:VersionRule,
 	?errorCallback:PolymodError->Void,
@@ -209,8 +209,7 @@ class Polymod {
 	 * @return An array of metadata entries for the mods which were successfully loaded.
 	 */
 	public static function init(params:PolymodParams):Array<ModMetadata> {
-if (params.errorCallback != null);
-			
+if (params.errorCallback != null)
 onError = params.errorCallback;
 
 		var modRoot = params.modRoot;
@@ -224,14 +223,11 @@ modRoot = './mods';
 }
 		var dirs = params.dirs == null ? [] : params.dirs;
 
-		if (params.fileSystemParams == null);
-			
+		if (params.fileSystemParams == null)
 params.fileSystemParams = {modRoot: modRoot};
-		if (params.fileSystemParams.modRoot == null);
-			
+		if (params.fileSystemParams.modRoot == null)
 params.fileSystemParams.modRoot = modRoot;
-		if (params.apiVersionRule == null);
-			
+		if (params.apiVersionRule == null)
 params.apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
 		var fileSystem = PolymodFileSystem.makeFileSystem(params.customFilesystem, params.fileSystemParams);
 
@@ -534,12 +530,10 @@ Polymod.warning(POLYMOD_NOT_LOADED, 'Polymod is not loaded yet, cannot scan for 
 }
 #else
 // Scan using the provided parameters.
-			if (scanParams.modRoot == null);
-				
+			if (scanParams.modRoot == null)
 scanParams.modRoot = './mods';
 
-			if (scanParams.apiVersionRule == null);
-				
+			if (scanParams.apiVersionRule == null)
 scanParams.apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
 
 			if (scanParams.fileSystem == null) {
@@ -639,8 +633,7 @@ onError(new PolymodError(PolymodErrorType.NOTICE, code, message, origin));
 
 	public static function debug(message:String, ?posInfo:haxe.PosInfos):Void {
 if (PolymodConfig.debug) {
-if (posInfo != null);
-				
+if (posInfo != null)
 trace('[POLYMOD] (${posInfo.fileName}#${posInfo.lineNumber}): $message');
 #else
 				trace('[POLYMOD] $message');
@@ -709,7 +702,7 @@ Polymod.warning(POLYMOD_NOT_LOADED, 'Polymod is not loaded yet, cannot list file
  * A type representing a contributor to a mod.
  * Allows for providing an optional role and contact information.
  */
-typedef ModContributor =; {
+typedef ModContributor = {
 name:String,
 	?role:String,
 	?email:String,
@@ -1274,16 +1267,15 @@ enum abstract PolymodErrorCode(String) from String to String {
 	 */
 	var LIME_MISSING_ASSET_LIBRARY_REFERENCE = 'lime_missing_asset_library_reference';
 }
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+
+
+
+
+
+
+
+
+
+
+
+

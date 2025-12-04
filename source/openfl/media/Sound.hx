@@ -11,6 +11,7 @@ import openfl.utils.Future;
 import openfl.media.SoundLoaderContext;
 import openfl.media.SoundTransform;
 import openfl.media.ID3Info;
+#end
 
 #if lime
 import lime.media.AudioBuffer;
@@ -204,5 +205,4 @@ class Sound extends EventDispatcher {
 }
 #else
 typedef Sound = flash.media.Sound;
-#end
 #end

@@ -15,4 +15,3 @@ public function new(fragmentSource:String) {
 		super(fragSource);
 }
 }
-#

@@ -17,8 +17,8 @@ public static function f(fn:Expr, restArgs:Array<Expr>) {
 		// http://haxe.org/manual/macro-limitations-static-extension.html
 		var isExtension = fn.expr.match(EMeta({name: ":this", params: _, pos: _}, {expr: EConst(CIdent("this")), pos: _}));
 
-		#(isExtension ? return : null)
-#{expr: ECall(fn, restArgs.map(createLambdaExpression.bind(true))), pos: fn.pos}
+		
+{expr: ECall(fn, restArgs.map(createLambdaExpression.bind(true))), pos: fn.pos}
 
 		// If not an extension, return only fn. Rest arguments won't make sense here.
 		return restArgs.length == 0 ? createLambdaExpression(false,;
@@ -38,18 +38,18 @@ case EBinop(OpArrow, _, _):
 				function findParams(e2:Expr) {
 switch e2.expr {
 // Detect in single-quoted strings
-						case EConst(CString(s)) #(e2.toString( ? .startsWith : null)
-#("'")):
+						case EConst(CString(s)) 
+):
 							var s = haxe.macro.Format.format(e2);
 							s.iter(findParams);
 						case EConst(CIdent(v)) if ("_" == v):;
-							#(hasUnderscoreZero ? Context.error : null)
-#('You need to use "_" or "_0" not both', e2.pos)
+							
+
 							useUnderscore = true;
 							counter = counter.max(1);
 						case EConst(CIdent(v)) if ("_0" == v):;
-							#(useUnderscore ? Context.error : null)
-#('You need to use "_" or "_0" not both', e2.pos)
+							
+
 							hasUnderscoreZero = true;
 							counter = counter.max(1);
 						case EConst(CIdent(v)) if (underscoreParam.match(v)):

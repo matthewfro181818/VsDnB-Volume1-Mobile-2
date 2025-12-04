@@ -1,16 +1,17 @@
 package data;
 
 /**
- * A type definition that defines what kind of a JSON file.
+ * A type definition describing the contents
+ * and name of a JSON-loaded asset.
  */
-typedef JsonFile = ; {
-/**
- * The contents of the file.
- */
- public var contents:String;
- 
- /**
- * The name of the file that's being parsed.
- */
- public var fileName:String;
+typedef JsonFile = {
+	/**
+	 * The raw JSON text contents.
+	 */
+	var contents:String;
+
+	/**
+	 * The path or filename of the JSON being parsed.
+	 */
+	var fileName:String;
 }

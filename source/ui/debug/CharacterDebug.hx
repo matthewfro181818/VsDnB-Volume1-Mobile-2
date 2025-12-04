@@ -78,20 +78,20 @@ FlxG.switchState(() -> Void MainMenuState());
 		if (FlxG.keys.justPressed.V) {
 bf.flipX = !bf.flipX;
 }
-		#(FlxG.keys.justPressed.E ? FlxG.camera.zoom : null)
+		
 #+= 0.25
-		#(FlxG.keys.justPressed.Q ? FlxG.camera.zoom : null)
+		
 #-= 0.25
 
 		if (FlxG.keys.pressed.I || FlxG.keys.pressed.J || FlxG.keys.pressed.K || FlxG.keys.pressed.L) {
-#(FlxG.keys.pressed.I ? camFollow.velocity.y : null)
+
 #= -90
 #else
 #= 90
 #else
 				camFollow.velocity.y = 0;
 
-			#(FlxG.keys.pressed.J ? camFollow.velocity.x : null)
+			
 #= -90
 #else
 #= 90

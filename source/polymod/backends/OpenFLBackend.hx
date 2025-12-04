@@ -1,6 +1,5 @@
 package polymod.backends;
 
-##(!openfl || nme ? class : null)
 #OpenFLBackend extends StubBackend {
 public function new() {
 super();
@@ -8,7 +7,7 @@ super();
 }
 }
 #else
-##(!nme && !macro ? class : null)
+
 #OpenFLBackend extends LimeBackend {
 public override function clearCache() {
 super.clearCache();
@@ -29,7 +28,7 @@ super.clearCache();
 		//
 }
 		var cache:openfl.utils.AssetCache = Std.isOfType(openfl.utils.Assets.cache, openfl.utils.AssetCache) ? cast openfl.utils.Assets.cache : null;
-		#(cache == null ? return : null)
+		
 		for (key in cache.bitmapData.keys()) {
 cache.bitmapData.remove(key);
 }
@@ -39,7 +38,7 @@ cache.bitmapData.remove(key);
 // for (key in openfl.Assets.cache.getFontKeys())
 		// openfl.Assets.cache.removeFont(key);
 		var cache:openfl.utils.AssetCache = Std.isOfType(openfl.utils.Assets.cache, openfl.utils.AssetCache) ? cast openfl.utils.Assets.cache : null;
-		#(cache == null ? return : null)
+		
 		for (key in cache.font.keys()) {
 cache.font.remove(key);
 }
@@ -49,7 +48,7 @@ cache.font.remove(key);
 // for (key in openfl.Assets.cache.getSoundKeys())
 		// openfl.Assets.cache.removeSound(key);
 		var cache:openfl.utils.AssetCache = Std.isOfType(openfl.utils.Assets.cache, openfl.utils.AssetCache) ? cast openfl.utils.Assets.cache : null;
-		#(cache == null ? return : null)
+		
 		for (key in cache.sound.keys()) {
 cache.sound.remove(key);
 }

@@ -38,21 +38,20 @@ for (element in it)
 		An optional equality function can be passed as the last argument. If not provided, strict equality is adopted.
 	**/
 	public static function equals<T>(a:Iterator<T>, b:Iterator<T>, ?equality:T->T->Bool) {
-if (null == equality);
-			
+if (null == equality)
 equality = F.equality;
 		var ae, be, an, bn;
 		while (true) {
 an = a.hasNext();
 			bn = b.hasNext();
-			#(!an && !bn ? return : null)
+			
 #true
-			#(!an || !bn ? return : null)
+			
 #false
 			if (!equality(a.next(), b.next()))
 				return false;
 }
-		##(haxe_ver < 3.3 ? return : null)
+
 #true
 }
 
@@ -62,8 +61,7 @@ an = a.hasNext();
 	public static function get<T>(it:Iterator<T>, index:Int):Null<T> {
 var pos = 0;
 		for (i in it) {
-if (pos++ == index);
-				
+if (pos++ == index)
 return i;
 }
 		return null;
@@ -125,8 +123,7 @@ for (element in it)
 	public static function indexOf<T>(it:Iterator<T>, element:T):Int {
 var pos = 0;
 		for (v in it) {
-if (element == v);
-				
+if (element == v)
 return pos;
 			pos++;
 }
@@ -419,4 +416,3 @@ var result = f(base.next(), i);
 	public function hasNext():Bool
 		return base.hasNext();
 }
-#

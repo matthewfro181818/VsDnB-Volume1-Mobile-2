@@ -23,7 +23,7 @@ SelectingPreset;
 	SelectingKeybind;
 	ChangeKeybind;
 
-typedef ControlUI =; {
+typedef ControlUI = {
 var displayName:String;
 	var controlName:String;
 
@@ -185,7 +185,7 @@ super.update(elapsed);
 		var accept = PlayerSettings.controls.ACCEPT;
 		var back = PlayerSettings.controls.BACK;
 
-		#(!canInteract ? return : null)
+		
 
 		if (back) {
 switch (curState) {
@@ -299,13 +299,11 @@ var keyAlreadyBinded:Bool = false;
 
 						for (i in 0...keybindsForControl.length) {
 // Don't check the keybind we're trying to bind already.
-							if (i == curKeybindIndex);
-								
+							if (i == curKeybindIndex)
 continue;
 
 							// Key is already binded.
-							if (keybindsForControl[i] == key);
-								
+							if (keybindsForControl[i] == key)
 keyAlreadyBinded = true;
 }
 
@@ -338,10 +336,10 @@ curControlIndex += amount;
 
 		SoundController.play(Paths.sound('scrollMenu'), 0.7);
 
-		#(curControlIndex < 0 ? curControlIndex : null)
+		
 #= controlGroups.length - 1
 
-		#(curControlIndex > controlGroups.length - 1 ? curControlIndex : null)
+		
 #= 0
 
 		selectControl();
@@ -390,9 +388,9 @@ curKeybindIndex += amount;
 
 		SoundController.play(Paths.sound('scrollMenu'), 0.7);
 
-		#(curKeybindIndex < 0 ? curKeybindIndex : null)
+		
 #= curControlGroup.keybindTextGroup.length - 1
-		#(curKeybindIndex > curControlGroup.keybindTextGroup.length - 1 ? curKeybindIndex : null)
+		
 #= 0
 
 		selectKeybind();
@@ -425,9 +423,9 @@ curPresetIndex += amount;
 
 		SoundController.play(Paths.sound('scrollMenu'), 0.7);
 
-		#(curPresetIndex < 0 ? curPresetIndex : null)
+		
 #= keybindPresets.length - 1
-		#(curPresetIndex > keybindPresets.length - 1 ? curPresetIndex : null)
+		
 #= 0
 
 		updatePresetSelect();

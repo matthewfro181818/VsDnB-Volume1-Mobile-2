@@ -3,19 +3,38 @@ package data;
 import flixel.util.FlxAxes;
 
 /**
- * json2object has an annotation `jcustomparser` that allows you to customize the way certain data values are parsed
- * This is for values that aren't normally parsable such a `Dynamic`
- * 
- * Functions must be (T) -> T, with T being the type to be parsed.
- * @see https://github.com/elnabo/json2object
+ * Custom parsers used by json2object.
+ * Functions must be (T) -> T.
  */
-class DataParser {
-/**
- * Parses an axis value from the given json string.
- * @param value The json value.
- * @return An `FlxAxes`
- */
- public static function axisValue(value:String):FlxAxes {
-return FlxAxes.fromString(value);
-}
+class DataParser
+{
+	/**
+	 * Parses an axis value from JSON.
+	 * Supports:
+	 *   "x", "y", "xy", "both", "none"
+	 *   null → FlxAxes.NONE
+	 *   numbers → converted to string
+	 */
+	public static function axisValue(value:Dynamic):FlxAxes
+	{
+		if (value == null)
+			return FlxAxes.NONE;
+
+		var str = Std.string(value).toLowerCase().trim();
+
+		switch (str)
+		{
+			case "x":
+				return FlxAxes.X;
+			case "y":
+				return FlxAxes.Y;
+			case "xy", "yx", "both":
+				return FlxAxes.XY;
+			case "none", "null", "":
+				return FlxAxes.NONE;
+			default:
+				// Fallback for unknown values
+				return FlxAxes.fromString(str);
+		}
+	}
 }

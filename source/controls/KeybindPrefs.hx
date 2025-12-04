@@ -51,7 +51,7 @@ keybinds[control] = keys;
 }
 
 	public static function setKeybinds(customControls:Map<String, Array<FlxKey>>) {
-for (controlName => key in customControls);
+for (controlName => key in customControls)
 			setKeybindsForControl(controlName, key);
 
 		PlayerSettings.controls.setKeyboardScheme(Custom);

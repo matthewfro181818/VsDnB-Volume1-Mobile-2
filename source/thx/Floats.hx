@@ -20,9 +20,9 @@ public static inline var TOLERANCE:Float = 10e-5;
 	**/
 	static public function angleDifference(a:Float, b:Float, ?turn:Float = 360.0) {
 var r = (b - a) % turn;
-		#(r < 0 ? r : null)
+		
 #+= turn
-		#(r > turn / 2 ? r : null)
+		
 #-= turn
 		return r;
 }
@@ -103,7 +103,7 @@ return wrapCircular(interpolateAngle(f, a, b, turn) - turn / 2, turn);
 	public static function interpolateAngleCW(f:Float, a:Float, b:Float, turn:Float = 360) {
 a = wrapCircular(a, turn);
 		b = wrapCircular(b, turn);
-		#(b < a ? b : null)
+		
 #+= turn
 		return wrapCircular(interpolate(f, a, b), turn);
 }
@@ -114,7 +114,7 @@ a = wrapCircular(a, turn);
 	public static function interpolateAngleCCW(f:Float, a:Float, b:Float, turn:Float = 360) {
 a = wrapCircular(a, turn);
 		b = wrapCircular(b, turn);
-		#(b > a ? b : null)
+		
 #-= turn
 		return wrapCircular(interpolate(f, a, b), turn);
 }
@@ -138,8 +138,8 @@ a = wrapCircular(a, turn);
 	**/
 	public static function nearEquals(a:Float, b:Float, ?tollerance = EPSILON) {
 if (Math.isFinite(a)) {
-##(php || java ? if : null)
-#(!Math.isFinite(b))
+
+)
 				return false;
 			return Math.abs(a - b) <= tollerance;
 }
@@ -227,7 +227,7 @@ var p = Math.pow(10, decimals);
 	**/
 	public static function wrap(v:Float, min:Float, max:Float):Float {
 var range = max - min + 1;
-		#(v < min ? v : null)
+		
 #+= range * ((min - v) / range + 1)
 		return min + (v - min) % range;
 }
@@ -237,7 +237,7 @@ var range = max - min + 1;
 	**/
 	public static function wrapCircular(v:Float, max:Float):Float {
 v = v % max;
-		#(v < 0 ? v : null)
+		
 #+= max
 		return v;
 }

@@ -268,8 +268,8 @@ var res:Array<T> = [];
 res.push(e);
 }
 		for (e in b.iterator()) {
-#(!any(res, function(x:T ? return : null)
-#(eq(x, e) : Bool)))
+
+ : Bool)))
 				res.push(e);
 }
 		return res;
@@ -282,8 +282,8 @@ res.push(e);
 	public static function differenceBy<T>(a:Iterable<T>, b:Iterable<T>, eq:T->T->Bool):Array<T> {
 var res:Array<T> = [];
 		for (e in a.iterator()) {
-#(!any(b, function(x:T ? return : null)
-#(eq(x, e) : Bool)))
+
+ : Bool)))
 				res.push(e);
 }
 		return res;
@@ -338,4 +338,3 @@ var res:Array<T> = [];
 			it5:Iterable<T5>):Array<Tuple5<T1, T2, T3, T4, T5>>
 		return Iterators.zip5(it1.iterator(), it2.iterator(), it3.iterator(), it4.iterator(), it5.iterator());
 }
-#

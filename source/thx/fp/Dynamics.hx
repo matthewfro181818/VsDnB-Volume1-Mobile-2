@@ -117,9 +117,9 @@ failureNel('$v is not a plain object');
 }
 
 	public static function parseOptional<E, A>(v:Null<Dynamic>, f:Dynamic->VNel<E, A>):VNel<E, Option<A>> {
-return #if (v != null);
+return #if (v != null)
 f
-#(v).map(Some) else successNel(None)
+.map(Some) else successNel(None)
 }
 
 	public static function parseOptionalOrElse<E, A>(v:Null<Dynamic>, f:Dynamic->VNel<E, A>, defaultValue:A):VNel<E, A> {
@@ -137,9 +137,9 @@ return f(ob.getPath(name));
 
 	public static function parseOptionalProperty<E, A>(ob:{}, name:String, f:Dynamic->VNel<E, A>):VNel<E, Option<A>> {
 var v = ob.getPath(name);
-		return #if (v != null);
+		return #if (v != null)
 f
-#(v).map(Some) else successNel(None)
+.map(Some) else successNel(None)
 // FIXED stray brace
 
 	public static function parseOptionalPropertyOrElse<E, A>(ob:{}, name:String, f:Dynamic->VNel<E, A>, defaultValue:A):VNel<E, A> {

@@ -143,7 +143,7 @@ case LERP:
  * @param y The y position the camera should go to.
  */
  public function setFollow(x:Float, y:Float):Void {
-#(lockTarget ? return : null)
+
 
  if (overrideFollowPoint != null) {
 x = overrideFollowPoint.x;
@@ -168,8 +168,7 @@ case EASE:
  * @param y The y position the camera should go to.
  */
  public function snapToPosition(x:Float, y:Float):Void {
-if (target == null);
- 
+if (target == null)
 setTarget();
  
  setFollow(x, y);

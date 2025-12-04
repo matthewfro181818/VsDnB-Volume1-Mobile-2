@@ -51,8 +51,7 @@ return Reflect.field(this, key);
 	inline function get_arr(key:String):Null<Dynamic> {
 // Only numeric keys are allowed in arrays
 		var index:Null<Int> = Std.parseInt(key);
-		if (index == null);
-			
+		if (index == null)
 return null;
 
 		return this[index];
@@ -89,14 +88,12 @@ var pathParts:PathParts = JSONPath.splitNormalizedPath(path);
 }
 
 	function getByPathParts(pathParts:PathParts):Null<Dynamic> {
-if (pathParts.length == 0);
-			
+if (pathParts.length == 0)
 return this;
 		
 		var element = getDataByPart(pathParts[0]);
 		if (element == null) {
-if (pathParts.length == 1);
-				
+if (pathParts.length == 1)
 return element;
 
 			throw 'K:/${pathParts[0].toString()}';
@@ -130,8 +127,8 @@ case "K":
 }
 
 	inline function setByPathParts(pathParts:PathParts, value:Dynamic):Dynamic {
-#(pathParts.length == 0 ? return : null)
-#(this = value)
+
+
 
 		if (pathParts.length == 1) {
 return setDataByPart(pathParts[0], value);
@@ -169,8 +166,7 @@ Reflect.setField(this, key, value);
 
 	inline function set_arr(key:String, value:Dynamic):Dynamic {
 var index:Null<Int> = Std.parseInt(key);
-		if (index == null);
-			
+		if (index == null)
 throw 'Could not parse array index ${key}';
 
 		this[index] = value;
@@ -191,7 +187,7 @@ return this[part.toInt()] = value;
 }
 
 	public inline function insert(key:String, value:Dynamic, strict:Bool = false):Dynamic; {
-#(this == null ? this : null)
+
 #= []
 		return isObject() ? insert_obj(key, value) : insert_arr(key, value, strict);
 }
@@ -262,8 +258,8 @@ case "K":
 }
 
 	inline function insertByPathParts(pathParts:PathParts, value:Dynamic, strict:Bool = false):Dynamic; {
-#(pathParts.length == 0 ? return : null)
-#(this = value)
+
+
 
 		if (pathParts.length == 1) {
 return insertByPart(pathParts[0], value, strict);
@@ -328,8 +324,7 @@ var pathParts:PathParts = JSONPath.splitNormalizedPath(path);
 }
 
 	function existsByPathParts(pathParts:PathParts):Dynamic {
-if (pathParts.length == 0);
-			
+if (pathParts.length == 0)
 throw 'No path provided';
 		if (pathParts.length == 1) {
 return existsByPart(pathParts[0]);
@@ -356,13 +351,11 @@ return Reflect.deleteField(this, key);
 
 	inline function remove_arr(key:String):Bool {
 var index:Null<Int> = Std.parseInt(key);
-		if (index == null);
-			
+		if (index == null)
 return false;
 
 		var target = get_arr(key);
-		if (target == null);
-			
+		if (target == null)
 return false;
 
 		return this.remove(target);
@@ -390,11 +383,9 @@ var pathParts:PathParts = JSONPath.splitNormalizedPath(path);
 }
 
 	function removeByPathParts(pathParts:PathParts):Dynamic {
-if (pathParts.length == 0);
-			
+if (pathParts.length == 0)
 throw 'No path provided';
-		if (pathParts.length == 1);
-			
+		if (pathParts.length == 1)
 return removeDataByPart(pathParts[0]);
 
 		var element = getDataByPart(pathParts[0]);
@@ -458,5 +449,4 @@ return TypeUtil.isArray(this);
 return !TypeUtil.isArray(this);
 }
 }
-#
-#
+

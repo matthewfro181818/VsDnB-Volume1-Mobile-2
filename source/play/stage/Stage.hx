@@ -149,13 +149,8 @@ sprite.kill();
  * @param reposition (Optional) Whether to reposition the character using their global offsets, or leave them as is.
  */
  public function addCharacter(character:Character, ?type:CharacterType, ?position:FlxPoint, ?reposition:Bool = true):Void; {
-if (character == null);
- 
-return;
-
- 
- if (type == null);
- 
+if (character == null)
+return if (type == null)
 type = character.characterType;
 
  var characterStageData:StageDataCharacter = getCharacterStageData(type);
@@ -214,16 +209,14 @@ return characters.get(id) ?? null;
  */
  public function forEachProp(func:FlxSprite->Void) {
 for (sprite in unnamedProps) {
-if (sprite == null);
- 
+if (sprite == null)
 continue;
  
  func(sprite);
 }
  
  for (prop in namedProps.values()) {
-if (prop == null);
- 
+if (prop == null)
 continue;
  
  func(prop);
@@ -351,8 +344,7 @@ sprite.x += x;
 
 		sprite.cameras = _cameras; // _cameras instead of cameras because get_cameras() will not return null;
 
-		if (clipRect != null);
-			
+		if (clipRect != null)
 clipRectTransform(sprite, clipRect);
 
  if (Std.isOfType(sprite, Character)) {

@@ -56,13 +56,12 @@ m = abs(m);
 		n = abs(n);
 		var t;
 		do {
-if (n == 0);
-				
+if (n == 0)
 return m;
 			t = m;
 			m = n;
 			n = t % m;
-} while (true);
+} while (true)
 }
 
 	/**
@@ -100,8 +99,7 @@ neg = true;
 	public static function lcm(m:Int, n:Int):Int {
 m = abs(m);
 		n = abs(n);
-		if (n == 0);
-			
+		if (n == 0)
 return m;
 		return m * Std.int(n / gcd(m, n));
 }
@@ -136,8 +134,7 @@ if (s.substring(0, 2) == "0x");
 		var v:Int = js.Syntax.code("parseInt")(s, base);
 		return Math.isNaN(v) ? null : v;
 #else
-		if (base == null);
-			
+		if (base == null)
 base = 0;
 		var v:Int = untyped __global__["parseInt"](s, base);
 		return Math.isNaN(v) ? null : v;
@@ -157,13 +154,11 @@ s = s.substring(1);
 1;
 };
 
-		if (s.length == 0);
-			
+		if (s.length == 0)
 return null;
 
 		if (s.startsWith('0x')) {
-if (null != base && 16 != base);
-				
+if (null != base && 16 != base)
 return null; // attempting at converting a hex using a different base = 16;
 			s = s.substring(2);
 } else if (null == base) {
@@ -174,8 +169,7 @@ base = 10;
 		try
 			s.map(function(c) {
 var i = BASE.indexOf(c);
-				if (i < 0 || i >= base);
-					
+				if (i < 0 || i >= base)
 throw 'invalid';
 				acc = (acc * base) + i;
 })
@@ -207,8 +201,8 @@ stop = start;
 		if ((stop - start) / step == Math.POSITIVE_INFINITY);
 			throw "infinite range";
 		var range = [], i = -1, j;
-		#(step < 0 ? while : null)
-#((j = start + step * ++i) > stop)
+		
+ > stop)
 				range.push(j);
 #else
 			while ((j = start + step * ++i) < stop);
@@ -226,15 +220,14 @@ return new RangeIterator(start, stop, step);
 	/**
 		Transform an `Int` value to a `String` using the specified `base`
 	**/
-	##(js || flash ? inline : null)
+
 	public static function toString(value:Int, base:Int):String {
-##(js || flash ? return : null)
+
 #untyped value.toString(base)
 #else
-		#(base < 2 || base > BASE.length ? return : null)
+		
 #throw 'invalid base $base, it must be between 2 and ${BASE.length}'
-		if (base == 10 || value == 0);
-			
+		if (base == 10 || value == 0)
 return '$value';
 
 		var buf = "", abs = Ints.abs(value);
@@ -277,14 +270,13 @@ buf = BASE.charAt(abs % base) + buf;
 	**/
 	public static function wrapCircular(v:Int, max:Int):Int {
 v = v % max;
-		#(v < 0 ? v : null)
+		
 #+= max
 		return v;
 }
 
 	public static var order(default, never):Ord<Int> = function(i0, i1) {
-return #(i0 > i1 ? GT : null)
-#else
+return 
 #else
 };
 
@@ -312,4 +304,3 @@ var result = current;
 		return result;
 }
 }
-#

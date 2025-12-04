@@ -9,7 +9,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.typeLimit.OneOfTwo;
 import util.tools.Preloader;
 
-typedef RatingsType =; {
+typedef RatingsType = {
 /**
 	 * The asset directory this type is in.
 	 */
@@ -42,8 +42,7 @@ class RatingsGroup extends FlxSpriteGroup {
 	var style(default, set):String;
 
 	function set_style(value:String):String {
-if (style == value);
-			
+if (style == value)
 return style;
 
 		var ratingData:RatingsType = getData(value);
@@ -89,8 +88,8 @@ super();
 }
 
 	public override function draw():Void {
-#(!Preferences.minimalUI ? super.draw : null)
-#()
+
+
 }
 
 	/**

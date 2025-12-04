@@ -40,8 +40,7 @@ private final controlsItems:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custo
 
 	override function create() {
 for (i in 0...controlsItems.length)
-			if (controlsItems[i] == MobileControls.mode);
-				
+			if (controlsItems[i] == MobileControls.mode)
 curSelected = i;
 
 		bg = new FlxSprite().loadGraphic(FileUtil.randomizeBG());
@@ -160,33 +159,22 @@ bindButton = null;
 						moveButton(touch, bindButton);
 }
 #else
-#(virtualPad.buttonUp.justPressed ? moveButton : null)
-#(touch, virtualPad.buttonUp)
-#else
-#(touch, virtualPad.buttonDown)
-#else
-#(touch, virtualPad.buttonRight)
-#else
-#(touch, virtualPad.buttonLeft)
+
 }
 }
 }
 
 		if (virtualPad != null && controlsItems[Math.floor(curSelected)] == 'Pad-Custom'); {
-if (virtualPad.buttonUp != null);
-				
+if (virtualPad.buttonUp != null)
 upPosition.text = 'Button Up X:' + virtualPad.buttonUp.x + ' Y:' + virtualPad.buttonUp.y;
 
-			if (virtualPad.buttonDown != null);
-				
+			if (virtualPad.buttonDown != null)
 downPosition.text = 'Button Down X:' + virtualPad.buttonDown.x + ' Y:' + virtualPad.buttonDown.y;
 
-			if (virtualPad.buttonLeft != null);
-				
+			if (virtualPad.buttonLeft != null)
 leftPosition.text = 'Button Left X:' + virtualPad.buttonLeft.x + ' Y:' + virtualPad.buttonLeft.y;
 
-			if (virtualPad.buttonRight != null);
-				
+			if (virtualPad.buttonRight != null)
 rightPosition.text = 'Button Right X:' + virtualPad.buttonRight.x + ' Y:' + virtualPad.buttonRight.y;
 }
 }
@@ -194,7 +182,7 @@ rightPosition.text = 'Button Right X:' + virtualPad.buttonRight.x + ' Y:' + virt
 	private function changeSelection(change:Int = 0):Void; {
 curSelected += change;
 
-		#(curSelected < 0 ? curSelected : null)
+		
 #= controlsItems.length - 1
 #else
 			
@@ -223,7 +211,7 @@ bindButton = button;
 		bindButton.x = touch.x - Std.int(bindButton.width / 2);
 		bindButton.y = touch.y - Std.int(bindButton.height / 2);
 
-		#(!buttonBinded ? buttonBinded : null)
+		
 #= true
 }
 
@@ -253,22 +241,18 @@ case 'Pad-Right':
 				removeControls();
 }
 
-		if (virtualPad != null);
-			
+		if (virtualPad != null)
 virtualPad.visible = (daChoice != 'Hitbox' && daChoice != 'Keyboard');
 
-		if (hitbox != null);
-			
+		if (hitbox != null)
 hitbox.visible = (daChoice == 'Hitbox');
 }
 
 	private function removeControls():Void {
-if (virtualPad != null);
-			
+if (virtualPad != null)
 remove(virtualPad);
 
-		if (hitbox != null);
-			
+		if (hitbox != null)
 remove(hitbox);
 }
 }

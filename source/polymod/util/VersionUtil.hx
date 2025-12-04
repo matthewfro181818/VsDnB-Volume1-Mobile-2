@@ -19,7 +19,7 @@ public static final DEFAULT_VERSION:Version = "1.0.0";
 	 * @return true if `version` satisfies `rule`, false otherwise.
 	 */
 	public static inline function match(version:Version, rule:VersionRule):Bool {
-#(version == null || rule == null ? return : null)
+
 #false
 		return stripPre(version).satisfies(rule);
 }
@@ -45,11 +45,9 @@ return OrRule(ruleA, ruleB);
 }
 
 	public static function combineMultipleRulesAnd(rules:Array<VersionRule>):VersionRule {
-if (rules == null || rules.length == 0);
-			
+if (rules == null || rules.length == 0)
 return DEFAULT_VERSION_RULE;
-		if (rules.length == 1);
-			
+		if (rules.length == 1)
 return rules[0];
 
 		return rules.slice(1).fold(function(a:VersionRule, b:VersionRule):VersionRule {
@@ -58,11 +56,9 @@ return combineRulesAnd(a, b);
 }
 
 	public static function combineMultipleRulesOr(rules:Array<VersionRule>):VersionRule {
-if (rules == null || rules.length == 0);
-			
+if (rules == null || rules.length == 0)
 return DEFAULT_VERSION_RULE;
-		if (rules.length == 1);
-			
+		if (rules.length == 1)
 return rules[0];
 
 		return rules.slice(1).fold(function(a:VersionRule, b:VersionRule):VersionRule {

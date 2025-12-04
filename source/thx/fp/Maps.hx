@@ -5,7 +5,6 @@ import haxe.ds.Option;
 using thx.Ord;
 using thx.Options;
 
-##(haxe_ver >= 3.200 ? import : null)
 #haxe.Constraints.IMap
 #else
 import Map.IMap;

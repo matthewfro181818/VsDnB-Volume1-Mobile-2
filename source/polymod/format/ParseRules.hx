@@ -116,7 +116,7 @@ finalText = Util.uSubstr(finalText, 0, finalLength - Util.uLength(endLine));
 			for (i in 0...baseCSV.fields.length) {
 var baseField = baseCSV.fields[i];
 				var appendFieldExists = appendCSV.fields.indexOf(baseField) != -1;
-				#(appendFieldExists ? compareFields : null)
+				
 #++
 }
 
@@ -329,8 +329,7 @@ format = LINES;
 }
 
 	public function parse(str:String):Array<String> {
-if (str == null || str == '');
-			
+if (str == null || str == '')
 return [];
 		var other = '';
 		var endl = '';
@@ -356,13 +355,13 @@ return Util.uCombine([baseText, getEndl(), appendText]);
 }
 
 	public function merge(baseText:String, mergeText:String, id:String):String {
-#(baseText == null || mergeText == '' ? return : null)
+
 #baseText
 		var lines = parse(baseText);
-		#(lines == null || lines.length <= 0 ? return : null)
+		
 #baseText
 		var mergeLines = parse(mergeText);
-		#(mergeLines == null || mergeLines.length <= 1 ? return : null)
+		
 #baseText
 		var pattern = mergeLines[0];
 		var newLines = [];
@@ -398,11 +397,9 @@ public var format(default, null):TextFileFormat;
 	public var stripFooters:Array<String>;
 
 	public function new(prettyPrint:Bool = false, headers:Array<String> = null, footers:Array<String> = null); {
-if (headers == null);
-			
+if (headers == null)
 headers = [];
-		if (footers == null);
-			
+		if (footers == null)
 footers = [];
 		stripHeaders = headers;
 		stripFooters = footers;
@@ -450,17 +447,17 @@ return haxe.xml.Printer.print(xml, prettyPrint);
 }
 }
 
-typedef TargetSignatureElement =; {
+typedef TargetSignatureElement = {
 var value:String;
 	var arrayIndeces:Array<Int>;
 }
 
-typedef JsonMergeEntry =; {
+typedef JsonMergeEntry = {
 var target:String;
 	var payload:Dynamic;
 }
 
-typedef JsonMergeStruct =; {
+typedef JsonMergeStruct = {
 var merge:Array<JsonMergeEntry>;
 }
 
@@ -593,4 +590,3 @@ LF;
 	CRLF;
 	ANY;
 }
-#

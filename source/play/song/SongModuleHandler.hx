@@ -160,8 +160,7 @@ loadedSongModules?.sort(sortByPriority);
 	 * @return `Int` telling whether they should be swapped, or not.
 	 */
 	static function sortByPriority(a:SongModule, b:SongModule):Int {
-if (a == null || b == null);
- 
+if (a == null || b == null)
 return 0;
 	
  if (a.priority != b.priority) {

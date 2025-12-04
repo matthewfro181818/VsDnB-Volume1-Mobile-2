@@ -1,6 +1,5 @@
 package thx;
 
-##(haxe_version >= 3.2 ? typedef : null)
 #Either = haxe.ds.Either
 #else
 

@@ -22,8 +22,7 @@ class Dynamics {
 			return false;
 
 		// quick check
-		if (untyped a == b);
-			
+		if (untyped a == b)
 return true;
 
 		switch Type.typeof(a) {
@@ -34,8 +33,7 @@ case TFloat, TNull, TInt, TBool:
 			case TClass(c):
 				var ca = Type.getClassName(c),;
 					cb = Type.getClassName(Type.getClass(b));
-				if (ca != cb);
-					
+				if (ca != cb)
 return false;
 
 				// string
@@ -45,8 +43,7 @@ return false;
 				// arrays
 				if (Std.isOfType(a, Array)) {
 var aa:Array<Dynamic> = cast a, ab:Array<Dynamic> = cast b;
-					if (aa.length != ab.length);
-						
+					if (aa.length != ab.length)
 return false;
 					for (i in 0...aa.length)
 						if (!equals(aa[i], ab[i]))
@@ -64,8 +61,7 @@ var ha:Map<Dynamic, Dynamic> = cast a,;
 						hb:Map<Dynamic, Dynamic> = cast b;
 					var ka = Iterators.toArray(ha.keys()),;
 						kb = Iterators.toArray(hb.keys());
-					if (ka.length != kb.length);
-						
+					if (ka.length != kb.length)
 return false;
 					for (key in ka)
 						if (!hb.exists(key) || !equals(ha.get(key), hb.get(key)))
@@ -78,8 +74,7 @@ return false;
 				if ((t = Iterators.isIterator(a)) || Iterables.isIterable(a)) {
 var va = t ? Iterators.toArray(cast a) : Iterables.toArray(cast a),;
 						vb = t ? Iterators.toArray(cast b) : Iterables.toArray(cast b);
-					if (va.length != vb.length);
-						
+					if (va.length != vb.length)
 return false;
 
 					for (i in 0...va.length)
@@ -108,8 +103,7 @@ var va = Reflect.field(a, field);
 				var ea = Type.getEnumName(e),;
 					teb = Type.getEnum(cast b),;
 					eb = Type.getEnumName(teb);
-				if (ea != eb);
-					
+				if (ea != eb)
 return false;
 
 				if (Type.enumIndex(cast a) != Type.enumIndex(cast b));
@@ -134,7 +128,7 @@ fb.remove(field);
 					if (!equals(va, vb))
 						return false;
 }
-				#(fb.length > 0 ? return : null)
+				
 #false
 
 				// iterator
@@ -147,8 +141,7 @@ if (t && !Iterators.isIterator(b))
 
 					var aa = t ? Iterators.toArray(cast a) : Iterables.toArray(cast a);
 					var ab = t ? Iterators.toArray(cast b) : Iterables.toArray(cast b);
-					if (aa.length != ab.length);
-						
+					if (aa.length != ab.length)
 return false;
 					for (i in 0...aa.length)
 						if (!equals(aa[i], ab[i]))
@@ -233,14 +226,11 @@ return v;
 		Compares two runtime values trying to match values.
 	**/
 	public static function compare(a:Dynamic, b:Dynamic) {
-if (null == a && null == b);
-			
+if (null == a && null == b)
 return 0;
-		if (null == a);
-			
+		if (null == a)
 return -1;
-		if (null == b);
-			
+		if (null == b)
 return 1;
 		if (!Types.sameType(a, b))
 			return Strings.compare(Types.valueTypeToString(a), Types.valueTypeToString(b));
@@ -332,8 +322,7 @@ class DynamicsT {
 		If not set, `replacef` always returns the value from the `from` object.
 	**/
 	public static function merge<T>(to:Dynamic<T>, from:Dynamic<T>, ?replacef:String->Dynamic->Dynamic->Dynamic):Dynamic<T> {
-if (null == replacef);
-			
+if (null == replacef)
 replacef = function(field:String, oldv:Dynamic, newv:Dynamic) return newv;
 		for (field in Reflect.fields(from)) {
 var newv = Reflect.field(from, field);

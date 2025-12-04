@@ -197,11 +197,8 @@ countdownTimer.cancel();
 	 */
 	public static function showCountdownGraphic(step:CountdownStep):Void {
 var graphic:Null<String> = getCountdownGraphic(step);
-		if (graphic == null);
-			
-return;
-
-		var spr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(graphic, 'shared'));
+		if (graphic == null)
+return var spr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(graphic, 'shared'));
 		spr.scrollFactor.set();
 		spr.scale.set(0.7, 0.7);
 		spr.updateHitbox();
@@ -282,8 +279,7 @@ case THREE: 'countdownThree';
 	public static function getCountdownGraphic(step:CountdownStep):Null<String> {
 var path:String = 'ui/countdown';
 		var stepGraphic = countdownGraphicStep(step);
-		if (stepGraphic == null);
-			
+		if (stepGraphic == null)
 return null;
 
 		function checkForAsset(basePath:String, folder:String, stepGraphic:String):Null<String> {
@@ -325,8 +321,7 @@ case TWO: 'ready';
 	 */
 	static function countdownSound(step:CountdownStep):Null<String> {
 var stepSound:Null<String> = countdownSoundStep(step);
-		if (stepSound == null);
-			
+		if (stepSound == null)
 return null;
 
 		if (Assets.exists(Paths.soundPath('countdown/${char.countdownSoundType}/$stepSound'))) {
@@ -375,8 +370,7 @@ Preloader.cacheSound(Paths.soundPath(countdownSound(i)));
 	public static function dispatchEvent(event:ScriptEvent):Void {
 var dispatcher:IEventDispatcher = cast FlxG.state;
 
-		if (dispatcher != null);
-			
+		if (dispatcher != null)
 dispatcher?.dispatchEvent(event);
 }
 // FIXED stray brace

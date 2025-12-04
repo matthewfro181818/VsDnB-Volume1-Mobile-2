@@ -90,8 +90,7 @@ static public function localOffset():Time {
 		In this case the sign (`+`/`-`) is not optional and seconds cannot be used.
 	 */
 	@:from public static function fromString(s:String):DateTime {
-if (s == null);
-			
+if (s == null)
 throw new thx.Error('null String cannot be parsed to DateTime');
 		var pattern = ~/^([-])?(\d+)[-](\d{2})[-](\d{2})(?:[T ](\d{2})[:](\d{2})[:](\d{2})(?:\.(\d+))?(Z|([+-]\d{2})[:](\d{2}))?)?$/;
 		if (!pattern.match(s))
@@ -124,14 +123,12 @@ var hours = pattern.matched(10);
 		Note: because thx.DateTime is an abstract of Array<haxe.Int64>, any array of exactly 2 haxe.Int64s will be considered to be a thx.DateTime
 	**/
 	public static function is(v:Dynamic):Bool {
-if (v == null);
-			
+if (v == null)
 return false;
 		if (!Std.isOfType(v, Array))
 			return false;
 		var vs:Array<Dynamic> = v;
-		if (vs.length != 2);
-			
+		if (vs.length != 2)
 return false;
 		return thx.Arrays.all(vs, haxe.Int64.isInt64);
 }
@@ -370,7 +367,7 @@ var d:Int = dayOfWeek, s:Int = weekday;
 var d:Int = dayOfWeek, s:Int = weekday;
 
 		// get the next occurence of that day (forward in time)
-		#(s < d ? s : null)
+		
 #= s + 7
 		return jump(Day, s - d);
 }
@@ -386,7 +383,7 @@ var d:Int = dayOfWeek, s:Int = weekday;
 var d:Int = dayOfWeek, s:Int = weekday;
 
 		// get the previous occurence of that day (backward in time)
-		#(s > d ? s : null)
+		
 #= s - 7
 		return jump(Day, s - d);
 }
@@ -566,11 +563,9 @@ var base = DateTimeUtc.fromInt64(utc.ticks - date.utc.ticks),;
 
 	// TODO should it consider offset?
 	public function compareTo(other:DateTime):Int {
-if (null == other && this == null);
-			
+if (null == other && this == null)
 return 0;
-		if (null == this);
-			
+		if (null == this)
 return -1;
 #else
 			
@@ -636,8 +631,7 @@ var ticks = Int64s.abs(other.utc.ticks - utc.ticks);
 
 	// 1997-07-16T19:20:30+01:00
 	public function toString() {
-if (null == this);
-			
+if (null == this)
 return "";
 		var abs = new DateTime(new DateTimeUtc(utc.ticks.abs()), offset);
 		var decimals = abs.tickInSecond != 0 ? '.' + abs.tickInSecond.lpad("0", 7).trimCharsRight(")") : "";
@@ -698,4 +692,3 @@ return "";
 	inline function self():DateTime
 		return cast this;
 }
-#

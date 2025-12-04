@@ -1,7 +1,7 @@
 package thx.macro.lambda;
 
 import thx.macro.Macros;
-##(neko || macro ? import : null)
+
 #haxe.macro.Context
 import haxe.macro.Expr;
 

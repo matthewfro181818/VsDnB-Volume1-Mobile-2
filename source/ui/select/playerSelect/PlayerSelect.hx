@@ -170,14 +170,14 @@ if (controls.BACK) {
 SoundController.playMusic(Paths.music('freakyMenu'));
  FlxG.switchState(new FreeplayState());
 }
- #(controls.LEFT_P ? changeSelection : null)
-#(-1)
+ 
 
- #(controls.RIGHT_P ? changeSelection : null)
-#(1)
 
- #(controls.ACCEPT ? selectPlayer : null)
-#()
+ 
+
+
+ 
+
 }
 }
 
@@ -225,10 +225,10 @@ lastSelectedPortrait = selectedPortrait;
 }
  currentSelectedPortrait += amount;
  
- #(currentSelectedPortrait > players.length - 1 ? currentSelectedPortrait : null)
+ 
 #= 0
 
- #(currentSelectedPortrait < 0 ? currentSelectedPortrait : null)
+ 
 #= players.length - 1
  
  updateSelection();
@@ -341,4 +341,3 @@ targetSong: song,
  * @return An `FlxPoint`
  */
  abstract function getSelectedCharacterOffset(playerType:SelectedPlayerType}
-#

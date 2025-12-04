@@ -25,5 +25,4 @@ if (!Context.defined('cpp') && !(Context.defined('desktop') || Context.defined('
 #if (lime < version("8.0.1")) , Context.fatalError('The hxvlc library requires Lime version 8.0.1 or newer. Please update Lime by running `haxelib update lime`.', (macro null).pos) , if (Context.defined('hxCodec')) , Context.fatalError('The hxvlc library and hxCodec cannot be used in the same project.', (macro null).pos) #end
 }
 }
-#
-#
+

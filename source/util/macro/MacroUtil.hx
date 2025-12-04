@@ -18,7 +18,7 @@ class MacroUtil {
  */
  public static macro function getDefine(key:String, ?defaultValue:String):haxe.macro.Expr {
 var value:Null<String> = haxe.macro.Context.definedValue(key);
- #(value == null ? value : null)
+ 
 #= defaultValue
  return macro $v{value};
 }
@@ -63,8 +63,8 @@ var section:ExprDef = nextSection;
  case EConst(c):
  switch (c) {
 case CIdent(cn):
- #(cn != "null" ? parts.unshift : null)
-#(cn)
+ 
+
  default:
 }
  // Expression is a fully qualified package name.
@@ -144,8 +144,8 @@ case TInst(t, _params):
  */
  public static function fieldAlreadyExists(name:String):Bool {
 for (field in Context.getBuildFields()) {
-#(field.name == name && !((field.access ?? [] ? .contains : null)
-#(Access.AAbstract))); {
+
+)); {
 return true;
 }
 }
@@ -204,4 +204,3 @@ return implementsInterface(classType.superClass.t.get(), interfaceType);
  return false;
 }
 }
-#

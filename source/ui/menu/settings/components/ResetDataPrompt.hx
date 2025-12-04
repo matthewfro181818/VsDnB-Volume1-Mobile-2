@@ -57,25 +57,25 @@ super(x, y);
 	public override function update(elapsed:Float) {
 super.update(elapsed);
 
-		#(!canAnswer ? return : null)
+		
 
 		var leftP = PlayerSettings.controls.LEFT_P;
 		var rightP = PlayerSettings.controls.RIGHT_P;
 		var enter = PlayerSettings.controls.ACCEPT;
 
-		#(leftP ? changeSelection : null)
-#(-1)
-		#(rightP ? changeSelection : null)
-#(1)
-		#(enter ? selectOption : null)
-#()
+		
+
+		
+
+		
+
 }
 
 	function changeSelection(amount:Int) {
 curSelected += amount;
-		#(curSelected > optionList.length - 1 ? curSelected : null)
+		
 #= 0
-		#(curSelected < 0 ? curSelected : null)
+		
 #= optionList.length - 1
 
 		setOption(curSelected);

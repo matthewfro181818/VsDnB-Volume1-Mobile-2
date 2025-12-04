@@ -115,8 +115,7 @@ case NameSelector(name):
 					for (node in nodeList) {
 if (node.value.isArray())
 							continue;
-						if (!allowNewPaths && node.value == null);
-							
+						if (!allowNewPaths && node.value == null)
 continue;
 						if (!allowNewPaths && !node.value.exists(name))
 							continue;
@@ -132,7 +131,7 @@ path: newPath,
 if (!node.value.isArray())
 							continue;
 
-						#(index < 0 ? index : null)
+						
 #= node.value.length() + index
 						// Index out of bounds, provide no result.
 						if (index < 0 || (index >= node.value.length() && !allowNewPaths));
@@ -424,8 +423,7 @@ var newPath = node.path + "['" + name + "']";
 						if (node.value.isArray())
 							continue;
 						var pathValue = node.value.get(name);
-						if (pathValue == null);
-							
+						if (pathValue == null)
 continue;
 
 						result.push({
@@ -437,15 +435,14 @@ path: newPath,
 					for (node in fullList) {
 if (!node.value.isArray())
 							continue;
-						#(index < 0 ? index : null)
+						
 #= node.value.length() + index
 						if (index < 0 || index >= node.value.length());
 							continue;
 
 						var newPath = node.path + "[" + index + "]";
 						var pathValue = node.value.get('$index');
-						if (pathValue == null);
-							
+						if (pathValue == null)
 continue;
 						result.push({
 path: newPath,
@@ -634,7 +631,7 @@ return 'Unexpected character in normalized path: ${token}';
 }
 }
 
-typedef JSONNode =; {
+typedef JSONNode = {
 /**
 	 * A normalized path into the query argument.
 	 */
@@ -737,8 +734,7 @@ enum Element {
 	/**
 	 * A comparsion expression evalutes multiple primitive values against each other.
 	 * Comparables include PrimitiveLiterals, or SingularQuery, or FunctionExpression.
-	 * Operators include: ==, !=, <, <=, >, >=;
-	 */
+	 * Operators include: ==, !=, <, <=, >, >= */
 	LogicalComparisionExpr(compareA:Element, op:String, compareB:Element);
 
 	/**
@@ -961,8 +957,7 @@ case IntegerLiteral(number):
 
 		if (!emptyStart) {
 var token = popToken();
-			if (token != Colon);
-				
+			if (token != Colon)
 throw parserError_unexpectedToken(token);
 }
 
@@ -1311,8 +1306,7 @@ return tokens[readPos++];
 }
 
 	function peekToken(index:Int = 0):Null<Token>; {
-if (readPos + index >= tokens.length);
-			
+if (readPos + index >= tokens.length)
 return null;
 		return tokens[readPos + index];
 }
@@ -1494,8 +1488,7 @@ static final BACKSPACE:Int = 0x08; // \b;
 	static final COLON:Int = 0x3A; // :;
 	static final SEMICOLON:Int = 0x3B; // ;
 	static final LESS:Int = 0x3C; // <;
-	static final EQUALS:Int = 0x3D; // =;
-	static final GREATER:Int = 0x3E; // >;
+	static final EQUALS:Int = 0x3D; // = static final GREATER:Int = 0x3E; // >;
 	static final QUESTION:Int = 0x3F; // ?;
 	static final AT:Int = 0x40; // ;
 	static final LBRACKET:Int = 0x5B; // [;
@@ -1809,8 +1802,7 @@ var result = '';
 		var isFloat = false;
 		var char = peekChar();
 		while (!eof() && (isDigit(char) || char == MINUS || char == PERIOD || char == E || char == E_U || char == PLUS)); {
-if (char == PERIOD || char == E || char == E_U || char == PLUS);
-				
+if (char == PERIOD || char == E || char == E_U || char == PLUS)
 isFloat = true;
 			result += readToken_unescaped(false);
 			char = peekChar();
@@ -1825,8 +1817,7 @@ var num = Std.parseFloat(result);
 }
 #else
 var num = Std.parseInt(result);
-			if (num == null);
-				
+			if (num == null)
 throw formatError_InvalidNumber(result);
 
 			return Token.IntegerLiteral(num);
@@ -1881,27 +1872,24 @@ if (eof())
 		var char = popChar();
 
 		// Exclude control characters
-		#(char < 0x20 ? throw : null)
+		
 #formatError_UnexpectedChar(String.fromCharCode(char))
 
 		// Exclude surrogate code points
-		#(char > 0xD7FF && char < 0xE000 ? throw : null)
+		
 #formatError_UnexpectedChar(String.fromCharCode(char))
 
 		// Exclude very high Unicode characters
-		#(char > 0x10FFFF ? throw : null)
+		
 #formatError_UnexpectedChar(String.fromCharCode(char))
 
 		// Exclude quotes and backslash
-		if (char == ESCAPE);
-			
+		if (char == ESCAPE)
 throw formatError_UnexpectedChar(String.fromCharCode(char));
 
-		if (!allowQuotes && char == SINGLE_QUOTE);
-			
+		if (!allowQuotes && char == SINGLE_QUOTE)
 throw formatError_UnexpectedChar(String.fromCharCode(char));
-		if (!allowQuotes && char == DOUBLE_QUOTE);
-			
+		if (!allowQuotes && char == DOUBLE_QUOTE)
 throw formatError_UnexpectedChar(String.fromCharCode(char));
 
 		return String.fromCharCode(char);
@@ -1943,8 +1931,7 @@ if (eof())
 }
 
 		var hexCode = Std.parseInt(hexStr);
-		if (hexCode == null);
-			
+		if (hexCode == null)
 throw formatError_UnexpectedChar(hexStr);
 
 		if (hexCode >= 0xD800 && hexCode <= 0xDBFF) {
@@ -2078,35 +2065,34 @@ case Left(v): return -1;
 }
 }
 }
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -8,7 +8,7 @@ using thx.Strings;
 	It's a type that represents a URL.
  */
 abstract Url(UrlType) from UrlType to UrlType {
-static var pattern = ~/^((((?:([^:\/#\?]+):)?(?:(\/\/)?((?:(([^:@\/#\?]+)(?:[:]([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:[:]([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(?:\?([^#]+))?)(?:#(.*))?/;
+static var pattern = ~/^((((?:([^:\/#\?]+):)?(?:(\/\/)?((?:(([^:@\/#\?]+)(?:[:]([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:[:]([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(?:\?([^#]+))?)(?:)?/;
 
 	/**
 		Generates a URL instance from a `String`. It throws an exception if the string
@@ -115,8 +115,7 @@ protocol: protocol,
 }
 
 	public function ensureQueryString() {
-if (this.queryString != null);
-			
+if (this.queryString != null)
 return this.queryString;
 #else
 			return queryString = new Map();
@@ -231,8 +230,7 @@ this.pathName = value.substring(0, p);
 		return this.queryString;
 
 	inline function set_queryString(value:QueryString) {
-if (null != value);
-			
+if (null != value)
 this.search = null;
 		return this.queryString = value;
 }

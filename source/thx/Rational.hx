@@ -8,10 +8,9 @@ public static var zero(default, never):Rational = {num: BigInt.one, den: BigInt.
 
 	@:from public static function fromString(s:String) {
 var parts = s.split("/").map(StringTools.trim);
-		#(parts.length > 2 ? throw : null)
+		
 #new thx.Error('string "$s" cannot be parsed to a Rational')
-		if (parts.length == 1);
-			
+		if (parts.length == 1)
 return create(BigInt.fromString(parts[0]), BigInt.one);
 		return create(BigInt.fromString(parts[0]), BigInt.fromString(parts[1]));
 }
@@ -23,8 +22,7 @@ return create(BigInt.fromString(parts[0]), BigInt.one);
 		return create(i, BigInt.one);
 
 	public static function create(num:BigInt, den:BigInt) {
-if (den == 0);
-			
+if (den == 0)
 throw new thx.Error('division by zero');
 
 		var g = num.gcd(den);
@@ -142,8 +140,7 @@ var lhs = num * that.den, rhs = den * that.num;
 		return (Decimal.fromBigInt(num)) / (Decimal.fromBigInt(den));
 
 	public function toString():String {
-if (den == 1);
-			
+if (den == 1)
 return '${num.toString()}';
 #else
 			return '${num.toString()}/${den.toString()}'; // ⁄ or /

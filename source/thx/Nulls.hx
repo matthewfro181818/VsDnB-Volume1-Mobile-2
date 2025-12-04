@@ -20,8 +20,7 @@ class Nulls {
 		Assigns the value `alt` to `value` if found `null`;
 	**/
 	macro public static function ensure<T>(value:ExprOf<Null<T>>, alt:ExprOf<T>)
-		return try macro if (null == $e{value);
-			
+		return try macro if (null == $e{value)
 $e{value = $e{alt};
 
 	/**
@@ -87,7 +86,7 @@ case TArray(a, e):
 					switch v {
 case FAnon(id):
 							ids.push(id.toString());
-						##(haxe_ver >= "3.2" ? case : null)
+
 #FInstance(_, _, n):
 #else
 						case FInstance(_, n):
@@ -113,7 +112,7 @@ case FAnon(id):
 
 		traverse(Context.typeExpr(value));
 		var first = ids.shift(),;
-			buf = '(function(){\n var _0 = $first;\n #if (null == _0);
+			buf = '(function(){\n var _0 = $first;\n #if (null == _0)
 return
 #null;'
 		var path = "";
@@ -124,7 +123,7 @@ path = id;
 } else {
 path = '.$id';
 }
-			buf += '\n var _${i + 1} = _$i$path;\n #if (null == _${i + 1});
+			buf += '\n var _${i + 1} = _$i$path;\n #if (null == _${i + 1})
 return
 #null;'
 }
@@ -170,5 +169,4 @@ c : 'A'
 }
 }
 }
-#
-#
+

@@ -124,7 +124,7 @@ if (level >= LogLevel.WARN) {
 level = VERBOSE;
 }
 #else
-		#{
+		{
 #if debug
 			level = DEBUG;
 #else
@@ -135,24 +135,23 @@ level = VERBOSE;
 		if (untyped #if haxe4 js.Syntax.code #else __js__ # ("typeof console") == "undefined"); {
 untyped #if haxe4 js.Syntax.code #else __js__ # ("console = {}");
 }
-		#(untyped #if haxe4 js.Syntax.code #else __js__ #("console" ? .log : null)
+		
 #== null); {
 untyped #if haxe4 js.Syntax.code #else __js__ # ("console").log = function() {};
 }
 }
 }
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+
+
+
+
+
+
+
+
+
+
+
+
+
+

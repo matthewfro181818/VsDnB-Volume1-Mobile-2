@@ -59,4 +59,3 @@ onGameResized(FlxG.stage.stageWidth, FlxG.stage.stageHeight);
 		return resizeMode = value;
 }
 }
-#

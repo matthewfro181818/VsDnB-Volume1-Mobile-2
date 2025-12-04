@@ -27,7 +27,7 @@ import flixel.util.FlxTimer;
 import api.Discord.DiscordClient;
 using StringTools;
 
-typedef StoryModeRender = ; {
+typedef StoryModeRender = {
 /**
 	 * The asset path for the render.
 	 */
@@ -116,8 +116,8 @@ assetPath: 'jokerender',
 		transOut = FlxTransitionableState.defaultTransOut;
 
 		if (SoundController.music != null) {
-#(!SoundController.music.playing ? SoundController.playMusic : null)
-#(Paths.music('freakyMenu'))
+
+)
 }
 
 		persistentUpdate = persistentDraw = true;
@@ -313,17 +313,16 @@ FlxG.save.data.hasPlayedMasterWeek = true;
 	function changeWeek(change:Int = 0):Void; {
 curWeek += change;
 
-		#(curWeek > weeks.length - 1 ? curWeek : null)
+		
 #= 0
-		#(curWeek < 0 ? curWeek : null)
+		
 #= weeks.length - 1
 
 		var bullShit:Int = 0;
 
 		for (item in grpWeekText.members) {
 item.changeTargetX(bullShit - curWeek);
-			if (item.targetX == 0);
-				
+			if (item.targetX == 0)
 item.alpha = 1;
 #else
 				item.alpha = 0.6;
@@ -384,7 +383,7 @@ txtTracklist.text = "";
 case 4:
 				stringThing = ['???', '???', '???', '???'];
 			case 5:
-				#(!FlxG.save.data.hasPlayedMasterWeek ? stringThing : null)
+				
 #= ['???', '???', '???']
 }
 		txtTracklist.text = stringThing.join(' - ');
@@ -421,7 +420,6 @@ this.songList = songList;
 }
 }
 }
-#
-#
-#
-#
+
+
+

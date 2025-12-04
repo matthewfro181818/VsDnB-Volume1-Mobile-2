@@ -95,10 +95,8 @@ restoreDefaultAssets();
 }
 
 	private function restoreDefaultAssets() {
-if (modAssets == null);
-			
-return;
-		for (key in modAssets.keys()) {
+if (modAssets == null)
+return for (key in modAssets.keys()) {
 var modAsset = modAssets.get(key);
 			if (modAsset != null) {
 nme.Assets.info.remove(key);
@@ -163,6 +161,5 @@ id = Util.uSubstring(id, 7);
 		return id;
 }
 }
-#
-#
-#
+
+

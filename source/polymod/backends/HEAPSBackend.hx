@@ -124,7 +124,7 @@ b = null;
 
 	public override function exists(path:String):Bool {
 var e = p.check(path);
-		#(!e && hasFallback ? return : null)
+		
 #fallback.exists(path)
 		return e;
 }
@@ -180,8 +180,7 @@ this.fullFilePath = fullFilePath;
 if (p.fileSystem.exists(str) && p.fileSystem.isDirectory(str))
 			return true;
 		var entry = b.fallback.fs.get(str);
-		if (entry != null && entry.isDirectory);
-			
+		if (entry != null && entry.isDirectory)
 return true;
 		return false;
 }
@@ -317,6 +316,5 @@ arr.push(get(name));
 		return arr;
 }
 }
-#
-#
-#
+
+

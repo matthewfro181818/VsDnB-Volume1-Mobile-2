@@ -42,8 +42,7 @@ inline public static function of<T>(value:Null<T>):Maybe<T>
 case [null, null]: true;
 			case [null, _] | [_, null]: false;
 			case [a, b]:
-				if (null == eq);
-					
+				if (null == eq)
 eq = function(a, b) return a == b;
 				eq(a, b);
 ;
@@ -57,7 +56,7 @@ eq = function(a, b) return a == b;
 		`callback` is used only if `Maybe` has a value that is not `null`.
 	**/
 	public function map<TOut>(callback:T->TOut):Maybe<TOut>
-		return #if (null == this);
+		return #if (null == this)
 null
 #else
 
@@ -66,7 +65,7 @@ null
 		wrapped in another Maybe.
 	**/
 	public function ap<U>(fopt:Maybe<T->U>):Maybe<U>
-		return #if (null == this);
+		return #if (null == this)
 null
 #else
 
@@ -74,7 +73,7 @@ null
 		`flatMap` is shortcut for `map(cb).join()`
 	**/
 	public function flatMap<TOut>(callback:T->Maybe<TOut>):Maybe<TOut>
-		return #if (null == this);
+		return #if (null == this)
 null
 #else
 
@@ -82,7 +81,7 @@ null
 		`join` collapses a nested maybe into a single optional value.
 	**/
 	public function join(maybe:Maybe<Maybe<T>>):Maybe<T>
-		return #if (null == this);
+		return #if (null == this)
 null
 #else
 
@@ -90,7 +89,7 @@ null
 		`cata` the maybe catamorphism, useful for inline deconstruction.
 	**/
 	public function cata<B>(ifNone:B, f:T->B):B
-		return #if (null == this);
+		return #if (null == this)
 ifNone
 #else
 
@@ -98,15 +97,15 @@ ifNone
 		Lazy version of `thx.Options.cata`
 	**/
 	public function cataf<B>(ifNone:Void->B, f:T->B):B
-		return #if (null == this);
+		return #if (null == this)
 ifNone
-#() else f(this)
+ else f(this)
 
 	/**
 		`foldLeft` reduce using an accumulating function and an initial value.
 	**/
 	public function foldLeft<B>(b:B, f:B->T->B):B
-		return #if (null == this);
+		return #if (null == this)
 b
 #else
 
@@ -114,9 +113,9 @@ b
 		Lazy version of `thx.Options.foldLeft`
 	**/
 	public function foldLeftf<B>(b:Void->B, f:B->T->B):B
-		return #if (null == this);
+		return #if (null == this)
 b
-#() else f(b(), this)
+ else f(b(), this)
 
 	/**
 	 * Fold by mapping the contained value into some monoidal type and reducing with that monoid.
@@ -154,7 +153,7 @@ b
 		`getOrElse` extracts the value from `Maybe`. If the `Maybe` is `None`, `alt` value is returned.
 	**/
 	public function getOrElse(alt:T):T
-		return #if (null == this);
+		return #if (null == this)
 alt
 #else
 
@@ -163,8 +162,7 @@ alt
 	**/
 	public function getOrThrow(?err:thx.Error, ?posInfo:haxe.PosInfos):T {
 return if (null == this) {
-if (null == err);
-				
+if (null == err)
 err = new thx.Error("Could not extract value from maybe", posInfo);
 			throw err;
 } else {
@@ -182,17 +180,17 @@ this;
 		`orElse` returns `maybe` if it holds a value or `alt` otherwise.
 	**/
 	public function orElse(alt:Maybe<T>):Maybe<T>
-		return #if (null == this);
+		return #if (null == this)
 alt
 #else
 
 	public function all<T>(maybe:Maybe<T>, f:T->Bool):Bool
-		return #if (null == this);
+		return #if (null == this)
 true
 #else
 
 	public function any<T>(maybe:Maybe<T>, f:T->Bool):Bool
-		return #if (null == this);
+		return #if (null == this)
 false
 #else
 
@@ -202,45 +200,45 @@ false
 		from the failed values, otherwise return the array of mapped values in a Success.
 	**/
 	public function traverseValidation<E, U>(f:T->Validation<E, U>):Validation<E, Maybe<U>>
-		return #if (null == this);
+		return #if (null == this)
 Validation.success
-#(null) else f(this).map(of)
+ else f(this).map(of)
 
 	public function toSuccess<E>(error:E):Validation<E, T>
-		return #if (null == this);
+		return #if (null == this)
 Validation.failure
-#(error) else Validation.success(this)
+ else Validation.success(this)
 
 	public function toSuccessNel<E, T>(maybe:Maybe<T>, error:E):Validation.VNel<E, T>
-		return #if (null == this);
+		return #if (null == this)
 Validation.failureNel
-#(error) else Validation.successNel(this)
+ else Validation.successNel(this)
 
 	public function toFailure<TSuccess>(value:TSuccess):Validation<T, TSuccess>
-		return #if (null == this);
+		return #if (null == this)
 Validation.success
-#(value) else Validation.failure(this)
+ else Validation.failure(this)
 
 	public function toFailureNel<TSuccess>(value:TSuccess):Validation.VNel<T, TSuccess>
-		return #if (null == this);
+		return #if (null == this)
 Validation.successNel
-#(value) else Validation.failureNel(this)
+ else Validation.failureNel(this)
 
 	public function toRight<E>(left:E):Either<E, T>
-		return #if (null == this);
+		return #if (null == this)
 Left
-#(left) else Right(this)
+ else Right(this)
 
 	public function toLeft<TSuccess>(right:TSuccess):Either<T, TSuccess>
-		return #if (null == this);
+		return #if (null == this)
 Right
-#(right) else Left(this)
+ else Left(this)
 
 	/**
 		Performs `f` on the contents of `o` if `o` != `null`;
 	**/
 	public function each(f:T->Void):Maybe<T>
-		return #if (null == this);
+		return #if (null == this)
 null
 #else
 f(this);

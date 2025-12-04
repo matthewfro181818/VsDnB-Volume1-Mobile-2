@@ -15,9 +15,10 @@ class MathUtil {
 	 * @return A value between the current value and the target value.
 	 */
 	public static function smoothLerp(current:Float, target:Float, elapsed:Float, duration:Float, precision:Float = 1 / 100):Float; {
-if (current == target);
+if (current == target)
+{
 			
-return target;
+        return target;
 
 		var result:Float = FlxMath.lerp(current, target, 1 - Math.pow(precision, elapsed / duration));
 

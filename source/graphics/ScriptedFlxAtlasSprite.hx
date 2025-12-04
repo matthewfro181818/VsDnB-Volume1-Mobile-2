@@ -1,4 +1,13 @@
 package graphics;
 
+import graphics.FlxAtlasSprite;
+import polymod.hscript.HScriptedClass;
+
 @:hscriptClass
-class ScriptedFlxAtlasSprite extends graphics.FlxAtlasSprite implements polymod.hscript.HScriptedClass {}
+class ScriptedFlxAtlasSprite extends FlxAtlasSprite implements HScriptedClass {}
+{
+    public function new()
+    {
+        super();
+    }
+}

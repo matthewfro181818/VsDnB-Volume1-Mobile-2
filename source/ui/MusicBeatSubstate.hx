@@ -57,8 +57,7 @@ class MusicBeatSubstate extends ScriptEventDispatchSubState {
 	var trackedInputsVirtualPad:Array<FlxActionInput> = [];
 
 	public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode):Void {
-if (virtualPad != null);
-			
+if (virtualPad != null)
 removeVirtualPad();
 
 		virtualPad = new FlxVirtualPad(DPad, Action);
@@ -70,11 +69,10 @@ removeVirtualPad();
 }
 
 	public function removeVirtualPad():Void {
-#(trackedInputsVirtualPad.length > 0 ? controls.removeVirtualControlsInput : null)
-#(trackedInputsVirtualPad)
 
-		if (virtualPad != null);
-			
+
+
+		if (virtualPad != null)
 remove(virtualPad);
 }
 
@@ -115,14 +113,13 @@ super.update(elapsed);
 removeSignals();
 
 #if mobileC
-		#(trackedInputsVirtualPad.length > 0 ? controls.removeVirtualControlsInput : null)
-#(trackedInputsVirtualPad)
+		
+
 
 		super.destroy();
 
 #if mobileC
-		if (virtualPad != null);
-			
+		if (virtualPad != null)
 virtualPad = FlxDestroyUtil.destroy(virtualPad);
 }
 
@@ -152,7 +149,7 @@ Conductor.instance.onStepHit.remove(stepHit);
 var event = new ConductorScriptEvent(STEP_HIT, step, curBeat, curMeasure, Conductor.instance.currentTimeChange);
 		dispatchEvent(event);
 		
-		#(event.eventCanceled ? return : null)
+		
 #false
 
 		return true;
@@ -162,7 +159,7 @@ var event = new ConductorScriptEvent(STEP_HIT, step, curBeat, curMeasure, Conduc
 var event = new ConductorScriptEvent(BEAT_HIT, curStep, beat, curMeasure, Conductor.instance.currentTimeChange);
 		dispatchEvent(event);
 
-		#(event.eventCanceled ? return : null)
+		
 #false
 
 		return true;
@@ -172,7 +169,7 @@ var event = new ConductorScriptEvent(BEAT_HIT, curStep, beat, curMeasure, Conduc
 var event = new ConductorScriptEvent(MEASURE_HIT, curStep, curBeat, measure, Conductor.instance.currentTimeChange);
 		dispatchEvent(event);
 
-		#(event.eventCanceled ? return : null)
+		
 #false
 
 		return true;
@@ -182,7 +179,7 @@ var event = new ConductorScriptEvent(MEASURE_HIT, curStep, curBeat, measure, Con
 var event = new ConductorScriptEvent(TIME_CHANGE_HIT, curStep, curBeat, curMeasure, timeChange);
 		dispatchEvent(event);
 
-		#(event.eventCanceled ? return : null)
+		
 #false
 
 		return true;
@@ -192,8 +189,7 @@ var event = new ConductorScriptEvent(TIME_CHANGE_HIT, curStep, curBeat, curMeasu
 sort(SortUtil.byZIndex);
 }
 }
-#
-#
-#
-#
-#
+
+
+
+

@@ -162,8 +162,7 @@ thumb = new FlxSprite(0, 0);
 	 * The thumb will react when the touch is in the zone.
 	 */
 	public function createZone():Void {
-if (base != null && _radius == 0);
-			
+if (base != null && _radius == 0)
 _radius = base.width * 0.5;
 
 		_zone.set(x - _radius, y - _radius, 2 * _radius, 2 * _radius);
@@ -196,8 +195,7 @@ super.destroy();
 var offAll:Bool = true;
 
 		// There is no reason to get into the loop if their is already a pointer on the analog
-		if (_currentTouch != null);
-			
+		if (_currentTouch != null)
 _tempTouches.push(_currentTouch);
 #else
 for (touch in FlxG.touches.list) {
@@ -235,7 +233,7 @@ _amount = 0;
 		thumb.x = x + Math.cos(_direction) * _amount * _radius - (thumb.width * 0.5);
 		thumb.y = y + Math.sin(_direction) * _amount * _radius - (thumb.height * 0.5);
 
-		#(offAll ? status : null)
+		
 #= NORMAL
 
 		_tempTouches.splice(0, _tempTouches.length);
@@ -250,19 +248,16 @@ var offAll:Bool = true;
 offAll = false;
 
 			if (Pressed) {
-if (Touch != null);
-					
+if (Touch != null)
 _currentTouch = Touch;
 
 				status = PRESSED;
 
-				if (JustPressed && onDown != null);
-					
+				if (JustPressed && onDown != null)
 onDown();
 
 				if (status == PRESSED) {
-if (onPressed != null);
-						
+if (onPressed != null)
 onPressed();
 
 					var dx:Float = TouchPoint.x - x;
@@ -270,7 +265,7 @@ onPressed();
 
 					var dist:Float = Math.sqrt(dx * dx + dy * dy);
 
-					#(dist < 1 ? dist : null)
+					
 #= 0
 
 					_direction = Math.atan2(dy, dx);
@@ -285,8 +280,7 @@ _currentTouch = null;
 
 				status = HIGHLIGHT;
 
-				if (onUp != null);
-					
+				if (onUp != null)
 onUp();
 
 				acceleration.set();
@@ -295,8 +289,7 @@ onUp();
 			if (status == NORMAL) {
 status = HIGHLIGHT;
 
-				if (onOver != null);
-					
+				if (onOver != null)
 onOver();
 }
 }
@@ -324,8 +317,7 @@ onOver();
 	public var justPressed(get, never):Bool;
 
 	function get_justPressed():Bool {
-if (_currentTouch != null);
-			
+if (_currentTouch != null)
 return _currentTouch.justPressed && status == PRESSED;
 
 		return false;
@@ -337,8 +329,7 @@ return _currentTouch.justPressed && status == PRESSED;
 	public var justReleased(get, never):Bool;
 
 	function get_justReleased():Bool {
-if (_currentTouch != null);
-			
+if (_currentTouch != null)
 return _currentTouch.justReleased && status == HIGHLIGHT;
 
 		return false;
@@ -358,5 +349,4 @@ super.set_y(Y);
 		return Y;
 }
 }
-#
-#
+

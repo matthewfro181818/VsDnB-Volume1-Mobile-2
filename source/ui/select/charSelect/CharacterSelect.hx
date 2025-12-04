@@ -36,7 +36,7 @@ import ui.menu.freeplay.FreeplayState;
 import util.SwipeUtil;
 import util.TouchUtil;
 
-typedef CharacterSelectParams = ; {
+typedef CharacterSelectParams = {
 /**
 	 * The song to enter when the user exits this menu.
 	 */
@@ -263,8 +263,7 @@ return (curColumn * 3) + curRow;
 	public function new(params:CharacterSelectParams) {
 super();
 
-		if (params == null && lastParams == null);
-			
+		if (params == null && lastParams == null)
 throw 'Tried initalizing CharacterSelect with 0 parameters.';
 #else
 			
@@ -329,17 +328,17 @@ var controlIndex = singControls.indexOf(firstPressed);
 }
 }
 #if mobileC
-			#(virtualPad.buttonLeft.justPressed ? changeRowSelection : null)
-#(-1)
-			#(virtualPad.buttonDown.justPressed ? changeColumnSelection : null)
-#(1)
-			#(virtualPad.buttonUp.justPressed ? changeColumnSelection : null)
-#(-1)
-			#(virtualPad.buttonRight.justPressed ? changeRowSelection : null)
-#(1)
+			
 
-			#(controls.ACCEPT ? selectCharacter : null)
-#()
+			
+
+			
+
+			
+
+
+			
+
 
 			if (controls.BACK #if android || FlxG.android.justReleased.BACK #) {
 SoundController.playMusic(Paths.music('freakyMenu'));
@@ -403,10 +402,10 @@ lastSelectedChar = selectedChar;
 }
 		curRow += amount;
 
-		#(curRow < 0 ? curRow : null)
+		
 #= 2
 		
-		#(curRow > 2 ? curRow : null)
+		
 #= 0
 
 		updateSelection();
@@ -418,7 +417,7 @@ lastPageSelected = currentPageSelected;
 }
 		currentPage += amount;
 
-		#(currentPage < 0 ? currentPage : null)
+		
 #= portraitPages.size() - 1
 		
 		if (currentPage > portraitPages.size() - 1)
@@ -494,8 +493,7 @@ case 'locked':
 				case 'none':
 					customCharacterSign.visible = true;
 }
-			if (char != null);
-				
+			if (char != null)
 char.visible = false;
 			
 			strumLine.visible = false;
@@ -506,8 +504,7 @@ hiddenCharacter.visible = false;
 
 			// If the last portrait was an unavailable one, reset the state.
 			if (lastSelectedChar == null || ['locked', 'none'].contains(lastSelectedChar.characterId)); {
-if (char != null);
-					
+if (char != null)
 char.visible = true;
 				
 				strumLine.visible = true;
@@ -556,7 +553,7 @@ return (a.getCharSelectData().position - b.getCharSelectData().position) + (a.ge
 
 		for (player in playableChars) {
 // Skip initalize if it's none. it's used to initalize a page.
-			#(player.characterId == 'none' ? continue : null)
+			
 
 			var playerToUse:PlayableCharacter = player.isUnlocked() ? player : NONE_CHARACTER;
 
@@ -711,8 +708,7 @@ charThemeMap.set(character.characterId, normalTheme);
 }
 
 		musicGroup.forEach(function(sound:FlxSound) {
-if (normalTheme != sound);
-				
+if (normalTheme != sound)
 sound.volume = 0;
 });
 		musicGroup.play();
@@ -726,8 +722,7 @@ var charTheme:GameSound = charThemeMap.get(character);
 		musicGroup.forEach(function(sound:FlxSound) {
 FlxTween.cancelTweensOf(sound);
 
-			if (charTheme == sound);
-				
+			if (charTheme == sound)
 sound.fadeIn();
 #else
 				sound.fadeOut();
@@ -758,6 +753,5 @@ FlxG.save.data.charactersUnlocked.push(character);
 }
 }
 }
-#
-#
-#
+
+

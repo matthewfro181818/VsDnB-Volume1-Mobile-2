@@ -7,7 +7,6 @@ import lime.utils.AssetsasLimeAssets;
 import openfl.AssetsasOpenFLAssets;
 import openfl.utils.AssetType;
 
-##(!flixel ? class : null)
 #FlixelBackend extends StubBackend {
 public function new() {
 super();
@@ -74,7 +73,6 @@ Polymod.notice(FUNCTIONALITY_NOT_IMPLEMENTED,
 		super.destroy();
 }
 }
-#
-#
-#
-#
+
+
+

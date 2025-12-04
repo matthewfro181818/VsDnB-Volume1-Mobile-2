@@ -2,7 +2,7 @@ package polymod.hscript._internal;
 
 import hscript.Expr.ClassDecl;
 
-typedef PolymodClassDeclEx =; {
+typedef PolymodClassDeclEx = {
 > ClassDecl,
 	/**
 	 * Save performance and improve sandboxing by resolving imports at interpretation time.

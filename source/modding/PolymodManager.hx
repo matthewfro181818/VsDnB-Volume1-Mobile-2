@@ -217,7 +217,7 @@ Polymod.addImportAlias('util.ReflectUtil', Reflect);
 
  // Blacklist HScript classes.
  for (cls in ClassMacro.listClassesInPackage('hscript')) {
-#(cls == null ? continue : null)
+
  var className:String = Type.getClassName(cls);
  
  Polymod.blacklistImport(className);
@@ -225,7 +225,7 @@ Polymod.addImportAlias('util.ReflectUtil', Reflect);
 
  // Blacklist any Polymod related classes.
  for (cls in ClassMacro.listClassesInPackage('polymod')) {
-#(cls == null ? continue : null)
+
  var className:String = Type.getClassName(cls);
  
  Polymod.blacklistImport(className);

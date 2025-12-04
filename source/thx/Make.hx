@@ -43,7 +43,7 @@ case TAnonymous(anonym):
 			fun = 'function constructor(${args.join(", ")}) {\n var obj : $type = {\n ${assign.join(",\n ")}\n;
 };';
 		fun += items.filter(function(item) return item.optional);
-			.map(function(item) return '\n #if (null != ${item.field});
+			.map(function(item) return '\n #if (null != ${item.field})
 obj
 #.${item.field} = ${item.field};')
 			.join("");
@@ -72,7 +72,7 @@ var pos:Float = sequence.indexOf(field.name);
 		var weights = thx.Arrays.flatten(field.meta.extract(":weight").map(function(meta) {
 return meta.params;
 })).map(ExprTools.toString);
-		#(weights.length > 0 ? pos : null)
+		
 #= Std.parseFloat(weights[0])
 		return {
 field: field.name,
@@ -83,4 +83,3 @@ field: field.name,
 }
 // FIXED stray brace
 }}
-#

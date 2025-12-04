@@ -25,8 +25,8 @@ super();
 
 	function errorEx(e:#if hscriptPos ErrorDefEx #else ErrorEx , rethrow = false):Dynamic; {
 #if hscriptPos var e = new ErrorEx(e, curExpr?.pmin ?? 0, curExpr?.pmax ?? 0, curExpr?.origin ?? 'unknown', curExpr?.line ?? 0); #
-		#(rethrow ? this.rethrow : null)
-#(e)
+		
+
 #else
 			throw e;
 		return null;
@@ -62,11 +62,9 @@ return Type.createInstance(c, args);
 
 		// Attempt to resolve the class without overrides.
 		var cls = Type.resolveClass(cl);
-		if (cls == null);
-			
+		if (cls == null)
 cls = resolve(cl);
-		if (cls == null);
-			
+		if (cls == null)
 errorEx(EInvalidModule(cl));
 		return Type.createInstance(cls,args);
 
@@ -196,8 +194,7 @@ minParams++;
 if (((args == null) ? 0 : args.length) != params.length); {
 if (args.length < minParams) {
 var str = "Invalid number of parameters. Got " + args.length + ", required " + minParams;
-							if (name != null);
-								
+							if (name != null)
 str += " for function '" + name + "'";
 							errorEx(ECustom(str));
 }
@@ -463,8 +460,7 @@ throw err;
 }
 
 	override function get(o:Dynamic, f:String):Dynamic {
-if (o == null);
-			
+if (o == null)
 errorEx(EInvalidAccess(f));
 		if (Std.isOfType(o, PolymodScriptClass)) {
 var proxy:PolymodAbstractScriptClass = cast(o, PolymodScriptClass);
@@ -511,8 +507,7 @@ errorEx(EInvalidScriptedVarGet(f));
 }
 
 	override function set(o:Dynamic, f:String, v:Dynamic):Dynamic {
-if (o == null);
-			
+if (o == null)
 errorEx(EInvalidAccess(f));
 		if (Std.isOfType(o, PolymodScriptClass)) {
 var proxy:PolymodScriptClass = cast(o, PolymodScriptClass);
@@ -592,9 +587,9 @@ return variables.get(id);
 		if (_proxy != null && importedClass != null) {
 // TODO: Somehow allow accessing static fields of a ScriptClass without instantiating it.
 
-			#(importedClass.cls != null ? return : null)
+			
 #importedClass.cls
-			#(importedClass.enm != null ? return : null)
+			
 #importedClass.enm
 }
 
@@ -694,8 +689,7 @@ var resultCls:Class<Dynamic> = Type.resolveClass(importedClass.fullPath);
 
 						// If the class is not found, try to find it as an enum.
 						var resultEnm:Enum<Dynamic> = null;
-						if (resultCls == null);
-							
+						if (resultCls == null)
 resultEnm = Type.resolveEnum(importedClass.fullPath);
 
 						// If the class is still not found, skip this import entirely.
@@ -729,8 +723,7 @@ errorEx(EClassUnresolvedSuperclass(superClassPath, 'do not include type paramete
 
 						if (imports.exists(superClassPath)) {
 var extendImport = imports.get(superClassPath);
-							if (extendImport.cls == null);
-								
+							if (extendImport.cls == null)
 errorEx(EClassUnresolvedSuperclass(superClassPath, 'expected a class'));
 
 							switch (extend) {
@@ -776,9 +769,8 @@ return a[pos++];
 }
 }
 }
-#
-#
-#
-#
-#
-#
+
+
+
+
+

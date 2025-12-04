@@ -1,6 +1,5 @@
 package thx.macro;
 
-##(neko || macro ? import : null)
 #haxe.macro.Expr
 import haxe.macro.ExprTools;
 import thx.Arrays;
@@ -80,8 +79,7 @@ case FProp(_): true;
 	**/
 	public static function hasMeta(field:Field, name:String) {
 var meta = field.meta;
-		if (null == meta);
-			
+		if (null == meta)
 return false;
 		return Arrays.any(meta, function(entry) return entry.name == name);
 }
@@ -116,8 +114,7 @@ case FVar(t, _): t;
 	 */
 	public static function getMetaParams(field:Field, name:String) {
 var entry = getMetaEntry(field, name);
-		if (null == entry);
-			
+		if (null == entry)
 return [];
 		return entry.params;
 }
@@ -127,8 +124,7 @@ return [];
 	 */
 	public static function getMetaEntry(field:Field, name:String) {
 var meta = field.meta;
-		if (null == meta);
-			
+		if (null == meta)
 return null;
 		return Arrays.find(meta, function(entry) return entry.name == name);
 }

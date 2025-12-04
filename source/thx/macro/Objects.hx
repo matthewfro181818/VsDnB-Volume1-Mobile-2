@@ -17,8 +17,7 @@ type.extract(function(fvar) return fvar.name == field.name);
 #if macro
 	static function getTypeFromPath(name:String, pack:Array<String>, ?sub:String, params) {
 var parts = pack.concat([name]);
-		if (null != sub);
-			
+		if (null != sub)
 parts.push(sub);
 
 		if (sub == "Null") {
@@ -96,4 +95,3 @@ return shallowMergeImpl(to, from);
 	// TODO: macro-time deepMergeImpl/deepMerge (with properly-typed result)
 // FIXED stray brace
 }}
-#

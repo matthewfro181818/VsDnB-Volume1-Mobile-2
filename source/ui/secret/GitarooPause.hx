@@ -27,8 +27,7 @@ this.params = params;
 		super();
 
 	override function create() {
-if (SoundController.music != null);
-			
+if (SoundController.music != null)
 SoundController.music.stop();
 		
 		SoundController.playMusic(Paths.music('daveshead'));
@@ -67,8 +66,8 @@ SoundController.music.stop();
 		super.create();
 
 	override function update(elapsed:Float) {
-#(controls.LEFT_P || controls.RIGHT_P ? changeThing : null)
-#()
+
+
 
 		if (controls.ACCEPT) {
 if (replaySelect) {
@@ -95,4 +94,3 @@ cancelButton.animation.curAnim.curFrame = 1;
 }
 }
 }
-#

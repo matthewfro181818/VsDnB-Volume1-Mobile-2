@@ -56,7 +56,7 @@ leading = false;
 				callback();
 				return;
 }
-			#(waiting ? return : null)
+			
 			poll();
 };
 }
@@ -121,7 +121,7 @@ callback();
 #if js
 		var cancelled = false, f = Functions.noop, current = time(), next;
 		f = function() {
-#(cancelled ? return : null)
+
 			next = time();
 			callback(next - current);
 			current = next;
@@ -243,14 +243,13 @@ timers.remove(id);
 	static var _resolution:Null<Float>;
 
 	public static function resolution():Float {
-if (null != _resolution);
-			
+if (null != _resolution)
 return _resolution;
 		var start = time(), loop = 0.0;
 		do {
 loop++;
 			 = Timer.time();
-} while ( - start == 0);
+} while ( - start == 0)
 		return _resolution = - start;
 }
 
@@ -260,7 +259,7 @@ loop++;
 		// SCOPE
 		var scope:Dynamic = js.Syntax.code('("undefined" !== typeof window && window) || ("undefined" !== typeof global && global) || Function("return this")()');
 		// setImmediate
-		#(!scope.setImmediate ? scope.setImmediate : null)
+		
 #= function(callback) scope.setTimeout(callback, 0)
 		// rAF
 		// based on Paul Irish code: http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
@@ -270,7 +269,7 @@ scope.requestAnimationFrame = scope[vendors[x] + 'RequestAnimationFrame'];
 			scope.cancelAnimationFrame = scope[vendors[x] + 'CancelAnimationFrame'] || scope[vendors[x] + 'CancelRequestAnimationFrame'];
 			x++;
 }
-		#(!scope.requestAnimationFrame ? scope.requestAnimationFrame : null)
+		
 #= function(callback) {
 var currTime = Date.now().getTime(),;
 					timeToCall = Math.max(0, 16 - (currTime - lastTime)),;
@@ -278,14 +277,14 @@ var currTime = Date.now().getTime(),;
 				lastTime = currTime + timeToCall;
 				return id;
 };
-		#(!scope.cancelAnimationFrame ? scope.cancelAnimationFrame : null)
+		
 #= function(id) scope.clearTimeout(id)
 		// performance.now / High Resolution Timer
 		if (js.Syntax.code("typeof")(scope.performance) == "undefined");
 			scope.performance = {};
 		if (js.Syntax.code("typeof")(scope.performance.now) == "undefined") {
 var nowOffset = Date.now().getTime();
-			#(scope.performance.timing && scope.performance.timing.navigationStart ? nowOffset : null)
+			
 #= scope.performance.timing.navigationStart
 			scope.performance.now = function now();
 				return Date.now() - nowOffset;
@@ -305,13 +304,12 @@ super();
 	@:overload /*override_removed*/ public function run()
 		callback();
 }
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+
+
+
+
+
+
+
+
+

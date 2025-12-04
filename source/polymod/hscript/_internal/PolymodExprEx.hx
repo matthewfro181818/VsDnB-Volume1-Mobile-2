@@ -56,7 +56,7 @@ public static function toErrorEx(err:hscript.Expr.Error):ErrorEx {
 		switch (err.e)
 #else
 		switch (err)
-		#{
+		{
 case EInvalidChar(c):
 #if hscriptPos
 				return new ErrorEx(EInvalidChar(c), err.pmin, err.pmax, err.origin, err.line);
@@ -112,15 +112,14 @@ case EInvalidChar(c):
 }
 }
 }
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+
+
+
+
+
+
+
+
+
+
+

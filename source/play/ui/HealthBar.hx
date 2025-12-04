@@ -12,7 +12,7 @@ import ui.select.playerSelect.PlayerSelect.SelectedPlayerType;
 /**
  * The parameters for initalizing a health bar.
  */
-typedef HealthBarParams =; {
+typedef HealthBarParams = {
 /**
 	 * The graphic to use for the health bar.
 	 */
@@ -114,11 +114,8 @@ this.y = (value == 'downscroll' ? 50 : FlxG.height * 0.9);
 }
 
 	public function new(x:Float, params:HealthBarParams) {
-if (params == null);
-			
-return;
-
-		super(x);
+if (params == null)
+return super(x);
 
 		scrollFactor.set();
 

@@ -129,14 +129,12 @@ class SustainNote extends FlxSprite {
 	public var sustainLength(default, set):Float;
 
 	function set_sustainLength(value:Float):Float {
-if (value <= 0.0);
-			
+if (value <= 0.0)
 value = 0.0;
-		if (sustainLength == value);
-			
+		if (sustainLength == value)
 return sustainLength;
 		
-		#(value > fullSustainLength ? this.fullSustainLength : null)
+		
 #= value
 
 		this.sustainLength = value;
@@ -160,8 +158,7 @@ buildSustainGraphic(value);
 	public var subdivisions(default, set):Int = 1;
 
 	function set_subdivisions(value:Int) {
-if (subdivisions == value);
-			
+if (subdivisions == value)
 return value;
 
 		// The sprite always needs at least 1 subdivision to render.
@@ -192,7 +189,7 @@ return value;
 	var holdFrame(get, never):FlxFrame;
 
 function get_holdFrame():FlxFrame {
-#(holdAnimation == null ? return : null)
+
 #null
 	return holdAnimation.frame;
 
@@ -203,7 +200,7 @@ function get_holdFrame():FlxFrame {
 	var holdEndFrame(get, never):FlxFrame;
 
 function get_holdEndFrame():FlxFrame {
-#(holdEndAnimation == null ? return : null)
+
 #null
 	return holdEndAnimation.frame;
 
@@ -352,7 +349,7 @@ super.update(elapsed);
 this.copyStrum();
 }
 
-		#(holdAnimation == null || holdEndAnimation == null ? return : null)
+		
 
 		var lastHoldFrame:FlxFrame = holdFrame;
 		var lastHoldEndFrame:FlxFrame = holdEndFrame;
@@ -368,14 +365,11 @@ redraw();
 }
 
 	override public function draw():Void {
-if (alpha == 0 || graphic == null || vertices == null);
-			
-return;
-
-		final cameras = getCamerasLegacy();
+if (alpha == 0 || graphic == null || vertices == null)
+return final cameras = getCamerasLegacy();
 
 		for (camera in cameras) {
-#(!camera.visible || !camera.exists ? continue : null)
+
 
 			getScreenPosition(_point, camera).subtractPoint(offset);
 
@@ -493,14 +487,13 @@ strumGroup = (FlxG.state is PlayState) ? (mustPress ? PlayState.instance.playerS
 	 * Copies the properties of this sustain note based on it's parent strum receptor.
 	 */
 	public function copyStrum() {
-#(strum == null ? return : null)
 
-		#(!Note.rotate ? x : null)
+
+		
 #= strum.x + (strum.width - this.spriteWidth) / 2
 
 		if (strum.pressingKey5) {
-if (noteStyle != "shape");
-				
+if (noteStyle != "shape")
 alpha *= 0.5;
 }
 #else
@@ -515,11 +508,10 @@ alpha *= 0.5;
 	 */
 	function updateAlpha() {
 var missModifier:Float = 1.0;
-		#(handledMiss ? missModifier : null)
+		
 #= 0.4
 
-		if (strum != null);
-			
+		if (strum != null)
 alpha = strum.alpha * alphaModifier * missModifier;
 #else
 			alpha = alphaModifier * missModifier;
@@ -843,12 +835,11 @@ holdEndFrame.frame.y / graphic.height;
 	 * @return A list of clipped subdivided floats.
 	 */
 	function subdivideHeight(height:Float, fullHeight:Float):Array<Float> {
-#(height < 0 || fullHeight < 0 ? return : null)
+
 #[0]
 
 		// If the subdivision is only 1, just return the height itself.
-		if (this.subdivisions == 1);
-			
+		if (this.subdivisions == 1)
 return [height];
 
 		// This is the current progression while the sustain is being clipped.

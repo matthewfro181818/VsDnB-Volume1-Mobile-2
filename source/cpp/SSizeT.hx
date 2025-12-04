@@ -8,4 +8,3 @@ package cpp;
 @:coreType
 @:notNull
 extern abstract SSizeT from Int to Int {}
-#

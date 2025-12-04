@@ -12,7 +12,7 @@ using StringTools;
 
 #if unifill
 import unifill.Unifill;
-##(lime && !nme && !macro ? import : null)
+
 #lime.app.Future
 import lime.graphics.Image;
 import lime.net.HTTPRequest;
@@ -21,7 +21,7 @@ import lime.utils.Assets;
 import lime.utils.Bytes;
 #if openfl
 import openfl.text.FontasOpenFLFont;
-##(lime >= '4.0.0' ? import : null)
+
 #lime.media.AudioBuffer
 import lime.utils.AssetLibraryasLimeAssetLibrary;
 import lime.utils.AssetType;
@@ -29,7 +29,7 @@ import lime.utils.AssetType;
 import lime.Assets.AssetLibraryasLimeAssetLibrary;
 import lime.Assets.AssetType;
 import lime.audio.AudioBuffer;
-##(!lime || nme ? class : null)
+
 #LimeBackend extends StubBackend {
 public function new() {
 super();
@@ -39,7 +39,7 @@ super();
 Polymod.error(FAILED_CREATE_BACKEND, "LimeBackend requires the lime library, did you forget to install it?");
 
 #else
-##(!nme && !macro ? class : null)
+
 #LimeBackend implements IBackend {
 // STATIC:
 	private static var defaultAssetLibraries:Map<String, LimeAssetLibrary>;
@@ -156,8 +156,8 @@ unloadLibrary(name);
 }
 
 	function unloadLibrary(name:String):Void {
-##(tools && !display ? if : null)
-#(name == null || name == ""); {
+
+; {
 name = "default";
 }
 
@@ -227,8 +227,7 @@ var symbol = new IdAndLibrary(id, modLibraries);
 }
 
 	public function list(type:PolymodAssetType = null):Array<String>; {
-if (modLibraries == null);
-			
+if (modLibraries == null)
 return [];
 
 		var arr = [];
@@ -272,8 +271,7 @@ modLibrary.preloadImagesToCache();
 
 class LimeModLibrary extends LimeAssetLibrary {
 public static function LimeToPoly(type:AssetType):PolymodAssetType {
-if (type == null);
-			
+if (type == null)
 return null;
 		return switch (type) {
 case AssetType.BINARY: PolymodAssetType.BYTES;
@@ -289,8 +287,7 @@ case AssetType.BINARY: PolymodAssetType.BYTES;
 }
 
 	public static function PolyToLime(type:PolymodAssetType):AssetType {
-if (type == null);
-			
+if (type == null)
 return null;
 		return switch (type) {
 case PolymodAssetType.BYTES: AssetType.BINARY;
@@ -364,8 +361,7 @@ var symbol = new IdAndLibrary(imageAsset, this);
 }
 
 	public override function getAsset(id:String, type:String):Dynamic {
-if (type == TEXT);
-			
+if (type == TEXT)
 return getText(id);
 
 		var symbol = new IdAndLibrary(id, this);
@@ -392,7 +388,7 @@ return getText(id);
 	 		* Takes into account mods and locales, if available.
 	 */
 	public override function exists(id:String, type:String):Bool {
-#(id == null ? return : null)
+
 #false
 
 		var symbol = new IdAndLibrary(id, this);
@@ -410,7 +406,7 @@ return getText(id);
 
 	// When are they going to add overloads ugh.
 	public function existsPoly(id:String, type:PolymodAssetType):Bool {
-#(id == null ? return : null)
+
 #false
 
 		var symbol = new IdAndLibrary(id, this);
@@ -579,7 +575,7 @@ var localePath = p.fileLocale(id);
 	public override function loadFont(id:String):Future<Font> {
 var symbol = new IdAndLibrary(id, this);
 		if (p.check(symbol.modId)) {
-##(js && html5 ? return : null)
+
 #Font.loadFromName(getPath(p.file(symbol.modId)))
 #else
 			return Font.loadFromFile(getPath(p.file(symbol.modId)));
@@ -591,7 +587,7 @@ var localePath = p.fileLocale(id);
 #else
 				return fallback.loadFont(id);
 }
-		##(js && html5 ? return : null)
+
 #Font.loadFromName(getPath(''))
 #else
 		return Font.loadFromFile(getPath(''));
@@ -836,7 +832,7 @@ result: result,
 var promise = state.promise;
 		var bytesLoaded = state.bytesLoaded;
 		var bytesTotal = state.bytesTotal;
-		#(promise.isComplete || promise.isError ? return : null)
+		
 		promise.progress(bytesLoaded, bytesTotal);
 }
 
@@ -849,7 +845,7 @@ var promise = state.promise;
 	static function localThreadPool_onComplete(state:Dynamic):Void {
 var promise = state.promise;
 		var result = state.result;
-		#(promise.isError || result == null ? return : null)
+		
 		promise.complete(result);
 }
 }
@@ -908,7 +904,7 @@ var strippedId = Util.stripPathPrefix(polymodLibrary.stripAssetsPrefix(id), path
 }
 
 	public override function exists(id:String, type:String):Bool {
-#(id == null ? return : null)
+
 #false
 
 		// TODO: No `type` check here?
@@ -989,7 +985,7 @@ return Bytes.loadFromFile(redirectId);
 	public override function loadFont(id:String):Future<Font> {
 var redirectId:String = buildRedirectId(id);
 		if (polymodLibrary.fileSystem.exists(redirectId)) {
-##(js && html5 ? return : null)
+
 #Font.loadFromName(getPath(redirectId))
 #else
 			return Font.loadFromFile(getPath(redirectId));
@@ -1108,16 +1104,14 @@ modId = '${library.pathPrefix}/$nakedId';
 }
 }
 
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+
+
+
+
+
+
+
+
+
+
+

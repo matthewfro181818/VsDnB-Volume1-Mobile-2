@@ -110,7 +110,7 @@ x = x.square().modulo(n);
 					t = false;
 				d = d.multiply(2);
 }
-			#(t ? return : null)
+			
 #false
 }
 		return false;
@@ -153,13 +153,12 @@ var m = this.abs();
 		n = n.abs();
 		var t;
 		do {
-if (n == 0);
-				
+if (n == 0)
 return m;
 			t = m;
 			m = n;
 			n = t.modulo(m);
-} while (true);
+} while (true)
 }
 
 	public function lcm(that:BigInt):BigInt {

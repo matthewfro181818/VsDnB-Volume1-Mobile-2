@@ -44,8 +44,8 @@ throw "Class lists not properly generated. Try cleaning out your export folder, 
 }
 
  public static function get(request:String):List<Class<Dynamic>> {
-#(!initialized ? init : null)
-#()
+
+
 
  if (!classLists.exists(request)) {
 trace('[WARNING] Class list $request not properly generated. Please debug the build macro.');

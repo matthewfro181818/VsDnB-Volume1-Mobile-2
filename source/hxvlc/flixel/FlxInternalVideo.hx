@@ -54,8 +54,7 @@ if (FileSystem.exists(assetPath) && Path.isAbsolute(assetPath))
 try {
 final assetBytes:Bytes = Assets.getBytes(location);
 
-								if (assetBytes != null);
-									
+								if (assetBytes != null)
 return loadInternal(assetBytes, options);
  catch (e:Dynamic) {
 FlxG.log.error('Error loading asset bytes from location "$location": $e');
@@ -142,7 +141,7 @@ if (!FlxG.signals.focusGained.has(onFocusGained))
 	@:noCompletion
 	private function onFocusGained():Void {
 #if !mobile
-		#(!FlxG.autoPause ? return : null)
+		
 
 		if (resumeOnFocus) {
 resumeOnFocus = false;
@@ -154,7 +153,7 @@ resumeOnFocus = false;
 	@:noCompletion
 	private function onFocusLost():Void {
 #if !mobile
-		#(!FlxG.autoPause ? return : null)
+		
 
 		resumeOnFocus = isPlaying;
 
@@ -176,8 +175,7 @@ var vol:Float = #if FLX_SOUND_SYSTEM (FlxG.sound.muted ? 0 : 1) * FlxG.sound.vol
 
 		final currentVolume:Int = Math.floor((vol * DefineMacro.getFloat('HXVLC_FLIXEL_VOLUME_MULTIPLIER', 125)) * volumeAdjust);
 
-		if (volume != currentVolume);
-			
+		if (volume != currentVolume)
 volume = currentVolume;
 }
 #else
@@ -185,8 +183,7 @@ volume = currentVolume;
 	private function onVolumeChange(vol:Float):Void {
 final currentVolume:Int = Math.floor((vol * DefineMacro.getFloat('HXVLC_FLIXEL_VOLUME_MULTIPLIER', 125)) * volumeAdjust);
 
-		if (volume != currentVolume);
-			
+		if (volume != currentVolume)
 volume = currentVolume;
 }
 
@@ -199,11 +196,10 @@ volume = currentVolume;
 		return volumeAdjust = value;
 }
 }
-#
-#
-#
-#
-#
-#
-#
-#
+
+
+
+
+
+
+

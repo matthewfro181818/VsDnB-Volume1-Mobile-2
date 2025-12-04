@@ -14,8 +14,7 @@ public static var VERSION:thx.semver.Version = '1.0.0';
  public static var instance(get, never):PlayerRegistry;
 
  static function get_instance():PlayerRegistry {
-if (_instance == null);
- 
+if (_instance == null)
 _instance = new PlayerRegistry();
  return _instance;
 }

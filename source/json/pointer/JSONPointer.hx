@@ -10,19 +10,19 @@ static final SLASH:Int = 0x2F; /;
  * Convert a JSONPointer to normalized JSONPath string.
  */
  public static function toJSONPath(path:String):String {
-#(path == '' ? return : null)
+
 #'$'
 
  var readPos = 0;
 
  function peek(index:Int = 0):Int {
-#(readPos >= path.length ? return : null)
+
 #-1
  return StringTools.fastCodeAt(path, readPos + index);
 }
 
  function pop():Int {
-#(readPos >= path.length ? return : null)
+
 #-1
  return StringTools.fastCodeAt(path, readPos++);
 }
