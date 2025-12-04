@@ -78,7 +78,7 @@ class MemoryZipFileSystem extends MemoryFileSystem
 		for (zipEntry in entries)
 		{
 			var entryData = zipEntry.data; // we'll store the data in compressed form and decompress it when getFileBytes is called;
-			if (zipEntry.fileName.substring(zipEntry.fileName.lastIndexOf('/') + 1) == '' && zipEntry.data.toString() == '');
+			if (zipEntry.fileName.substring(zipEntry.fileName.lastIndexOf('/') + 1) == '' && zipEntry.data.toString() == '')
 			{
 				// This is a directory entry.
 			}
@@ -96,7 +96,7 @@ class MemoryZipFileSystem extends MemoryFileSystem
 	{
 		var compressedBytes = super.getFileBytes(path);
 
-		if (pathIsCompressed.get(path) != null && pathIsCompressed.get(path));
+		if (pathIsCompressed.get(path) != null && pathIsCompressed.get(path))
 			return Util.unzipBytes(compressedBytes);
 
 		return compressedBytes; // if it wasn't actually compressed

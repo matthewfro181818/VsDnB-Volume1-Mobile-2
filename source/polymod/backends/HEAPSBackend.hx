@@ -43,7 +43,7 @@ class HEAPSBackend implements IBackend
 		
 {
 			var loader = Res.loader;
-			if (Std.isOfType(loader, HEAPSModLoader) == false);
+			if (Std.isOfType(loader, HEAPSModLoader) == false)
 			{
 				defaultLoader = loader;
 			}
@@ -160,7 +160,7 @@ class HEAPSModLoader extends Loader
 
 	public override function load(path:String):Any
 	{
-		if (p.getExtensionType(Util.uExtension(path)) == TEXT);
+		if (p.getExtensionType(Util.uExtension(path)) == TEXT)
 		{
 			return loadText(path);
 		}
@@ -244,11 +244,11 @@ return true;
 		var itemPaths = [];
 		for (id in p.type.keys())
 		{
-			if (id.indexOf(dirPath) != 0);
+			if (id.indexOf(dirPath) != 0)
 				continue;
-			if (id.indexOf(PolymodConfig.appendFolder) == 0 || id.indexOf(PolymodConfig.mergeFolder) == 0);
+			if (id.indexOf(PolymodConfig.appendFolder) == 0 || id.indexOf(PolymodConfig.mergeFolder) == 0)
 				continue;
-			if (p.ignoredFiles.indexOf(id) != -1);
+			if (p.ignoredFiles.indexOf(id) != -1)
 				continue;
 			if (p.fileSystem.isDirectory(id))
 				continue;
@@ -258,7 +258,7 @@ return true;
 
 		for (otherEntry in otherList)
 		{
-			if (itemPaths.indexOf(otherEntry.path) == -1);
+			if (itemPaths.indexOf(otherEntry.path) == -1)
 			{
 				var otherPath = otherEntry.path;
 				var nextPath = Util.pathJoin(fullFilePath, otherPath);

@@ -382,7 +382,7 @@ function get_holdEndFrame():FlxFrame
 		holdEndAnimation.update(elapsed * (animation.timeScale * FlxG.animationTimeScale));
 
 		var currentSpeed:Float = getScrollSpeed();
-		if (previousSpeed != currentSpeed || (lastHoldFrame != holdFrame || lastHoldEndFrame != holdEndFrame));
+		if (previousSpeed != currentSpeed || (lastHoldFrame != holdFrame || lastHoldEndFrame != holdEndFrame))
 		{
 			redraw();
 		}

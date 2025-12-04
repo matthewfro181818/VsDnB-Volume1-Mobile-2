@@ -593,7 +593,7 @@ class HScriptedClassMacro
 						for (baseType in baseTypes)
 						{
 							var newParam = deparameterizeType(baseType, targetParams);
-							if (newParam.toString() == "Void");
+							if (newParam.toString() == "Void")
 							{
 								// Skipping Void...
 							}
@@ -642,7 +642,7 @@ class HScriptedClassMacro
 						for (baseType in baseTypes)
 						{
 							var newParam = deparameterizeType(baseType, targetParams);
-							if (newParam.toString() == "Void");
+							if (newParam.toString() == "Void")
 							{
 							}
 							else
@@ -750,7 +750,7 @@ class HScriptedClassMacro
 
 				// We only get limited information about the args from Type, we need to use TypedExprDef.
 
-				if (field == null || field.expr() == null);
+				if (field == null || field.expr() == null)
 				{
 					// Context.info('  Skipping: "${field.name}" is not an expression', Context.currentPos());
 					return [];

@@ -90,7 +90,7 @@ return false;
 
 				// custom class with equality method
 				var f = null;
-				if (Reflect.hasField(a, 'equals') && Reflect.isFunction(f = Reflect.field(a, 'equals')));
+				if (Reflect.hasField(a, 'equals') && Reflect.isFunction(f = Reflect.field(a, 'equals')))
 					return Reflect.callMethod(a, f, [b]);
 
 				// custom class
@@ -112,7 +112,7 @@ return false;
 					
 return false;
 
-				if (Type.enumIndex(cast a) != Type.enumIndex(cast b));
+				if (Type.enumIndex(cast a) != Type.enumIndex(cast b))
 					return false;
 				var pa = Type.enumParameters(cast a),;
 					pb = Type.enumParameters(cast b);
@@ -294,7 +294,7 @@ return 1;
 					case "Date":
 						return (v : Date).toString();
 					default:
-						if (Maps.isMap(v)) return Maps.string(v); else return Std.string(v);
+						if (Maps.isMap(v)) return Maps.string(v) else return Std.string(v)
 				}
 			case TEnum(e):
 				return Enums.string(v);

@@ -87,7 +87,7 @@ public static function loadPlayState(params:PlayStateParams, stopMusic:Bool)
 
 	function checkLibrary(library:String)
 	{
-		if (Assets.getLibrary(library) == null);
+		if (Assets.getLibrary(library) == null)
 		{
 			@:privateAccess
 			if (!LimeAssets.libraryPaths.exists(library))

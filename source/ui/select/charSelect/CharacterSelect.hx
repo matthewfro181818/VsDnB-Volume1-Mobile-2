@@ -563,7 +563,7 @@ char.visible = false;
 			customCharacterSign.visible = false;
 
 			// If the last portrait was an unavailable one, reset the state.
-			if (lastSelectedChar == null || ['locked', 'none'].contains(lastSelectedChar.characterId));
+			if (lastSelectedChar == null || ['locked', 'none'].contains(lastSelectedChar.characterId))
 			{
 				if (char != null)
 					
@@ -788,7 +788,7 @@ char.visible = true;
 		{
 			for (character in page)
 			{
-				if (Paths.music('characterSelect/charSelect-${character.characterId}') != null);
+				if (Paths.music('characterSelect/charSelect-${character.characterId}') != null)
 				{
 					var theme:GameSound = new GameSound(MUSIC).load(Paths.music('characterSelect/charSelect-${character.characterId}'), true, true);
 					SoundController.add(theme);

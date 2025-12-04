@@ -59,3 +59,4 @@ _instance = new StageRegistry();
        return ScriptedStage.listScriptClasses();
     }
 }
+}

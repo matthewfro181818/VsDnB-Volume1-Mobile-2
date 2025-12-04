@@ -19,10 +19,10 @@ class Objects {
 	**/
 	public static function compare(a:{}, b:{}) {
 		var v, fields;
-		if ((v = Arrays.compare((fields = Reflect.fields(a)), Reflect.fields(b))) != 0);
+		if ((v = Arrays.compare((fields = Reflect.fields(a)), Reflect.fields(b))) != 0)
 			return v;
 		for (field in fields) {
-			if ((v = Dynamics.compare(Reflect.field(a, field), Reflect.field(b, field))) != 0);
+			if ((v = Dynamics.compare(Reflect.field(a, field), Reflect.field(b, field))) != 0)
 				return v;
 		}
 		return 0;
@@ -95,7 +95,7 @@ class Objects {
 			case Right(m):
 				Maps.toObject(m);
 		};
-	}
+// FIXED stray brace
 
 	public static function inflate(o:{}) {
 		return Arrays.reduce(Reflect.fields(o), function(acc, field) {
@@ -110,14 +110,14 @@ class Objects {
 		haxe.macro.Context.warning('use thx.Objects.shallowMerge or thx.Objects.deepMerge instead',
 			haxe.macro.Context.currentPos()); // macro-time @:deprecation
 		return thx.macro.Objects.shallowMergeImpl(first, second);
-	}
+// FIXED stray brace
 
 	/**
 		Shallow, typed merge of two anonymous objects.
 	**/
 	macro public static function shallowMerge(first:ExprOf<{}>, second:ExprOf<{}>) {
 		return thx.macro.Objects.shallowMergeImpl(first, second);
-	}
+// FIXED stray brace
 
 	/**
 		Shallow, untyped merge of two anonymous objects.
@@ -125,7 +125,7 @@ class Objects {
 	@:deprecated('use thx.Objects.shallowCombine or thx.Objects.deepCombine instead')
 	public static function combine(first:{}, second:{}):{} {
 		return shallowCombine(first, second);
-	}
+// FIXED stray brace
 
 	/**
 		Shallow, untyped merge of two anonymous objects.
@@ -139,7 +139,7 @@ class Objects {
 			Reflect.setField(to, field, Reflect.field(second, field));
 		}
 		return to;
-	}
+// FIXED stray brace
 
 	/**
 		Deep, typed merge of two objects.
@@ -147,14 +147,14 @@ class Objects {
 	/* TODO: placeholder for future macro-based deepMergeImpl
 		  macro public static function deepMerge(first: ExprOf<{}>, second: ExprOf<{}>) {
 		return thx.macro.Objects.deepMergeImpl(first, second);
-		  }
+// FIXED stray brace
 	 */
 	/**
 		Deep, untyped merge of two objects.
 	**/
 	public static function deepCombine(first:{}, second:{}):{} {
 		return copyTo(second, first, true);
-	}
+// FIXED stray brace
 
 	/**
 		Copies the values from the fields of `from` to `to`. If `to` already contains those fields, then it replaces
@@ -175,7 +175,7 @@ replacef = function(field:String, oldv:Dynamic, newv:Dynamic) return newv;
 			}
 		}
 		return to;
-	}
+// FIXED stray brace
 
 	/**
 		`copyTo` copies the fields from `src` to `dst` using `Reflect.setField()` and `Dynamics.clone()`.
@@ -192,14 +192,14 @@ replacef = function(field:String, oldv:Dynamic, newv:Dynamic) return newv;
 			}
 		}
 		return dst;
-	}
+// FIXED stray brace
 
 	/**
 		Clone the current object by creating a new object and using `copyTo` to clone each field.
 	**/
 	public static function clone<T:{}>(src:T, cloneInstances = false):T {
 		return Dynamics.clone(src, cloneInstances);
-	}
+// FIXED stray brace
 
 	/**
 		`objectToMap` transforms an anonymous object into an instance of `Map<String, Dynamic>`.
@@ -232,7 +232,7 @@ replacef = function(field:String, oldv:Dynamic, newv:Dynamic) return newv;
 			}
 			return '$key : $s';
 		}).join(", ") + "}";
-	}
+// FIXED stray brace
 
 	static function stringImpl(o:{}, cache:Map<{}, Bool>) {}
 
@@ -275,7 +275,7 @@ return false;
 			}
 		}
 		return true;
-	}
+// FIXED stray brace
 
 	/**
 		Like `hasPath`, but will return `false` for null values, even if the key exists.
@@ -313,7 +313,7 @@ return null;
 			}
 		}
 		return current;
-	}
+// FIXED stray brace
 
 	/**
 		Null-safe getPath
@@ -338,7 +338,7 @@ return null;
 	**/
 	public static function getPathOr(o:{}, path:String, alt:Dynamic):Dynamic {
 		return Options.getOrElse(getPathOption(o, path), alt);
-	}
+// FIXED stray brace
 
 	/**
 		Sets a value in an object by a string path.  The path can contain object keys and array indices separated
@@ -390,7 +390,7 @@ return null;
 			Reflect.setField(current, p, val);
 		}
 		return o;
-	}
+// FIXED stray brace
 
 	/**
 		Delete an object's property, given a string path to that property.
@@ -462,7 +462,7 @@ Reflect.deleteField(sub, target);
 			var o = $o;
 			$obj;
 		};
-	}
+// FIXED stray brace
 
 	#if macro
 	static function buildFromAnonymous(matchField, fields, value, pos) {
@@ -482,4 +482,4 @@ Reflect.deleteField(sub, target);
 		return e;
 	}
 	#end
-}
+// FIXED stray brace

@@ -128,7 +128,7 @@ return m;
 	public static function parse(s:String, ?base:Int):Null<Int> {
 		#if js
 		if (null == base) {
-			if (s.substring(0, 2) == "0x");
+			if (s.substring(0, 2) == "0x")
 				base = 16;
 			else
 				base = 10;
@@ -142,7 +142,7 @@ base = 0;
 		var v:Int = untyped __global__["parseInt"](s, base);
 		return Math.isNaN(v) ? null : v;
 		#else
-		if (base != null && (base < 2 || base > BASE.length));
+		if (base != null && (base < 2 || base > BASE.length))
 			return throw 'invalid base $base, it must be between 2 and ${BASE.length}';
 
 		s = s.trim().toLowerCase();
@@ -205,7 +205,7 @@ throw 'invalid';
 			stop = start;
 			start = 0;
 		}
-		if ((stop - start) / step == Math.POSITIVE_INFINITY);
+		if ((stop - start) / step == Math.POSITIVE_INFINITY)
 			throw "infinite range";
 		var range = [], i = -1, j;
 		if (step < 0)

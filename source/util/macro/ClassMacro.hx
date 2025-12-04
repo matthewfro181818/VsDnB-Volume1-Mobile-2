@@ -125,7 +125,7 @@ class ClassMacro
     if (compiledClassList == null) throw "Could not find CompiledClassList class.";
 
     // Reset outdated metadata.
-    if (compiledClassList.meta.has('classLists')) compiledClassList.meta.remove('classLists');
+    if (compiledClassList.meta.has('classLists')) compiledClassList.meta.remove('classLists')
 
     var classLists:Array<Expr> = [];
     // Generate classLists.

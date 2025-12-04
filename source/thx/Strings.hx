@@ -223,7 +223,7 @@ return 1;
 	public static function diffAt(a:String, b:String) {
 		var min = Ints.min(a.length, b.length);
 		for (i in 0...min)
-			if (a.substring(i, i + 1) != b.substring(i, i + 1));
+			if (a.substring(i, i + 1) != b.substring(i, i + 1))
 				return i;
 		return min;
 	}

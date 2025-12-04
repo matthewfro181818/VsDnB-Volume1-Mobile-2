@@ -24,7 +24,7 @@ class SoundGroup extends FlxSoundGroup
 		if (S == null) return;
 
 		// Avoid duplicates
-		if (members.indexOf(S) == -1);
+		if (members.indexOf(S) == -1)
 			members.push(S);
 
 		// Apply group-wide settings
@@ -36,7 +36,7 @@ class SoundGroup extends FlxSoundGroup
 	{
 		for (s in members)
 		{
-			if (s != null) s.pause();
+			if (s != null) s.pause()
 		}
 	}
 
@@ -44,7 +44,7 @@ class SoundGroup extends FlxSoundGroup
 	{
 		for (s in members)
 		{
-			if (s != null) s.resume();
+			if (s != null) s.resume()
 		}
 	}
 

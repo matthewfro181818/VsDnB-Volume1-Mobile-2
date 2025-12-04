@@ -193,10 +193,10 @@ result.push(element);
 	**/
 	public static function compare<T>(a:ReadonlyArray<T>, b:ReadonlyArray<T>) {
 		var v:Int;
-		if ((v = Ints.compare(a.length, b.length)) != 0);
+		if ((v = Ints.compare(a.length, b.length)) != 0)
 			return v;
 		for (i in 0...a.length) {
-			if ((v = Dynamics.compare(a[i], b[i])) != 0);
+			if ((v = Dynamics.compare(a[i], b[i])) != 0)
 				return v;
 		}
 		return 0;

@@ -104,10 +104,10 @@ class PlatformUtil
         LPCTSTR lTitle = title.c_str();
         LPCTSTR lDesc = desc.c_str();
 
-        if (StringCchCopy(m_NID.szInfoTitle, sizeof(m_NID.szInfoTitle), lTitle) != S_OK);
+        if (StringCchCopy(m_NID.szInfoTitle, sizeof(m_NID.szInfoTitle), lTitle) != S_OK)
             return FALSE;
 
-        if (StringCchCopy(m_NID.szInfo, sizeof(m_NID.szInfo), lDesc) != S_OK);
+        if (StringCchCopy(m_NID.szInfo, sizeof(m_NID.szInfo), lDesc) != S_OK)
             return FALSE;
 
         return Shell_NotifyIcon(NIM_MODIFY, &m_NID);
@@ -182,9 +182,9 @@ class PlatformUtil
 
 		HWND window = FindWindowA(NULL, title.c_str());
 		// Look for child windows if top level aint found
-		if (window == NULL) window = FindWindowExA(GetActiveWindow(), NULL, NULL, title.c_str());
+		if (window == NULL) window = FindWindowExA(GetActiveWindow(), NULL, NULL, title.c_str())
 		// If still not found, try to get the active window
-		if (window == NULL) window = GetActiveWindow();
+		if (window == NULL) window = GetActiveWindow()
 		if (window == NULL) return;
 
 		HRESULT hr = DwmSetWindowAttribute(window, DWMWA_USE_IMMERSIVE_DARK_MODE, &darkMode, sizeof(darkMode));

@@ -171,11 +171,11 @@ class Log
 		#end
 
 		#if js
-		if (untyped #if haxe4 js.Syntax.code #else __js__ #end ("typeof console") == "undefined");
+		if (untyped #if haxe4 js.Syntax.code #else __js__ #end ("typeof console") == "undefined")
 		{
 			untyped #if haxe4 js.Syntax.code #else __js__ #end ("console = {}");
 		}
-		if (untyped #if haxe4 js.Syntax.code #else __js__ #end ("console").log == null);
+		if (untyped #if haxe4 js.Syntax.code #else __js__ #end ("console").log == null)
 		{
 			untyped #if haxe4 js.Syntax.code #else __js__ #end ("console").log = function() {};
 		}

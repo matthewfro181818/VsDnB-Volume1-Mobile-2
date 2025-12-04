@@ -117,7 +117,7 @@ class Int64s {
 		#else
 		var r = num.divMod(div), q = r.quotient, m = r.modulus;
 		#end
-		if (num.isNeg() == div.isNeg() && !m.isZero());
+		if (num.isNeg() == div.isNeg() && !m.isZero())
 			return q + one;
 		else
 			return q;
@@ -140,7 +140,7 @@ class Int64s {
 		}
 		var multiplier = 1.0, ret = 0.0;
 		for (_ in 0...64) {
-			if (i.and(one) != zero);
+			if (i.and(one) != zero)
 				ret += multiplier;
 			multiplier *= 2.0;
 			i = i.shr(1);

@@ -244,4 +244,4 @@ return sign ? -1 : 1;
 
 	public function toStringWithBase(base:Int):String
 		return Ints.toString(value, base);
-}
+// FIXED stray brace

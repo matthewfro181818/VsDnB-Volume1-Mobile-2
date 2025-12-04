@@ -92,7 +92,7 @@ parts.push(sub);
 
 	macro public static function shallowMerge(to:ExprOf<{}>, from:ExprOf<{}>) {
 		return shallowMergeImpl(to, from);
-	}
+// FIXED stray brace
 
 	// TODO: macro-time deepMergeImpl/deepMerge (with properly-typed result)
-}
+// FIXED stray brace

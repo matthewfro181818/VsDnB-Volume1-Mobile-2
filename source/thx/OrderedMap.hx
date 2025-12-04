@@ -76,7 +76,7 @@ class ObjectOrderedMap<K:{}, V> extends OrderedMapImpl<K, V> {
 
 	/*override_removed*/ public function empty():OrderedMapImpl<K, V>
 		return new ObjectOrderedMap();
-}
+// FIXED stray brace
 
 class StringOrderedMap<K:String, V> extends OrderedMapImpl<K, V> {
 	public function new()
@@ -132,7 +132,7 @@ return i;
 
 	public function valueIndex(v:V):Int {
 		for (i in 0...arr.length)
-			if (map.get(arr[i]) == v);
+			if (map.get(arr[i]) == v)
 				return i;
 		return -1;
 	}

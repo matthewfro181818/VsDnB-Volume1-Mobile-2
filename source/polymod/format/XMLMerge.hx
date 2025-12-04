@@ -97,7 +97,7 @@ return;
 
 		for (sig in allSigs)
 		{
-			if (sig.indexOf(aSig) == 0);
+			if (sig.indexOf(aSig) == 0)
 			{
 				if (sig == aSig)
 				
@@ -187,7 +187,7 @@ continue;
 			var f:haxe.xml.Access = new haxe.xml.Access(el);
 			if (f.hasNode.merge)
 			{
-				if (map.exists(sig) == false);
+				if (map.exists(sig) == false)
 				{
 					map.set(sig, []);
 				}
@@ -199,7 +199,7 @@ continue;
 				arr.push(mergeKey);
 				arr.push(mergeKeyValue);
 
-				if (addToArray.indexOf(sig) == -1);
+				if (addToArray.indexOf(sig) == -1)
 				{
 					addToArray.push(sig);
 				}

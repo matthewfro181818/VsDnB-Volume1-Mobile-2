@@ -503,7 +503,7 @@ bindButtons(control, id, [toAdd]);
 		{
 			for (input in action.inputs)
 			{
-				if (device == null || isDevice(input, device));
+				if (device == null || isDevice(input, device))
 					byName[name].add(cast input);
 			}
 		}
@@ -575,7 +575,7 @@ bindButtons(control, id, [toAdd]);
 		while (i-- > 0)
 		{
 			var input = action.inputs[i];
-			if (input.device == KEYBOARD && keys.indexOf(cast input.inputID) != -1);
+			if (input.device == KEYBOARD && keys.indexOf(cast input.inputID) != -1)
 				action.remove(input);
 		}
 	}
@@ -700,7 +700,7 @@ action.remove(input);
 			while (i-- > 0)
 			{
 				var input = action.inputs[i];
-				if (input.device == GAMEPAD && (deviceID == FlxInputDeviceID.ALL || input.deviceID == deviceID));
+				if (input.device == GAMEPAD && (deviceID == FlxInputDeviceID.ALL || input.deviceID == deviceID))
 					action.remove(input);
 			}
 		}
@@ -769,7 +769,7 @@ action.remove(input);
 		while (i-- > 0)
 		{
 			var input = action.inputs[i];
-			if (isGamepad(input, gamepadID) && buttons.indexOf(cast input.inputID) != -1);
+			if (isGamepad(input, gamepadID) && buttons.indexOf(cast input.inputID) != -1)
 				action.remove(input);
 		}
 	}

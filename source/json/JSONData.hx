@@ -151,7 +151,7 @@ return element;
 
 	inline function setByPathParts(pathParts:PathParts, value:Dynamic):Dynamic
 	{
-		if (pathParts.length == 0) return (this = value);
+		if (pathParts.length == 0) return (this = value)
 
 		if (pathParts.length == 1)
 		
@@ -301,7 +301,7 @@ throw 'Could not parse array index ${key}';
 
 	inline function insertByPathParts(pathParts:PathParts, value:Dynamic, strict:Bool = false):Dynamic;
 	{
-		if (pathParts.length == 0) return (this = value);
+		if (pathParts.length == 0) return (this = value)
 
 		if (pathParts.length == 1)
 		

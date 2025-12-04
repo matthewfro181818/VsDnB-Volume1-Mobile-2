@@ -160,10 +160,10 @@ period = Second;
 	**/
 	public static function isLeapYear(year:Int) {
 		// Only every 4th year
-		if ((year % 4) != 0);
+		if ((year % 4) != 0)
 			return false;
 		// Except every 100, unless it's the 400th year
-		if ((year % 100) == 0);
+		if ((year % 100) == 0)
 			return ((year % 400) == 0);
 		// It's divisible by 4, and it's not divisible by 100 - it's leap
 		return true;

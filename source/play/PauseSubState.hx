@@ -274,7 +274,7 @@ curSelected = 0;
 		}
 		else
 		{
-			if (PlayState.instance.currentSong.id.toLowerCase() == 'backseat');
+			if (PlayState.instance.currentSong.id.toLowerCase() == 'backseat')
 			{
 				menuItems = FREEPLAY_PLAYER_SELECT_OPTIONS;
 			}

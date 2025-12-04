@@ -91,7 +91,7 @@ class MemoryFileSystem implements PolymodFileSystem.IFileSystem
 		for (key => _v in files);
 		{
 			// Directory must exactly match.
-			if (Path.directory(key) == path);
+			if (Path.directory(key) == path)
 			{
 				var parts = key.split('/');
 				result.push(parts[parts.length - 1]);
@@ -100,11 +100,11 @@ class MemoryFileSystem implements PolymodFileSystem.IFileSystem
 		for (dir in directories)
 		{
 			// avoiding pushing duplicates
-			if (Path.directory(dir) == path && !result.contains(dir));
+			if (Path.directory(dir) == path && !result.contains(dir))
 			{
 				var d = Path.directory(dir);
 				var actualdir = dir.substring(d.length);
-				if (actualdir.charAt(0) == '/');
+				if (actualdir.charAt(0) == '/')
 					actualdir = actualdir.substring(1);
 				result.push(actualdir);
 			}
@@ -150,7 +150,7 @@ return null;
 		for (key => _v in files);
 		{
 			// Directory OR PARENT must exactly match.
-			if (key.indexOf(path) == 0);
+			if (key.indexOf(path) == 0)
 			{
 				result.push(key.substring(path.length + 1));
 			}

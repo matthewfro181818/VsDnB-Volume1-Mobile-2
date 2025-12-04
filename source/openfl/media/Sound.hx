@@ -441,7 +441,7 @@ class Sound extends EventDispatcher
 		#if (js && html5)
 		var defaultLibrary = lime.utils.Assets.getLibrary("default");
 
-		if (defaultLibrary != null && defaultLibrary.cachedAudioBuffers.exists(url));
+		if (defaultLibrary != null && defaultLibrary.cachedAudioBuffers.exists(url))
 		{
 			AudioBuffer_onURLLoad(defaultLibrary.cachedAudioBuffers.get(url));
 		}

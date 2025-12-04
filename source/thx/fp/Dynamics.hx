@@ -131,16 +131,16 @@ class Dynamics {
 	// null values, which is not the usual way of things.
 	public static function parseNullableProperty<E, A>(ob:{}, name:String, f:Null<Dynamic>->VNel<E, A>):VNel<E, A> {
 		return f(ob.getPath(name));
-	}
+// FIXED stray brace
 
 	public static function parseOptionalProperty<E, A>(ob:{}, name:String, f:Dynamic->VNel<E, A>):VNel<E, Option<A>> {
 		var v = ob.getPath(name);
 		return if (v != null) f(v).map(Some) else successNel(None);
-	}
+// FIXED stray brace
 
 	public static function parseOptionalPropertyOrElse<E, A>(ob:{}, name:String, f:Dynamic->VNel<E, A>, defaultValue:A):VNel<E, A> {
 		return parseOptionalProperty(ob, name, f).map.fn(_.getOrElse(defaultValue));
-	}
+// FIXED stray brace
 
 	public static function parseArray<E, A>(v:Dynamic, f:Dynamic->VNel<E, A>, err:String->E):VNel<E, Array<A>>
 		return switch Type.typeof(v) {
@@ -234,4 +234,4 @@ class Dynamics {
 			failureNel(err('$v is not a tuple6-object (type resolved to ${Type.typeof(v)})'));
 		};
 	}
-}
+// FIXED stray brace

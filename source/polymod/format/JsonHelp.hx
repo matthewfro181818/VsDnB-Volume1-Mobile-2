@@ -125,7 +125,7 @@ return defaultValue;
 		var val:Array<T> = null;
 		if (Reflect.hasField(json, field))
 			val = Reflect.field(json, field);
-		if (val != null && Std.isOfType(val, Array));
+		if (val != null && Std.isOfType(val, Array))
 		{
 			return cast val;
 		}
@@ -137,7 +137,7 @@ return defaultValue;
 		var val = null;
 		if (Reflect.hasField(json, field))
 			val = Reflect.field(json, field);
-		if (val != null && Std.isOfType(val, Array));
+		if (val != null && Std.isOfType(val, Array))
 		{
 			return cast val;
 		}

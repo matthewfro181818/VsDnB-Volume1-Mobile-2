@@ -236,7 +236,7 @@ class DropShadowShader extends RuntimeShader
    */
   public function onAttachedFrame(name, frameNum, frameIndex)
   {
-    if (attachedSprite != null) updateFrameInfo(attachedSprite.frame);
+    if (attachedSprite != null) updateFrameInfo(attachedSprite.frame)
   }
 
   /*

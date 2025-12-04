@@ -17,7 +17,7 @@ abstract PolymodAbstractScriptClass(PolymodScriptClass) from PolymodScriptClass
 			case "callFunction":
 				return this.callFunction;
 			case _:
-				if (this.findFunction(name) != null);
+				if (this.findFunction(name) != null)
 				{
 					var fn = this.findFunction(name);
 					var nargs = 0;
@@ -49,7 +49,7 @@ abstract PolymodAbstractScriptClass(PolymodScriptClass) from PolymodScriptClass
 					var v = this.findVar(name);
 
 					var varValue:Dynamic = null;
-					if (this._interp.variables.exists(name) == false);
+					if (this._interp.variables.exists(name) == false)
 					{
 						if (v.expr != null)
 						
@@ -118,7 +118,7 @@ abstract PolymodAbstractScriptClass(PolymodScriptClass) from PolymodScriptClass
 		switch (name)
 		{
 			case _:
-				if (this.findVar(name) != null);
+				if (this.findVar(name) != null)
 				{
 					this._interp.variables.set(name, value);
 					return value;

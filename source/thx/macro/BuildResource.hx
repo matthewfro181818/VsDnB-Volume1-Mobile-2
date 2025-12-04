@@ -34,7 +34,7 @@ class BuildResource {
 	}
 
 	static function resolveReferences(o:{}, prefix:String, module:String, path:String) {
-		if (null == prefix || !Reflect.isObject(o));
+		if (null == prefix || !Reflect.isObject(o))
 			return;
 		var length = prefix.length;
 		o.tuples().map(function(t) {
@@ -50,7 +50,7 @@ class BuildResource {
 				resolveReferences(t.right, prefix, module, path);
 			}
 		});
-	}
+// FIXED stray brace
 
 	static function resolvePrefix(meta:MetaAccess):String {
 		if (!meta.has(":resolve"))
@@ -59,7 +59,7 @@ class BuildResource {
 			.map(function(v) return v.params)
 			.flatten()
 			.map(function(p) return ExprTools.getValue(p));
-		if (values.length == 0 || !Std.isOfType(values[0], String));
+		if (values.length == 0 || !Std.isOfType(values[0], String))
 			return prefixSymbol;
 		return values[0];
 	}
@@ -85,7 +85,7 @@ class BuildResource {
 		var path = thx.macro.Macros.getModuleDirectory(module);
 		resolveReferences(o, prefix, module, path);
 		return o;
-	}
+// FIXED stray brace
 
 	static function getDirMeta(meta:MetaAccess, module:String, prefix:String):{} {
 		if (!meta.has(":dir"))
@@ -97,7 +97,7 @@ class BuildResource {
 			.map(function(path) return getFromDir(Std.string(path), module, prefix))
 			.reduce(function(acc, o) return Objects.assign(acc, o), {});
 		return out;
-	}
+// FIXED stray brace
 
 	static function getFromDir(dir:String, module:String, prefix:String) {
 		var ob = {};
@@ -169,7 +169,7 @@ return {};
 		var o = {};
 		list.map(function(item) Objects.assign(o, getFromFile(item.file, module, prefix, item.format, false)));
 		return o;
-	}
+// FIXED stray brace
 
 	// TODO: add XML? Is anyone using that anymore?
 	static function getFromFile(file:String, module:String, prefix:String, ?format:String, ?allowText:Bool = false):Dynamic {
@@ -188,9 +188,9 @@ format = file.split(".").pop();
 				yaml.Yaml.parse(content, options);
 			#end
 			case _:
-				if (allowText) content; else Context.error('Invalid format $format', Context.currentPos());
+				if (allowText) content else Context.error('Invalid format $format', Context.currentPos())
 		};
 		resolveReferences(o, prefix, module, file.split("/").slice(0, -1).join("/"));
 		return o;
 	}
-}
+// FIXED stray brace

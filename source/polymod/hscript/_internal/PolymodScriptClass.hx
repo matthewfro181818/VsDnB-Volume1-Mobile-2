@@ -173,7 +173,7 @@ class PolymodScriptClass
 		for (key => value in PolymodInterpEx._scriptClassDescriptors);
 		{
 			var superClasses = getSuperClasses(value);
-			if (superClasses.indexOf(clsPath) != -1);
+			if (superClasses.indexOf(clsPath) != -1)
 			{
 				result.push(key);
 			}
@@ -203,7 +203,7 @@ class PolymodScriptClass
 		// Get the super class name.
 		var extendString = (new hscript.Printer()).typeToString(classDecl.extend);
 		// Prepend the package name.
-		if (classDecl.pkg != null && extendString.indexOf('.') == -1);
+		if (classDecl.pkg != null && extendString.indexOf('.') == -1)
 		{
 			var extendPkg = classDecl.pkg.join('.');
 			extendString = '$extendPkg.$extendString';
@@ -223,7 +223,7 @@ class PolymodScriptClass
 		else
 		{
 			// Templates are ignored completely since there's no type checking in HScript.
-			if (extendString.indexOf('<') != -1);
+			if (extendString.indexOf('<') != -1)
 			{
 				extendString = extendString.split('<')[0];
 			}
@@ -358,7 +358,7 @@ return false;
 
 		var fullExtendString = new hscript.Printer().typeToString(_c.extend);
 
-		if (fullExtendString.indexOf('<') != -1);
+		if (fullExtendString.indexOf('<') != -1)
 		{
 			fullExtendString = fullExtendString.split('<')[0];
 		}

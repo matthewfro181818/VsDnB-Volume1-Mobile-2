@@ -235,7 +235,7 @@ return [];
 		var rootLevelMods:Array<String> = [];
 		for (mod in modList)
 		{
-			if (!dependencies.exists(mod.id) || dependencies.get(mod.id).length == 0);
+			if (!dependencies.exists(mod.id) || dependencies.get(mod.id).length == 0)
 			{
 				rootLevelMods.push(mod.id);
 			}
@@ -265,7 +265,7 @@ return [];
 
 		for (modData in modList)
 		{
-			if (rootLevelMods.indexOf(modData.id) != -1);
+			if (rootLevelMods.indexOf(modData.id) != -1)
 			{
 				// Add the mod to the result list.
 				result.push(modData);

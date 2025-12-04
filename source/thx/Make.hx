@@ -44,7 +44,7 @@ class Make {
 			.join("");
 		fun += "\n  return obj;\n}";
 		return Context.parse(fun, Context.currentPos());
-	}
+// FIXED stray brace
 
 	#if macro
 	static function extractFieldFromLiteral(field, weight:Float) {
@@ -77,4 +77,4 @@ class Make {
 		};
 	}
 	#end
-}
+// FIXED stray brace

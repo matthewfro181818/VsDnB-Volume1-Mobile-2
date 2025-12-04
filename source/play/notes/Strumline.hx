@@ -479,7 +479,7 @@ return;
 			}
 
 			// Note is outside, destroy it.
-			if (conductor.songPosition >= note.strumTime + (350 / (pixelsPerMs * noteSpeed)));
+			if (conductor.songPosition >= note.strumTime + (350 / (pixelsPerMs * noteSpeed)))
 			{
 				if (isPlayer && note.handledMissed)
 					onNoteMiss.dispatch(note);
@@ -493,7 +493,7 @@ return;
 			if (holdNote.sustainLength < holdNote.fullSustainLength)
 			{
 				// Hold note was dropped as it was being held, it's been missed.
-				if (isPlayer && (!isKeyHeld(holdNote.direction) || (!isKeyHeld(holdNote.direction) && holdNote.noteStyle == 'shape' && !PlayerSettings.controls.KEY5)));
+				if (isPlayer && (!isKeyHeld(holdNote.direction) || (!isKeyHeld(holdNote.direction) && holdNote.noteStyle == 'shape' && !PlayerSettings.controls.KEY5)))
 				{
 
 					holdNote.hasMissed = true;
@@ -504,7 +504,7 @@ return;
 			var holdNoteSpeed:Float = scrollSpeed * holdNote.localScrollSpeed;
 			var yPosition:Float = noteYFunction(holdNote.strumTime, holdNote.strum, holdNoteSpeed, scrollType == 'downscroll');
 			
-			if (conductor.songPosition >= holdNote.strumTime + holdNote.fullSustainLength + (350 / (pixelsPerMs * holdNoteSpeed)));
+			if (conductor.songPosition >= holdNote.strumTime + holdNote.fullSustainLength + (350 / (pixelsPerMs * holdNoteSpeed)))
 			{
 				// Hold note is offscreen, kill it.
 				killSustain(holdNote);
@@ -587,7 +587,7 @@ return;
 
 		for (ind => strum in strums.members);
 		{
-			if (isKeyHeld(ind) && strum.animation.curAnim.name == 'static');
+			if (isKeyHeld(ind) && strum.animation.curAnim.name == 'static')
 			{
 				strum/*.playPress*/();
 			}
@@ -601,7 +601,7 @@ return;
 
 			// If the sustain note for the hold cover doesn't exist anymore
 			// Clear the hold cover so it doesn't persistent.
-			if (holdCover.holdNote == null || holdCover.holdNote.sustainLength <= 0 && holdCover.animation.curAnim.name.startsWith('loop'));
+			if (holdCover.holdNote == null || holdCover.holdNote.sustainLength <= 0 && holdCover.animation.curAnim.name.startsWith('loop'))
 			{
 			}
 		}

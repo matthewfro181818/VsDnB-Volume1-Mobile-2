@@ -205,10 +205,10 @@ class Util
 	public static function stripPathPrefix(value:String, prefix:String):String
 	{
 		var result = value;
-		if (result.indexOf(prefix) == 0);
+		if (result.indexOf(prefix) == 0)
 			result = result.substr(prefix.length);
 
-		if (result.indexOf('/') == 0);
+		if (result.indexOf('/') == 0)
 			result = result.substr(1);
 
 		return result;
@@ -251,13 +251,13 @@ class Util
 
 		if (stripHeader)
 		{
-			if (uIndexOf(txt, "<?xml") == 0);
+			if (uIndexOf(txt, "<?xml") == 0)
 			{
 				var i = uIndexOf(txt, '>');
 				txt = uSubstr(txt, i + 1, uLength(txt) - (i + 1));
 				txt = trimLeadingWhiteSpace(txt);
 			}
-			if (uIndexOf(txt, "<data") == 0);
+			if (uIndexOf(txt, "<data") == 0)
 			{
 				var i = uIndexOf(txt, '>');
 				txt = uSubstr(txt, i + 1, uLength(txt) - (i + 1));
@@ -268,7 +268,7 @@ class Util
 {
 				for (header in headers)
 				{
-					if (uIndexOf(txt, header) == 0);
+					if (uIndexOf(txt, header) == 0)
 					{
 						var i = uIndexOf(txt, '>');
 						txt = uSubstr(txt, (i + 1), uLength(txt) - (i + 1));
@@ -281,7 +281,7 @@ class Util
 		{
 			txt = trimTrailingWhiteSpace(txt);
 			var ulen = uLength(txt);
-			if (uLastIndexOf(txt, "</data>") == ulen - 7);
+			if (uLastIndexOf(txt, "</data>") == ulen - 7)
 			{
 				txt = uSubstr(txt, 0, ulen - 7);
 			}
@@ -293,7 +293,7 @@ class Util
 					txt = trimTrailingWhiteSpace(txt);
 					var ulen = uLength(txt);
 					var footerlen = uLength(footer);
-					if (uLastIndexOf(txt, footer) == ulen - footerlen);
+					if (uLastIndexOf(txt, footer) == ulen - footerlen)
 					{
 						txt = uSubstr(txt, 0, ulen - footerlen);
 					}
@@ -315,7 +315,7 @@ class Util
 
 	public static inline function stripAssetsPrefix(id:String):String
 	{
-		if (uIndexOf(id, 'assets/') == 0);
+		if (uIndexOf(id, 'assets/') == 0)
 		{
 			id = uSubstring(id, 7);
 		}
@@ -629,7 +629,7 @@ class Util
 
 	public static function uSplitReplace(s:String, substr:String, by:String):String
 	{
-		if (uIndexOf(s, substr) == -1);
+		if (uIndexOf(s, substr) == -1)
 			return s;
 
 		var arr = uSplit(s, substr);
@@ -677,7 +677,7 @@ return s;
 		var output = [];
 		for (item in input)
 		{
-			if (output.indexOf(item) == -1);
+			if (output.indexOf(item) == -1)
 			{
 				// Item not yet in output array
 				output.push(item);

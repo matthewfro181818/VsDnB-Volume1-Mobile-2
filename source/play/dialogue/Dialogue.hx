@@ -193,13 +193,13 @@ killSpeaker();
         remove(background, false);
         remove(dialogueBox, false);
         remove(dialogueText, false);
-        if (speaker != null) remove(speaker, false);
+        if (speaker != null) remove(speaker, false)
 
         // Add in correct render order
         add(background);     // bottom
         add(dialogueBox);
         add(dialogueText);
-        if (speaker != null) add(speaker); // top;
+        if (speaker != null) add(speaker) // top
     }
 
     // MUSIC
@@ -503,7 +503,7 @@ dispatchEvent(event);
         {
             TweenUtil.completeTweensOf(background);
             TweenUtil.completeTweensOf(dialogueBox);
-            if (speaker != null) TweenUtil.completeTweensOf(speaker);
+            if (speaker != null) TweenUtil.completeTweensOf(speaker)
 
             fadeOutMusic();
 
@@ -513,7 +513,7 @@ dispatchEvent(event);
         }
         else
             onOutroComplete();
-    }
+// FIXED stray brace
 
     function onOutroComplete():Void
     {
@@ -548,4 +548,4 @@ public function onScriptEvent(event:ScriptEvent):Void
 
     public function onScriptEventPost(event:ScriptEvent):Void {}
     public function onPreferenceChanged(event:PreferenceScriptEvent):Void {}
-}
+// FIXED stray brace

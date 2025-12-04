@@ -450,7 +450,7 @@ item.alpha = 1;
 		easeScore = Std.int(value);
 		scoreText.text = LanguageManager.getTextString('story_weekScore') + " " + easeScore;
 	}
-}
+// FIXED stray brace
 
 class Week
 {

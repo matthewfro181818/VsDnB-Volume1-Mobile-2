@@ -68,4 +68,4 @@ class ScriptEventDispatchState extends FlxUIState implements IEventDispatcher
 	{
 		modding.PolymodManager.reloadAssets();
 	}
-}
+// FIXED stray brace

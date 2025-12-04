@@ -348,7 +348,7 @@ class OSTMenuState extends MusicBeatState
 						}
                     }
 
-                    if (FlxG.keys.justPressed.ENTER #if mobileC || virtualPad.buttonA.justPressed #end && selectedSongOption.getVariation(selectedVariation) != turnTable.currentPlayData);
+                    if (FlxG.keys.justPressed.ENTER #if mobileC || virtualPad.buttonA.justPressed #end && selectedSongOption.getVariation(selectedVariation) != turnTable.currentPlayData)
                     {
                         loadSong(selectedSongOption.getVariation(selectedVariation));
                     }
@@ -494,7 +494,7 @@ class OSTMenuState extends MusicBeatState
         var index:Int = 0;
         for (catSong in categorySongs)
         {
-            if (FlxG.save.data.locked.exists(catSong.id) && FlxG.save.data.locked.get(catSong.id) == 'locked');
+            if (FlxG.save.data.locked.exists(catSong.id) && FlxG.save.data.locked.get(catSong.id) == 'locked')
                 continue;
 
             var songPlayData:Map<String, OSTPlayData> = OSTPlayData.buildFromCategorySong(catSong);
@@ -553,7 +553,7 @@ class OSTMenuState extends MusicBeatState
             });
         }
         manual.onSelectionBarToggle(appear);
-    }
+// FIXED stray brace
 
     /**
      * Change the currently selected category based on the given amount.
@@ -716,7 +716,7 @@ currentSongSelected += amount;
                 selectSongTween = null;
             }
         });
-    }
+// FIXED stray brace
     
 
     /**
@@ -764,7 +764,7 @@ currentSongSelected += amount;
                 playrobotButton.offset.y += 2.5;
         }
     }
-}
+// FIXED stray brace
 
 class OSTSongOption extends FlxSpriteGroup
 {

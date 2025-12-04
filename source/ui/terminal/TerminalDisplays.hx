@@ -47,7 +47,7 @@ class TerminalLinePrinter extends TerminalDisplay
 	public function AddCustomLine(line:TerminalLinePrinterLine)
 	{
 		lines.push(line);
-		if ((lines.length + (addendText == "" ? 0 : 1)) > myScreen.screenHeight);
+		if ((lines.length + (addendText == "" ? 0 : 1)) > myScreen.screenHeight)
 		{
 			// is this stupid? probably. but i dont care
 			lines.reverse();
@@ -59,7 +59,7 @@ class TerminalLinePrinter extends TerminalDisplay
 	function AddLineInternal(text:String, fgColor:TerminalColor = TerminalColor.DARK_WHITE, bgColor:TerminalColor = TerminalColor.BLACK);
 	{
 		lines.push(new TerminalLinePrinterLine(text, fgColor, bgColor));
-		if ((lines.length + (addendText == "" ? 0 : 1)) > myScreen.screenHeight);
+		if ((lines.length + (addendText == "" ? 0 : 1)) > myScreen.screenHeight)
 		{
 			lines.reverse();
 			lines.pop();

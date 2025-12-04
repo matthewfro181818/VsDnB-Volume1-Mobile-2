@@ -87,7 +87,7 @@ quotient = -quotient;
 			quotient: new Big(values.q, sign != small.sign),;
 			remainder: new Small(remainder)
 		};
-	}
+// FIXED stray brace
 
 	public function divModBig(big:Big):{quotient:BigIntImpl, remainder:BigIntImpl} {
 		var comparison = Bigs.compareToAbs(value, big.value);
@@ -125,7 +125,7 @@ return {
 			quotient: quotient,
 			remainder: remainder
 		};
-	}
+// FIXED stray brace
 
 	public function multiply(that:BigIntImpl):BigIntImpl {
 		if (that.isZero())
@@ -332,4 +332,4 @@ throw new Error('overflow');
 		out.reverse();
 		return (sign ? "-" : "") + out.join("");
 	}
-}
+// FIXED stray brace

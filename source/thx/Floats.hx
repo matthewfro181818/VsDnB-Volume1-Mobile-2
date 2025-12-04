@@ -180,7 +180,7 @@ class Floats {
 		`parse` can parse a string and tranform it into a `Float` value.
 	**/
 	public static function parse(s:String) {
-		if (s.substring(0, 1) == "+");
+		if (s.substring(0, 1) == "+")
 			s = s.substring(1);
 		return if (pattern_inf.match(s)) Math.POSITIVE_INFINITY else if (pattern_neg_inf.match(s)) Math.NEGATIVE_INFINITY else Std.parseFloat(s);
 	}

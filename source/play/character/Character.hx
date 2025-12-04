@@ -149,7 +149,7 @@ return super.update(elapsed);
         if (debugMode || isDead)
             return;
 
-        if (justPressedNote() && characterType == PLAYER);
+        if (justPressedNote() && characterType == PLAYER)
             holdTimer = 0;
 
         var shouldStopSinging = (characterType == PLAYER) ? !isHoldingNote() : true;
@@ -275,7 +275,7 @@ singArray = ["LEFT", "DOWN", "UP", "RIGHT"];
 
         holdTimer = 0;
 
-        if ((characterType == PLAYER && !nativelyPlayable) || (characterType == OPPONENT && nativelyPlayable));
+        if ((characterType == PLAYER && !nativelyPlayable) || (characterType == OPPONENT && nativelyPlayable))
         {
             switch (noteToPlay)
             {
@@ -391,7 +391,7 @@ return;
 	public function playComboAnimation(combo:Int)
 	{
 		// Play the GF hey animation every 100 combo hits.
-		if (combo % 100 == 0 && this.animation.getByName("cheer") != null);
+		if (combo % 100 == 0 && this.animation.getByName("cheer") != null)
 		{
 			this.canDance = false;
 			this.playAnim('cheer', true);
@@ -409,7 +409,7 @@ return;
 
         for (i in danceTypes)
         {
-            if (i == "ease" || (i.endsWith("-ease") && (animToDo + "-ease") == i));
+            if (i == "ease" || (i.endsWith("-ease") && (animToDo + "-ease") == i))
                 return true;
 
             var check = isDanceAnimation(animToDo) ? "idle";

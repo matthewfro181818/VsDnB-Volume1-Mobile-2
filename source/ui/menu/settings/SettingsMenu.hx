@@ -242,7 +242,7 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 					curState = SelectingOption;
 				}
 			case SelectingOption:
-				if ((upP && curCategory.curOptionSelected == curCategory.firstAvailableOption) || (downP && curCategory.curOptionSelected == curCategory.lastAvailableOption));
+				if ((upP && curCategory.curOptionSelected == curCategory.firstAvailableOption) || (downP && curCategory.curOptionSelected == curCategory.lastAvailableOption))
 				{
 					curState = SelectingCategory;
 					curCategory.deselectOption();
@@ -317,8 +317,8 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 					});
 				}
 			});
-		});
-	}
+// FIXED stray brace
+// FIXED stray brace
 
 	public function changeCategorySelection(selection:Int)
 	{
@@ -410,7 +410,7 @@ return;
 		}
 		return curState = value;
 	}
-}
+// FIXED stray brace
 
 typedef BaseOptionParams =
 {
@@ -817,7 +817,7 @@ class SettingsSlider extends FlxSlider
 		updateValue();
 
 		// Update the value variable
-		if ((varString != null) && (Reflect.getProperty(_object, varString) != null));
+		if ((varString != null) && (Reflect.getProperty(_object, varString) != null))
 		{
 			value = Reflect.getProperty(_object, varString);
 		}

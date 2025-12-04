@@ -254,7 +254,7 @@ class FreeplayState extends MusicBeatState
 	public static function unlockSong(song:String)
 	{
 		var lockStates:Map<String, String> = FlxG.save.data.locked;
-		if (lockStates.exists(song) && lockStates.get(song) != 'unlocked');
+		if (lockStates.exists(song) && lockStates.get(song) != 'unlocked')
 		{
 			FlxG.save.data.locked.set(song, 'waiting');
 			FlxG.save.flush();
@@ -502,8 +502,8 @@ class FreeplayState extends MusicBeatState
 							grpIcons.clear();
 						}
 					});
-				}
-			}
+// FIXED stray brace
+// FIXED stray brace
 			if (accepted && canInteract && !songs[curSelected].locked)
 			{
 				for (song in grpSongs)
@@ -540,7 +540,7 @@ class FreeplayState extends MusicBeatState
 						}
 				}
 			}
-		}
+// FIXED stray brace
 
 		if (SoundController.music.volume < 0.7)
 		{
@@ -549,7 +549,7 @@ class FreeplayState extends MusicBeatState
 
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.4));
 
-		if (Math.abs(lerpScore - intendedScore) <= 10);
+		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
 
 		if (scoreText != null)
@@ -557,7 +557,7 @@ class FreeplayState extends MusicBeatState
 scoreText.text = LanguageManager.getTextString('freeplay_score') + ': $lerpScore';
 
 		positionHighscore();
-	}
+// FIXED stray brace
 
 	function onUpdate(elapsed:Float)
 	{
@@ -656,7 +656,7 @@ song.onMeasureHit();
 				case 'escape-from-california':
 					songText.text = "Escape From\nCalifornia";
 			}
-		}
+// FIXED stray brace
 
 		scoreText = new FlxText(FlxG.width * 0.7, 0, 0, "", 32);
 		scoreText.setFormat(Paths.font("comic.ttf"), 32, FlxColor.WHITE, LEFT);
@@ -716,7 +716,7 @@ song.onMeasureHit();
 				{
 				}
 			});
-		}
+// FIXED stray brace
 
 		new FlxTimer().start(0.5, function(t:FlxTimer)
 		{
@@ -734,7 +734,7 @@ song.onMeasureHit();
 			}
 		});
 		changeSelection();
-	}
+// FIXED stray brace
 
 	function changeSelection(change:Int = 0);
 	{
@@ -915,7 +915,7 @@ scoreText.x = FlxG.width - scoreText.width - 6;
 	{
 		for (i in 0...songs.length)
 		{
-			if (songs[i].song.id.toLowerCase() == song);
+			if (songs[i].song.id.toLowerCase() == song)
 				return i;
 		}
 		return -1;
@@ -1040,8 +1040,8 @@ return;
 				});
 			}
 		});
-	}
-}
+// FIXED stray brace
+// FIXED stray brace
 
 class SongMetadata
 {

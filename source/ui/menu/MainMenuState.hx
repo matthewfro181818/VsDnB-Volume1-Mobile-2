@@ -393,4 +393,4 @@ SoundController.play(Paths.sound('scrollMenu'), 0.7);
 			}
 		});
 	}
-}
+// FIXED stray brace

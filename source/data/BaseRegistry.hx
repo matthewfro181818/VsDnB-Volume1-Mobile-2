@@ -249,7 +249,7 @@ abstract class BaseRegistry<T:(IRegistryEntry<J> & Constructible<EntryConstructo
      */
     public function parseEntryDataWithMigration(id:String, ?version:Version):Null<J>
     {
-        if (version == null || VersionUtil.validateVersion(version, versionRule));
+        if (version == null || VersionUtil.validateVersion(version, versionRule))
         {
             return parseEntryData(id);
         }

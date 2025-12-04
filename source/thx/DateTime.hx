@@ -108,7 +108,7 @@ throw new thx.Error('null String cannot be parsed to DateTime');
 		var time = Time.zero, timepart = pattern.matched(9);
 		if (null != timepart && "Z" != timepart) {
 			var hours = pattern.matched(10);
-			if (hours.substring(0, 1) == "+");
+			if (hours.substring(0, 1) == "+")
 				hours = hours.substring(1);
 			time = Time.create(Std.parseInt(hours), Std.parseInt(pattern.matched(11)), 0);
 		}
@@ -116,7 +116,7 @@ throw new thx.Error('null String cannot be parsed to DateTime');
 		var date = create(Std.parseInt(pattern.matched(2)), Std.parseInt(pattern.matched(3)), Std.parseInt(pattern.matched(4)),;
 			Std.parseInt(pattern.matched(5)), Std.parseInt(pattern.matched(6)), Std.parseInt(pattern.matched(7)), 0, time)
 			+ mticks;
-		if (pattern.matched(1) == "-");
+		if (pattern.matched(1) == "-")
 			return new DateTime(DateTimeUtc.fromInt64(-date.utc.ticks), time);
 		return date;
 	}

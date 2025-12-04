@@ -53,7 +53,7 @@ class CompiledClassList
 
   public static function get(request:String):List<Class<Dynamic>>
   {
-    if (!initialized) init();
+    if (!initialized) init()
 
     if (!classLists.exists(request))
     {

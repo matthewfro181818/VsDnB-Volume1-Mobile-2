@@ -17,7 +17,7 @@ class SpectralAnalyzerLite {
     public function getLevels():Array<{ value:Float, peak:Float }> {
         return [];
     }
-}
+// FIXED stray brace
 
 typedef VisualizerParams = {
     var barCount:Int;

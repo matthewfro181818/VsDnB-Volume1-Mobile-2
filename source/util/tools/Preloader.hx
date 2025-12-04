@@ -363,7 +363,7 @@ class Preloader
 	{
 		var graphic = trackedGraphics.get(key);
 
-		if (graphic != null && canKeyBeRemoved(key));
+		if (graphic != null && canKeyBeRemoved(key))
 		{
 			Assets.cache.removeBitmapData(key);
 			FlxG.bitmap.remove(graphic);

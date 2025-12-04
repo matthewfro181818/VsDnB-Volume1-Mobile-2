@@ -434,7 +434,7 @@ return null;
 			
 dispatcher?.dispatchEvent(event);
 	}
-}
+// FIXED stray brace
 
 /**
  * The progress at which the countdown is at.

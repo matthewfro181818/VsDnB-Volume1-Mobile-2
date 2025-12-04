@@ -174,4 +174,4 @@ class Options_Misc extends SettingsCategory
 	{
 		Preferences.language = selectedLanguage;
 	}
-}
+// FIXED stray brace

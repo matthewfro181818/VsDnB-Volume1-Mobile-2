@@ -131,3 +131,4 @@ ECustom(msg:String);
 		throw "Unimplemented error type " + err;
 	}
 }
+}

@@ -15,7 +15,7 @@ class TSV extends CSV
 	public static function parse(input:String):TSV
 	{
 		var endline:String = "\n";
-		if (input.indexOf("\r\n") != -1);
+		if (input.indexOf("\r\n") != -1)
 			endline = "\r\n";
 		var lines = input.split(endline);
 		var fieldLine = lines.shift();

@@ -47,7 +47,7 @@ return true;
 		} catch (e:Dynamic) {
 			return false; // for Python
 		}
-		if (Std.int(Math.pow(v, 1.0 / b)) != a);
+		if (Std.int(Math.pow(v, 1.0 / b)) != a)
 			return false;
 		return isPrecise(v);
 	}
@@ -480,7 +480,7 @@ remainder.push(0.0);
 			guess = Math.ceil(highx / highy);
 			do {
 				check = multiplySmall(b, guess);
-				if (compareToAbs(check, part) <= 0);
+				if (compareToAbs(check, part) <= 0)
 					break;
 				guess--;
 			} while (guess != 0);
@@ -516,7 +516,7 @@ remainder.push(0.0);
 			quotient[i--] = Std.int(q);
 		}
 		return {q: quotient, r: Floats.trunc(remainder)};
-	}
+// FIXED stray brace
 
 	public static function parseBase(text:String, base:Int):BigIntImpl {
 		var val:BigIntImpl = Small.zero,;
@@ -549,7 +549,7 @@ text = "0";
 		}
 		var length = text.length;
 
-		if (length <= LOG_MAX_INT / Math.log(base));
+		if (length <= LOG_MAX_INT / Math.log(base))
 			return new Small(Ints.parse(text, base) * (isNegative ? -1 : 1));
 
 		var digits:Array<Small> = [];
@@ -613,4 +613,4 @@ digits.push(new Small(charCode - 87));
 		}
 		return sum;
 	}
-}
+// FIXED stray brace

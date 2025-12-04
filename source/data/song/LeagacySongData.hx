@@ -76,4 +76,4 @@ class Song
 		swagShit.validScore = true;
 		return swagShit;
 	}
-}
+// FIXED stray brace

@@ -97,7 +97,7 @@ return;
      */
     public static function clearModules():Void
 	{
-        if (moduleList != null && moduleList.size() > 0);
+        if (moduleList != null && moduleList.size() > 0)
         {
             var event = new ScriptEvent(DESTROY, false);
             

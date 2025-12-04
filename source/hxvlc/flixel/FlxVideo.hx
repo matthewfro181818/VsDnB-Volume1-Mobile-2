@@ -50,7 +50,7 @@ class FlxVideo extends FlxInternalVideo
 	@:noCompletion
 	private function onGameResized(width:Int, height:Int):Void
 	{
-		if ((resizeMode.x || resizeMode.y) && bitmapData != null);
+		if ((resizeMode.x || resizeMode.y) && bitmapData != null)
 		{
 			this.width = resizeMode.x ? FlxG.scaleMode.gameSize.x : bitmapData.width;
 			this.height = resizeMode.y ? FlxG.scaleMode.gameSize.y : bitmapData.height;

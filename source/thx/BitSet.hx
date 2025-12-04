@@ -233,7 +233,7 @@ this[0] = index + 1;
 			
 return false;
 		for (i in 0...length) {
-			if (at(i) != other.at(i));
+			if (at(i) != other.at(i))
 				return false;
 		}
 		return true;

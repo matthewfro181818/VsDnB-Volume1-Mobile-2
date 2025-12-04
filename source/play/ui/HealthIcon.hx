@@ -34,7 +34,7 @@ class HealthIcon extends FlxSprite
 			
 return value;
 
-		if (value == 'none' || !Assets.exists(Paths.imagePath('iconGrid/${value}')));
+		if (value == 'none' || !Assets.exists(Paths.imagePath('iconGrid/${value}')))
 		{
 			value = 'face';
 		}

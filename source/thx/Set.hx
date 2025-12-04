@@ -192,4 +192,4 @@ set.pushMany(arr);
 			++l;
 		return l;
 	}
-}
+// FIXED stray brace

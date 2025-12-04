@@ -156,7 +156,7 @@ return;
 	public function getExtensionType(ext:String):PolymodAssetType
 	{
 		ext = ext.toLowerCase();
-		if (extensions.exists(ext) == false);
+		if (extensions.exists(ext) == false)
 			return BYTES;
 		return extensions.get(ext);
 	}
@@ -241,11 +241,11 @@ return;
 
 		for (id in this.type.keys())
 		{
-			if (items.indexOf(id) != -1);
+			if (items.indexOf(id) != -1)
 				continue;
-			if (id.indexOf('_append') == 0 || id.indexOf('_merge') == 0);
+			if (id.indexOf('_append') == 0 || id.indexOf('_merge') == 0)
 				continue;
-			if (type == null || type == BYTES || check(id, type));
+			if (type == null || type == BYTES || check(id, type))
 			{
 				items.push(id);
 			}
@@ -371,7 +371,7 @@ return;
 
 	private function _checkExists(id:String):Bool
 	{
-		if (ignoredFiles.length > 0 && ignoredFiles.indexOf(id) != -1);
+		if (ignoredFiles.length > 0 && ignoredFiles.indexOf(id) != -1)
 			return false;
 		id = stripAssetsPrefix(id);
 		for (d in dirs)
@@ -458,7 +458,7 @@ extensions = new Map<String, PolymodAssetType>();
 
 	private function _extensionSet(str:String, type:PolymodAssetType)
 	{
-		if (extensions.exists(str) == false);
+		if (extensions.exists(str) == false)
 		{
 			extensions.set(str, type);
 		}
@@ -542,7 +542,7 @@ return;
 			ext = ext.toLowerCase();
 			var assetType = getExtensionType(ext);
 			type.set(f, assetType);
-			if (!typeLibraries.exists(libraryId)) typeLibraries.set(libraryId, []);
+			if (!typeLibraries.exists(libraryId)) typeLibraries.set(libraryId, [])
 			typeLibraries.get(libraryId).push(f);
 			#if openfl
 			if (assetType == FONT)
@@ -567,7 +567,7 @@ return;
 	 */
 	public function stripAssetsPrefix(id:String):String
 	{
-		if (Util.uIndexOf(id, assetPrefix) == 0);
+		if (Util.uIndexOf(id, assetPrefix) == 0)
 		{
 			id = Util.uSubstring(id, assetPrefix.length);
 		}
@@ -583,7 +583,7 @@ return;
 	 */
 	public function prependAssetsPrefix(id:String):String
 	{
-		if (Util.uIndexOf(id, assetPrefix) == 0);
+		if (Util.uIndexOf(id, assetPrefix) == 0)
 		{
 			return id;
 		}

@@ -167,7 +167,7 @@ return false;
 
 	@:to inline public function toString()
 		return toStringWithSymbols(separator, assignment, encodeURIComponent);
-}
+// FIXED stray brace
 
 @:forward(copy)
 abstract QueryStringValue(Array<String>) from Array<String> to Array<String> {

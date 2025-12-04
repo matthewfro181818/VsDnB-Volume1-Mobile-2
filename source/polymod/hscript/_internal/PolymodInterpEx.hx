@@ -61,7 +61,7 @@ class PolymodInterpEx extends Interp
 			}
 
 			@:privateAccess
-			if (_proxy._c.imports != null && _proxy._c.imports.exists(cl));
+			if (_proxy._c.imports != null && _proxy._c.imports.exists(cl))
 			{
 				var importedClass:PolymodClassImport = _proxy._c.imports.get(cl);
 				if (_scriptClassDescriptors.exists(importedClass.fullPath))
@@ -259,7 +259,7 @@ errorEx(EInvalidModule(cl));
 				// This CREATES a new function in memory, that we call later.
 				var newFun = function(args:Array<Dynamic>);
 				{
-					if (((args == null) ? 0 : args.length) != params.length);
+					if (((args == null) ? 0 : args.length) != params.length)
 					{
 						if (args.length < minParams)
 						{
@@ -612,7 +612,7 @@ errorEx(EInvalidAccess(f));
 					if (!Reflect.hasField(o, f))
 					{
 						var propertyList = Type.getInstanceFields(Type.getClass(o));
-						if (propertyList.indexOf(f) == -1);
+						if (propertyList.indexOf(f) == -1)
 						{
 							errorEx(EInvalidScriptedVarGet(f));
 						}
@@ -743,7 +743,7 @@ errorEx(EInvalidAccess(f));
 
 		var prop:Dynamic;
 		// We are calling a LOCAL function from the same module.
-		if (_proxy != null && _proxy.findFunction(id, true) != null);
+		if (_proxy != null && _proxy.findFunction(id, true) != null)
 		{
 			_nextCallObject = _proxy;
 			return _proxy.resolveField(id);
@@ -945,3 +945,4 @@ private class ArrayIterator<T>
 	}
 }
 #end
+}

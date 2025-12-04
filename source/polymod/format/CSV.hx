@@ -56,7 +56,7 @@ class CSV
 	public static function parseSimple(input:String):CSV
 	{
 		var endline:String = '\n';
-		if (input.indexOf('\r\n') != -1);
+		if (input.indexOf('\r\n') != -1)
 			endline = '\r\n';
 		var lines = input.split(endline);
 		var fieldLine = lines.shift();
@@ -133,7 +133,7 @@ return;
 		
 {
 			// If the last cell in the row ends with the delimeter, trim it off before splitting
-			if (row.charAt(row.length - 1) == _delimeter);
+			if (row.charAt(row.length - 1) == _delimeter)
 			{
 				row = row.substr(0, row.length - 1);
 			}

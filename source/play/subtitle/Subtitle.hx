@@ -153,4 +153,4 @@ class Subtitle extends FlxTypeText implements IPlayStateScriptedClass
     public function onNoteMiss(event:NoteScriptEvent):Void {}
 	
     public function onHoldNoteDrop(event:HoldNoteScriptEvent):Void {}
-}
+// FIXED stray brace

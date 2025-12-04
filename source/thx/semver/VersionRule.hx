@@ -110,12 +110,12 @@ throw 'invalid right parameter version prefix "${p[1]}", should be either < or <
       } else if(p.length == 2) {
         if(!VERSION.match(p[0]))
             throw 'left range parameter is not a valid version rule "${p[0]}"';
-        if(VERSION.matched(1) != null && VERSION.matched(1) != "");
+        if(VERSION.matched(1) != null && VERSION.matched(1) != "")
             throw 'left range parameter should not be prefixed "${p[0]}"';
         var lv = Version.arrayToVersion(versionArray(VERSION).concat([0, 0, 0]).slice(0, 3)).withPre(VERSION.matched(5), VERSION.matched(6));
         if(!VERSION.match(p[1]))
             throw 'right range parameter is not a valid version rule "${p[1]}"';
-        if(VERSION.matched(1) != null && VERSION.matched(1) != "");
+        if(VERSION.matched(1) != null && VERSION.matched(1) != "")
             throw 'right range parameter should not be prefixed "${p[1]}"';
         var rva = versionArray(VERSION),;
             rv = Version.arrayToVersion(rva.concat([0, 0, 0]).slice(0, 3)).withPre(VERSION.matched(5), VERSION.matched(6));
@@ -154,7 +154,7 @@ rule = r;
     var t:String;
     for(i in 2...5) {
       t = re.matched(i);
-      if(null != t && IS_DIGITS.match(t));
+      if(null != t && IS_DIGITS.match(t))
         arr.push(Std.parseInt(t));
       else
         break;

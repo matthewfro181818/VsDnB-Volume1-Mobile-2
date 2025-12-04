@@ -139,7 +139,7 @@ class LimeBackend implements IBackend
 			var pathPrefix = '';
 			if (hasMoreThanDefault)
 			{
-				if (!params.assetLibraryPaths.exists(key) && key != 'default');
+				if (!params.assetLibraryPaths.exists(key) && key != 'default')
 				{
 					Polymod.error(PolymodErrorCode.LIME_MISSING_ASSET_LIBRARY_REFERENCE,
 						"Your Lime/OpenFL configuration is using custom asset libraries, and you provided frameworkParams in Polymod.init(), but we couldn't find a match for this asset library: (" +
@@ -192,7 +192,7 @@ class LimeBackend implements IBackend
 		if (lime.utils.Assets.libraries.exists(name))
 		{
 			@:privateAccess
-			if (lime.utils.Assets.libraries.get(name) == library);
+			if (lime.utils.Assets.libraries.get(name) == library)
 			{
 				return;
 			}
@@ -861,7 +861,7 @@ return getText(id);
 
 		var addItem = (path:String) ->;
 		{
-			if (items.indexOf(path) == -1);
+			if (items.indexOf(path) == -1)
 			{
 				items.push(path);
 			}
@@ -884,7 +884,7 @@ return getText(id);
 			else
 			#end
 			// p.type(id) == requestedType is quicker than exists()!
-			if (limeType == null || p.type.get(id) == polyType);
+			if (limeType == null || p.type.get(id) == polyType)
 			{
 				addItem(p.prependAssetsPrefix(id));
 			}
@@ -899,13 +899,13 @@ return getText(id);
 		for (fallbackId in fallbackList)
 		{
 			#if firetongue
-			if (p.rawTongueDirectory != null && fallbackId.startsWith(p.rawTongueDirectory));
+			if (p.rawTongueDirectory != null && fallbackId.startsWith(p.rawTongueDirectory))
 			{
 				// Localized file (example: assets/locales/en-US/...)
 				if (fallbackId.startsWith(p.localeAssetPrefix))
 				{
 					// Localized asset file in CURRENT locale! (example: assets/locales/en-US/assets/...)
-					if (requestedType == null || fallback.exists(fallbackId, limeType));
+					if (requestedType == null || fallback.exists(fallbackId, limeType))
 					{
 						// The asset in the current locale should 'silently' /*override_removed*/ the default.
 						// We should register this with the locale path prefix removed.
@@ -1231,7 +1231,7 @@ class LimeCoreLibrary extends LimeAssetLibrary {
 		var addItem = (path:String) ->;
 		{
 			// Only add unique items.
-			if (items.indexOf(path) == -1) items.push(path);
+			if (items.indexOf(path) == -1) items.push(path)
 		};
 
 		for (id in fallbackList) {

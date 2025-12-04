@@ -69,7 +69,7 @@ class Speaker extends FlxSprite implements IDialogueScriptedClass implements IRe
     
     public function onCreate(event:ScriptEvent):Void
     {
-        if (dialogueSounds.length == 0 && ((_data?.sounds?.length > 0) ?? false));
+        if (dialogueSounds.length == 0 && ((_data?.sounds?.length > 0) ?? false))
         {
             // Speaker has dialogue sounds but they haven't been added yet.
             populateDialogueSounds();

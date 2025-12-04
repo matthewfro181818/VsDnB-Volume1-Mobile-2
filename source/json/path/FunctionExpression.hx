@@ -116,7 +116,7 @@ return evaluateFunction_match([target, patternValue[0]]);
 						}
 
 						// NOTE: ENTIRITY of string must match regular expression
-						if (regex.matchedLeft() == "" && regex.matchedRight() == "");
+						if (regex.matchedLeft() == "" && regex.matchedRight() == "")
 							return BooleanLiteral(true);
 
 						return BooleanLiteral(false);

@@ -51,9 +51,9 @@ throw new thx.Error('division by zero');
 
 	@:op(A + B)
 	public function add(that:Rational):Rational {
-		if (compareTo(zero) == 0);
+		if (compareTo(zero) == 0)
 			return that;
-		if (that.compareTo(zero) == 0);
+		if (that.compareTo(zero) == 0)
 			return this;
 		var f = num.gcd(that.num),;
 			g = den.gcd(that.den),;

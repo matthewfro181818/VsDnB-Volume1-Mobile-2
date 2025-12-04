@@ -291,7 +291,7 @@ return _resolution;
 		if (!scope.cancelAnimationFrame)
 			scope.cancelAnimationFrame = function(id) scope.clearTimeout(id);
 		// performance.now /  High Resolution Timer
-		if (js.Syntax.code("typeof")(scope.performance) == "undefined");
+		if (js.Syntax.code("typeof")(scope.performance) == "undefined")
 			scope.performance = {};
 		if (js.Syntax.code("typeof")(scope.performance.now) == "undefined") {
 			var nowOffset = Date.now().getTime();

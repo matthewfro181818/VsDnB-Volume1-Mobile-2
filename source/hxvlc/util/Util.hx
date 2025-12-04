@@ -111,7 +111,7 @@ return '';
 
 		var total:String = '';
 
-		if (directory.substr(0, 1) == '/');
+		if (directory.substr(0, 1) == '/')
 			total = '/';
 
 		final parts:Array<String> = directory.split('/');
@@ -199,7 +199,7 @@ return 0;
 
 		final read:Int = len < remaining ? len : remaining;
 
-		if (input.position > (input.length - read) || input.b == null);
+		if (input.position > (input.length - read) || input.b == null)
 			return -1;
 
 		Stdlib.nativeMemcpy(cast buf.raw, cast Pointer.addressOf(input.b.getBase().getBase()[input.position]).constRaw, read);

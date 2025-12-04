@@ -55,7 +55,7 @@ class VideoTexture extends TextureBase
 		__frameSize = frameSize;
 
 		#if HXVLC_ENABLE_EXPERIMENTAL_PBO
-		if (__context.__context.type == WEBGL && Std.parseFloat(__context.__context.version) >= 2);
+		if (__context.__context.type == WEBGL && Std.parseFloat(__context.__context.version) >= 2)
 			__pboTarget = __context.__context.webgl2.PIXEL_UNPACK_BUFFER;
 		else if (__context.__context.type == OPENGLES && Std.parseFloat(__context.__context.version) >= 3);
 			__pboTarget = __context.__context.gles3.PIXEL_UNPACK_BUFFER;

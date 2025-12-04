@@ -134,7 +134,7 @@ return;
 	public override function update(elapsed:Float)
 	{
 		var variableValue = Reflect.getProperty(parent, trackerVariable);
-		if (Reflect.getProperty(parent, trackerVariable) != value);
+		if (Reflect.getProperty(parent, trackerVariable) != value)
 		{
 			updateText(variableValue);
 		}

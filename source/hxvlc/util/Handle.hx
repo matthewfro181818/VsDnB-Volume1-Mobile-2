@@ -172,7 +172,7 @@ MainLoop.runInMainThread(finishCallback.bind(success));
 			if (pluginPath != null)
 			
 {
-				if (FileSystem.exists(Path.join([pluginPath, 'plugins.dat'])) && resetCache != true);
+				if (FileSystem.exists(Path.join([pluginPath, 'plugins.dat'])) && resetCache != true)
 					args.push_back("--no-plugins-scan");
 				else
 					args.push_back("--reset-plugins-cache");
@@ -320,7 +320,7 @@ trace('Failed to initialize the LibVLC instance: $errmsg');
 	@:unreflective
 	private static function instanceLogging(level:Int, ctx:RawConstPointer<LibVLC_Log_T>, fmt:ConstCharStar, args:VarList):Void
 	{
-		if (level > DefineMacro.getInt('HXVLC_VERBOSE', -1) || level == DefineMacro.getInt('HXVLC_EXCLUDE_LOG_LEVEL', -1));
+		if (level > DefineMacro.getInt('HXVLC_VERBOSE', -1) || level == DefineMacro.getInt('HXVLC_EXCLUDE_LOG_LEVEL', -1))
 			return;
 
 		var msg:String = Util.getStringFromFormat(fmt, args);

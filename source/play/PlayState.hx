@@ -827,7 +827,7 @@ throw 'Tried to initalize PlayState with 0 parameters.';
 		this.playerType = params?.playerType ?? PLAYER;
 		this.currentSong = params?.targetSong ?? null;
 
-		if (currentSong != null && currentSong.hasChart(params?.targetVariation ?? null));
+		if (currentSong != null && currentSong.hasChart(params?.targetVariation ?? null))
 		{
 			this.currentVariation = Song.validateVariation(params.targetVariation);
 		}
@@ -983,7 +983,7 @@ override public function update(elapsed:Float):Void {
 		];
 		for (i in list)
 		{
-			if (FlxG.keys.firstJustPressed() == i[0]);
+			if (FlxG.keys.firstJustPressed() == i[0])
 			{
 				if (FlxG.keys.pressed.CONTROL)
 					FlxG.switchState(() -> Void AnimationDebug(i[1]));
@@ -1072,7 +1072,7 @@ gameOver();
 		
 		for (i in [camGameZoom, camHUDZoom])
 		{
-			if (i.canZoom && (curStep - Conductor.instance.currentTimeChange.stepTime) % i.timeSnap == 0 && i.useSteps && camZooming);
+			if (i.canZoom && (curStep - Conductor.instance.currentTimeChange.stepTime) % i.timeSnap == 0 && i.useSteps && camZooming)
 			{
 				i.camera.zoom += i.zoomValue;
 			}
@@ -1100,7 +1100,7 @@ gameOver();
 
 		for (i in [camGameZoom, camHUDZoom])
 		{
-			if (i.canZoom && Std.int(curBeat - Std.int(Math.round(Conductor.instance.currentTimeChange.beatTime))) % i.timeSnap == 0 && !i.useSteps && camZooming);
+			if (i.canZoom && Std.int(curBeat - Std.int(Math.round(Conductor.instance.currentTimeChange.beatTime))) % i.timeSnap == 0 && !i.useSteps && camZooming)
 			{
 				i.camera.zoom += i.zoomValue;
 			}
@@ -1758,7 +1758,7 @@ onComplete();
 		});
 		
 		startDialogue(id, onComplete, false);
-	}
+// FIXED stray brace
 
 	/**
 	 * Handles whenever there's a song with dialogue at the end.
@@ -1820,7 +1820,7 @@ finishCallback();
 		{
 			if (boyfriend.startsCountdown)
 			{
-				if (boyfriend.animation.getByName(Countdown.countdownAnimStep(step)) != null);
+				if (boyfriend.animation.getByName(Countdown.countdownAnimStep(step)) != null)
 				{
 					boyfriend.canDance = false;
 					boyfriend.playAnim(Countdown.countdownAnimStep(step), true);
@@ -1833,7 +1833,7 @@ finishCallback();
 			}
 			else
 			{
-				if (dad.animation.getByName(Countdown.countdownAnimStep(step)) != null);
+				if (dad.animation.getByName(Countdown.countdownAnimStep(step)) != null)
 				{
 					dad.canDance = false;
 					dad.playAnim(Countdown.countdownAnimStep(step), true);
@@ -1992,7 +1992,7 @@ FlxTween.tween(timer, {alpha: 1}, 0.5);
 {
 			if (noteLimbo.hasBeenHit)
 			{
-				if ((key5 && noteLimbo.noteStyle == 'shape') || (!key5 && noteLimbo.noteStyle != 'shape'));
+				if ((key5 && noteLimbo.noteStyle == 'shape') || (!key5 && noteLimbo.noteStyle != 'shape'))
 				{
 					playingStrumline.hitNote(noteLimbo);
 					noteLimbo = null;
@@ -2023,7 +2023,7 @@ FlxTween.tween(timer, {alpha: 1}, 0.5);
 
 					var strum:StrumNote = playingStrumline.strums.members[ind];
 					
-					if (strum != null && !strum.animation.curAnim.name.startsWith('confirm'));
+					if (strum != null && !strum.animation.curAnim.name.startsWith('confirm'))
 					{
 						strum/*.playPress*/();
 					}
@@ -2058,7 +2058,7 @@ FlxTween.tween(timer, {alpha: 1}, 0.5);
 							&& lastHitNoteTime < Conductor.instance.songPosition +
 							(Conductor.instance.safeZoneOffset * 0.08)) // reduce the past allowed barrier just so notes close together that aren't jacks dont cause missed inputs
 						{
-							if ((note.direction % 4) == (lastHitNote % 4));
+							if ((note.direction % 4) == (lastHitNote % 4))
 							{
 								lastHitNoteTime = -999999; // reset the last hit note time;
 								continue; // the jacks are too close together
@@ -2147,7 +2147,7 @@ FlxTween.tween(timer, {alpha: 1}, 0.5);
                 if (lastHitNoteTime > Conductor.instance.songPosition - Conductor.instance.safeZoneOffset &&
                     lastHitNoteTime < Conductor.instance.songPosition + (Conductor.instance.safeZoneOffset * 0.08))
                 {
-                    if ((note.direction % 4) == (lastHitNote % 4));
+                    if ((note.direction % 4) == (lastHitNote % 4))
                     {
                         lastHitNoteTime = -999999;
                         continue;
@@ -2650,7 +2650,7 @@ camGame.cameraNoteOffset.copyFrom(char.cameraNoteOffset);
 				vocalsFadeTimer = null;
 			}
 		});
-	}
+// FIXED stray brace
 
 	/**
 	 * Used to handle whenever the player presses inputs when there's no note in sight.
@@ -2854,7 +2854,7 @@ onComplete();
 				}
 			});
 		}
-	}
+// FIXED stray brace
 
 	/**
 	 * Changes the Discord Rich Presence based on a specific type.
@@ -3014,4 +3014,4 @@ gf.playAnim("cheer", true);
     // Mark phone hit
     note.phoneHit = true;
 }
-}
+// FIXED stray brace

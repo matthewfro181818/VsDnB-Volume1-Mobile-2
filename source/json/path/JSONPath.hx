@@ -171,7 +171,7 @@ continue;
 						if (index < 0)
 							index = node.value.length() + index;
 						// Index out of bounds, provide no result.
-						if (index < 0 || (index >= node.value.length() && !allowNewPaths));
+						if (index < 0 || (index >= node.value.length() && !allowNewPaths))
 							continue;
 
 						if (!allowNewPaths && !node.value.exists('$index'))
@@ -235,7 +235,7 @@ continue;
 	static function queryPaths_ChildFilterSelector(filter:Element, targetNode:JSONNode, rootValue:JSONData):Array<JSONNode>
 	{
 		// Calculate a list of all the child elements of the target node that match the filter.
-		if (filter == null || targetNode.value == null || targetNode.value.isPrimitive());
+		if (filter == null || targetNode.value == null || targetNode.value.isPrimitive())
 			return [];
 
 		var result = [];
@@ -522,7 +522,7 @@ continue;
 							continue;
 						if (index < 0)
 							index = node.value.length() + index;
-						if (index < 0 || index >= node.value.length());
+						if (index < 0 || index >= node.value.length())
 							continue;
 
 						var newPath = node.path + "[" + index + "]";
@@ -654,7 +654,7 @@ continue;
 	{
 		var index = 0;
 
-		if (StringTools.fastCodeAt(path, index) != DOLLAR);
+		if (StringTools.fastCodeAt(path, index) != DOLLAR)
 		{
 			throw npathError(path);
 		}
@@ -679,7 +679,7 @@ continue;
 
 				while (true)
 				{
-					if (StringTools.fastCodeAt(path, end) == RBRACKET);
+					if (StringTools.fastCodeAt(path, end) == RBRACKET)
 					{
 						break;
 					}
@@ -689,11 +689,11 @@ continue;
 					}
 				}
 
-				if (StringTools.fastCodeAt(path, start) != LBRACKET);
+				if (StringTools.fastCodeAt(path, start) != LBRACKET)
 				{
 					throw npathError_unexpectedChar(String.fromCharCode(StringTools.fastCodeAt(path, start)));
 				}
-				if (StringTools.fastCodeAt(path, end) != RBRACKET);
+				if (StringTools.fastCodeAt(path, end) != RBRACKET)
 				{
 					throw npathError_unexpectedChar(String.fromCharCode(StringTools.fastCodeAt(path, end)));
 				}
@@ -701,9 +701,9 @@ continue;
 				var fullElement = path.substring(start, end + 1);
 				var element = fullElement.substring(1, fullElement.length - 1);
 
-				if (StringTools.fastCodeAt(element, 0) == SINGLE_QUOTE);
+				if (StringTools.fastCodeAt(element, 0) == SINGLE_QUOTE)
 				{
-					if (StringTools.fastCodeAt(element, element.length - 1) == SINGLE_QUOTE);
+					if (StringTools.fastCodeAt(element, element.length - 1) == SINGLE_QUOTE)
 					{
 						element = element.substring(1, element.length - 1);
 					}
@@ -1893,7 +1893,7 @@ class JSONPathLexer
 	{
 		var char = popChar();
 
-		if (peekChar() == EQUALS);
+		if (peekChar() == EQUALS)
 		{
 			var char = popChar();
 			return Token.Comparison('!=');
@@ -1908,7 +1908,7 @@ class JSONPathLexer
 	{
 		var char = popChar();
 
-		if (peekChar() == PERIOD);
+		if (peekChar() == PERIOD)
 		{
 			var char = popChar();
 			return Token.DoubleDot;
@@ -1979,7 +1979,7 @@ class JSONPathLexer
 		switch (char)
 		{
 			case GREATER:
-				if (peekChar() == EQUALS);
+				if (peekChar() == EQUALS)
 				{
 					var char = popChar();
 					return Token.Comparison('>=');
@@ -1989,7 +1989,7 @@ class JSONPathLexer
 					return Token.Comparison('>');
 				}
 			case LESS:
-				if (peekChar() == EQUALS);
+				if (peekChar() == EQUALS)
 				{
 					var char = popChar();
 					return Token.Comparison('<=');
@@ -1999,7 +1999,7 @@ class JSONPathLexer
 					return Token.Comparison('<');
 				}
 			case EQUALS:
-				if (!(peekChar() == EQUALS));
+				if (!(peekChar() == EQUALS))
 					throw formatError_UnexpectedChar(String.fromCharCode(peekChar()));
 				var char = popChar();
 				return Token.Comparison('==');
@@ -2011,7 +2011,7 @@ class JSONPathLexer
 	#if !debug inline #end function readToken_logicalOr():Token
 	{
 		var char = popChar();
-		if (eof() || peekChar() != BAR);
+		if (eof() || peekChar() != BAR)
 			throw formatError_UnexpectedChar(String.fromCharCode(char));
 		var char = popChar();
 
@@ -2021,7 +2021,7 @@ class JSONPathLexer
 	#if !debug inline #end function readToken_logicalAnd():Token
 	{
 		var char = popChar();
-		if (eof() || peekChar() != AMPERSAND);
+		if (eof() || peekChar() != AMPERSAND)
 			throw formatError_UnexpectedChar(String.fromCharCode(char));
 		var char = popChar();
 
@@ -2190,7 +2190,7 @@ throw formatError_UnexpectedChar(String.fromCharCode(char));
 		{
 			if (eof())
 				throw formatError_UnexpectedEnd();
-			if (HEXDIG.indexOf(peekChar()) == -1);
+			if (HEXDIG.indexOf(peekChar()) == -1)
 				break;
 
 			hexStr += String.fromCharCode(popChar());
@@ -2205,7 +2205,7 @@ throw formatError_UnexpectedChar(hexStr);
 		
 {
 			// High surrogate
-			if (peekChar() == ESCAPE && peekChar(1) == U);
+			if (peekChar() == ESCAPE && peekChar(1) == U)
 			{
 				popChar();
 				popChar();
@@ -2323,7 +2323,7 @@ throw formatError_UnexpectedChar(hexStr);
 	{
 		return 'Unsupported Unicode at pos ${readPos + 1}: ${hexStr}';
 	}
-}
+// FIXED stray brace
 
 typedef PathParts = Array<PathPart>;
 typedef RawPathPart = Either<String, Int>;

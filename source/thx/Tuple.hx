@@ -148,7 +148,7 @@ abstract Tuple2<T0, T1>({_0:T0, _1:T1}) from {_0:T0, _1:T1} to {_0:T0, _1:T1} {
 
 	@:from inline static public function arrayToTuple2<T>(v:Array<T>):Tuple2<T, T>
 		return new Tuple2(v[0], v[1]);
-}
+// FIXED stray brace
 
 /**
 	`Tuple3` is a tuple with three values. It maps to an anonymous object with fields `_0`, `_1`, and `_2`.
@@ -205,7 +205,7 @@ abstract Tuple3<T0, T1, T2>({_0:T0, _1:T1, _2:T2}) from {_0:T0, _1:T1, _2:T2} to
 
 	public function map<T3>(f:T2->T3):Tuple3<T0, T1, T3>
 		return new Tuple3(this._0, this._1, f(this._2));
-}
+// FIXED stray brace
 
 /**
 	`Tuple4` is a tuple with four values. It maps to an anonymous object with fields `_0`, `_1`, `_2`, and `_3`.

@@ -126,7 +126,7 @@ return base();
 			
 return '';
 		var name = path.last();
-		if (null != end && name.endsWith(end));
+		if (null != end && name.endsWith(end))
 			return name.substring(0, name.length - end.length);
 		return name;
 	}
@@ -185,7 +185,7 @@ return '';
 		var oext = ext();
 		if (oext.length > 0)
 			oext = '.$oext';
-		if (newextension.substring(0, 1) == ".");
+		if (newextension.substring(0, 1) == ".")
 			newextension = newextension.substring(1);
 		return sibling('${base(oext)}.$newextension');
 	}

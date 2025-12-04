@@ -241,7 +241,7 @@ _tempTouches.push(_currentTouch);
 			}
 		}
 
-		if ((status == HIGHLIGHT || status == NORMAL) && _amount != 0);
+		if ((status == HIGHLIGHT || status == NORMAL) && _amount != 0)
 		{
 			_amount -= _amount * _ease * FlxG.updateFramerate / 60;
 
@@ -267,7 +267,7 @@ _tempTouches.push(_currentTouch);
 	{
 		var offAll:Bool = true;
 
-		if (_zone.containsPoint(TouchPoint) || (status == PRESSED));
+		if (_zone.containsPoint(TouchPoint) || (status == PRESSED))
 		{
 			offAll = false;
 

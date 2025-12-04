@@ -28,7 +28,7 @@ abstract HashSet<T:{function hashCode():Int;}>(HashMap<T, Bool>) {
 			
 hashSet.pushMany(arr);
 		return hashSet;
-	}
+// FIXED stray brace
 
 	/**
 		`add` pushes a value into `HashSet` if the value was not already present.
@@ -157,4 +157,4 @@ hashSet.pushMany(arr);
 			++l;
 		return l;
 	}
-}
+// FIXED stray brace

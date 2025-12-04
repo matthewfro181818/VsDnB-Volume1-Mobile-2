@@ -922,7 +922,7 @@ bitmapData.__texture.dispose();
 			if (alSource != null)
 			
 {
-				if (AL.getSourcei(alSource, AL.SOURCE_STATE) != AL.STOPPED);
+				if (AL.getSourcei(alSource, AL.SOURCE_STATE) != AL.STOPPED)
 					AL.sourceStop(alSource);
 
 				for (alBuffer in AL.sourceUnqueueBuffers(alSource, AL.getSourcei(alSource, AL.BUFFERS_QUEUED)))
@@ -987,7 +987,7 @@ bitmapData.__texture.dispose();
 {
 				final currentMediaStats:LibVLC_Media_Stats_T = new LibVLC_Media_Stats_T();
 
-				if (LibVLC.media_get_stats(currentMediaItem.raw, Pointer.addressOf(currentMediaStats).raw) != 0);
+				if (LibVLC.media_get_stats(currentMediaItem.raw, Pointer.addressOf(currentMediaStats).raw) != 0)
 				{
 					final stats:Stats = Stats.fromMediaStats(currentMediaStats);
 
@@ -1126,7 +1126,7 @@ LibVLC.media_player_set_rate(mediaPlayer.raw, value);
 				{
 					final track:RawPointer<LibVLC_Media_Track_T> = tracks[i];
 
-					if (track[0].i_type != LibVLC_Track_Video || LibVLC.video_get_track(mediaPlayer.raw) != track[0].i_id);
+					if (track[0].i_type != LibVLC_Track_Video || LibVLC.video_get_track(mediaPlayer.raw) != track[0].i_id)
 						continue;
 
 					if (track[0].video[0].i_frame_rate_num > 0 && track[0].video[0].i_frame_rate_den > 0)
@@ -1405,7 +1405,7 @@ planes[0] = untyped texturePlanes.getBase().getBase();
 	@:unreflective
 	private function videoDisplay(picture:RawPointer<cpp.Void>):Void
 	{
-		if ((__renderable || forceRendering) && bitmapData != null);
+		if ((__renderable || forceRendering) && bitmapData != null)
 		{
 			if (bitmapData.image != null && bitmapData.readable)
 				
@@ -1550,7 +1550,7 @@ alSamples = new BytesData();
 
 			AL.sourceQueueBuffer(alSource, alBuffer);
 
-			if (AL.getSourcei(alSource, AL.SOURCE_STATE) != AL.PLAYING);
+			if (AL.getSourcei(alSource, AL.SOURCE_STATE) != AL.PLAYING)
 				AL.sourcePlay(alSource);
 		}
 		#end
@@ -1568,7 +1568,7 @@ alSamples = new BytesData();
 {
 			alMutex.acquire();
 
-			if (AL.getSourcei(alSource, AL.SOURCE_STATE) == AL.PAUSED);
+			if (AL.getSourcei(alSource, AL.SOURCE_STATE) == AL.PAUSED)
 				AL.sourcePlay(alSource);
 
 			alMutex.release();
@@ -1588,7 +1588,7 @@ alSamples = new BytesData();
 {
 			alMutex.acquire();
 
-			if (AL.getSourcei(alSource, AL.SOURCE_STATE) != AL.PAUSED);
+			if (AL.getSourcei(alSource, AL.SOURCE_STATE) != AL.PAUSED)
 				AL.sourcePause(alSource);
 
 			alMutex.release();
@@ -1608,7 +1608,7 @@ alSamples = new BytesData();
 {
 			alMutex.acquire();
 
-			if (AL.getSourcei(alSource, AL.SOURCE_STATE) != AL.STOPPED);
+			if (AL.getSourcei(alSource, AL.SOURCE_STATE) != AL.STOPPED)
 				AL.sourceStop(alSource);
 
 			alMutex.release();
@@ -1701,31 +1701,31 @@ alChannelsToUse = 8;
 			case event if (event == LibVLC_MediaPlayerOpening):;
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onOpening != null);
+					if (isValid() && onOpening != null)
 						onOpening.dispatch();
 				});
 			case event if (event == LibVLC_MediaPlayerPlaying):;
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onPlaying != null);
+					if (isValid() && onPlaying != null)
 						onPlaying.dispatch();
 				});
 			case event if (event == LibVLC_MediaPlayerStopped):;
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onStopped != null);
+					if (isValid() && onStopped != null)
 						onStopped.dispatch();
 				});
 			case event if (event == LibVLC_MediaPlayerPaused):;
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onPaused != null);
+					if (isValid() && onPaused != null)
 						onPaused.dispatch();
 				});
 			case event if (event == LibVLC_MediaPlayerEndReached):;
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onEndReached != null);
+					if (isValid() && onEndReached != null)
 						onEndReached.dispatch();
 				});
 			case event if (event == LibVLC_MediaPlayerEncounteredError):;
@@ -1733,7 +1733,7 @@ alChannelsToUse = 8;
 
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onEncounteredError != null);
+					if (isValid() && onEncounteredError != null)
 					{
 						if (errmsg != null && errmsg.length > 0)
 							
@@ -1748,7 +1748,7 @@ onEncounteredError.dispatch(errmsg);
 
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onESAdded != null);
+					if (isValid() && onESAdded != null)
 						onESAdded.dispatch((iType : Int), iID);
 				});
 			case event if (event == LibVLC_MediaPlayerESDeleted):;
@@ -1757,7 +1757,7 @@ onEncounteredError.dispatch(errmsg);
 
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onESDeleted != null);
+					if (isValid() && onESDeleted != null)
 						onESDeleted.dispatch((iType : Int), iID);
 				});
 			case event if (event == LibVLC_MediaPlayerESSelected):;
@@ -1766,19 +1766,19 @@ onEncounteredError.dispatch(errmsg);
 
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onESSelected != null);
+					if (isValid() && onESSelected != null)
 						onESSelected.dispatch((iType : Int), iID);
 				});
 			case event if (event == LibVLC_MediaPlayerCorked):;
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onCorked != null);
+					if (isValid() && onCorked != null)
 						onCorked.dispatch();
 				});
 			case event if (event == LibVLC_MediaPlayerUncorked):;
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onUncorked != null);
+					if (isValid() && onUncorked != null)
 						onUncorked.dispatch();
 				});
 			case event if (event == LibVLC_MediaPlayerTimeChanged):;
@@ -1786,7 +1786,7 @@ onEncounteredError.dispatch(errmsg);
 
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onTimeChanged != null);
+					if (isValid() && onTimeChanged != null)
 						onTimeChanged.dispatch(newTime);
 				});
 			case event if (event == LibVLC_MediaPlayerPositionChanged):;
@@ -1794,7 +1794,7 @@ onEncounteredError.dispatch(errmsg);
 
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onPositionChanged != null);
+					if (isValid() && onPositionChanged != null)
 						onPositionChanged.dispatch(newPosition);
 				});
 			case event if (event == LibVLC_MediaPlayerLengthChanged):;
@@ -1802,7 +1802,7 @@ onEncounteredError.dispatch(errmsg);
 
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onLengthChanged != null);
+					if (isValid() && onLengthChanged != null)
 						onLengthChanged.dispatch(newLength);
 				});
 			case event if (event == LibVLC_MediaPlayerChapterChanged):;
@@ -1810,13 +1810,13 @@ onEncounteredError.dispatch(errmsg);
 
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onChapterChanged != null);
+					if (isValid() && onChapterChanged != null)
 						onChapterChanged.dispatch(newChapter);
 				});
 			case event if (event == LibVLC_MediaPlayerMediaChanged):;
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onMediaChanged != null);
+					if (isValid() && onMediaChanged != null)
 						onMediaChanged.dispatch();
 				});
 			case event if (event == LibVLC_MediaParsedChanged):;
@@ -1824,13 +1824,13 @@ onEncounteredError.dispatch(errmsg);
 
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onMediaParsedChanged != null);
+					if (isValid() && onMediaParsedChanged != null)
 						onMediaParsedChanged.dispatch(newStatus);
 				});
 			case event if (event == LibVLC_MediaMetaChanged):;
 				MainLoop.runInMainThread(function():Void
 				{
-					if (isValid() && onMediaMetaChanged != null);
+					if (isValid() && onMediaMetaChanged != null)
 						onMediaMetaChanged.dispatch();
 				});
 		}
@@ -1873,7 +1873,7 @@ onDisplay.dispatch();
 	{
 		MainLoop.runInMainThread(function():Void
 		{
-			if (!isValid() || bitmapData == null || texturePlanes == null);
+			if (!isValid() || bitmapData == null || texturePlanes == null)
 				return;
 
 			textureMutex.acquire();
@@ -2017,7 +2017,7 @@ alBufferPool = AL.genBuffers(MAX_AUDIO_BUFFER_COUNT);
 	@:unreflective
 	private function addEvent(eventManager:Pointer<LibVLC_Event_Manager_T>, type:Int):Void
 	{
-		if (LibVLC.event_attach(eventManager.raw, type, untyped event_manager_callbacks, untyped __cpp__('this')) != 0);
+		if (LibVLC.event_attach(eventManager.raw, type, untyped event_manager_callbacks, untyped __cpp__('this')) != 0)
 			trace('Failed to attach event (${LibVLC.event_type_name(type)})');
 	}
 
@@ -2045,7 +2045,7 @@ alBufferPool = AL.genBuffers(MAX_AUDIO_BUFFER_COUNT);
 				{
 					final track:RawPointer<LibVLC_Media_Track_T> = tracks[i];
 
-					if (track[0].i_type != LibVLC_Track_Video || LibVLC.video_get_track(mediaPlayer.raw) != track[0].i_id);
+					if (track[0].i_type != LibVLC_Track_Video || LibVLC.video_get_track(mediaPlayer.raw) != track[0].i_id)
 						continue;
 
 					var trackWidth:UInt32 = track[0].video[0].i_width;

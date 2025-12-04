@@ -64,7 +64,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		bf = Character.create(x, y, deathChar, CharacterType.PLAYER);
 		
-		if (bf.animation.getByName('firstDeath') == null);
+		if (bf.animation.getByName('firstDeath') == null)
 		{
 			bf.destroy();
 			bf = null;

@@ -215,7 +215,7 @@ class JSONPatch {
 
     static function parsePaths(path:String, data:JSONData):Array<String> {
         // Parse a JSONPath string
-        if (path.startsWith('$')) return JSONPath.queryPaths(path, data);
+        if (path.startsWith('$')) return JSONPath.queryPaths(path, data)
 
         // Parse a JSONPointer string.
         return [JSONPointer.toJSONPath(path)];

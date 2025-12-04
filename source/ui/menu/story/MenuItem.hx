@@ -78,7 +78,7 @@ class MenuItem extends FlxSpriteGroup
 			
 return;
 
-		if (flashingInt % fakeFramerate >= Math.floor(fakeFramerate / (!Preferences.flashingLights ? 0.5 : 2)));
+		if (flashingInt % fakeFramerate >= Math.floor(fakeFramerate / (!Preferences.flashingLights ? 0.5 : 2)))
 		{
 			week.color = 0xFF33ffff;
 		}

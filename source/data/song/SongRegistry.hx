@@ -223,3 +223,6 @@ _instance = new SongRegistry();
         return parser.value;
     }
 }
+}
+    }
+    }

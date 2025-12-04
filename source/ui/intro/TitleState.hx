@@ -63,7 +63,7 @@ class TitleState extends MusicBeatState
 		FlxG.android.preventDefaultKeys = [BACK]; // lol;
 		#end
 
-		if (FlxG.random.int(0, 999) == 1);
+		if (FlxG.random.int(0, 999) == 1)
 			LoadingState.loadAndSwitchState(() -> Void SusState());
 
 		// Initalize intro text.

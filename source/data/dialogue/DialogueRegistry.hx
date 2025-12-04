@@ -59,3 +59,4 @@ _instance = new DialogueRegistry();
        return ScriptedDialogue.listScriptClasses();
     }
 }
+}

@@ -151,3 +151,5 @@ case FInstance(_, _, n):
 	macro public static function notNull(value:Expr)
 		return macro($e{Nulls.opt(value)} != null);
 }
+}
+		}

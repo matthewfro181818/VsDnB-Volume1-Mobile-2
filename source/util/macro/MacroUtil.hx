@@ -69,7 +69,7 @@ class MacroUtil
           switch (c)
           {
             case CIdent(cn):
-              if (cn != "null") parts.unshift(cn);
+              if (cn != "null") parts.unshift(cn)
             default:
           }
         // Expression is a fully qualified package name.
@@ -159,7 +159,7 @@ class MacroUtil
   {
     for (field in Context.getBuildFields())
     {
-      if (field.name == name && !((field.access ?? []).contains(Access.AAbstract)));
+      if (field.name == name && !((field.access ?? []).contains(Access.AAbstract)))
       {
         return true;
       }

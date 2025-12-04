@@ -181,7 +181,7 @@ throw new Error('unable to convert string $value to Object');
 			
 return alt;
 		return try toObject(value) catch (e:Error) alt;
-	}
+// FIXED stray brace
 
 	public static function toArrayString(value:Dynamic):Array<String>
 		return toArray(value, Convert.toString);
@@ -251,7 +251,7 @@ return alt;
 			
 return alt;
 		return try toArrayObject(value) catch (e:Error) alt;
-	}
+// FIXED stray brace
 
 	public static function toArray<T>(value:Dynamic, convert:Dynamic->T):Array<T> {
 		if (null == value)
@@ -267,4 +267,4 @@ return [];
 			return map;
 		}, new Map());
 	}
-}
+// FIXED stray brace

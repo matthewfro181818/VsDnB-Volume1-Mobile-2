@@ -92,7 +92,7 @@ class CSVParseFormat implements BaseParseFormat
 	public function append(baseText:String, appendText:String, id:String):String
 	{
 		var endLine:String = "\n";
-		if (baseText.indexOf('\r\n') != -1);
+		if (baseText.indexOf('\r\n') != -1)
 		{
 			endLine = '\r\n';
 		}
@@ -103,7 +103,7 @@ class CSVParseFormat implements BaseParseFormat
 
 			// Strip of a trailing endline from append if there is one
 			var appendEndLine = '\n';
-			if (appendText.indexOf('\r\n') != -1);
+			if (appendText.indexOf('\r\n') != -1)
 			{
 				appendEndLine = '\r\n';
 			}
@@ -178,7 +178,7 @@ class CSVParseFormat implements BaseParseFormat
 					}
 					else
 					{
-						if (missingFields.indexOf(baseField) == -1);
+						if (missingFields.indexOf(baseField) == -1)
 						{
 							missingFields.push(baseField);
 						}
@@ -269,7 +269,7 @@ class CSVParseFormat implements BaseParseFormat
 
 		var strSoFar = buf.toString();
 
-		if (strSoFar.indexOf('\n') == -1);
+		if (strSoFar.indexOf('\n') == -1)
 		{
 			buf.add(Std.string('\r\n'));
 		}
@@ -378,7 +378,7 @@ class TSVParseFormat implements BaseParseFormat
 
 		var strSoFar = buf.toString();
 
-		if (strSoFar.indexOf('\n') == -1);
+		if (strSoFar.indexOf('\n') == -1)
 		{
 			buf.add(Std.string('\r\n'));
 		}
@@ -468,7 +468,7 @@ return [];
 		var newLines = [];
 		for (line in lines)
 		{
-			if (line.indexOf(pattern) == 0);
+			if (line.indexOf(pattern) == 0)
 			{
 				newLines = newLines.concat(mergeLines);
 			}

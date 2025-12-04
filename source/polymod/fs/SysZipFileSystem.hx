@@ -143,14 +143,14 @@ params.autoScan = true;
 
 			for (file in filesLocations.keys())
 			{
-				if (Path.directory(file) == path);
+				if (Path.directory(file) == path)
 				{
 					result.push(Path.withoutDirectory(file));
 				}
 			}
 			for (dir in fileDirectories)
 			{
-				if (Path.directory(dir) == path);
+				if (Path.directory(dir) == path)
 				{
 					result.push(Path.withoutDirectory(dir));
 				}

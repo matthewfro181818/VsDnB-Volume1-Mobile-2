@@ -178,7 +178,7 @@ class MathGameState extends MusicBeatState
 
 		Conductor.instance.update(learnMusicGroup.time);
 
-		if (queuedSoundList.length > 0 && (queuedSound == null || !queuedSound.playing));
+		if (queuedSoundList.length > 0 && (queuedSound == null || !queuedSound.playing))
 		{
 			playQueue();
 		} 

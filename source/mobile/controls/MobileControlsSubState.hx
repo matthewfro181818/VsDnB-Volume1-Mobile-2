@@ -57,7 +57,7 @@ curSelected = i;
 		{
 			MobileControls.mode = controlsItems[Math.floor(curSelected)];
 
-			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom');
+			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom')
 				MobileControls.customVirtualPad = virtualPad;
 
 			FlxTransitionableState.skipNextTransOut = true;
@@ -157,7 +157,7 @@ curSelected = i;
 			else if (touch.overlaps(rightArrow) && touch.justPressed)
 				changeSelection(1);
 
-			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom');
+			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom')
 			{
 				if (buttonBinded)
 				{
@@ -183,7 +183,7 @@ curSelected = i;
 			}
 		}
 
-		if (virtualPad != null && controlsItems[Math.floor(curSelected)] == 'Pad-Custom');
+		if (virtualPad != null && controlsItems[Math.floor(curSelected)] == 'Pad-Custom')
 		{
 			if (virtualPad.buttonUp != null)
 				
