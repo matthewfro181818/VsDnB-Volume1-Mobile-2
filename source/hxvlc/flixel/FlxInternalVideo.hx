@@ -181,7 +181,7 @@ class FlxInternalVideo extends Video {
 
 	@:noCompletion
 	#if (flixel >= version("5.9.0"))
-	// Flixel 5.3.1+ uses ()->Void volume callbacks
+	// Flixel 5.3.1+ uses () -> new Void() volume callbacks
 	private function onVolumeChange():Void {
 		var vol:Float = #if FLX_SOUND_SYSTEM (FlxG.sound.muted ? 0 : 1) * FlxG.sound.volume #else 1 #end;
 

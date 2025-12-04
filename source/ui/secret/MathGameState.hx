@@ -158,7 +158,7 @@ class MathGameState extends MusicBeatState
 
 			// Reset cursor.
 			Cursor.reset();
-			Cursor.hide();
+			Cursor/*.hide*/();
 		});
 		
 		FlxG.stage.window.title = "Baldi's Basics Classic Remastered";
@@ -264,7 +264,7 @@ class MathGameState extends MusicBeatState
 			var buttonSprite:YCTPButton = new YCTPButton(xPos, yPos, buttonId);
 			add(buttonSprite);
 			
-			buttonSprite.onClick = () -> switch (buttonId)
+			buttonSprite.onClick = () -> new flixel.FlxState() (buttonId)
 			{
 				case 'clear': clearInputText();
 				case 'minus':
@@ -497,7 +497,7 @@ class MathGameState extends MusicBeatState
 	{
 		if (failedGame)
 		{
-			FlxG.switchState(() -> new PlayState({
+			FlxG.switchState(() -> new flixel.FlxState() PlayState({
 				targetSong: PlayState.lastParams.targetSong,
 				targetVariation: PlayState.lastParams.targetVariation
 			}));
@@ -509,7 +509,7 @@ class MathGameState extends MusicBeatState
 
 			FreeplayState.unlockSong('roofs');
 
-			FlxG.switchState(() -> new PlayState({
+			FlxG.switchState(() -> new flixel.FlxState() PlayState({
 				targetSong: roofsSong,
 				targetVariation: PlayState.lastParams.targetVariation
 			}));

@@ -88,14 +88,14 @@ class InitState extends FlxUIState
 		#if debug
 		if (FlxG.save.data.hasSeenOptionsReminder == null || !FlxG.save.data.hasSeenOptionsReminder)
 		{
-			FlxG.switchState(() -> new OptionsReminderState());
+			FlxG.switchState(() -> new flixel.FlxState() OptionsReminderState());
 		}
 		else
 		{
-			FlxG.switchState(() -> new TitleState());
+			FlxG.switchState(() -> new flixel.FlxState() TitleState());
 		}
 		#else
-		FlxG.switchState(() -> new GameSplash());
+		FlxG.switchState(() -> new flixel.FlxState() GameSplash());
 		#end
 	}
 

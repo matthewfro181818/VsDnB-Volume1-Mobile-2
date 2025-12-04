@@ -29,7 +29,7 @@ import hxvlc.util.Location;
  * add(video);
  * 
  * if (video.load('assets/videos/video.mp4'))
- * 	FlxTimer.wait(0.001, () -> video.play());
+ * 	FlxTimer.wait(0.001, () -> new flixel.FlxState()());
  * ```
  */
 @:nullSafety

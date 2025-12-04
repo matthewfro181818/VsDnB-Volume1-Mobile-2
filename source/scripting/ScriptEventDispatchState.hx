@@ -23,16 +23,8 @@ class ScriptEventDispatchState extends FlxUIState implements IEventDispatcher
 	}
 
 	@:nullSafety(Off)
-	override function startOutro(onComplete:() -> Void):Void
-	{
-		var event = new StateChangeScriptEvent(STATE_CHANGE, FlxG.state, true);
+	// AUTO-REMOVED INVALID OVERRIDE
 
-		dispatchEvent(event);
-
-		if (event.eventCanceled)
-		{
-			return;
-		}
 		else
 		{
 			super.startOutro(onComplete);

@@ -134,7 +134,7 @@ class Options_Misc extends SettingsCategory
 
 					TitleState.initialized = false;
 
-					FlxG.switchState(() -> new InitState());
+					FlxG.switchState(() -> new flixel.FlxState() InitState());
 				}
 				prompt.noFunc = function()
 				{

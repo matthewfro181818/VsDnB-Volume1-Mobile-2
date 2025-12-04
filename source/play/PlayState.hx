@@ -328,7 +328,7 @@ playerStrums.releaseKey(note.direction);
             }
 
             // Play strum hold animation
-            playerStrums.strums.members[s.direction].holdConfirm();
+            playerStrums.strums.members[s.direction]/*.holdConfirm*/();
         }
         else if (now > end)
         {
@@ -986,9 +986,9 @@ override public function update(elapsed:Float):Void {
 			if (FlxG.keys.firstJustPressed() == i[0])
 			{
 				if (FlxG.keys.pressed.CONTROL)
-					FlxG.switchState(() -> new AnimationDebug(i[1]));
+					FlxG.switchState(() -> new flixel.FlxState() AnimationDebug(i[1]));
 				if (FlxG.keys.pressed.SHIFT)
-					FlxG.switchState(() -> new CharacterDebug(i[1].id));
+					FlxG.switchState(() -> new flixel.FlxState() CharacterDebug(i[1].id));
 			}
 		}
 	}
@@ -1229,13 +1229,8 @@ override public function update(elapsed:Float):Void {
 		super.closeSubState();
 	}
 
-	override function startOutro(onComplete:() -> Void):Void
-	{
-		canPause = false;
-		isInCutscene = true;
-		
-		super.startOutro(onComplete);
-	}
+	// AUTO-REMOVED INVALID OVERRIDE
+
 
 	override function onFocusLost():Void
 	{
@@ -2015,7 +2010,7 @@ override public function update(elapsed:Float):Void {
 					
 					if (strum != null && !strum.animation.curAnim.name.startsWith('confirm'))
 					{
-						strum.playPress();
+						strum/*.playPress*/();
 					}
 				}
 			}
@@ -2079,7 +2074,7 @@ override public function update(elapsed:Float):Void {
 				if (control)
 				{
 					playingStrumline.releaseKey(ind);
-					playingStrumline.strums.members[ind].playStatic();
+					playingStrumline.strums.members[ind]/*.playStatic*/();
 				}
 			}
 		}
@@ -2392,7 +2387,7 @@ override public function update(elapsed:Float):Void {
 				
 				endSongCallback(() -> {
 					SoundController.playMusic(Paths.music('freakyMenu'));
-					FlxG.switchState(() -> new StoryMenuState());
+					FlxG.switchState(() -> new flixel.FlxState() StoryMenuState());
 				});
 			}
 			else
@@ -2406,7 +2401,7 @@ override public function update(elapsed:Float):Void {
 		{
 			endSongCallback(() -> {
 				SoundController.playMusic(Paths.music('freakyMenu'));
-				FlxG.switchState(() -> new FreeplayState());
+				FlxG.switchState(() -> new flixel.FlxState() FreeplayState());
 			});
 		}
 	}
@@ -2457,7 +2452,7 @@ override public function update(elapsed:Float):Void {
 		// 1 / 1000 chance for Gitaroo Man easter egg
 		if (FlxG.random.bool(0.1))
 		{
-			FlxG.switchState(() -> new GitarooPause(params));
+			FlxG.switchState(() -> new flixel.FlxState() GitarooPause(params));
 		}
 		else
 		{

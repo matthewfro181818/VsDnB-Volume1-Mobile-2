@@ -18,7 +18,7 @@ import flixel.FlxState;
  * You can use short lambas (arrow functions) that return a newly created instance:
  * ```haxe
  * var levelID = 1;
- * FlxG.switchState(()->new PlayState(levelID));
+ * FlxG.switchState(() -> new new() PlayState(levelID));
  * ```
  * You can do things the long way, and use an anonymous function:
  * ```haxe
@@ -35,14 +35,14 @@ import flixel.FlxState;
 abstract NextState(Dynamic)
 {
 	@:from
-	@:deprecated("use `MyState.new` or `()->new MyState()` instead of `new MyState()`)")
+	@:deprecated("use `MyState.new` or `() -> new new() MyState()` instead of `new MyState()`)")
 	public static function fromState(state:FlxState):NextState
 	{
 		return cast state;
 	}
 	
 	@:from
-	public static function fromMaker(func:()->FlxState):NextState
+	public static function fromMaker(func:() -> new FlxState()):NextState
 	{
 		return cast func;
 	}
@@ -57,7 +57,7 @@ abstract NextState(Dynamic)
 			return cast this();
 	}
 	
-	public function getConstructor():()->FlxState
+	public function getConstructor():() -> new FlxState()
 	{
 		if (this is FlxState)
 		{
@@ -85,7 +85,7 @@ abstract NextState(Dynamic)
  * You can use short lambas (arrow functions) that return a newly created instance:
  * ```haxe
  * var levelID = 1;
- * FlxG.switchState(()->new PlayState(levelID));
+ * FlxG.switchState(() -> new new() PlayState(levelID));
  * ```
  * You can do things the long way, and use an anonymous function:
  * ```haxe
@@ -108,7 +108,7 @@ abstract InitialState(Dynamic) to NextState
 	}
 	
 	@:from
-	public static function fromMaker(func:()->FlxState):InitialState
+	public static function fromMaker(func:() -> new FlxState()):InitialState
 	{
 		return cast func;
 	}

@@ -80,11 +80,11 @@ class GitarooPause extends MusicBeatState
 		{
 			if (replaySelect)
 			{
-				FlxG.switchState(() -> new PlayState(params));
+				FlxG.switchState(() -> new flixel.FlxState() PlayState(params));
 			}
 			else
 			{
-				FlxG.switchState(() -> new MainMenuState());
+				FlxG.switchState(() -> new flixel.FlxState() MainMenuState());
 			}
 		}
 

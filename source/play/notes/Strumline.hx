@@ -491,9 +491,9 @@ class Strumline extends FlxSpriteGroup
 				// Hold note was dropped as it was being held, it's been missed.
 				if (isPlayer && (!isKeyHeld(holdNote.direction) || (!isKeyHeld(holdNote.direction) && holdNote.noteStyle == 'shape' && !PlayerSettings.controls.KEY5)))
 				{
-					holdNote.cover?.hide();
+					holdNote.cover?/*.hide*/();
 
-					strums.members[holdNote.direction].playStatic();
+					strums.members[holdNote.direction]/*.playStatic*/();
 					holdNote.hasMissed = true;
 				}
 			}
@@ -523,12 +523,12 @@ class Strumline extends FlxSpriteGroup
 
 				if (holdNote.cover != null)
 				{
-					holdNote.cover?.hide();
+					holdNote.cover?/*.hide*/();
 				}
 			}
 			else if (conductor.songPosition >= holdNote.strumTime && holdNote.hasBeenHit && !holdNote.hasMissed) // Hold note's currently being hit, clip it, and position it.
 			{
-				strums.members[holdNote.direction].holdConfirm();
+				strums.members[holdNote.direction]/*.holdConfirm*/();
 
 				holdNote.sustainLength = (holdNote.strumTime + holdNote.fullSustainLength) - conductor.songPosition;
 				
@@ -543,7 +543,7 @@ class Strumline extends FlxSpriteGroup
 				// Hold note's been complete, kill it.
 				if (holdNote.sustainLength <= 0)
 				{
-					strums.members[holdNote.direction].playStatic();
+					strums.members[holdNote.direction]/*.playStatic*/();
 
 					if (holdNote.cover != null && isPlayer)
 					{
@@ -551,7 +551,7 @@ class Strumline extends FlxSpriteGroup
 					}
 					else 
 					{
-						holdNote.cover?.hide();
+						holdNote.cover?/*.hide*/();
 					}
 					killSustain(holdNote);
 					return;
@@ -584,7 +584,7 @@ class Strumline extends FlxSpriteGroup
 		{
 			if (isKeyHeld(ind) && strum.animation.curAnim.name == 'static')
 			{
-				strum.playPress();
+				strum/*.playPress*/();
 			}
 		}
 
@@ -597,7 +597,7 @@ class Strumline extends FlxSpriteGroup
 			// Clear the hold cover so it doesn't persistent.
 			if (holdCover.holdNote == null || holdCover.holdNote.sustainLength <= 0 && holdCover.animation.curAnim.name.startsWith('loop'))
 			{
-				holdCover.hide();
+				holdCover/*.hide*/();
 			}
 		}
 	}
@@ -682,7 +682,7 @@ class Strumline extends FlxSpriteGroup
 		
 		for (cover in holdCovers)
 		{
-			cover?.hide();
+			cover?/*.hide*/();
 		}
 
 		for (i in 0...heldKeys.length)
@@ -692,7 +692,7 @@ class Strumline extends FlxSpriteGroup
 
 		forEachStrum((strum:StrumNote) ->
 		{
-			strum.playStatic();
+			strum/*.playStatic*/();
 		});
 		nextNoteIndex = 0;
 	}
@@ -879,7 +879,7 @@ class Strumline extends FlxSpriteGroup
 	 */
 	public function hitNote(note:Note)
 	{
-		strums.members[note.direction].playConfirm();
+		strums.members[note.direction]/*.playConfirm*/();
 
 		note.hasBeenHit = true;
 		if (note.sustainNote != null)

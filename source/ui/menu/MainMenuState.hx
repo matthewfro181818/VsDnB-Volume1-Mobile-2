@@ -249,7 +249,7 @@ class MainMenuState extends MusicBeatState
 		{
 			canInteract = false;
 			SoundController.play(Paths.sound('cancelMenu'));
-			FlxG.switchState(() -> new TitleState());
+			FlxG.switchState(() -> new flixel.FlxState() TitleState());
 		}
 	}
 
@@ -367,15 +367,15 @@ class MainMenuState extends MusicBeatState
 			switch (selectedOption)
 			{
 				case 'story mode':
-					FlxG.switchState(() -> new StoryMenuState());
+					FlxG.switchState(() -> new flixel.FlxState() StoryMenuState());
 				case 'freeplay':
 					if (FlxG.random.bool(0.05))
 					{
 						PlatformUtil.openURL("https://www.youtube.com/watch?v=Z7wWa1G9_30%22");
 					}
-					FlxG.switchState(() -> new FreeplayState());
+					FlxG.switchState(() -> new flixel.FlxState() FreeplayState());
 				case 'ost':
-					FlxG.switchState(() -> new OSTMenuState());
+					FlxG.switchState(() -> new flixel.FlxState() OSTMenuState());
 				case 'options':
 					var settings = new SettingsMenu();
 					settings.closeCallback = function()
@@ -386,7 +386,7 @@ class MainMenuState extends MusicBeatState
 					}
 					openSubState(settings);
 				case 'credits':
-					FlxG.switchState(() -> new CreditsMenuState());
+					FlxG.switchState(() -> new flixel.FlxState() CreditsMenuState());
 			}
 		});
 	}

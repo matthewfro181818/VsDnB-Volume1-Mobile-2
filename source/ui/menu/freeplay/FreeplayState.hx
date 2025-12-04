@@ -350,7 +350,7 @@ class FreeplayState extends MusicBeatState
 
 			if (controls.BACK && canInteract)
 			{
-				FlxG.switchState(() -> new MainMenuState());
+				FlxG.switchState(() -> new flixel.FlxState() MainMenuState());
 			}
 			if (controls.ACCEPT && !loadingPack && canInteract)
 			{
@@ -424,7 +424,7 @@ class FreeplayState extends MusicBeatState
 				
 				for (i in grpSongs)
 				{
-					i.unlockY = true;
+					i/*.unlockY*/ = true;
 
 					FlxTween.tween(i, {y: 5000, alpha: 0}, 0.3, {
 						onComplete: function(twn:FlxTween)
@@ -509,7 +509,7 @@ class FreeplayState extends MusicBeatState
 				switch (songs[curSelected].song.id)
 				{
 					case 'backseat':
-						FlxG.switchState(() -> new ui.select.playerSelect.BackseatSelect());
+						FlxG.switchState(() -> new flixel.FlxState() ui.select.playerSelect.BackseatSelect());
 					default:
 						SoundController.music.fadeOut(1, 0);
 						
@@ -521,7 +521,7 @@ class FreeplayState extends MusicBeatState
 
 						if (FlxG.keys.pressed.CONTROL || skipSelect.contains(song.id.toLowerCase()))
 						{
-							LoadingState.loadAndSwitchState(() -> new PlayState({
+							LoadingState.loadAndSwitchState(() -> new flixel.FlxState() PlayState({
 								targetSong: song,
 								targetVariation: ''
 							}));
@@ -533,7 +533,7 @@ class FreeplayState extends MusicBeatState
 								FlxG.save.data.wasInCharSelect = true;
 								FlxG.save.flush();
 							}
-							LoadingState.loadAndSwitchState(() -> new CharacterSelect({targetSong: song}));
+							LoadingState.loadAndSwitchState(() -> new flixel.FlxState() CharacterSelect({targetSong: song}));
 						}
 				}
 			}
@@ -618,7 +618,7 @@ class FreeplayState extends MusicBeatState
 		for (i in 0...songs.length)
 		{
 			var songText:FreeplayAlphabet = new FreeplayAlphabet(songs[i]);
-			songText.menuItemGroup = cast grpSongs.members;
+			songText/*.menuItemGroup*/ = cast grpSongs.members;
 			songText.targetY = i;
 			songText.alpha = 0;
 			songText.y += 1000;
@@ -634,7 +634,7 @@ class FreeplayState extends MusicBeatState
 				case "polygonized":
 					songText.onUpdate = function(elapsed:Float)
 					{
-						songText.forEachCharacter(function(char:AlphaCharacter) {
+						songText/*.forEachCharacter*/(function(char:AlphaCharacter) {
 							char.offset.x = FlxG.random.int(-3, 3);
 							char.offset.y = FlxG.random.int(-3, 3);
 						});
@@ -642,7 +642,7 @@ class FreeplayState extends MusicBeatState
 				case "interdimensional":
 					songText.onUpdate = function(elapsed:Float) {
 						var index = 0;
-						songText.forEachCharacter(function(char:AlphaCharacter) {
+						songText/*.forEachCharacter*/(function(char:AlphaCharacter) {
 							char.offset.x = Math.cos(FlxG.game.ticks / 750) * 8 * (index % 2 == 0 ? 1 : -1);
 							char.offset.y = Math.sin(FlxG.game.ticks / 500) * 5 * (index % 2 == 0 ? 1 : -1);
 							index++;
@@ -710,7 +710,7 @@ class FreeplayState extends MusicBeatState
 				ease: FlxEase.expoInOut,
 				onComplete: function(twn:FlxTween)
 				{
-					grpSongs.members[i].unlockY = false;
+					grpSongs.members[i]/*.unlockY*/ = false;
 				}
 			});
 		}

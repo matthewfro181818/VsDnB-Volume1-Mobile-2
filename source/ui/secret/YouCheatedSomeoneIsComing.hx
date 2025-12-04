@@ -43,6 +43,6 @@ class YouCheatedSomeoneIsComing extends FlxState // why did this extend music be
 
 	public function endIt()
 	{
-		FlxG.switchState(() -> new SusState());
+		FlxG.switchState(() -> new flixel.FlxState() SusState());
 	}
 }

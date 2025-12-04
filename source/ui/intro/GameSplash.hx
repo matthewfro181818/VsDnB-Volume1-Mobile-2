@@ -76,11 +76,11 @@ class GameSplash extends FlxState
 
 		if (FlxG.save.data.hasSeenOptionsReminder == null || !FlxG.save.data.hasSeenOptionsReminder)
 		{
-			FlxG.switchState(() -> new OptionsReminderState());
+			FlxG.switchState(() -> new flixel.FlxState() OptionsReminderState());
 		}
 		else
 		{
-			FlxG.switchState(() -> new TitleState());
+			FlxG.switchState(() -> new flixel.FlxState() TitleState());
 		}
 
 		@:privateAccess

@@ -365,7 +365,7 @@ class CharacterSelect extends MusicBeatState
 			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 			{
 				SoundController.playMusic(Paths.music('freakyMenu'));
-				FlxG.switchState(() -> new FreeplayState());
+				FlxG.switchState(() -> new flixel.FlxState() FreeplayState());
 			}
 		}
 
@@ -397,7 +397,7 @@ class CharacterSelect extends MusicBeatState
 		params.targetSong = SongRegistry.instance.fetchEntry(targetSong.id);
 		lastParams.targetSong = SongRegistry.instance.fetchEntry(targetSong.id);
 
-		LoadingState.loadAndSwitchState(() -> new CharacterSelect({targetSong: params.targetSong}));
+		LoadingState.loadAndSwitchState(() -> new flixel.FlxState() CharacterSelect({targetSong: params.targetSong}));
 	}
 
 	function changeColumnSelection(amount:Int)

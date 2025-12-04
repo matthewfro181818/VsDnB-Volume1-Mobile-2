@@ -271,7 +271,7 @@ class StoryMenuState extends MusicBeatState
 			{
 				SoundController.play(Paths.sound('cancelMenu'));
 				movedBack = true;
-				FlxG.switchState(() -> new MainMenuState());
+				FlxG.switchState(() -> new flixel.FlxState() MainMenuState());
 			}
 		}
 

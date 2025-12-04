@@ -30,7 +30,7 @@ class PortraitPage extends FlxSpriteGroup
 		for (portrait in this.members)
 		{
 			// Set this value to false automatically, as the actual visibility for this icon already gets updated on portrait selection update.
-			portrait.gfIcon.visible = false;
+			portrait/*.gfIcon*/.visible = false;
 		}
 	}
 }

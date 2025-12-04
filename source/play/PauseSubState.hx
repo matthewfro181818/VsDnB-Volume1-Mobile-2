@@ -402,7 +402,7 @@ class PauseSubState extends MusicBeatSubstate
 		{
 			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, LanguageManager.getTextString('pause_${menuItems[i].name}'));
 			songText.isMenuItem = true;
-			songText.menuItemGroup = grpMenuShit.members;
+			songText/*.menuItemGroup*/ = grpMenuShit.members;
 			songText.targetY = i;
 			grpMenuShit.add(songText);
 		}
@@ -442,7 +442,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		PlayState.instance.shakeCam = false;
 		PlayState.instance.camZooming = false;
-		Cursor.hide();
+		Cursor/*.hide*/();
 		FlxG.resetState();
 	}
 
@@ -482,7 +482,7 @@ class PauseSubState extends MusicBeatSubstate
 	 */
 	static function changeCharacter(state:PauseSubState):Void
 	{
-		FlxG.switchState(() -> new CharacterSelect({targetSong: PlayState.instance.currentSong}));
+		FlxG.switchState(() -> new flixel.FlxState() CharacterSelect({targetSong: PlayState.instance.currentSong}));
 	}
 	
 	/**
@@ -494,9 +494,9 @@ class PauseSubState extends MusicBeatSubstate
 	static function returnBackToMenu(state:PauseSubState):Void
 	{
 		if (PlayStatePlaylist.isStoryMode)
-			returnToMenu(() -> new StoryMenuState());
+			returnToMenu(() -> new flixel.FlxState() StoryMenuState());
 		else 
-			returnToMenu(() -> new FreeplayState());
+			returnToMenu(() -> new flixel.FlxState() FreeplayState());
 	}
 
 	/**
@@ -528,7 +528,7 @@ static function returnToMenu(buildState:Void->FlxState)
 
     PlayState.instance.shakeCam = false;
     PlayState.instance.camZooming = false;
-    Cursor.hide();
+    Cursor/*.hide*/();
 
     if (!SoundController.music.playing)
         SoundController.playMusic(Paths.music('freakyMenu'));

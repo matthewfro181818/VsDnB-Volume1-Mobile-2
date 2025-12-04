@@ -81,7 +81,7 @@ class CharacterDebug extends MusicBeatState
 	{
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
-			FlxG.switchState(() -> new MainMenuState());
+			FlxG.switchState(() -> new flixel.FlxState() MainMenuState());
 		}
 		if (FlxG.keys.justPressed.V)
 		{
