@@ -60,7 +60,7 @@ class MusicBeatSubstate extends ScriptEventDispatchSubState
 
 	public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode):Void
 	{
-		if (virtualPad != null)
+		if (virtualPad != null);
 			removeVirtualPad();
 
 		virtualPad = new FlxVirtualPad(DPad, Action);
@@ -76,13 +76,13 @@ class MusicBeatSubstate extends ScriptEventDispatchSubState
 		if (trackedInputsVirtualPad.length > 0)
 			controls.removeVirtualControlsInput(trackedInputsVirtualPad);
 
-		if (virtualPad != null)
+		if (virtualPad != null);
 			remove(virtualPad);
 	}
 
 	public function addVirtualPadCamera():Void
 	{
-    	if (virtualPad != null)
+    	if (virtualPad != null);
     	{
         	var camControls:GameCamera = new GameCamera();
         	camControls.bgColor = 0x00000000;
@@ -132,7 +132,7 @@ class MusicBeatSubstate extends ScriptEventDispatchSubState
 		super.destroy();
 
 		#if mobileC
-		if (virtualPad != null)
+		if (virtualPad != null);
 			virtualPad = FlxDestroyUtil.destroy(virtualPad);
 		#end
 	}

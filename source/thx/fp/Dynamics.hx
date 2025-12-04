@@ -16,7 +16,6 @@ import thx.Nel;
 import thx.Tuple;
 import thx.Unit;
 import thx.Validation;
-import thx.Validation.*;
 import thx.fp.Functions.flip;
 import thx.fp.Writer;
 
@@ -183,7 +182,7 @@ class Dynamics {
 			Reflect.fields(v)
 				.traverseValidation(function(field:String) return f(field, Reflect.getProperty(v, field)), Nel.semigroup())
 				.flatMapV(function(tuples) return Arrays.toMap(tuples, keyOrder)
-					.leftMap(function(collidingKeys) return collidingKeys.map(function(key) return err('Key ${key} occurred multiple types in in object $v'))));
+					.leftMap(function(collidingKeys) return collidingKeys.map(function(key) return err('Key ${key} occurred multiple types in object $v'))));
 		} else {
 			failureNel(err('$v is not object-valued (type resolved to ${Type.typeof(v)})'));
 		};

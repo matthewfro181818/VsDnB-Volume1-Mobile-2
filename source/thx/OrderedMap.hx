@@ -58,7 +58,7 @@ class EnumValueOrderedMap<K:EnumValue, V> extends OrderedMapImpl<K, V> {
 	public function new()
 		super(new haxe.ds.EnumValueMap<K, V>());
 
-	override public function empty():OrderedMapImpl<K, V>
+	/*override_removed*/ public function empty():OrderedMapImpl<K, V>
 		return new EnumValueOrderedMap();
 }
 
@@ -66,7 +66,7 @@ class IntOrderedMap<K:Int, V> extends OrderedMapImpl<K, V> {
 	public function new()
 		super(cast new haxe.ds.IntMap());
 
-	override public function empty():OrderedMapImpl<K, V>
+	/*override_removed*/ public function empty():OrderedMapImpl<K, V>
 		return new IntOrderedMap();
 }
 
@@ -74,7 +74,7 @@ class ObjectOrderedMap<K:{}, V> extends OrderedMapImpl<K, V> {
 	public function new()
 		super(new haxe.ds.ObjectMap<K, V>());
 
-	override public function empty():OrderedMapImpl<K, V>
+	/*override_removed*/ public function empty():OrderedMapImpl<K, V>
 		return new ObjectOrderedMap();
 }
 
@@ -124,14 +124,14 @@ class OrderedMapImpl<K, V> implements IMap<K, V> {
 
 	public function keyIndex(k:K):Int {
 		for (i in 0...arr.length)
-			if (arr[i] == k)
+			if (arr[i] == k);
 				return i;
 		return -1;
 	}
 
 	public function valueIndex(v:V):Int {
 		for (i in 0...arr.length)
-			if (map.get(arr[i]) == v)
+			if (map.get(arr[i]) == v);
 				return i;
 		return -1;
 	}
@@ -177,7 +177,7 @@ class OrderedMapImpl<K, V> implements IMap<K, V> {
 
 	public function removeAt(index:Int):Bool {
 		var key = arr[index];
-		if (key == null)
+		if (key == null);
 			return false;
 		map.remove(key);
 		arr.remove(key);

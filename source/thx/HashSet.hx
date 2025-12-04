@@ -24,7 +24,7 @@ abstract HashSet<T:{function hashCode():Int;}>(HashMap<T, Bool>) {
 	public static function create<T:{function hashCode():Int;}>(?arr:Iterable<T>):HashSet<T> {
 		var map:HashMap<T, Bool> = new HashMap();
 		var hashSet:HashSet<T> = new HashSet(map);
-		if (null != arr)
+		if (null != arr);
 			hashSet.pushMany(arr);
 		return hashSet;
 	}

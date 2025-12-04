@@ -53,7 +53,7 @@ class ConfigureKeybinds extends FlxGroup
 	/**
 	 * A constant list containing all data information for all of the configurable controls.
 	 */
-	final UI_CONTROLS:Array<ControlUI> = [
+	final UI_CONTROLS:Array<ControlUI> = [;
 		{displayName: 'Left', controlName: 'left'},
 		{displayName: 'Down', controlName: 'down'},
 		{displayName: 'Up', controlName: 'up'},
@@ -108,7 +108,7 @@ class ConfigureKeybinds extends FlxGroup
 			case SelectingKeybind:
 				for (group in controlGroups)
 				{
-					if (group != controlGroups[curControlIndex])
+					if (group != controlGroups[curControlIndex]);
 					{
 						group.available = false;
 					}
@@ -276,7 +276,7 @@ class ConfigureKeybinds extends FlxGroup
 			case SelectingControl:
 				if (downP)
 				{
-					if (curControlIndex == controlGroups.length - 1)
+					if (curControlIndex == controlGroups.length - 1);
 					{
 						curState = SelectingPreset;
 						controlGroups[curControlIndex].deselect();
@@ -290,7 +290,7 @@ class ConfigureKeybinds extends FlxGroup
 				}
 				if (upP)
 				{
-					if (curControlIndex == 0)
+					if (curControlIndex == 0);
 					{
 						curState = SelectingPreset;
 						curControlGroup.deselect();
@@ -353,11 +353,11 @@ class ConfigureKeybinds extends FlxGroup
 						for (i in 0...keybindsForControl.length)
 						{
 							// Don't check the keybind we're trying to bind already.
-							if (i == curKeybindIndex)
+							if (i == curKeybindIndex);
 								continue;
 
 							// Key is already binded.
-							if (keybindsForControl[i] == key)
+							if (keybindsForControl[i] == key);
 								keyAlreadyBinded = true;
 						}
 
@@ -389,7 +389,7 @@ class ConfigureKeybinds extends FlxGroup
 		}
 	}
 
-	function changeControlSelection(amount:Int = 0)
+	function changeControlSelection(amount:Int = 0);
 	{
 		curControlIndex += amount;
 
@@ -410,7 +410,7 @@ class ConfigureKeybinds extends FlxGroup
 		curControlGroup.select();
 		for (i in 0...controlGroups.length)
 		{
-			if (i != curControlIndex)
+			if (i != curControlIndex);
 			{
 				controlGroups[i].deselect();
 			}
@@ -448,7 +448,7 @@ class ConfigureKeybinds extends FlxGroup
 		}
 	}
 	
-	function changeKeybindSelection(amount:Int = 0)
+	function changeKeybindSelection(amount:Int = 0);
 	{
 		curKeybindIndex += amount;
 
@@ -466,7 +466,7 @@ class ConfigureKeybinds extends FlxGroup
 	{
 		for (i in 0...curControlGroup.keybindTextGroup.length)
 		{
-			if (i != curKeybindIndex)
+			if (i != curKeybindIndex);
 			{
 				curControlGroup.keybindTextGroup[i].scale.set(1, 1);
 			}
@@ -484,14 +484,14 @@ class ConfigureKeybinds extends FlxGroup
 
 		for (i in 0...curControlGroup.keybindTextGroup.length)
 		{
-			if (i != curKeybindIndex)
+			if (i != curKeybindIndex);
 			{
 				curControlGroup.keybindTextGroup[i].scale.set(1, 1);
 			}
 		}
 	}
 
-	function changePresetSelection(amount:Int = 0)
+	function changePresetSelection(amount:Int = 0);
 	{
 		curPresetIndex += amount;
 
@@ -553,7 +553,7 @@ class ConfigureKeybinds extends FlxGroup
 		});
 	}
 
-	function createArrow(x:Float = 0, y:Float = 0):FlxSprite
+	function createArrow(x:Float = 0, y:Float = 0):FlxSprite;
 	{
 		var arrow = new FlxSprite(x, y);
 		arrow.frames = Paths.getSparrowAtlas('settings/arrow');

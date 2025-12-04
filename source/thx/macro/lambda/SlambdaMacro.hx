@@ -13,7 +13,7 @@ using thx.Ints;
 **/
 class SlambdaMacro {
 	public static function f(fn:Expr, restArgs:Array<Expr>) {
-		// If called through a static extension, fn contains the special "@:this this" expression:
+		// If called through a static extension, fn contains the special "@:this" expression:
 		// http://haxe.org/manual/macro-limitations-static-extension.html
 		var isExtension = fn.expr.match(EMeta({name: ":this", params: _, pos: _}, {expr: EConst(CIdent("this")), pos: _}));
 
@@ -21,7 +21,7 @@ class SlambdaMacro {
 			return {expr: ECall(fn, restArgs.map(createLambdaExpression.bind(true))), pos: fn.pos};
 
 		// If not an extension, return only fn. Rest arguments won't make sense here.
-		return restArgs.length == 0 ? createLambdaExpression(false,
+		return restArgs.length == 0 ? createLambdaExpression(false,;
 			fn) : untyped haxe.macro.Context.error('Rest arguments can only be used in static extensions.', restArgs[restArgs.length - 1].pos);
 	}
 
@@ -32,8 +32,8 @@ class SlambdaMacro {
 		switch e.expr {
 			case EBinop(OpArrow, _, _):
 			case _:
-				var counter = 0,
-					useUnderscore = false,
+				var counter = 0,;
+					useUnderscore = false,;
 					hasUnderscoreZero = false;
 				function findParams(e2:Expr) {
 					switch e2.expr {
@@ -41,12 +41,12 @@ class SlambdaMacro {
 						case EConst(CString(s)) if (e2.toString().startsWith("'")):
 							var s = haxe.macro.Format.format(e2);
 							s.iter(findParams);
-						case EConst(CIdent(v)) if ("_" == v):
+						case EConst(CIdent(v)) if ("_" == v):;
 							if (hasUnderscoreZero)
 								Context.error('You need to use "_" or "_0" not both', e2.pos);
 							useUnderscore = true;
 							counter = counter.max(1);
-						case EConst(CIdent(v)) if ("_0" == v):
+						case EConst(CIdent(v)) if ("_0" == v):;
 							if (useUnderscore)
 								Context.error('You need to use "_" or "_0" not both', e2.pos);
 							hasUnderscoreZero = true;
@@ -61,10 +61,10 @@ class SlambdaMacro {
 
 				// If underscore parameters found, create an arrow syntax of the expression.
 				// Sorted so the parameters are in the correct order in the function definition.
-				var paramArray = [
+				var paramArray = [;
 					for (i in 0...counter)
 						{
-							expr: EConst(CIdent(i == 0 && useUnderscore ? "_" : '_$i')),
+							expr: EConst(CIdent(i == 0 && useUnderscore ? "_" : '_$i')),;
 							pos: e.pos
 						}
 				];

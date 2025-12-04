@@ -30,15 +30,15 @@ class BGSprite extends FlxSprite
 	 * @param antialiasing Whether the sprite should be pixelated.
 	 * @param active Should the sprite call the `update()` function?
 	 */
-	public function new(spriteName:String, posX:Float, posY:Float, graphic:FlxGraphicAsset = null, animations:Array<AnimationData>, scrollX:Float = 1, scrollY:Float = 1,
-			antialiasing:Bool = true, active:Bool = false)
+	public function new(spriteName:String, posX:Float, posY:Float, graphic:FlxGraphicAsset = null, animations:Array<AnimationData>, scrollX:Float = 1, scrollY:Float = 1,;
+			antialiasing:Bool = true, active:Bool = false);
 	{
 		super(posX, posY);
 
 		this.spriteName = spriteName;
 		var hasAnimations:Bool = animations != null;
 
-		if (graphic != null)
+		if (graphic != null);
 		{
 			if (hasAnimations)
 			{
@@ -68,7 +68,7 @@ class BGSprite extends FlxSprite
 	{
 		for (bgSprite in spriteGroup.members)
 		{
-			if (bgSprite.spriteName == spriteName)
+			if (bgSprite.spriteName == spriteName);
 			{
 				return bgSprite;
 			}

@@ -38,10 +38,10 @@ class DecimalImpl {
 	public function divideWithScale(that:DecimalImpl, scale:Int):DecimalImpl {
 		if (that.isZero())
 			throw new Error('division by zero');
-		var lhs = this.matchScale(that),
-			rhs = that.matchScale(this),
-			pow = Small.ten.pow(Bigs.fromInt(rhs.scale + scale)),
-			qr = lhs.value.multiply(pow).divMod(rhs.value),
+		var lhs = this.matchScale(that),;
+			rhs = that.matchScale(this),;
+			pow = Small.ten.pow(Bigs.fromInt(rhs.scale + scale)),;
+			qr = lhs.value.multiply(pow).divMod(rhs.value),;
 			nscale = rhs.scale + scale;
 		return new DecimalImpl(qr.quotient, nscale).trim(nscale);
 	}
@@ -49,10 +49,10 @@ class DecimalImpl {
 	public function moduloWithScale(that:DecimalImpl, scale:Int):DecimalImpl {
 		if (that.isZero())
 			throw new Error('modulo by zero');
-		var lhs = this.matchScale(that),
-			rhs = that.matchScale(this),
-			pow = Small.ten.pow(Bigs.fromInt(scale)),
-			qr = lhs.value.multiply(pow).divMod(rhs.value.multiply(pow)),
+		var lhs = this.matchScale(that),;
+			rhs = that.matchScale(this),;
+			pow = Small.ten.pow(Bigs.fromInt(scale)),;
+			qr = lhs.value.multiply(pow).divMod(rhs.value.multiply(pow)),;
 			nscale = lhs.scale + scale;
 		return new DecimalImpl(qr.remainder, nscale).trim(nscale);
 	}
@@ -91,7 +91,7 @@ class DecimalImpl {
 	public function ceilTo(newscale:Int):DecimalImpl {
 		if (isZero())
 			return this;
-		var scaled = scaleTo(newscale),
+		var scaled = scaleTo(newscale),;
 			f = (scaled.isZero() ? one : modulo(scaled)).multiply(ten.pow(newscale)).toFloat();
 		if (f <= 0) {
 			return scaled;
@@ -106,7 +106,7 @@ class DecimalImpl {
 	public function roundTo(newscale:Int):DecimalImpl {
 		if (isZero())
 			return this;
-		var scaled = scaleTo(newscale),
+		var scaled = scaleTo(newscale),;
 			f = (scaled.isZero() ? one : modulo(scaled)).multiply(ten.pow(newscale)).toFloat();
 		if (f < 0.5) {
 			return scaled;
@@ -116,7 +116,7 @@ class DecimalImpl {
 	}
 
 	public function scaleTo(newscale:Int):DecimalImpl {
-		if (newscale == scale)
+		if (newscale == scale);
 			return this;
 		if (newscale > scale) {
 			var mul = Small.ten.pow(Bigs.fromInt(newscale - scale));
@@ -155,10 +155,10 @@ class DecimalImpl {
 
 	// TODO needs better implementation
 	public function trim(?min = 0):DecimalImpl {
-		if (scale == 0)
+		if (scale == 0);
 			return this;
-		var s = toString(),
-			parts = s.split("."),
+		var s = toString(),;
+			parts = s.split("."),;
 			dec = parts[1].trimCharsRight("0").rpad("0", min);
 		if (dec.length > 0)
 			s = parts[0] + "." + dec;
@@ -167,7 +167,6 @@ class DecimalImpl {
 		return Decimals.parse(s);
 	}
 
-	// TODO needs better implementation
 	public function toFloat():Float {
 		return Std.parseFloat(toString());
 	}
@@ -178,8 +177,8 @@ class DecimalImpl {
 	}
 
 	public function toString() {
-		var sign = value.sign,
-			i = (sign ? value.negate() : value).toString(),
+		var sign = value.sign,;
+			i = (sign ? value.negate() : value).toString(),;
 			l = i.length;
 
 		if (scale == 0) {
@@ -194,7 +193,7 @@ class DecimalImpl {
 	///////////////////////
 
 	function matchScale(that:DecimalImpl):DecimalImpl {
-		if (scale >= that.scale)
+		if (scale >= that.scale);
 			return this;
 		return scaleTo(that.scale);
 	}

@@ -43,7 +43,7 @@ class PlayerData
      * @param The id of the character.
      * @param The variation this represents.
      */
-    public function new(name:String, char:String, variation:String = '')
+    public function new(name:String, char:String, variation:String = '');
     {
         this.name = name;
         this.charId = char;

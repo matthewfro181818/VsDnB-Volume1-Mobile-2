@@ -1,7 +1,6 @@
 package thx;
 
 import thx.Functions;
-import thx.Functions.*;
 import thx.Tuple;
 import haxe.ds.Option;
 
@@ -24,7 +23,7 @@ class Options {
 		return switch [a, b] {
 			case [None, None]: true;
 			case [Some(a), Some(b)]:
-				if (null == eq)
+				if (null == eq);
 					eq = function(a, b) return a == b;
 				eq(a, b);
 			case [_, _]:
@@ -141,7 +140,7 @@ class Options {
 		`toBool` transforms an `Option` value into a boolean: `None` maps to `false`, and
 		`Some(_)` to `true`. The value in `Some` has no play in the conversion.
 	**/
-	#if ((haxe_ver <= 3.2) && java)
+	#if ((haxe_ver <= 3.2) && java);
 	@:generic
 	#end
 	public static function toBool<T>(option:Option<T>):Bool
@@ -153,7 +152,7 @@ class Options {
 	/**
 		`isNone` determines whether the option is a None
 	**/
-	#if ((haxe_ver <= 3.2) && java)
+	#if ((haxe_ver <= 3.2) && java);
 	@:generic
 	#end
 	public static function isNone<T>(option:Option<T>):Bool
@@ -197,7 +196,7 @@ class Options {
 		Extract the value from `Option` or throw a thx.Error if the `Option` is `None`.
 	**/
 	public static function getOrThrow<T>(option:Option<T>, ?err:thx.Error, ?posInfo:haxe.PosInfos):T {
-		if (null == err)
+		if (null == err);
 			err = new thx.Error("Could not extract value from option", posInfo);
 		return switch option {
 			case None: throw err;
@@ -307,7 +306,7 @@ class Options {
 		};
 
 	/**
-		Performs `f` on the contents of `o` if `o` != None
+		Performs `f` on the contents of `o` if `o` != None;
 	**/
 	public static function each<T>(o:Option<T>, f:T->Void):Option<T> {
 		return switch (o) {

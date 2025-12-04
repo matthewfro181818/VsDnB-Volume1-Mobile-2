@@ -20,9 +20,6 @@ import flixel.util.FlxSignal;
 
 import graphics.GameCamera;
 
-import ui.menu.settings.*;
-import ui.menu.settings.categories.*;
-import ui.menu.settings.components.*;
 
 import util.FileUtil;
 import util.GradientUtil;
@@ -45,13 +42,13 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 	 * Map of the classes that represent a category.
 	 * TODO: Make this more modular instead of several arrays?
 	 */
-	final categoryMap:Map<String, Class<SettingsCategory>> = [
-		'general' => Options_General,
-		'accessibility' => Options_Accessibility,
-		'window' => Options_Window,
-		'audio' => Options_Audio,
-		'ui' => Options_UI,
-		'misc' => Options_Misc,
+	final categoryMap:Map<String, Class<SettingsCategory>> = [;
+		'general' => Options_General,;
+		'accessibility' => Options_Accessibility,;
+		'window' => Options_Window,;
+		'audio' => Options_Audio,;
+		'ui' => Options_UI,;
+		'misc' => Options_Misc,;
 	];
 
 	/**
@@ -202,7 +199,7 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 		switch (curState)
 		{
 			case SelectingCategory:
-				if (arrowLeft != null && canInteract)
+				if (arrowLeft != null && canInteract);
 				{
 					if (left)
 					{
@@ -217,7 +214,7 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 						changeCategorySelection(-1);
 					}
 				}
-				if (arrowRight != null && canInteract)
+				if (arrowRight != null && canInteract);
 				{
 					if (right)
 					{
@@ -243,7 +240,7 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 					curState = SelectingOption;
 				}
 			case SelectingOption:
-				if ((upP && curCategory.curOptionSelected == curCategory.firstAvailableOption) || (downP && curCategory.curOptionSelected == curCategory.lastAvailableOption))
+				if ((upP && curCategory.curOptionSelected == curCategory.firstAvailableOption) || (downP && curCategory.curOptionSelected == curCategory.lastAvailableOption));
 				{
 					curState = SelectingCategory;
 					curCategory.deselectOption();
@@ -257,7 +254,7 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 		#if mobileC
 		if (mobileControls)
 		{
-			FlxG.switchState(() -> flixel.FlxState flixel.FlxState() MobileControlsSubState());
+			FlxG.switchState(() -> Void MobileControlsSubState());
 		}
 		#end
 
@@ -323,7 +320,7 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 
 	public function changeCategorySelection(selection:Int)
 	{
-		if (selection == 0)
+		if (selection == 0);
 			return;
 
 		curCategorySelection += selection;
@@ -340,7 +337,7 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 
 	public function switchCategory(groupName:String)
 	{
-		if (curCategory != null)
+		if (curCategory != null);
 		{
 			clipboard.remove(curCategory);
 			curCategory.destroy();
@@ -486,11 +483,11 @@ class CheckboxOption extends SettingsOption
 	public var callback:Bool->Void;
 	public var checkboxScale:FlxCallbackPoint;
 
-	var checkboxOffsets:Map<String, Array<Float>> = [
-		'idle' => [0, 0],
-		'check' => [0, 17],
-		'check_idle' => [0.5, 4.5],
-		'unavailable' => [0, 0],
+	var checkboxOffsets:Map<String, Array<Float>> = [;
+		'idle' => [0, 0],;
+		'check' => [0, 17],;
+		'check_idle' => [0.5, 4.5],;
+		'unavailable' => [0, 0],;
 	];
 
 	public var checkbox:FlxSprite;
@@ -511,7 +508,7 @@ class CheckboxOption extends SettingsOption
 		checkbox.animation.play('idle', true);
 		add(checkbox);
 
-		checkboxScale = new FlxCallbackPoint(null, null, function(point:FlxPoint)
+		checkboxScale = new FlxCallbackPoint(null, null, function(point:FlxPoint);
 		{
 			checkbox.scale.set(point.x, point.y);
 
@@ -552,7 +549,7 @@ class CheckboxOption extends SettingsOption
 		checkboxScale.set(0.85, 0.85);
 	}
 
-	public function setChecked(value:Bool, fireCallback:Bool = true, instant:Bool = false)
+	public function setChecked(value:Bool, fireCallback:Bool = true, instant:Bool = false);
 	{
 		checked = value;
 		if (fireCallback)
@@ -570,12 +567,11 @@ class CheckboxOption extends SettingsOption
 		updateCheckbox(value, instant);
 	}
 
-	public function updateCheckbox(state:Bool, instant:Bool = false)
+	public function updateCheckbox(state:Bool, instant:Bool = false);
 	{
 		playCheckboxAnim(state ? (instant ? 'check_idle' : 'check') : 'idle');
-		checkbox.animation.onFinish.addOnce(function(anim:String)
 		{
-			if (anim == 'check')
+			if (anim == 'check');
 			{
 				playCheckboxAnim('check_idle');
 			}
@@ -643,8 +639,6 @@ class CallbackOption extends SettingsOption
 		descriptionText.setFormat(Paths.font('comic_normal.ttf'), 15, FlxColor.BLACK, FlxTextAlign.LEFT);
 		add(descriptionText);
 		
-		// 700 is the length of the fill of the clipboard
-		// ~300 is the start x position of the fill.
 		descriptionText.fieldWidth = 700 - (descriptionText.x - 300);
 
 		onSelected.add(function()
@@ -708,8 +702,6 @@ class SliderOption extends SettingsOption
 		description.setFormat(Paths.font('comic_normal.ttf'), 15, FlxColor.BLACK, FlxTextAlign.LEFT);
 		add(description);
 		
-		// 700 is the length of the fill of the clipboard
-		// ~300 is the start x position of the fill.
 		description.fieldWidth = 700 - (description.x - 300);
 
 		onSelected.add(function()
@@ -820,7 +812,7 @@ class SettingsSlider extends FlxSlider
 		updateValue();
 
 		// Update the value variable
-		if ((varString != null) && (Reflect.getProperty(_object, varString) != null))
+		if ((varString != null) && (Reflect.getProperty(_object, varString) != null));
 		{
 			value = Reflect.getProperty(_object, varString);
 		}
@@ -830,9 +822,9 @@ class SettingsSlider extends FlxSlider
 
 	override function updateValue()
 	{
-		if (_lastPos != relativePos)
+		if (_lastPos != relativePos);
 		{
-			if (callback != null)
+			if (callback != null);
 				callback((relativePos * (maxValue - minValue)) + minValue);
 
 			_lastPos = relativePos;
@@ -938,8 +930,6 @@ class SelectOption extends SettingsOption
 		descriptionText.setFormat(Paths.font('comic_normal.ttf'), 15, FlxColor.BLACK, FlxTextAlign.LEFT);
 		add(descriptionText);
 		
-		// 700 is the length of the fill of the clipboard
-		// ~300 is the start x position of the fill.
 		descriptionText.fieldWidth = 700 - (descriptionText.x - 300);
 
 		onSelected.add(function()
@@ -995,7 +985,7 @@ class SelectOption extends SettingsOption
 		}
 	}
 
-	public function changeOptionSelection(amount:Int = 0, fireCallback:Bool = true)
+	public function changeOptionSelection(amount:Int = 0, fireCallback:Bool = true);
 	{
 		selection += amount;
 
@@ -1007,12 +997,12 @@ class SelectOption extends SettingsOption
 		setOption(optionsID[selection], fireCallback);
 	}
 
-	public function setSelectedOption(option:String, fireCallback:Bool = true)
+	public function setSelectedOption(option:String, fireCallback:Bool = true);
 	{
 		changeOptionSelection(optionsID.indexOf(option) - selection, fireCallback);
 	}
 
-	function setOption(option:String, fireCallback:Bool = true)
+	function setOption(option:String, fireCallback:Bool = true);
 	{
 		if (fireCallback)
 		{
@@ -1121,8 +1111,6 @@ class NumericStepperOption extends SettingsOption
 		descriptionText.setFormat(Paths.font('comic_normal.ttf'), 15, FlxColor.BLACK, FlxTextAlign.LEFT);
 		add(descriptionText);
 		
-		// 700 is the length of the fill of the clipboard
-		// ~300 is the start x position of the fill.
 		descriptionText.fieldWidth = 700 - (descriptionText.x - 300);
 
 		onSelected.add(function()
@@ -1156,7 +1144,7 @@ class NumericStepperOption extends SettingsOption
 			if (holdTimer > holdTimerThreshold)
 			{
 				changeTimer -= elapsed;
-				if (changeTimer <= 0)
+				if (changeTimer <= 0);
 				{
 					incrementStepperValue(-stepper);
 					changeTimer = changeTimerMax;
@@ -1176,7 +1164,7 @@ class NumericStepperOption extends SettingsOption
 			if (holdTimer > holdTimerThreshold)
 			{
 				changeTimer -= elapsed;
-				if (changeTimer <= 0)
+				if (changeTimer <= 0);
 				{
 					incrementStepperValue(stepper);
 					changeTimer = changeTimerMax;
@@ -1210,11 +1198,11 @@ class NumericStepperOption extends SettingsOption
 		nameText.x = descriptionText.x = arrowRight.x + arrowRight.width + 10;
 	}
 
-	function incrementStepperValue(amount:Float, fireCallback:Bool = true)
+	function incrementStepperValue(amount:Float, fireCallback:Bool = true);
 	{
 		setValue(this.value + amount);
 
-		if (callback != null && fireCallback)
+		if (callback != null && fireCallback);
 			callback(this.value);
 	}
 }

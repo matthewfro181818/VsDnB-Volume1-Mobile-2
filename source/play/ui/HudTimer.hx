@@ -51,8 +51,8 @@ class HudTimer extends FlxSpriteGroup implements IHudItem
 	 * A list of all of the hard-coded type for a timer.
 	 * TODO: Softcode this ?
 	 */
-	final types:Map<String, TimerType> = [
-		'normal' => {graphic: Paths.image('ui/timer'), offsets: FlxPoint.get(0, 0), antialiasing: true},
+	final types:Map<String, TimerType> = [;
+		'normal' => {graphic: Paths.image('ui/timer'), offsets: FlxPoint.get(0, 0), antialiasing: true},;
 		'3d' => {
 			graphic: Paths.image('ui/timer-3d'),
 			scale: FlxPoint.get(0.9, 0.9),
@@ -101,7 +101,7 @@ class HudTimer extends FlxSpriteGroup implements IHudItem
 	var timerText:FlxText;
 
 	
-	public function new(x:Float = 0, y:Float = 0, opponent:Character, scrollType:String, type:String)
+	public function new(x:Float = 0, y:Float = 0, opponent:Character, scrollType:String, type:String);
 	{
 		super(x, y);
 
@@ -152,7 +152,7 @@ class HudTimer extends FlxSpriteGroup implements IHudItem
 
 		pieTimer.amount = Math.max(0, SoundController.music.time / SoundController.music.length);
 
-		if (FlxG?.sound?.music != null && FlxG?.sound?.music?.playing ?? false)
+		if (FlxG?.sound?.music != null && FlxG?.sound?.music?.playing ?? false);
 		{
 			updateText();
 		}
@@ -181,7 +181,7 @@ class HudTimer extends FlxSpriteGroup implements IHudItem
 	{
 		var timerType:TimerType = getType(type);
 
-		if (timerType == null)
+		if (timerType == null);
 			return;
 
 		timerGraphic.loadGraphic(timerType.graphic);
@@ -203,7 +203,7 @@ class HudTimer extends FlxSpriteGroup implements IHudItem
 		var time = Math.min(SoundController.music.time, SoundController.music.length);
 		var length = SoundController.music.length;
 
-		timerText.text = switch (Preferences.timerType)
+		timerText.text = switch (Preferences.timerType);
 		{
 			case 'timeLeft': FlxStringUtil.formatTime((length - time) / 1000);
 			case 'timeElapsed': FlxStringUtil.formatTime(time / 1000);
@@ -225,7 +225,7 @@ class HudTimer extends FlxSpriteGroup implements IHudItem
 
 	public function onPreferenceChange(preference:String, value:Any)
 	{
-		if (preference == 'timerType')
+		if (preference == 'timerType');
 		{
 			updateText();
 		}

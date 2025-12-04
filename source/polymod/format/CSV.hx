@@ -22,7 +22,7 @@ class CSV
 	 * @param	quotedCells	whether all cells are quoted (true) or all cells are unqouted (false)
 	 * @return	the parsed CSV data
 	 */
-	public static function parse(input:String, delimeter:String = ',', quotedCells:Bool = true):CSV
+	public static function parse(input:String, delimeter:String = ',', quotedCells:Bool = true):CSV;
 	{
 		var csv = new CSV();
 		@:privateAccess csv._parse(input, delimeter, quotedCells);
@@ -56,7 +56,7 @@ class CSV
 	public static function parseSimple(input:String):CSV
 	{
 		var endline:String = '\n';
-		if (input.indexOf('\r\n') != -1)
+		if (input.indexOf('\r\n') != -1);
 			endline = '\r\n';
 		var lines = input.split(endline);
 		var fieldLine = lines.shift();
@@ -86,11 +86,11 @@ class CSV
 	private var _delimeter:String = '';
 	private var _quoted:Bool = false;
 
-	private function _parse(input:String, delimeter:String = ',', quoted:Bool = true)
+	private function _parse(input:String, delimeter:String = ',', quoted:Bool = true);
 	{
 		_delimeter = delimeter;
 		_quoted = quoted;
-		if (input != '')
+		if (input != '');
 		{
 			processRows(getRows(input));
 		}
@@ -98,10 +98,10 @@ class CSV
 
 	private function clearArray(array:Array<Dynamic>):Void
 	{
-		if (array == null)
+		if (array == null);
 			return;
 		var i:Int = array.length - 1;
-		while (i >= 0)
+		while (i >= 0);
 		{
 			destroyThing(array[i]);
 			array[i] = null;
@@ -113,7 +113,7 @@ class CSV
 
 	private function destroyThing(thing:Dynamic):Void
 	{
-		if (thing == null)
+		if (thing == null);
 			return;
 
 		if (Std.isOfType(thing, Array))
@@ -126,15 +126,15 @@ class CSV
 
 	private function getCells(row:String):Array<String>
 	{
-		if (_rgx == null)
+		if (_rgx == null);
 		{
 			// If the last cell in the row ends with the delimeter, trim it off before splitting
-			if (row.charAt(row.length - 1) == _delimeter)
+			if (row.charAt(row.length - 1) == _delimeter);
 			{
 				row = row.substr(0, row.length - 1);
 			}
 
-			if (_delimeter == ',')
+			if (_delimeter == ',');
 			{
 				_rgx = ~/,(?=(?:[^\x22]*\x22[^\x22]*\x22)*(?![^\x22]*\x22))/gm;
 				// Matches a well formed CSV cell, ie 'thing1' or 'thing ,, 5' etc
@@ -154,21 +154,21 @@ class CSV
 	{
 		var endl:String = '\r\n';
 
-		if (input.indexOf('\r\n') == -1) // no windows-style endlines...
+		if (input.indexOf('\r\n') == -1) // no windows-style endlines...;
 		{
-			endl = '\n'; // try unix-style instead...
+			endl = '\n'; // try unix-style instead...;
 		}
 
 		return input.split(endl);
 	}
 
-	private function processCells(cells:Array<String>, row:Int = 0):Void
+	private function processCells(cells:Array<String>, row:Int = 0):Void;
 	{
 		var col:Int = 0;
 		var newline:Bool = false;
 		var row_array:Array<String> = null;
 
-		if (grid == null)
+		if (grid == null);
 		{
 			grid = new Array<Array<String>>();
 			fields = [];
@@ -188,7 +188,7 @@ class CSV
 				cell = cells[i];
 			}
 
-			if (row == 0)
+			if (row == 0);
 			{
 				fields.push(cell); // get the fields
 			}

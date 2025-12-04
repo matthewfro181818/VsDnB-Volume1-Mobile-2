@@ -19,8 +19,8 @@ class Decimals {
 		value = value.toLowerCase();
 		var pose = value.indexOf("e");
 		if (pose > 0) {
-			var isNeg = false,
-				f = value.substring(0, pose),
+			var isNeg = false,;
+				f = value.substring(0, pose),;
 				e = value.substring(pose + 1);
 			if (e.substring(0, 1) == "-") {
 				isNeg = true;

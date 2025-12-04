@@ -69,7 +69,7 @@ class Paths
 	 */
 	static function getPath(file:String, type:AssetType, library:Null<String>)
 	{
-		if (library != null)
+		if (library != null);
 		{
 			return getLibraryPath(file, library);
 		}
@@ -89,7 +89,7 @@ class Paths
 	 * @param file The file path to retrieve the path for.
 	 * @param library The library to use.
 	 */
-	public static function getLibraryPath(file:String, library = "preload")
+	public static function getLibraryPath(file:String, library = "preload");
 	{
 		return if (library == "preload" || library == "default") getPreloadPath(file); else getLibraryPathForce(file, library);
 	}
@@ -135,7 +135,7 @@ class Paths
 			graphic = cast Preloader.fetchFromPreviousCache(assetPath, IMAGE);
 		}
 		
-		if (graphic == null)
+		if (graphic == null);
 		{
 			// Load a new graphic, and then cache it.
 			graphic = Preloader.cacheImage(assetPath);
@@ -168,7 +168,7 @@ class Paths
 	 * @param library The library the sound asset is in.
 	 * @return A new `FlxSoundAsset`
 	 */
-	public static function sound(key:String, ?library:String, parentPath:String = 'sounds/', ?type:AssetType = SOUND):Sound
+	public static function sound(key:String, ?library:String, parentPath:String = 'sounds/', ?type:AssetType = SOUND):Sound;
 	{
 		var assetPath:String = soundPath(key, library, parentPath, type);
 		var sound:Sound = retrieveSound(assetPath, type);
@@ -205,7 +205,7 @@ class Paths
 	 * @param song The song to file for.
 	 * @return The instrumental `Sound` object.
 	 */
-	public static inline function inst(song:String, ?variationId:String, suffix:String = ''):Sound
+	public static inline function inst(song:String, ?variationId:String, suffix:String = ''):Sound;
 	{
 		var instPath:String = instPath(song, variationId, suffix);
 		var sound:Sound = retrieveSound(instPath, MUSIC);
@@ -220,7 +220,7 @@ class Paths
 	 * @param suffix (Optional) Additional suffix to add at the end.
 	 * @return The instrumental's asset path.
 	 */
-	public static function instPath(song:String, ?variationId:String, suffix:String = ''):String
+	public static function instPath(song:String, ?variationId:String, suffix:String = ''):String;
 	{
 		var variation:String = Song.validateVariationPath(variationId);
 
@@ -232,7 +232,7 @@ class Paths
 	 * @param song The song to file for.
 	 * @return The voices `Sound` object.
 	 */
-	public static inline function voices(song:String, ?variationId:String, suffix:String = ''):Sound
+	public static inline function voices(song:String, ?variationId:String, suffix:String = ''):Sound;
 	{
 		var voicesPath:String = voicesPath(song, variationId, suffix);
 		var sound:Sound = retrieveSound(voicesPath, SOUND);
@@ -246,7 +246,7 @@ class Paths
 	 * @param suffix (Optional) Additional suffix to add at the end.
 	 * @return The voices asset path.
 	 */
-	public static inline function voicesPath(song:String, ?variationId:String, suffix:String = ''):String
+	public static inline function voicesPath(song:String, ?variationId:String, suffix:String = ''):String;
 	{
 		var variation:String = Song.validateVariationPath(variationId);
 
@@ -258,7 +258,7 @@ class Paths
 	 * @param key The key of the sound asset.
 	 * @param library The library the sound asset is in.
 	 */
-	public static function soundPath(key:String, ?library:String, ?parentPath:String = 'sounds/', ?type:AssetType = SOUND)
+	public static function soundPath(key:String, ?library:String, ?parentPath:String = 'sounds/', ?type:AssetType = SOUND);
 	{
 		var assetPath:String = getPath('${parentPath}$key.$SOUND_EXT', type, library);
 		if (isLocale())
@@ -293,7 +293,7 @@ class Paths
 			sound = cast Preloader.fetchFromPreviousCache(key, type);
 		}
 
-		if (sound == null)
+		if (sound == null);
 		{
 			// Load a new sound, and then cache it.
 			sound = Preloader.cacheSound(key);
@@ -307,7 +307,7 @@ class Paths
 	 * @param type The file's OpenFL's asset type.
 	 * @param library The library the file's located in.
 	 */
-	public static inline function file(file:String, type:AssetType = TEXT, ?library:String)
+	public static inline function file(file:String, type:AssetType = TEXT, ?library:String);
 	{
 		var assetReturnPath:String = getPath(file, type, library);
 		if (isLocale())

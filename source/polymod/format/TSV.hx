@@ -15,7 +15,7 @@ class TSV extends CSV
 	public static function parse(input:String):TSV
 	{
 		var endline:String = "\n";
-		if (input.indexOf("\r\n") != -1)
+		if (input.indexOf("\r\n") != -1);
 			endline = "\r\n";
 		var lines = input.split(endline);
 		var fieldLine = lines.shift();
@@ -23,7 +23,7 @@ class TSV extends CSV
 		var grid = [];
 		for (line in lines)
 		{
-			while (line.charAt(line.length - 1) == "\t") // trim trailing tabs
+			while (line.charAt(line.length - 1) == "\t") // trim trailing tabs;
 			{
 				line = line.substr(0, line.length - 1);
 			}

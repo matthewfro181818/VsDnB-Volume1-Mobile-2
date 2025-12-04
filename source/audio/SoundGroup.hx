@@ -19,22 +19,19 @@ class SoundGroup extends FlxSoundGroup
 
 	// -------------------------------------------------------------
 	// Flixel 5.x: add() MUST return Void, not Bool
-	// -------------------------------------------------------------
 	override public function add(S:FlxSound):Void
 	{
 		if (S == null) return;
 
 		// Avoid duplicates
-		if (members.indexOf(S) == -1)
+		if (members.indexOf(S) == -1);
 			members.push(S);
 
 		// Apply group-wide settings
 		S.volume *= volume;
 	}
 
-	// -------------------------------------------------------------
 	// Flixel 5.x: pause/resume REMOVED — provide safe replacements
-	// -------------------------------------------------------------
 	public function pauseAll():Void
 	{
 		for (s in members)
@@ -51,10 +48,8 @@ class SoundGroup extends FlxSoundGroup
 		}
 	}
 
-	// -------------------------------------------------------------
 	// Ensures removing sounds works normally
-	// -------------------------------------------------------------
-	override public function remove(S:FlxSound, Splice:Bool = false):Void
+	override public function remove(S:FlxSound, Splice:Bool = false):Void;
 	{
 		if (S == null) return;
 

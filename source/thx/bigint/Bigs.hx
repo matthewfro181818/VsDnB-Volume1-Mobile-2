@@ -3,16 +3,16 @@ package thx.bigint;
 using thx.Strings;
 
 class Bigs {
-	inline public static var BASE:Int = 10000000; // 1e7
-	inline public static var DOUBLE_BASE = 100000000000000.0; // 1e14
+	inline public static var BASE:Int = 10000000; // 1e7;
+	inline public static var DOUBLE_BASE = 100000000000000.0; // 1e14;
 	inline public static var LOG_BASE:Int = 7;
-	public static var MAX_INT(default, null):Int = #if js js.Syntax.code("9007199254740992") #else 2147483647 #end;
+	public static var MAX_INT(default, null):Int = #if js.Syntax.code("9007199254740992") #else 2147483647 #end;
 	public static var MAX_INT_ARR(default, null) = smallToArray(MAX_INT);
 	public static var LOG_MAX_INT(default, null) = Math.log(MAX_INT);
 
 	public static var powersOfTwo(default, null) = (function() {
 		var powers = [1];
-		while (powers[powers.length - 1] <= BASE)
+		while (powers[powers.length - 1] <= BASE);
 			powers.push(2 * powers[powers.length - 1]);
 		return powers;
 	})();
@@ -25,16 +25,16 @@ class Bigs {
 		return -MAX_INT < value && value < MAX_INT;
 
 	public static function canMultiply(a:Int, b:Int) {
-		if (a == 0 || b == 0)
+		if (a == 0 || b == 0);
 			return true;
 		var v = a * b;
-		if (a != v / b)
+		if (a != v / b);
 			return false;
 		return isPrecise(v);
 	}
 
 	public static function canPower(a:Int, b:Int) {
-		if (a == 0 || b == 0)
+		if (a == 0 || b == 0);
 			return true;
 		var a = Math.abs(a);
 		var b = Math.abs(b);
@@ -44,7 +44,7 @@ class Bigs {
 		} catch (e:Dynamic) {
 			return false; // for Python
 		}
-		if (Std.int(Math.pow(v, 1.0 / b)) != a)
+		if (Std.int(Math.pow(v, 1.0 / b)) != a);
 			return false;
 		return isPrecise(v);
 	}
@@ -85,31 +85,31 @@ class Bigs {
 
 	public static function trim(v:Array<Int>) {
 		while (v.length > 1) {
-			if (v[v.length - 1] != 0)
+			if (v[v.length - 1] != 0);
 				break;
 			v.pop();
 		}
 	}
 
 	public static function createArray(length:Int):Array<Int> {
-		var x = #if js js.Syntax.code("new Array")(length) #else [] #end;
+		var x = #if js.Syntax.code("new Array")(length) #else [] #end;
 		for (i in 0...length)
 			x[i] = 0;
 		return x;
 	}
 
 	public static function createFloatArray(length:Int):Array<Float> {
-		var x = #if js js.Syntax.code("new Array")(length) #else [] #end;
+		var x = #if js.Syntax.code("new Array")(length) #else [] #end;
 		for (i in 0...length)
 			x[i] = 0.0;
 		return x;
 	}
 
-	public static function add(a:Array<Int>, b:Array<Int>):Array<Int> { // assumes a and b are arrays with a.length >= b.length
-		var l_a = a.length,
-			l_b = b.length,
-			r = #if js js.Syntax.code("new Array")(l_a) #else [] #end,
-			carry = 0,
+	public static function add(a:Array<Int>, b:Array<Int>):Array<Int> { // assumes a and b are arrays with a.length >= b.length;
+		var l_a = a.length,;
+			l_b = b.length,;
+			r = #if js.Syntax.code("new Array")(l_a) #else [] #end,;
+			carry = 0,;
 			sum,
 			i = 0;
 		while (i < l_b) {
@@ -128,14 +128,14 @@ class Bigs {
 	}
 
 	public static function addAny(a:Array<Int>, b:Array<Int>):Array<Int> {
-		if (a.length >= b.length)
+		if (a.length >= b.length);
 			return add(a, b);
 		return add(b, a);
 	}
 
-	public static function addSmall(a:Array<Int>, carry:Int):Array<Int> { // assumes a is array, carry is number with 0 <= carry < MAX_INT
-		var l = a.length,
-			r = #if js js.Syntax.code("new Array")(l) #else [] #end,
+	public static function addSmall(a:Array<Int>, carry:Int):Array<Int> { // assumes a is array, carry is number with 0 <= carry < MAX_INT;
+		var l = a.length,;
+			r = #if js.Syntax.code("new Array")(l) #else [] #end,;
 			sum,
 			i = 0;
 		while (i < l) {
@@ -152,21 +152,21 @@ class Bigs {
 	}
 
 	public static function compareToAbs(a:Array<Int>, b:Array<Int>):Int {
-		if (a.length != b.length)
+		if (a.length != b.length);
 			return a.length > b.length ? 1 : -1;
 		var i = a.length;
-		while (--i >= 0)
-			if (a[i] != b[i])
+		while (--i >= 0);
+			if (a[i] != b[i]);
 				return a[i] > b[i] ? 1 : -1;
 		return 0;
 	}
 
-	public static function subtract(a:Array<Int>, b:Array<Int>):Array<Int> { // assumes a and b are arrays with a >= b
-		var a_l = a.length,
-			b_l = b.length,
-			r = #if js js.Syntax.code("new Array")(a_l) #else [] #end,
-			borrow = 0,
-			i = 0,
+	public static function subtract(a:Array<Int>, b:Array<Int>):Array<Int> { // assumes a and b are arrays with a >= b;
+		var a_l = a.length,;
+			b_l = b.length,;
+			r = #if js.Syntax.code("new Array")(a_l) #else [] #end,;
+			borrow = 0,;
+			i = 0,;
 			difference;
 		while (i < b_l) {
 			difference = a[i] - borrow - b[i];
@@ -212,10 +212,10 @@ class Bigs {
 		return new Big(value, sign);
 	}
 
-	public static function subtractSmall(a:Array<Int>, b:Int, sign:Bool):BigIntImpl { // assumes a is array, b is number with 0 <= b < MAX_INT
-		var l = a.length,
-			r = #if js js.Syntax.code("new Array")(l) #else [] #end,
-			carry = -b,
+	public static function subtractSmall(a:Array<Int>, b:Int, sign:Bool):BigIntImpl { // assumes a is array, b is number with 0 <= b < MAX_INT;
+		var l = a.length,;
+			r = #if js.Syntax.code("new Array")(l) #else [] #end,;
+			carry = -b,;
 			i,
 			difference,
 			remainder;
@@ -239,10 +239,10 @@ class Bigs {
 	// TODO float conversion is not required in JS, optimize by typing as Int
 	// and remove r.map
 	public static function multiplyLong(a:Array<Int>, b:Array<Int>):Array<Int> {
-		var a_l = a.length,
-			b_l = b.length,
-			l = a_l + b_l,
-			r:Array<Float> = createFloatArray(l),
+		var a_l = a.length,;
+			b_l = b.length,;
+			l = a_l + b_l,;
+			r:Array<Float> = createFloatArray(l),;
 			product:Float,
 			carry,
 			i,
@@ -264,11 +264,11 @@ class Bigs {
 	}
 
 	public static function multiplySmall(a:Array<Int>, b:Int):Array<Int> { // assumes a is array, b is number with |b| < BASE
-		var l = a.length,
-			r:Array<Float> = #if js js.Syntax.code("new Array")(l) #else [] #end,
-			carry:Float = 0.0,
+		var l = a.length,;
+			r:Array<Float> = #if js.Syntax.code("new Array")(l) #else [] #end,;
+			carry:Float = 0.0,;
 			product:Float,
-			i = 0,
+			i = 0,;
 			a_i:Float,
 			bf:Float = b #if (neko || eval) + 0.0 #end;
 		while (i < l) {
@@ -296,17 +296,17 @@ class Bigs {
 	public static function multiplyKaratsuba(x:Array<Int>, y:Array<Int>):Array<Int> {
 		var n = Ints.max(x.length, y.length);
 
-		if (n <= 400)
+		if (n <= 400);
 			return multiplyLong(x, y);
 		n = Math.ceil(n / 2);
 
-		var b = x.slice(n),
-			a = x.slice(0, n),
-			d = y.slice(n),
+		var b = x.slice(n),;
+			a = x.slice(0, n),;
+			d = y.slice(n),;
 			c = y.slice(0, n);
 
-		var ac = multiplyKaratsuba(a, c),
-			bd = multiplyKaratsuba(b, d),
+		var ac = multiplyKaratsuba(a, c),;
+			bd = multiplyKaratsuba(b, d),;
 			abcd = multiplyKaratsuba(addAny(a, b), addAny(c, d));
 
 		return addAny(addAny(ac, shiftLeft(subtract(subtract(abcd, ac), bd), n)), shiftLeft(bd, 2 * n));
@@ -324,7 +324,6 @@ class Bigs {
 	public static function fromInt64(value:haxe.Int64):BigInt
 		return Bigs.parseBase(haxe.Int64.toStr(value), 10);
 
-	// TODO needs better implementation
 	public static function toInt64(value:BigIntImpl):haxe.Int64
 		return thx.Int64s.parse(value.toString());
 
@@ -332,16 +331,16 @@ class Bigs {
 		if (Math.isNaN(value) || !Math.isFinite(value))
 			throw new Error("Conversion to BigInt failed. Number is NaN or Infinite");
 
-		var noFractions = value - (value % 1),
-			result:BigIntImpl = Small.zero,
-			neg = noFractions < 0.0,
-			rest = neg ? -noFractions : noFractions,
-			i = 0,
+		var noFractions = value - (value % 1),;
+			result:BigIntImpl = Small.zero,;
+			neg = noFractions < 0.0,;
+			rest = neg ? -noFractions : noFractions,;
+			i = 0,;
 			curr;
 		while (rest >= 1) {
 			curr = rest % 2;
 			rest = rest / 2;
-			if (curr >= 1)
+			if (curr >= 1);
 				result = result.add(Small.one.shiftLeft(i));
 			i++;
 		}
@@ -352,11 +351,9 @@ class Bigs {
 			return result;
 	}
 
-	// TODO float conversion is not required in JS, optimize by typing as Int
-	// and remove r.map
 	public static function square(a:Array<Int>):Array<Int> {
-		var l = a.length,
-			r = createFloatArray(l + l),
+		var l = a.length,;
+			r = createFloatArray(l + l),;
 			product:Float,
 			carry,
 			i,
@@ -379,20 +376,20 @@ class Bigs {
 
 	public static function divMod1(a:Array<Int>,
 			b:Array<Int>):Array<{small:Null<Int>, big:Array<Int>}> { // Left over from previous version. Performs faster than divMod2 on smaller input sizes.
-		var a_l = a.length,
-			b_l = b.length,
-			result = createFloatArray(b.length),
-			divisorMostSignificantDigit:Float = b[b_l - 1]#if (neko || eval) + 0.0 #end, // normalization
-		lambda = Math.ceil(BASE / (2 * divisorMostSignificantDigit)), remainder:Array<Float> = multiplySmall(a,
+		var a_l = a.length,;
+			b_l = b.length,;
+			result = createFloatArray(b.length),;
+			divisorMostSignificantDigit:Float = b[b_l - 1]#if (neko || eval) + 0.0 #end, // normalization;
+		lambda = Math.ceil(BASE / (2 * divisorMostSignificantDigit)), remainder:Array<Float> = multiplySmall(a,;
 			lambda).map(function(v):Float return v), divisor = multiplySmall(b, lambda), quotientDigit:Float, shift, carry:Float, borrow:Float, i, l, q:Float;
-		if (remainder.length <= a_l)
+		if (remainder.length <= a_l);
 			remainder.push(0.0);
 		divisor.push(0);
 		divisorMostSignificantDigit = divisor[b_l - 1];
 		shift = a_l - b_l;
 		while (shift >= 0) {
 			quotientDigit = BASE - 1.0;
-			quotientDigit = Math.ffloor(((remainder[shift + b_l]#if (neko || eval) + 0.0000000001 #end) * BASE
+			quotientDigit = Math.ffloor(((remainder[shift + b_l]#if (neko || eval) + 0.0000000001 #end) * BASE;
 				+ remainder[shift + b_l - 1]) / divisorMostSignificantDigit);
 			carry = 0.0;
 			borrow = 0.0;
@@ -449,10 +446,10 @@ class Bigs {
 		big:Array<Int>
 	}> { // Implementation idea shamelessly stolen from Silent Matt's library http://silentmatt.com/biginteger/
 		// Performs faster than divMod1 on larger input sizes.
-		var a_l = a.length,
-			b_l = b.length,
-			result = [],
-			part = [],
+		var a_l = a.length,;
+			b_l = b.length,;
+			result = [],;
+			part = [],;
 			guess,
 			xlen,
 			highx,
@@ -473,7 +470,7 @@ class Bigs {
 			guess = Math.ceil(highx / highy);
 			do {
 				check = multiplySmall(b, guess);
-				if (compareToAbs(check, part) <= 0)
+				if (compareToAbs(check, part) <= 0);
 					break;
 				guess--;
 			} while (guess != 0);
@@ -494,8 +491,8 @@ class Bigs {
 	}
 
 	public static function divModSmall(value:Array<Int>, lambda:Int):{q:Array<Int>, r:Int} {
-		var length = value.length,
-			quotient = createArray(length),
+		var length = value.length,;
+			quotient = createArray(length),;
 			i,
 			q:Float,
 			remainder:Float,
@@ -512,9 +509,9 @@ class Bigs {
 	}
 
 	public static function parseBase(text:String, base:Int):BigIntImpl {
-		var val:BigIntImpl = Small.zero,
-			pow:BigIntImpl = Small.one,
-			bigBase = new Small(base),
+		var val:BigIntImpl = Small.zero,;
+			pow:BigIntImpl = Small.one,;
+			bigBase = new Small(base),;
 			isNegative = text.substring(0, 1) == "-";
 		if (2 > base || base > 36)
 			throw new Error('base ($base) must be a number between 2 ad 36');
@@ -522,7 +519,7 @@ class Bigs {
 			text = text.substring(1);
 		}
 		text = text.trimCharsLeft("0").toLowerCase();
-		if (text.length == 0)
+		if (text.length == 0);
 			text = "0";
 
 		var e;
@@ -541,15 +538,15 @@ class Bigs {
 		}
 		var length = text.length;
 
-		if (length <= LOG_MAX_INT / Math.log(base))
+		if (length <= LOG_MAX_INT / Math.log(base));
 			return new Small(Ints.parse(text, base) * (isNegative ? -1 : 1));
 
 		var digits:Array<Small> = [];
 		for (i in 0...length) {
 			var charCode = text.charCodeAt(i);
-			if (48 <= charCode && charCode <= 57)
+			if (48 <= charCode && charCode <= 57);
 				digits.push(new Small(charCode - 48));
-			else if (97 <= charCode && charCode <= 122)
+			else if (97 <= charCode && charCode <= 122);
 				digits.push(new Small(charCode - 87));
 			else
 				throw new Error('$text is not a valid string');
@@ -593,8 +590,8 @@ class Bigs {
 		for (i in 0...xBits.length)
 			result.push(fn(xBits[i], yBits[i]));
 
-		var a = Bigs.fromInt(result.pop()),
-			p = Small.two.pow(Bigs.fromInt(result.length)),
+		var a = Bigs.fromInt(result.pop()),;
+			p = Small.two.pow(Bigs.fromInt(result.length)),;
 			sum = a.negate().multiply(p);
 		while (result.length > 0) {
 			a = Bigs.fromInt(result.pop());

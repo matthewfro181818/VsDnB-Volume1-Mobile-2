@@ -27,16 +27,16 @@ class TerminalLinePrinter extends TerminalDisplay
 		{
 			lines[i].draw(this.myScreen, i);
 		}
-		if (addendText != "")
+		if (addendText != "");
 		{
 			this.myScreen.WriteString(0, lines.length, addendText);
 		}
 	}
 
 	// todo: ALSO SPLIT IF LONGER THAN screenWidth
-	public function AddLine(text:String, fgColor:TerminalColor = TerminalColor.DARK_WHITE, bgColor:TerminalColor = TerminalColor.BLACK)
+	public function AddLine(text:String, fgColor:TerminalColor = TerminalColor.DARK_WHITE, bgColor:TerminalColor = TerminalColor.BLACK);
 	{
-		var splittedText:Array<String> = text.split("\n"); // can't have newlines
+		var splittedText:Array<String> = text.split("\n"); // can't have newlines;
 		for (i in 0...splittedText.length)
 		{
 			this.AddLineInternal(splittedText[i], fgColor, bgColor);
@@ -46,7 +46,7 @@ class TerminalLinePrinter extends TerminalDisplay
 	public function AddCustomLine(line:TerminalLinePrinterLine)
 	{
 		lines.push(line);
-		if ((lines.length + (addendText == "" ? 0 : 1)) > myScreen.screenHeight)
+		if ((lines.length + (addendText == "" ? 0 : 1)) > myScreen.screenHeight);
 		{
 			// is this stupid? probably. but i dont care
 			lines.reverse();
@@ -55,12 +55,11 @@ class TerminalLinePrinter extends TerminalDisplay
 		}
 	}
 
-	function AddLineInternal(text:String, fgColor:TerminalColor = TerminalColor.DARK_WHITE, bgColor:TerminalColor = TerminalColor.BLACK)
+	function AddLineInternal(text:String, fgColor:TerminalColor = TerminalColor.DARK_WHITE, bgColor:TerminalColor = TerminalColor.BLACK);
 	{
 		lines.push(new TerminalLinePrinterLine(text, fgColor, bgColor));
-		if ((lines.length + (addendText == "" ? 0 : 1)) > myScreen.screenHeight)
+		if ((lines.length + (addendText == "" ? 0 : 1)) > myScreen.screenHeight);
 		{
-			// is this stupid? probably. but i dont care
 			lines.reverse();
 			lines.pop();
 			lines.reverse();
@@ -79,7 +78,7 @@ class TerminalLinePrinterLine
 		screen.WriteString(0, y, text, foregroundColor, backgroundColor);
 	}
 
-	public function new(string:String, fgColor:TerminalColor = TerminalColor.DARK_WHITE, bgColor:TerminalColor = TerminalColor.BLACK)
+	public function new(string:String, fgColor:TerminalColor = TerminalColor.DARK_WHITE, bgColor:TerminalColor = TerminalColor.BLACK);
 	{
 		this.text = string;
 		this.foregroundColor = fgColor;

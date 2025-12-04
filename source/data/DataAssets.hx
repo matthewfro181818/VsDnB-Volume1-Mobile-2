@@ -10,7 +10,7 @@ class DataAssets
      * @param suffix The suffix, or the file extension of the data.
      * @return A list of all of the data files from the given folder.
      */
-    public static function listAssetsFromPath(path:String, suffix:String = '.json'):Array<String>
+    public static function listAssetsFromPath(path:String, suffix:String = '.json'):Array<String>;
     {
         var dataFolder:String = Paths.data(path) + '/';
 

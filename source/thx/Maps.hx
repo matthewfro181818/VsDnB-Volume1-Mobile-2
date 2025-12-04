@@ -1,6 +1,6 @@
 package thx;
 
-#if (haxe_ver >= 3.200)
+#if (haxe_ver >= 3.200);
 import haxe.Constraints.IMap;
 #else
 import Map.IMap;
@@ -131,8 +131,8 @@ class Maps {
 		from the function.  To merge into an empty map, pass a new empty map as the dest argument.
 
 		```
-		var result1 = map1.merge([map2, map3]); // result1 and map1 should be the same after this.  map2 and map3 are not modified.
-		var result2 = (new Map() : Map<String, Int>).merge(map1, map2); // map1 and map2 not modified
+		var result1 = map1.merge([map2, map3]); // result1 and map1 should be the same after this.  map2 and map3 are not modified.;
+		var result2 = (new Map() : Map<String, Int>).merge(map1, map2); // map1 and map2 not modified;
 		```
 	**/
 	public static function merge<TKey, TValue>(dest:IMap<TKey, TValue>, sources:Array<IMap<TKey, TValue>>):IMap<TKey, TValue> {

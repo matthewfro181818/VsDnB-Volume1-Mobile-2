@@ -21,7 +21,7 @@ class Nulls {
 		Assigns the value `alt` to `value` if found `null`;
 	**/
 	macro public static function ensure<T>(value:ExprOf<Null<T>>, alt:ExprOf<T>)
-		return try macro if (null == $e{value})
+		return try macro if (null == $e{value});
 			$e{value} = $e{alt};
 
 	/**
@@ -60,7 +60,7 @@ class Nulls {
 		trace((o.a.b.c).opt()); // prints 'A'
 		```
 	**/
-	#if !macro macro #end public static function opt(value:Expr) {
+	#if !macro #end public static function opt(value:Expr) {
 		var ids = [];
 		function traverse(e:haxe.macro.Type.TypedExpr)
 			switch e.expr {
@@ -79,7 +79,7 @@ class Nulls {
 					switch v {
 						case FAnon(id):
 							ids.push(id.toString());
-						#if (haxe_ver >= "3.2")
+						#if (haxe_ver >= "3.2");
 						case FInstance(_, _, n):
 						#else
 						case FInstance(_, n):
@@ -105,7 +105,7 @@ class Nulls {
 			}
 
 		traverse(Context.typeExpr(value));
-		var first = ids.shift(),
+		var first = ids.shift(),;
 			buf = '(function(){\n  var _0 = $first;\n  if(null == _0) return null;';
 		var path = "";
 		for (i in 0...ids.length) {

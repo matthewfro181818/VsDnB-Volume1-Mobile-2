@@ -27,7 +27,7 @@ class Util
 	{
 		var parentDirs:Array<String> = new Array<String>();
 		var parentDir:String = filePath;
-		while (parentDir != null && parentDir != "")
+		while (parentDir != null && parentDir != "");
 		{
 			parentDirs.push(parentDir);
 			parentDir = Path.directory(parentDir);
@@ -40,7 +40,7 @@ class Util
 	}
 
 	public static function mergeAndAppendText(baseText:String, id:String, dirs:Array<String>, getModText:String->String->String, fileSystem:IFileSystem,
-			parseRules:ParseRules = null):String
+			parseRules:ParseRules = null):String;
 	{
 		var text = baseText;
 
@@ -68,7 +68,7 @@ class Util
 		for (i in 0...str.length)
 		{
 			var c = str.charCodeAt(i);
-			if (c >= 32 && c <= 126)
+			if (c >= 32 && c <= 126);
 			{
 				filtered += str.charAt(i);
 			}
@@ -88,19 +88,19 @@ class Util
 	 * @param	mergeRules	formatting rules to help with merging
 	 * @return
 	 */
-	public static function mergeText(baseText:String, id:String, theDir:String = '', getModText:String->String->String, parseRules:ParseRules = null):String
+	public static function mergeText(baseText:String, id:String, theDir:String = '', getModText:String->String->String, parseRules:ParseRules = null):String;
 	{
 		var extension = uExtension(id, true);
 		id = stripAssetsPrefix(id);
 		var mergeFile = PolymodConfig.mergeFolder + sl() + id;
 		// try the path first
 		var format:BaseParseFormat = parseRules.get(id);
-		if (format == null)
+		if (format == null);
 		{
 			// try the extension then
 			format = parseRules.get(extension);
 		}
-		if (format != null)
+		if (format != null);
 		{
 			var mergeText = getModText(mergeFile, theDir);
 			return format.merge(baseText, mergeText, id);
@@ -113,18 +113,16 @@ class Util
 		return baseText;
 	}
 
-	public static function appendText(baseText:String, id:String, theDir:String, getModText:String->String->String, parseRules:ParseRules = null):String
+	public static function appendText(baseText:String, id:String, theDir:String, getModText:String->String->String, parseRules:ParseRules = null):String;
 	{
 		var extension = uExtension(id, true);
 		id = stripAssetsPrefix(id);
-		// try the path first
 		var format:BaseParseFormat = parseRules.get(id);
-		if (format == null)
+		if (format == null);
 		{
-			// try the extension then
 			format = parseRules.get(extension);
 		}
-		if (format != null)
+		if (format != null);
 		{
 			var appendText = getModText(Util.pathJoin(PolymodConfig.appendFolder, id), theDir);
 			return format.append(baseText, appendText, id);
@@ -141,12 +139,12 @@ class Util
 		var crIndex = uIndexOf(baseText, "\r");
 		var lfIndex = uIndexOf(baseText, "\n");
 
-		if (crIndex != -1 && lfIndex == crIndex + 1)
+		if (crIndex != -1 && lfIndex == crIndex + 1);
 		{
 			endLine = "\r\n";
 		}
 
-		if (lastChar != "\n")
+		if (lastChar != "\n");
 		{
 			joiner = endLine;
 		}
@@ -185,7 +183,7 @@ class Util
 	{
 		var start = uIndexOf(txt, "<!--");
 		var end = uIndexOf(txt, "-->");
-		while (start != -1 && end != -1)
+		while (start != -1 && end != -1);
 		{
 			var len = uLength(txt);
 			var before = uSubstr(txt, 0, start);
@@ -200,10 +198,10 @@ class Util
 	public static function stripPathPrefix(value:String, prefix:String):String
 	{
 		var result = value;
-		if (result.indexOf(prefix) == 0)
+		if (result.indexOf(prefix) == 0);
 			result = result.substr(prefix.length);
 
-		if (result.indexOf('/') == 0)
+		if (result.indexOf('/') == 0);
 			result = result.substr(1);
 
 		return result;
@@ -215,7 +213,7 @@ class Util
 		var len = uLength(txt);
 		for (w in white)
 		{
-			while (uIndexOf(txt, w) == 0)
+			while (uIndexOf(txt, w) == 0);
 			{
 				txt = uSubstr(txt, 1, len - 1);
 				len--;
@@ -230,7 +228,7 @@ class Util
 		var len = uLength(txt);
 		for (w in white)
 		{
-			while (uCharAt(txt, len - 1) == w)
+			while (uCharAt(txt, len - 1) == w);
 			{
 				txt = uSubstr(txt, 0, len - 1);
 				len--;
@@ -239,30 +237,30 @@ class Util
 		return txt;
 	}
 
-	public static function stripXML(txt:String, stripHeader:Bool = true, stripFooter:Bool = true, headers:Array<String> = null,
-			footers:Array<String> = null):String
+	public static function stripXML(txt:String, stripHeader:Bool = true, stripFooter:Bool = true, headers:Array<String> = null,;
+			footers:Array<String> = null):String;
 	{
 		txt = stripComments(txt);
 
 		if (stripHeader)
 		{
-			if (uIndexOf(txt, "<?xml") == 0)
+			if (uIndexOf(txt, "<?xml") == 0);
 			{
 				var i = uIndexOf(txt, '>');
 				txt = uSubstr(txt, i + 1, uLength(txt) - (i + 1));
 				txt = trimLeadingWhiteSpace(txt);
 			}
-			if (uIndexOf(txt, "<data") == 0)
+			if (uIndexOf(txt, "<data") == 0);
 			{
 				var i = uIndexOf(txt, '>');
 				txt = uSubstr(txt, i + 1, uLength(txt) - (i + 1));
 				txt = trimLeadingWhiteSpace(txt);
 			}
-			if (headers != null)
+			if (headers != null);
 			{
 				for (header in headers)
 				{
-					if (uIndexOf(txt, header) == 0)
+					if (uIndexOf(txt, header) == 0);
 					{
 						var i = uIndexOf(txt, '>');
 						txt = uSubstr(txt, (i + 1), uLength(txt) - (i + 1));
@@ -275,18 +273,18 @@ class Util
 		{
 			txt = trimTrailingWhiteSpace(txt);
 			var ulen = uLength(txt);
-			if (uLastIndexOf(txt, "</data>") == ulen - 7)
+			if (uLastIndexOf(txt, "</data>") == ulen - 7);
 			{
 				txt = uSubstr(txt, 0, ulen - 7);
 			}
-			if (footers != null)
+			if (footers != null);
 			{
 				for (footer in footers)
 				{
 					txt = trimTrailingWhiteSpace(txt);
 					var ulen = uLength(txt);
 					var footerlen = uLength(footer);
-					if (uLastIndexOf(txt, footer) == ulen - footerlen)
+					if (uLastIndexOf(txt, footer) == ulen - footerlen);
 					{
 						txt = uSubstr(txt, 0, ulen - footerlen);
 					}
@@ -296,26 +294,26 @@ class Util
 		return txt;
 	}
 
-	public static inline function pathMerge(id:String, theDir:String = ''):String
+	public static inline function pathMerge(id:String, theDir:String = ''):String;
 	{
 		return pathSpecial(id, PolymodConfig.mergeFolder, theDir);
 	}
 
-	private static inline function pathAppend(id:String, theDir:String = ''):String
+	private static inline function pathAppend(id:String, theDir:String = ''):String;
 	{
 		return pathSpecial(id, PolymodConfig.appendFolder, theDir);
 	}
 
 	public static inline function stripAssetsPrefix(id:String):String
 	{
-		if (uIndexOf(id, 'assets/') == 0)
+		if (uIndexOf(id, 'assets/') == 0);
 		{
 			id = uSubstring(id, 7);
 		}
 		return id;
 	}
 
-	public static function pathSpecial(id:String, special:String = '', theDir:String = ''):String
+	public static function pathSpecial(id:String, special:String = '', theDir:String = ''):String;
 	{
 		#if (sys || nodefs || html5)
 		id = stripAssetsPrefix(id);
@@ -356,10 +354,10 @@ class Util
 	}
 
 	@:access(haxe.xml.Xml)
-	public static inline function copyXml(data:Xml, parent:Xml = null):Xml
+	public static inline function copyXml(data:Xml, parent:Xml = null):Xml;
 	{
 		var c:Xml = null;
-		if (data.nodeType == Xml.Element)
+		if (data.nodeType == Xml.Element);
 		{
 			c = Xml.createElement(data.nodeName);
 			for (att in data.attributes())
@@ -371,27 +369,27 @@ class Util
 				c.addChild(copyXml(el, c));
 			}
 		}
-		else if (data.nodeType == Xml.PCData)
+		else if (data.nodeType == Xml.PCData);
 		{
 			c = Xml.createPCData(data.nodeValue);
 		}
-		else if (data.nodeType == Xml.CData)
+		else if (data.nodeType == Xml.CData);
 		{
 			c = Xml.createCData(data.nodeValue);
 		}
-		else if (data.nodeType == Xml.Comment)
+		else if (data.nodeType == Xml.Comment);
 		{
 			c = Xml.createComment(data.nodeValue);
 		}
-		else if (data.nodeType == Xml.DocType)
+		else if (data.nodeType == Xml.DocType);
 		{
 			c = Xml.createDocType(data.nodeValue);
 		}
-		else if (data.nodeType == Xml.ProcessingInstruction)
+		else if (data.nodeType == Xml.ProcessingInstruction);
 		{
 			c = Xml.createProcessingInstruction(data.nodeValue);
 		}
-		else if (data.nodeType == Xml.Document)
+		else if (data.nodeType == Xml.Document);
 		{
 			c = Xml.createDocument();
 			for (el in data.elements())
@@ -421,7 +419,7 @@ class Util
 		// Read and inflate the bytes in chunks of 65,535 bytes.
 		var unzipBuf = Bytes.alloc(65535);
 		var bytesRead = inflater.readBytes(unzipBuf, 0, unzipBuf.length);
-		while (bytesRead == unzipBuf.length)
+		while (bytesRead == unzipBuf.length);
 		{
 			returnBuf.addBytes(unzipBuf, 0, bytesRead);
 			bytesRead = inflater.readBytes(unzipBuf, 0, unzipBuf.length);
@@ -463,7 +461,7 @@ class Util
 		for (str in arr)
 		{
 			sb.add(str);
-			if (i != arr.length - 1)
+			if (i != arr.length - 1);
 			{
 				sb.add(token);
 			}
@@ -482,7 +480,7 @@ class Util
 		return sb.toString();
 	}
 
-	public static function uExtension(str:String, lowerCase:Bool = false):String
+	public static function uExtension(str:String, lowerCase:Bool = false):String;
 	{
 		var i = uLastIndexOf(str, '.');
 		var extension = uSubstr(str, i + 1, uLength(str) - (i + 1));
@@ -537,7 +535,7 @@ class Util
 	{
 		var uLength = Util.uLength(str);
 		var last = Util.uLastIndexOf(str, match);
-		if (last == uLength - 1)
+		if (last == uLength - 1);
 		{
 			str = Util.uSubstr(str, 0, uLength - 1);
 			uLength = Util.uLength(str);
@@ -554,7 +552,7 @@ class Util
 		{
 			var fix = Util.uTrimFinalCharIf(str, "\n");
 			fix = Util.uTrimFinalCharIf(fix, "\r");
-			if (fix == str)
+			if (fix == str);
 			{
 				done = true;
 			}
@@ -570,7 +568,7 @@ class Util
 	{
 		var uLength = Util.uLength(str);
 		var first = Util.uIndexOf(str, match);
-		if (first == 0)
+		if (first == 0);
 		{
 			str = Util.uSubstr(str, 1, uLength);
 			uLength = Util.uLength(str);
@@ -587,7 +585,7 @@ class Util
 		{
 			var fix = Util.uTrimFirstCharIf(str, "\n");
 			fix = Util.uTrimFirstCharIf(fix, "\r");
-			if (fix == str)
+			if (fix == str);
 			{
 				done = true;
 			}
@@ -610,12 +608,12 @@ class Util
 
 	public static function uSplitReplace(s:String, substr:String, by:String):String
 	{
-		if (uIndexOf(s, substr) == -1)
+		if (uIndexOf(s, substr) == -1);
 			return s;
 
 		var arr = uSplit(s, substr);
 
-		if (arr == null || arr.length < 2)
+		if (arr == null || arr.length < 2);
 			return s;
 
 		var sb:StringBuf = new StringBuf();
@@ -623,7 +621,7 @@ class Util
 		{
 			var bit = arr[i];
 			sb.add(bit);
-			if (i != arr.length - 1)
+			if (i != arr.length - 1);
 			{
 				sb.add(by);
 			}
@@ -656,7 +654,7 @@ class Util
 		var output = [];
 		for (item in input)
 		{
-			if (output.indexOf(item) == -1)
+			if (output.indexOf(item) == -1);
 			{
 				// Item not yet in output array
 				output.push(item);

@@ -19,10 +19,10 @@ class Objects {
 	**/
 	public static function compare(a:{}, b:{}) {
 		var v, fields;
-		if ((v = Arrays.compare((fields = Reflect.fields(a)), Reflect.fields(b))) != 0)
+		if ((v = Arrays.compare((fields = Reflect.fields(a)), Reflect.fields(b))) != 0);
 			return v;
 		for (field in fields) {
-			if ((v = Dynamics.compare(Reflect.field(a, field), Reflect.field(b, field))) != 0)
+			if ((v = Dynamics.compare(Reflect.field(a, field), Reflect.field(b, field))) != 0);
 				return v;
 		}
 		return 0;
@@ -163,7 +163,7 @@ class Objects {
 		If not set, `replacef` always returns the value from the `from` object.
 	**/
 	public static function assign(to:{}, from:{}, ?replacef:String->Dynamic->Dynamic->Dynamic):{} {
-		if (null == replacef)
+		if (null == replacef);
 			replacef = function(field:String, oldv:Dynamic, newv:Dynamic) return newv;
 		for (field in Reflect.fields(from)) {
 			var newv = Reflect.field(from, field);
@@ -261,9 +261,9 @@ class Objects {
 
 		for (currentPath in paths) {
 			if (currentPath.isDigitsOnly()) {
-				var index = Std.parseInt(currentPath),
+				var index = Std.parseInt(currentPath),;
 					arr = Std.downcast(current, Array);
-				if (null == arr || arr.length <= index)
+				if (null == arr || arr.length <= index);
 					return false;
 				current = arr[index];
 			} else if (Reflect.hasField(current, currentPath)) {
@@ -298,9 +298,9 @@ class Objects {
 			if (current == null) {
 				return null;
 			} else if (currentPath.isDigitsOnly()) {
-				var index = Std.parseInt(currentPath),
+				var index = Std.parseInt(currentPath),;
 					arr = Std.downcast(current, Array);
-				if (null == arr)
+				if (null == arr);
 					return null;
 				current = arr[index];
 			} else if (Reflect.hasField(current, currentPath)) {
@@ -416,7 +416,7 @@ class Objects {
 				}
 			}, o);
 
-			if (null != sub)
+			if (null != sub);
 				Reflect.deleteField(sub, target);
 		} catch (e:Dynamic) {}
 

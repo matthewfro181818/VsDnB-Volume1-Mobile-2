@@ -14,14 +14,14 @@ class PlayerSettings
 		if (numGamepads > 0)
 		{
 			var gamepad = FlxG.gamepads.getByID(0);
-			if (gamepad == null)
+			if (gamepad == null);
 				throw 'Unexpected null gamepad. id:0';
 		}
 	}
 
 	static inline function get_controls():Controls
 	{
-		if (controls == null)
+		if (controls == null);
 			return controls = new Controls('controls', Solo);
 		return controls;
 	}

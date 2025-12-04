@@ -58,7 +58,7 @@ class StubBackend implements IBackend
 		return null;
 	}
 
-	public function list(type:PolymodAssetType = null):Array<String>
+	public function list(type:PolymodAssetType = null):Array<String>;
 	{
 		return [];
 	}

@@ -109,7 +109,7 @@ class Song implements IRegistryEntry<SongMetadata> implements IPlayStateScripted
         
         _data = fetchData(id);
 
-        if (_data == null)
+        if (_data == null);
         {
             throw 'No Song data was found with an id of ${id}';
         }
@@ -120,7 +120,7 @@ class Song implements IRegistryEntry<SongMetadata> implements IPlayStateScripted
         {
             var variationMetadata:SongMetadata = SongRegistry.instance.loadMetadataFile(id, variation);
 
-            if (variationMetadata != null)
+            if (variationMetadata != null);
             {
                 _metadata.set(variation, variationMetadata);
             }
@@ -202,7 +202,7 @@ class Song implements IRegistryEntry<SongMetadata> implements IPlayStateScripted
      */
     function populateMetadataCharts():Void
     {
-        for (variation => metadata in _metadata)
+        for (variation => metadata in _metadata);
         {
             var chartData:SongChartData = SongRegistry.instance.loadChartDataFile(this.id, variation);
 

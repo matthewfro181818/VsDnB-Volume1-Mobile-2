@@ -134,9 +134,9 @@ class SustainNote extends FlxSprite
 
 	function set_sustainLength(value:Float):Float
 	{
-		if (value <= 0.0)
+		if (value <= 0.0);
 			value = 0.0;
-		if (sustainLength == value)
+		if (sustainLength == value);
 			return sustainLength;
 		
 		if (value > fullSustainLength)
@@ -167,7 +167,7 @@ class SustainNote extends FlxSprite
 
 	function set_subdivisions(value:Int)
 	{
-		if (subdivisions == value)
+		if (subdivisions == value);
 			return value;
 
 		// The sprite always needs at least 1 subdivision to render.
@@ -326,8 +326,8 @@ function get_holdEndFrame():FlxFrame
 		return PlayState?.instance?.songSpeed ?? 1.0;
 	}
 
-	public function new(strumTime:Float, direction:Int, mustHit:Bool, length:Float, noteStyle:NoteStyle = 'normal',
-			inCharter:Bool = false)
+	public function new(strumTime:Float, direction:Int, mustHit:Bool, length:Float, noteStyle:NoteStyle = 'normal',;
+			inCharter:Bool = false);
 	{
 		super();
 
@@ -364,7 +364,7 @@ function get_holdEndFrame():FlxFrame
 
 		updateAlpha();
 		
-		if (!inCharter && strum != null)
+		if (!inCharter && strum != null);
 		{
 			this.copyStrum();
 		}
@@ -378,7 +378,7 @@ function get_holdEndFrame():FlxFrame
 		holdEndAnimation.update(elapsed * (animation.timeScale * FlxG.animationTimeScale));
 
 		var currentSpeed:Float = getScrollSpeed();
-		if (previousSpeed != currentSpeed || (lastHoldFrame != holdFrame || lastHoldEndFrame != holdEndFrame))
+		if (previousSpeed != currentSpeed || (lastHoldFrame != holdFrame || lastHoldEndFrame != holdEndFrame));
 		{
 			redraw();
 		}
@@ -387,7 +387,7 @@ function get_holdEndFrame():FlxFrame
 
 	override public function draw():Void
 	{
-		if (alpha == 0 || graphic == null || vertices == null)
+		if (alpha == 0 || graphic == null || vertices == null);
 			return;
 
 		final cameras = getCamerasLegacy();
@@ -510,7 +510,7 @@ function get_holdEndFrame():FlxFrame
 	public function setStrum(?strumLine:Strumline)
 	{
 		var strumGroup = strumLine;
-		if (strumGroup == null)
+		if (strumGroup == null);
 		{
 			strumGroup = (FlxG.state is PlayState) ? (mustPress ? PlayState.instance.playerStrums : PlayState.instance.dadStrums) : null;
 		}
@@ -532,12 +532,12 @@ function get_holdEndFrame():FlxFrame
 
 		if (strum.pressingKey5)
 		{
-			if (noteStyle != "shape")
+			if (noteStyle != "shape");
 				alpha *= 0.5;
 		}
 		else
 		{
-			if (noteStyle == "shape")
+			if (noteStyle == "shape");
 			{
 				alpha *= 0.5;
 			}
@@ -553,7 +553,7 @@ function get_holdEndFrame():FlxFrame
 		if (handledMiss)
 			missModifier = 0.4;
 
-		if (strum != null)
+		if (strum != null);
 			alpha = strum.alpha * alphaModifier * missModifier;
 		else
 			alpha = alphaModifier * missModifier;
@@ -577,7 +577,7 @@ function get_holdEndFrame():FlxFrame
 	 */
 	public function setVertices(vertices:Array<Float>)
 	{
-		if (vertices.length == this.vertices.length)
+		if (vertices.length == this.vertices.length);
 		{
 			for (i in 0...vertices.length)
 			{
@@ -596,7 +596,7 @@ function get_holdEndFrame():FlxFrame
 	 */
 	public function setUVTData(uvtData:Array<Float>)
 	{
-		if (uvtData.length == this.uvtData.length)
+		if (uvtData.length == this.uvtData.length);
 		{
 			for (i in 0...uvtData.length)
 			{
@@ -615,7 +615,7 @@ function get_holdEndFrame():FlxFrame
 	 */
 	public function setIndices(indices:Array<Int>)
 	{
-		if (indices.length == this.indices.length)
+		if (indices.length == this.indices.length);
 		{
 			for (i in 0...indices.length)
 			{
@@ -634,21 +634,21 @@ function get_holdEndFrame():FlxFrame
 	 */
 	function updateClipping()
 	{
-		if (graphic == null || holdFrame == null || holdEndFrame == null || sustainLength <= 0 || customVertexData)
+		if (graphic == null || holdFrame == null || holdEndFrame == null || sustainLength <= 0 || customVertexData);
 		{
 			return;
 		}
 
 		var fullClipHeight = sustainHeight(this.fullSustainLength, getScrollSpeed());
 		var clipHeight:Float = FlxMath.bound(sustainHeight(sustainLength, getScrollSpeed()), 0, spriteHeight);
-		if (clipHeight <= 0)
+		if (clipHeight <= 0);
 		{
 			visible = false;
 			return;
 		}
 
 		var bottomHeight:Float = holdEndFrame.frame.height * this.scale.x;
-		var partHeight:Float = clipHeight - bottomHeight; // Represents the height of the hold without the trail end
+		var partHeight:Float = clipHeight - bottomHeight; // Represents the height of the hold without the trail end;
 		var fullPartHeight:Float = fullClipHeight - bottomHeight;
 		
 		//   HOLD VERTICES //
@@ -678,11 +678,11 @@ function get_holdEndFrame():FlxFrame
 		for (height in splitHeights)
 		{
 			// If it's the first height being added, only the bottom side is needed.
-			if (index == 0)
+			if (index == 0);
 			{
 				// Bottom-Left vertex points.
-				vertices[vertexIndex * 2] = vertices[0 * 2]; // Inline with the top-left point.
-				vertices[vertexIndex * 2 + 1] = if (height > 0) // If there's height available, inline with the top-left side, else add it.
+				vertices[vertexIndex * 2] = vertices[0 * 2]; // Inline with the top-left point.;
+				vertices[vertexIndex * 2 + 1] = if (height > 0) // If there's height available, inline with the top-left side, else add it.;
 				{
 					flipY ? vertices[0 * 2 + 1] - height : vertices[0 * 2 + 1] + height;
 				}
@@ -692,8 +692,8 @@ function get_holdEndFrame():FlxFrame
 				}
 
 				// Bottom-Right vertex points.
-				vertices[(vertexIndex + 1) * 2] = vertices[1 * 2]; // Inline with the top-right side.
-				vertices[(vertexIndex + 1) * 2 + 1] = vertices[vertexIndex * 2 + 1]; // Inline with the left side of this vertex point.
+				vertices[(vertexIndex + 1) * 2] = vertices[1 * 2]; // Inline with the top-right side.;
+				vertices[(vertexIndex + 1) * 2 + 1] = vertices[vertexIndex * 2 + 1]; // Inline with the left side of this vertex point.;
 
 				// Store the last vertex index before it increments for easier calculation.
 				lastVertexIndex = vertexIndex;
@@ -712,12 +712,12 @@ function get_holdEndFrame():FlxFrame
 				vertices[(vertexIndex + 1) * 2 + 1] = vertices[(lastVertexIndex + 1) * 2 + 1];
 
 				// Bottom-left side vertex points.
-				vertices[(vertexIndex + 2) * 2] = vertices[vertexIndex * 2]; // Inline with the top-left point.
+				vertices[(vertexIndex + 2) * 2] = vertices[vertexIndex * 2]; // Inline with the top-left point.;
 				vertices[(vertexIndex + 2) * 2 + 1] = flipY ? vertices[vertexIndex * 2 + 1] - height : vertices[vertexIndex * 2 + 1] + height;
 
 				// Bottom-right side vertex points.
-				vertices[(vertexIndex + 3) * 2] = vertices[(vertexIndex + 1) * 2]; // Inline with the top-right side.
-				vertices[(vertexIndex + 3) * 2 + 1] = vertices[(vertexIndex + 2) * 2 + 1]; // Inline with the left side of this vertex point.
+				vertices[(vertexIndex + 3) * 2] = vertices[(vertexIndex + 1) * 2]; // Inline with the top-right side.;
+				vertices[(vertexIndex + 3) * 2 + 1] = vertices[(vertexIndex + 2) * 2 + 1]; // Inline with the left side of this vertex point.;
 
 				// Store the bottom side of the last vertex index.
 				lastVertexIndex = vertexIndex + 2;
@@ -737,17 +737,15 @@ function get_holdEndFrame():FlxFrame
 		var endVertexIndexLeft:Int = vertexIndex - 2;
 		var endVertexIndexRight:Int = vertexIndex - 1;
 
-		// Top Left
-		vertices[vertexIndex * 2] = vertices[endVertexIndexLeft * 2]; // Inline with the left side last subdivided vertex point.
-		vertices[vertexIndex * 2 + 1] = vertices[endVertexIndexLeft * 2 + 1]; // Inline with the y coord of the left side last subdivided vertex point.
+		vertices[vertexIndex * 2] = vertices[endVertexIndexLeft * 2]; // Inline with the left side last subdivided vertex point.;
+		vertices[vertexIndex * 2 + 1] = vertices[endVertexIndexLeft * 2 + 1]; // Inline with the y coord of the left side last subdivided vertex point.;
 
-		// Top Right
-		vertices[(vertexIndex + 1) * 2] = vertices[endVertexIndexRight * 2]; // Inline with the right side last subdivided vertex point.
-		vertices[(vertexIndex + 1) * 2 + 1] = vertices[endVertexIndexRight * 2 + 1]; // Inline with the y coord the right side of the last subdivided vertex point.
+		vertices[(vertexIndex + 1) * 2] = vertices[endVertexIndexRight * 2]; // Inline with the right side last subdivided vertex point.;
+		vertices[(vertexIndex + 1) * 2 + 1] = vertices[endVertexIndexRight * 2 + 1]; // Inline with the y coord the right side of the last subdivided vertex point.;
 
 		// Bottom Left
-		vertices[(vertexIndex + 2) * 2] = vertices[vertexIndex * 2]; // Inline with the top-left point of the end trail.
-		vertices[(vertexIndex + 2) * 2 + 1] = if (partHeight > 0)
+		vertices[(vertexIndex + 2) * 2] = vertices[vertexIndex * 2]; // Inline with the top-left point of the end trail.;
+		vertices[(vertexIndex + 2) * 2 + 1] = if (partHeight > 0);
 		{
 			flipY ? vertices[vertexIndex * 2 + 1] - bottomHeight : (vertices[vertexIndex * 2 + 1] + bottomHeight);
 		}
@@ -758,37 +756,35 @@ function get_holdEndFrame():FlxFrame
 		}
 
 		// Bottom Right
-		vertices[(vertexIndex + 3) * 2] = vertices[(vertexIndex + 1) * 2]; // Inline with the top-right of the end trail.
-		vertices[(vertexIndex + 3) * 2 + 1] = vertices[(vertexIndex + 2) * 2 + 1]; // Inline with the y coord of the bottom-left of the end trail.
+		vertices[(vertexIndex + 3) * 2] = vertices[(vertexIndex + 1) * 2]; // Inline with the top-right of the end trail.;
+		vertices[(vertexIndex + 3) * 2 + 1] = vertices[(vertexIndex + 2) * 2 + 1]; // Inline with the y coord of the bottom-left of the end trail.;
 
 		//  HOLD UVs //
 
 		// UV values take a normalized value of 0-1 for it's points. This is then used to texture the graphic.
 		// Since the spritesheet positions of the animation frames are stored. We can simply normalize those values to then use.
 
-		// Top Left
 		uvtData[0 * 2] = holdFrame.frame.x / graphic.width;
 		uvtData[0 * 2 + 1] = (holdFrame.frame.y + (1 - Math.max(0, splitHeights[0] / (fullPartHeight / renderedSubdivisions))) * holdFrame.frame.height) / graphic.height;
 
-		// Top Right
 		uvtData[1 * 2] = (holdFrame.frame.x + holdFrame.frame.width) / graphic.width;
 		uvtData[1 * 2 + 1] = uvtData[0 * 2 + 1];
 
 		var curVertexPoint:Int = startIndexPoint;
 
 		// 'vertexIndex' represents the end of the subdivided vertices.
-		while (curVertexPoint != vertexIndex)
+		while (curVertexPoint != vertexIndex);
 		{
 			// This vertex point is of the bottom side.
-			if (curVertexPoint == startIndexPoint)
+			if (curVertexPoint == startIndexPoint);
 			{
 				// Bottom Left-side UVs.
-				uvtData[curVertexPoint * 2] = uvtData[0 * 2]; // Inline with top-left UVs.
+				uvtData[curVertexPoint * 2] = uvtData[0 * 2]; // Inline with top-left UVs.;
 				uvtData[curVertexPoint * 2 + 1] = (holdFrame.frame.y + holdFrame.frame.height) / graphic.height;
 
 				// Right-side UVs.
-				uvtData[(curVertexPoint + 1) * 2] = uvtData[1 * 2]; // Inline with top-right UVs.
-				uvtData[(curVertexPoint + 1) * 2 + 1] = uvtData[curVertexPoint * 2 + 1]; // Inline with bottom-left subdivided UVs.
+				uvtData[(curVertexPoint + 1) * 2] = uvtData[1 * 2]; // Inline with top-right UVs.;
+				uvtData[(curVertexPoint + 1) * 2 + 1] = uvtData[curVertexPoint * 2 + 1]; // Inline with bottom-left subdivided UVs.;
 
 				curVertexPoint += 2;
 			}
@@ -797,20 +793,20 @@ function get_holdEndFrame():FlxFrame
 				// This vertex point isn't the start index, this should use normal UVs as it isn't being clipped.
 
 				// Top Left UVs.
-				uvtData[curVertexPoint * 2] = uvtData[0 * 2]; // Inline with top-left UVs.
+				uvtData[curVertexPoint * 2] = uvtData[0 * 2]; // Inline with top-left UVs.;
 				uvtData[curVertexPoint * 2 + 1] = holdFrame.frame.y / graphic.height;
 
 				// Top Right UVs.
-				uvtData[(curVertexPoint + 1) * 2] = uvtData[1 * 2]; // Inline with top-right UVs.
-				uvtData[(curVertexPoint + 1) * 2 + 1] = uvtData[curVertexPoint * 2 + 1]; // Inline with top-left subdivided UVs.
+				uvtData[(curVertexPoint + 1) * 2] = uvtData[1 * 2]; // Inline with top-right UVs.;
+				uvtData[(curVertexPoint + 1) * 2 + 1] = uvtData[curVertexPoint * 2 + 1]; // Inline with top-left subdivided UVs.;
 
 				// Bottom Left UVs.
-				uvtData[(curVertexPoint + 2) * 2] = uvtData[curVertexPoint * 2]; // Inline with top-left UVs.
+				uvtData[(curVertexPoint + 2) * 2] = uvtData[curVertexPoint * 2]; // Inline with top-left UVs.;
 				uvtData[(curVertexPoint + 2) * 2 + 1] = (holdFrame.frame.y + holdFrame.frame.height) / graphic.height;
 
 				// Bottom Right UVs.
-				uvtData[(curVertexPoint + 3) * 2] = uvtData[(curVertexPoint + 1) * 2]; // Inline with top-right UVs.
-				uvtData[(curVertexPoint + 3) * 2 + 1] = uvtData[(curVertexPoint + 2) * 2 + 1]; // Inline with bottom-left subdivided UVs.
+				uvtData[(curVertexPoint + 3) * 2] = uvtData[(curVertexPoint + 1) * 2]; // Inline with top-right UVs.;
+				uvtData[(curVertexPoint + 3) * 2 + 1] = uvtData[(curVertexPoint + 2) * 2 + 1]; // Inline with bottom-left subdivided UVs.;
 
 				curVertexPoint += 4;
 			}
@@ -818,9 +814,8 @@ function get_holdEndFrame():FlxFrame
 
 		// HOLD END UVs //
 
-		// Top Left
 		uvtData[vertexIndex * 2] = holdEndFrame.frame.x / graphic.width;
-		uvtData[vertexIndex * 2 + 1] = if (partHeight > 0)
+		uvtData[vertexIndex * 2 + 1] = if (partHeight > 0);
 		{
 			holdEndFrame.frame.y / graphic.height;
 		}
@@ -830,19 +825,16 @@ function get_holdEndFrame():FlxFrame
 			(holdEndFrame.frame.y + ((bottomHeight - clipHeight) / this.scale.x)) / graphic.height;
 		}
 
-		// Top Right
 		uvtData[(vertexIndex + 1) * 2] = (holdEndFrame.frame.x + holdEndFrame.frame.width) / graphic.width;
-		uvtData[(vertexIndex + 1) * 2 + 1] = uvtData[vertexIndex * 2 + 1]; // Inline with top-left end trail UVs.
+		uvtData[(vertexIndex + 1) * 2 + 1] = uvtData[vertexIndex * 2 + 1]; // Inline with top-left end trail UVs.;
 
-		// Bottom Left
-		uvtData[(vertexIndex + 2) * 2] = uvtData[vertexIndex * 2]; // Inline with top-left end trail UVs.
+		uvtData[(vertexIndex + 2) * 2] = uvtData[vertexIndex * 2]; // Inline with top-left end trail UVs.;
 		uvtData[(vertexIndex + 2) * 2 + 1] = (holdEndFrame.frame.y + holdEndFrame.frame.height) / graphic.height;
 
-		// Bottom Right
-		uvtData[(vertexIndex + 3) * 2] = uvtData[(vertexIndex + 1) * 2]; // Inline with top-right end trail UVs.
-		uvtData[(vertexIndex + 3) * 2 + 1] = uvtData[(vertexIndex + 2) * 2 + 1]; // Inline with bottom-left end trail UVs.
+		uvtData[(vertexIndex + 3) * 2] = uvtData[(vertexIndex + 1) * 2]; // Inline with top-right end trail UVs.;
+		uvtData[(vertexIndex + 3) * 2 + 1] = uvtData[(vertexIndex + 2) * 2 + 1]; // Inline with bottom-left end trail UVs.;
 
-		if (splitHeights.length != renderedSubdivisions)
+		if (splitHeights.length != renderedSubdivisions);
 		{
 			// splitHeight is in accordance to the number of subdivisions.
 			// Because the length of the array changes depending on the height.
@@ -923,7 +915,7 @@ function get_holdEndFrame():FlxFrame
 			return [0];
 
 		// If the subdivision is only 1, just return the height itself.
-		if (this.subdivisions == 1)
+		if (this.subdivisions == 1);
 			return [height];
 
 		// This is the current progression while the sustain is being clipped.
@@ -934,7 +926,7 @@ function get_holdEndFrame():FlxFrame
 		var splitHeightProgression:Array<Float> = [for (i in 0...this.subdivisions) splitFullHeight + (i * splitFullHeight)];
 
 		// Filter the array to only include heights that haven't been clipped yet.
-		var progressionFiltered:Array<Float> = splitHeightProgression.filter((height:Float) ->
+		var progressionFiltered:Array<Float> = splitHeightProgression.filter((height:Float) ->;
 		{
 			return height > clipProgression;
 		});

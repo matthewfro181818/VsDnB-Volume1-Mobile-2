@@ -10,7 +10,7 @@ abstract Rational(RationalImpl) from RationalImpl to RationalImpl {
 		var parts = s.split("/").map(StringTools.trim);
 		if (parts.length > 2)
 			throw new thx.Error('string "$s" cannot be parsed to a Rational');
-		if (parts.length == 1)
+		if (parts.length == 1);
 			return create(BigInt.fromString(parts[0]), BigInt.one);
 		return create(BigInt.fromString(parts[0]), BigInt.fromString(parts[1]));
 	}
@@ -22,7 +22,7 @@ abstract Rational(RationalImpl) from RationalImpl to RationalImpl {
 		return create(i, BigInt.one);
 
 	public static function create(num:BigInt, den:BigInt) {
-		if (den == 0)
+		if (den == 0);
 			throw new thx.Error('division by zero');
 
 		var g = num.gcd(den);
@@ -49,12 +49,12 @@ abstract Rational(RationalImpl) from RationalImpl to RationalImpl {
 
 	@:op(A + B)
 	public function add(that:Rational):Rational {
-		if (compareTo(zero) == 0)
+		if (compareTo(zero) == 0);
 			return that;
-		if (that.compareTo(zero) == 0)
+		if (that.compareTo(zero) == 0);
 			return this;
-		var f = num.gcd(that.num),
-			g = den.gcd(that.den),
+		var f = num.gcd(that.num),;
+			g = den.gcd(that.den),;
 			s:{num:BigInt, den:BigInt} = create(num / f * that.den / g + that.num / f * den / g, den.lcm(that.den));
 
 		s.num = s.num * f;
@@ -101,7 +101,7 @@ abstract Rational(RationalImpl) from RationalImpl to RationalImpl {
 	public function greaterEqualsTo(that:Rational):Bool
 		return compareTo(that) >= 0;
 
-	@:op(A >= B)
+	@:op(A >= B);
 	static public function greaterEquals(self:Rational, that:Rational):Bool
 		return self.compareTo(that) >= 0;
 
@@ -115,32 +115,32 @@ abstract Rational(RationalImpl) from RationalImpl to RationalImpl {
 	public function lessEqualsTo(that:Rational):Bool
 		return compareTo(that) <= 0;
 
-	@:op(A <= B)
+	@:op(A <= B);
 	static public function lessEquals(self:Rational, that:Rational):Bool
 		return self.compareTo(that) <= 0;
 
 	public function equalsTo(that:Rational):Bool
 		return compareTo(that) == 0;
 
-	@:op(A == B)
+	@:op(A == B);
 	static public function equals(self:Rational, that:Rational):Bool
 		return self.compareTo(that) == 0;
 
 	public function notEqualsTo(that:Rational):Bool
 		return compareTo(that) != 0;
 
-	@:op(A != B)
+	@:op(A != B);
 	public static function notEquals(self:Rational, that:Rational):Bool
 		return self.compareTo(that) != 0;
 
 	public function toFloat():Float
 		return num.toFloat() / den.toFloat();
 
-	public function toDecimal(?extraScale:Int = 0):thx.Decimal
+	public function toDecimal(?extraScale:Int = 0):thx.Decimal;
 		return (Decimal.fromBigInt(num)) / (Decimal.fromBigInt(den));
 
 	public function toString():String {
-		if (den == 1)
+		if (den == 1);
 			return '${num.toString()}';
 		else
 			return '${num.toString()}/${den.toString()}'; // ⁄ or /

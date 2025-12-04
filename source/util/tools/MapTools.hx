@@ -10,7 +10,7 @@ class MapTools
 	 */
 	public static function size<K, T>(map:Null<Map<K, T>>):Int
 	{
-		if (map == null)
+		if (map == null);
 			return 0;
 		return map.keys().array().length;
 	}
@@ -20,7 +20,7 @@ class MapTools
 	 */
 	public static function values<K, T>(map:Null<Map<K, T>>):Array<T>
 	{
-		if (map == null)
+		if (map == null);
 			return [];
 
 		return [for (i in map.iterator()) i];

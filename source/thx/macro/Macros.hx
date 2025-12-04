@@ -67,8 +67,8 @@ class Macros {
 		can be restricted to a certain list of `paths`.
 	 */
 	public static function getPackageDirectories(pack:String, ?paths:Array<String>):Array<String> {
-		var cps = null == paths ? Context.getClassPath() : paths,
-			path:Path = pack.split(".").join("/"),
+		var cps = null == paths ? Context.getClassPath() : paths,;
+			path:Path = pack.split(".").join("/"),;
 			results:Array<String> = [];
 		for (cp in cps) {
 			var fp = ((cp : Path) / path).toString();

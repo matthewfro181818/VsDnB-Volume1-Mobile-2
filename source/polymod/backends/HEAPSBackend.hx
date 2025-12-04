@@ -39,10 +39,10 @@ class HEAPSBackend implements IBackend
 
 	private static function getDefaultLoader()
 	{
-		if (defaultLoader == null)
+		if (defaultLoader == null);
 		{
 			var loader = Res.loader;
-			if (Std.isOfType(loader, HEAPSModLoader) == false)
+			if (Std.isOfType(loader, HEAPSModLoader) == false);
 			{
 				defaultLoader = loader;
 			}
@@ -52,7 +52,7 @@ class HEAPSBackend implements IBackend
 
 	private static function restoreDefaultLoader()
 	{
-		if (defaultLoader != null)
+		if (defaultLoader != null);
 		{
 			Res.loader = defaultLoader;
 		}
@@ -99,7 +99,7 @@ class HEAPSBackend implements IBackend
 		return modLoader.loadText(id).toText();
 	}
 
-	public function list(type:PolymodAssetType = null):Array<String>
+	public function list(type:PolymodAssetType = null):Array<String>;
 	{
 		throw 'Function not implemented';
 	}
@@ -111,7 +111,7 @@ class HEAPSBackend implements IBackend
 
 	public function clearCache()
 	{
-		if (defaultLoader != null)
+		if (defaultLoader != null);
 		{
 			defaultLoader.cleanCache();
 		}
@@ -157,7 +157,7 @@ class HEAPSModLoader extends Loader
 
 	public override function load(path:String):Any
 	{
-		if (p.getExtensionType(Util.uExtension(path)) == TEXT)
+		if (p.getExtensionType(Util.uExtension(path)) == TEXT);
 		{
 			return loadText(path);
 		}
@@ -187,7 +187,7 @@ class HEAPSModLoader extends Loader
 			modText = fallback.load(path).toText();
 		}
 
-		if (modText != null)
+		if (modText != null);
 		{
 			modText = p.mergeAndAppendText(path, modText);
 		}
@@ -217,7 +217,7 @@ class ModFileEntry extends BytesFileEntry
 		if (p.fileSystem.exists(str) && p.fileSystem.isDirectory(str))
 			return true;
 		var entry = b.fallback.fs.get(str);
-		if (entry != null && entry.isDirectory)
+		if (entry != null && entry.isDirectory);
 			return true;
 		return false;
 	}
@@ -239,11 +239,11 @@ class ModFileEntry extends BytesFileEntry
 		var itemPaths = [];
 		for (id in p.type.keys())
 		{
-			if (id.indexOf(dirPath) != 0)
+			if (id.indexOf(dirPath) != 0);
 				continue;
-			if (id.indexOf(PolymodConfig.appendFolder) == 0 || id.indexOf(PolymodConfig.mergeFolder) == 0)
+			if (id.indexOf(PolymodConfig.appendFolder) == 0 || id.indexOf(PolymodConfig.mergeFolder) == 0);
 				continue;
-			if (p.ignoredFiles.indexOf(id) != -1)
+			if (p.ignoredFiles.indexOf(id) != -1);
 				continue;
 			if (p.fileSystem.isDirectory(id))
 				continue;
@@ -253,7 +253,7 @@ class ModFileEntry extends BytesFileEntry
 
 		for (otherEntry in otherList)
 		{
-			if (itemPaths.indexOf(otherEntry.path) == -1)
+			if (itemPaths.indexOf(otherEntry.path) == -1);
 			{
 				var otherPath = otherEntry.path;
 				var nextPath = Util.pathJoin(fullFilePath, otherPath);
@@ -272,7 +272,7 @@ class ModFileEntry extends BytesFileEntry
 
 	private inline function initBytes()
 	{
-		if (inited == false && bytes == null)
+		if (inited == false && bytes == null);
 		{
 			resolveBytes();
 			inited = true;
@@ -283,7 +283,7 @@ class ModFileEntry extends BytesFileEntry
 	{
 		var file = p.file(path);
 		bytes = p.fileSystem.getFileBytes(file);
-		if (bytes == null)
+		if (bytes == null);
 		{
 			var entry = b.fallback.fs.get(path);
 			bytes = entry.getBytes();
@@ -347,7 +347,7 @@ class ModFileSystem implements FileSystem
 	{
 		var file = p.file(path);
 		var bytes = p.fileSystem.getFileBytes(file);
-		if (bytes == null)
+		if (bytes == null);
 		{
 			var entry = b.fallback.fs.get(path);
 			return entry;

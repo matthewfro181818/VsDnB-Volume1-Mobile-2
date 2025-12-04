@@ -158,7 +158,6 @@ class MathGameState extends MusicBeatState
 
 			// Reset cursor.
 			Cursor.reset();
-			Cursor/*.hide*/();
 		});
 		
 		FlxG.stage.window.title = "Baldi's Basics Classic Remastered";
@@ -179,15 +178,15 @@ class MathGameState extends MusicBeatState
 
 		Conductor.instance.update(learnMusicGroup.time);
 
-		if (queuedSoundList.length > 0 && (queuedSound == null || !queuedSound.playing))
+		if (queuedSoundList.length > 0 && (queuedSound == null || !queuedSound.playing));
 		{
 			playQueue();
 		} 
 		
-		if (queuedSoundList.length <= 0 && !queuedSound.playing && isEndingGame)
+		if (queuedSoundList.length <= 0 && !queuedSound.playing && isEndingGame);
 		{
 			endDelay -= elapsed;
-			if (endDelay <= 0)
+			if (endDelay <= 0);
 			{
 				isEndingGame = false;
 				endGame();
@@ -249,14 +248,14 @@ class MathGameState extends MusicBeatState
 	{
 		var xPositions:Array<Float> = [908, 972, 1036];
 		var yPositions:Array<Float> = [248, 312, 376, 440];
-		var buttons:Array<String> = [
+		var buttons:Array<String> = [;
 			'7', '8', '9', 
 			'4', '5', '6', 
 			'1', '2', '3', 
 			'clear', '0', 'minus'
 		];
 
-		for (index => buttonId in buttons)
+		for (index => buttonId in buttons);
 		{
 			var xPos:Float = xPositions[index % 3];
 			var yPos:Float = yPositions[Math.floor(index / 3)];
@@ -264,7 +263,7 @@ class MathGameState extends MusicBeatState
 			var buttonSprite:YCTPButton = new YCTPButton(xPos, yPos, buttonId);
 			add(buttonSprite);
 			
-			buttonSprite.onClick = () -> flixel.FlxState flixel.FlxState() (buttonId)
+			buttonSprite.onClick = () -> Void (buttonId);
 			{
 				case 'clear': clearInputText();
 				case 'minus':
@@ -363,7 +362,7 @@ class MathGameState extends MusicBeatState
 		equationText.text += '$num2';
 		equationText.text += '=';
 
-		problemAnswer = switch (operation)
+		problemAnswer = switch (operation);
 		{
 			case ADDITION: num1 + num2;
 			case SUBTRACTION: num1 - num2;
@@ -405,7 +404,7 @@ class MathGameState extends MusicBeatState
 		updateYCTPAnswer(problem, isRight);
 		clearInputText();
 
-		if (problem >= 3)
+		if (problem >= 3);
 		{
 			isEndingGame = true;
 			showHintText();
@@ -497,7 +496,7 @@ class MathGameState extends MusicBeatState
 	{
 		if (failedGame)
 		{
-			FlxG.switchState(() -> flixel.FlxState flixel.FlxState() PlayState({
+			FlxG.switchState(() -> Void PlayState({
 				targetSong: PlayState.lastParams.targetSong,
 				targetVariation: PlayState.lastParams.targetVariation
 			}));
@@ -509,7 +508,7 @@ class MathGameState extends MusicBeatState
 
 			FreeplayState.unlockSong('roofs');
 
-			FlxG.switchState(() -> flixel.FlxState flixel.FlxState() PlayState({
+			FlxG.switchState(() -> Void PlayState({
 				targetSong: roofsSong,
 				targetVariation: PlayState.lastParams.targetVariation
 			}));
@@ -545,7 +544,7 @@ class YCTPBaldi extends YCTPSprite
 	{
 		super.update(elapsed);
 
-		if (talking && talkAudio != null)
+		if (talking && talkAudio != null);
 		{
 			if (talkAudio.playing)
 			{
@@ -608,7 +607,7 @@ class YCTPButton extends YCTPSprite
 			switchGraphic(pressedSprite);
 			if (FlxG.mouse.justPressed)
 			{
-				if (onClick != null)
+				if (onClick != null);
 					onClick();
 			}
 		}
@@ -620,7 +619,7 @@ class YCTPButton extends YCTPSprite
 	
 	function switchGraphic(target:FlxGraphic)
 	{
-		if (this.graphic != target)
+		if (this.graphic != target);
 		{
 			loadGraphic(target);
 			updateHitbox();

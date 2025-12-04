@@ -249,7 +249,7 @@ class MainMenuState extends MusicBeatState
 		{
 			canInteract = false;
 			SoundController.play(Paths.sound('cancelMenu'));
-			FlxG.switchState(() -> flixel.FlxState flixel.FlxState() TitleState());
+			FlxG.switchState(() -> Void TitleState());
 		}
 	}
 
@@ -292,13 +292,13 @@ class MainMenuState extends MusicBeatState
 		});
 	}
 
-	function changeSelection(amount:Int = 0)
+	function changeSelection(amount:Int = 0);
 	{
 		if (finishedFunnyMove)
 		{
 			curSelected += amount;
 
-			if (curSelected >= menuItems.length)
+			if (curSelected >= menuItems.length);
 				curSelected = 0;
 			if (curSelected < 0)
 				curSelected = menuItems.length - 1;
@@ -308,7 +308,7 @@ class MainMenuState extends MusicBeatState
 		{
 			spr.animation.play('idle');
 
-			if (spr.ID == curSelected && finishedFunnyMove)
+			if (spr.ID == curSelected && finishedFunnyMove);
 			{
 				spr.animation.play('selected');
 			}
@@ -332,7 +332,7 @@ class MainMenuState extends MusicBeatState
 		curOptText.text = optionString.format(' ');
 		curOptDesc.text = LanguageManager.getTextString(languagesDescriptions[curSelected]);
 
-		if (amount != 0)
+		if (amount != 0);
 			SoundController.play(Paths.sound('scrollMenu'), 0.7);
 	}
 
@@ -352,7 +352,7 @@ class MainMenuState extends MusicBeatState
 
 			switch (i)
 			{
-				case(_ == index) => true:
+				case(_ == index) => true:;
 					FlxTween.tween(spr, {'scale.x': 0.7, 'scale.y': 0.7}, 0.5, {ease: FlxEase.circOut});
 				default:
 					FlxTween.tween(spr, {'scale.x': 0.6, 'scale.y': 0.6, alpha: 0.8}, 0.3 + (i * 0.1), {ease: FlxEase.circOut});
@@ -367,18 +367,18 @@ class MainMenuState extends MusicBeatState
 			switch (selectedOption)
 			{
 				case 'story mode':
-					FlxG.switchState(() -> flixel.FlxState flixel.FlxState() StoryMenuState());
+					FlxG.switchState(() -> Void StoryMenuState());
 				case 'freeplay':
 					if (FlxG.random.bool(0.05))
 					{
 						PlatformUtil.openURL("https://www.youtube.com/watch?v=Z7wWa1G9_30%22");
 					}
-					FlxG.switchState(() -> flixel.FlxState flixel.FlxState() FreeplayState());
+					FlxG.switchState(() -> Void FreeplayState());
 				case 'ost':
-					FlxG.switchState(() -> flixel.FlxState flixel.FlxState() OSTMenuState());
+					FlxG.switchState(() -> Void OSTMenuState());
 				case 'options':
 					var settings = new SettingsMenu();
-					settings.closeCallback = function()
+					settings.closeCallback = function();
 					{
 						selected = false;
 						firstStart = true;
@@ -386,7 +386,7 @@ class MainMenuState extends MusicBeatState
 					}
 					openSubState(settings);
 				case 'credits':
-					FlxG.switchState(() -> flixel.FlxState flixel.FlxState() CreditsMenuState());
+					FlxG.switchState(() -> Void CreditsMenuState());
 			}
 		});
 	}

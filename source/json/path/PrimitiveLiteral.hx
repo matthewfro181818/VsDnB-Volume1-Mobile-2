@@ -74,17 +74,17 @@ class PrimitiveLiteralTools
 	{
 		switch (op)
 		{
-			case "==":
+			case "==":;
 				return compare_equal(left, right);
-			case "!=":
+			case "!=":;
 				return compare_notEqual(left, right);
 			case ">":
 				return compare_greaterThan(left, right);
-			case ">=":
+			case ">=":;
 				return compare_greaterThanOrEqual(left, right);
 			case "<":
 				return compare_lessThan(left, right);
-			case "<=":
+			case "<=":;
 				return compare_lessThanOrEqual(left, right);
 			default:
 				throw 'Unknown comparison operator: ${op}';
@@ -113,7 +113,6 @@ class PrimitiveLiteralTools
 						return thx.Dynamics.equals(value, rightValue);
 					case ObjectLiteral(_) | NodelistLiteral(_) | StringLiteral(_) | NumberLiteral(_) | IntegerLiteral(_) | BooleanLiteral(_) | NullLiteral |
 						UndefinedLiteral | NothingLiteral:
-						// Type mismatch
 						return false;
 				}
 
@@ -124,7 +123,6 @@ class PrimitiveLiteralTools
 						return thx.Dynamics.equals(value, rightValue);
 					case ObjectLiteral(_) | ArrayLiteral(_) | StringLiteral(_) | NumberLiteral(_) | IntegerLiteral(_) | BooleanLiteral(_) | NullLiteral |
 						UndefinedLiteral | NothingLiteral:
-						// Type mismatch
 						return false;
 				}
 
@@ -134,10 +132,8 @@ class PrimitiveLiteralTools
 					case StringLiteral(rightValue):
 						return value == rightValue;
 					case NumberLiteral(_) | IntegerLiteral(_) | BooleanLiteral(_) | NullLiteral | UndefinedLiteral | NothingLiteral:
-						// Type mismatch
 						return false;
 					case ObjectLiteral(_) | ArrayLiteral(_) | NodelistLiteral(_):
-						// Type mismatch
 						return false;
 				}
 			case NumberLiteral(value):
@@ -149,10 +145,8 @@ class PrimitiveLiteralTools
 						return value == rightValue;
 
 					case StringLiteral(_) | BooleanLiteral(_) | NullLiteral | UndefinedLiteral | NothingLiteral:
-						// Type mismatch
 						return false;
 					case ObjectLiteral(_) | ArrayLiteral(_) | NodelistLiteral(_):
-						// Type mismatch
 						return false;
 				}
 			case IntegerLiteral(value):
@@ -164,10 +158,8 @@ class PrimitiveLiteralTools
 						return rightValue == value;
 
 					case StringLiteral(_) | BooleanLiteral(_) | NullLiteral | UndefinedLiteral | NothingLiteral:
-						// Type mismatch
 						return false;
 					case ObjectLiteral(_) | ArrayLiteral(_) | NodelistLiteral(_):
-						// Type mismatch
 						return false;
 				}
 			case BooleanLiteral(value):
@@ -176,10 +168,8 @@ class PrimitiveLiteralTools
 					case BooleanLiteral(rightValue):
 						return value == rightValue;
 					case StringLiteral(_) | NumberLiteral(_) | IntegerLiteral(_) | NullLiteral | UndefinedLiteral | NothingLiteral:
-						// Type mismatch
 						return false;
 					case ObjectLiteral(_) | ArrayLiteral(_) | NodelistLiteral(_):
-						// Type mismatch
 						return false;
 				}
 			case NullLiteral:
@@ -242,10 +232,8 @@ class PrimitiveLiteralTools
 					case IntegerLiteral(rightValue):
 						return value > rightValue;
 					case StringLiteral(_) | BooleanLiteral(_) | NullLiteral | UndefinedLiteral | NothingLiteral:
-						// Type mismatch
 						return false;
 					case ObjectLiteral(_) | ArrayLiteral(_) | NodelistLiteral(_):
-						// Type mismatch
 						return false;
 				}
 			case IntegerLiteral(value):
@@ -256,10 +244,8 @@ class PrimitiveLiteralTools
 					case NumberLiteral(rightValue):
 						return value > rightValue;
 					case StringLiteral(_) | BooleanLiteral(_) | NullLiteral | UndefinedLiteral | NothingLiteral:
-						// Type mismatch
 						return false;
 					case ObjectLiteral(_) | ArrayLiteral(_) | NodelistLiteral(_):
-						// Type mismatch
 						return false;
 				}
 			case StringLiteral(value):
@@ -268,10 +254,8 @@ class PrimitiveLiteralTools
 					case StringLiteral(rightValue):
 						return value > rightValue;
 					case NumberLiteral(_) | IntegerLiteral(_) | BooleanLiteral(_) | NullLiteral | UndefinedLiteral | NothingLiteral:
-						// Type mismatch
 						return false;
 					case ObjectLiteral(_) | ArrayLiteral(_) | NodelistLiteral(_):
-						// Type mismatch
 						return false;
 				}
 			case NothingLiteral:
@@ -283,7 +267,6 @@ class PrimitiveLiteralTools
 				// Unsupported operation
 				return false;
 			case ObjectLiteral(_) | ArrayLiteral(_) | NodelistLiteral(_):
-				// Unsupported operation
 				return false;
 		}
 	}
@@ -300,10 +283,8 @@ class PrimitiveLiteralTools
 					case IntegerLiteral(rightValue):
 						return value < rightValue;
 					case StringLiteral(_) | BooleanLiteral(_) | NullLiteral | UndefinedLiteral | NothingLiteral:
-						// Type mismatch
 						return false;
 					case ObjectLiteral(_) | ArrayLiteral(_) | NodelistLiteral(_):
-						// Type mismatch
 						return false;
 				}
 			case IntegerLiteral(value):
@@ -314,10 +295,8 @@ class PrimitiveLiteralTools
 					case NumberLiteral(rightValue):
 						return value < rightValue;
 					case StringLiteral(_) | BooleanLiteral(_) | NullLiteral | UndefinedLiteral | NothingLiteral:
-						// Type mismatch
 						return false;
 					case ObjectLiteral(_) | ArrayLiteral(_) | NodelistLiteral(_):
-						// Type mismatch
 						return false;
 				}
 			case StringLiteral(value):
@@ -326,20 +305,15 @@ class PrimitiveLiteralTools
 					case StringLiteral(rightValue):
 						return value < rightValue;
 					case NumberLiteral(_) | IntegerLiteral(_) | BooleanLiteral(_) | NullLiteral | UndefinedLiteral | NothingLiteral:
-						// Type mismatch
 						return false;
 					case ObjectLiteral(_) | ArrayLiteral(_) | NodelistLiteral(_):
-						// Type mismatch
 						return false;
 				}
 			case NothingLiteral:
-				// A comparison using the operator < yields false.
 				return false;
 			case BooleanLiteral(_) | NullLiteral | UndefinedLiteral:
-				// Unsupported operation
 				return false;
 			case ObjectLiteral(_) | ArrayLiteral(_) | NodelistLiteral(_):
-				// Unsupported operation
 				return false;
 		}
 	}

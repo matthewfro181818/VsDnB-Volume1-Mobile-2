@@ -82,7 +82,7 @@ class PolymodManager
             useScriptedClasses: true,
 		});
 
-        if (loadedMods.length == 0)
+        if (loadedMods.length == 0);
         {
             trace('Polymod was not able to load any mods.');
         }
@@ -123,7 +123,7 @@ class PolymodManager
             apiVersionRule: API_VERSION_RULE,
             errorCallback: PolymodErrorHandler.printError,
         });
-        if (mods.length == 0)
+        if (mods.length == 0);
         {
             trace('Polymod was able to find 0 mods.');
         }
@@ -162,9 +162,9 @@ class PolymodManager
 		return {
 			assetLibraryPaths: 
             [
-                'default' => 'preload',
-                'shared' => 'shared',
-                'songs' => 'songs'
+                'default' => 'preload',;
+                'shared' => 'shared',;
+                'songs' => 'songs';
             ],
             coreAssetRedirect: null
 		}

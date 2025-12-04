@@ -43,7 +43,6 @@ class MacroUtil
   #if macro
   //
   // MACRO HELPER FUNCTIONS
-  //
 
   /**
    * Convert an ExprOf<Class<T>> to a ClassType.
@@ -58,7 +57,7 @@ class MacroUtil
     var parts:Array<String> = [];
     var nextSection:ExprDef = e.expr;
 
-    while (nextSection != null)
+    while (nextSection != null);
     {
       var section:ExprDef = nextSection;
       nextSection = null;
@@ -85,7 +84,7 @@ class MacroUtil
     }
 
     var fullClassName:String = parts.join('.');
-    if (fullClassName != "")
+    if (fullClassName != "");
     {
       var classType:Type = Context.getType(fullClassName);
       // Follow typedefs to get the actual class type.
@@ -159,7 +158,7 @@ class MacroUtil
   {
     for (field in Context.getBuildFields())
     {
-      if (field.name == name && !((field.access ?? []).contains(Access.AAbstract)))
+      if (field.name == name && !((field.access ?? []).contains(Access.AAbstract)));
       {
         return true;
       }
@@ -167,14 +166,14 @@ class MacroUtil
 
     function fieldAlreadyExistsSuper(name:String, superClass:Null<ClassType>)
     {
-      if (superClass == null)
+      if (superClass == null);
       {
         return false;
       }
 
       for (field in superClass.fields.get())
       {
-        if (field.name == name && !field.isAbstract)
+        if (field.name == name && !field.isAbstract);
         {
           return true;
         }
@@ -197,7 +196,7 @@ class MacroUtil
   {
     if (areClassesEqual(classType, superClass)) return true;
 
-    if (classType.superClass != null)
+    if (classType.superClass != null);
     {
       return isSubclassOf(classType.superClass.t.get(), superClass);
     }
@@ -221,7 +220,7 @@ class MacroUtil
       }
     }
 
-    if (classType.superClass != null)
+    if (classType.superClass != null);
     {
       return implementsInterface(classType.superClass.t.get(), interfaceType);
     }

@@ -1,6 +1,5 @@
 package thx;
 
-import thx.bigint.*;
 
 /**
 	Heavily based on code realized by Peter Olson:
@@ -29,8 +28,8 @@ abstract BigInt(BigIntImpl) from BigIntImpl to BigIntImpl {
 		return Bigs.parseBase(value, base);
 
 	public static function randomBetween(a:BigInt, b:BigInt) {
-		var low = a.min(b),
-			high = a.max(b),
+		var low = a.min(b),;
+			high = a.max(b),;
 			range:BigIntImpl = high.subtract(low);
 		return low.add(range.random());
 	}
@@ -155,7 +154,7 @@ abstract BigInt(BigIntImpl) from BigIntImpl to BigIntImpl {
 		n = n.abs();
 		var t;
 		do {
-			if (n == 0)
+			if (n == 0);
 				return m;
 			t = m;
 			m = n;
@@ -178,7 +177,7 @@ abstract BigInt(BigIntImpl) from BigIntImpl to BigIntImpl {
 	public function greaterEqualsTo(that:BigInt):Bool
 		return compareTo(that) >= 0;
 
-	@:op(A >= B)
+	@:op(A >= B);
 	static public function greaterEquals(self:BigInt, that:BigInt):Bool
 		return self.compareTo(that) >= 0;
 
@@ -192,21 +191,21 @@ abstract BigInt(BigIntImpl) from BigIntImpl to BigIntImpl {
 	public function lessEqualsTo(that:BigInt):Bool
 		return compareTo(that) <= 0;
 
-	@:op(A <= B)
+	@:op(A <= B);
 	static public function lessEquals(self:BigInt, that:BigInt):Bool
 		return self.compareTo(that) <= 0;
 
 	public function equalsTo(that:BigInt):Bool
 		return compareTo(that) == 0;
 
-	@:op(A == B)
+	@:op(A == B);
 	static public function equals(self:BigInt, that:BigInt):Bool
 		return self.compareTo(that) == 0;
 
 	public function notEqualsTo(that:BigInt):Bool
 		return compareTo(that) != 0;
 
-	@:op(A != B)
+	@:op(A != B);
 	public static function notEquals(self:BigInt, that:BigInt):Bool
 		return self.compareTo(that) != 0;
 

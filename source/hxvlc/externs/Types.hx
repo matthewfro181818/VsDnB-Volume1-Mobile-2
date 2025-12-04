@@ -17,14 +17,12 @@ import cpp.VoidStarConstStar;
  */
 class Types {}
 
-@:dox(hide)
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:native('libvlc_instance_t')
 extern class LibVLC_Instance_T {}
 
-@:dox(hide)
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:native('libvlc_time_t')
 @:scalar
@@ -32,19 +30,16 @@ extern class LibVLC_Instance_T {}
 @:notNull
 extern abstract LibVLC_Time_T from cpp.Int64 to cpp.Int64 {}
 
-@:dox(hide)
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:native('libvlc_media_t')
 extern class LibVLC_Media_T {}
 
-@:dox(hide)
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:native('libvlc_media_list_t')
 extern class LibVLC_Media_List_T {}
 
-@:dox(hide)
 extern enum abstract LibVLC_Meta_T(LibVLC_Meta_T_Impl)
 {
 	@:native('libvlc_meta_Title')
@@ -133,12 +128,11 @@ extern enum abstract LibVLC_Meta_T(LibVLC_Meta_T_Impl)
 		return untyped this;
 }
 
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:native('libvlc_meta_t')
 private extern class LibVLC_Meta_T_Impl {}
 
-@:dox(hide)
 extern enum abstract LibVLC_Track_Type(LibVLC_Track_Type_Impl)
 {
 	@:native('libvlc_track_unknown')
@@ -162,12 +156,11 @@ extern enum abstract LibVLC_Track_Type(LibVLC_Track_Type_Impl)
 		return untyped this;
 }
 
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:native('libvlc_track_type_t')
 private extern class LibVLC_Track_Type_Impl {}
 
-@:dox(hide)
 extern enum abstract LibVLC_Video_Orient(LibVLC_Video_Orient_Impl)
 {
 	@:native('libvlc_video_orient_top_left')
@@ -203,13 +196,12 @@ extern enum abstract LibVLC_Video_Orient(LibVLC_Video_Orient_Impl)
 		return untyped this;
 }
 
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:native('libvlc_video_orient_t')
 private extern class LibVLC_Video_Orient_Impl {}
 
-@:dox(hide)
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:structAccess
 @:native('libvlc_media_stats_t')
@@ -234,8 +226,7 @@ extern class LibVLC_Media_Stats_T
 	var f_send_bitrate:Single;
 }
 
-@:dox(hide)
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:structAccess
 @:native('libvlc_audio_track_t')
@@ -247,8 +238,7 @@ extern class LibVLC_Audio_Track_T
 	var i_rate:UInt32;
 }
 
-@:dox(hide)
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:structAccess
 @:native('libvlc_video_track_t')
@@ -265,8 +255,7 @@ extern class LibVLC_Video_Track_T
 	var i_orientation:LibVLC_Video_Orient;
 }
 
-@:dox(hide)
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:structAccess
 @:native('libvlc_subtitle_track_t')
@@ -277,8 +266,7 @@ extern class LibVLC_Subtitle_Track_T
 	var psz_encoding:CastCharStar;
 }
 
-@:dox(hide)
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:structAccess
 @:native('libvlc_media_track_t')
@@ -303,7 +291,6 @@ extern class LibVLC_Media_Track_T
 	var psz_description:CastCharStar;
 }
 
-@:dox(hide)
 extern enum abstract LibVLC_Media_Parse_Flag_T(LibVLC_Media_Parse_Flag_T_Impl)
 {
 	@:native('libvlc_media_parse_local')
@@ -329,12 +316,11 @@ extern enum abstract LibVLC_Media_Parse_Flag_T(LibVLC_Media_Parse_Flag_T_Impl)
 		return untyped this;
 }
 
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:native('libvlc_media_slave_type_t')
 private extern class LibVLC_Media_Slave_Type_T_Impl {}
 
-@:dox(hide)
 extern enum abstract LibVLC_Media_Slave_Type_T(LibVLC_Media_Slave_Type_T_Impl)
 {
 	@:native('libvlc_media_slave_type_subtitle')
@@ -351,12 +337,11 @@ extern enum abstract LibVLC_Media_Slave_Type_T(LibVLC_Media_Slave_Type_T_Impl)
 		return untyped this;
 }
 
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:native('libvlc_media_parse_flag_t')
 private extern class LibVLC_Media_Parse_Flag_T_Impl {}
 
-@:dox(hide)
 extern enum abstract LibVLC_Media_Parsed_Status_T(LibVLC_Media_Parsed_Status_T_Impl)
 {
 	@:native('libvlc_media_parsed_status_skipped')
@@ -379,25 +364,22 @@ extern enum abstract LibVLC_Media_Parsed_Status_T(LibVLC_Media_Parsed_Status_T_I
 		return untyped this;
 }
 
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:native('libvlc_media_parsed_status_t')
 private extern class LibVLC_Media_Parsed_Status_T_Impl {}
 
-@:dox(hide)
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:native('libvlc_media_player_t')
 extern class LibVLC_Media_Player_T {}
 
-@:dox(hide)
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:native('libvlc_event_manager_t')
 extern class LibVLC_Event_Manager_T {}
 
-@:dox(hide)
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:structAccess
 @:native('libvlc_event_t')
@@ -408,13 +390,11 @@ extern class LibVLC_Event_T
 	var type:Int;
 }
 
-@:dox(hide)
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:native('libvlc_log_t')
 extern class LibVLC_Log_T {}
 
-@:dox(hide)
 extern enum abstract LibVLC_Event_E(LibVLC_Event_E_Impl)
 {
 	@:native('libvlc_MediaMetaChanged')
@@ -617,71 +597,51 @@ extern enum abstract LibVLC_Event_E(LibVLC_Event_E_Impl)
 		return untyped this;
 }
 
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:native('libvlc_event_e')
 private extern class LibVLC_Event_E_Impl {}
-@:dox(hide)
 typedef LibVLC_Callback_T = cpp.Callable<(p_event:RawConstPointer<LibVLC_Event_T>, p_data:RawPointer<cpp.Void>) -> Void>;
 
-@:dox(hide)
 typedef LibVLC_Log_CB = cpp.Callable<(data:RawPointer<cpp.Void>, level:Int, ctx:RawConstPointer<LibVLC_Log_T>, fmt:ConstCharStar, args:VarList) -> Void>;
 
-@:dox(hide)
 typedef LibVLC_Media_Open_CB = cpp.Callable<(opaque:RawPointer<cpp.Void>, datap:RawPointer<RawPointer<cpp.Void>>, sizep:RawPointer<UInt64>) -> Int>;
 
-@:dox(hide)
 typedef LibVLC_Media_Read_CB = cpp.Callable<(opaque:RawPointer<cpp.Void>, buf:RawPointer<UInt8>, len:SizeT) -> cpp.SSizeT>;
 
-@:dox(hide)
 typedef LibVLC_Media_Seek_CB = cpp.Callable<(opaque:RawPointer<cpp.Void>, offset:UInt64) -> Int>;
 
-@:dox(hide)
 typedef LibVLC_Media_Close_CB = cpp.Callable<(opaque:RawPointer<cpp.Void>) -> Void>;
 
-@:dox(hide)
-typedef LibVLC_Video_Format_CB = cpp.Callable<(opaque:RawPointer<RawPointer<cpp.Void>>, chroma:CastCharStar, width:RawPointer<UInt32>, height:RawPointer<UInt32>,
+typedef LibVLC_Video_Format_CB = cpp.Callable<(opaque:RawPointer<RawPointer<cpp.Void>>, chroma:CastCharStar, width:RawPointer<UInt32>, height:RawPointer<UInt32>,;
 		pitches:RawPointer<UInt32>, lines:RawPointer<UInt32>) -> cpp.UInt32>;
 
-@:dox(hide)
 typedef LibVLC_Video_Cleanup_CB = cpp.Callable<(opaque:RawPointer<cpp.Void>) -> Void>;
 
-@:dox(hide)
 typedef LibVLC_Video_Lock_CB = cpp.Callable<(data:RawPointer<cpp.Void>, p_pixels:RawPointer<RawPointer<cpp.Void>>) -> cpp.RawPointer<cpp.Void>>;
 
-@:dox(hide)
 typedef LibVLC_Video_Unlock_CB = cpp.Callable<(data:RawPointer<cpp.Void>, id:RawPointer<cpp.Void>, p_pixels:VoidStarConstStar) -> Void>;
 
-@:dox(hide)
 typedef LibVLC_Video_Display_CB = cpp.Callable<(opaque:RawPointer<cpp.Void>, picture:RawPointer<cpp.Void>) -> Void>;
 
-@:dox(hide)
 typedef LibVLC_Audio_Play_CB = cpp.Callable<(data:RawPointer<cpp.Void>, samples:RawConstPointer<cpp.Void>, count:UInt32, pts:Int64) -> Void>;
 
-@:dox(hide)
 typedef LibVLC_Audio_Pause_CB = cpp.Callable<(data:RawPointer<cpp.Void>, pts:Int64) -> Void>;
 
-@:dox(hide)
 typedef LibVLC_Audio_Resume_CB = cpp.Callable<(data:RawPointer<cpp.Void>, pts:Int64) -> Void>;
 
-@:dox(hide)
 typedef LibVLC_Audio_Flush_CB = cpp.Callable<(data:RawPointer<cpp.Void>, pts:Int64) -> Void>;
 
-@:dox(hide)
 typedef LibVLC_Audio_Drain_CB = cpp.Callable<(data:RawPointer<cpp.Void>) -> Void>;
 
-@:dox(hide)
-typedef LibVLC_Audio_Setup_CB = cpp.Callable<(opaque:RawPointer<RawPointer<cpp.Void>>, format:CastCharStar, rate:RawPointer<UInt32>,
+typedef LibVLC_Audio_Setup_CB = cpp.Callable<(opaque:RawPointer<RawPointer<cpp.Void>>, format:CastCharStar, rate:RawPointer<UInt32>,;
 		channels:RawPointer<UInt32>) -> Int>;
 
-@:dox(hide)
 typedef LibVLC_Audio_Cleanup_CB = cpp.Callable<(opaque:RawPointer<cpp.Void>) -> Void>;
 
-@:dox(hide)
 typedef LibVLC_Audio_Set_Volume_CB = cpp.Callable<(data:RawPointer<cpp.Void>, volume:Single, mute:Bool) -> Void>;
 
-@:dox(hide)
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:structAccess
 @:native('libvlc_track_description_t')
@@ -694,7 +654,6 @@ extern class LibVLC_Track_Description_T
 	var p_next:RawPointer<LibVLC_Track_Description_T>;
 }
 
-@:dox(hide)
 extern enum abstract LibVLC_Media_Player_Role_T(LibVLC_Media_Player_Role_T_Impl)
 {
 	@:native('libvlc_role_None')
@@ -738,7 +697,7 @@ extern enum abstract LibVLC_Media_Player_Role_T(LibVLC_Media_Player_Role_T_Impl)
 		return untyped this;
 }
 
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 @:native('libvlc_media_player_role_t')
 private extern class LibVLC_Media_Player_Role_T_Impl {}

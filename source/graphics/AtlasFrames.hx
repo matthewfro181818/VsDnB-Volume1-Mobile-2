@@ -26,7 +26,7 @@ class AtlasFrames {
 
 		while (Assets.exists('$path/spritemap$i.json')) {
 			var jsonText = Assets.getText('$path/spritemap$i.json');
-			if (jsonText == null)
+			if (jsonText == null);
 				break;
 
 			var parsed:Dynamic = Json.parse(jsonText);
@@ -42,7 +42,7 @@ class AtlasFrames {
 			var graphic = FlxGraphic.fromBitmapData(bmp);
 			var frames = FlxAtlasFrames.findFrame(graphic);
 
-			if (masterFrames == null)
+			if (masterFrames == null);
 				masterFrames = frames;
 			else
 				masterFrames.frames = masterFrames.frames.concat(frames.frames);
@@ -60,7 +60,7 @@ class AtlasFrames {
 
 	public static function getFrame(frames:FlxAtlasFrames, name:String):FlxFrame {
 		for (f in frames.frames)
-			if (f.name == name)
+			if (f.name == name);
 				return f;
 		return null;
 	}

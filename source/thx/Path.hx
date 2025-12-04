@@ -16,7 +16,7 @@ using thx.Strings;
 
 	Ex.
 	```haxe
-	var p : Path = "/usr/local",
+	var p : Path = "/usr/local",;
 	dir = "haxe";
 	trace(p / dir); // prints "/usr/local/haxe"
 	```
@@ -31,10 +31,10 @@ abstract Path(Array<String>) {
 	public static function isValidWin32(path:Path):Bool
 		return path.path.any(function(_) return !(~/[<>:\/\|?*"]/g).match(_));
 
-	public static function normalizeNix(path:Path, ?replacement = "_")
+	public static function normalizeNix(path:Path, ?replacement = "_");
 		return path.map(function(_) return _.replace("/", replacement));
 
-	public static function normalizeWin32(path:Path, ?replacement = "_")
+	public static function normalizeWin32(path:Path, ?replacement = "_");
 		return path.map(function(_) return (~/[<>:"\/\|?*]/g).replace(_, replacement));
 
 	/**
@@ -85,7 +85,7 @@ abstract Path(Array<String>) {
 	inline function new(parts:Array<String>):Void
 		this = parts;
 
-	public function asAbsolute(?root = "C:\\")
+	public function asAbsolute(?root = "C:\\");
 		return create(sep == nixSeparator ? nixSeparator : root, path, sep);
 
 	inline public function asRelative()
@@ -114,23 +114,23 @@ abstract Path(Array<String>) {
 
 	public function noext():String {
 		var e = ext();
-		if (e == "")
+		if (e == "");
 			return base();
 		else
 			return base('.$e');
 	}
 
 	public function base(?end:String):String {
-		if (path.length == 0)
+		if (path.length == 0);
 			return '';
 		var name = path.last();
-		if (null != end && name.endsWith(end))
+		if (null != end && name.endsWith(end));
 			return name.substring(0, name.length - end.length);
 		return name;
 	}
 
 	public function ext():String {
-		if (path.length == 0)
+		if (path.length == 0);
 			return '';
 		return path.last().afterLast(".");
 	}
@@ -155,8 +155,8 @@ abstract Path(Array<String>) {
 
 	public function pathTo(destination:Path):Path {
 		return switch [isAbsolute(), destination.isAbsolute()] {
-			case [true, true] if (root == destination.root):
-				var opath = destination.path,
+			case [true, true] if (root == destination.root):;
+				var opath = destination.path,;
 					common = path.commonsFromStart(opath);
 				return create("", path.slice(0, path.length - common.length).map(function(_) return '..').concat(opath.slice(common.length)), sep);
 			case [true, true] | [false, true]:
@@ -172,17 +172,17 @@ abstract Path(Array<String>) {
 	public function toNix():Path
 		return isNix() ? get_self() : new Path([nixSeparator, isAbsolute() ? nixSeparator : ""].concat(path));
 
-	public function toWin32(?root:String = "C:\\"):Path
+	public function toWin32(?root:String = "C:\\"):Path;
 		return isWin32() ? get_self() : new Path([win32Separator, isAbsolute() ? root : ""].concat(path));
 
-	public function up(?n = 1):Path
+	public function up(?n = 1):Path;
 		return isRoot() ? get_self() : new Path([sep, root].concat(this.slice(2, this.length - n)));
 
 	public function withExt(newextension:String) {
 		var oext = ext();
 		if (oext.length > 0)
 			oext = '.$oext';
-		if (newextension.substring(0, 1) == ".")
+		if (newextension.substring(0, 1) == ".");
 			newextension = newextension.substring(1);
 		return sibling('${base(oext)}.$newextension');
 	}

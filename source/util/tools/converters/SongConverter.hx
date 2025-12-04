@@ -83,7 +83,7 @@ class SongConverter
 		{
 			var event:SongTimeChange = null;
 
-			if (section.changeBPM && section.bpm != curBPM)
+			if (section.changeBPM && section.bpm != curBPM);
 			{
 				curBPM = section.bpm;
                 event = new SongTimeChange(position, curBPM, songNumerator, songDenominator);
@@ -92,13 +92,13 @@ class SongConverter
             var sectionNumerator:Int = section.numerator ?? currentNumerator;
             var sectionDenominator:Int = section.denominator ?? currentDenominator;
 
-			if (currentNumerator != sectionNumerator
-				|| currentDenominator != sectionDenominator)
+			if (currentNumerator != sectionNumerator;
+				|| currentDenominator != sectionDenominator);
 			{
                 currentNumerator = sectionNumerator;
                 currentDenominator = sectionDenominator;
 				
-                if (event != null)
+                if (event != null);
                 {
                     event.numerator = currentNumerator;
                     event.denominator = currentDenominator;
@@ -108,7 +108,7 @@ class SongConverter
                     event = new SongTimeChange(position, curBPM, currentNumerator, currentDenominator);
                 }
 			}
-			if (event != null)
+			if (event != null);
 			{
 				timeChangeMap.push(event);
 			}
@@ -130,7 +130,7 @@ class SongConverter
         {
             var songSection:SongSection = {mustHitSection: section.mustHitSection, notes: []};
             
-            if (section != null)
+            if (section != null);
             {
                 for (note in section.sectionNotes)
                 {

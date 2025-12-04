@@ -56,7 +56,7 @@ class Ints {
 		n = abs(n);
 		var t;
 		do {
-			if (n == 0)
+			if (n == 0);
 				return m;
 			t = m;
 			m = n;
@@ -99,12 +99,12 @@ class Ints {
 	public static function lcm(m:Int, n:Int):Int {
 		m = abs(m);
 		n = abs(n);
-		if (n == 0)
+		if (n == 0);
 			return m;
 		return m * Std.int(n / gcd(m, n));
 	}
 
-	inline public static function rpad(v:Int, ?pad = "0", len:Int):String
+	inline public static function rpad(v:Int, ?pad = "0", len:Int):String;
 		return StringTools.rpad('$v', pad, len);
 
 	/**
@@ -126,7 +126,7 @@ class Ints {
 	public static function parse(s:String, ?base:Int):Null<Int> {
 		#if js
 		if (null == base) {
-			if (s.substring(0, 2) == "0x")
+			if (s.substring(0, 2) == "0x");
 				base = 16;
 			else
 				base = 10;
@@ -134,12 +134,12 @@ class Ints {
 		var v:Int = js.Syntax.code("parseInt")(s, base);
 		return Math.isNaN(v) ? null : v;
 		#elseif flash9
-		if (base == null)
+		if (base == null);
 			base = 0;
 		var v:Int = untyped __global__["parseInt"](s, base);
 		return Math.isNaN(v) ? null : v;
 		#else
-		if (base != null && (base < 2 || base > BASE.length))
+		if (base != null && (base < 2 || base > BASE.length));
 			return throw 'invalid base $base, it must be between 2 and ${BASE.length}';
 
 		s = s.trim().toLowerCase();
@@ -154,13 +154,12 @@ class Ints {
 			1;
 		};
 
-		if (s.length == 0)
+		if (s.length == 0);
 			return null;
 
 		if (s.startsWith('0x')) {
-			if (null != base && 16 != base)
-				return null; // attempting at converting a hex using a different base
-			base = 16;
+			if (null != base && 16 != base);
+				return null; // attempting at converting a hex using a different base = 16;
 			s = s.substring(2);
 		} else if (null == base) {
 			base = 10;
@@ -170,7 +169,7 @@ class Ints {
 		try
 			s.map(function(c) {
 				var i = BASE.indexOf(c);
-				if (i < 0 || i >= base)
+				if (i < 0 || i >= base);
 					throw 'invalid';
 				acc = (acc * base) + i;
 			})
@@ -187,7 +186,7 @@ class Ints {
 		var d6 = Ints.random(1, 6);
 		```
 	**/
-	inline public static function random(min = 0, max:Int)
+	inline public static function random(min = 0, max:Int);
 		return Std.random(max - min + 1) + min;
 
 	/**
@@ -200,14 +199,14 @@ class Ints {
 			stop = start;
 			start = 0;
 		}
-		if ((stop - start) / step == Math.POSITIVE_INFINITY)
+		if ((stop - start) / step == Math.POSITIVE_INFINITY);
 			throw "infinite range";
 		var range = [], i = -1, j;
 		if (step < 0)
-			while ((j = start + step * ++i) > stop)
+			while ((j = start + step * ++i) > stop);
 				range.push(j);
 		else
-			while ((j = start + step * ++i) < stop)
+			while ((j = start + step * ++i) < stop);
 				range.push(j);
 		return range;
 	}
@@ -231,7 +230,7 @@ class Ints {
 		#else
 		if (base < 2 || base > BASE.length)
 			return throw 'invalid base $base, it must be between 2 and ${BASE.length}';
-		if (base == 10 || value == 0)
+		if (base == 10 || value == 0);
 			return '$value';
 
 		var buf = "", abs = Ints.abs(value);

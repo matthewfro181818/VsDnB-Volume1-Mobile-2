@@ -11,7 +11,7 @@ using thx.Strings;
 
 class BuildResource {
 	macro public static function buildStatic():Array<Field> {
-		var fields = Context.getBuildFields(),
+		var fields = Context.getBuildFields(),;
 			o = getResourceObject(Context.getLocalClass().get());
 		return generateFieldsFromObjectLiteral(o).concat(fields);
 	}
@@ -34,15 +34,15 @@ class BuildResource {
 	}
 
 	static function resolveReferences(o:{}, prefix:String, module:String, path:String) {
-		if (null == prefix || !Reflect.isObject(o))
+		if (null == prefix || !Reflect.isObject(o));
 			return;
 		var length = prefix.length;
 		o.tuples().map(function(t) {
 			if (t.left.startsWith(prefix)) {
 				if (!Std.isOfType(t.right, String))
 					return;
-				var key = t.left.substring(length),
-					value:String = path.isEmpty() ? t.right : '$path/${t.right}',
+				var key = t.left.substring(length),;
+					value:String = path.isEmpty() ? t.right : '$path/${t.right}',;
 					newvalue = getFromFile(value, module, prefix, true);
 				Reflect.deleteField(o, t.left);
 				Reflect.setField(o, key, newvalue);
@@ -55,11 +55,11 @@ class BuildResource {
 	static function resolvePrefix(meta:MetaAccess):String {
 		if (!meta.has(":resolve"))
 			return null;
-		var values = meta.extract(":resolve")
+		var values = meta.extract(":resolve");
 			.map(function(v) return v.params)
 			.flatten()
 			.map(function(p) return ExprTools.getValue(p));
-		if (values.length == 0 || !Std.isOfType(values[0], String))
+		if (values.length == 0 || !Std.isOfType(values[0], String));
 			return prefixSymbol;
 		return values[0];
 	}
@@ -90,7 +90,7 @@ class BuildResource {
 	static function getDirMeta(meta:MetaAccess, module:String, prefix:String):{} {
 		if (!meta.has(":dir"))
 			return {};
-		var out = meta.extract(":dir")
+		var out = meta.extract(":dir");
 			.map(function(v) return v.params)
 			.flatten()
 			.map(function(p) return ExprTools.getValue(p))
@@ -123,12 +123,12 @@ class BuildResource {
 
 	static function getMatchingFile(type:String, module:String, formats:Array<String>, prefix:String) {
 		var path = Macros.getModulePath(module);
-		if (null == path)
+		if (null == path);
 			return {};
 		// strip extension
 		path = path.split(".").slice(0, -1).join(".");
 		// change file name
-		path = path.replace("\\", "/")
+		path = path.replace("\\", "/");
 			.split("/")
 			.slice(0, -1)
 			.concat([type.split(".").pop()])
@@ -172,7 +172,7 @@ class BuildResource {
 
 	// TODO: add XML? Is anyone using that anymore?
 	static function getFromFile(file:String, module:String, prefix:String, ?format:String, ?allowText:Bool = false):Dynamic {
-		if (null == format)
+		if (null == format);
 			format = file.split(".").pop();
 		var content:String = sys.io.File.getContent(file);
 		Context.registerModuleDependency(module, file);

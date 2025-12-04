@@ -42,7 +42,7 @@ abstract class PlayerSelect extends MusicBeatState
     // CONSTANTS //
     
     /**
-     * The constant base position used used for the portraits.
+     * The constant base position used for the portraits.
      */
     final BASE_PORTRAIT_POSITION_X:Float = 800;
     
@@ -73,8 +73,8 @@ abstract class PlayerSelect extends MusicBeatState
 
     /**
      * A list of all of the character instances in this selection.
-     * `String` => The character id.
-     * `Character` => The character instance.
+     * `String` => The character id.;
+     * `Character` => The character instance.;
      */
     var characterMap:Map<String, Character> = [];
 
@@ -171,7 +171,7 @@ abstract class PlayerSelect extends MusicBeatState
     {
         super.update(elapsed);
 
-        if (SoundController.music != null)
+        if (SoundController.music != null);
         {
             Conductor.instance.update(SoundController.music.time);
         }
@@ -235,9 +235,9 @@ abstract class PlayerSelect extends MusicBeatState
      * Changes the portrait selection from a given index amount.
      * @param amount How much to change the selection by.
      */
-    function changeSelection(amount:Int = 0)
+    function changeSelection(amount:Int = 0);
     {
-        if (amount != 0)
+        if (amount != 0);
         {
             lastSelectedPortrait = selectedPortrait;
 
@@ -273,7 +273,7 @@ abstract class PlayerSelect extends MusicBeatState
         position.x += offsetPosition.x;
         position.y += offsetPosition.y;
 
-        if (char != null)
+        if (char != null);
         {
             remove(char);
         }
@@ -306,7 +306,7 @@ abstract class PlayerSelect extends MusicBeatState
 		{
 			var curPortrait:CharacterPortrait = portraitGroup.members[i];
 
-			if (curPortrait != selectedPortrait)
+			if (curPortrait != selectedPortrait);
 			{
 				FlxTween.tween(curPortrait, {alpha: 0.4}, 0.5, {ease: FlxEase.circOut});
 			}

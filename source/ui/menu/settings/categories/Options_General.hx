@@ -47,7 +47,6 @@ class Options_General extends SettingsCategory
 
         // ==========================================================
         // ▶ BOTPLAY OPTION (NEW)
-        // ==========================================================
 		var checkbox_botplay = new CheckboxOption(400, 550, {
 			name: LanguageManager.getTextString('settings_general_botplay'),
 			description: LanguageManager.getTextString('settings_general_botplay_description'),
@@ -59,7 +58,6 @@ class Options_General extends SettingsCategory
 		checkbox_botplay.setChecked(Preferences.botplay, false, true);
 		list.push(checkbox_botplay);
 		add(checkbox_botplay);
-        // ==========================================================
 
 		var option_keybinds = new CallbackOption(400, 650, {
 			name: LanguageManager.getTextString('settings_general_keybinds'),

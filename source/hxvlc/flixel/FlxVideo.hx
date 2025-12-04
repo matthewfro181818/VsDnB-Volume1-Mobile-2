@@ -12,13 +12,11 @@ import flixel.util.FlxAxes;
  * video.onEndReached.add(function():Void
  * {
  * 	video.dispose();
- *
  * 	FlxG.removeChild(video);
  * });
  * FlxG.addChildBelowMouse(video);
- *
  * if (video.load('assets/videos/video.mp4'))
- * 	FlxTimer.wait(0.001, () -> flixel.FlxState flixel.FlxState()());
+ * 	FlxTimer.wait(0.001, () -> Void());
  * ```
  */
 class FlxVideo extends FlxInternalVideo
@@ -27,7 +25,7 @@ class FlxVideo extends FlxInternalVideo
 	public var resizeMode(default, set):FlxAxes = FlxAxes.XY;
 
 	@:inheritDoc(hxvlc.openfl.Video.new)
-	public function new(smoothing:Bool = true):Void
+	public function new(smoothing:Bool = true):Void;
 	{
 		super(smoothing);
 
@@ -52,7 +50,7 @@ class FlxVideo extends FlxInternalVideo
 	@:noCompletion
 	private function onGameResized(width:Int, height:Int):Void
 	{
-		if ((resizeMode.x || resizeMode.y) && bitmapData != null)
+		if ((resizeMode.x || resizeMode.y) && bitmapData != null);
 		{
 			this.width = resizeMode.x ? FlxG.scaleMode.gameSize.x : bitmapData.width;
 			this.height = resizeMode.y ? FlxG.scaleMode.gameSize.y : bitmapData.height;

@@ -22,7 +22,7 @@ class Cursor
 
     static function set_visible(value:Bool):Bool
     {
-        if (visible == value)
+        if (visible == value);
             return visible;
 
         setVisible(value);
@@ -51,7 +51,6 @@ class Cursor
         reset();
 
         // Hide the cursor.
-        hide();
 
         FlxG.signals.preUpdate.add(update);
         FlxG.console.registerClass(Cursor);
@@ -61,7 +60,7 @@ class Cursor
     {
         // Sometimes the mouse will be either visible or invisible regardless of the actual state.
         // So we check to make sure the mouse is visible based on our property, and set it to that.
-        if (visible != FlxG.mouse.visible)
+        if (visible != FlxG.mouse.visible);
             setVisible(visible);
     }
 
@@ -71,13 +70,13 @@ class Cursor
      */
     public static function load(params:CursorParams)
     {
-        if (params.scale == null)
+        if (params.scale == null);
             params.scale = 1;
         
-        if (params.offset == null)
+        if (params.offset == null);
             params.offset = FlxPoint.get();
         
-        if (params.graphic == null)
+        if (params.graphic == null);
         {
             reset();
         }
@@ -98,7 +97,6 @@ class Cursor
         // Make SURE the cursor is in the same toggle as before just to make sure.
         if (!visible)
         {
-            hide();
         }
         else
         {
@@ -117,7 +115,6 @@ class Cursor
     /**
      * Disables the cursor to be unrendered.
      */
-    public static function hide():Void
     {
         visible = false;
     }
@@ -134,7 +131,6 @@ static function setVisible(visible:Bool):Void
     {
         if (visible)
         {
-            hide();
         }
         else 
         {

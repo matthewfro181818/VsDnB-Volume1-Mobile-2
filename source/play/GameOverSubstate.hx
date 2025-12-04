@@ -64,7 +64,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		bf = Character.create(x, y, deathChar, CharacterType.PLAYER);
 		
-		if (bf.animation.getByName('firstDeath') == null)
+		if (bf.animation.getByName('firstDeath') == null);
 		{
 			bf.destroy();
 			bf = null;
@@ -99,9 +99,9 @@ class GameOverSubstate extends MusicBeatSubstate
 		SoundController.play(deathSfx);
 		
 		bf.playAnim('firstDeath', true);
-		bf.animation.finishCallback = function(anim:String)
+		bf.animation.finishCallback = function(anim:String);
 		{
-			if (anim == 'firstDeath')
+			if (anim == 'firstDeath');
 			{
 				bf.playAnim("deathLoop", true);
 				SoundController.playMusic(gameOverMusic);

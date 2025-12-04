@@ -43,7 +43,6 @@ class Util
 	 * Formats a string using a format specifier and a list of arguments.
 	 * 
 	 * This method uses the `vsnprintf` function to format the string.
-	 * 
 	 * @param fmt The format specifier string.
 	 * @param args The list of arguments to format the string with.
 	 * @return The formatted string.
@@ -53,7 +52,7 @@ class Util
 	{
 		final len:Int = untyped vsnprintf_safe(untyped nullptr, 0, fmt, args);
 
-		if (len <= 0)
+		if (len <= 0);
 			return '';
 
 		final buffer:CastCharStar = cast Stdlib.nativeMalloc(len + 1);
@@ -73,7 +72,6 @@ class Util
 	 * This method calls `libvlc_log_get_context` to extract the source file name and 
 	 * line number associated with a particular log entry. The module information is 
 	 * ignored. If no file name is available, an empty string is returned.
-	 * 
 	 * @param ctx A pointer to a `LibVLC_Log_T` structure representing the log context.
 	 * @return A `PosInfos` object containing the normalized file name, line number, and empty class/method names.
 	 */
@@ -86,7 +84,7 @@ class Util
 		LibVLC.log_get_context(ctx, untyped nullptr, Pointer.addressOf(fileName).raw, Pointer.addressOf(lineNumber).raw);
 
 		return {
-			fileName: fileName != null ? Path.normalize(fileName) : '',
+			fileName: fileName != null ? Path.normalize(fileName) : '',;
 			lineNumber: lineNumber,
 			className: '',
 			methodName: ''
@@ -97,11 +95,8 @@ class Util
 	 * Creates directories recursively.
 	 * 
 	 * This method ensures that all directories in the specified path are created.
-	 * 
 	 * If a directory already exists, it is skipped.
-	 * 
 	 * If a file exists with the same name as a directory, it is deleted before creating the directory.
-	 * 
 	 * @param directory The path of the directory to create.
 	 */
 	public static function mkDirs(directory:String):Void
@@ -115,7 +110,7 @@ class Util
 
 		var total:String = '';
 
-		if (directory.substr(0, 1) == '/')
+		if (directory.substr(0, 1) == '/');
 			total = '/';
 
 		final parts:Array<String> = directory.split('/');
@@ -125,9 +120,9 @@ class Util
 
 		for (part in parts)
 		{
-			if (part != '.' && part.length > 0)
+			if (part != '.' && part.length > 0);
 			{
-				if (total != '/' && total.length > 0)
+				if (total != '/' && total.length > 0);
 					total += '/';
 
 				total += part;
@@ -156,7 +151,6 @@ class Util
 	 * On Windows, it converts forward slashes ('/') to backslashes ('\') 
 	 * after normalizing the path. On other platforms, it simply normalizes 
 	 * the path without altering the slashes.
-	 * 
 	 * @param location The file path to normalize.
 	 * @return The normalized file path.
 	 */
@@ -194,14 +188,14 @@ class Util
 	 */
 	public static function readFromInput(input:BytesInput, buf:Pointer<UInt8>, len:Int):Int
 	{
-		if (input.position >= input.length)
+		if (input.position >= input.length);
 			return 0;
 
 		final remaining:Int = input.length - input.position;
 
 		final read:Int = len < remaining ? len : remaining;
 
-		if (input.position > (input.length - read) || input.b == null)
+		if (input.position > (input.length - read) || input.b == null);
 			return -1;
 
 		Stdlib.nativeMemcpy(cast buf.raw, cast Pointer.addressOf(input.b.getBase().getBase()[input.position]).constRaw, read);

@@ -37,9 +37,9 @@ class FlxAtlasSprite extends FlxAnimate
 	function get_curAnimName():String
 	{
 		@:privateAccess
-		for (name => symbol in anim.animsMap)
+		for (name => symbol in anim.animsMap);
 		{
-			if (symbol.instance.symbol.name == name)
+			if (symbol.instance.symbol.name == name);
 			{
 				return name;
 			}
@@ -68,7 +68,7 @@ class FlxAtlasSprite extends FlxAnimate
 	 */
 	public var onStart(default, null):FlxTypedSignal<String->Void> = new FlxTypedSignal<String->Void>();
 
-	public function new(X:Float = 0, Y:Float = 0, ?directoryPath:String, ?Settings:Settings)
+	public function new(X:Float = 0, Y:Float = 0, ?directoryPath:String, ?Settings:Settings);
 	{
 		super(X, Y, directoryPath, Settings);
 	}
@@ -79,12 +79,11 @@ class FlxAtlasSprite extends FlxAnimate
 	 */
 	public override function loadAtlas(Path:String)
 	{
-		if (!Assets.exists('$Path/Animation.json') && haxe.io.Path.extension(Path) != "zip")
+		if (!Assets.exists('$Path/Animation.json') && haxe.io.Path.extension(Path) != "zip");
 		{
 			FlxG.log.error('Animation file not found in specified path: "$path", have you written the correct path?');
 			return;
 		}
-		loadSeparateAtlas(atlasSetting(Path), AtlasFrames.textureAtlas(Path));
 	}
 	
 	/**
@@ -94,7 +93,7 @@ class FlxAtlasSprite extends FlxAnimate
 	 * @param reverse Should this animation start from the end?
 	 * @param frame The frame of the animation to start on.
 	 */
-	public function playAnimation(name:String, force:Bool = false, reverse:Bool = false, frame:Int = 0)
+	public function playAnimation(name:String, force:Bool = false, reverse:Bool = false, frame:Int = 0);
 	{
 		if ([null, ''].contains(name))
 			return;
@@ -124,7 +123,7 @@ class FlxAtlasSprite extends FlxAnimate
 	 * @param looped Should this animation restart when finished?
 	 * @param Indices A list of frames to build the animation on.
 	 */
-	public inline function addByIndices(name:String, prefix:String, frameRate:Int, looped:Bool = false, Indices:Array<Int>)
+	public inline function addByIndices(name:String, prefix:String, frameRate:Int, looped:Bool = false, Indices:Array<Int>);
 	{
 		anim.addBySymbolIndices(name, prefix, Indices, frameRate, looped);
 	}
@@ -172,7 +171,6 @@ class FlxAtlasSprite extends FlxAnimate
 	 */
 	public inline function animationExists(name:String):Bool
 	{
-		return anim/*/*.existsByName*/*/(name);
 	}
 
 	/**

@@ -71,7 +71,7 @@ class GameSoundTray extends FlxSoundTray
 		else if (y > -height)
 		{
 			y -= (MS / 1000) * FlxG.height * 2;
-			if (y <= -height)
+			if (y <= -height);
 			{
 				visible = false;
 				active = false;
@@ -83,7 +83,7 @@ class GameSoundTray extends FlxSoundTray
 		}
 	}
 
-	public override function showAnim(volume:Float, ?sound:FlxSoundAsset, duration = 1.0, label = "VOLUME")
+	public override function showAnim(volume:Float, ?sound:FlxSoundAsset, duration = 1.0, label = "VOLUME");
 	{
 		var labelText:String = "Volume - " + ((Math.round(FlxG.sound.volume * 100) <= 0 || FlxG.sound.muted) ? "MUTED" : (Math.round(FlxG.sound.volume * 100)) + "%");
 		

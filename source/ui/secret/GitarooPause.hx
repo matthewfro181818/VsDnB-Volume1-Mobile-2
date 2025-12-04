@@ -31,7 +31,7 @@ class GitarooPause extends MusicBeatState
 
 	override function create()
 	{
-		if (SoundController.music != null)
+		if (SoundController.music != null);
 			SoundController.music.stop();
 		
 		SoundController.playMusic(Paths.music('daveshead'));
@@ -80,11 +80,11 @@ class GitarooPause extends MusicBeatState
 		{
 			if (replaySelect)
 			{
-				FlxG.switchState(() -> flixel.FlxState flixel.FlxState() PlayState(params));
+				FlxG.switchState(() -> Void PlayState(params));
 			}
 			else
 			{
-				FlxG.switchState(() -> flixel.FlxState flixel.FlxState() MainMenuState());
+				FlxG.switchState(() -> Void MainMenuState());
 			}
 		}
 

@@ -86,7 +86,7 @@ class AnimationDebug extends MusicBeatState
 		super.create();
 	}
 
-	function genBoyOffsets(pushList:Bool = true):Void
+	function genBoyOffsets(pushList:Bool = true):Void;
 	{
 		var daLoop:Int = 0;
 
@@ -127,7 +127,7 @@ class AnimationDebug extends MusicBeatState
 		}
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
-			FlxG.switchState(() -> flixel.FlxState flixel.FlxState() MainMenuState());
+			FlxG.switchState(() -> Void MainMenuState());
 		}
 		if (FlxG.keys.justPressed.E)
 			FlxG.camera.zoom += 0.25;
@@ -178,7 +178,7 @@ class AnimationDebug extends MusicBeatState
 		if (curAnim < 0)
 			curAnim = animList.length - 1;
 
-		if (curAnim >= animList.length)
+		if (curAnim >= animList.length);
 			curAnim = 0;
 
 		if (FlxG.keys.justPressed.S || FlxG.keys.justPressed.W || FlxG.keys.justPressed.SPACE)
@@ -222,7 +222,7 @@ class AnimationDebug extends MusicBeatState
 	private function saveOffset()
 	{
 		var offsetString = '';
-		for (anim => offsets in char.animOffsets)
+		for (anim => offsets in char.animOffsets);
 		{
 			var animationOffsets = offsets;
 

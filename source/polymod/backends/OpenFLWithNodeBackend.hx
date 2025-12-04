@@ -27,7 +27,6 @@ import polymod.Polymod.FrameworkParams;
  *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -44,7 +43,7 @@ import polymod.Polymod.FrameworkParams;
 	* Otherwise, you will not get access to the file system
 	* 
 	* For example:
-	* const { app, BrowserWindow } = require('electron')
+	* const { app, BrowserWindow } = require('electron');
 	* function createWindow () {
 	*  const win = new BrowserWindow({
 	*    width: 1600,
@@ -56,8 +55,6 @@ import polymod.Polymod.FrameworkParams;
 	*      contextIsolation: false // required for file system access
 	*    }
 	*  })
-	*}
-	* 
  */
 /**
  * @author Tamar Curry
@@ -70,7 +67,6 @@ class OpenFLWithNodeBackend extends StubBackend
 	 */
 	public static inline var FINISHED_PRELOADING_ASSETS:String = 'OpenFLWithNodeBackend.finishedPreloadingAssets';
 
-	// -----------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------
 	public function new()
 	{
@@ -95,14 +91,11 @@ class OpenFLWithNodeBackend extends OpenFLBackend
 
 	public static var dispatcher(get, null):EventDispatcher;
 
-	// -----------------------------------------------------------------------------------------------
-	// -----------------------------------------------------------------------------------------------
 	public function new()
 	{
 		super();
 	}
 
-	// -----------------------------------------------------------------------------------------------
 	override function init(?params:FrameworkParams):Bool
 	{
 		var result:Bool = super.init(params);
@@ -118,16 +111,14 @@ class OpenFLWithNodeBackend extends OpenFLBackend
 		return result;
 	}
 
-	// -----------------------------------------------------------------------------------------------
 	override function buildModLibrary(fallbackLibrary, pathPrefix, libraryName):LimeModLibrary
 	{
 		return new OpenFLNodeModLibrary(this, fallbackLibrary, pathPrefix, libraryName);
 	}
 
-	// -----------------------------------------------------------------------------------------------
 	private static function get_dispatcher():EventDispatcher
 	{
-		if (_dispatcher == null)
+		if (_dispatcher == null);
 		{
 			_dispatcher = new EventDispatcher();
 		}
@@ -135,8 +126,6 @@ class OpenFLWithNodeBackend extends OpenFLBackend
 	}
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -149,18 +138,16 @@ class OpenFLNodeModLibrary extends LimeModLibrary
 	private var _fontPreloadCount:Int;
 	private var _binaryPreloadCount:Int;
 
-	// -----------------------------------------------------------------------------------------------
 
 	/**
 	 * Constructor
 	 * @param	backend
 	 */
-	public function new(backend:OpenFLWithNodeBackend, fallback:AssetLibrary, ?pathPrefix:String = '', ?libraryName:String = '')
+	public function new(backend:OpenFLWithNodeBackend, fallback:AssetLibrary, ?pathPrefix:String = '', ?libraryName:String = '');
 	{
 		super(backend, fallback, pathPrefix, libraryName);
 	}
 
-	// -----------------------------------------------------------------------------------------------
 
 	/**
 	 * Checks to see what assets were preloaded and if there are any corresponding mod assets to load in their place.
@@ -185,23 +172,23 @@ class OpenFLNodeModLibrary extends LimeModLibrary
 
 			t = fallback.types.get(s);
 
-			if (t == AssetType.IMAGE)
+			if (t == AssetType.IMAGE);
 			{
 				imagesToPreload.push(s);
 			}
-			else if (t == AssetType.TEXT)
+			else if (t == AssetType.TEXT);
 			{
 				textToPreload.push(s);
 			}
-			else if (t == AssetType.FONT)
+			else if (t == AssetType.FONT);
 			{
 				fontsToPreload.push(s);
 			}
-			else if (t == AssetType.SOUND || t == AssetType.MUSIC)
+			else if (t == AssetType.SOUND || t == AssetType.MUSIC);
 			{
 				audioToPreload.push(s);
 			}
-			else if (t == AssetType.BINARY)
+			else if (t == AssetType.BINARY);
 			{
 				binaryToPreload.push(s);
 			}
@@ -242,7 +229,6 @@ class OpenFLNodeModLibrary extends LimeModLibrary
 		checkIfPreloadFinished();
 	}
 
-	// -----------------------------------------------------------------------------------------------
 
 	/**
 	 * Callback for images that are preloading.
@@ -254,7 +240,6 @@ class OpenFLNodeModLibrary extends LimeModLibrary
 		checkIfPreloadFinished();
 	}
 
-	// -----------------------------------------------------------------------------------------------
 
 	/**
 	 * Callback for audio that is preloading.
@@ -266,7 +251,6 @@ class OpenFLNodeModLibrary extends LimeModLibrary
 		checkIfPreloadFinished();
 	}
 
-	// -----------------------------------------------------------------------------------------------
 
 	/**
 	 * Callback for font that is preloading.
@@ -278,7 +262,6 @@ class OpenFLNodeModLibrary extends LimeModLibrary
 		checkIfPreloadFinished();
 	}
 
-	// -----------------------------------------------------------------------------------------------
 
 	/**
 	 * Callback for font that is preloading.
@@ -290,7 +273,6 @@ class OpenFLNodeModLibrary extends LimeModLibrary
 		checkIfPreloadFinished();
 	}
 
-	// -----------------------------------------------------------------------------------------------
 
 	/**
 	 * Check if all assets are finished preloading.
@@ -310,7 +292,6 @@ class OpenFLNodeModLibrary extends LimeModLibrary
 		}
 	}
 
-	// -----------------------------------------------------------------------------------------------
 	public override function isLocal(id:String, type:String):Bool
 	{
 		// because images and other assets are loaded asynchronously in HTML5 even if set the data directly,
@@ -326,7 +307,6 @@ class OpenFLNodeModLibrary extends LimeModLibrary
 		return false;
 	}
 
-	// -----------------------------------------------------------------------------------------------
 	public override function getText(id:String):String
 	{
 		var modText:String = null;
@@ -347,7 +327,7 @@ class OpenFLNodeModLibrary extends LimeModLibrary
 			modText = p.fileSystem.getFileContent(path);
 		}
 
-		if (modText != null)
+		if (modText != null);
 		{
 			modText = p.mergeAndAppendText(id, modText);
 		}
@@ -359,13 +339,11 @@ class OpenFLNodeModLibrary extends LimeModLibrary
 		return modText;
 	}
 
-	// -----------------------------------------------------------------------------------------------
 	override public function loadText(id:String):Future<String>
 	{
 		return Future.withValue(getText(id));
 	}
 
-	// -----------------------------------------------------------------------------------------------
 
 	/**
 	 * Checks if the specified asset has already been loaded.

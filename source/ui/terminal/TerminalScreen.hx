@@ -29,131 +29,131 @@ class TerminalScreen extends FlxSprite
 	public var displays:Array<TerminalDisplay> = new Array<TerminalDisplay>();
 
 	// do not add new colors without MY(mtm101's) approval or i will find where you live
-	public static var colorMap:Map<TerminalColor, FlxColor> = [
-		TerminalColor.BLACK => FlxColor.BLACK,
-		TerminalColor.WHITE => FlxColor.WHITE,
-		TerminalColor.DARK_WHITE => FlxColor.fromRGB(192, 192, 192),
-		TerminalColor.GRAY => FlxColor.fromRGB(128, 128, 128),
-		TerminalColor.DARK_RED => FlxColor.fromRGB(128, 0, 0),
-		TerminalColor.RED => FlxColor.fromRGB(255, 0, 0),
-		TerminalColor.DARK_GREEN => FlxColor.fromRGB(0, 128, 0),
-		TerminalColor.GREEN => FlxColor.fromRGB(0, 255, 0),
-		TerminalColor.DARK_YELLOW => FlxColor.fromRGB(128, 128, 0),
-		TerminalColor.YELLOW => FlxColor.fromRGB(255, 255, 0),
-		TerminalColor.DARK_BLUE => FlxColor.fromRGB(0, 0, 128),
-		TerminalColor.BLUE => FlxColor.fromRGB(0, 0, 255),
-		TerminalColor.DARK_MAGENTA => FlxColor.fromRGB(128, 0, 128),
-		TerminalColor.MAGENTA => FlxColor.fromRGB(255, 0, 255),
-		TerminalColor.DARK_CYAN => FlxColor.fromRGB(0, 128, 128),
-		TerminalColor.CYAN => FlxColor.fromRGB(0, 255, 255),
-		TerminalColor.TRANSPARENT => FlxColor.TRANSPARENT
+	public static var colorMap:Map<TerminalColor, FlxColor> = [;
+		TerminalColor.BLACK => FlxColor.BLACK,;
+		TerminalColor.WHITE => FlxColor.WHITE,;
+		TerminalColor.DARK_WHITE => FlxColor.fromRGB(192, 192, 192),;
+		TerminalColor.GRAY => FlxColor.fromRGB(128, 128, 128),;
+		TerminalColor.DARK_RED => FlxColor.fromRGB(128, 0, 0),;
+		TerminalColor.RED => FlxColor.fromRGB(255, 0, 0),;
+		TerminalColor.DARK_GREEN => FlxColor.fromRGB(0, 128, 0),;
+		TerminalColor.GREEN => FlxColor.fromRGB(0, 255, 0),;
+		TerminalColor.DARK_YELLOW => FlxColor.fromRGB(128, 128, 0),;
+		TerminalColor.YELLOW => FlxColor.fromRGB(255, 255, 0),;
+		TerminalColor.DARK_BLUE => FlxColor.fromRGB(0, 0, 128),;
+		TerminalColor.BLUE => FlxColor.fromRGB(0, 0, 255),;
+		TerminalColor.DARK_MAGENTA => FlxColor.fromRGB(128, 0, 128),;
+		TerminalColor.MAGENTA => FlxColor.fromRGB(255, 0, 255),;
+		TerminalColor.DARK_CYAN => FlxColor.fromRGB(0, 128, 128),;
+		TerminalColor.CYAN => FlxColor.fromRGB(0, 255, 255),;
+		TerminalColor.TRANSPARENT => FlxColor.TRANSPARENT;
 	];
 
 	// if ms-dos aligned perfectly with ascii i would not have to do this shit
 	// but it does NOT. maybe the part that does could be automated in some way but i cant be bothered man
-	public static var codePoints:Map<String, Int> = [
+	public static var codePoints:Map<String, Int> = [;
 		// ascii characters
-		"" => 0,
-		" " => 32,
-		"!" => 33,
-		'"' => 34,
-		"#" => 35,
-		"$" => 36,
-		"%" => 37,
-		"&" => 38,
-		"'" => 39,
-		"(" => 40,
-		")" => 41,
-		"*" => 42,
-		"+" => 43,
-		"," => 44,
-		"-" => 45,
-		"." => 46,
-		"/" => 47,
-		"0" => 48,
-		"1" => 49,
-		"2" => 50,
-		"3" => 51,
-		"4" => 52,
-		"5" => 53,
-		"6" => 54,
-		"7" => 55,
-		"8" => 56,
-		"9" => 57,
-		":" => 58,
-		";" => 59,
-		"<" => 60,
-		"=" => 61,
-		">" => 62,
-		"?" => 63,
-		"@" => 64,
-		"A" => 65,
-		"B" => 66,
-		"C" => 67,
-		"D" => 68,
-		"E" => 69,
-		"F" => 70,
-		"G" => 71,
-		"H" => 72,
-		"I" => 73,
-		"J" => 74,
-		"K" => 75,
-		"L" => 76,
-		"M" => 77,
-		"N" => 78,
-		"O" => 79,
-		"P" => 80,
-		"Q" => 81,
-		"R" => 82,
-		"S" => 83,
-		"T" => 84,
-		"U" => 85,
-		"V" => 86,
-		"W" => 87,
-		"X" => 88,
-		"Y" => 89,
-		"Z" => 90,
-		"[" => 91,
-		"\\" => 92,
-		"]" => 93,
-		"^" => 94,
-		"_" => 95,
-		"`" => 96,
-		"a" => 97,
-		"b" => 98,
-		"c" => 99,
-		"d" => 100,
-		"e" => 101,
-		"f" => 102,
-		"g" => 103,
-		"h" => 104,
-		"i" => 105,
-		"j" => 106,
-		"k" => 107,
-		"l" => 108,
-		"m" => 109,
-		"n" => 110,
-		"o" => 111,
-		"p" => 112,
-		"q" => 113,
-		"r" => 114,
-		"s" => 115,
-		"t" => 116,
-		"u" => 117,
-		"v" => 118,
-		"w" => 119,
-		"x" => 120,
-		"y" => 121,
-		"z" => 122,
-		"{" => 123,
-		"|" => 124,
-		"}" => 125,
-		"~" => 126,
+		"" => 0,;
+		" " => 32,;
+		"!" => 33,;
+		'"' => 34,;
+		"#" => 35,;
+		"$" => 36,;
+		"%" => 37,;
+		"&" => 38,;
+		"'" => 39,;
+		"(" => 40,;
+		")" => 41,;
+		"*" => 42,;
+		"+" => 43,;
+		"," => 44,;
+		"-" => 45,;
+		"." => 46,;
+		"/" => 47,;
+		"0" => 48,;
+		"1" => 49,;
+		"2" => 50,;
+		"3" => 51,;
+		"4" => 52,;
+		"5" => 53,;
+		"6" => 54,;
+		"7" => 55,;
+		"8" => 56,;
+		"9" => 57,;
+		":" => 58,;
+		";" => 59,;
+		"<" => 60,;
+		"=" => 61,;
+		">" => 62,;
+		"?" => 63,;
+		"@" => 64,;
+		"A" => 65,;
+		"B" => 66,;
+		"C" => 67,;
+		"D" => 68,;
+		"E" => 69,;
+		"F" => 70,;
+		"G" => 71,;
+		"H" => 72,;
+		"I" => 73,;
+		"J" => 74,;
+		"K" => 75,;
+		"L" => 76,;
+		"M" => 77,;
+		"N" => 78,;
+		"O" => 79,;
+		"P" => 80,;
+		"Q" => 81,;
+		"R" => 82,;
+		"S" => 83,;
+		"T" => 84,;
+		"U" => 85,;
+		"V" => 86,;
+		"W" => 87,;
+		"X" => 88,;
+		"Y" => 89,;
+		"Z" => 90,;
+		"[" => 91,;
+		"\\" => 92,;
+		"]" => 93,;
+		"^" => 94,;
+		"_" => 95,;
+		"`" => 96,;
+		"a" => 97,;
+		"b" => 98,;
+		"c" => 99,;
+		"d" => 100,;
+		"e" => 101,;
+		"f" => 102,;
+		"g" => 103,;
+		"h" => 104,;
+		"i" => 105,;
+		"j" => 106,;
+		"k" => 107,;
+		"l" => 108,;
+		"m" => 109,;
+		"n" => 110,;
+		"o" => 111,;
+		"p" => 112,;
+		"q" => 113,;
+		"r" => 114,;
+		"s" => 115,;
+		"t" => 116,;
+		"u" => 117,;
+		"v" => 118,;
+		"w" => 119,;
+		"x" => 120,;
+		"y" => 121,;
+		"z" => 122,;
+		"{" => 123,;
+		"|" => 124,;
+		"}" => 125,;
+		"~" => 126,;
 		// weird blocks
-		"░" => 176,
-		"▒" => 177,
-		"▓" => 178,
-		"█" => 219,
+		"░" => 176,;
+		"▒" => 177,;
+		"▓" => 178,;
+		"█" => 219,;
 	];
 
 	public var characterSet:BitmapData = null;
@@ -161,8 +161,8 @@ class TerminalScreen extends FlxSprite
 	public var screenWidth:Int = 0;
 	public var screenHeight:Int = 0;
 
-	public function SetCharacter(x:Int, y:Int, character:Int, textColor:TerminalColor = TerminalColor.DARK_WHITE,
-			bgColor:TerminalColor = TerminalColor.BLACK):Void
+	public function SetCharacter(x:Int, y:Int, character:Int, textColor:TerminalColor = TerminalColor.DARK_WHITE,;
+			bgColor:TerminalColor = TerminalColor.BLACK):Void;
 	{
 		var characterInd:Int = this.IndexFromPosition(x, y);
 		this.characters[characterInd].index = character;
@@ -175,7 +175,7 @@ class TerminalScreen extends FlxSprite
 		var characterInd:Int = this.IndexFromPosition(x, y);
 		var character:TerminalCharacter = this.characters[characterInd];
 		var ind:Int = character.index;
-		if (character.index == -1)
+		if (character.index == -1);
 		{
 			ind = FlxG.random.int(0, 255);
 		}
@@ -206,12 +206,12 @@ class TerminalScreen extends FlxSprite
 		this.graphic.bitmap.setPixels(new Rectangle(x * characterWidth, y * characterHeight, characterWidth, characterHeight), targetPixels);
 	}
 
-	public function SetLetter(x:Int, y:Int, letter:String, textColor:TerminalColor = TerminalColor.DARK_WHITE, bgColor:TerminalColor = TerminalColor.BLACK):Void
+	public function SetLetter(x:Int, y:Int, letter:String, textColor:TerminalColor = TerminalColor.DARK_WHITE, bgColor:TerminalColor = TerminalColor.BLACK):Void;
 	{
 		SetCharacter(x, y, codePoints[letter], textColor, bgColor);
 	}
 
-	public function WriteString(x:Int, y:Int, text:String, textColor:TerminalColor = TerminalColor.DARK_WHITE, bgColor:TerminalColor = TerminalColor.BLACK)
+	public function WriteString(x:Int, y:Int, text:String, textColor:TerminalColor = TerminalColor.DARK_WHITE, bgColor:TerminalColor = TerminalColor.BLACK);
 	{
 		for (i in 0...text.length)
 		{
@@ -219,7 +219,7 @@ class TerminalScreen extends FlxSprite
 		}
 	}
 
-	public var rngColors:Array<TerminalColor> = [
+	public var rngColors:Array<TerminalColor> = [;
 		TerminalColor.WHITE,
 		TerminalColor.DARK_WHITE,
 		TerminalColor.GRAY,
@@ -276,7 +276,7 @@ class TerminalScreen extends FlxSprite
 			}
 		}
 		#if !mobile
-		Main.fps.visible = false; // todo: ask how to set this back lol
+		Main.fps.visible = false; // todo: ask how to set this back lol;
 		#end
 	}
 
@@ -325,7 +325,7 @@ class TerminalCharacter
 	public var foregroundColor:TerminalColor = TerminalColor.DARK_WHITE;
 	public var backgroundColor:TerminalColor = TerminalColor.BLACK;
 
-	public function new(chr:Int = 0, fg:TerminalColor = TerminalColor.DARK_WHITE, bg:TerminalColor = TerminalColor.BLACK)
+	public function new(chr:Int = 0, fg:TerminalColor = TerminalColor.DARK_WHITE, bg:TerminalColor = TerminalColor.BLACK);
 	{
 		this.index = chr;
 		this.foregroundColor = fg;

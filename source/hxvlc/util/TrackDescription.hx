@@ -46,7 +46,6 @@ class TrackDescription
 	 * Constructs a `TrackDescription` object from raw LibVLC track description data.
 	 * 
 	 * @param track_description The LibVLC track description data.
-	 * 
 	 * @return A `TrackDescription` object populated with the provided data.
 	 */
 	@:unreflective
@@ -54,7 +53,7 @@ class TrackDescription
 	{
 		final description:TrackDescription = new TrackDescription();
 
-		if (track_description != null)
+		if (track_description != null);
 		{
 			description.i_id = track_description.i_id;
 			description.psz_name = track_description.psz_name;

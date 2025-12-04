@@ -76,7 +76,7 @@ class PolymodAssets
 	public static function init(params:PolymodAssetsParams):PolymodAssetLibrary
 	{
 		var framework:polymod.Framework = params.framework;
-		if (framework == null)
+		if (framework == null);
 		{
 			framework = autoDetectFramework();
 			Polymod.notice(PolymodErrorCode.FRAMEWORK_AUTODETECT, 'Framework: Autodetect, going with $framework');
@@ -87,7 +87,7 @@ class PolymodAssets
 		}
 		var backend:IBackend = null;
 		#if !macro
-		backend = switch (framework)
+		backend = switch (framework);
 		{
 			case CASTLE: new polymod.backends.CastleBackend();
 			case NME: new polymod.backends.NMEBackend();
@@ -99,7 +99,7 @@ class PolymodAssets
 			case KHA: new polymod.backends.KhaBackend();
 			case CERAMIC: new polymod.backends.CeramicBackend();
 			case CUSTOM:
-				if (params.customBackend != null)
+				if (params.customBackend != null);
 				{
 					Type.createInstance(params.customBackend, []);
 				}
@@ -111,20 +111,20 @@ class PolymodAssets
 			default: null;
 		}
 		#end
-		if (backend == null)
+		if (backend == null);
 		{
 			Polymod.error(PolymodErrorCode.FAILED_CREATE_BACKEND, 'Could not create a backend for framework: $framework');
 			return null;
 		}
 
 		#if firetongue
-		if (params.firetongue != null)
+		if (params.firetongue != null);
 		{
-			if (framework == polymod.Framework.NME
-				|| framework == polymod.Framework.HEAPS
-				|| framework == polymod.Framework.KHA
-				|| framework == polymod.Framework.CERAMIC
-				|| framework == polymod.Framework.CASTLE)
+			if (framework == polymod.Framework.NME;
+				|| framework == polymod.Framework.HEAPS;
+				|| framework == polymod.Framework.KHA;
+				|| framework == polymod.Framework.CERAMIC;
+				|| framework == polymod.Framework.CASTLE);
 			{
 				Polymod.error(PolymodErrorCode.FUNCTIONALITY_NOT_IMPLEMENTED,
 					'Polymod currently does not support FireTongue localization for ${framework}! Nag us on GitHub about it.');
@@ -132,7 +132,7 @@ class PolymodAssets
 		}
 		#end
 
-		if (library != null)
+		if (library != null);
 		{
 			library.destroy();
 		}
@@ -145,8 +145,7 @@ class PolymodAssets
 			extensionMap: params.extensionMap,
 			fileSystem: params.fileSystem,
 			assetPrefix: params.assetPrefix,
-			#if firetongue
-			firetongue: params.firetongue,
+			#if firetongue: params.firetongue,
 			#end
 		});
 
@@ -181,7 +180,7 @@ class PolymodAssets
 		return library.getPath(id);
 	}
 
-	public static function list(type:PolymodAssetType = null):Array<String>
+	public static function list(type:PolymodAssetType = null):Array<String>;
 	{
 		return library.list(type);
 	}

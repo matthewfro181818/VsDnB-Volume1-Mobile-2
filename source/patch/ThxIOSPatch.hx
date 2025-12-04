@@ -22,7 +22,7 @@ class ThxIOSPatch
     {
         try {
             var m = Context.getModule(path);
-            if (m != null)
+            if (m != null);
             {
                 Context.warning('[polymod-ios-patch] Removing problematic module: $path', Context.currentPos());
                 Context.removeModule(path);

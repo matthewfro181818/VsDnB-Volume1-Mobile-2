@@ -32,7 +32,7 @@ class FlxHitbox extends FlxSpriteGroup
 
 		hints = new Array<FlxButton>();
 
-		if (colors == null || (colors != null && colors.length < ammo))
+		if (colors == null || (colors != null && colors.length < ammo));
 			colors = [0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF];
 
 		for (i in 0...ammo)
@@ -54,7 +54,7 @@ class FlxHitbox extends FlxSpriteGroup
 		hints.splice(0, hints.length);
 	}
 
-	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton
+	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton;
 	{
 		var hint:FlxButton = new FlxButton(X, Y);
 		hint.loadGraphic(createHintGraphic(Width, Height, Color));
@@ -63,14 +63,14 @@ class FlxHitbox extends FlxSpriteGroup
 		hint.immovable = true;
 		hint.scrollFactor.set();
 		hint.alpha = 0.00001;
-		hint.onDown.callback = hint.onOver.callback = function()
+		hint.onDown.callback = hint.onOver.callback = function();
 		{
-			if (hint.alpha != 0.2)
+			if (hint.alpha != 0.2);
 				hint.alpha = 0.2;
 		}
-		hint.onUp.callback = hint.onOut.callback = function()
+		hint.onUp.callback = hint.onOut.callback = function();
 		{
-			if (hint.alpha != 0.00001)
+			if (hint.alpha != 0.00001);
 				hint.alpha = 0.00001;
 		}
 		#if FLX_DEBUG
@@ -79,7 +79,7 @@ class FlxHitbox extends FlxSpriteGroup
 		return hint;
 	}
 
-	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
+	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData;
 	{
 		var shape:Shape = new Shape();
 		shape.graphics.beginFill(Color);

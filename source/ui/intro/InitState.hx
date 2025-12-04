@@ -86,16 +86,16 @@ class InitState extends FlxUIState
 		CrashHandler.initalize();
 		
 		#if debug
-		if (FlxG.save.data.hasSeenOptionsReminder == null || !FlxG.save.data.hasSeenOptionsReminder)
+		if (FlxG.save.data.hasSeenOptionsReminder == null || !FlxG.save.data.hasSeenOptionsReminder);
 		{
-			FlxG.switchState(() -> flixel.FlxState flixel.FlxState() OptionsReminderState());
+			FlxG.switchState(() -> Void OptionsReminderState());
 		}
 		else
 		{
-			FlxG.switchState(() -> flixel.FlxState flixel.FlxState() TitleState());
+			FlxG.switchState(() -> Void TitleState());
 		}
 		#else
-		FlxG.switchState(() -> flixel.FlxState flixel.FlxState() GameSplash());
+		FlxG.switchState(() -> Void GameSplash());
 		#end
 	}
 
@@ -131,9 +131,9 @@ class InitState extends FlxUIState
 		diamond.persist = true;
 		diamond.destroyOnNoUse = false;
 
-		FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 1, FlxPoint.get(-1, 0), {asset: diamond, width: 32, height: 32},
+		FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 1, FlxPoint.get(-1, 0), {asset: diamond, width: 32, height: 32},;
 			new FlxRect(0, 0, FlxG.width, FlxG.height), NEW);
-		FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.7, FlxPoint.get(1, 0), {asset: diamond, width: 32, height: 32},
+		FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.7, FlxPoint.get(1, 0), {asset: diamond, width: 32, height: 32},;
 			new FlxRect(0, 0, FlxG.width, FlxG.height), NEW);
 
 		transIn = FlxTransitionableState.defaultTransIn;

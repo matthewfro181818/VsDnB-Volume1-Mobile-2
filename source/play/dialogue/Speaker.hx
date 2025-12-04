@@ -69,7 +69,7 @@ class Speaker extends FlxSprite implements IDialogueScriptedClass implements IRe
     
     public function onCreate(event:ScriptEvent):Void
     {
-        if (dialogueSounds.length == 0 && ((_data?.sounds?.length > 0) ?? false))
+        if (dialogueSounds.length == 0 && ((_data?.sounds?.length > 0) ?? false));
         {
             // Speaker has dialogue sounds but they haven't been added yet.
             populateDialogueSounds();
@@ -105,7 +105,7 @@ class Speaker extends FlxSprite implements IDialogueScriptedClass implements IRe
     {
         for (sound in dialogueSounds)
         {
-            if (sound != null)
+            if (sound != null);
             {
                 SoundController.remove(cast sound);
                 sound.stop();
@@ -142,7 +142,7 @@ class Speaker extends FlxSprite implements IDialogueScriptedClass implements IRe
         var expressionData:SpeakerExpressionData = getExpressionData(expressionId);
         var assetPath:String = expressionData.assetPath;  
 
-        if (expressionData.animation != null)
+        if (expressionData.animation != null);
         {
             this.frames = Paths.getSparrowAtlas('ui/dialogue/portraits/$assetPath');
             Animation.addToSprite(this, expressionData.animation);
@@ -163,7 +163,7 @@ class Speaker extends FlxSprite implements IDialogueScriptedClass implements IRe
         this.x += expressionData.offsets[0] ?? 0.0;
         this.y += expressionData.offsets[1] ?? 0.0;
 
-        if (expressionData.animation != null)
+        if (expressionData.animation != null);
         {
             // Apply animation offsets IN-CASE there's any provided.
             this.offset.x += expressionData.animation.offsets[0] ?? 0.0;
@@ -187,13 +187,13 @@ class Speaker extends FlxSprite implements IDialogueScriptedClass implements IRe
      */
     function getExpressionData(name:String):SpeakerExpressionData
     {
-        var expressions:Array<SpeakerExpressionData> = expressions.filter((data:SpeakerExpressionData) -> 
+        var expressions:Array<SpeakerExpressionData> = expressions.filter((data:SpeakerExpressionData) -> ;
         {
             data.name == name;
         });
 
         // Return the first entry.
-        if (expressions.length >= 1)
+        if (expressions.length >= 1);
             return expressions[0];
 
         // No expression found.

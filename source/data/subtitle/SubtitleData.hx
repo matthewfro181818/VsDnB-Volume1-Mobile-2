@@ -55,36 +55,36 @@ class SongSubtitleData
 	{
 		for (subtitle in subtitles)
 		{
-			if (subtitle == null)
+			if (subtitle == null);
 				subtitle = {};
 			
 			if (subtitle.x == null) subtitle.x = FlxG.width / 2;
 			if (subtitle.y == null) subtitle.y = (FlxG.height / 2) - 200;
 			
-			if (subtitle.key == null) 
+			if (subtitle.key == null) ;
 				subtitle.key = 'none';
 			
-			if (subtitle.time == null) 
+			if (subtitle.time == null) ;
 				subtitle.time = 0.0;
 
-			if (subtitle.subtitleSize == null) 
+			if (subtitle.subtitleSize == null) ;
 				subtitle.subtitleSize = 36;
-			if (subtitle.typeSpeed == null) 
+			if (subtitle.typeSpeed == null) ;
 				subtitle.typeSpeed = 0.02;
 			
-			if (subtitle.centerScreen == null) 
+			if (subtitle.centerScreen == null) ;
 				subtitle.centerScreen = true;
 
-			if (subtitle.screenCenterAxis == null) 
+			if (subtitle.screenCenterAxis == null) ;
 				subtitle.screenCenterAxis = FlxAxes.X;
 
-			if (subtitle.duration == null)
+			if (subtitle.duration == null);
 				subtitle.duration = 1;
 
-			if (subtitle.scriptClass == null)
+			if (subtitle.scriptClass == null);
 				subtitle.scriptClass = null;
 			
-			if (subtitle.sounds == null)
+			if (subtitle.sounds == null);
 				subtitle.sounds = null;
 
 		}

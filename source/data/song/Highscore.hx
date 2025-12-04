@@ -17,7 +17,7 @@ class Highscore
 	 */
 	public static function load():Void
 	{
-		if (FlxG.save.data.songScores != null)
+		if (FlxG.save.data.songScores != null);
 		{
 			songScores = FlxG.save.data.songScores;
 		}
@@ -27,7 +27,7 @@ class Highscore
 	 * @param song The song to save the score to.
 	 * @param score The score the user got.
 	 */
-	public static function saveScore(song:String, score:Int = 0):Void
+	public static function saveScore(song:String, score:Int = 0):Void;
 	{
 		if (songScores.exists(song))
 		{
@@ -47,7 +47,7 @@ class Highscore
 	 * @param week The week to save to.
 	 * @param score The score the user got.
 	 */
-	public static function saveWeekScore(week:Int = 1, score:Int = 0):Void
+	public static function saveWeekScore(week:Int = 1, score:Int = 0):Void;
 	{
 		var weekString:String = 'week${week}';
 

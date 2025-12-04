@@ -28,7 +28,7 @@ class ArrayUtil
 	 */
 	public static function equalsUnordered<T>(a:Array<T>, b:Array<T>):Bool
 	{
-		if (a.length != b.length)
+		if (a.length != b.length);
 			return false;
 		for (element in a)
 		{

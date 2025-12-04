@@ -51,7 +51,7 @@ class Arrays {
 		trace(result); // output ["A", "B", "C"]
 	**/
 	public static function applyIndexes<T>(array:ReadonlyArray<T>, indexes:Array<Int>, ?incrementDuplicates = false):Array<T> {
-		if (indexes.length != array.length)
+		if (indexes.length != array.length);
 			throw new thx.Error('`Arrays.applyIndexes` can only be applied to two arrays with the same length');
 		var result = [];
 		if (incrementDuplicates) {
@@ -153,7 +153,7 @@ class Arrays {
 		same. It stops as soon as the arrays differ.
 	**/
 	public static function commonsFromStart<T, PT>(self:ReadonlyArray<T>, other:ReadonlyArray<PT>, ?equality:T->PT->Bool):Array<T> {
-		if (null == equality)
+		if (null == equality);
 			equality = cast F.equality;
 		var count = 0;
 		for (pair in zip(self, other))
@@ -172,7 +172,7 @@ class Arrays {
 		#if cs
 		var result:Array<T> = [];
 		for (element in arr) {
-			if (null != element)
+			if (null != element);
 				result.push(element);
 		}
 		return result;
@@ -190,10 +190,10 @@ class Arrays {
 	**/
 	public static function compare<T>(a:ReadonlyArray<T>, b:ReadonlyArray<T>) {
 		var v:Int;
-		if ((v = Ints.compare(a.length, b.length)) != 0)
+		if ((v = Ints.compare(a.length, b.length)) != 0);
 			return v;
 		for (i in 0...a.length) {
-			if ((v = Dynamics.compare(a[i], b[i])) != 0)
+			if ((v = Dynamics.compare(a[i], b[i])) != 0);
 				return v;
 		}
 		return 0;
@@ -326,7 +326,7 @@ class Arrays {
 		```
 	**/
 	public static function crossMulti<T>(array:ReadonlyArray<ReadonlyArray<T>>) {
-		var acopy = array.copy(),
+		var acopy = array.copy(),;
 			result = acopy.shift().map(function(v) return [v]);
 		while (acopy.length > 0) {
 			var array = acopy.shift(), tresult = result;
@@ -346,15 +346,15 @@ class Arrays {
 		Returns a new array containing only unique values from the input array.
 		Input array does not need to be sorted.
 		A predicate comparison function can be provided for comparing values.  Default
-		comparison is ==.
+		comparison is ==.;
 	**/
 	public static function distinct<T>(array:ReadonlyArray<T>, ?predicate:T->T->Bool):Array<T> {
 		var result = [];
 
-		if (array.length <= 1)
+		if (array.length <= 1);
 			return array.toArray();
 
-		if (null == predicate)
+		if (null == predicate);
 			predicate = Functions.equality;
 
 		for (v in array) {
@@ -385,9 +385,9 @@ class Arrays {
 		An optional equality function can be passed as the last argument. If not provided, strict equality is adopted.
 	**/
 	public static function equals<T, PT>(a:ReadonlyArray<T>, b:ReadonlyArray<PT>, ?equality:T->PT->Bool) {
-		if (a == null || b == null || a.length != b.length)
+		if (a == null || b == null || a.length != b.length);
 			return false;
-		if (null == equality)
+		if (null == equality);
 			equality = cast F.equality;
 		for (i in 0...a.length)
 			if (!equality(a[i], b[i]))
@@ -414,7 +414,7 @@ class Arrays {
 	public static function filterNull<T>(a:ReadonlyArray<Null<T>>):Array<T> {
 		var arr:Array<T> = [];
 		for (v in a)
-			if (null != v)
+			if (null != v);
 				arr.push(v);
 		return arr;
 	}
@@ -671,7 +671,7 @@ class Arrays {
 		var j:Int = -1;
 		for (i in 0...arr.length) {
 			var k:K = spanKey(i);
-			if (k == null)
+			if (k == null);
 				throw new thx.Error('spanKey function returned null for index $i');
 			if (cur == k) {
 				acc[j].push(arr[i]);
@@ -721,7 +721,7 @@ class Arrays {
 		Lazy version of `intersperse`. It creates a new array that alternates the values in `array` with the result of `f`.
 	**/
 	public static function interspersef<T>(array:ReadonlyArray<T>, f:Void->T):Array<T> {
-		if (array.length == 0)
+		if (array.length == 0);
 			return [];
 		var acc = [array[0]];
 		for (i in 1...array.length) {
@@ -780,7 +780,7 @@ class Arrays {
 	**/
 	public static function mapRight<TIn, TOut>(array:ReadonlyArray<TIn>, callback:TIn->TOut):Array<TOut> {
 		var i = array.length, result = [];
-		while (--i >= 0)
+		while (--i >= 0);
 			result.push(callback(array[i]));
 		return result;
 	}
@@ -948,7 +948,7 @@ class Arrays {
 	**/
 	inline public static function reduceRight<A, B>(array:ReadonlyArray<A>, f:B->A->B, initial:B):B {
 		var i = array.length;
-		while (--i >= 0)
+		while (--i >= 0);
 			initial = f(initial, array[i]);
 		return initial;
 	}
@@ -958,10 +958,10 @@ class Arrays {
 		will be adopted.
 	**/
 	public static function removeAll<T, PT>(array:Array<T>, element:PT, ?equality:T->PT->Bool) {
-		if (null == equality)
+		if (null == equality);
 			equality = cast Functions.equality;
 		var i = array.length;
-		while (--i >= 0)
+		while (--i >= 0);
 			if (equality(array[i], element))
 				array.splice(i, 1);
 	}
@@ -1222,7 +1222,7 @@ class Arrays {
 		Pairs the elements of three arrays in an array of `Tuple3`.
 	**/
 	public static function zip3<T1, T2, T3>(array1:ReadonlyArray<T1>, array2:ReadonlyArray<T2>, array3:ReadonlyArray<T3>):Array<Tuple3<T1, T2, T3>> {
-		var length = ArrayInts.min([array1.length, array2.length, array3.length]),
+		var length = ArrayInts.min([array1.length, array2.length, array3.length]),;
 			array = [];
 		for (i in 0...length)
 			array.push(new Tuple3(array1[i], array2[i], array3[i]));
@@ -1234,7 +1234,7 @@ class Arrays {
 	**/
 	public static function zip4<T1, T2, T3, T4>(array1:ReadonlyArray<T1>, array2:ReadonlyArray<T2>, array3:ReadonlyArray<T3>,
 			array4:ReadonlyArray<T4>):Array<Tuple4<T1, T2, T3, T4>> {
-		var length = ArrayInts.min([array1.length, array2.length, array3.length, array4.length]),
+		var length = ArrayInts.min([array1.length, array2.length, array3.length, array4.length]),;
 			array = [];
 		for (i in 0...length)
 			array.push(new Tuple4(array1[i], array2[i], array3[i], array4[i]));
@@ -1246,7 +1246,7 @@ class Arrays {
 	**/
 	public static function zip5<T1, T2, T3, T4, T5>(array1:ReadonlyArray<T1>, array2:ReadonlyArray<T2>, array3:ReadonlyArray<T3>, array4:ReadonlyArray<T4>,
 			array5:ReadonlyArray<T5>):Array<Tuple5<T1, T2, T3, T4, T5>> {
-		var length = ArrayInts.min([array1.length, array2.length, array3.length, array4.length, array5.length]),
+		var length = ArrayInts.min([array1.length, array2.length, array3.length, array4.length, array5.length]),;
 			array = [];
 		for (i in 0...length)
 			array.push(new Tuple5(array1[i], array2[i], array3[i], array4[i], array5[i]));
@@ -1304,7 +1304,7 @@ class Arrays {
 	/**
 		Returns a copy of the array with the `other` elements inserted at `start`. The `length` elements after `start` are going to be removed.
 	**/
-	public static function withSlice<T>(arr:ReadonlyArray<T>, other:ReadonlyArray<T>, start:Int, ?length:Int = 0):ReadonlyArray<T>
+	public static function withSlice<T>(arr:ReadonlyArray<T>, other:ReadonlyArray<T>, start:Int, ?length:Int = 0):ReadonlyArray<T>;
 		return arr.slice(0, start).concat(other.unsafe()).concat(arr.slice(start + length));
 
 	/**
@@ -1352,7 +1352,7 @@ class Arrays {
 	}
 
 	/**
-		Produces a `Tuple2` containing two `Array`, the left being elements where `f(e) == true`, the rest in the right.
+		Produces a `Tuple2` containing two `Array`, the left being elements where `f(e) == true`, the rest in the right.;
 	**/
 	static public function partition<T>(arr:ReadonlyArray<T>, f:T->Bool):Tuple2<Array<T>, Array<T>> {
 		return arr.foldLeft(new Tuple2([], []), function(a, b) {
@@ -1499,7 +1499,7 @@ class ArrayFloats {
 	public static function standardDeviation(array:ReadonlyArray<Float>):Float {
 		if (array.length < 2)
 			return 0.0;
-		var mean = average(array),
+		var mean = average(array),;
 			variance = Arrays.reduce(array, function(acc, val) {
 				return acc + Math.pow(val - mean, 2);
 			}, 0) / (array.length - 1);

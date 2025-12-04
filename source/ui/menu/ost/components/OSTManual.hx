@@ -70,7 +70,7 @@ class OSTManual extends FlxSpriteGroup
         if (delayTimer > 0)
             delayTimer -= elapsed;
 
-        if (FlxG.mouse.justPressed && canAdvance && delayTimer <= 0)
+        if (FlxG.mouse.justPressed && canAdvance && delayTimer <= 0);
         {
             advanceManual();
         }
@@ -100,7 +100,7 @@ class OSTManual extends FlxSpriteGroup
         turnTableManual.visible = false;
 
         // Skip the selection bar tutorial because it's closed.
-        if (selectionBarClosed && state == UI)
+        if (selectionBarClosed && state == UI);
             state = SELECTION_BAR;
 
         switch (state)
@@ -180,7 +180,7 @@ class OSTManual extends FlxSpriteGroup
 
 class OSTManualInstruction extends FlxSpriteGroup
 {
-    public function new(x:Float = 0, y:Float = 0, text:String = '', size:Int = 15, graphic:String, textAlign:FlxTextAlign, direction:String)
+    public function new(x:Float = 0, y:Float = 0, text:String = '', size:Int = 15, graphic:String, textAlign:FlxTextAlign, direction:String);
     {
         super(x, y);
 
@@ -191,7 +191,7 @@ class OSTManualInstruction extends FlxSpriteGroup
         text.setFormat(Paths.font('comic_normal.ttf'), size, FlxColor.WHITE, textAlign);
         add(text);
         
-        text.x = switch (textAlign)
+        text.x = switch (textAlign);
         {
             case LEFT: line.x + line.width + 10;
             case CENTER: line.x + (text.textField.textWidth - line.width) / 2;
@@ -199,7 +199,7 @@ class OSTManualInstruction extends FlxSpriteGroup
             default: 0;
         }
 
-        text.y = switch (direction)
+        text.y = switch (direction);
         {
             case 'top': line.y;
             case 'center': line.y + (line.height - text.textField.textHeight) / 2;

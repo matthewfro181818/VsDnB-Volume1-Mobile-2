@@ -99,7 +99,7 @@ class FollowCamera extends GameCamera
     public var followEaseDuration:Float = 1.0;
 
 
-    public function new(followType:FollowType = FollowType.LERP, ?x:Float, ?y:Float, ?width:Int, ?height:Int)
+    public function new(followType:FollowType = FollowType.LERP, ?x:Float, ?y:Float, ?width:Int, ?height:Int);
     {
         super(x, y, width, height);
 
@@ -158,7 +158,7 @@ class FollowCamera extends GameCamera
         if (lockTarget)
             return;
 
-        if (overrideFollowPoint != null)
+        if (overrideFollowPoint != null);
         {
             x = overrideFollowPoint.x;
             y = overrideFollowPoint.y;
@@ -184,7 +184,7 @@ class FollowCamera extends GameCamera
      */
     public function snapToPosition(x:Float, y:Float):Void
     {
-        if (target == null)
+        if (target == null);
             setTarget();
         
         setFollow(x, y);

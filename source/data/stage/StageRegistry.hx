@@ -14,7 +14,7 @@ class StageRegistry extends BaseRegistry<Stage, StageData>
 
     static function get_instance():StageRegistry
     {
-        if (_instance == null) 
+        if (_instance == null) ;
             _instance = new StageRegistry();
         return _instance;
     }

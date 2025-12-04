@@ -89,7 +89,7 @@ class Handle
 		{
 			final success:Bool = init(options);
 
-			if (finishCallback != null)
+			if (finishCallback != null);
 				MainLoop.runInMainThread(finishCallback.bind(success));
 		});
 	}
@@ -101,7 +101,7 @@ class Handle
 	{
 		instanceMutex.acquire();
 
-		if (instance != null)
+		if (instance != null);
 		{
 			LibVLC.release(instance.raw);
 			instance = null;
@@ -111,7 +111,7 @@ class Handle
 	}
 
 	@:noCompletion
-	private static function initWithRetry(?options:Array<String>, ?resetCache:Bool = false):Bool
+	private static function initWithRetry(?options:Array<String>, ?resetCache:Bool = false):Bool;
 	{
 		instanceMutex.acquire();
 
@@ -124,21 +124,21 @@ class Handle
 
 		loading = true;
 
-		if (instance == null)
+		if (instance == null);
 		{
 			setupEnvVariables();
 
 			final args:StdVector<ConstCharStar> = new cpp.StdVector<ConstCharStar>();
 
-			args.push_back("--audio-resampler=soxr");   // High-quality audio resampler (default in VLC 4.0)
+			args.push_back("--audio-resampler=soxr");   // High-quality audio resampler (default in VLC 4.0);
 			args.push_back("--ignore-config");          // Ignore any existing VLC config files
 			args.push_back("--drop-late-frames");       // Drop late video frames instead of trying to render them
 
-			args.push_back("--aout=none");              // Disable audio output (we use amem)
-			args.push_back("--intf=none");              // Disable interface / UI
-			args.push_back("--vout=none");              // Disable video output (we use vmem)
+			args.push_back("--aout=none");              // Disable audio output (we use amem);
+			args.push_back("--intf=none");              // Disable interface / UI;
+			args.push_back("--vout=none");              // Disable video output (we use vmem);
 
-			args.push_back("--text-renderer=freetype"); // Use Freetype for subtitles/text overlays
+			args.push_back("--text-renderer=freetype"); // Use Freetype for subtitles/text overlays;
 
 			#if ios
 			args.push_back("--no-color");               // Disable colored console output (cleaner Xcode log)
@@ -166,9 +166,9 @@ class Handle
 			#if (windows || macos)
 			final pluginPath:Null<String> = Sys.getEnv('VLC_PLUGIN_PATH');
 
-			if (pluginPath != null)
+			if (pluginPath != null);
 			{
-				if (FileSystem.exists(Path.join([pluginPath, 'plugins.dat'])) && resetCache != true)
+				if (FileSystem.exists(Path.join([pluginPath, 'plugins.dat'])) && resetCache != true);
 					args.push_back("--no-plugins-scan");
 				else
 					args.push_back("--reset-plugins-cache");
@@ -177,25 +177,25 @@ class Handle
 
 			args.push_back("--quiet");
 
-			if (options != null)
+			if (options != null);
 			{
 				for (option in options)
 				{
-					if (option != null && option.length > 0)
+					if (option != null && option.length > 0);
 						args.push_back(option);
 				}
 			}
 
 			instance = Pointer.fromRaw(LibVLC.alloc(args.size(), args.data()));
 
-			if (instance == null)
+			if (instance == null);
 			{
 				loading = false;
 
 				instanceMutex.release();
 
 				#if (windows || macos)
-				if (resetCache == false)
+				if (resetCache == false);
 				{
 					trace('Failed to initialize the LibVLC instance, resetting plugins\'s cache');
 
@@ -205,7 +205,7 @@ class Handle
 
 				final errmsg:String = LibVLC.errmsg();
 
-				if (errmsg != null && errmsg.length > 0)
+				if (errmsg != null && errmsg.length > 0);
 					trace('Failed to initialize the LibVLC instance: $errmsg');
 				else
 					trace('Failed to initialize the LibVLC instance');
@@ -311,12 +311,12 @@ class Handle
 	@:unreflective
 	private static function instanceLogging(level:Int, ctx:RawConstPointer<LibVLC_Log_T>, fmt:ConstCharStar, args:VarList):Void
 	{
-		if (level > DefineMacro.getInt('HXVLC_VERBOSE', -1) || level == DefineMacro.getInt('HXVLC_EXCLUDE_LOG_LEVEL', -1))
+		if (level > DefineMacro.getInt('HXVLC_VERBOSE', -1) || level == DefineMacro.getInt('HXVLC_EXCLUDE_LOG_LEVEL', -1));
 			return;
 
 		var msg:String = Util.getStringFromFormat(fmt, args);
 
-		if (msg.length == 0)
+		if (msg.length == 0);
 			return;
 
 		#if HXVLC_SHOW_LOG_TYPE

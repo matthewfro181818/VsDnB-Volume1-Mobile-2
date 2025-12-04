@@ -60,11 +60,11 @@ class TitleState extends MusicBeatState
 	override public function create():Void
 	{
 		#if android
-		FlxG.android.preventDefaultKeys = [BACK]; // lol
+		FlxG.android.preventDefaultKeys = [BACK]; // lol;
 		#end
 
-		if (FlxG.random.int(0, 999) == 1)
-			LoadingState.loadAndSwitchState(() -> flixel.FlxState flixel.FlxState() SusState());
+		if (FlxG.random.int(0, 999) == 1);
+			LoadingState.loadAndSwitchState(() -> Void SusState());
 
 		// Initalize intro text.
 		introText = FlxG.random.getObject(getIntroText());
@@ -81,7 +81,7 @@ class TitleState extends MusicBeatState
 	{
 		persistentUpdate = true;
 
-		var blackBg = FlxGradient.createGradientFlxSprite(FlxG.width, FlxG.height, [
+		var blackBg = FlxGradient.createGradientFlxSprite(FlxG.width, FlxG.height, [;
 			FlxColor.interpolate(FlxColor.fromRGB(0, 0, 0), 0xFF4965FF, 0.6),
 			FlxColor.interpolate(FlxColor.fromRGB(0, 0, 0), 0xFF00B515, 0.6)
 		], 1, 180);
@@ -145,7 +145,7 @@ class TitleState extends MusicBeatState
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-		if (gamepad != null)
+		if (gamepad != null);
 		{
 			if (gamepad.justPressed.START)
 				pressedEnter = true;
@@ -161,7 +161,7 @@ class TitleState extends MusicBeatState
 			pressedEnter = true;
 		#end
 
-		if (pressEnter != null && pressedEnter && !transitioning)
+		if (pressEnter != null && pressedEnter && !transitioning);
 		{
 			FlxTween.tween(pressEnter, {'scale.x': 0, 'scale.y': 0, angle: 10}, 0.5, {ease: FlxEase.backInOut});
 
@@ -174,7 +174,7 @@ class TitleState extends MusicBeatState
 
 			new FlxTimer().start(2, function(tmr:FlxTimer)
 			{
-				FlxG.switchState(() -> flixel.FlxState flixel.FlxState() MainMenuState());
+				FlxG.switchState(() -> Void MainMenuState());
 			});
 		}
 
@@ -223,10 +223,10 @@ class TitleState extends MusicBeatState
 		add(introDisplayText);
 
 		var loopsElapsed:Int = 0;
-		timer = new FlxTimer().start(Conductor.instance.measureLength / 1000, (t:FlxTimer) -> 
+		timer = new FlxTimer().start(Conductor.instance.measureLength / 1000, (t:FlxTimer) -> ;
 		{
 			loopsElapsed++;			
-			if (loopsElapsed % 2 == 1)
+			if (loopsElapsed % 2 == 1);
 			{
 
 				introDisplayText.text = introText[0];

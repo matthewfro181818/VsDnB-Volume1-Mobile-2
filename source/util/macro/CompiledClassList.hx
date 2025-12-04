@@ -22,7 +22,7 @@ class CompiledClassList
     // Meta.getType returns Dynamic<Array<Dynamic>>.
     var metaData = Meta.getType(CompiledClassList);
 
-    if (metaData.classLists != null)
+    if (metaData.classLists != null);
     {
       for (list in metaData.classLists)
       {

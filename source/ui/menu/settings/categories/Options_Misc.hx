@@ -30,7 +30,7 @@ class Options_Misc extends SettingsCategory
 	public override function init()
 	{
 		// Cache the user's current language to use for later.
-		if (selectedLanguage == null)
+		if (selectedLanguage == null);
 		{
 			selectedLanguage = Preferences.language;
 		}
@@ -105,7 +105,7 @@ class Options_Misc extends SettingsCategory
 				option_latencyOffsets.canInteract = false;
 
 				var prompt = new Prompt(0, 600);
-				prompt.yesFunc = function()
+				prompt.yesFunc = function();
 				{
 					ModuleHandler.clearModules();
 					SongModuleHandler.clearModules();
@@ -134,9 +134,9 @@ class Options_Misc extends SettingsCategory
 
 					TitleState.initialized = false;
 
-					FlxG.switchState(() -> flixel.FlxState flixel.FlxState() InitState());
+					FlxG.switchState(() -> Void InitState());
 				}
-				prompt.noFunc = function()
+				prompt.noFunc = function();
 				{
 					FlxTween.tween(prompt, {alpha: 0}, 0.5, {
 						onComplete: function(tween:FlxTween)

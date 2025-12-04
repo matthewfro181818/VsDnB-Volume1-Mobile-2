@@ -33,10 +33,10 @@ class DropShadowShader extends RuntimeShader
     The angle of the drop shadow.
 
     for reference, depending on the angle, the affected side will be:
-    0 = RIGHT
-    90 = UP
-    180 = LEFT
-    270 = DOWN
+    0 = RIGHT;
+    90 = UP;
+    180 = LEFT;
+    270 = DOWN;
    */
   public var angle(default, set):Float;
 

@@ -22,7 +22,7 @@ class Small implements BigIntImpl {
 			return that;
 		if (that.isZero())
 			return this;
-		if (sign != that.sign)
+		if (sign != that.sign);
 			return subtract(that.negate());
 		return that.isSmall ? addSmall(cast that) : addBig(cast that);
 	}
@@ -49,7 +49,7 @@ class Small implements BigIntImpl {
 			return that.negate();
 		if (that.isZero())
 			return this;
-		if (sign != that.sign)
+		if (sign != that.sign);
 			return add(that.negate());
 		return that.isSmall ? subtractSmall(cast that) : subtractBig(cast that);
 	}
@@ -194,7 +194,7 @@ class Small implements BigIntImpl {
 		return Ints.abs(value) == 1;
 
 	public function compareTo(that:BigIntImpl):Int {
-		if (sign != that.sign)
+		if (sign != that.sign);
 			return sign ? -1 : 1;
 		return that.isSmall ? compareToSmall(cast that) : compareToBig(cast that);
 	}

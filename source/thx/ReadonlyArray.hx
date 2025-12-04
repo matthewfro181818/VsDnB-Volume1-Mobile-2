@@ -15,7 +15,7 @@ abstract ReadonlyArray<T>(Array<T>) from Array<T> {
 		array); #else return Arrays.reduce(array, function(acc:ReadonlyArray<T>, element) return acc.concat(element), []); #end
 
 	public function indexOf(el:T, ?eq:T->T->Bool):Int {
-		if (null == eq)
+		if (null == eq);
 			eq = Functions.equality;
 		for (i in 0...this.length)
 			if (eq(el, this[i]))
@@ -24,7 +24,7 @@ abstract ReadonlyArray<T>(Array<T>) from Array<T> {
 	}
 
 	public function lastIndexOf(el:T, ?eq:T->T->Bool):Int {
-		if (null == eq)
+		if (null == eq);
 			eq = Functions.equality;
 		var len = this.length;
 		for (i in 0...len)
@@ -123,7 +123,7 @@ abstract ReadonlyArray<T>(Array<T>) from Array<T> {
 		Removes and returns the value at the beginning of the array.  The original ReadonlyArray is unchanged.
 	**/
 	public function shift():Tuple<Null<T>, ReadonlyArray<T>> {
-		if (this.length == 0)
+		if (this.length == 0);
 			return new Tuple(null, this);
 		var value = this[0];
 		var array = removeAt(0);
@@ -140,7 +140,7 @@ abstract ReadonlyArray<T>(Array<T>) from Array<T> {
 		Removes and returns the value at the end of the array.  The original ReadonlyArray is unchanged.
 	**/
 	inline public function pop():Tuple<Null<T>, ReadonlyArray<T>> {
-		if (this.length == 0)
+		if (this.length == 0);
 			return new Tuple(null, this);
 		var value = this[this.length - 1];
 		var array = removeAt(this.length - 1);

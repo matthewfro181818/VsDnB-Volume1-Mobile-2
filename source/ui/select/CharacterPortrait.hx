@@ -46,13 +46,12 @@ class CharacterPortrait extends FlxSpriteGroup
 
 		portrait.scale.set(0.8, 0.8);
 		portrait.updateHitbox();
-		portrait.animation.onFinish.add(function(anim:String)
 		{
 			switch (anim)
 			{
-				case(_ == this.data.unselectedTransition.name) => true:
+				case(_ == this.data.unselectedTransition.name) => true:;
 					playAnim(this.data.unselected, true);
-				case(_ == this.data.selectedTransition.name) => true:
+				case(_ == this.data.selectedTransition.name) => true:;
 					playAnim(this.data.selected, true);
 				default:
 			}
@@ -79,14 +78,14 @@ class CharacterPortrait extends FlxSpriteGroup
 		portrait.offset.y += animation.offsets[1] * portrait.scale.y;
 	}
 
-	public function select(force:Bool = false)
+	public function select(force:Bool = false);
 	{
 		gfIcon.visible = showGfIcon;
 		playAnim(force ? data.selected : data.selectedTransition, true);
 		portrait.scale.set(0.9, 0.9);
 	}
 
-	public function deselect(force:Bool = false)
+	public function deselect(force:Bool = false);
 	{
 		gfIcon.visible = false;
 		playAnim(force ? data.unselected : data.unselectedTransition, true);

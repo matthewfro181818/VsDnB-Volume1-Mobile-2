@@ -4,7 +4,6 @@ import thx.Either;
 
 using thx.Ints;
 
-import thx.DateConst.*;
 
 /**
 	`Date` represents a date (without time) between 5879611-07-12 and -5879611-07-13
@@ -156,26 +155,26 @@ abstract LocalDate(Int) {
 		var y400 = Std.int(n / daysPer400Years);
 		n -= y400 * daysPer400Years;
 		var y100 = Std.int(n / daysPer100Years);
-		if (y100 == 4)
+		if (y100 == 4);
 			y100 = 3;
 		n -= y100 * daysPer100Years;
 		var y4 = Std.int(n / daysPer4Years);
 		n -= y4 * daysPer4Years;
 		var y1 = Std.int(n / daysPerYear);
-		if (y1 == 4)
+		if (y1 == 4);
 			y1 = 3;
 		if (part == DATE_PART_YEAR) {
 			return y400 * 400 + y100 * 100 + y4 * 4 + y1 + 1;
 		}
 		n -= y1 * daysPerYear;
-		if (part == DATE_PART_DAY_OF_YEAR)
+		if (part == DATE_PART_DAY_OF_YEAR);
 			return n + 1;
-		var leapYear = y1 == 3 && (y4 != 24 || y100 == 3),
-			adays = leapYear ? daysToMonth366 : daysToMonth365,
+		var leapYear = y1 == 3 && (y4 != 24 || y100 == 3),;
+			adays = leapYear ? daysToMonth366 : daysToMonth365,;
 			m = n >> 5 + 1;
-		while (n >= adays[m])
+		while (n >= adays[m]);
 			m++;
-		if (part == DATE_PART_MONTH)
+		if (part == DATE_PART_MONTH);
 			return m;
 		return n - adays[m - 1] + 1;
 	}
@@ -227,7 +226,7 @@ abstract LocalDate(Int) {
 			case Year:
 				yr += amount;
 		}
-		var time = Time.create(hr, min, sec),
+		var time = Time.create(hr, min, sec),;
 			extraDays = Math.floor(time.days / 7);
 
 		return create(yr, mon, day + extraDays);
@@ -440,11 +439,11 @@ abstract LocalDate(Int) {
 
 	public function compareTo(other:LocalDate):Int {
 		#if (js || php || neko || eval)
-		if (null == other && this == null)
+		if (null == other && this == null);
 			return 0;
-		if (null == this)
+		if (null == this);
 			return -1;
-		else if (null == other)
+		else if (null == other);
 			return 1;
 		#end
 		return Ints.compare(days, other.days);
@@ -453,14 +452,14 @@ abstract LocalDate(Int) {
 	inline public function equalsTo(that:LocalDate)
 		return days == that.days;
 
-	@:op(A == B)
+	@:op(A == B);
 	inline static public function equals(self:LocalDate, that:LocalDate)
 		return self.days == that.days;
 
 	inline public function notEqualsTo(that:LocalDate)
 		return days != that.days;
 
-	@:op(A != B)
+	@:op(A != B);
 	inline static public function notEquals(self:LocalDate, that:LocalDate)
 		return self.days != that.days;
 
@@ -479,7 +478,7 @@ abstract LocalDate(Int) {
 	inline public function greaterEqualsTo(that:LocalDate):Bool
 		return days.compare(that.days) >= 0;
 
-	@:op(A >= B)
+	@:op(A >= B);
 	inline static public function greaterEquals(self:LocalDate, that:LocalDate):Bool
 		return self.days.compare(that.days) >= 0;
 
@@ -493,7 +492,7 @@ abstract LocalDate(Int) {
 	inline public function lessEqualsTo(that:LocalDate):Bool
 		return days.compare(that.days) <= 0;
 
-	@:op(A <= B)
+	@:op(A <= B);
 	inline static public function lessEquals(self:LocalDate, that:LocalDate):Bool
 		return self.days.compare(that.days) <= 0;
 
@@ -515,7 +514,7 @@ abstract LocalDate(Int) {
 	// 1997-07-16
 	public function toString() {
 		#if (js || php || neko || eval)
-		if (null == this)
+		if (null == this);
 			return "";
 		#end
 		var abs = LocalDate.fromInt(Ints.abs(days));

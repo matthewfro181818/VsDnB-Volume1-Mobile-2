@@ -85,7 +85,7 @@ class Floats {
 
 		It can be either clock-wise or counter-clock-wise.
 	**/
-	public static function interpolateAngle(f:Float, a:Float, b:Float, turn:Float = 360)
+	public static function interpolateAngle(f:Float, a:Float, b:Float, turn:Float = 360);
 		return wrapCircular(interpolate(f, a, a + angleDifference(a, b, turn)), turn);
 
 	/**
@@ -160,14 +160,14 @@ class Floats {
 		tollerance (last optional argument). By default the tollerance is defined as
 		`EPSILON`.
 	**/
-	inline public static function nearEqualAngles(a:Float, b:Float, ?turn = 360.0, ?tollerance = EPSILON)
+	inline public static function nearEqualAngles(a:Float, b:Float, ?turn = 360.0, ?tollerance = EPSILON);
 		return Math.abs(angleDifference(a, b, turn)) <= tollerance;
 
 	/**
 		`nearZero` finds if the passed number is zero or very close to it. By default
 		`EPSILON` is used as the tollerance value.
 	**/
-	inline public static function nearZero(n:Float, ?tollerance = EPSILON)
+	inline public static function nearZero(n:Float, ?tollerance = EPSILON);
 		return Math.abs(n) <= tollerance;
 
 	/**
@@ -180,7 +180,7 @@ class Floats {
 		`parse` can parse a string and tranform it into a `Float` value.
 	**/
 	public static function parse(s:String) {
-		if (s.substring(0, 1) == "+")
+		if (s.substring(0, 1) == "+");
 			s = s.substring(1);
 		return if (pattern_inf.match(s)) Math.POSITIVE_INFINITY else if (pattern_neg_inf.match(s)) Math.NEGATIVE_INFINITY else Std.parseFloat(s);
 	}

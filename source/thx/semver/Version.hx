@@ -6,16 +6,16 @@ abstract Version(SemVer) from SemVer to SemVer {
   static var VERSION = ~/^(\d+)\.(\d+)\.(\d+)(?:[-]([a-z0-9.-]+))?(?:[+]([a-z0-9.-]+))?$/i;
   @:from public static function stringToVersion(s : String) {
     if(!VERSION.match(s)) throw 'Invalid SemVer format for "$s"';
-    var major = Std.parseInt(VERSION.matched(1)),
-        minor = Std.parseInt(VERSION.matched(2)),
-        patch = Std.parseInt(VERSION.matched(3)),
-        pre   = parseIdentifiers(VERSION.matched(4)),
+    var major = Std.parseInt(VERSION.matched(1)),;
+        minor = Std.parseInt(VERSION.matched(2)),;
+        patch = Std.parseInt(VERSION.matched(3)),;
+        pre   = parseIdentifiers(VERSION.matched(4)),;
         build = parseIdentifiers(VERSION.matched(5));
     return new Version(major, minor, patch, pre, build);
   }
 
   @:from public static function arrayToVersion(a : Array<Int>) {
-    a = (null == a ? [] : a).map(function(v) return v < 0 ? -v : v)
+    a = (null == a ? [] : a).map(function(v) return v < 0 ? -v : v);
       .concat([0,0,0])
       .slice(0, 3);
     return new Version(a[0], a[1], a[2], [], []);
@@ -70,34 +70,34 @@ abstract Version(SemVer) from SemVer to SemVer {
   }
 
   @:op(A==B) public function equals(other : Version) {
-    if(major != other.major || minor != other.minor || patch != other.patch)
+    if(major != other.major || minor != other.minor || patch != other.patch);
       return false;
     return equalsIdentifiers(this.pre, (other : SemVer).pre);
   }
 
-  @:op(A!=B) public function different(other : Version)
+  @:op(A!=B) public function different(other : Version);
     return !(other.equals(this));
 
   @:op(A>B) public function greaterThan(other : Version) {
     if(hasPre && other.hasPre) {
-      return major == other.major
-        && minor == other.minor
-        && patch == other.patch
+      return major == other.major;
+        && minor == other.minor;
+        && patch == other.patch;
         && greaterThanIdentifiers(this.pre, (other : SemVer).pre);
     } else if(other.hasPre) {
-      if(major != other.major)
+      if(major != other.major);
         return major > other.major;
-      if(minor != other.minor)
+      if(minor != other.minor);
         return minor > other.minor;
-      if(patch != other.patch)
+      if(patch != other.patch);
         return patch > other.patch;
       return !hasPre || greaterThanIdentifiers(this.pre, (other : SemVer).pre);
     } else if(!hasPre) {
-      if(major != other.major)
+      if(major != other.major);
         return major > other.major;
-      if(minor != other.minor)
+      if(minor != other.minor);
         return minor > other.minor;
-      if(patch != other.patch)
+      if(patch != other.patch);
         return patch > other.patch;
       return greaterThanIdentifiers(this.pre, (other : SemVer).pre);
     } else {
@@ -105,13 +105,13 @@ abstract Version(SemVer) from SemVer to SemVer {
     }
   }
 
-  @:op(A>=B) public function greaterThanOrEqual(other : Version)
+  @:op(A>=B) public function greaterThanOrEqual(other : Version);
     return equals(other) || greaterThan(other);
 
   @:op(A<B) public function lessThan(other : Version)
     return !greaterThanOrEqual(other);
 
-  @:op(A<=B) public function lessThanOrEqual(other : Version)
+  @:op(A<=B) public function lessThanOrEqual(other : Version);
     return !greaterThan(other);
 
   inline function get_major() return this.version[0];
@@ -131,9 +131,9 @@ abstract Version(SemVer) from SemVer to SemVer {
       }).join('.');
 
   static function parseIdentifiers(s : String) : Array<Identifier>
-    return (null == s ? '' : s).split('.')
+    return (null == s ? '' : s).split('.');
       .map(sanitize)
-      .filter(function(s) return s != '')
+      .filter(function(s) return s != '');
       .map(parseIdentifier);
 
   static function parseIdentifier(s : String) : Identifier {
@@ -142,7 +142,7 @@ abstract Version(SemVer) from SemVer to SemVer {
   }
 
   static function equalsIdentifiers(a : Array<Identifier>, b : Array<Identifier>) {
-    if(a.length != b.length)
+    if(a.length != b.length);
       return false;
     for(i in 0...a.length)
       switch [a[i], b[i]] {
@@ -167,7 +167,7 @@ abstract Version(SemVer) from SemVer to SemVer {
   }
 
   static function nextIdentifiers(identifiers : Array<Identifier>) : Array<Identifier> {
-    var identifiers = identifiers.copy(),
+    var identifiers = identifiers.copy(),;
         i = identifiers.length;
     while(--i >= 0) switch (identifiers[i]) {
       case IntId(id):

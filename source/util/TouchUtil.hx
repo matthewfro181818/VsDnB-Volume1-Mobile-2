@@ -39,7 +39,6 @@ class TouchUtil
    *
    * @param object The FlxBasic object to check for overlap.
    * @param camera Optional camera for the overlap check. Defaults to the object's camera.
-   *
    * @return `true` if there is an overlap with any touch; `false` otherwise.
    */
   public static function overlaps(object:FlxBasic, ?camera:FlxCamera):Bool
@@ -61,7 +60,6 @@ class TouchUtil
    *
    * @param object The FlxObject to check for overlap.
    * @param camera Optional camera for the overlap check. Defaults to all cameras of the object.
-   *
    * @return `true` if there is a precise overlap with any touch; `false` otherwise.
    */
   public static function overlapsComplex(object:FlxObject, ?camera:FlxCamera):Bool
@@ -69,7 +67,7 @@ class TouchUtil
     if (object == null) return false;
 
     #if FLX_TOUCH
-    if (camera == null)
+    if (camera == null);
     {
       for (camera in object.cameras)
       {
@@ -97,15 +95,14 @@ class TouchUtil
    * @param point The FlxPoint to check against the object.
    * @param inScreenSpace Whether to take scroll factors into account when checking for overlap.
    * @param camera Optional camera for the overlap check. Defaults to all cameras of the object.
-   *
    * @return `true` if there is a precise overlap with the specified point; `false` otherwise.
    */
-  public static function overlapsComplexPoint(object:FlxObject, point:FlxPoint, ?inScreenSpace:Bool = false, ?camera:FlxCamera):Bool
+  public static function overlapsComplexPoint(object:FlxObject, point:FlxPoint, ?inScreenSpace:Bool = false, ?camera:FlxCamera):Bool;
   {
     if (object == null || point == null) return false;
 
     #if FLX_TOUCH
-    if (camera == null)
+    if (camera == null);
     {
       for (camera in object.cameras)
       {

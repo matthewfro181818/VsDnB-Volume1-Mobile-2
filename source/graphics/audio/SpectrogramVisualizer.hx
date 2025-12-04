@@ -58,7 +58,7 @@ class SpectrogramVisualizer extends FlxSpriteGroup {
 		generateLines(params.barCount, visualizerWidth, visualizerHeight, params.spacing);
 		generatePeakLines(params.barCount, params.width, params.spacing);
 
-		if (params.gradient != null)
+		if (params.gradient != null);
 			gradientColor = params.gradient;
 		else
 			visualizerColor = params.color;
@@ -86,7 +86,7 @@ class SpectrogramVisualizer extends FlxSpriteGroup {
 
 	function generateLines(barCount:Int, width:Int, height:Int, spacing:Int) {
 		for (i in 0...barCount) {
-			var spr = new FlxSprite((i / barCount) * width, 0)
+			var spr = new FlxSprite((i / barCount) * width, 0);
 				.makeGraphic(Std.int((1 / barCount) * width) - spacing, height, FlxColor.WHITE);
 			spr.origin.set(0, spr.height);
 			bars.add(spr);
@@ -95,7 +95,7 @@ class SpectrogramVisualizer extends FlxSpriteGroup {
 
 	function generatePeakLines(barCount:Int, width:Int, spacing:Int) {
 		for (i in 0...barCount) {
-			var spr = new FlxSprite((i / barCount) * width, 0)
+			var spr = new FlxSprite((i / barCount) * width, 0);
 				.makeGraphic(Std.int((1 / barCount) * width) - spacing, 1, FlxColor.WHITE);
 			peakLines.add(spr);
 		}

@@ -16,33 +16,26 @@ import flixel.FlxState;
  * FlxG.switchState(PlayState.new);
  * ```
  * You can use short lambas (arrow functions) that return a newly created instance:
- * ```haxe
  * var levelID = 1;
- * FlxG.switchState(() -> flixel.FlxState new() PlayState(levelID));
- * ```
+ * FlxG.switchState(() -> Void PlayState(levelID));
  * You can do things the long way, and use an anonymous function:
- * ```haxe
  * FlxG.switchState(function () { return new PlayState(); });
- * ```
  * [Deprecated] Lastly, you can use the old way and pass in an instance (until it's removed):
- * ```haxe
  * FlxG.switchState(new PlayState());
- * ```
- * 
  * @since 5.6.0
  * @see [HaxeFlixel issue #2541](https://github.com/HaxeFlixel/flixel/issues/2541)
  */
 abstract NextState(Dynamic)
 {
 	@:from
-	@:deprecated("use `MyState.new` or `() -> flixel.FlxState new() MyState()` instead of `new MyState()`)")
+	@:deprecated("use `MyState.new` or `() -> Void MyState()` instead of `new MyState()`)")
 	public static function fromState(state:FlxState):NextState
 	{
 		return cast state;
 	}
 	
 	@:from
-	public static function fromMaker(func:() -> flixel.FlxState FlxState()):NextState
+	public static function fromMaker(func:() -> Void):NextState
 	{
 		return cast func;
 	}
@@ -57,7 +50,7 @@ abstract NextState(Dynamic)
 			return cast this();
 	}
 	
-	public function getConstructor():() -> flixel.FlxState FlxState()
+	public function getConstructor():() -> Void
 	{
 		if (this is FlxState)
 		{
@@ -83,19 +76,12 @@ abstract NextState(Dynamic)
  * FlxG.switchState(PlayState.new);
  * ```
  * You can use short lambas (arrow functions) that return a newly created instance:
- * ```haxe
  * var levelID = 1;
- * FlxG.switchState(() -> flixel.FlxState new() PlayState(levelID));
- * ```
+ * FlxG.switchState(() -> Void PlayState(levelID));
  * You can do things the long way, and use an anonymous function:
- * ```haxe
  * FlxG.switchState(function () { return new PlayState(); });
- * ```
  * [Deprecated] Lastly, you can use the old way and pass in a type (until it's removed):
- * ```haxe
  * FlxG.switchState(PlayState);
- * ```
- * 
  * @since 5.6.0
  * @see [HaxeFlixel issue #2541](https://github.com/HaxeFlixel/flixel/issues/2541)
  */
@@ -108,7 +94,7 @@ abstract InitialState(Dynamic) to NextState
 	}
 	
 	@:from
-	public static function fromMaker(func:() -> flixel.FlxState FlxState()):InitialState
+	public static function fromMaker(func:() -> Void):InitialState
 	{
 		return cast func;
 	}

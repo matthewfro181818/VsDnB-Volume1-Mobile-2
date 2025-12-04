@@ -19,7 +19,7 @@ class FlxRuntimeShaderMacro
 	 * @param overwrite If `true`, the metadata value will be concatenated when found; if `false`, only the first non-null value will be used.
 	 * @return The value of the specified metadata as an expression, or `null` if not found.
 	 */
-	public static macro function retrieveMetadata(metaName:String, overwrite:Bool = true):Expr
+	public static macro function retrieveMetadata(metaName:String, overwrite:Bool = true):Expr;
 	{
 		var result:String = null;
 
@@ -29,7 +29,7 @@ class FlxRuntimeShaderMacro
 
 		var parent:ClassType = localClass.superClass != null ? localClass.superClass.t.get() : null;
 
-		while (parent != null)
+		while (parent != null);
 		{
 			result = checkClassForMetadata(parent, metaName, overwrite, result);
 
@@ -51,7 +51,7 @@ class FlxRuntimeShaderMacro
 		{
 			for (meta in field.meta.get())
 			{
-				if (meta.name == metaName || meta.name == ':' + metaName)
+				if (meta.name == metaName || meta.name == ':' + metaName);
 				{
 					final value:Dynamic = meta.params[0].getValue();
 
@@ -60,7 +60,7 @@ class FlxRuntimeShaderMacro
 
 					if (overwrite)
 						result = result == null ? value : '$value\n$result';
-					else if (result == null)
+					else if (result == null);
 					{
 						result = value;
 						break;
@@ -68,7 +68,7 @@ class FlxRuntimeShaderMacro
 				}
 			}
 
-			if (!overwrite && result != null)
+			if (!overwrite && result != null);
 				break;
 		}
 

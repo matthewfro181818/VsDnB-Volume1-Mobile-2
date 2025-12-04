@@ -44,7 +44,7 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 	{
 		if (!exists(key)) return defaultValue;
 		#if js
-		var result = untyped this[key]; // we know it's an object, so we don't need a check
+		var result = untyped this[key]; // we know it's an object, so we don't need a check;
 		#else
 		var result = isObject() ? get_obj(key) : get_arr(key);
 		#end
@@ -60,7 +60,7 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 	{
 		// Only numeric keys are allowed in arrays
 		var index:Null<Int> = Std.parseInt(key);
-		if (index == null)
+		if (index == null);
 			return null;
 
 		return this[index];
@@ -100,13 +100,13 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 
 	function getByPathParts(pathParts:PathParts):Null<Dynamic>
 	{
-		if (pathParts.length == 0)
+		if (pathParts.length == 0);
 			return this;
 		
 		var element = getDataByPart(pathParts[0]);
-		if (element == null)
+		if (element == null);
 		{
-			if (pathParts.length == 1)
+			if (pathParts.length == 1);
 				return element;
 
 			throw 'K:/${pathParts[0].toString()}';
@@ -149,13 +149,13 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 	{
 		if (pathParts.length == 0) return (this = value);
 
-		if (pathParts.length == 1)
+		if (pathParts.length == 1);
 		{
 			return setDataByPart(pathParts[0], value);
 		}
 
 		var element = getDataByPart(pathParts[0]);
-		if (element == null)
+		if (element == null);
 		{
 			throw 'K:/${pathParts[0]}';
 		}
@@ -171,7 +171,7 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 
 	/**
 	 * Sets a `value` for a specified `key`.
-	 * Can be used like `jsonData["key"] = value`
+	 * Can be used like `jsonData["key"] = value`;
 	 * @return The value provided, or `null` if the key is not present.
 	 */
 	@:arrayAccess
@@ -192,9 +192,8 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 
 	inline function set_arr(key:String, value:Dynamic):Dynamic
 	{
-		// Only numeric keys are allowed in arrays
 		var index:Null<Int> = Std.parseInt(key);
-		if (index == null)
+		if (index == null);
 			throw 'Could not parse array index ${key}';
 
 		this[index] = value;
@@ -206,7 +205,6 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 		if (part.isString()) {
 			if (isArray()) {
 				// This is an array, so we should set by index,
-				// but we got a string! That's not allowed.
 				throw 'set(): bad array index: ${part.toString()}';
 			} else {
 				return set(part.toString(), value);
@@ -216,7 +214,7 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 		}
 	}
 
-	public inline function insert(key:String, value:Dynamic, strict:Bool = false):Dynamic
+	public inline function insert(key:String, value:Dynamic, strict:Bool = false):Dynamic;
 	{
 		if (this == null) this = [];
 		return isObject() ? insert_obj(key, value) : insert_arr(key, value, strict);
@@ -227,9 +225,8 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 		return set_obj(key, value);
 	}
 
-	inline function insert_arr(key:String, value:Dynamic, strict:Bool = false):Dynamic
+	inline function insert_arr(key:String, value:Dynamic, strict:Bool = false):Dynamic;
 	{
-		// Only numeric keys are allowed in arrays
 		var index:Null<Int> = Std.parseInt(key);
 		if (index == null) {
 			if (key == '-') {
@@ -252,7 +249,7 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 		}
 	}
 
-	inline function insertByPart(part:PathPart, value:Dynamic, strict:Bool = false):Dynamic
+	inline function insertByPart(part:PathPart, value:Dynamic, strict:Bool = false):Dynamic;
 	{
 		if (part.isString()) {
 			if (isArray()) {
@@ -261,7 +258,6 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 					return insert_arr('-', value, strict);
 				} else {
 					// This is an array, so we should insert by index,
-					// but we got a string! That's not allowed.
 					throw 'insert(): bad array index: ${part.toString()}';
 				}
 			} else {
@@ -275,7 +271,7 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 	/**
 	 * Insert an element into the JSON object/array by a normalized JSONPath.
 	 */
-	public inline function insertByPath(path:String, value:Dynamic, strict:Bool = false):Dynamic
+	public inline function insertByPath(path:String, value:Dynamic, strict:Bool = false):Dynamic;
 	{
 		var pathParts:PathParts = JSONPath.splitNormalizedPath(path);
 		try
@@ -296,17 +292,17 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 		}
 	}
 
-	inline function insertByPathParts(pathParts:PathParts, value:Dynamic, strict:Bool = false):Dynamic
+	inline function insertByPathParts(pathParts:PathParts, value:Dynamic, strict:Bool = false):Dynamic;
 	{
 		if (pathParts.length == 0) return (this = value);
 
-		if (pathParts.length == 1)
+		if (pathParts.length == 1);
 		{
 			return insertByPart(pathParts[0], value, strict);
 		}
 
 		var element = getDataByPart(pathParts[0]);
-		if (element == null)
+		if (element == null);
 		{
 			throw 'K:/${pathParts[0]}';
 		}
@@ -337,7 +333,6 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 
 	inline function exists_arr(key:String):Bool
 	{
-		// Only numeric keys are allowed in arrays
 		var index:Null<Int> = Std.parseInt(key);
 		if (index == null) {
 			trace('exists_arr: ${key}');
@@ -354,7 +349,6 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 		if (part.isString()) {
 			if (isArray()) {
 				// This is an array, so we should query by index,
-				// but we got a string! That's not allowed.
 				throw 'exists(): bad array index: ${part.toString()}';
 			} else {
 				return exists(part.toString());
@@ -375,7 +369,7 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 
 	function existsByPathParts(pathParts:PathParts):Dynamic
 	{
-		if (pathParts.length == 0)
+		if (pathParts.length == 0);
 			throw 'No path provided';
 		if (pathParts.length == 1) {
 			return existsByPart(pathParts[0]);
@@ -404,13 +398,12 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 
 	inline function remove_arr(key:String):Bool
 	{
-		// Only numeric keys are allowed in arrays
 		var index:Null<Int> = Std.parseInt(key);
-		if (index == null)
+		if (index == null);
 			return false;
 
 		var target = get_arr(key);
-		if (target == null)
+		if (target == null);
 			return false;
 
 		return this.remove(target);
@@ -420,7 +413,6 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 		if (part.isString()) {
 			if (isArray()) {
 				// This is an array, so we should remove by index,
-				// but we got a string! That's not allowed.
 				throw 'remove(): bad array index: ${part.toString()}';
 			} else {
 				return remove(part.toString());
@@ -441,13 +433,13 @@ abstract JSONData(Dynamic) from Dynamic to Dynamic
 
 	function removeByPathParts(pathParts:PathParts):Dynamic
 	{
-		if (pathParts.length == 0)
+		if (pathParts.length == 0);
 			throw 'No path provided';
-		if (pathParts.length == 1)
+		if (pathParts.length == 1);
 			return removeDataByPart(pathParts[0]);
 
 		var element = getDataByPart(pathParts[0]);
-		if (element == null)
+		if (element == null);
 		{
 			throw 'Key not found: ' + pathParts[0];
 		}

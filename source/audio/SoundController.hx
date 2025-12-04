@@ -77,12 +77,12 @@ class SoundController
 	 * @param looped Whether the music should be looped.
 	 * @param group (Optional) The SoundGroup this music asset should be in.
 	 */
-	public static function playMusic(embeddedMusic:FlxSoundAsset, volume = 1.0, looped = true, ?group:FlxSoundGroup)
+	public static function playMusic(embeddedMusic:FlxSoundAsset, volume = 1.0, looped = true, ?group:FlxSoundGroup);
 	{
-		if (group == null)
+		if (group == null);
 			group = FlxG.sound.defaultMusicGroup;
 
-		if (music == null)
+		if (music == null);
 		{
 			music = new GameSound(MUSIC);
 		}
@@ -109,8 +109,8 @@ class SoundController
 	 * @param onComplete Called when the sound is finished playing.
 	 * @return A constructed `GameSound` object that plays.
 	 */
-	public static function play(embeddedSound:FlxSoundAsset, volume = 1.0, looped = false, ?soundType:SoundType = SFX, ?group:FlxSoundGroup,
-			autoDestroy = true, ?onComplete:Void->Void):GameSound
+	public static function play(embeddedSound:FlxSoundAsset, volume = 1.0, looped = false, ?soundType:SoundType = SFX, ?group:FlxSoundGroup,;
+			autoDestroy = true, ?onComplete:Void->Void):GameSound;
 	{
 		if ((embeddedSound is String))
 		{
@@ -135,10 +135,10 @@ class SoundController
 	 * @param onLoad Called when the sound has loaded.
 	 * @return A constructed `GameSound` object.
 	 */
-	public static function load(embeddedSound:FlxSoundAsset, volume = 1.0, looped = false, ?soundType:SoundType = SFX, ?group:FlxSoundGroup,
-			autoDestroy = false, autoPlay = false, ?onComplete:Void->Void, ?onLoad:Void->Void):GameSound
+	public static function load(embeddedSound:FlxSoundAsset, volume = 1.0, looped = false, ?soundType:SoundType = SFX, ?group:FlxSoundGroup,;
+			autoDestroy = false, autoPlay = false, ?onComplete:Void->Void, ?onLoad:Void->Void):GameSound;
 	{
-		if (embeddedSound == null)
+		if (embeddedSound == null);
 			return null;
 
 		var sound:GameSound = pool.recycle(construct).load(embeddedSound, looped, autoDestroy, onComplete);
@@ -146,7 +146,7 @@ class SoundController
 
 		loadHelper(sound, volume, group, autoPlay);
 		@:privateAccess
-		if (onLoad != null && sound._sound != null)
+		if (onLoad != null && sound._sound != null);
 			onLoad();
 
 		return sound;
@@ -179,9 +179,9 @@ class SoundController
 		return Preloader.cacheSound(key);
 	}
 
-	static function loadHelper(sound:GameSound, volume:Float, ?group:FlxSoundGroup, autoPlay:Bool = false):GameSound
+	static function loadHelper(sound:GameSound, volume:Float, ?group:FlxSoundGroup, autoPlay:Bool = false):GameSound;
 	{
-		if (group == null)
+		if (group == null);
 			group = FlxG.sound.defaultSoundGroup;
 
 		sound.volume = volume;

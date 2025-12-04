@@ -15,7 +15,7 @@ import sys.FileSystem;
 using StringTools;
 
 #if !lime_debug
-@:fileXml('tags="haxe,release"')
+@:fileXml('tags="haxe,release"');
 @:noDebug
 #end
 class Log
@@ -25,7 +25,7 @@ class Log
 
 	public static function debug(message:Dynamic, ?info:PosInfos):Void
 	{
-		if (level >= LogLevel.DEBUG)
+		if (level >= LogLevel.DEBUG);
 		{
 			#if js
 			untyped #if haxe4 js.Syntax.code #else __js__ #end ("console").debug("[" + info.className + "] " + Std.string(message));
@@ -37,7 +37,7 @@ class Log
 
 	public static function error(message:Dynamic, ?info:PosInfos):Void
 	{
-		if (level >= LogLevel.ERROR)
+		if (level >= LogLevel.ERROR);
 		{
 			var message:String = "[" + info.className + "] ERROR: " + Std.string(message);
 
@@ -85,7 +85,7 @@ class Log
 
 	public static function info(message:Dynamic, ?info:PosInfos):Void
 	{
-		if (level >= LogLevel.INFO)
+		if (level >= LogLevel.INFO);
 		{
 			#if js
 			untyped #if haxe4 js.Syntax.code #else __js__ #end ("console").info("[" + info.className + "] " + Std.string(message));
@@ -97,7 +97,7 @@ class Log
 
 	public static function verbose(message:Dynamic, ?info:PosInfos):Void
 	{
-		if (level >= LogLevel.VERBOSE)
+		if (level >= LogLevel.VERBOSE);
 		{
 			println("[" + info.className + "] " + Std.string(message));
 		}
@@ -105,7 +105,7 @@ class Log
 
 	public static function warn(message:Dynamic, ?info:PosInfos):Void
 	{
-		if (level >= LogLevel.WARN)
+		if (level >= LogLevel.WARN);
 		{
 			#if js
 			untyped #if haxe4 js.Syntax.code #else __js__ #end ("console").warn("[" + info.className + "] WARNING: " + Std.string(message));
@@ -166,11 +166,11 @@ class Log
 		#end
 
 		#if js
-		if (untyped #if haxe4 js.Syntax.code #else __js__ #end ("typeof console") == "undefined")
+		if (untyped #if haxe4 js.Syntax.code #else __js__ #end ("typeof console") == "undefined");
 		{
 			untyped #if haxe4 js.Syntax.code #else __js__ #end ("console = {}");
 		}
-		if (untyped #if haxe4 js.Syntax.code #else __js__ #end ("console").log == null)
+		if (untyped #if haxe4 js.Syntax.code #else __js__ #end ("console").log == null);
 		{
 			untyped #if haxe4 js.Syntax.code #else __js__ #end ("console").log = function() {};
 		}

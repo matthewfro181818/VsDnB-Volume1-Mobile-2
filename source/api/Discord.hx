@@ -92,7 +92,7 @@ class DiscordClient
 		final discriminator = cast(request[0].discriminator, String);
 
 		var message = '(Discord) Connected to User ';
-		if (discriminator != '0') // Old discriminators
+		if (discriminator != '0') // Old discriminators;
 			message += '($user#$discriminator)';
 		else // New Discord IDs/Discriminator system
 			message += '($user)';
@@ -135,9 +135,9 @@ class DiscordClient
 		if (!isInitialized)
 			trace("Discord Client initialized");
 
-		if (__thread == null)
+		if (__thread == null);
 		{
-			__thread = Thread.create(() ->
+			__thread = Thread.create(() ->;
 			{
 				while (true)
 				{
@@ -166,8 +166,8 @@ class DiscordClient
 	 * @param endTimestamp The ending of the timestamp. Gets added onto the start timestamp.
 	 * @param largeImageKey The large image that's displayed in the rich presence.
 	 */
-	public static function changePresence(details:String = 'In the Menus', ?state:String, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float,
-			largeImageKey:String = 'icon_logo')
+	public static function changePresence(details:String = 'In the Menus', ?state:String, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float,;
+			largeImageKey:String = 'icon_logo');
 	{
 		var startTimestamp:Float = 0;
 		if (hasStartTimestamp)
@@ -195,7 +195,6 @@ class DiscordClient
 			presence.smallImageKey = 'dave';
 			presence.largeImageKey = 'icon_logo';
 			presence.largeImageText = "Vs. Dave and Bambi";
-			// Obtained times are in milliseconds so they are divided so Discord can use it
 			presence.startTimestamp = Std.int(startTimestamp / 1000);
 			presence.endTimestamp = Std.int(endTimestamp / 1000);
 			updatePresence();
@@ -237,7 +236,7 @@ class DiscordClient
 	public static function getSongIcon(song:String, char:String):String
 	{
 		var iconRPC = '';
-		iconRPC = switch (char)
+		iconRPC = switch (char);
 		{
 			case 'dave', 'dave-annoyed', 'dave-angey', '': 'dave';
 			case 'bambi-new' | 'bambi-joke' | 'bambi-joke-mad': 'bambi';
@@ -245,7 +244,7 @@ class DiscordClient
 			case 'playrobot': 'playrobot';
 			default: char;
 		}
-		iconRPC = switch (song.toLowerCase())
+		iconRPC = switch (song.toLowerCase());
 		{
 			case 'splitathon':
 				iconRPC = 'the-duo';

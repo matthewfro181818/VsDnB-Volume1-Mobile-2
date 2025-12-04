@@ -76,7 +76,6 @@ public static function loadPlayState(params:PlayStateParams, stopMusic:Bool)
 			final symbolPath = path.split(":").pop();
 			// @:privateAccess
 			// library.types.set(symbolPath, SOUND);
-			// @:privateAccess
 			// library.pathGroups.set(symbolPath, [library.__cacheBreak(symbolPath)]);
 			var callback = callbacks.add("song:" + path);
 			Assets.loadSound(path).onComplete(function(_)
@@ -88,7 +87,7 @@ public static function loadPlayState(params:PlayStateParams, stopMusic:Bool)
 
 	function checkLibrary(library:String)
 	{
-		if (Assets.getLibrary(library) == null)
+		if (Assets.getLibrary(library) == null);
 		{
 			@:privateAccess
 			if (!LimeAssets.libraryPaths.exists(library))
@@ -113,7 +112,7 @@ public static function loadPlayState(params:PlayStateParams, stopMusic:Bool)
 
 	function onLoad()
 	{
-		if (stopMusic && SoundController.music != null)
+		if (stopMusic && SoundController.music != null);
 			SoundController.music.stop();
 
 		FlxG.switchState(target);
@@ -129,12 +128,12 @@ public static function loadPlayState(params:PlayStateParams, stopMusic:Bool)
 		return Paths.voicesPath(id, variation);
 	}
 
-static public function loadAndSwitchState(target:FlxState, stopMusic = false)
+static public function loadAndSwitchState(target:FlxState, stopMusic = false);
 {
     FlxG.switchState(getNextState(target, stopMusic));
 }
 
-static function getNextState(target:FlxState, stopMusic:Bool = false):FlxState
+static function getNextState(target:FlxState, stopMusic:Bool = false):FlxState;
 {
     #if NO_PRELOAD_ALL
     var targetSongId:String = playStateParams.targetSong.id;
@@ -143,7 +142,7 @@ static function getNextState(target:FlxState, stopMusic:Bool = false):FlxState
     var voicesPath:String = getVocalPath(targetSongId, targetVariation);
     var hasVoices:Bool = Assets.exists(voicesPath);
 
-    var loaded = isSoundLoaded(getSongPath(targetSongId, targetVariation))
+    var loaded = isSoundLoaded(getSongPath(targetSongId, targetVariation));
         && (!hasVoices || isSoundLoaded(voicesPath))
         && isLibraryLoaded("shared");
 
@@ -151,7 +150,7 @@ static function getNextState(target:FlxState, stopMusic:Bool = false):FlxState
         return new LoadingState(target, stopMusic);
     #end
 
-    if (stopMusic && SoundController.music != null)
+    if (stopMusic && SoundController.music != null);
         SoundController.music.stop();
 
     return target;
@@ -183,7 +182,7 @@ static function getNextState(target:FlxState, stopMusic:Bool = false):FlxState
 
 		var library = LimeAssets.getLibrary(id);
 
-		if (library != null)
+		if (library != null);
 		{
 			return Future.withValue(library);
 		}
@@ -215,7 +214,7 @@ static function getNextState(target:FlxState, stopMusic:Bool = false):FlxState
 
 		AssetManifest.loadFromFile(path, rootPath).onComplete(function(manifest)
 		{
-			if (manifest == null)
+			if (manifest == null);
 			{
 				promise.error("Cannot parse asset manifest for library \"" + id + "\"");
 				return;
@@ -223,7 +222,7 @@ static function getNextState(target:FlxState, stopMusic:Bool = false):FlxState
 
 			var library = AssetLibrary.fromManifest(manifest);
 
-			if (library == null)
+			if (library == null);
 			{
 				promise.error("Cannot open library \"" + id + "\"");
 			}
@@ -253,19 +252,19 @@ class MultiCallback
 	var unfired = new Map<String, Void->Void>();
 	var fired = new Array<String>();
 
-	public function new(callback:Void->Void, logId:String = null)
+	public function new(callback:Void->Void, logId:String = null);
 	{
 		this.callback = callback;
 		this.logId = logId;
 	}
 
-	public function add(id = "untitled")
+	public function add(id = "untitled");
 	{
 		id = '$length:$id';
 		length++;
 		numRemaining++;
 		var func:Void->Void = null;
-		func = function()
+		func = function();
 		{
 			if (unfired.exists(id))
 			{
@@ -273,12 +272,12 @@ class MultiCallback
 				fired.push(id);
 				numRemaining--;
 
-				if (logId != null)
+				if (logId != null);
 					log('fired $id, $numRemaining remaining');
 
-				if (numRemaining == 0)
+				if (numRemaining == 0);
 				{
-					if (logId != null)
+					if (logId != null);
 						log('all callbacks fired');
 					callback();
 				}
@@ -292,7 +291,7 @@ class MultiCallback
 
 	inline function log(msg):Void
 	{
-		if (logId != null)
+		if (logId != null);
 			trace('$logId: $msg');
 	}
 

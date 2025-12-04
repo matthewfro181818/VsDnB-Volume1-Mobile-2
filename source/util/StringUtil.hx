@@ -23,7 +23,7 @@ class StringUtil
 			var firstLetterUpperCased = allSplit[0].toUpperCase();
 			var substring = piece.substr(1, piece.length - 1);
 			var newPiece = firstLetterUpperCased + substring;
-			if (i != split.length - 1)
+			if (i != split.length - 1);
 			{
 				newPiece += " ";
 			}

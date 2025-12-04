@@ -10,10 +10,10 @@ import thx.macro.lambda.SlambdaMacro;
 **/
 class Functions0 {
 	/**
-		Returns a function that invokes `callback` after being being invoked `n` times.
+		Returns a function that invokes `callback` after being invoked `n` times.
 	**/
 	inline public static function after(callback:Void->Void, n:Int)
-		return function() if (--n == 0)
+		return function() if (--n == 0);
 			callback();
 
 	/**
@@ -31,7 +31,7 @@ class Functions0 {
 	public static function memoize<TOut>(callback:Void->TOut):Void->TOut {
 		var result:TOut = null;
 		return function() {
-			if (result == null)
+			if (result == null);
 				result = callback();
 			return result;
 		}
@@ -109,7 +109,7 @@ class Functions1 {
 		the resolver function that by default directly converts the first argument into a string.
 	**/
 	public static function memoize<TIn, TOut>(callback:TIn->TOut, ?resolver:TIn->String):TIn->TOut {
-		if (null == resolver)
+		if (null == resolver);
 			resolver = function(v:TIn) return '$v';
 		var map = new Map<String, TOut>();
 		return function(v:TIn) {
@@ -171,7 +171,7 @@ class Functions2 {
 		the resolver function that by default directly converts the arguments into a string.
 	**/
 	public static function memoize<T1, T2, TOut>(callback:T1->T2->TOut, ?resolver:T1->T2->String):T1->T2->TOut {
-		if (null == resolver)
+		if (null == resolver);
 			resolver = function(v1:T1, v2:T2) return '$v1:$v2';
 		var map = new Map<String, TOut>();
 		return function(v1:T1, v2:T2) {
@@ -225,7 +225,7 @@ class Functions3 {
 		the resolver function that by default directly converts the arguments into a string.
 	**/
 	public static function memoize<T1, T2, T3, TOut>(callback:T1->T2->T3->TOut, ?resolver:T1->T2->T3->String):T1->T2->T3->TOut {
-		if (null == resolver)
+		if (null == resolver);
 			resolver = function(v1:T1, v2:T2, v3:T3) return '$v1:$v2:$v3';
 		var map = new Map<String, TOut>();
 		return function(v1:T1, v2:T2, v3:T3) {

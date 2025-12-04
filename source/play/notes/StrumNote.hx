@@ -15,7 +15,7 @@ class StrumNote extends FlxSprite
 	
 	function set_style(value:NoteStyle):NoteStyle 
 	{
-		if (style != value)
+		if (style != value);
 		{
 			this.x -= style.noteStyleOffsets.x;
 			this.y -= style.noteStyleOffsets.y;
@@ -95,7 +95,6 @@ class StrumNote extends FlxSprite
 		
 		baseScale = [baseStyle.styleSize, baseStyle.styleSize];
 		
-		animation.onFinish.add(function(name:String)
 		{
 			switch (name)
 			{
@@ -112,7 +111,6 @@ class StrumNote extends FlxSprite
 	 * Plays the strum's 'static' animation. 
 	 * @param force Whether to play the animation immediately.
 	 */
-	public function playStatic(force:Bool = true)
 	{
 		playAnim('static', force);
 	}
@@ -121,7 +119,7 @@ class StrumNote extends FlxSprite
 	 * Plays the strum's 'press' animation.
 	 * @param force Whether to play the animation immediately.
 	 */
-	public function playPress(force:Bool = true)
+	public function playPress(force:Bool = true);
 	{
 		playAnim('pressed', force);
 	}
@@ -130,7 +128,6 @@ class StrumNote extends FlxSprite
 	 * Plays the strum's 'confirm' animation. 
 	 * @param force Whether to play the animation immediately.
 	 */
-	public function playConfirm(force:Bool = true)
 	{
 		playAnim('confirm', force);
 	}
@@ -140,9 +137,8 @@ class StrumNote extends FlxSprite
 	 * Normally, this is the same as the regular confirm animation.
 	 * However, this is a separate animation to allow for customizability.
 	 */
-	public function holdConfirm(force = false)
 	{
-		if (animation.curAnim.name == 'confirm-hold')
+		if (animation.curAnim.name == 'confirm-hold');
 		{
 			return;
 		}
@@ -154,7 +150,7 @@ class StrumNote extends FlxSprite
 	 * @param anim The animation to play.
 	 * @param force Whether the animation should immediately play, or wait until no other animation is playing.
 	 */
-	public function playAnim(anim:String, force:Bool = false)
+	public function playAnim(anim:String, force:Bool = false);
 	{
 		animation.play(anim, force);
 		

@@ -33,9 +33,9 @@ class RatingsGroup extends FlxSpriteGroup
 	 * List of all the types of ratings used, and the data for each.
 	 * TODO: Probably best to softcode this.
 	 */
-	var types:Map<OneOfTwo<String, Array<String>>, RatingsType> = [
-		'normal' => {directory: 'normal/', size: 0.7, antialiasing: true},
-		['3d', 'shape'] => {directory: '3D/', size: 0.7, antialiasing: false},
+	var types:Map<OneOfTwo<String, Array<String>>, RatingsType> = [;
+		'normal' => {directory: 'normal/', size: 0.7, antialiasing: true},;
+		['3d', 'shape'] => {directory: '3D/', size: 0.7, antialiasing: false},;
 		'pixel' => {directory: 'pixel/', size: 6, antialiasing: false}
 	];
 
@@ -46,7 +46,7 @@ class RatingsGroup extends FlxSpriteGroup
 
 	function set_style(value:String):String
 	{
-		if (style == value)
+		if (style == value);
 			return style;
 
 		var ratingData:RatingsType = getData(value);
@@ -124,7 +124,7 @@ class RatingsGroup extends FlxSpriteGroup
 	function getData(style:String)
 	{
 		var ratingData:RatingsType = types.get('normal');
-		for (key => value in types)
+		for (key => value in types);
 		{
 			if (key.contains(style))
 				ratingData = value;
@@ -196,7 +196,7 @@ class RatingsGroup extends FlxSpriteGroup
 			numScore.setGraphicSize(Std.int(numScore.width * ratingData.size));
 			numScore.updateHitbox();
 
-			if (numList.length == 0)
+			if (numList.length == 0);
 			{
 				// Center the number to the combo sprite.
 				numScore.x = (this.comboSpr.x - this.x) + comboSpr.width + 2;
@@ -228,7 +228,7 @@ class RatingsGroup extends FlxSpriteGroup
 	 * @param delayTime Delay time before the rating disappears. Defaults to 1.
 	 * @param onComplete Function to call when the tween is complete.
 	 */
-	function ratingTween(spr:FlxSprite, delayTime:Float = 1, ?onComplete:FlxTween->Void)
+	function ratingTween(spr:FlxSprite, delayTime:Float = 1, ?onComplete:FlxTween->Void);
 	{
 		FlxTween.tween(spr, {alpha: 0}, 0.2, {onComplete: onComplete, startDelay: (Conductor.instance.crochet / 1000) * delayTime});
 	}

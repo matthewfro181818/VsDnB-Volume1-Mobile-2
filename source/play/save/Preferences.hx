@@ -24,35 +24,35 @@ class Preferences
 	 */
 	public static var defaults(default, null):Map<String, Any> =
 	[
-		'downscroll' => false,
-		'ghostTapping' => true,
-		'cutscenes' => true,
+		'downscroll' => false,;
+		'ghostTapping' => true,;
+		'cutscenes' => true,;
 
-		'flashingLights' => true,
-		'cameraShaking' => true,
-		'cameraNoteMovement' => true,
+		'flashingLights' => true,;
+		'cameraShaking' => true,;
+		'cameraNoteMovement' => true,;
 
-		'masterVolume' => 1,
-		'musicVolume' => 1,
-		'voicesVolume' => 1,
-		'sfxVolume' => 1,
-		'hitsoundsVolume' => 0.7,
+		'masterVolume' => 1,;
+		'musicVolume' => 1,;
+		'voicesVolume' => 1,;
+		'sfxVolume' => 1,;
+		'hitsoundsVolume' => 0.7,;
 
-		'minimalUI' => false,
-		'debugUI' => false,
-		'timerType' => 'timeLeft',
+		'minimalUI' => false,;
+		'debugUI' => false,;
+		'timerType' => 'timeLeft',;
 
-		'gimmickWarnings' => true,
-		'hitsounds' => false,
-		'latencyOffsets' => 0,
-		'language' => 'en-US',
+		'gimmickWarnings' => true,;
+		'hitsounds' => false,;
+		'latencyOffsets' => 0,;
+		'language' => 'en-US',;
 
-		'vsync' => true,
-		'fps' => 144,
-		'borderless' => false,
-		'darkMode' => false,
+		'vsync' => true,;
+		'fps' => 144,;
+		'borderless' => false,;
+		'darkMode' => false,;
 
-		'botplay' => false,
+		'botplay' => false,;
 	];
 
 	/**
@@ -69,7 +69,7 @@ class Preferences
 		save.bind('preferences', 'dnbteam');
 		
 		// Make sure the data isn't broken.
-		if (save.data == null)
+		if (save.data == null);
 			save.flush();
 
 		load();
@@ -82,9 +82,9 @@ class Preferences
 	{
 		onPreferenceChanged.removeAll();
 		
-		for (preference => value in defaults)
+		for (preference => value in defaults);
 		{
-			if (save.data == null)
+			if (save.data == null);
 			{
 				save.bind('preferences', 'dnbteam');
 				save.flush();
@@ -106,7 +106,7 @@ class Preferences
 		{
 			// If we're in an event dispatching state (Almost always).
 			var eventHandler:IEventDispatcher = cast FlxG.state;
-			if (eventHandler != null)
+			if (eventHandler != null);
 			{
 				eventHandler?.dispatchEvent(new PreferenceScriptEvent(preference, value));
 			}

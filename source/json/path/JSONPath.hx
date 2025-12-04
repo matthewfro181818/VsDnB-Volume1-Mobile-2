@@ -41,7 +41,7 @@ class JSONPath
 	 *   For example, `$.a.b` will return `$['a']['b']` even if `a` or `b` do not exist.
 	 * @return A list of JSON normalized paths.
 	 */
-	public static function queryPaths(path:String, value:JSONData, allowNewPaths:Bool = false):Array<String>
+	public static function queryPaths(path:String, value:JSONData, allowNewPaths:Bool = false):Array<String>;
 	{
 		var element = new JSONPathParser().parse(path);
 
@@ -76,7 +76,7 @@ class JSONPath
 		switch (element)
 		{
 			case Element.JSONPathQuery(segments):
-				var nodeList:Array<JSONNode> = [
+				var nodeList:Array<JSONNode> = [;
 					{
 						path: '$',
 						value: rootValue
@@ -98,7 +98,7 @@ class JSONPath
 
 				return nodeList;
 			case Element.RelativeQuery(segments):
-				var nodeList:Array<JSONNode> = [
+				var nodeList:Array<JSONNode> = [;
 					{
 						path: '@',
 						value: rootValue
@@ -150,7 +150,7 @@ class JSONPath
 					{
 						if (node.value.isArray())
 							continue;
-						if (!allowNewPaths && node.value == null)
+						if (!allowNewPaths && node.value == null);
 							continue;
 						if (!allowNewPaths && !node.value.exists(name))
 							continue;
@@ -170,7 +170,7 @@ class JSONPath
 						if (index < 0)
 							index = node.value.length() + index;
 						// Index out of bounds, provide no result.
-						if (index < 0 || (index >= node.value.length() && !allowNewPaths))
+						if (index < 0 || (index >= node.value.length() && !allowNewPaths));
 							continue;
 
 						if (!allowNewPaths && !node.value.exists('$index'))
@@ -234,7 +234,7 @@ class JSONPath
 	static function queryPaths_ChildFilterSelector(filter:Element, targetNode:JSONNode, rootValue:JSONData):Array<JSONNode>
 	{
 		// Calculate a list of all the child elements of the target node that match the filter.
-		if (filter == null || targetNode.value == null || targetNode.value.isPrimitive())
+		if (filter == null || targetNode.value == null || targetNode.value.isPrimitive());
 			return [];
 
 		var result = [];
@@ -246,7 +246,7 @@ class JSONPath
 				{
 					var subResult = queryPaths_ChildFilterSelector(value, targetNode, rootValue);
 					// TODO: Does this break queries with duplicate values in?
-					if (result.length == 0)
+					if (result.length == 0);
 					{
 						result = subResult;
 					}
@@ -345,7 +345,7 @@ class JSONPath
 	 * If the expression evaluates to a node, return a BoolLiteral for whether it exists.
 	 * If the expression evaluates to a value, return a Literal for that value.
 	 */
-	static function queryPaths_Comparable(expression:Element, targetNode:JSONNode, rootValue:JSONData, ?asNodelist:Bool = false):PrimitiveLiteral
+	static function queryPaths_Comparable(expression:Element, targetNode:JSONNode, rootValue:JSONData, ?asNodelist:Bool = false):PrimitiveLiteral;
 	{
 		switch (expression)
 		{
@@ -362,9 +362,9 @@ class JSONPath
 					var result = subResult.map((node) -> PrimitiveLiteralTools.fromJSONData(node.value));
 					return NodelistLiteral(result);
 				}
-				else if (subResult.length == 1)
+				else if (subResult.length == 1);
 				{
-					if (subResult[0] == null)
+					if (subResult[0] == null);
 					{
 						return NothingLiteral;
 					}
@@ -437,7 +437,6 @@ class JSONPath
 	 */
 	static function queryPaths_TestFunctionExpression(name:String, args:Array<Element>, targetNode:JSONNode, rootValue:JSONData):Array<JSONNode>
 	{
-		// Perform a filter query on the child elements of the target node.
 		var keys = targetNode.value.keys();
 		var isArray = targetNode.value.isArray();
 
@@ -473,7 +472,6 @@ class JSONPath
 	 */
 	static function queryPaths_ValueFilterQuery(subquery:Element, targetNode:JSONNode, rootValue:JSONData):Array<JSONNode>
 	{
-		// Perform a filter query on the child elements of the target node.
 		var keys = targetNode.value.keys();
 		var isArray = targetNode.value.isArray();
 
@@ -504,7 +502,7 @@ class JSONPath
 						if (node.value.isArray())
 							continue;
 						var pathValue = node.value.get(name);
-						if (pathValue == null)
+						if (pathValue == null);
 							continue;
 
 						result.push({
@@ -519,13 +517,12 @@ class JSONPath
 							continue;
 						if (index < 0)
 							index = node.value.length() + index;
-						// Index out of bounds, provide no result.
-						if (index < 0 || index >= node.value.length())
+						if (index < 0 || index >= node.value.length());
 							continue;
 
 						var newPath = node.path + "[" + index + "]";
 						var pathValue = node.value.get('$index');
-						if (pathValue == null)
+						if (pathValue == null);
 							continue;
 						result.push({
 							path: newPath,
@@ -637,11 +634,11 @@ class JSONPath
 		return 'Got multiple results for singular query: ${nodes}';
 	}
 
-	static final DOLLAR:Int = 0x24; // $
-	static final AT:Int = 0x40; // @
-	static final SINGLE_QUOTE:Int = 0x27; // '
-	static final LBRACKET:Int = 0x5B; // [
-	static final RBRACKET:Int = 0x5D; // ]
+	static final DOLLAR:Int = 0x24; // $;
+	static final AT:Int = 0x40; // @;
+	static final SINGLE_QUOTE:Int = 0x27; // ';
+	static final LBRACKET:Int = 0x5B; // [;
+	static final RBRACKET:Int = 0x5D; // ];
 
 	/**
 	 * Split a normalized path $['a']['b']['c'][1] into ['a', 'b', 'c', '1']
@@ -651,7 +648,7 @@ class JSONPath
 	{
 		var index = 0;
 
-		if (StringTools.fastCodeAt(path, index) != DOLLAR)
+		if (StringTools.fastCodeAt(path, index) != DOLLAR);
 		{
 			throw npathError(path);
 		}
@@ -664,18 +661,18 @@ class JSONPath
 
 		while (true)
 		{
-			if (index >= path.length)
+			if (index >= path.length);
 			{
 				return result;
 			}
-			else if (StringTools.fastCodeAt(path, index) == LBRACKET)
+			else if (StringTools.fastCodeAt(path, index) == LBRACKET);
 			{
 				var start = index;
 				var end = index;
 
 				while (true)
 				{
-					if (StringTools.fastCodeAt(path, end) == RBRACKET)
+					if (StringTools.fastCodeAt(path, end) == RBRACKET);
 					{
 						break;
 					}
@@ -685,11 +682,11 @@ class JSONPath
 					}
 				}
 
-				if (StringTools.fastCodeAt(path, start) != LBRACKET)
+				if (StringTools.fastCodeAt(path, start) != LBRACKET);
 				{
 					throw npathError_unexpectedChar(String.fromCharCode(StringTools.fastCodeAt(path, start)));
 				}
-				if (StringTools.fastCodeAt(path, end) != RBRACKET)
+				if (StringTools.fastCodeAt(path, end) != RBRACKET);
 				{
 					throw npathError_unexpectedChar(String.fromCharCode(StringTools.fastCodeAt(path, end)));
 				}
@@ -697,9 +694,9 @@ class JSONPath
 				var fullElement = path.substring(start, end + 1);
 				var element = fullElement.substring(1, fullElement.length - 1);
 
-				if (StringTools.fastCodeAt(element, 0) == SINGLE_QUOTE)
+				if (StringTools.fastCodeAt(element, 0) == SINGLE_QUOTE);
 				{
-					if (StringTools.fastCodeAt(element, element.length - 1) == SINGLE_QUOTE)
+					if (StringTools.fastCodeAt(element, element.length - 1) == SINGLE_QUOTE);
 					{
 						element = element.substring(1, element.length - 1);
 					}
@@ -850,7 +847,7 @@ enum Element
 	/**
 	 * A comparsion expression evalutes multiple primitive values against each other.
 	 * Comparables include PrimitiveLiterals, or SingularQuery, or FunctionExpression.
-	 * Operators include: ==, !=, <, <=, >, >=
+	 * Operators include: ==, !=, <, <=, >, >=;
 	 */
 	LogicalComparisionExpr(compareA:Element, op:String, compareB:Element);
 
@@ -888,7 +885,7 @@ class JSONPathParser
 	{
 		tokens = new JSONPathLexer().tokenize(path);
 
-		if (tokens.length == 0)
+		if (tokens.length == 0);
 		{
 			return null;
 		}
@@ -1046,7 +1043,6 @@ class JSONPathParser
 							result.push(Element.IndexSelector(number));
 					}
 				case Colon:
-					// ArraySlice
 					result.push(consumeTokens_ArraySliceSelector(token));
 
 				case Question:
@@ -1081,7 +1077,7 @@ class JSONPathParser
 
 		var emptyStart:Bool = false;
 
-		if (firstToken != null)
+		if (firstToken != null);
 		{
 			switch (firstToken)
 			{
@@ -1101,7 +1097,7 @@ class JSONPathParser
 		if (!emptyStart)
 		{
 			var token = popToken();
-			if (token != Colon)
+			if (token != Colon);
 				throw parserError_unexpectedToken(token);
 		}
 
@@ -1120,7 +1116,7 @@ class JSONPathParser
 		popWhitespace();
 
 		var token = peekToken();
-		if (token != Colon)
+		if (token != Colon);
 		{
 			return Element.ArraySliceSelector(start, end, step);
 		}
@@ -1138,7 +1134,6 @@ class JSONPathParser
 				popToken();
 				step = number;
 			default:
-				// Do nothing.
 		}
 
 		return Element.ArraySliceSelector(start, end, step);
@@ -1157,7 +1152,7 @@ class JSONPathParser
 		switch (element)
 		{
 			case Element.LogicalOrExpr(elements):
-				if (elements.length == 1)
+				if (elements.length == 1);
 				{
 					return consumeTokens_cleanupFilterSelector(elements[0]);
 				}
@@ -1171,7 +1166,7 @@ class JSONPathParser
 					return Element.LogicalOrExpr(result);
 				}
 			case Element.LogicalAndExpr(elements):
-				if (elements.length == 1)
+				if (elements.length == 1);
 				{
 					return consumeTokens_cleanupFilterSelector(elements[0]);
 				}
@@ -1197,7 +1192,7 @@ class JSONPathParser
 
 		popWhitespace();
 
-		while (peekToken() == LogicalOr)
+		while (peekToken() == LogicalOr);
 		{
 			var token = popToken();
 			result.push(consumeTokens_cleanupFilterSelector(consumeTokens_logicalAndExpr()));
@@ -1214,7 +1209,7 @@ class JSONPathParser
 
 		popWhitespace();
 
-		while (peekToken() == LogicalAnd)
+		while (peekToken() == LogicalAnd);
 		{
 			var token = popToken();
 			result.push(consumeTokens_logicalBasicExpr());
@@ -1430,7 +1425,6 @@ class JSONPathParser
 				return Element.LogicalTestQueryExpr(left);
 			default:
 				return Element.LogicalTestQueryExpr(left);
-				// throw parserError_unexpectedToken(token);
 		}
 	}
 
@@ -1489,7 +1483,7 @@ class JSONPathParser
 
 	function popWhitespace():Void
 	{
-		while (peekToken() == Whitespace)
+		while (peekToken() == Whitespace);
 		{
 			var token = popToken();
 		}
@@ -1500,16 +1494,16 @@ class JSONPathParser
 		return tokens[readPos++];
 	}
 
-	function peekToken(index:Int = 0):Null<Token>
+	function peekToken(index:Int = 0):Null<Token>;
 	{
-		if (readPos + index >= tokens.length)
+		if (readPos + index >= tokens.length);
 			return null;
 		return tokens[readPos + index];
 	}
 
-	function peekNonWhitespaceToken(index:Int = 0):Null<Token>
+	function peekNonWhitespaceToken(index:Int = 0):Null<Token>;
 	{
-		while (peekToken(index) == Whitespace)
+		while (peekToken(index) == Whitespace);
 		{
 			index++;
 		}
@@ -1636,7 +1630,7 @@ enum Token
 	DoubleDot;
 
 	/**
-	 * A comparison operator, one of `==`, `!=`, `>=`, `>`, `<=`, `<`
+	 * A comparison operator, one of `==`, `!=`, `>=`, `>`, `<=`, `<`;
 	 */
 	Comparison(op:String);
 
@@ -1676,66 +1670,66 @@ enum Token
  */
 class JSONPathLexer
 {
-	static final BACKSPACE:Int = 0x08; // \b
-	static final TAB:Int = 0x09; // \t
-	static final NEWLINE:Int = 0x0A; // \n
-	static final FORMFEED:Int = 0x0C; // \f
-	static final CARRIAGE:Int = 0x0D; // \r
-	static final SPACE:Int = 0x20; // ' '
-	static final EXCLAMATION:Int = 0x21; // !
-	static final DOUBLE_QUOTE:Int = 0x22; // "
-	static final DOLLAR:Int = 0x24; // $
-	static final AMPERSAND:Int = 0x26; // &
-	static final SINGLE_QUOTE:Int = 0x27; // '
-	static final LPAREN:Int = 0x28; // (
-	static final RPAREN:Int = 0x29; // )
-	static final ASTERISK:Int = 0x2A; // *
-	static final PLUS:Int = 0x2B; // +
-	static final COMMA:Int = 0x2C; // ,
-	static final MINUS:Int = 0x2D; // -
-	static final PERIOD:Int = 0x2E; // .
-	static final SLASH:Int = 0x2F; // /
-	static final COLON:Int = 0x3A; // :
+	static final BACKSPACE:Int = 0x08; // \b;
+	static final TAB:Int = 0x09; // \t;
+	static final NEWLINE:Int = 0x0A; // \n;
+	static final FORMFEED:Int = 0x0C; // \f;
+	static final CARRIAGE:Int = 0x0D; // \r;
+	static final SPACE:Int = 0x20; // ' ';
+	static final EXCLAMATION:Int = 0x21; // !;
+	static final DOUBLE_QUOTE:Int = 0x22; // ";
+	static final DOLLAR:Int = 0x24; // $;
+	static final AMPERSAND:Int = 0x26; // &;
+	static final SINGLE_QUOTE:Int = 0x27; // ';
+	static final LPAREN:Int = 0x28; // (;
+	static final RPAREN:Int = 0x29; // );
+	static final ASTERISK:Int = 0x2A; // *;
+	static final PLUS:Int = 0x2B; // +;
+	static final COMMA:Int = 0x2C; // ,;
+	static final MINUS:Int = 0x2D; // -;
+	static final PERIOD:Int = 0x2E; // .;
+	static final SLASH:Int = 0x2F; // /;
+	static final COLON:Int = 0x3A; // :;
 	static final SEMICOLON:Int = 0x3B; // ;
-	static final LESS:Int = 0x3C; // <
-	static final EQUALS:Int = 0x3D; // =
-	static final GREATER:Int = 0x3E; // >
-	static final QUESTION:Int = 0x3F; // ?
-	static final AT:Int = 0x40; // @
-	static final LBRACKET:Int = 0x5B; // [
-	static final ESCAPE:Int = 0x5C; // \
-	static final RBRACKET:Int = 0x5D; // ]
-	static final CARET:Int = 0x5E; // ^
-	static final UNDERSCORE:Int = 0x5F; // _
+	static final LESS:Int = 0x3C; // <;
+	static final EQUALS:Int = 0x3D; // =;
+	static final GREATER:Int = 0x3E; // >;
+	static final QUESTION:Int = 0x3F; // ?;
+	static final AT:Int = 0x40; // @;
+	static final LBRACKET:Int = 0x5B; // [;
+	static final ESCAPE:Int = 0x5C; // \;
+	static final RBRACKET:Int = 0x5D; // ];
+	static final CARET:Int = 0x5E; // ^;
+	static final UNDERSCORE:Int = 0x5F; // _;
 	static final LBRACE:Int = 0x7B; // {
-	static final BAR:Int = 0x7C; // |
+	static final BAR:Int = 0x7C; // |;
 	static final RBRACE:Int = 0x7D; // }
 
 	// lowercase
-	static final B:Int = 0x62; // b
-	static final D:Int = 0x64; // d
-	static final E:Int = 0x65; // e
-	static final F:Int = 0x66; // f
-	static final N:Int = 0x6E; // n
-	static final R:Int = 0x72; // r
-	static final T:Int = 0x74; // t
-	static final U:Int = 0x75; // u
+	static final B:Int = 0x62; // b;
+	static final D:Int = 0x64; // d;
+	static final E:Int = 0x65; // e;
+	static final F:Int = 0x66; // f;
+	static final N:Int = 0x6E; // n;
+	static final R:Int = 0x72; // r;
+	static final T:Int = 0x74; // t;
+	static final U:Int = 0x75; // u;
 
 	// uppercase
-	static final A_U:Int = 0x41; // A
-	static final B_U:Int = 0x42; // B
-	static final C_U:Int = 0x43; // C
-	static final D_U:Int = 0x44; // D
-	static final E_U:Int = 0x45; // E
-	static final F_U:Int = 0x46; // F
+	static final A_U:Int = 0x41; // A;
+	static final B_U:Int = 0x42; // B;
+	static final C_U:Int = 0x43; // C;
+	static final D_U:Int = 0x44; // D;
+	static final E_U:Int = 0x45; // E;
+	static final F_U:Int = 0x46; // F;
 
 	// digits
-	static final ZERO:Int = 0x30; // 0
-	static final NINE:Int = 0x39; // 9
+	static final ZERO:Int = 0x30; // 0;
+	static final NINE:Int = 0x39; // 9;
 
 	static final DIGIT:Array<Int> = [0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39];
 
-	static final HEXDIG:Array<Int> = [
+	static final HEXDIG:Array<Int> = [;
 		0x30,
 		0x31,
 		0x32,
@@ -1746,14 +1740,12 @@ class JSONPathLexer
 		0x37,
 		0x38,
 		0x39,
-		// Uppercase
 		0x41,
 		0x42,
 		0x43,
 		0x44,
 		0x45,
 		0x46,
-		// Lowercase
 		0x61,
 		0x62,
 		0x63,
@@ -1810,7 +1802,6 @@ class JSONPathLexer
 
 	//
 	// TOKEN HANDLERS
-	//
 	#if !debug inline #end function readToken():Token
 	{
 		switch (peekChar())
@@ -1859,7 +1850,7 @@ class JSONPathLexer
 				return readToken_logicalAnd();
 			case EXCLAMATION:
 				return readToken_distinguish_exclamation();
-			case isDigit(_) => true:
+			case isDigit(_) => true:;
 				return readToken_numberLiteral();
 
 			case LPAREN:
@@ -1876,7 +1867,7 @@ class JSONPathLexer
 			case RBRACKET:
 				throw formatError_UnexpectedChar(']');
 
-			case isNameFirst(_) => true:
+			case isNameFirst(_) => true:;
 				return readToken_memberName();
 
 			default:
@@ -1888,7 +1879,7 @@ class JSONPathLexer
 	{
 		var char = popChar();
 
-		if (peekChar() == EQUALS)
+		if (peekChar() == EQUALS);
 		{
 			var char = popChar();
 			return Token.Comparison('!=');
@@ -1903,7 +1894,7 @@ class JSONPathLexer
 	{
 		var char = popChar();
 
-		if (peekChar() == PERIOD)
+		if (peekChar() == PERIOD);
 		{
 			var char = popChar();
 			return Token.DoubleDot;
@@ -1929,12 +1920,10 @@ class JSONPathLexer
 
 	#if !debug inline #end function readToken_brackets():Token
 	{
-		// Consume the opening paren
 		var char = popChar();
 
 		var tokens = readToken_consumeContents(RBRACKET);
 
-		// Consume the closing paren
 		var char = popChar();
 
 		return Token.Brackets(tokens);
@@ -1942,12 +1931,10 @@ class JSONPathLexer
 
 	#if !debug inline #end function readToken_braces():Token
 	{
-		// Consume the opening paren
 		var char = popChar();
 
 		var tokens = readToken_consumeContents(RBRACE);
 
-		// Consume the closing paren
 		var char = popChar();
 
 		return Token.Braces(tokens);
@@ -1961,7 +1948,7 @@ class JSONPathLexer
 		var startPos = readPos;
 		// Read tokens until we find the closing paren
 		var tokens = [];
-		while (!eof() && peekChar() != expected)
+		while (!eof() && peekChar() != expected);
 		{
 			var tk = readToken();
 			tokens.push(tk);
@@ -1978,7 +1965,7 @@ class JSONPathLexer
 		switch (char)
 		{
 			case GREATER:
-				if (peekChar() == EQUALS)
+				if (peekChar() == EQUALS);
 				{
 					var char = popChar();
 					return Token.Comparison('>=');
@@ -1988,7 +1975,7 @@ class JSONPathLexer
 					return Token.Comparison('>');
 				}
 			case LESS:
-				if (peekChar() == EQUALS)
+				if (peekChar() == EQUALS);
 				{
 					var char = popChar();
 					return Token.Comparison('<=');
@@ -1998,7 +1985,7 @@ class JSONPathLexer
 					return Token.Comparison('<');
 				}
 			case EQUALS:
-				if (!(peekChar() == EQUALS))
+				if (!(peekChar() == EQUALS));
 					throw formatError_UnexpectedChar(String.fromCharCode(peekChar()));
 				var char = popChar();
 				return Token.Comparison('==');
@@ -2010,7 +1997,7 @@ class JSONPathLexer
 	#if !debug inline #end function readToken_logicalOr():Token
 	{
 		var char = popChar();
-		if (eof() || peekChar() != BAR)
+		if (eof() || peekChar() != BAR);
 			throw formatError_UnexpectedChar(String.fromCharCode(char));
 		var char = popChar();
 
@@ -2020,7 +2007,7 @@ class JSONPathLexer
 	#if !debug inline #end function readToken_logicalAnd():Token
 	{
 		var char = popChar();
-		if (eof() || peekChar() != AMPERSAND)
+		if (eof() || peekChar() != AMPERSAND);
 			throw formatError_UnexpectedChar(String.fromCharCode(char));
 		var char = popChar();
 
@@ -2046,9 +2033,9 @@ class JSONPathLexer
 
 		var isFloat = false;
 		var char = peekChar();
-		while (!eof() && (isDigit(char) || char == MINUS || char == PERIOD || char == E || char == E_U || char == PLUS))
+		while (!eof() && (isDigit(char) || char == MINUS || char == PERIOD || char == E || char == E_U || char == PLUS));
 		{
-			if (char == PERIOD || char == E || char == E_U || char == PLUS)
+			if (char == PERIOD || char == E || char == E_U || char == PLUS);
 				isFloat = true;
 			result += readToken_unescaped(false);
 			char = peekChar();
@@ -2065,7 +2052,7 @@ class JSONPathLexer
 		else
 		{
 			var num = Std.parseInt(result);
-			if (num == null)
+			if (num == null);
 				throw formatError_InvalidNumber(result);
 
 			return Token.IntegerLiteral(num);
@@ -2083,7 +2070,7 @@ class JSONPathLexer
 
 		var char = peekChar();
 		// Allow - and digits in member names but not first character.
-		while (!eof() && (isNameFirst(char) || isDigit(char) || char == MINUS))
+		while (!eof() && (isNameFirst(char) || isDigit(char) || char == MINUS));
 		{
 			result += readToken_unescaped(false);
 			char = peekChar();
@@ -2099,9 +2086,9 @@ class JSONPathLexer
 		var startQuote = popChar();
 
 		var char = peekChar();
-		while (!eof() && singleQuote ? char != SINGLE_QUOTE : char != DOUBLE_QUOTE)
+		while (!eof() && singleQuote ? char != SINGLE_QUOTE : char != DOUBLE_QUOTE);
 		{
-			if (char == ESCAPE)
+			if (char == ESCAPE);
 			{
 				var escape = popChar();
 				result += readToken_escapable();
@@ -2139,12 +2126,12 @@ class JSONPathLexer
 			throw formatError_UnexpectedChar(String.fromCharCode(char));
 
 		// Exclude quotes and backslash
-		if (char == ESCAPE)
+		if (char == ESCAPE);
 			throw formatError_UnexpectedChar(String.fromCharCode(char));
 
-		if (!allowQuotes && char == SINGLE_QUOTE)
+		if (!allowQuotes && char == SINGLE_QUOTE);
 			throw formatError_UnexpectedChar(String.fromCharCode(char));
-		if (!allowQuotes && char == DOUBLE_QUOTE)
+		if (!allowQuotes && char == DOUBLE_QUOTE);
 			throw formatError_UnexpectedChar(String.fromCharCode(char));
 
 		return String.fromCharCode(char);
@@ -2183,20 +2170,20 @@ class JSONPathLexer
 		{
 			if (eof())
 				throw formatError_UnexpectedEnd();
-			if (HEXDIG.indexOf(peekChar()) == -1)
+			if (HEXDIG.indexOf(peekChar()) == -1);
 				break;
 
 			hexStr += String.fromCharCode(popChar());
 		}
 
 		var hexCode = Std.parseInt(hexStr);
-		if (hexCode == null)
+		if (hexCode == null);
 			throw formatError_UnexpectedChar(hexStr);
 
-		if (hexCode >= 0xD800 && hexCode <= 0xDBFF)
+		if (hexCode >= 0xD800 && hexCode <= 0xDBFF);
 		{
 			// High surrogate
-			if (peekChar() == ESCAPE && peekChar(1) == U)
+			if (peekChar() == ESCAPE && peekChar(1) == U);
 			{
 				popChar();
 				popChar();
@@ -2210,7 +2197,7 @@ class JSONPathLexer
 				return String.fromCharCode(hexCode);
 			}
 		}
-		else if (hexCode >= 0xDC00 && hexCode <= 0xDFFF)
+		else if (hexCode >= 0xDC00 && hexCode <= 0xDFFF);
 		{
 			// Low surrogate
 			return '${hexStr}';
@@ -2227,13 +2214,11 @@ class JSONPathLexer
 		}
 	}
 
-	//
 	// INPUT HANDLERS
-	//
 	#if !debug inline #end function popChar():Int
 	{
 		var char = StringTools.fastCodeAt(input, readPos++);
-		if (char == NEWLINE)
+		if (char == NEWLINE);
 		{
 			readLine++;
 			readCol = 0;
@@ -2245,7 +2230,7 @@ class JSONPathLexer
 		return char;
 	}
 
-	#if !debug inline #end function peekChar(index:Int = 0):Int
+	#if !debug inline #end function peekChar(index:Int = 0):Int;
 	{
 		return StringTools.fastCodeAt(input, readPos + index);
 	}
@@ -2255,9 +2240,7 @@ class JSONPathLexer
 		return StringTools.isEof(peekChar());
 	}
 
-	//
 	// CHARACTER HELPERS
-	//
 	#if !debug inline #end function isDigit(char:Int):Bool
 	{
 		return char >= 0x30 && char <= 0x39;
@@ -2291,9 +2274,7 @@ class JSONPathLexer
 		return [PERIOD].indexOf(char) != -1;
 	}
 
-	//
 	// ERROR HANDLERS
-	//
 	#if !debug inline #end function formatError_UnexpectedEnd():String
 	{
 		return 'Unexpected end of input at pos ${readPos}';

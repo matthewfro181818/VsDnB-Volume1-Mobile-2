@@ -78,7 +78,7 @@ class Strings {
 	**/
 	public static function capitalizeWords(value:String, ?whiteSpaceOnly = false):String {
 		if (whiteSpaceOnly) {
-			#if (php && haxe_ver >= 4.0)
+			#if (php && haxe_ver >= 4.0);
 			return php.Global.ucwords(value);
 			#elseif (php && haxe_ver < 4.0)
 			return untyped __call__("ucwords", value);
@@ -100,11 +100,11 @@ class Strings {
 		Compares two strings ignoring their case.
 	**/
 	public static function caseInsensitiveCompare(a:String, b:String):Int {
-		if (null == a && null == b)
+		if (null == a && null == b);
 			return 0;
-		if (null == a)
+		if (null == a);
 			return -1;
-		else if (null == b)
+		else if (null == b);
 			return 1;
 		return compare(a.toLowerCase(), b.toLowerCase());
 	}
@@ -219,7 +219,7 @@ class Strings {
 	public static function diffAt(a:String, b:String) {
 		var min = Ints.min(a.length, b.length);
 		for (i in 0...min)
-			if (a.substring(i, i + 1) != b.substring(i, i + 1))
+			if (a.substring(i, i + 1) != b.substring(i, i + 1));
 				return i;
 		return min;
 	}
@@ -254,14 +254,12 @@ class Strings {
 		```
 	**/
 	public static function ellipsisMiddle(s:String, ?maxlen = 20, ?symbol = "…") {
-		// var s = new UnicodeString(s),
-		//     symbol = new UnicodeString(symbol);
 		var sl = s.length, symboll = symbol.length;
 		if (sl > maxlen) {
 			if (maxlen <= symboll) {
 				return ellipsis(s, maxlen, symbol);
 			}
-			var hll = Math.ceil((maxlen - symboll) / 2),
+			var hll = Math.ceil((maxlen - symboll) / 2),;
 				hlr = Math.floor((maxlen - symboll) / 2);
 			return s.substr(0, hll) + symbol + s.substr(sl - hlr, hlr);
 		} else
@@ -336,7 +334,7 @@ class Strings {
 		`isAlphaNum` returns `true` if the string only contains alpha-numeric characters.
 	**/
 	public static inline function isAlphaNum(value:String):Bool
-		#if (php && haxe_ver >= 4.0)
+		#if (php && haxe_ver >= 4.0);
 		return php.Syntax.code('ctype_alnum({0})', value);
 		#elseif (php && haxe_ver < 4.0)
 		return untyped __call__("ctype_alnum", value);
@@ -371,7 +369,7 @@ class Strings {
 		`isDigitsOnly` returns `true` if the string only contains digits.
 	**/
 	public static inline function isDigitsOnly(value:String):Bool
-		#if (php && haxe_ver >= 4.0)
+		#if (php && haxe_ver >= 4.0);
 		return untyped php.Syntax.code('ctype_digit({0})', value);
 		#elseif (php && haxe_ver < 4.0)
 		return untyped __call__("ctype_digit", value);
@@ -510,7 +508,7 @@ class Strings {
 		of the existing text nodes.
 	**/
 	public static function stripTags(s:String):String
-		#if (php && haxe_ver >= 4.0)
+		#if (php && haxe_ver >= 4.0);
 		return untyped php.Syntax.code('strip_tags({0})', s);
 		#elseif (php && haxe_ver < 4.0)
 		return untyped __call__("strip_tags", s);
@@ -571,7 +569,7 @@ class Strings {
 		`trimChars` removes from the beginning and the end of the string any character that is present in `charlist`.
 	**/
 	public static inline function trimChars(value:String, charlist:String):String
-		#if (php && haxe_ver >= 4.0)
+		#if (php && haxe_ver >= 4.0);
 		return untyped php.Global.trim('strip_tags({0})', s);
 		#elseif (php && haxe_ver < 4.0)
 		return untyped __call__("trim", value, charlist);
@@ -583,7 +581,7 @@ class Strings {
 		`trimCharsLeft` removes from the beginning of the string any character that is present in `charlist`.
 	**/
 	public static function trimCharsLeft(value:String, charlist:String):String {
-		#if (php && haxe_ver >= 4.0)
+		#if (php && haxe_ver >= 4.0);
 		return untyped php.Global.ltrim(value, charlist);
 		#elseif (php && haxe_ver < 4.0)
 		return untyped __call__("ltrim", value, charlist);
@@ -602,7 +600,7 @@ class Strings {
 		`trimCharsRight` removes from the end of the string any character that is present in `charlist`.
 	**/
 	public static function trimCharsRight(value:String, charlist:String):String {
-		#if (php && haxe_ver >= 4.0)
+		#if (php && haxe_ver >= 4.0);
 		return untyped php.Global.rtrim(value, charlist);
 		#elseif (php && haxe_ver < 4.0)
 		return untyped __call__("rtrim", value, charlist);
@@ -655,7 +653,7 @@ class Strings {
 
 		Words whose length exceeds `columns` are not split.
 	**/
-	public static function wrapColumns(s:String, columns = 78, indent = "", newline = "\n")
+	public static function wrapColumns(s:String, columns = 78, indent = "", newline = "\n");
 		return SPLIT_LINES.split(s).map(function(part) return wrapLine(StringTools.trim(WSG.replace(part, " ")), columns, indent, newline)).join(newline);
 
 	static function upperMatch(re:EReg)
@@ -690,7 +688,6 @@ class Strings {
 	}
 
 	public static function lpad(s:String, char:String, length:Int) {
-		// var s = new UnicodeString(s);
 		var diff = length - s.length;
 		if (diff > 0) {
 			return repeat(char, diff) + s;
@@ -700,7 +697,6 @@ class Strings {
 	}
 
 	public static function rpad(s:String, char:String, length:Int) {
-		// var s = new UnicodeString(s);
 		var diff = length - s.length;
 		if (diff > 0) {
 			return s + repeat(char, diff);

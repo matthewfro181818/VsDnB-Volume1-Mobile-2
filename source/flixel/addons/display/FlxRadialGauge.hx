@@ -49,7 +49,7 @@ class FlxRadialGauge extends FlxSprite
 	var _sweepShader(get, never):FlxRadialWipeShader;
 	inline function get__sweepShader() return cast shader;
 	
-	public function new(x = 0.0, y = 0.0, ?simpleGraphic)
+	public function new(x = 0.0, y = 0.0, ?simpleGraphic);
 	{
 		super(x, y, simpleGraphic);
 		
@@ -57,13 +57,13 @@ class FlxRadialGauge extends FlxSprite
 		this.amount = 1;
 	}
 	
-	public function makeShapeGraphic(shape:FlxRadialGaugeShape, radius:Int, innerRadius = 0, color = FlxColor.WHITE)
+	public function makeShapeGraphic(shape:FlxRadialGaugeShape, radius:Int, innerRadius = 0, color = FlxColor.WHITE);
 	{
 		final graphic = Dynamic.getRadialGaugeGraphic(shape, radius, innerRadius, color);
 		loadGraphic(graphic, true, radius * 2, radius * 2);
 	}
 	
-	public function setOrientation(start = -90.0, end = 270.0)
+	public function setOrientation(start = -90.0, end = 270.0);
 	{
 		this.start = start;
 		this.end = end;

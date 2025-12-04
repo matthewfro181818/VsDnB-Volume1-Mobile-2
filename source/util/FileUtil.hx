@@ -28,7 +28,7 @@ class FileUtil
 		{
 			var backgroundPath:String = Path.withoutExtension(Paths.imagePath('backgrounds'));
 
-			var bgs:Array<String> = Assets.list(IMAGE).filter((p:String) ->
+			var bgs:Array<String> = Assets.list(IMAGE).filter((p:String) ->;
 			{
 				return p.startsWith(backgroundPath);
 			}).map((s:String) -> {

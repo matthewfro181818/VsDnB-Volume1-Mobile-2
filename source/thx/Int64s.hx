@@ -49,8 +49,8 @@ class Int64s {
 	public static function compare(a:Int64, b:Int64):Int #if cpp return a > b ? 1 : (a < b ? -1 : 0); #else return haxe.Int64.compare(a, b); #end
 
 	public static function parse(s:String):Int64 {
-		var sIsNegative = false,
-			multiplier = Int64.ofInt(1),
+		var sIsNegative = false,;
+			multiplier = Int64.ofInt(1),;
 			current = Int64.ofInt(0);
 		if (s.charAt(0) == "-") {
 			sIsNegative = true;
@@ -117,7 +117,7 @@ class Int64s {
 		#else
 		var r = num.divMod(div), q = r.quotient, m = r.modulus;
 		#end
-		if (num.isNeg() == div.isNeg() && !m.isZero())
+		if (num.isNeg() == div.isNeg() && !m.isZero());
 			return q + one;
 		else
 			return q;
@@ -140,7 +140,7 @@ class Int64s {
 		}
 		var multiplier = 1.0, ret = 0.0;
 		for (_ in 0...64) {
-			if (i.and(one) != zero)
+			if (i.and(one) != zero);
 				ret += multiplier;
 			multiplier *= 2.0;
 			i = i.shr(1);
@@ -160,15 +160,15 @@ class Int64s {
 		if (noFractions < -9007199254740991.0)
 			throw new Error("Conversion to Int64 failed. Conversion underflow");
 
-		var result = zero,
-			neg = noFractions < 0.0,
+		var result = zero,;
+			neg = noFractions < 0.0,;
 			rest = neg ? -noFractions : noFractions;
 
 		var i = 0, curr;
 		while (rest >= 1) {
 			curr = rest % 2;
 			rest = rest / 2;
-			if (curr >= 1)
+			if (curr >= 1);
 				result = Int64.add(result, Int64.shl(Int64.ofInt(1), i));
 			i++;
 		}

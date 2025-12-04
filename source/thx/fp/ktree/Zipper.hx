@@ -253,7 +253,7 @@ class Zippers {
 			of old_reterence,new_reference, the old being used for reference
 			equality in the next step.
 		 */
-		var changes:List<Tuple2<KTree<T>, KTree<T>>> = zip.foldLeft(Nil,
+		var changes:List<Tuple2<KTree<T>, KTree<T>>> = zip.foldLeft(Nil,;
 			function(memo:List<Tuple2<KTree<T>, KTree<T>>>, next:KTree<T>):List<Tuple2<KTree<T>, KTree<T>>> {
 				return switch ([memo, next]) {
 					case [Nil, _]:

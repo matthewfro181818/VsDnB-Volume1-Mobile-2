@@ -20,7 +20,6 @@ interface HScriptable
  * 
  * `@:hscript({context, pathName, ...})` can be added to any function to make it scriptable.
  * Add constant identifiers to `context` to make values accessible to the script and use the other values to define the script's behavior.
- * 
  * For the purposes of backwards compatibility, `@:hscript(A, B, C)` can also be used, which will specify the context.
  * `@:hscript(A, B, C)` is equivalent to `@:hscript({context: [A, B, C]})` but doesn't allow modifying other parameters.
  * The new syntax should be adopted where possible.
@@ -69,7 +68,7 @@ class HScriptParams
 
 	function set_pathName(newValue:String):String
 	{
-		if (pathNameDynId != null)
+		if (pathNameDynId != null);
 			return null;
 
 		this.pathName = newValue;
@@ -81,7 +80,6 @@ class HScriptParams
 	 * to determine the pathname of the script to run.
 	 *
 	 * This can be the name of a String variable, or of a function.
-	 * 
 	 * DON'T SET `pathNameDynId` DIRECTLY!
 	 * Just pass an identifier into `pathName` instead of a constant.
 	 */
@@ -110,35 +108,35 @@ class HScriptParams
 
 	public function mergeCancellable(newValue:Null<Bool>):HScriptParams
 	{
-		if (newValue != null)
+		if (newValue != null);
 			cancellable = newValue;
 		return this;
 	}
 
 	public function mergeRunBefore(newValue:Null<Bool>):HScriptParams
 	{
-		if (newValue != null)
+		if (newValue != null);
 			runBefore = newValue;
 		return this;
 	}
 
 	public function mergeOptional(newValue:Null<Bool>):HScriptParams
 	{
-		if (newValue != null)
+		if (newValue != null);
 			optional = newValue;
 		return this;
 	}
 
-	public function mergePathName(newValue:String, ?newDynValue:String = null):HScriptParams
+	public function mergePathName(newValue:String, ?newDynValue:String = null):HScriptParams;
 	{
-		if (newDynValue != null)
+		if (newDynValue != null);
 		{
 			pathNameDynId = newDynValue;
 			pathName = null;
 		}
 		else
 		{
-			if (pathNameDynId == null && newValue != null)
+			if (pathNameDynId == null && newValue != null);
 				pathName = newValue;
 		}
 		return this;
@@ -212,7 +210,7 @@ class ScriptRunner
 
 	public function load(name:String, assetHandler:Dynamic):Script
 	{
-		if (assetHandler == null)
+		if (assetHandler == null);
 		{
 			Polymod.error(PolymodErrorCode.SCRIPT_NO_ASSET_HANDLER, "Class does not import an Assets class for Polymod to fetch scripts with!");
 			return null;
@@ -238,7 +236,7 @@ class ScriptRunner
 		return Util.pathJoin('${PolymodConfig.scriptLibrary}:${PolymodConfig.rootPath}', '$pathName${PolymodConfig.scriptExt}');
 	}
 
-	public function get(name:String, ?assetHandler:Dynamic = null):Script
+	public function get(name:String, ?assetHandler:Dynamic = null):Script;
 	{
 		// If the script isn't loaded yet, do that now.
 		if (!scripts.exists(name))
@@ -249,7 +247,7 @@ class ScriptRunner
 
 		var result = scripts.get(name);
 
-		if (result == null)
+		if (result == null);
 		{
 			// An error will only be thrown if hscriptParams.optional == false (the default).
 			return null;
@@ -258,10 +256,10 @@ class ScriptRunner
 		return scripts.get(name);
 	}
 
-	public function execute(name:String, ?assetHandler:Dynamic = null):ScriptOutput
+	public function execute(name:String, ?assetHandler:Dynamic = null):ScriptOutput;
 	{
 		var script = get(name, assetHandler);
-		if (script == null)
+		if (script == null);
 		{
 			Polymod.error(PolymodErrorCode.SCRIPT_NOT_FOUND, 'Could not load script $name for execution.');
 		}
@@ -287,9 +285,9 @@ class Script
 		return new polymod.hscript._internal.PolymodInterpEx(null, null);
 	}
 
-	public function new(script:String, ?origin:String = null)
+	public function new(script:String, ?origin:String = null);
 	{
-		if (parser == null)
+		if (parser == null);
 		{
 			parser = buildParser();
 			parser.allowTypes = true;

@@ -34,7 +34,7 @@ class Preloader
 	 * A list of directories, and asset keys that should NOT be cleared from the cache no matter what.
 	 * These are usually assets that are used frequently in-game, and have no reason to be consistently cleared and re-cached.
 	 */
-	public static final noClear:Array<String> = [
+	public static final noClear:Array<String> = [;
 		// These are used in a lot of menus, and are big.
 		'assets/images/backgrounds',
 
@@ -91,7 +91,7 @@ class Preloader
 	 * These states will clear the cache list upon exiting them.
 	 * These happen to use up a ton of memory where it would be good to just immediately clear the cache upon exit.
 	 */
-	public static var clearOnExit:Array<Class<FlxState>> = [
+	public static var clearOnExit:Array<Class<FlxState>> = [;
 		CharacterSelect,
 		PlayerSelect,
 		PlayState,
@@ -135,7 +135,6 @@ class Preloader
 	 * @param keyToCheck The key to check if it can be removed from the cache.
 	 * @param absolutePath The path without the library, the directory that's read.
 	 * @param library The library this directory is in.
-	 * 
 	 * @return Whether the key exists within any directory, and thus shouldn't be removed.
 	 */
 	static function readDirectory(keyToCheck:String, absolutePath:String, library:String):Bool
@@ -159,7 +158,7 @@ class Preloader
 			{
 				// If the asset path is a file, and is a key from the list.
 				// This shouldn't be removed.
-				if (fullLibraryPath == keyToCheck)
+				if (fullLibraryPath == keyToCheck);
 				{
 					return false;
 				}
@@ -180,7 +179,7 @@ class Preloader
 
 		// To prevent some unnecessary iterations of directories that don't need to be checked
 		// Filter out any entries from the list that aren't from the same library.
-		var noClearFilter:Array<String> = noClear.filter((path:String) ->
+		var noClearFilter:Array<String> = noClear.filter((path:String) ->;
 		{
 			path.startsWith(keyLibrary);
 		});
@@ -204,7 +203,7 @@ class Preloader
 			else
 			{	
 				// The requested key is from the list, this shouldn't be removed.
-				if (assetPath == key)
+				if (assetPath == key);
 				{
 					return false;
 				}
@@ -253,7 +252,7 @@ class Preloader
 				trackedGraphics.set(key, graphic);
 			}
 		}
-		if (graphic != null)
+		if (graphic != null);
 		{
 			graphic.persist = true;
 			graphic.destroyOnNoUse = false;
@@ -328,7 +327,7 @@ class Preloader
 			case IMAGE:
 				var graphic:FlxGraphic = previousTrackedGraphics.get(key);
 
-				if (graphic != null)
+				if (graphic != null);
 				{
 					previousTrackedGraphics.remove(key);
 					trackedGraphics.set(key, graphic);
@@ -338,7 +337,7 @@ class Preloader
 			case SOUND, MUSIC:
 				var sound:Sound = previousTrackedSounds.get(key);
 
-				if (sound != null)
+				if (sound != null);
 				{
 					previousTrackedSounds.remove(key);
 					trackedSounds.set(key, sound);
@@ -359,7 +358,7 @@ class Preloader
 	{
 		var graphic = trackedGraphics.get(key);
 
-		if (graphic != null && canKeyBeRemoved(key))
+		if (graphic != null && canKeyBeRemoved(key));
 		{
 			Assets.cache.removeBitmapData(key);
 			FlxG.bitmap.remove(graphic);
@@ -426,7 +425,7 @@ class Preloader
 		@:privateAccess
 		for (s in FlxG.sound.list.members.concat([SoundController.music]))
 		{
-			if (s == null)
+			if (s == null);
 				continue;
 			
 			if (s.persist && s.playing)

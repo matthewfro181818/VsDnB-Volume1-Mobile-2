@@ -118,7 +118,6 @@ class JSONPatch {
 
         // Replace the value at the target location
         // If target is an array index, the value is replaced
-        // If target specifies an object member that does exist, that member's value is replaced
 
         var targetPaths = parsePaths(path, data);
 
@@ -159,8 +158,6 @@ class JSONPatch {
         if (path == null) throw 'path is required';
         if (from == null) throw 'from is required';
 
-        // Get the value at the from location
-        // Then, add the value at the path location
 
         var targetFromPaths = parsePaths(from, data);
         var targetPaths = parsePaths(path, data);

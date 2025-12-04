@@ -22,7 +22,7 @@ class GameSound extends FlxSound
 {
 	public var soundType:SoundType = SFX;
 
-	public function new(?soundType:SoundType = SFX)
+	public function new(?soundType:SoundType = SFX);
 	{
 		this.soundType = soundType;
 		super();
@@ -36,7 +36,7 @@ class GameSound extends FlxSound
 	 * @param onComplete Called when the audio is finished.
 	 * @return -> Void):GameSound
 	 */
-	public function load(embeddedSound:FlxSoundAsset, looped:Bool = false, autoDestroy:Bool = false, ?onComplete:() -> flixel.FlxState flixel.FlxState()):GameSound
+	public function load(embeddedSound:FlxSoundAsset, looped:Bool = false, autoDestroy:Bool = false, ?onComplete:() -> Void):GameSound;
 	{
 		loadEmbedded(embeddedSound, looped, autoDestroy, onComplete);
 		return this;
@@ -45,16 +45,16 @@ class GameSound extends FlxSound
 	// Override to take into account the user volume preferences.
 	override function updateTransform():Void
 	{
-		var volumeMultiplier = switch (soundType)
+		var volumeMultiplier = switch (soundType);
 		{
 			case MUSIC: Preferences.musicVolume;
 			case VOICES: Preferences.voicesVolume;
 			case SFX: Preferences.sfxVolume;
 		}
-		_transform.volume = #if FLX_SOUND_SYSTEM (FlxG.sound.muted ? 0 : 1) * FlxG.sound.volume * #end
+		_transform.volume = #if FLX_SOUND_SYSTEM (FlxG.sound.muted ? 0 : 1) * FlxG.sound.volume * #end;
 			(group != null ? group.volume : 1) * _volume * _volumeAdjust * volumeMultiplier;
 
-		if (_channel != null)
+		if (_channel != null);
 			_channel.soundTransform = _transform;
 	}
 }

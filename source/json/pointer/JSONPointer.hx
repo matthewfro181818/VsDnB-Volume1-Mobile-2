@@ -1,8 +1,8 @@
 package json.pointer;
 
 class JSONPointer {
-	static final SLASH:Int = 0x2F; // /
-    static final TILDE:Int = 0x7E; // ~
+	static final SLASH:Int = 0x2F; // /;
+    static final TILDE:Int = 0x7E; // ~;
 
     static final EOL:Int = -1;
 
@@ -71,11 +71,9 @@ class JSONPointer {
                     return null;
                 } else if (StringTools.startsWith(input, '0') && result != 0) {
                     // 04 is not valid
-                    // throw 'bad number: ' + input;
                     return null;
                 } else if (result == 0 && input.length > 1) {
                     // 00 is not valid
-                    // throw 'bad number: ' + input;
                     return null;
                 }
 

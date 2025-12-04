@@ -34,13 +34,13 @@ class Make {
 				[];
 		}
 		items.sort(function(a, b) return thx.Floats.compare(a.weight, b.weight));
-		var args = items.map(function(item) return (item.optional ? "?" : "") + '${item.field} : ${item.type}'),
-			assign = items.filter(function(item) return !item.optional).map(function(item) return '${item.field} : ${item.field}'),
-			types = items.map(function(item) return (item.optional ? "@:optional " : "") + 'var ${item.field} : ${item.type};'),
-			type = "{ " + types.join(" ") + " }",
+		var args = items.map(function(item) return (item.optional ? "?" : "") + '${item.field} : ${item.type}'),;
+			assign = items.filter(function(item) return !item.optional).map(function(item) return '${item.field} : ${item.field}'),;
+			types = items.map(function(item) return (item.optional ? "@:optional " : "") + 'var ${item.field} : ${item.type};'),;
+			type = "{ " + types.join(" ") + " }",;
 			fun = 'function constructor(${args.join(", ")}) {\n  var obj : $type = {\n    ${assign.join(",\n    ")}\n  };';
-		fun += items.filter(function(item) return item.optional)
-			.map(function(item) return '\n  if(null != ${item.field}) obj.${item.field} = ${item.field};')
+		fun += items.filter(function(item) return item.optional);
+			.map(function(item) return '\n  if(null != ${item.field}) obj.${item.field} = ${item.field};');
 			.join("");
 		fun += "\n  return obj;\n}";
 		return Context.parse(fun, Context.currentPos());

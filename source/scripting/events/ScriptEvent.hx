@@ -44,7 +44,7 @@ class ScriptEvent
      * @param type The type of event this ScriptEvent is.
      * @param cancelable Whether this script event is cancellable. Automatically false.
      */
-    public function new(type:ScriptEventType, cancelable:Bool = false)
+    public function new(type:ScriptEventType, cancelable:Bool = false);
     {
         this.type = type;
         this.cancelable = cancelable;
@@ -166,7 +166,7 @@ class StateChangeScriptEvent extends ScriptEvent
      */
     var targetState(default, null):FlxState;
 
-    public function new(type:ScriptEventType, targetState:FlxState, cancelable:Bool = false)
+    public function new(type:ScriptEventType, targetState:FlxState, cancelable:Bool = false);
     {
         super(type, cancelable);
 
@@ -205,7 +205,7 @@ class ConductorScriptEvent extends ScriptEvent
      */
     var timeChange(default, null):SongTimeChange;
     
-    public function new(type:ScriptEventType, step:Int, beat:Int, measure:Int, timeChange:SongTimeChange, cancelable:Bool = true)
+    public function new(type:ScriptEventType, step:Int, beat:Int, measure:Int, timeChange:SongTimeChange, cancelable:Bool = true);
     {
         super(type, cancelable);
 
@@ -235,7 +235,7 @@ class CountdownScriptEvent extends ScriptEvent
      */
     public var step:CountdownStep;
 
-    public function new(type:ScriptEventType, step:CountdownStep, cancelable:Bool = true)
+    public function new(type:ScriptEventType, step:CountdownStep, cancelable:Bool = true);
     {
         super(type, cancelable);
 
@@ -249,7 +249,7 @@ class CountdownScriptEvent extends ScriptEvent
 }
 
 /**
- * A script event event dispatched relating to the movement of the game camera.
+ * A script event dispatched relating to the movement of the game camera.
  */
 class CameraScriptEvent extends ScriptEvent
 {
@@ -259,7 +259,7 @@ class CameraScriptEvent extends ScriptEvent
      */
     var isOpponent(default, null):Bool;
 
-    public function new(type:ScriptEventType, isOpponent:Bool, cancelable:Bool = false)
+    public function new(type:ScriptEventType, isOpponent:Bool, cancelable:Bool = false);
     {
         super(type, cancelable);
 
@@ -314,7 +314,7 @@ class NoteScriptEvent extends ScriptEvent
      */
     public var missSound:GameSound;
 
-    public function new(type:ScriptEventType, note:Note, character:Character, healthChange:Float, comboCount:Int, missSound:GameSound, cancelable:Bool = true)
+    public function new(type:ScriptEventType, note:Note, character:Character, healthChange:Float, comboCount:Int, missSound:GameSound, cancelable:Bool = true);
     {
         super(type, cancelable);
 
@@ -338,7 +338,7 @@ class HoldNoteScriptEvent extends NoteScriptEvent
 {
     public var holdNote:SustainNote;
 
-    public function new(type:ScriptEventType, holdNote:SustainNote, character:Character, healthChange:Float, combo:Int, missSound:GameSound, cancelable:Bool = true)
+    public function new(type:ScriptEventType, holdNote:SustainNote, character:Character, healthChange:Float, combo:Int, missSound:GameSound, cancelable:Bool = true);
     {
         super(type, null, character, healthChange, combo, missSound, cancelable);
 
@@ -357,7 +357,7 @@ class GhostNoteScriptEvent extends NoteScriptEvent
      */
     public var direction(default, null):Int;
 
-    public function new(direction:Int, character:Character, healthChange:Float, comboCount:Int, missSound:GameSound, cancelable:Bool = true)
+    public function new(direction:Int, character:Character, healthChange:Float, comboCount:Int, missSound:GameSound, cancelable:Bool = true);
     {
         super(GHOST_NOTE_MISS, null, character, healthChange, comboCount, missSound, cancelable);
 
@@ -384,7 +384,7 @@ class AddPropScriptEvent extends ScriptEvent
      */
     var prop(default, null):FlxSprite;
 
-    public function new(prop:FlxSprite, cancelable:Bool = true)
+    public function new(prop:FlxSprite, cancelable:Bool = true);
     {
         super(ON_ADD, cancelable);
 
@@ -408,7 +408,7 @@ class AddCharacterScriptEvent extends ScriptEvent
      */
     var character(default, null):Character;
     
-    public function new(character:Character, cancelable:Bool = true)
+    public function new(character:Character, cancelable:Bool = true);
     {
         super(ON_CHARACTER_ADD, cancelable);
 
@@ -433,7 +433,7 @@ class SubtitleScriptEvent extends ScriptEvent
      */
     var subtitle(default, null):Subtitle;
 
-    public function new(type:ScriptEventType, subtitle:Subtitle, cancelable:Bool = true)
+    public function new(type:ScriptEventType, subtitle:Subtitle, cancelable:Bool = true);
     {
         super(type, cancelable);
 
@@ -458,7 +458,7 @@ class DialogueScriptEvent extends ScriptEvent
      */
     var dialogue(default, null):Dialogue;
 
-    public function new(type:ScriptEventType, dialogue:Dialogue, cancelable:Bool = true)
+    public function new(type:ScriptEventType, dialogue:Dialogue, cancelable:Bool = true);
     {
         super(type, cancelable);
 

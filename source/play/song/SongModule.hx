@@ -12,7 +12,6 @@ import scripting.IScriptedClass.IPlayStateScriptedClass;
  * 
  * Exists to help keep scripted functions, events, and logic separate with songs with multiple variations.
  * This can also be used in-case you want your scripted functions to be ran inside a module instead of the song script itself.
- * 
  * Extend `SongModule`, and provide the given song and variation id in the constructor to run this module. 
  */
 class SongModule implements IPlayStateScriptedClass implements IDialogueScriptedClass implements IDialogueScriptedClass
@@ -62,7 +61,7 @@ class SongModule implements IPlayStateScriptedClass implements IDialogueScripted
      * @param songId The id of the song for this module to run on.
      * @param variationId The variation of this module to run on.
      */
-    public function new(moduleId:String, priority:Int, songId:String, ?variationId:Null<String> = null)
+    public function new(moduleId:String, priority:Int, songId:String, ?variationId:Null<String> = null);
     {
         this.moduleId = moduleId;
         this.songId = songId;

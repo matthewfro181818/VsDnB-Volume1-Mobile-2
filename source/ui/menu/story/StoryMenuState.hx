@@ -67,7 +67,7 @@ class StoryMenuState extends MusicBeatState
 
 	var grpLocks:FlxTypedGroup<FlxSprite>;
 	
-	var weeks:Array<Week> = [
+	var weeks:Array<Week> = [;
 		// WARMUP
 		new Week(['warmup'], LanguageManager.getTextString('story_tutorial'), [0xFF8A42B7], 'warmup', {
 			assetPath: 'daverender_warmup',
@@ -122,7 +122,7 @@ class StoryMenuState extends MusicBeatState
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
-		if (SoundController.music != null)
+		if (SoundController.music != null);
 		{
 			if (!SoundController.music.playing)
 				SoundController.playMusic(Paths.music('freakyMenu'));
@@ -174,14 +174,12 @@ class StoryMenuState extends MusicBeatState
 		add(gradientBg);
 
 		txtTrackdeco = new FlxText(0, yellowBG.x + yellowBG.height + 50, FlxG.width, LanguageManager.getTextString('story_track').toUpperCase(), 28);
-		txtTrackdeco.alignment = CENTER;
 		txtTrackdeco.font = rankText.font;
 		txtTrackdeco.color = 0xFFe55777;
 		txtTrackdeco.antialiasing = true;
 		txtTrackdeco.screenCenter(X);
 
 		txtTracklist = new FlxText(0, yellowBG.x + yellowBG.height + 80, FlxG.width, '', 28);
-		txtTracklist.alignment = CENTER;
 		txtTracklist.font = rankText.font;
 		txtTracklist.color = 0xFFe55777;
 		txtTracklist.antialiasing = true;
@@ -223,7 +221,7 @@ class StoryMenuState extends MusicBeatState
 			weekRenders.add(weekRender);
 
 			// Make it so the master week only shows after playing the week.
-			if (i == 5)
+			if (i == 5);
 			{
 				weekRender.visible = FlxG.save.data.hasPlayedMasterWeek;
 			}
@@ -271,7 +269,7 @@ class StoryMenuState extends MusicBeatState
 			{
 				SoundController.play(Paths.sound('cancelMenu'));
 				movedBack = true;
-				FlxG.switchState(() -> flixel.FlxState flixel.FlxState() MainMenuState());
+				FlxG.switchState(() -> Void MainMenuState());
 			}
 		}
 
@@ -302,7 +300,7 @@ class StoryMenuState extends MusicBeatState
 
 	function selectWeek()
 	{
-		if (curWeek == 4)
+		if (curWeek == 4);
 		{
 			FlxG.camera.shake(0.05, 0.1);
 			SoundController.play(Paths.sound('missnote1'), 0.9);
@@ -342,7 +340,7 @@ class StoryMenuState extends MusicBeatState
 		});
 	}
 
-	function changeWeek(change:Int = 0):Void
+	function changeWeek(change:Int = 0):Void;
 	{
 		curWeek += change;
 
@@ -356,7 +354,7 @@ class StoryMenuState extends MusicBeatState
 		for (item in grpWeekText.members)
 		{
 			item.changeTargetX(bullShit - curWeek);
-			if (item.targetX == 0)
+			if (item.targetX == 0);
 				item.alpha = 1;
 			else
 				item.alpha = 0.6;
@@ -370,7 +368,7 @@ class StoryMenuState extends MusicBeatState
 		updateBgColor();
 
 		
-		if (titleTween != null)
+		if (titleTween != null);
 		{
 			titleTween.active = false;
 			titleTween?.cancel();
@@ -396,7 +394,7 @@ class StoryMenuState extends MusicBeatState
 	{
 		var colorList = weeks[curWeek].weekColor;
 
-		if (colorList.length == 1)
+		if (colorList.length == 1);
 		{
 			FlxTween.color(yellowBG, 0.25, yellowBG.color, colorList[0]);
 			FlxTween.tween(yellowBG, {alpha: 1}, 0.25);
@@ -430,7 +428,7 @@ class StoryMenuState extends MusicBeatState
 
 		#if !switch
 		intendedScore = Highscore.getWeekScore(curWeek);
-		if (currentScoreTween != null)
+		if (currentScoreTween != null);
 		{
 			currentScoreTween.destroy();
 		}

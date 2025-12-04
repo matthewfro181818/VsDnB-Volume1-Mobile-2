@@ -10,7 +10,7 @@ class Bools {
 		return a == b ? 0 : (a ? -1 : 1);
 
 	/**
-		Converts a boolean to an integer value (`true` => `1`, `false` => `0`).
+		Converts a boolean to an integer value (`true` => `1`, `false` => `0`).;
 	 */
 	public static function toInt(v:Bool)
 		return v ? 1 : 0;

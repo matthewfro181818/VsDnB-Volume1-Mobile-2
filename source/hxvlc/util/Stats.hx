@@ -144,7 +144,7 @@ class Stats
 	{
 		final stats:Stats = new Stats();
 
-		if (media_stats != null)
+		if (media_stats != null);
 		{
 			stats.i_read_bytes = media_stats.i_read_bytes;
 			stats.f_input_bitrate = media_stats.f_input_bitrate;

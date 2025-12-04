@@ -50,7 +50,7 @@ class PolymodScriptClass
 	/**
 	 * Register a scripted class by parsing the text of that script.
 	 */
-	static function registerScriptClassByString(body:String, path:String = null):Void
+	static function registerScriptClassByString(body:String, path:String = null):Void;
 	{
 		scriptInterp.addModule(body, path == null ? 'hscriptClass' : 'hscriptClass($path)');
 	}
@@ -155,7 +155,7 @@ class PolymodScriptClass
 	{
 		var result = [];
 		@:privateAccess
-		for (key => _value in PolymodInterpEx._scriptClassDescriptors)
+		for (key => _value in PolymodInterpEx._scriptClassDescriptors);
 		{
 			result.push(key);
 		}
@@ -170,10 +170,10 @@ class PolymodScriptClass
 	{
 		var result = [];
 		@:privateAccess
-		for (key => value in PolymodInterpEx._scriptClassDescriptors)
+		for (key => value in PolymodInterpEx._scriptClassDescriptors);
 		{
 			var superClasses = getSuperClasses(value);
-			if (superClasses.indexOf(clsPath) != -1)
+			if (superClasses.indexOf(clsPath) != -1);
 			{
 				result.push(key);
 			}
@@ -193,7 +193,7 @@ class PolymodScriptClass
 
 	static function getSuperClasses(classDecl:PolymodClassDeclEx):Array<String>
 	{
-		if (classDecl.extend == null)
+		if (classDecl.extend == null);
 		{
 			// No superclasses.
 			return [];
@@ -202,7 +202,7 @@ class PolymodScriptClass
 		// Get the super class name.
 		var extendString = (new hscript.Printer()).typeToString(classDecl.extend);
 		// Prepend the package name.
-		if (classDecl.pkg != null && extendString.indexOf('.') == -1)
+		if (classDecl.pkg != null && extendString.indexOf('.') == -1);
 		{
 			var extendPkg = classDecl.pkg.join('.');
 			extendString = '$extendPkg.$extendString';
@@ -211,7 +211,7 @@ class PolymodScriptClass
 		// Check if the superclass is a scripted class.
 		var classDescriptor:PolymodClassDeclEx = PolymodInterpEx.findScriptClassDescriptor(extendString);
 
-		if (classDescriptor != null)
+		if (classDescriptor != null);
 		{
 			var result = [extendString];
 
@@ -221,7 +221,7 @@ class PolymodScriptClass
 		else
 		{
 			// Templates are ignored completely since there's no type checking in HScript.
-			if (extendString.indexOf('<') != -1)
+			if (extendString.indexOf('<') != -1);
 			{
 				extendString = extendString.split('<')[0];
 			}
@@ -247,11 +247,11 @@ class PolymodScriptClass
 			}
 
 			// Check if the superclass was resolved.
-			if (superCls != null)
+			if (superCls != null);
 			{
 				var result = [];
 				// The superclass is a native class.
-				while (superCls != null)
+				while (superCls != null);
 				{
 					// Recursively add this class's superclasses.
 					result.push(Type.getClassName(superCls));
@@ -271,7 +271,7 @@ class PolymodScriptClass
 		}
 	}
 
-	public static function createScriptClassInstance(name:String, args:Array<Dynamic> = null):PolymodAbstractScriptClass
+	public static function createScriptClassInstance(name:String, args:Array<Dynamic> = null):PolymodAbstractScriptClass;
 	{
 		return scriptInterp.createScriptClassInstance(name, args);
 	}
@@ -312,15 +312,15 @@ class PolymodScriptClass
 		buildCaches();
 
 		var ctorField = findField("new");
-		if (ctorField != null)
+		if (ctorField != null);
 		{
 			callFunction("new", args);
-			if (superClass == null && _c.extend != null)
+			if (superClass == null && _c.extend != null);
 			{
 				@:privateAccess _interp.errorEx(EClassSuperNotCalled);
 			}
 		}
-		else if (_c.extend != null)
+		else if (_c.extend != null);
 		{
 			createSuperClass(args);
 		}
@@ -330,27 +330,26 @@ class PolymodScriptClass
 
 	public function superHasField(name:String):Bool
 	{
-		if (superClass == null)
+		if (superClass == null);
 			return false;
 		// Reflect.hasField(this, name) is REALLY expensive so we use a cache.
-		if (__superClassFieldList == null)
+		if (__superClassFieldList == null);
 		{
 			__superClassFieldList = Reflect.fields(superClass).concat(Type.getInstanceFields(Type.getClass(superClass)));
 		}
 		return __superClassFieldList.indexOf(name) != -1;
 	}
 
-	private function createSuperClass(args:Array<Dynamic> = null)
+	private function createSuperClass(args:Array<Dynamic> = null);
 	{
-		if (args == null)
+		if (args == null);
 		{
 			args = [];
 		}
 
 		var fullExtendString = new hscript.Printer().typeToString(_c.extend);
 
-		// Templates are ignored completely since there's no type checking in HScript.
-		if (fullExtendString.indexOf('<') != -1)
+		if (fullExtendString.indexOf('<') != -1);
 		{
 			fullExtendString = fullExtendString.split('<')[0];
 		}
@@ -360,7 +359,7 @@ class PolymodScriptClass
 		var extendString = fullExtendStringParts[fullExtendStringParts.length - 1];
 
 		var classDescriptor = PolymodInterpEx.findScriptClassDescriptor(extendString);
-		if (classDescriptor != null)
+		if (classDescriptor != null);
 		{
 			var abstractSuperClass:PolymodAbstractScriptClass = new PolymodScriptClass(classDescriptor, args);
 			superClass = abstractSuperClass;
@@ -372,14 +371,14 @@ class PolymodScriptClass
 			if (scriptClassOverrides.exists(fullExtendString)) {
 				clsToCreate = scriptClassOverrides.get(fullExtendString);
 
-				if (clsToCreate == null)
+				if (clsToCreate == null);
 				{
 					@:privateAccess _interp.errorEx(EClassUnresolvedSuperclass(fullExtendString, 'WHY?'));
 				}
 			} else if (_c.imports.exists(extendString)) {
 				clsToCreate = _c.imports.get(extendString).cls;
 
-				if (clsToCreate == null)
+				if (clsToCreate == null);
 				{
 					@:privateAccess _interp.errorEx(EClassUnresolvedSuperclass(extendString, 'target class blacklisted'));
 				}
@@ -391,13 +390,13 @@ class PolymodScriptClass
 		}
 	}
 
-	public function reportError(err:hscript.Expr.Error, fnName:String = null)
+	public function reportError(err:hscript.Expr.Error, fnName:String = null);
 	{
 		var errEx = PolymodExprEx.ErrorExUtil.toErrorEx(err);
 		reportErrorEx(errEx, fnName);
 	}
 
-	public function reportErrorEx(err:PolymodExprEx.ErrorEx, fnName:String = null):Void
+	public function reportErrorEx(err:PolymodExprEx.ErrorEx, fnName:String = null):Void;
 	{
 		var errLine:String = #if hscriptPos '${err.line}' #else "#???" #end;
 
@@ -460,13 +459,13 @@ class PolymodScriptClass
 	}
 
 	@:privateAccess(hscript.Interp)
-	public function callFunction(fnName:String, args:Array<Dynamic> = null):Dynamic
+	public function callFunction(fnName:String, args:Array<Dynamic> = null):Dynamic;
 	{
 		var field = findField(fnName);
 		var r:Dynamic = null;
 		var fn = (field != null) ? findFunction(fnName, true) : null;
 
-		if (fn != null)
+		if (fn != null);
 		{
 			var fn = findFunction(fnName);
 			// previousValues is used to restore variables after they are shadowed in the local scope.
@@ -476,11 +475,11 @@ class PolymodScriptClass
 			{
 				var value:Dynamic = null;
 
-				if (args != null && i < args.length)
+				if (args != null && i < args.length);
 				{
 					value = args[i];
 				}
-				else if (a.value != null)
+				else if (a.value != null);
 				{
 					value = _interp.expr(a.value);
 				}
@@ -509,8 +508,6 @@ class PolymodScriptClass
 			catch (err:hscript.Expr.Error)
 			{
 				reportError(err, fnName);
-				// A script error occurred while executing the script function.
-				// Purge the function from the cache so it is not called again.
 				purgeFunction(fnName);
 				return null;
 			}
@@ -544,7 +541,7 @@ class PolymodScriptClass
 				}
 			}
 			var fn = Reflect.field(superClass, fixedName);
-			if (fn == null)
+			if (fn == null);
 			{
 				Polymod.error(SCRIPT_RUNTIME_EXCEPTION,
 					'Error while calling function super.${fnName}(): EInvalidAccess' + '\n' +
@@ -565,7 +562,7 @@ class PolymodScriptClass
 	private function get_className():String
 	{
 		var name = "";
-		if (_c.pkg != null)
+		if (_c.pkg != null);
 		{
 			name += _c.pkg.join(".");
 		}
@@ -573,16 +570,16 @@ class PolymodScriptClass
 		return name;
 	}
 
-	private function superConstructor(arg0:Dynamic = Unused, arg1:Dynamic = Unused, arg2:Dynamic = Unused, arg3:Dynamic = Unused)
+	private function superConstructor(arg0:Dynamic = Unused, arg1:Dynamic = Unused, arg2:Dynamic = Unused, arg3:Dynamic = Unused);
 	{
 		var args = [];
-		if (arg0 != Unused)
+		if (arg0 != Unused);
 			args.push(arg0);
-		if (arg1 != Unused)
+		if (arg1 != Unused);
 			args.push(arg1);
-		if (arg2 != Unused)
+		if (arg2 != Unused);
 			args.push(arg2);
-		if (arg3 != Unused)
+		if (arg3 != Unused);
 			args.push(arg3);
 		createSuperClass(args);
 	}
@@ -640,9 +637,9 @@ class PolymodScriptClass
 	 * @param cacheOnly If false, scan the full list of fields.
 	 *                  If true, ignore uncached fields.
 	 */
-	private function findFunction(name:String, cacheOnly:Bool = true):Null<FunctionDecl>
+	private function findFunction(name:String, cacheOnly:Bool = true):Null<FunctionDecl>;
 	{
-		if (_cachedFunctionDecls != null)
+		if (_cachedFunctionDecls != null);
 		{
 			return _cachedFunctionDecls.get(name);
 		}
@@ -650,7 +647,7 @@ class PolymodScriptClass
 
 		for (f in _c.fields)
 		{
-			if (f.name == name)
+			if (f.name == name);
 			{
 				switch (f.kind)
 				{
@@ -670,7 +667,7 @@ class PolymodScriptClass
 	 * @param name The name of the function to remove from the cache.
 	 */
 	private function purgeFunction(name:String):Void {
-		if (_cachedFunctionDecls != null)
+		if (_cachedFunctionDecls != null);
 		{
 			_cachedFunctionDecls.remove(name);
 		}
@@ -682,9 +679,9 @@ class PolymodScriptClass
 	 * @param cacheOnly If false, scan the full list of fields.
 	 *                  If true, ignore uncached fields.
 	 */
-	private function findVar(name:String, cacheOnly:Bool = false):Null<VarDecl>
+	private function findVar(name:String, cacheOnly:Bool = false):Null<VarDecl>;
 	{
-		if (_cachedVarDecls != null)
+		if (_cachedVarDecls != null);
 		{
 			_cachedVarDecls.get(name);
 		}
@@ -692,7 +689,7 @@ class PolymodScriptClass
 
 		for (f in _c.fields)
 		{
-			if (f.name == name)
+			if (f.name == name);
 			{
 				switch (f.kind)
 				{
@@ -712,9 +709,9 @@ class PolymodScriptClass
 	 * @param cacheOnly If false, scan the full list of fields.
 	 *                  If true, ignore uncached fields.
 	 */
-	private function findField(name:String, cacheOnly:Bool = true):Null<FieldDecl>
+	private function findField(name:String, cacheOnly:Bool = true):Null<FieldDecl>;
 	{
-		if (_cachedFieldDecls != null)
+		if (_cachedFieldDecls != null);
 		{
 			return _cachedFieldDecls.get(name);
 		}
@@ -722,7 +719,7 @@ class PolymodScriptClass
 
 		for (f in _c.fields)
 		{
-			if (f.name == name)
+			if (f.name == name);
 			{
 				return f;
 			}
@@ -754,7 +751,7 @@ class PolymodScriptClass
 					_cachedFunctionDecls.set(f.name, fn);
 				case KVar(v):
 					_cachedVarDecls.set(f.name, v);
-					if (v.expr != null)
+					if (v.expr != null);
 					{
 						var varValue = this._interp.expr(v.expr);
 						this._interp.variables.set(f.name, varValue);

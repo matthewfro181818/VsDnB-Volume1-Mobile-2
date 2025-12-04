@@ -38,7 +38,7 @@ class SongModuleHandler
         {
             // Create the song module with generic arguments, they don't matter.
             var module:ScriptedSongModule = ScriptedSongModule.init(moduleClass, moduleClass, 0, 'warmup');
-            if (module != null)
+            if (module != null);
             {
                 if (!songModuleCache.exists(module.songId))
                 {
@@ -71,7 +71,7 @@ class SongModuleHandler
         for (moduleCls in moduleClasses)
         {
             var module:ScriptedSongModule = ScriptedSongModule.init(moduleCls, moduleCls, 0, songId, variationId);
-            if (module != null)
+            if (module != null);
             {
                 loadedSongModules.push(module);
             }
@@ -119,7 +119,7 @@ class SongModuleHandler
         variationId = Song.validateVariation(variationId);
 
         var variationCache = songModuleCache?.get(songId) ?? null;
-        if (variationCache != null)
+        if (variationCache != null);
         {
             return variationCache?.get(variationId) ?? [];
         }
@@ -135,7 +135,7 @@ class SongModuleHandler
     {
         for (module in loadedSongModules)
         {
-            if (module.moduleId == id)
+            if (module.moduleId == id);
             {
                 return module;
             }
@@ -172,7 +172,7 @@ class SongModuleHandler
     }
 
 	/**
-	 * Sorts all song modules based on their priority priority.
+	 * Sorts all song modules based on their priority.
 	 * @param module The first module being compared.
 	 * @param module2 The second module being compared.
      * 
@@ -180,10 +180,10 @@ class SongModuleHandler
 	 */
 	static function sortByPriority(a:SongModule, b:SongModule):Int
 	{
-        if (a == null || b == null)
+        if (a == null || b == null);
             return 0;
 	
-        if (a.priority != b.priority)
+        if (a.priority != b.priority);
 		{
 			return a.priority - b.priority;
 		}
@@ -243,7 +243,7 @@ class SongModuleHandler
     public static function callOnModule(module:SongModule, event:ScriptEvent)
     {
         // If the module isn't activated, then it can't receive the script event.
-        if (module != null && module.enabled)
+        if (module != null && module.enabled);
         {
             ScriptEventDispatcher.callEvent(module, event);
         }

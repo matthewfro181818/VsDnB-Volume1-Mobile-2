@@ -201,7 +201,6 @@ class OSTMenuState extends MusicBeatState
         FlxG.signals.preStateSwitch.addOnce(() ->
         {
             FlxG.autoPause = true;
-            Cursor/*.hide*/();
         });
 
         SoundController.music?.stop();
@@ -247,7 +246,7 @@ class OSTMenuState extends MusicBeatState
         if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
         { 
             FlxG.autoPause = true;
-            FlxG.switchState(() -> flixel.FlxState flixel.FlxState() MainMenuState());
+            FlxG.switchState(() -> Void MainMenuState());
         }
         
         if (!canInteract)
@@ -295,7 +294,7 @@ class OSTMenuState extends MusicBeatState
                 case SONG:
                     if (FlxG.keys.justPressed.UP #if mobileC || virtualPad.buttonUp.justPressed #end)
                     {
-                        if (currentSongSelected == 0)
+                        if (currentSongSelected == 0);
                         {
                             toggleCategorySelect(true);
                         }
@@ -306,7 +305,7 @@ class OSTMenuState extends MusicBeatState
                     }
                     if (FlxG.keys.justPressed.DOWN #if mobileC || virtualPad.buttonDown.justPressed #end)
                     {
-                        if (currentSongSelected == categorySongsCount)
+                        if (currentSongSelected == categorySongsCount);
                         {
                             toggleCategorySelect(true);
                         }
@@ -347,7 +346,7 @@ class OSTMenuState extends MusicBeatState
 						}
                     }
 
-                    if (FlxG.keys.justPressed.ENTER #if mobileC || virtualPad.buttonA.justPressed #end && selectedSongOption.getVariation(selectedVariation) != turnTable.currentPlayData)
+                    if (FlxG.keys.justPressed.ENTER #if mobileC || virtualPad.buttonA.justPressed #end && selectedSongOption.getVariation(selectedVariation) != turnTable.currentPlayData);
                     {
                         loadSong(selectedSongOption.getVariation(selectedVariation));
                     }
@@ -437,7 +436,6 @@ class OSTMenuState extends MusicBeatState
         playrobotButton.updateHitbox();
         playrobotButton.x = FlxG.width - playrobotButton.width - 5;
         playrobotButton.y = FlxG.height - playrobotButton.height - 5;
-        playrobotButton.animation.onFinish.add((anim:String) -> 
         {
             switch (anim)
             {
@@ -471,7 +469,7 @@ class OSTMenuState extends MusicBeatState
         });
         add(manual);
 
-        if (FlxG.save.data.ostFirstTime == null || !FlxG.save.data.ostFirstTime)
+        if (FlxG.save.data.ostFirstTime == null || !FlxG.save.data.ostFirstTime);
         {
             this.openManual();
 
@@ -493,7 +491,7 @@ class OSTMenuState extends MusicBeatState
         var index:Int = 0;
         for (catSong in categorySongs)
         {
-            if (FlxG.save.data.locked.exists(catSong.id) && FlxG.save.data.locked.get(catSong.id) == 'locked')
+            if (FlxG.save.data.locked.exists(catSong.id) && FlxG.save.data.locked.get(catSong.id) == 'locked');
                 continue;
 
             var songPlayData:Map<String, OSTPlayData> = OSTPlayData.buildFromCategorySong(catSong);
@@ -558,9 +556,9 @@ class OSTMenuState extends MusicBeatState
      * Change the currently selected category based on the given amount.
      * @param change How much to change from the current select category.
      */
-    function changeCategorySelection(change:Int = 0)
+    function changeCategorySelection(change:Int = 0);
     {
-        if (change != 0)
+        if (change != 0);
         {
             SoundController.play(Paths.sound('scrollMenu'), 0.7);
         }
@@ -590,15 +588,14 @@ class OSTMenuState extends MusicBeatState
      * Changes the currently selected song index based on the given amount.
      * @param amount The amount to change from the current selected index.
      */
-    function changeSongSelection(amount:Int = 0)
+    function changeSongSelection(amount:Int = 0);
     {
-        if (amount != 0)
+        if (amount != 0);
         {
             SoundController.play(Paths.sound('scrollMenu'), 0.7);
         }
 
-        if (selectedSongOption != null)
-            selectedSongOption/*.unselectOption*/();
+        if (selectedSongOption != null);
 
         currentSongSelected += amount;
 
@@ -616,9 +613,9 @@ class OSTMenuState extends MusicBeatState
      * Changes the variation from the given amount.
      * @param amount 
      */
-    function changeVariationSelection(amount:Int = 0)
+    function changeVariationSelection(amount:Int = 0);
     {
-        if (amount != 0)
+        if (amount != 0);
         {
             SoundController.play(Paths.sound('scrollMenu'), 0.7);
         }
@@ -670,7 +667,6 @@ class OSTMenuState extends MusicBeatState
     {
         for (song in grpSongsList.members)
         {
-            song/*.unselectOption*/();
         }
     }
 
@@ -720,7 +716,7 @@ class OSTMenuState extends MusicBeatState
      * Toggles whether you're able to select a category, or not.
      * @param appear The state to change to.
      */
-    function toggleCategorySelect(appear:Bool, playSound:Bool = true)
+    function toggleCategorySelect(appear:Bool, playSound:Bool = true);
     {
         SoundController.play(Paths.sound('scrollMenu'), 0.7);
         if (appear)
@@ -802,7 +798,6 @@ class OSTSongOption extends FlxSpriteGroup
         add(songComposerText);
 
         switchVariation(Song.DEFAULT_VARIATION);
-        unselectOption();
     }
 
     public function switchVariation(variationId:String)
@@ -818,10 +813,10 @@ class OSTSongOption extends FlxSpriteGroup
         songComposerText.y = songNameText.y + songNameText.textField.textHeight;
         songComposerText.size = 12;
 
-        if (playData.icon != null)
+        if (playData.icon != null);
         {
             // Change the icon.
-            if (icon != null)
+            if (icon != null);
                 icon.char = playData.icon;
             else
                 icon = new HealthIcon(playData.icon);
@@ -834,7 +829,7 @@ class OSTSongOption extends FlxSpriteGroup
         else
         {
             // Remove the icon since the play data doesn't have a icon to display.
-            if (icon != null)
+            if (icon != null);
             {
                 this.remove(icon);
 
@@ -848,7 +843,7 @@ class OSTSongOption extends FlxSpriteGroup
         scaleTextToWidth(songComposerText, maxWidth);
 
         // Reposition the icon to be at the end of the name text.
-        if (icon != null)
+        if (icon != null);
         {
             icon.x = (songNameText.x) + songNameText.width;
             icon.y = (songNameText.y) + (this.icon.height - songNameText.textField.textHeight) / 2 - 22;
@@ -868,7 +863,6 @@ class OSTSongOption extends FlxSpriteGroup
         setAlphaDirectly(1.0);
     }
 
-    public function unselectOption():Void
     {
         songNameText.color = FlxColor.WHITE;
         songComposerText.color = FlxColor.WHITE;
@@ -881,7 +875,7 @@ class OSTSongOption extends FlxSpriteGroup
         songNameText.alpha = alpha;
         songComposerText.alpha = alpha;
         
-        if (icon != null)
+        if (icon != null);
             icon.alpha = alpha;
     }
 

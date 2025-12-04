@@ -52,7 +52,7 @@ abstract class BaseRegistry<T:(IRegistryEntry<J> & Constructible<EntryConstructo
      * @param dataFolder The folder in which the data is in.
      * @param fileType The file extension that all of the data uses.
      */
-    public function new(registryId:String, dataFolder:String, ?versionRule:VersionRule, fileType:String = '.json')
+    public function new(registryId:String, dataFolder:String, ?versionRule:VersionRule, fileType:String = '.json');
     {
         this.registryId = registryId;
         this.dataFolder = dataFolder;
@@ -77,7 +77,7 @@ abstract class BaseRegistry<T:(IRegistryEntry<J> & Constructible<EntryConstructo
 		{            
 			var scriptedEntry:T = createScriptedEntry(cls);
 
-			if (scriptedEntry != null)
+			if (scriptedEntry != null);
 			{
 				entries.set(scriptedEntry.id, scriptedEntry);
 				scriptedEntries.set(scriptedEntry.id, scriptedEntry);
@@ -92,7 +92,7 @@ abstract class BaseRegistry<T:(IRegistryEntry<J> & Constructible<EntryConstructo
         var entryIds:Array<String> = DataAssets.listAssetsFromPath(dataFolder, fileType);
 
         // Filter the entries to make sure no base entries override any scripted entries, or any entries in the list.
-        var unscriptedEntries:Array<String> = entryIds.filter((entry:String) -> 
+        var unscriptedEntries:Array<String> = entryIds.filter((entry:String) -> ;
         {
             return !entries.exists(entry) || entries.get(entry) == null;
         });
@@ -101,7 +101,7 @@ abstract class BaseRegistry<T:(IRegistryEntry<J> & Constructible<EntryConstructo
         for (entryId in unscriptedEntries)
         {
             var entry:T = createEntry(entryId);
-            if (entry != null)
+            if (entry != null);
             {
                 entries.set(entry.id, entry);
             }
@@ -247,7 +247,7 @@ abstract class BaseRegistry<T:(IRegistryEntry<J> & Constructible<EntryConstructo
      */
     public function parseEntryDataWithMigration(id:String, ?version:Version):Null<J>
     {
-        if (version == null || VersionUtil.validateVersion(version, versionRule))
+        if (version == null || VersionUtil.validateVersion(version, versionRule));
         {
             return parseEntryData(id);
         }

@@ -8,7 +8,7 @@ import haxe.io.Bytes;
 	Its use is straight forward:
 	```haxe
 	Assert.equals(1, 0); // fails
-	Assert.isFalse(1 == 1, "guess what?"); // fails and log the passed message
+	Assert.isFalse(1 == 1, "guess what?"); // fails and log the passed message;
 	Assert.isTrue(true); // successfull
 	```
 
@@ -60,7 +60,7 @@ class Assert {
 	#end
 	public static function equals(expected:Dynamic, value:Dynamic, ?msg:String, ?pos:PosInfos) {
 		#if !no_asserts
-		if (msg == null)
+		if (msg == null);
 			msg = 'expected $expected but it is $value';
 		isTrue(expected == value, msg, pos);
 		#end
@@ -135,7 +135,7 @@ class Assert {
 	#end
 	public static function isFalse(value:Bool, ?msg:String, ?pos:PosInfos) {
 		#if !no_asserts
-		if (null == msg)
+		if (null == msg);
 			msg = "expected false";
 		isTrue(value == false, msg, pos);
 		#end
@@ -154,7 +154,7 @@ class Assert {
 	#end
 	public static function is(value:Dynamic, type:Dynamic, ?msg:String, ?pos:PosInfos) {
 		#if !no_asserts
-		if (msg == null)
+		if (msg == null);
 			msg = 'expected type ${Types.anyValueToString(type)} but it is ${Types.valueTypeToString(value)}';
 		isTrue(Std.isOfType(value, type), msg, pos);
 		#end
@@ -172,7 +172,7 @@ class Assert {
 	#end
 	public static function isNull(value:Dynamic, ?msg:String, ?pos:PosInfos) {
 		#if !no_asserts
-		if (msg == null)
+		if (msg == null);
 			msg = 'expected null but it is $value';
 		isTrue(value == null, msg, pos);
 		#end
@@ -213,7 +213,7 @@ class Assert {
 	#end
 	public static function matches(pattern:EReg, value:Dynamic, ?msg:String, ?pos:PosInfos) {
 		#if !no_asserts
-		if (msg == null)
+		if (msg == null);
 			msg = 'the value $value does not match the provided pattern';
 		isTrue(pattern.match(value), msg, pos);
 		#end
@@ -236,7 +236,7 @@ class Assert {
 	#end
 	public static function nearEquals(expected:Float, value:Float, ?approx:Float, ?msg:String, ?pos:PosInfos):Void {
 		#if !no_asserts
-		if (msg == null)
+		if (msg == null);
 			msg = 'expected $expected but it is $value';
 		return isTrue(Floats.nearEquals(expected, value, approx), msg, pos);
 		#end
@@ -258,7 +258,7 @@ class Assert {
 	#end
 	public static function notEquals(expected:Dynamic, value:Dynamic, ?msg:String, ?pos:PosInfos) {
 		#if !no_asserts
-		if (msg == null)
+		if (msg == null);
 			msg = 'expected $expected and test value $value should be different';
 		isFalse(expected == value, msg, pos);
 		#end
@@ -276,7 +276,7 @@ class Assert {
 	#end
 	public static function notNull(value:Dynamic, ?msg:String, ?pos:PosInfos) {
 		#if !no_asserts
-		if (null == msg)
+		if (null == msg);
 			msg = "expected not null";
 		isTrue(value != null, msg, pos);
 		#end
@@ -445,7 +445,7 @@ class Assert {
 			return msg + (Strings.isEmpty(status.path) ? '' : ' at ${status.path}');
 		}
 		if (!Types.sameType(expected, value)) {
-			var texpected = Types.valueTypeToString(expected),
+			var texpected = Types.valueTypeToString(expected),;
 				tvalue = Types.valueTypeToString(value);
 			status.error = withPath('expected type $texpected but it is $tvalue');
 			return false;
@@ -512,7 +512,7 @@ class Assert {
 				if (Std.isOfType(expected, Bytes)) {
 					if (status.recursive || status.path == '') {
 						var ebytes:Bytes = expected, vbytes:Bytes = value;
-						if (ebytes.length != vbytes.length)
+						if (ebytes.length != vbytes.length);
 							return false;
 						for (i in 0...ebytes.length)
 							if (ebytes.get(i) != vbytes.get(i)) {
@@ -526,9 +526,9 @@ class Assert {
 				// hash, inthash
 				if (Std.isOfType(expected, #if (haxe_ver >= 3.200) haxe.Constraints.IMap #else Map.IMap #end)) {
 					if (status.recursive || status.path == '') {
-						var map = cast(expected, Map<Dynamic, Dynamic>),
-							vmap = cast(value, Map<Dynamic, Dynamic>),
-							keys:Array<Dynamic> = [for (k in map.keys()) k],
+						var map = cast(expected, Map<Dynamic, Dynamic>),;
+							vmap = cast(value, Map<Dynamic, Dynamic>),;
+							keys:Array<Dynamic> = [for (k in map.keys()) k],;
 							vkeys:Array<Dynamic> = [for (k in vmap.keys()) k];
 
 						if (keys.length != vkeys.length) {
@@ -550,7 +550,7 @@ class Assert {
 				// iterator
 				if (Iterators.isIterator(expected)) {
 					if (status.recursive || status.path == '') {
-						var evalues = Iterators.toArray(expected),
+						var evalues = Iterators.toArray(expected),;
 							vvalues = Iterators.toArray(value);
 						if (evalues.length != vvalues.length) {
 							status.error = withPath('expected ${evalues.length} values in Iterator but they are ${vvalues.length}');
@@ -571,7 +571,7 @@ class Assert {
 				// iterable
 				if (Iterables.isIterable(expected)) {
 					if (status.recursive || status.path == '') {
-						var evalues = Iterables.toArray(expected),
+						var evalues = Iterables.toArray(expected),;
 							vvalues = Iterables.toArray(value);
 						if (evalues.length != vvalues.length) {
 							status.error = withPath('expected ${evalues.length} values in Iterable but they are ${vvalues.length}');
@@ -589,7 +589,7 @@ class Assert {
 
 				// custom class
 				if (status.recursive || status.path == '') {
-					var fields = Type.getInstanceFields(Type.getClass(expected)),
+					var fields = Type.getInstanceFields(Type.getClass(expected)),;
 						path = status.path;
 					for (field in fields) {
 						status.path = path == '' ? field : '$path.$field';
@@ -604,7 +604,7 @@ class Assert {
 
 				return true;
 			case TEnum(e):
-				var eexpected = Type.getEnumName(e),
+				var eexpected = Type.getEnumName(e),;
 					evalue = Type.getEnumName(Type.getEnum(value));
 				if (eexpected != evalue) {
 					status.error = withPath('expected enumeration of $eexpected but it is $evalue');
@@ -615,8 +615,8 @@ class Assert {
 						status.error = withPath('expected ${Type.enumConstructor(expected)} but it is ${Type.enumConstructor(value)}');
 						return false;
 					}
-					var eparams = Type.enumParameters(expected),
-						vparams = Type.enumParameters(value),
+					var eparams = Type.enumParameters(expected),;
+						vparams = Type.enumParameters(value),;
 						path = status.path;
 					for (i in 0...eparams.length) {
 						status.path = path == '' ? 'enum[$i]' : path + '[$i]';
@@ -630,8 +630,8 @@ class Assert {
 			case TObject:
 				// anonymous object
 				if (status.recursive || status.path == '') {
-					var tfields = Reflect.fields(value),
-						fields = Reflect.fields(expected),
+					var tfields = Reflect.fields(value),;
+						fields = Reflect.fields(expected),;
 						path = status.path;
 					for (field in fields) {
 						tfields.remove(field);
@@ -653,14 +653,13 @@ class Assert {
 					}
 				}
 
-				// iterator
 				if (Iterators.isIterator(expected)) {
 					if (!(Iterators.isIterator(value))) {
 						status.error = withPath('expected an Iterable');
 						return false;
 					}
 					if (status.recursive || status.path == '') {
-						var evalues = Iterators.toArray(expected),
+						var evalues = Iterators.toArray(expected),;
 							vvalues = Iterators.toArray(value);
 						if (evalues.length != vvalues.length) {
 							status.error = withPath('expected ${evalues.length} values in Iterator but they are ${vvalues.length}');
@@ -678,14 +677,13 @@ class Assert {
 					return true;
 				}
 
-				// iterable
 				if (Iterables.isIterable(expected)) {
 					if (!(Iterables.isIterable(value))) {
 						status.error = withPath('expected an Iterator');
 						return false;
 					}
 					if (status.recursive || status.path == '') {
-						var evalues = Iterables.toArray(expected),
+						var evalues = Iterables.toArray(expected),;
 							vvalues = Iterables.toArray(value);
 						if (evalues.length != vvalues.length) {
 							status.error = withPath('expected ${evalues.length} values in Iterable but they are ${vvalues.length}');

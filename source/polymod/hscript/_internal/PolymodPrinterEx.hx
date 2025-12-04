@@ -6,7 +6,7 @@ class PolymodPrinterEx extends Printer
 {
 	public static function errorExToString(e:PolymodExprEx.ErrorEx)
 	{
-		var message = switch (#if hscriptPos e.e #else e #end)
+		var message = switch (#if hscriptPos e.e #else e #end);
 		{
 			case EInvalidChar(c): "Invalid character: '" + (StringTools.isEof(c) ? "EOF" : String.fromCharCode(c)) + "' (" + c + ")";
 			case EUnexpected(s): "Unexpected token: \"" + s + "\"";

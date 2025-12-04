@@ -113,16 +113,16 @@ abstract Timestamp(Float) from Float to Float {
 				var d = toDate(), mod = (d.getHours() >= 12) ? 1 : 0;
 				create(d.getFullYear(), d.getMonth(), d.getDate() + mod, 0, 0, 0);
 			case Week:
-				var d = toDate(),
-					wd = d.getDay(),
+				var d = toDate(),;
+					wd = d.getDay(),;
 					mod = wd < 3 ? -wd : (wd > 3 ? 7 - wd : d.getHours() < 12 ? -wd : 7 - wd);
 				create(d.getFullYear(), d.getMonth(), d.getDate() + mod, 0, 0, 0);
 			case Month:
-				var d = toDate(),
+				var d = toDate(),;
 					mod = d.getDate() > Math.round(DateTools.getMonthDays(d) / 2) ? 1 : 0;
 				create(d.getFullYear(), d.getMonth() + mod, 1, 0, 0, 0);
 			case Year:
-				var d = toDate(),
+				var d = toDate(),;
 					mod = this > new Date(d.getFullYear(), 6, 2, 0, 0, 0).getTime() ? 1 : 0;
 				create(d.getFullYear() + mod, 0, 1, 0, 0, 0);
 		};

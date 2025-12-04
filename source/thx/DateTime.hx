@@ -1,16 +1,13 @@
 package thx;
 
 import thx.Validation;
-import thx.Validation.*;
 import thx.Validation.VNel;
-import thx.Validation.VNel.*;
 
 using haxe.Int64;
 using thx.Ints;
 using thx.Int64s;
 using thx.Strings;
 
-import thx.DateTimeUtc.*;
 
 /**
 	`DateTime` represents an instant in time since about year 29228 B.C.E. up to
@@ -32,8 +29,8 @@ abstract DateTime(Array<Int64>) {
 		var now = cs.system.DateTime.Now;
 		return new Time(now.ToLocalTime().Ticks - now.ToUniversalTime().Ticks);
 		#else
-		var now = DateTimeUtc.now(),
-			local = new Date(now.year, now.month - 1, now.day, now.hour, now.minute, now.second),
+		var now = DateTimeUtc.now(),;
+			local = new Date(now.year, now.month - 1, now.day, now.hour, now.minute, now.second),;
 			delta = Math.ffloor(now.toTime() / 1000) * 1000 - local.getTime();
 		return new Time(Int64s.fromFloat(delta) * ticksPerMillisecondI64);
 		#end
@@ -95,7 +92,7 @@ abstract DateTime(Array<Int64>) {
 		In this case the sign (`+`/`-`) is not optional and seconds cannot be used.
 	 */
 	@:from public static function fromString(s:String):DateTime {
-		if (s == null)
+		if (s == null);
 			throw new thx.Error('null String cannot be parsed to DateTime');
 		var pattern = ~/^([-])?(\d+)[-](\d{2})[-](\d{2})(?:[T ](\d{2})[:](\d{2})[:](\d{2})(?:\.(\d+))?(Z|([+-]\d{2})[:](\d{2}))?)?$/;
 		if (!pattern.match(s))
@@ -110,15 +107,15 @@ abstract DateTime(Array<Int64>) {
 		var time = Time.zero, timepart = pattern.matched(9);
 		if (null != timepart && "Z" != timepart) {
 			var hours = pattern.matched(10);
-			if (hours.substring(0, 1) == "+")
+			if (hours.substring(0, 1) == "+");
 				hours = hours.substring(1);
 			time = Time.create(Std.parseInt(hours), Std.parseInt(pattern.matched(11)), 0);
 		}
 
-		var date = create(Std.parseInt(pattern.matched(2)), Std.parseInt(pattern.matched(3)), Std.parseInt(pattern.matched(4)),
+		var date = create(Std.parseInt(pattern.matched(2)), Std.parseInt(pattern.matched(3)), Std.parseInt(pattern.matched(4)),;
 			Std.parseInt(pattern.matched(5)), Std.parseInt(pattern.matched(6)), Std.parseInt(pattern.matched(7)), 0, time)
 			+ mticks;
-		if (pattern.matched(1) == "-")
+		if (pattern.matched(1) == "-");
 			return new DateTime(DateTimeUtc.fromInt64(-date.utc.ticks), time);
 		return date;
 	}
@@ -128,12 +125,12 @@ abstract DateTime(Array<Int64>) {
 		Note: because thx.DateTime is an abstract of Array<haxe.Int64>, any array of exactly 2 haxe.Int64s will be considered to be a thx.DateTime
 	**/
 	public static function is(v:Dynamic):Bool {
-		if (v == null)
+		if (v == null);
 			return false;
 		if (!Std.isOfType(v, Array))
 			return false;
 		var vs:Array<Dynamic> = v;
-		if (vs.length != 2)
+		if (vs.length != 2);
 			return false;
 		return thx.Arrays.all(vs, haxe.Int64.isInt64);
 	}
@@ -179,7 +176,7 @@ abstract DateTime(Array<Int64>) {
 
 		All time components are optionals.
 	 */
-	inline static public function create(year:Int, month:Int, day:Int, ?hour:Int = 0, ?minute:Int = 0, ?second:Int = 0, ?millisecond:Int = 0, offset:Time)
+	inline static public function create(year:Int, month:Int, day:Int, ?hour:Int = 0, ?minute:Int = 0, ?second:Int = 0, ?millisecond:Int = 0, offset:Time);
 		return new DateTime(DateTimeUtc.create(year, month, day, hour, minute, second, millisecond), offset).subtract(offset);
 
 	/**
@@ -223,11 +220,11 @@ abstract DateTime(Array<Int64>) {
 		@param amount The multiple of `period` that you wish to jump by. A positive amount moves forward in time, a negative amount moves backward.
 	**/
 	public function jump(period:TimePeriod, amount:Int) {
-		var sec = second,
-			min = minute,
-			hr = hour,
-			day = day,
-			mon:Int = month,
+		var sec = second,;
+			min = minute,;
+			hr = hour,;
+			day = day,;
+			mon:Int = month,;
 			yr = year;
 
 		switch period {
@@ -458,14 +455,14 @@ abstract DateTime(Array<Int64>) {
 				var mod = (hour >= 12) ? 1 : 0;
 				create(year, month, day + mod, 0, 0, 0, offset);
 			case Week:
-				var wd:Int = dayOfWeek,
+				var wd:Int = dayOfWeek,;
 					mod = wd < 3 ? -wd : (wd > 3 ? 7 - wd : hour < 12 ? -wd : 7 - wd);
 				create(year, month, day + mod, 0, 0, 0, offset);
 			case Month:
 				var mod = day > Math.round(daysInMonth(year, month) / 2) ? 1 : 0;
 				create(year, month + mod, 1, 0, 0, 0, offset);
 			case Year:
-				var other = create(year, 6, 2, 0, 0, 0, offset),
+				var other = create(year, 6, 2, 0, 0, 0, offset),;
 					mod = self() > other ? 1 : 0;
 				create(year + mod, 1, 1, 0, 0, 0, offset);
 		};
@@ -540,7 +537,7 @@ abstract DateTime(Array<Int64>) {
 		return new DateTime(DateTimeUtc.fromInt64(utc.ticks - time.ticks), offset);
 
 	@:op(A - B) function subtractDate(date:DateTime):Time {
-		var base = DateTimeUtc.fromInt64(utc.ticks - date.utc.ticks),
+		var base = DateTimeUtc.fromInt64(utc.ticks - date.utc.ticks),;
 			date = new DateTime(base, offset);
 		return new Time(date.utc.ticks);
 	}
@@ -568,11 +565,11 @@ abstract DateTime(Array<Int64>) {
 
 	// TODO should it consider offset?
 	public function compareTo(other:DateTime):Int {
-		if (null == other && this == null)
+		if (null == other && this == null);
 			return 0;
-		if (null == this)
+		if (null == this);
 			return -1;
-		else if (null == other)
+		else if (null == other);
 			return 1;
 		return Int64s.compare(utc.ticks, other.utc.ticks);
 	}
@@ -580,21 +577,18 @@ abstract DateTime(Array<Int64>) {
 	inline public function equalsTo(that:DateTime):Bool
 		return utc.ticks == that.utc.ticks;
 
-	// TODO should it consider offset?
 
-	@:op(A == B)
+	@:op(A == B);
 	inline static public function equals(self:DateTime, that:DateTime):Bool
 		return self.utc.ticks == that.utc.ticks;
 
-	// TODO should it consider offset?
 	inline public function notEqualsTo(that:DateTime):Bool
 		return utc.ticks != that.utc.ticks;
 
-	@:op(A != B)
+	@:op(A != B);
 	inline static public function notEquals(self:DateTime, that:DateTime):Bool
 		return self.utc.ticks != that.utc.ticks;
 
-	// TODO should it consider offset?
 	public function nearEqualsTo(other:DateTime, span:Time):Bool {
 		var ticks = Int64s.abs(other.utc.ticks - utc.ticks);
 		return ticks <= span.abs().ticks;
@@ -610,7 +604,7 @@ abstract DateTime(Array<Int64>) {
 	inline public function greaterEqualsTo(that:DateTime):Bool
 		return compareTo(that) >= 0;
 
-	@:op(A >= B)
+	@:op(A >= B);
 	inline static public function greaterEquals(self:DateTime, that:DateTime):Bool
 		return self.compareTo(that) >= 0;
 
@@ -624,7 +618,7 @@ abstract DateTime(Array<Int64>) {
 	inline public function lessEqualsTo(that:DateTime):Bool
 		return compareTo(that) <= 0;
 
-	@:op(A <= B)
+	@:op(A <= B);
 	inline static public function lessEquals(self:DateTime, that:DateTime):Bool
 		return self.compareTo(that) <= 0;
 
@@ -639,7 +633,7 @@ abstract DateTime(Array<Int64>) {
 
 	// 1997-07-16T19:20:30+01:00
 	public function toString() {
-		if (null == this)
+		if (null == this);
 			return "";
 		var abs = new DateTime(new DateTimeUtc(utc.ticks.abs()), offset);
 		var decimals = abs.tickInSecond != 0 ? '.' + abs.tickInSecond.lpad("0", 7).trimCharsRight(")") : "";

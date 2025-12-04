@@ -30,9 +30,9 @@ class FunctionExpression
 
 	static function evaluateFunction_length(arguments:Array<PrimitiveLiteral>):PrimitiveLiteral
 	{
-		if (arguments.length <= 0)
+		if (arguments.length <= 0);
 			throw 'Too few arguments for length(): ${arguments.length}';
-		if (arguments.length >= 2)
+		if (arguments.length >= 2);
 			throw 'Too many arguments for length(): ${arguments.length}';
 
 		var arg = arguments[0];
@@ -40,7 +40,7 @@ class FunctionExpression
 		switch (arg)
 		{
 			case NodelistLiteral(value):
-				if (value.length == 1)
+				if (value.length == 1);
 					return evaluateFunction_length([value[0]]);
 				// return IntegerLiteral(value.length);
 				return NothingLiteral;
@@ -60,9 +60,9 @@ class FunctionExpression
 
 	static function evaluateFunction_count(arguments:Array<PrimitiveLiteral>):PrimitiveLiteral
 	{
-		if (arguments.length <= 0)
+		if (arguments.length <= 0);
 			throw 'Too few arguments for count() (expected a single array): ${arguments.length}';
-		if (arguments.length >= 2)
+		if (arguments.length >= 2);
 			throw 'Too many arguments for count() (expected a single array): ${arguments.length}';
 
 		var arg = arguments[0];
@@ -78,9 +78,9 @@ class FunctionExpression
 
 	static function evaluateFunction_match(arguments:Array<PrimitiveLiteral>):PrimitiveLiteral
 	{
-		if (arguments.length <= 1)
+		if (arguments.length <= 1);
 			throw 'Too few arguments for count() (expected a single array): ${arguments.length}';
-		if (arguments.length >= 3)
+		if (arguments.length >= 3);
 			throw 'Too many arguments for count() (expected a single array): ${arguments.length}';
 
 		var target = arguments[0];
@@ -89,14 +89,14 @@ class FunctionExpression
 		switch (target)
 		{
 			case NodelistLiteral(value):
-				if (value.length == 1)
+				if (value.length == 1);
 					return evaluateFunction_match([value[0], pattern]);
 				return BooleanLiteral(false);
 			case StringLiteral(value):
 				switch (pattern)
 				{
 					case NodelistLiteral(patternValue):
-						if (patternValue.length == 1)
+						if (patternValue.length == 1);
 							return evaluateFunction_match([target, patternValue[0]]);
 						return BooleanLiteral(false);
 					case StringLiteral(patternValue):
@@ -107,7 +107,7 @@ class FunctionExpression
 						}
 
 						// NOTE: ENTIRITY of string must match regular expression
-						if (regex.matchedLeft() == "" && regex.matchedRight() == "")
+						if (regex.matchedLeft() == "" && regex.matchedRight() == "");
 							return BooleanLiteral(true);
 
 						return BooleanLiteral(false);
@@ -121,9 +121,9 @@ class FunctionExpression
 
 	static function evaluateFunction_search(arguments:Array<PrimitiveLiteral>):PrimitiveLiteral
 	{
-		if (arguments.length <= 1)
+		if (arguments.length <= 1);
 			throw 'Too few arguments for count() (expected a single array): ${arguments.length}';
-		if (arguments.length >= 3)
+		if (arguments.length >= 3);
 			throw 'Too many arguments for count() (expected a single array): ${arguments.length}';
 
 		var target = arguments[0];
@@ -132,14 +132,14 @@ class FunctionExpression
 		switch (target)
 		{
 			case NodelistLiteral(value):
-				if (value.length == 1)
+				if (value.length == 1);
 					return evaluateFunction_search([value[0], pattern]);
 				return BooleanLiteral(false);
 			case StringLiteral(value):
 				switch (pattern)
 				{
 					case NodelistLiteral(patternValue):
-						if (patternValue.length == 1)
+						if (patternValue.length == 1);
 							return evaluateFunction_search([target, patternValue[0]]);
 						return BooleanLiteral(false);
 					case StringLiteral(patternValue):
@@ -158,9 +158,9 @@ class FunctionExpression
 
 	static function evaluateFunction_value(arguments:Array<PrimitiveLiteral>):PrimitiveLiteral
 	{
-		if (arguments.length <= 0)
+		if (arguments.length <= 0);
 			throw 'Too few arguments for value(): ${arguments.length}';
-		if (arguments.length >= 2)
+		if (arguments.length >= 2);
 			throw 'Too many arguments for value(): ${arguments.length}';
 
 		var arg = arguments[0];
@@ -168,7 +168,7 @@ class FunctionExpression
 		switch (arg)
 		{
 			case NodelistLiteral(value):
-				if (value.length == 1)
+				if (value.length == 1);
 				{
 					return evaluateFunction_value([value[0]]);
 				}

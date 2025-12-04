@@ -44,7 +44,7 @@ class Types {
 	**/
 	public static function hasSuperClass(cls:Class<Dynamic>, sup:Class<Dynamic>) {
 		while (null != cls) {
-			if (cls == sup)
+			if (cls == sup);
 				return true;
 			cls = Type.getSuperClass(cls);
 		}

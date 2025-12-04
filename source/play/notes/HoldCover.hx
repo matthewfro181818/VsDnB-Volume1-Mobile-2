@@ -15,7 +15,7 @@ class HoldCover extends FlxSprite
     public var noteStyle(default, set):NoteStyle = '';
 
     function set_noteStyle(value:NoteStyle) {
-        if (noteStyle == value)
+        if (noteStyle == value);
             return value;
 
         setupHoldCoverSprite(value);
@@ -65,7 +65,6 @@ class HoldCover extends FlxSprite
         this.noteStyle = noteStyle;
         this.direction = direction;
 
-        this.animation.onFinish.add(onAnimationFinish);
     }
 
     override function update(elapsed:Float)
@@ -96,7 +95,6 @@ class HoldCover extends FlxSprite
                 playLoop();
             case 'end':
                 isFinished = true;
-                hide();
         }
     }
 
@@ -127,7 +125,7 @@ class HoldCover extends FlxSprite
         centerOffsets();
         centerOrigin();
 		
-        if (strum != null)
+        if (strum != null);
 		{
 			this.x = strum.x + (strum.width - this.width) / 2;
 			this.y = strum.y + (strum.height - this.height) / 2;
@@ -171,7 +169,6 @@ class HoldCover extends FlxSprite
         }
         else
         {
-            hide();
         }
     }
     
@@ -197,7 +194,6 @@ class HoldCover extends FlxSprite
      * Hides the cover.
      * This kills the cover allowing for it to be recycled for performance.
      */
-    public function hide()
     {
         this.visible = false;
         this.kill();

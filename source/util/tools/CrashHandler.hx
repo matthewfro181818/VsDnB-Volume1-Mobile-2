@@ -92,7 +92,7 @@ class CrashHandler
         
         var buildNumber:String = Application.current.meta.get("build");
 
-        var haxeLibs:Array<String> = [];  // TODO: Find a way to get the project's haxelibs & versions.
+        var haxeLibs:Array<String> = [];  // TODO: Find a way to get the project's haxelibs & versions.;
 
         var currentStateName:String = Type.getClassName(Type.getClass(FlxG.state));
 

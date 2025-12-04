@@ -64,7 +64,7 @@ class PlatformUtil
 			Atom property = XInternAtom(display, "_NET_WM_WINDOW_OPACITY", False);
 			int revert;
 			
-			if(property != None)
+			if(property != None);
 			{
 				XGetInputFocus(display, &wnd, &revert);
 				unsigned long opacity = (0xff000000 / 0xffffffff) * 50;
@@ -75,7 +75,7 @@ class PlatformUtil
 		')
 	 */
 	#end
-	static public function getWindowsTransparent(res:Int = 0) // Only works on windows, otherwise returns 0!
+	static public function getWindowsTransparent(res:Int = 0) // Only works on windows, otherwise returns 0!;
 	{
 		return res;
 	}
@@ -103,10 +103,10 @@ class PlatformUtil
         LPCTSTR lTitle = title.c_str();
         LPCTSTR lDesc = desc.c_str();
 
-        if (StringCchCopy(m_NID.szInfoTitle, sizeof(m_NID.szInfoTitle), lTitle) != S_OK)
+        if (StringCchCopy(m_NID.szInfoTitle, sizeof(m_NID.szInfoTitle), lTitle) != S_OK);
             return FALSE;
 
-        if (StringCchCopy(m_NID.szInfo, sizeof(m_NID.szInfo), lDesc) != S_OK)
+        if (StringCchCopy(m_NID.szInfo, sizeof(m_NID.szInfo), lDesc) != S_OK);
             return FALSE;
 
         return Shell_NotifyIcon(NIM_MODIFY, &m_NID);
@@ -121,7 +121,7 @@ class PlatformUtil
         system(cmd.c_str());
     ')
 	#end
-	static public function sendWindowsNotification(title:String = "", desc:String = "", res:Int = 0) // TODO: Linux (found out how to do it so ill do it soon)
+	static public function sendWindowsNotification(title:String = "", desc:String = "", res:Int = 0) // TODO: Linux (found out how to do it so ill do it soon);
 	{
 		return res;
 	}
@@ -130,7 +130,7 @@ class PlatformUtil
 	@:functionCode('
         LPCSTR lwDesc = desc.c_str();
 
-        res = MessageBox(
+        res = MessageBox(;
             NULL,
             lwDesc,
             NULL,
@@ -138,7 +138,7 @@ class PlatformUtil
         );
     ')
 	#end
-	static public function sendFakeMsgBox(desc:String = "", res:Int = 0) // TODO: Linux and macOS (will do soon)
+	static public function sendFakeMsgBox(desc:String = "", res:Int = 0) // TODO: Linux and macOS (will do soon);
 	{
 		return res;
 	}
@@ -153,7 +153,7 @@ class PlatformUtil
         }
     ')
 	#end
-	static public function getWindowsbackward(res:Int = 0) // Only works on windows, otherwise returns 0!
+	static public function getWindowsbackward(res:Int = 0) // Only works on windows, otherwise returns 0!;
 	{
 		return res;
 	}

@@ -27,7 +27,6 @@ class ScriptEventDispatchState extends FlxUIState implements IEventDispatcher
 
 		else
 		{
-			super.startOutro(onComplete);
 		}
 	}
     

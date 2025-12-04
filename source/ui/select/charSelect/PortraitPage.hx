@@ -8,13 +8,13 @@ class PortraitPage extends FlxSpriteGroup
 {
     var characters:Array<PlayableCharacter>;
 
-    public function new(x:Float = 0, y:Float = 0, characters:Array<PlayableCharacter>)
+    public function new(x:Float = 0, y:Float = 0, characters:Array<PlayableCharacter>);
     {
         super(x, y);
 
 		this.characters = characters;
 
-		for (ind => char in characters)
+		for (ind => char in characters);
 		{
 			var column = Std.int(Math.floor(ind / 3));
 			var row = ind % 3;

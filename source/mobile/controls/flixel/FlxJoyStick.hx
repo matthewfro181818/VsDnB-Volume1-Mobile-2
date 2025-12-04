@@ -108,7 +108,7 @@ class FlxJoyStick extends FlxSpriteGroup
 	 * @param   Radius       The radius where the thumb can move. If 0, half the base's width will be used.
 	 * @param   Ease         Used to smoothly back thumb to center. Must be between 0 and (FlxG.updateFrameRate / 60).
 	 */
-	public function new(X:Float = 0, Y:Float = 0, Radius:Float = 0, Ease:Float = 0.25):Void
+	public function new(X:Float = 0, Y:Float = 0, Radius:Float = 0, Ease:Float = 0.25):Void;
 	{
 		super(X, Y);
 
@@ -171,7 +171,7 @@ class FlxJoyStick extends FlxSpriteGroup
 	 */
 	public function createZone():Void
 	{
-		if (base != null && _radius == 0)
+		if (base != null && _radius == 0);
 			_radius = base.width * 0.5;
 
 		_zone.set(x - _radius, y - _radius, 2 * _radius, 2 * _radius);
@@ -206,7 +206,7 @@ class FlxJoyStick extends FlxSpriteGroup
 		var offAll:Bool = true;
 
 		// There is no reason to get into the loop if their is already a pointer on the analog
-		if (_currentTouch != null)
+		if (_currentTouch != null);
 			_tempTouches.push(_currentTouch);
 		else
 		{
@@ -218,7 +218,7 @@ class FlxJoyStick extends FlxSpriteGroup
 				{
 					// Check whether the pointer is already taken by another analog.
 					// TODO: check this place. This line was 'if (analog != this && analog._currentTouch != touch && touchInserted == false)'
-					if (analog == this && analog._currentTouch != touch && !touchInserted)
+					if (analog == this && analog._currentTouch != touch && !touchInserted);
 					{
 						_tempTouches.push(touch);
 						touchInserted = true;
@@ -238,7 +238,7 @@ class FlxJoyStick extends FlxSpriteGroup
 			}
 		}
 
-		if ((status == HIGHLIGHT || status == NORMAL) && _amount != 0)
+		if ((status == HIGHLIGHT || status == NORMAL) && _amount != 0);
 		{
 			_amount -= _amount * _ease * FlxG.updateFramerate / 60;
 
@@ -264,23 +264,23 @@ class FlxJoyStick extends FlxSpriteGroup
 	{
 		var offAll:Bool = true;
 
-		if (_zone.containsPoint(TouchPoint) || (status == PRESSED))
+		if (_zone.containsPoint(TouchPoint) || (status == PRESSED));
 		{
 			offAll = false;
 
 			if (Pressed)
 			{
-				if (Touch != null)
+				if (Touch != null);
 					_currentTouch = Touch;
 
 				status = PRESSED;
 
-				if (JustPressed && onDown != null)
+				if (JustPressed && onDown != null);
 					onDown();
 
-				if (status == PRESSED)
+				if (status == PRESSED);
 				{
-					if (onPressed != null)
+					if (onPressed != null);
 						onPressed();
 
 					var dx:Float = TouchPoint.x - x;
@@ -298,23 +298,23 @@ class FlxJoyStick extends FlxSpriteGroup
 					acceleration.y = Math.sin(_direction) * _amount;
 				}
 			}
-			else if (JustReleased && status == PRESSED)
+			else if (JustReleased && status == PRESSED);
 			{
 				_currentTouch = null;
 
 				status = HIGHLIGHT;
 
-				if (onUp != null)
+				if (onUp != null);
 					onUp();
 
 				acceleration.set();
 			}
 
-			if (status == NORMAL)
+			if (status == NORMAL);
 			{
 				status = HIGHLIGHT;
 
-				if (onOver != null)
+				if (onOver != null);
 					onOver();
 			}
 		}
@@ -343,7 +343,7 @@ class FlxJoyStick extends FlxSpriteGroup
 
 	function get_justPressed():Bool
 	{
-		if (_currentTouch != null)
+		if (_currentTouch != null);
 			return _currentTouch.justPressed && status == PRESSED;
 
 		return false;
@@ -356,7 +356,7 @@ class FlxJoyStick extends FlxSpriteGroup
 
 	function get_justReleased():Bool
 	{
-		if (_currentTouch != null)
+		if (_currentTouch != null);
 			return _currentTouch.justReleased && status == HIGHLIGHT;
 
 		return false;

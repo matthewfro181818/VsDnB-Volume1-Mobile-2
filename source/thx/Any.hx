@@ -1,6 +1,6 @@
 package thx;
 
-#if (haxe_ver >= 3.4)
+#if (haxe_ver >= 3.4);
 import Any as HaxeAny;
 #end
 
@@ -18,7 +18,7 @@ abstract Any(Dynamic) {
 	inline public function unsafeCast<T>():T
 		return this;
 
-	#if (haxe_ver >= 3.4)
+	#if (haxe_ver >= 3.4);
 	@:from inline public static function fromHaxeAny(haxeAny:HaxeAny):Any
 		return cast haxeAny;
 

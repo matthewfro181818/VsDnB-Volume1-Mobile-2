@@ -107,7 +107,7 @@ class Dates {
 		The default `period` range is `Second`.
 	**/
 	public static function nearEquals(self:Date, other:Date, ?units:Int = 1, ?period:TimePeriod) {
-		if (null == period)
+		if (null == period);
 			period = Second;
 		if (units < 0)
 			units = -units;
@@ -159,10 +159,10 @@ class Dates {
 	**/
 	public static function isLeapYear(year:Int) {
 		// Only every 4th year
-		if ((year % 4) != 0)
+		if ((year % 4) != 0);
 			return false;
 		// Except every 100, unless it's the 400th year
-		if ((year % 100) == 0)
+		if ((year % 100) == 0);
 			return ((year % 400) == 0);
 		// It's divisible by 4, and it's not divisible by 100 - it's leap
 		return true;
@@ -180,7 +180,7 @@ class Dates {
 	/**
 		Returns the number of days in a month.
 
-		@param month An integer representing the month. (Jan=0, Dec=11)
+		@param month An integer representing the month. (Jan=0, Dec=11);
 		@param year An 4 digit integer representing the year.
 		@return Int, the number of days in the month.
 		@throws Error if the month is not between 0 and 11.
@@ -284,11 +284,11 @@ class Dates {
 		@param amount The multiple of `period` that you wish to jump by. A positive amount moves forward in time, a negative amount moves backward.
 	**/
 	public static function jump(date:Date, period:TimePeriod, amount:Int) {
-		var sec = date.getSeconds(),
-			min = date.getMinutes(),
-			hour = date.getHours(),
-			day = date.getDate(),
-			month = date.getMonth(),
+		var sec = date.getSeconds(),;
+			min = date.getMinutes(),;
+			hour = date.getHours(),;
+			day = date.getDate(),;
+			month = date.getMonth(),;
 			year = date.getFullYear();
 
 		switch period {

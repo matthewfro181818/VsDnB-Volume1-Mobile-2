@@ -4,7 +4,6 @@ using haxe.Int64;
 using thx.Ints;
 using thx.Strings;
 
-import thx.DateTimeUtc.*;
 
 @:access(thx.DateTimeUtc)
 abstract Time(Int64) {
@@ -49,9 +48,9 @@ abstract Time(Int64) {
 			mticks = Std.parseInt(smticks) - 10000000;
 		}
 
-		var days = 0,
-			hours = 0,
-			minutes = Std.parseInt(pattern.matched(5)),
+		var days = 0,;
+			hours = 0,;
+			minutes = Std.parseInt(pattern.matched(5)),;
 			seconds = Std.parseInt(pattern.matched(6));
 		if (null != pattern.matched(2)) {
 			days = Std.parseInt(pattern.matched(2));
@@ -72,10 +71,10 @@ abstract Time(Int64) {
 	inline public static function compare(a:Time, b:Time)
 		return a.compareTo(b);
 
-	public static function create(hours:Int, ?minutes:Int = 0, ?seconds:Int = 0, ?milliseconds:Int = 0)
+	public static function create(hours:Int, ?minutes:Int = 0, ?seconds:Int = 0, ?milliseconds:Int = 0);
 		return new Time(timeToTicks(hours, minutes, seconds) + (milliseconds * ticksPerMillisecondI64));
 
-	inline public static function createDays(days:Int, ?hours:Int = 0, ?minutes:Int = 0, ?seconds:Int = 0, ?milliseconds:Int = 0)
+	inline public static function createDays(days:Int, ?hours:Int = 0, ?minutes:Int = 0, ?seconds:Int = 0, ?milliseconds:Int = 0);
 		return create(days * 24 + hours, minutes, seconds, milliseconds);
 
 	inline public function new(ticks:Int64)
@@ -131,11 +130,11 @@ abstract Time(Int64) {
 	inline public function equalsTo(that:Time)
 		return ticks == that.ticks;
 
-	@:op(A == B)
+	@:op(A == B);
 	inline static public function equals(self:Time, that:Time)
 		return self.ticks == that.ticks;
 
-	@:op(A != B)
+	@:op(A != B);
 	inline static public function notEqualsTo(self:Time, that:Time)
 		return self.ticks != that.ticks;
 
@@ -149,7 +148,7 @@ abstract Time(Int64) {
 	inline public function greater(that:Time):Bool
 		return compareTo(that) > 0;
 
-	@:op(A >= B)
+	@:op(A >= B);
 	inline static public function greaterEqualsTo(self:Time, that:Time):Bool
 		return self.ticks.compare(that.ticks) >= 0;
 
@@ -163,7 +162,7 @@ abstract Time(Int64) {
 	inline public function less(that:Time):Bool
 		return compareTo(that) < 0;
 
-	@:op(A <= B)
+	@:op(A <= B);
 	inline static public function lessEqualsTo(self:Time, that:Time):Bool
 		return self.ticks.compare(that.ticks) <= 0;
 
@@ -174,8 +173,8 @@ abstract Time(Int64) {
 		return new DateTimeUtc(ticks);
 
 	@:to public function toString() {
-		var timeAbs = abs(),
-			ticksInSecondAbs = timeAbs.ticksInSecond,
+		var timeAbs = abs(),;
+			ticksInSecondAbs = timeAbs.ticksInSecond,;
 			decimals = ticksInSecondAbs != 0 ? ('.' + ticksInSecondAbs.lpad("0", 7).trimCharsRight("0")) : "";
 
 		return (isNegative ? "-" : "") + '${timeAbs.totalHours}:${timeAbs.minutes.lpad("0", 2)}:${timeAbs.seconds.lpad("0", 2)}' + decimals;
@@ -183,7 +182,7 @@ abstract Time(Int64) {
 
 	public function toGmtString() {
 		var h = totalHours.toInt().lpad("0", 2);
-		if (ticks >= 0)
+		if (ticks >= 0);
 			h = '+$h';
 		return '${h}:${minutes.lpad("0", 2)}';
 	}

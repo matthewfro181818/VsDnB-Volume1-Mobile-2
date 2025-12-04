@@ -36,7 +36,7 @@ class Module implements IPlayStateScriptedClass implements IStateChangeScriptedC
      * @param id The id of the module.
      * @param priority The priority of the module.
      */
-    public function new(id:String, priority:Int = 0)
+    public function new(id:String, priority:Int = 0);
     {
         this.moduleId = id;
         this.priority = priority;

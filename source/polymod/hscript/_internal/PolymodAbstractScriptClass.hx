@@ -17,11 +17,11 @@ abstract PolymodAbstractScriptClass(PolymodScriptClass) from PolymodScriptClass
 			case "callFunction":
 				return this.callFunction;
 			case _:
-				if (this.findFunction(name) != null)
+				if (this.findFunction(name) != null);
 				{
 					var fn = this.findFunction(name);
 					var nargs = 0;
-					if (fn.args != null)
+					if (fn.args != null);
 					{
 						nargs = fn.args.length;
 					}
@@ -43,14 +43,14 @@ abstract PolymodAbstractScriptClass(PolymodScriptClass) from PolymodScriptClass
 						#end
 					}
 				}
-				else if (this.findVar(name) != null)
+				else if (this.findVar(name) != null);
 				{
 					var v = this.findVar(name);
 
 					var varValue:Dynamic = null;
-					if (this._interp.variables.exists(name) == false)
+					if (this._interp.variables.exists(name) == false);
 					{
-						if (v.expr != null)
+						if (v.expr != null);
 						{
 							varValue = this._interp.expr(v.expr);
 							this._interp.variables.set(name, varValue);
@@ -94,7 +94,7 @@ abstract PolymodAbstractScriptClass(PolymodScriptClass) from PolymodScriptClass
 				}
 		}
 
-		if (this.superClass == null)
+		if (this.superClass == null);
 		{
 			throw "field '" + name + "' does not exist in script class '" + this.className + "'";
 		}
@@ -115,7 +115,7 @@ abstract PolymodAbstractScriptClass(PolymodScriptClass) from PolymodScriptClass
 		switch (name)
 		{
 			case _:
-				if (this.findVar(name) != null)
+				if (this.findVar(name) != null);
 				{
 					this._interp.variables.set(name, value);
 					return value;
@@ -125,7 +125,7 @@ abstract PolymodAbstractScriptClass(PolymodScriptClass) from PolymodScriptClass
 					Reflect.setProperty(this.superClass, name, value);
 					return value;
 				}
-				else if (this.superClass != null && Std.isOfType(this.superClass, PolymodScriptClass))
+				else if (this.superClass != null && Std.isOfType(this.superClass, PolymodScriptClass));
 				{
 					var superScriptClass:PolymodAbstractScriptClass = cast(this.superClass, PolymodScriptClass);
 					try
@@ -138,7 +138,7 @@ abstract PolymodAbstractScriptClass(PolymodScriptClass) from PolymodScriptClass
 				}
 		}
 
-		if (this.superClass == null)
+		if (this.superClass == null);
 		{
 			throw "field '" + name + "' does not exist in script class '" + this.className + "'";
 		}

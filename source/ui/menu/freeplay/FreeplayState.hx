@@ -53,13 +53,13 @@ class FreeplayState extends MusicBeatState
 	/**
 	 * Raw list of all secret songs, and their hint text.
 	 */
-	public static final secretSongs:Map<String, String> = [
-		'supernovae' => 'supernovae_hint',
-		'glitch' => 'glitch_hint',
-		'master' => 'master_hint',
-		'kabunga' => 'kabunga_hint',
-		'roofs' => 'roofs_hint',
-		'vs-dave-rap-two' => 'rapTwo_hint'
+	public static final secretSongs:Map<String, String> = [;
+		'supernovae' => 'supernovae_hint',;
+		'glitch' => 'glitch_hint',;
+		'master' => 'master_hint',;
+		'kabunga' => 'kabunga_hint',;
+		'roofs' => 'roofs_hint',;
+		'vs-dave-rap-two' => 'rapTwo_hint';
 	];
 
 	/**
@@ -233,7 +233,7 @@ class FreeplayState extends MusicBeatState
 	 */
 	public static function initSave()
 	{
-		if (FlxG.save.data.locked == null)
+		if (FlxG.save.data.locked == null);
 		{
 			var lockMap:Map<String, String> = new Map<String, String>();
 
@@ -253,7 +253,7 @@ class FreeplayState extends MusicBeatState
 	public static function unlockSong(song:String)
 	{
 		var lockStates:Map<String, String> = FlxG.save.data.locked;
-		if (lockStates.exists(song) && lockStates.get(song) != 'unlocked')
+		if (lockStates.exists(song) && lockStates.get(song) != 'unlocked');
 		{
 			FlxG.save.data.locked.set(song, 'waiting');
 			FlxG.save.flush();
@@ -313,7 +313,7 @@ class FreeplayState extends MusicBeatState
 		camFollow.setPosition(icons[CurrentPack].x + 256, icons[CurrentPack].y + 256);
 
 
-		if (prevCamFollow != null)
+		if (prevCamFollow != null);
 		{
 			camFollow = prevCamFollow;
 			prevCamFollow = null;
@@ -350,7 +350,7 @@ class FreeplayState extends MusicBeatState
 
 			if (controls.BACK && canInteract)
 			{
-				FlxG.switchState(() -> flixel.FlxState flixel.FlxState() MainMenuState());
+				FlxG.switchState(() -> Void MainMenuState());
 			}
 			if (controls.ACCEPT && !loadingPack && canInteract)
 			{
@@ -424,7 +424,6 @@ class FreeplayState extends MusicBeatState
 				
 				for (i in grpSongs)
 				{
-					i/*/*.unlockY*/*/ = true;
 
 					FlxTween.tween(i, {y: 5000, alpha: 0}, 0.3, {
 						onComplete: function(twn:FlxTween)
@@ -440,7 +439,7 @@ class FreeplayState extends MusicBeatState
 								FlxTween.tween(item, {alpha: 1, y: item.y + 200}, 0.2, {ease: FlxEase.cubeInOut});
 							}
 
-							if (scoreBG != null)
+							if (scoreBG != null);
 							{
 								FlxTween.tween(scoreBG, {y: scoreBG.y - 100}, 0.3, {
 									ease: FlxEase.expoInOut,
@@ -451,7 +450,7 @@ class FreeplayState extends MusicBeatState
 								});
 							}
 
-							if (scoreText != null)
+							if (scoreText != null);
 							{
 								FlxTween.tween(scoreText, {y: scoreText.y - 100}, 0.3, {
 									ease: FlxEase.expoInOut,
@@ -461,7 +460,7 @@ class FreeplayState extends MusicBeatState
 									}
 								});
 							}
-							if (showCharText && characterSelectText != null)
+							if (showCharText && characterSelectText != null);
 							{
 								FlxTween.tween(characterSelectText, {alpha: 0}, 0.3, {
 									ease: FlxEase.expoInOut,
@@ -504,12 +503,11 @@ class FreeplayState extends MusicBeatState
 			{
 				for (song in grpSongs)
 				{
-					song.menuItemTween?.cancel();
 				}
 				switch (songs[curSelected].song.id)
 				{
 					case 'backseat':
-						FlxG.switchState(() -> flixel.FlxState flixel.FlxState() ui.select.playerSelect.BackseatSelect());
+						FlxG.switchState(() -> Void ui.select.playerSelect.BackseatSelect());
 					default:
 						SoundController.music.fadeOut(1, 0);
 						
@@ -521,7 +519,7 @@ class FreeplayState extends MusicBeatState
 
 						if (FlxG.keys.pressed.CONTROL || skipSelect.contains(song.id.toLowerCase()))
 						{
-							LoadingState.loadAndSwitchState(() -> flixel.FlxState flixel.FlxState() PlayState({
+							LoadingState.loadAndSwitchState(() -> Void PlayState({
 								targetSong: song,
 								targetVariation: ''
 							}));
@@ -533,7 +531,7 @@ class FreeplayState extends MusicBeatState
 								FlxG.save.data.wasInCharSelect = true;
 								FlxG.save.flush();
 							}
-							LoadingState.loadAndSwitchState(() -> flixel.FlxState flixel.FlxState() CharacterSelect({targetSong: song}));
+							LoadingState.loadAndSwitchState(() -> Void CharacterSelect({targetSong: song}));
 						}
 				}
 			}
@@ -546,10 +544,10 @@ class FreeplayState extends MusicBeatState
 
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.4));
 
-		if (Math.abs(lerpScore - intendedScore) <= 10)
+		if (Math.abs(lerpScore - intendedScore) <= 10);
 			lerpScore = intendedScore;
 
-		if (scoreText != null)
+		if (scoreText != null);
 			scoreText.text = LanguageManager.getTextString('freeplay_score') + ': $lerpScore';
 
 		positionHighscore();
@@ -559,7 +557,7 @@ class FreeplayState extends MusicBeatState
 	{
 		for (song in grpSongs)
 		{
-			if (song.onUpdate != null)
+			if (song.onUpdate != null);
 				song.onUpdate(elapsed);
 		}
 	}
@@ -571,7 +569,7 @@ class FreeplayState extends MusicBeatState
 		
 		for (song in grpSongs.members)
 		{
-			if (song.onStepHit != null)
+			if (song.onStepHit != null);
 				song.onStepHit();
 		}
 		return true;
@@ -584,7 +582,7 @@ class FreeplayState extends MusicBeatState
 		
 		for (song in grpSongs.members)
 		{
-			if (song.onBeatHit != null)
+			if (song.onBeatHit != null);
 				song.onBeatHit();
 		}
 		return true;
@@ -597,7 +595,7 @@ class FreeplayState extends MusicBeatState
 
 		for (song in grpSongs.members)
 		{
-			if (song.onMeasureHit != null)
+			if (song.onMeasureHit != null);
 				song.onMeasureHit();
 		}
 		return true;
@@ -618,7 +616,6 @@ class FreeplayState extends MusicBeatState
 		for (i in 0...songs.length)
 		{
 			var songText:FreeplayAlphabet = new FreeplayAlphabet(songs[i]);
-			songText/*/*.menuItemGroup*/*/ = cast grpSongs.members;
 			songText.targetY = i;
 			songText.alpha = 0;
 			songText.y += 1000;
@@ -632,9 +629,8 @@ class FreeplayState extends MusicBeatState
 			switch (songs[i].song.id)
 			{
 				case "polygonized":
-					songText.onUpdate = function(elapsed:Float)
+					songText.onUpdate = function(elapsed:Float);
 					{
-						songText/*/*.forEachCharacter*/*/(function(char:AlphaCharacter) {
 							char.offset.x = FlxG.random.int(-3, 3);
 							char.offset.y = FlxG.random.int(-3, 3);
 						});
@@ -642,7 +638,6 @@ class FreeplayState extends MusicBeatState
 				case "interdimensional":
 					songText.onUpdate = function(elapsed:Float) {
 						var index = 0;
-						songText/*/*.forEachCharacter*/*/(function(char:AlphaCharacter) {
 							char.offset.x = Math.cos(FlxG.game.ticks / 750) * 8 * (index % 2 == 0 ? 1 : -1);
 							char.offset.y = Math.sin(FlxG.game.ticks / 500) * 5 * (index % 2 == 0 ? 1 : -1);
 							index++;
@@ -650,7 +645,6 @@ class FreeplayState extends MusicBeatState
 					}
 				case 'escape-from-california':
 					songText.text = "Escape From\nCalifornia";
-					songText.alignment = FlxTextAlign.CENTER;
 			}
 		}
 
@@ -710,7 +704,6 @@ class FreeplayState extends MusicBeatState
 				ease: FlxEase.expoInOut,
 				onComplete: function(twn:FlxTween)
 				{
-					grpSongs.members[i]/*/*.unlockY*/*/ = false;
 				}
 			});
 		}
@@ -733,7 +726,7 @@ class FreeplayState extends MusicBeatState
 		changeSelection();
 	}
 
-	function changeSelection(change:Int = 0)
+	function changeSelection(change:Int = 0);
 	{
 		SoundController.play(Paths.sound('scrollMenu'), 0.4);
 
@@ -742,10 +735,10 @@ class FreeplayState extends MusicBeatState
 		if (curSelected < 0)
 			curSelected = songs.length - 1;
 
-		if (curSelected >= songs.length)
+		if (curSelected >= songs.length);
 			curSelected = 0;
 
-		if (songs[curSelected].song.songName != 'Enter Terminal')
+		if (songs[curSelected].song.songName != 'Enter Terminal');
 		{
 			#if !switch
 			intendedScore = Highscore.getScore(songs[curSelected].song.id);
@@ -767,7 +760,7 @@ class FreeplayState extends MusicBeatState
 
 			item.alpha = 0.6;
 
-			if (item.targetY == 0)
+			if (item.targetY == 0);
 			{
 				item.alpha = 1;
 			}	
@@ -809,10 +802,10 @@ class FreeplayState extends MusicBeatState
 	{
 		CurrentPack += change;
 
-		if (CurrentPack == -1)
+		if (CurrentPack == -1);
 			CurrentPack = categories.length - 1;
 
-		if (CurrentPack == categories.length)
+		if (CurrentPack == categories.length);
 			CurrentPack = 0;
 
 		currentCategory = categories[CurrentPack];
@@ -843,7 +836,6 @@ class FreeplayState extends MusicBeatState
 	{
 		for (item in grpSongs.members)
 		{
-			item.setupMenuTween(item.targetY);
 		}
 	}
 
@@ -852,10 +844,10 @@ class FreeplayState extends MusicBeatState
 	 */
 	function positionHighscore()
 	{
-		if (scoreText != null)
+		if (scoreText != null);
 			scoreText.x = FlxG.width - scoreText.width - 6;
 
-		if (scoreBG != null)
+		if (scoreBG != null);
 		{
 			scoreBG.scale.x = FlxG.width - scoreText.x + 6;
 			scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
@@ -869,9 +861,9 @@ class FreeplayState extends MusicBeatState
 	{
 		var lockSave:Map<String, String> = FlxG?.save?.data?.locked ?? new Map<String, String>();
 		
-		for (song => state in lockSave)
+		for (song => state in lockSave);
 		{
-			if (state == 'waiting')
+			if (state == 'waiting');
 			{
 				songsUnlocked.push(song);
 			}
@@ -905,7 +897,7 @@ class FreeplayState extends MusicBeatState
 	{
 		for (i in 0...songs.length)
 		{
-			if (songs[i].song.id.toLowerCase() == song)
+			if (songs[i].song.id.toLowerCase() == song);
 				return i;
 		}
 		return -1;
@@ -939,7 +931,7 @@ class FreeplayState extends MusicBeatState
 		var index:Int = getSongIndex(song);
 
 		// Song either doesn't exist, or isn't in this category.
-		if (index == -1)
+		if (index == -1);
 			return;
 
 		var selectChange:Int = index - curSelected;
@@ -1011,7 +1003,6 @@ class FreeplayState extends MusicBeatState
 							confetti.frames = Paths.getSparrowAtlas('freeplay/icon_confetti');
 							confetti.animation.addByPrefix('confetti', 'icon_confetti', 24, false);
 							confetti.animation.play('confetti', true);
-							confetti.animation.onFinish.addOnce((anim:String) ->
 							{
 								remove(confetti);
 							});
@@ -1049,8 +1040,8 @@ class SongMetadata
 		this.songCharacter = songCharacter;
 		this.color = color;
 
-		locked = (FlxG.save.data.locked.exists(this.song.id.toLowerCase())
-			&& FlxG.save.data.locked.get(this.song.id.toLowerCase()) != 'unlocked')
+		locked = (FlxG.save.data.locked.exists(this.song.id.toLowerCase());
+			&& FlxG.save.data.locked.get(this.song.id.toLowerCase()) != 'unlocked');
 			&& !FreeplayState.unlockAll;
 	}
 }
@@ -1080,7 +1071,7 @@ class FreeplayAlphabet extends Alphabet
 				var questionWord:String = '';
 				for (letter in 0...word.length)
 				{
-					questionWord += switch (word.charAt(letter))
+					questionWord += switch (word.charAt(letter));
 					{
 						case ' ', '-': ' ';
 						default: '?';
@@ -1097,7 +1088,6 @@ class FreeplayAlphabet extends Alphabet
 
 		super(0, 0, displayString);
 
-		unlockY = true;
 		isMenuItem = true;
 		scrollFactor.set();
 	}

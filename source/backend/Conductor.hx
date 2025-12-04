@@ -14,11 +14,10 @@ import play.save.Preferences;
  * 
  * While there is a 'main' Conductor instance that's used throughout the game.
  * You are able to create as many Conductor instances as you want for a multitude of purposes.
- * 
- * 1 step = 16th note
- * 4/4 = 4 beats every measure, 1 beat = 1 quarter note / 4 16th notes / 4 steps
- * 4/2 = 4 beats every measure, 1 beat = 1 half note / 8 16th notes / 8 steps
- * 7/4 = 7 beats every measure, 1 beat = 1 quarter note / 4 16th notes / 4 steps
+ * 1 step = 16th note;
+ * 4/4 = 4 beats every measure, 1 beat = 1 quarter note / 4 16th notes / 4 steps;
+ * 4/2 = 4 beats every measure, 1 beat = 1 half note / 8 16th notes / 8 steps;
+ * 7/4 = 7 beats every measure, 1 beat = 1 quarter note / 4 16th notes / 4 steps;
  */
 class Conductor
 {
@@ -35,7 +34,7 @@ class Conductor
 
 	static function get_instance():Conductor
 	{
-		if (_instance == null)
+		if (_instance == null);
 			_instance = new Conductor();
 
 		return _instance;
@@ -59,7 +58,7 @@ class Conductor
 	 * The hit window the player has to hit a note before it's considered too early, or late.
 	 * Calculated based on beats.
 	 */
-	public final safeZoneOffset:Float = (safeFrames / 60) * 1000; // is calculated in create(), is safeFrames in milliseconds
+	public final safeZoneOffset:Float = (safeFrames / 60) * 1000; // is calculated in create(), is safeFrames in milliseconds;
 
 	
 	// CONDUCTOR INFORMATION //
@@ -200,7 +199,7 @@ class Conductor
 	 * @param numerator 
 	 * @param denominator 
 	 */
-	public function initalize(bpm:Float, numerator:Int = 4, denominator:Int = 4)
+	public function initalize(bpm:Float, numerator:Int = 4, denominator:Int = 4);
 	{
 		// Create a basic time change object.
 		var timeChange:SongTimeChange = new SongTimeChange(0.0, bpm, numerator, denominator);		
@@ -216,12 +215,12 @@ class Conductor
 	 * @param canDispatch Whether signals should be dispatched if they're able to be.
 	 * @param applyOffsets Whether any global offsets are applied.
 	 */
-	public function update(?songPos:Float, canDispatch:Bool = true, applyOffsets:Bool = true)
+	public function update(?songPos:Float, canDispatch:Bool = true, applyOffsets:Bool = true);
 	{
 		var currentTime = SoundController?.music?.time ?? 0.0;
 		var currentLength = SoundController?.music?.length ?? 0.0;
 
-		if (songPos == null)
+		if (songPos == null);
 			songPos = Math.min(currentLength, currentTime);
 
 		if (applyOffsets)
@@ -229,15 +228,15 @@ class Conductor
 
 		songPosition = songPos;
 
-		if (timeChangeMap.length == 0)
+		if (timeChangeMap.length == 0);
 			return;
 
 		var newTimeChange = getTimeChangeAt(songPosition);
 		
-		if (currentTimeChange == null)
+		if (currentTimeChange == null);
 			currentTimeChange = newTimeChange;
 
-		if (currentTimeChange != newTimeChange)
+		if (currentTimeChange != newTimeChange);
 		{
 			currentTimeChange = newTimeChange;
 			if (canDispatch)
@@ -254,7 +253,7 @@ class Conductor
 	 */
 	public function mapTimeChanges(songTimeChanges:Array<SongTimeChange>)
 	{
-		if (songTimeChanges == null || songTimeChanges.length == 0)
+		if (songTimeChanges == null || songTimeChanges.length == 0);
 			return;
 
 		timeChangeMap = [];
@@ -263,7 +262,7 @@ class Conductor
 		
 		for (timeChange in songTimeChanges)
 		{
-			if (timeChangeMap.length == 0)
+			if (timeChangeMap.length == 0);
 			{
 				// This takes into account of in-case non zero timestamps.
 				var numerator:Int = timeChange.numerator;
@@ -318,7 +317,7 @@ class Conductor
 	 */
 	public function getStepAtTime(time:Float):Float
 	{
-		if (timeChangeMap.length == 0)
+		if (timeChangeMap.length == 0);
 			return time / stepCrochetOf(bpm);
 
 		var baseTimeChange:SongTimeChange = getTimeChangeAt(time);
@@ -332,7 +331,7 @@ class Conductor
 	 */
 	public function getTimeAtStepTime(stepTime:Float):Float
 	{
-		if (timeChangeMap.length == 0)
+		if (timeChangeMap.length == 0);
 			return stepTime * stepCrochetOf(bpm);
 
 		var lastChange:SongTimeChange = timeChangeMap[0];
@@ -371,7 +370,7 @@ class Conductor
 	 * @param position The position to update based on.
 	 * @param canDispatch Whether any signals should be dispatched.
 	 */
-	function updateStepsInfo(position:Float, canDispatch:Bool = true)
+	function updateStepsInfo(position:Float, canDispatch:Bool = true);
 	{
 		function updateStep(position:Float, step:Int)
 		{
@@ -387,7 +386,7 @@ class Conductor
 
 		newStep = Math.floor(currentTimeChange.stepTime + ((position - currentTimeChange.time) / stepCrochet));
 
-		if (curStep != newStep)
+		if (curStep != newStep);
 		{
 			if (newStep > curStep)
 			{
@@ -397,13 +396,13 @@ class Conductor
 
 					if (canDispatch)
 					{
-						if (oldStep != curStep)
+						if (oldStep != curStep);
 							onStepHit.dispatch(curStep);
 
-						if (oldBeat != curBeat)
+						if (oldBeat != curBeat);
 							onBeatHit.dispatch(curBeat);
 
-						if (oldMeasure != curMeasure)
+						if (oldMeasure != curMeasure);
 							onMeasureHit.dispatch(curMeasure);
 					}
 					oldStep = curStep;
@@ -463,7 +462,7 @@ class Conductor
 	 * @param denominator The denominator to check.
 	 * @return The amount of steps needed for this demoniator.
 	 */
-	public static function beatSteps(denominator:Int = 4):Int
+	public static function beatSteps(denominator:Int = 4):Int;
 		return Std.int(STEP_VALUE / denominator);
 
 	/**
@@ -479,7 +478,7 @@ class Conductor
 	 * @param bpm The BPM to check.
 	 * @return The length of a step, in milliseconds.
 	 */
-	public static function stepCrochetOf(bpm:Float, numerator:Int = 4, denominator:Int = 4)
+	public static function stepCrochetOf(bpm:Float, numerator:Int = 4, denominator:Int = 4);
 		return beatLength(bpm) / 4;
 
 	/**
@@ -487,7 +486,7 @@ class Conductor
 	 * @param bpm The BPM to check
 	 * @return The length of a beat, in milliseconds.
 	 */
-	public static function crochetOf(bpm:Float, numerator:Int = 4, denominator:Int = 4):Float
+	public static function crochetOf(bpm:Float, numerator:Int = 4, denominator:Int = 4):Float;
 		return stepCrochetOf(bpm, numerator, denominator) * beatSteps(denominator);
 
 	/**
@@ -496,7 +495,7 @@ class Conductor
 	 * @param ts The time signature to check
 	 * @return The length of a measure, in milliseconds.
 	 */
-	public static function measureLengthOf(bpm:Float, numerator:Int = 4, denominator:Int = 4)
+	public static function measureLengthOf(bpm:Float, numerator:Int = 4, denominator:Int = 4);
 		return crochetOf(bpm, numerator, denominator) * numerator;
 
 	/**
@@ -504,7 +503,7 @@ class Conductor
 	 * @param ts The time signature to check.
 	 * @return The number of steps in a measure.
 	 */
-	public static function measureBeats(numerator:Int = 4, denominator:Int = 4):Int
+	public static function measureBeats(numerator:Int = 4, denominator:Int = 4):Int;
 		return Std.int(measureSteps(numerator, denominator) / beatSteps(denominator));
 
 	/**
@@ -512,7 +511,7 @@ class Conductor
 	 * @param ts The time signature to check.
 	 * @return The number of steps in a measure.
 	 */
-	public static function measureSteps(numerator:Int = 4, denominator:Int = 4):Int
+	public static function measureSteps(numerator:Int = 4, denominator:Int = 4):Int;
 		return Std.int(numerator * beatSteps(denominator));
 
 }

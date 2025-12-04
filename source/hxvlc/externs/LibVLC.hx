@@ -14,7 +14,7 @@ import hxvlc.externs.Types;
  * It allows for the creation and management of VLC instances, media players,
  * and media objects, as well as the handling of audio, video, and events.
  */
-@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />')
+@:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
 extern class LibVLC
 {
@@ -136,10 +136,8 @@ extern class LibVLC
 	 * - the name of the VLC module emitting the message,
 	 * - the name of the source code module (i.e., file), and
 	 * - the line number within the source code module.
-	 * 
 	 * The returned module name and file name will be null if unknown.
 	 * The returned line number will similarly be zero if unknown.
-	 * 
 	 * @param ctx Message context (as passed to the `libvlc_log_cb` callback).
 	 * @param module Module name storage (or null) [OUT].
 	 * @param file Source code file name storage (or null) [OUT].
@@ -252,7 +250,6 @@ extern class LibVLC
 	 * Saves the metadata of a media descriptor.
 	 *
 	 * This function commits any metadata modifications to the underlying storage, if applicable.
-	 * 
 	 * @param p_md Pointer to the media descriptor.
 	 * @return 0 on failure, a non-zero value if the metadata was saved successfully.
 	 */
@@ -418,7 +415,6 @@ extern class LibVLC
 	 * Sets pause state for the media player.
 	 * 
 	 * @param p_mi Pointer to the media player.
-	 * 
 	 * @param do_pause 1 to pause, 0 to play.
 	 */
 	@:native('libvlc_media_player_set_pause')
@@ -581,7 +577,6 @@ extern class LibVLC
 	 * 
 	 * @note If the player is playing, the slave will be added directly. This call
 	 *       will also update the slave list of the attached libvlc_media_t.
-	 * 
 	 * @param p_mi Pointer to the media player.
 	 * @param i_type Subtitle or audio.
 	 * @param psz_uri URI of the slave (should contain a valid scheme).
@@ -757,7 +752,7 @@ extern class LibVLC
 	 * Gets the current software audio volume.
 	 * 
 	 * @param p_mi Pointer to the media player.
-	 * @return The software volume in percent (0 = mute, 100 = nominal / 0dB).
+	 * @return The software volume in percent (0 = mute, 100 = nominal / 0dB).;
 	 */
 	@:native('libvlc_audio_get_volume')
 	static function audio_get_volume(p_mi:RawPointer<LibVLC_Media_Player_T>):Int;
@@ -766,7 +761,7 @@ extern class LibVLC
 	 * Sets the current software audio volume.
 	 * 
 	 * @param p_mi Pointer to the media player.
-	 * @param i_volume The volume in percent (0 = mute, 100 = 0dB).
+	 * @param i_volume The volume in percent (0 = mute, 100 = 0dB).;
 	 * @return 0 if the volume was set, -1 if it was out of range.
 	 */
 	@:native('libvlc_audio_set_volume')

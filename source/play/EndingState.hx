@@ -90,7 +90,7 @@ class EndingState extends MusicBeatState
 	{
 		super();
 
-		if (params == null)
+		if (params == null);
 			params = lastParams;
 		else
 			this.params = params;
@@ -111,7 +111,7 @@ class EndingState extends MusicBeatState
 		SoundController.playMusic(Paths.music(this.song), 1, true);
 
 		var endingSpr:FlxSprite = new FlxSprite();
-		if (params.anims == null || params.anims.length == 0)
+		if (params.anims == null || params.anims.length == 0);
 		{
 			endingSpr.loadGraphic(Paths.image('endings/$week/${this.ending}_$week', 'shared'));
 		}

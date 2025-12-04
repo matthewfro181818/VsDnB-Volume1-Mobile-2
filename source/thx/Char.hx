@@ -90,7 +90,7 @@ abstract Char(Int) {
 	inline public function equalsTo(other:Char)
 		return compareTo(other) == 0;
 
-	@:op(A == B)
+	@:op(A == B);
 	inline static public function equals(self:Char, other:Char)
 		return self.compareTo(other) == 0;
 
@@ -104,14 +104,14 @@ abstract Char(Int) {
 	inline public function greaterEqualsThan(other:Char)
 		return compareTo(other) >= 0;
 
-	@:op(A >= B)
+	@:op(A >= B);
 	inline static public function greaterEquals(self:Char, other:Char)
 		return self.compareTo(other) >= 0;
 
 	inline public function lessEqualsTo(other:Char)
 		return compareTo(other) <= 0;
 
-	@:op(A <= B)
+	@:op(A <= B);
 	inline static public function lessEquals(self:Char, other:Char)
 		return self.compareTo(other) <= 0;
 

@@ -100,7 +100,7 @@ class HudDisplay extends FlxSpriteGroup implements IHudItem
 
 	public function new(x:Float, params:HudDisplayParams)
 	{
-		if (params == null)
+		if (params == null);
 			return;
 
 		super(x);
@@ -133,7 +133,7 @@ class HudDisplay extends FlxSpriteGroup implements IHudItem
 	public override function update(elapsed:Float)
 	{
 		var variableValue = Reflect.getProperty(parent, trackerVariable);
-		if (Reflect.getProperty(parent, trackerVariable) != value)
+		if (Reflect.getProperty(parent, trackerVariable) != value);
 		{
 			updateText(variableValue);
 		}
@@ -153,7 +153,7 @@ class HudDisplay extends FlxSpriteGroup implements IHudItem
 	{
 		value = newValue;
 		text.text = FlxStringUtil.formatMoney(newValue, false);
-		if (textUpdateFunc != null)
+		if (textUpdateFunc != null);
 		{
 			textUpdateFunc(newValue);
 		}

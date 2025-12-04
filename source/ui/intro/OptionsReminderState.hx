@@ -38,7 +38,7 @@ class OptionsReminderState extends MusicBeatState
             FlxG.save.data.hasSeenOptionsReminder = true;
             FlxG.save.flush();
 
-            FlxG.switchState(() -> flixel.FlxState flixel.FlxState() TitleState());
+            FlxG.switchState(() -> Void TitleState());
         }
         super.update(elapsed);
     }

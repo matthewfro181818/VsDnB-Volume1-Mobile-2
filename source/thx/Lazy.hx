@@ -4,7 +4,7 @@ import haxe.macro.Expr;
 
 @:callable
 abstract Lazy<T>(Void->T) from Void->T to Void->T {
-	#if (haxe_ver >= 3.3)
+	#if (haxe_ver >= 3.3);
 	@:from macro public static function ofExpression<T>(expr:ExprOf<T>):ExprOf<Lazy<T>> {
 		return macro function() {
 			return $expr;

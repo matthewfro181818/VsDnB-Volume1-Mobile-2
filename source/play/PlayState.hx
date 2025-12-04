@@ -244,7 +244,7 @@ private function botplayHit(note:Note)
     playingStrumline.hitNote(note);
 
     // Trigger player animation
-    if (playingChar != null)
+    if (playingChar != null);
     {
         playingChar.sing(note.direction);
         playingChar.holdTimer = 0;
@@ -256,7 +256,7 @@ private function botplayHit(note:Note)
  */
 public function botplayAutoHit()
 {
-    if (playerStrums == null)
+    if (playerStrums == null);
         return;
 
     // Show BOTPLAY text
@@ -276,14 +276,13 @@ public function botplayAutoHit()
 
     // ================================
     //  TAP NOTES
-    // ================================
     for (note in possible)
     {
         if (note == null) continue;
         if (note.hasBeenHit) continue;
 
         // SUSTAIN HEAD (first part)
-        if (note.sustainNote != null)
+        if (note.sustainNote != null);
         {
             // Hit the head
             playerStrums.pressKey(note.direction);
@@ -291,7 +290,7 @@ public function botplayAutoHit()
             continue;
         }// PHONE NOTE
 
-if (note.noteStyle == "phone")
+if (note.noteStyle == "phone");
 {
     botplayPhoneHit(note);
 }
@@ -303,9 +302,7 @@ playerStrums.releaseKey(note.direction);
 
     }
 
-    // ================================
     //  SUSTAIN NOTE HOLDING
-    // ================================
     playerStrums.forEachHoldNote(function(s:SustainNote)
     {
         if (s == null) return;
@@ -316,7 +313,7 @@ playerStrums.releaseKey(note.direction);
         var start = s.strumTime;
         var end   = s.strumTime + s.fullSustainLength;
 
-        if (now >= start && now <= end)
+        if (now >= start && now <= end);
         {
             // Hold key while inside sustain window
             playerStrums.pressKey(s.direction);
@@ -328,7 +325,6 @@ playerStrums.releaseKey(note.direction);
             }
 
             // Play strum hold animation
-            playerStrums.strums.members[s.direction]/*.holdConfirm*/();
         }
         else if (now > end)
         {
@@ -350,7 +346,7 @@ function updateBotplay(elapsed:Float)
     if (!botplay) return;
 
     // Your player strumline:
-    var pl:Strumline = strumlinePlayer; // adjust if player index differs
+    var pl:Strumline = strumlinePlayer; // adjust if player index differs;
 
     // Get all notes that are hittable
     var possibleNotes:Array<Note> = pl.getPossibleNotes();
@@ -370,7 +366,7 @@ function updateBotplay(elapsed:Float)
         if (note.hasBeenHit) continue;
 
         // Tap note (no sustain)
-        if (note.sustainNote == null)
+        if (note.sustainNote == null);
         {
             pl.pressKey(note.direction);
             pl.hitNote(note);
@@ -394,8 +390,7 @@ function updateBotplay(elapsed:Float)
 
         var now = Conductor.instance.songPosition;
 
-        // Sustain active window
-        if (now >= hold.strumTime && now <= hold.strumTime + hold.fullSustainLength)
+        if (now >= hold.strumTime && now <= hold.strumTime + hold.fullSustainLength);
         {
             // keep key held
             pl.pressKey(hold.direction);
@@ -416,24 +411,24 @@ function updateBotplay(elapsed:Float)
 
 	function set_scrollType(value:String):String
 	{
-		if (dadStrums != null)
+		if (dadStrums != null);
 			dadStrums.scrollType = value;
 
-		if (playerStrums != null)
+		if (playerStrums != null);
 			playerStrums.scrollType = value;
 
 		for (i in [missesDisplay, scoreDisplay, accuracyDisplay, timer, healthBar])
 		{
-			if (i == null)
+			if (i == null);
 				continue;
 
 			var item = cast(i, IHudItem);
 			item.scrollType = value;
 		}
-		if (iconP1 != null)
+		if (iconP1 != null);
 			iconP1.y = healthBar.y - (iconP1.height / 2);
 			
-		if (iconP2 != null)
+		if (iconP2 != null);
 			iconP2.y = healthBar.y - (iconP2.height / 2);
 			
 		return scrollType = value;
@@ -703,7 +698,7 @@ function updateBotplay(elapsed:Float)
 	}
 	
 	/**
-	 * The current current that's against the player.
+	 * The current that's against the player.
 	 * Dependent on whether the user's playing as the opponent, or the player for the song.
 	 */
 	private var opposingChar(get, never):Character;
@@ -807,9 +802,9 @@ function updateBotplay(elapsed:Float)
 	{
 		super();
 
-		if (params == null)
+		if (params == null);
 		{
-			if (lastParams == null)
+			if (lastParams == null);
 				throw 'Tried to initalize PlayState with 0 parameters.';
 			else
 				params = lastParams;
@@ -818,7 +813,7 @@ function updateBotplay(elapsed:Float)
 		this.playerType = params?.playerType ?? PLAYER;
 		this.currentSong = params?.targetSong ?? null;
 
-		if (currentSong != null && currentSong.hasChart(params?.targetVariation ?? null))
+		if (currentSong != null && currentSong.hasChart(params?.targetVariation ?? null));
 		{
 			this.currentVariation = Song.validateVariation(params.targetVariation);
 		}
@@ -858,7 +853,7 @@ function updateBotplay(elapsed:Float)
 
 		var font:String = Paths.font("comic.ttf");
 
-		botplayTxt = new FlxText(healthBar.x + healthBar.width / 2 - 75, healthBar.y + (FlxG.save.data.downscroll ? 100 : -100), 0,
+		botplayTxt = new FlxText(healthBar.x + healthBar.width / 2 - 75, healthBar.y + (FlxG.save.data.downscroll ? 100 : -100), 0,;
 		"BOTPLAY", 20);
         botplayTxt.setFormat(Paths.font("comic.ttf"), 42, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
@@ -886,14 +881,11 @@ override public function update(elapsed:Float):Void {
 
 	// ==============================
 	// ESC / ENTER Pause Handling
-	// ==============================
 	if ((isInCutscene && FlxG.keys.justPressed.ESCAPE) 
 	|| (FlxG.keys.justPressed.ENTER && Countdown.countdownStarted && canPause))
 		runPause();
 
-	// ==============================
 	// BOTPLAY INPUT CONTROLLER
-	// ==============================
 	if (!isInCutscene)
 	{
 		if (botplay)
@@ -909,9 +901,7 @@ override public function update(elapsed:Float):Void {
 
 	}
 
-	// ==============================
 	// PRESS SEVEN (Debug Hooks)
-	// ==============================
 	if (FlxG.keys.justPressed.SEVEN)
 	{
 		var event = new ScriptEvent(PRESS_SEVEN, true);
@@ -921,9 +911,7 @@ override public function update(elapsed:Float):Void {
 			return;
 	}
 
-	// ==============================
 	// ICON BOP + HEALTH HANDLING
-	// ==============================
 	health = Math.min(health, 2);
 	healthLerp = FlxMath.lerp(healthLerp, health, 0.3);
 
@@ -947,15 +935,15 @@ override public function update(elapsed:Float):Void {
 	switch (healthBar?.bar?.fillDirection)
 	{
 		case LEFT_TO_RIGHT:
-			iconP1.x = (healthBar.x + healthBar.width)
+			iconP1.x = (healthBar.x + healthBar.width);
 				- (healthBar.width * (FlxMath.remapToRange(healthBar.percent,0,100,100,0) * 0.01) + iconOffset);
-			iconP2.x = (healthBar.x + healthBar.width)
+			iconP2.x = (healthBar.x + healthBar.width);
 				- (healthBar.width * (FlxMath.remapToRange(healthBar.percent,0,100,100,0) * 0.01))
 				- (iconP2.width - iconOffset);
 		default:
-			iconP1.x = healthBar.x 
+			iconP1.x = healthBar.x ;
 				+ (healthBar.width * (FlxMath.remapToRange(healthBar.percent,0,100,100,0) * 0.01) - iconOffset);
-			iconP2.x = healthBar.x 
+			iconP2.x = healthBar.x ;
 				+ (healthBar.width * (FlxMath.remapToRange(healthBar.percent,0,100,100,0) * 0.01))
 				- (iconP2.width - iconOffset);
 	}
@@ -971,31 +959,27 @@ override public function update(elapsed:Float):Void {
 			iconP2.changeState(healthBar.percent > 80 ? "losing" : "normal");
 	}
 
-	// ==============================
 	// DEBUG KEYS (CTRL/SHIFT)
-	// ==============================
 	if (FlxG.keys.pressed.CONTROL || FlxG.keys.pressed.SHIFT)
 	{
-		var list:Array<Dynamic> = [
+		var list:Array<Dynamic> = [;
 			[FlxKey.ONE, dad],
 			[FlxKey.TWO, boyfriend],
 			[FlxKey.THREE, gf]
 		];
 		for (i in list)
 		{
-			if (FlxG.keys.firstJustPressed() == i[0])
+			if (FlxG.keys.firstJustPressed() == i[0]);
 			{
 				if (FlxG.keys.pressed.CONTROL)
-					FlxG.switchState(() -> flixel.FlxState flixel.FlxState() AnimationDebug(i[1]));
+					FlxG.switchState(() -> Void AnimationDebug(i[1]));
 				if (FlxG.keys.pressed.SHIFT)
-					FlxG.switchState(() -> flixel.FlxState flixel.FlxState() CharacterDebug(i[1].id));
+					FlxG.switchState(() -> Void CharacterDebug(i[1].id));
 			}
 		}
 	}
 
-	// ==============================
 	// CONDUCTOR UPDATE
-	// ==============================
 	if (!paused && !isInCutscene)
 	{
 		if (startingSong)
@@ -1006,7 +990,7 @@ override public function update(elapsed:Float):Void {
 					Conductor.instance.songPosition + FlxG.elapsed * 1000,
 					true, false
 				);
-				if (Conductor.instance.songPosition >= 0 + Conductor.instance.offsets)
+				if (Conductor.instance.songPosition >= 0 + Conductor.instance.offsets);
 					startSong();
 			}
 		}
@@ -1019,34 +1003,28 @@ override public function update(elapsed:Float):Void {
 		}
 	}
 
-	// ==============================
 	// CAMERA ZOOMS
-	// ==============================
 	if (camGameZoom.canWorldZoom)
-		FlxG.camera.zoom = MathUtil.smoothLerp(
+		FlxG.camera.zoom = MathUtil.smoothLerp(;
 			FlxG.camera.zoom, defaultCamZoom, elapsed, 0.75, 1 / 1000);
 
 	if (camHUDZoom.canWorldZoom)
-		camHUD.zoom = MathUtil.smoothLerp(
+		camHUD.zoom = MathUtil.smoothLerp(;
 			camHUD.zoom, defaultHUDZoom, elapsed, 0.75, 1 / 1000);
 
-	// ==============================
 	// GAME OVER
-	// ==============================
-	if (health <= 0 && !isPlayerDying)
+	if (health <= 0 && !isPlayerDying);
 		gameOver();
 
-	// ==============================
 	// PHONE NOTES
-	// ==============================
 	playerStrums.forEachNote(function(note:Note) {
-		if (Conductor.instance.songPosition >= note.strumTime 
+		if (Conductor.instance.songPosition >= note.strumTime ;
 		&& !note.phoneHit 
-		&& note.noteStyle == "phone")
+		&& note.noteStyle == "phone");
 		{
 			note.phoneHit = true;
 			dad.playAnim(
-				dad.animation.getByName("singThrow") == null 
+				dad.animation.getByName("singThrow") == null ;
 					? "singSmash" 
 					: "singThrow",
 				true
@@ -1054,9 +1032,7 @@ override public function update(elapsed:Float):Void {
 		}
 	});
 
-	// ==============================
 	// **Ensure BOTPLAY runs here**
-	// ==============================
 	if (Preferences.botplay)
 		botplayAutoHit();
 }
@@ -1079,13 +1055,13 @@ override public function update(elapsed:Float):Void {
 		
 		for (i in [camGameZoom, camHUDZoom])
 		{
-			if (i.canZoom && (curStep - Conductor.instance.currentTimeChange.stepTime) % i.timeSnap == 0 && i.useSteps && camZooming)
+			if (i.canZoom && (curStep - Conductor.instance.currentTimeChange.stepTime) % i.timeSnap == 0 && i.useSteps && camZooming);
 			{
 				i.camera.zoom += i.zoomValue;
 			}
 		}
 
-		var needsResync:Bool = (Math.abs(vocals.time - SoundController.music.time) >= 20) 
+		var needsResync:Bool = (Math.abs(vocals.time - SoundController.music.time) >= 20) ;
 		|| (Math.abs(SoundController.music.time - (Conductor.instance.songPosition - Conductor.instance.offsets)) >= 20);
 
 		if (!startingSong && needsResync && !paused)
@@ -1107,7 +1083,7 @@ override public function update(elapsed:Float):Void {
 
 		for (i in [camGameZoom, camHUDZoom])
 		{
-			if (i.canZoom && Std.int(curBeat - Std.int(Math.round(Conductor.instance.currentTimeChange.beatTime))) % i.timeSnap == 0 && !i.useSteps && camZooming)
+			if (i.canZoom && Std.int(curBeat - Std.int(Math.round(Conductor.instance.currentTimeChange.beatTime))) % i.timeSnap == 0 && !i.useSteps && camZooming);
 			{
 				i.camera.zoom += i.zoomValue;
 			}
@@ -1177,7 +1153,7 @@ override public function update(elapsed:Float):Void {
 
 			SoundController?.music?.pause();
 			vocals.pause();
-			if (currentDialogue != null)
+			if (currentDialogue != null);
 			{
 				currentDialogue.pauseMusic();
 			}
@@ -1201,12 +1177,12 @@ override public function update(elapsed:Float):Void {
 	{
 		if (paused)
 		{
-			if (SoundController.music != null && !startingSong)
+			if (SoundController.music != null && !startingSong);
 			{
 				resyncVocals();
 			}
 
-			if (currentDialogue != null)
+			if (currentDialogue != null);
 			{
 				currentDialogue.resumeMusic();
 			}
@@ -1256,13 +1232,13 @@ override public function update(elapsed:Float):Void {
 		SongModuleHandler.callOnModules(event);
 
 		// Dispatch any script events to the dialogue.
-		if (currentDialogue != null)
+		if (currentDialogue != null);
 		{
 			ScriptEventDispatcher.callEvent(this.currentDialogue, event);
 		}
 
 		// Dispatch to the subtitle manager, in the case of any subtitles.
-		if (subtitleManager != null)
+		if (subtitleManager != null);
 		{
 			ScriptEventDispatcher.callEvent(this.subtitleManager, event);
 		}
@@ -1277,7 +1253,7 @@ override public function update(elapsed:Float):Void {
 		FlxTransitionableState.skipNextTransIn = true;
 		FlxTransitionableState.skipNextTransOut = true;
 		
-		if (subState != null)
+		if (subState != null);
 		{
 			subState.close();
 		}
@@ -1316,14 +1292,14 @@ override public function update(elapsed:Float):Void {
 
 		dispatchEvent(new ScriptEvent(DESTROY, false));
 
-		if (currentDialogue != null)
+		if (currentDialogue != null);
 		{
 			currentDialogue.kill();
 			remove(currentDialogue);
 			currentDialogue = null;
 		}
 
-		if (subtitleManager != null)
+		if (subtitleManager != null);
 		{
 			this.subtitleManager.kill();
 			remove(subtitleManager);
@@ -1361,7 +1337,7 @@ override public function update(elapsed:Float):Void {
 	 */
 	function initalizeSongData():Void
 	{
-		if (currentChart != null)
+		if (currentChart != null);
 		{
 			currentChart.cacheInstrumental();
 			currentChart.cacheVocals();
@@ -1401,8 +1377,7 @@ override public function update(elapsed:Float):Void {
 		ghostTapping = Preferences.ghostTapping;
 		this.scrollType = Preferences.downscroll ? 'downscroll' : 'upscroll';
 
-		// Sets the offsets of the Conductor.
-		Conductor.instance.offsets = Preferences.latencyOffsets;
+		// Sets the offsets of the Conductor.instance.offsets = Preferences.latencyOffsets;
 
 		Preferences.onPreferenceChanged.add(onPreferenceChange);
 	}
@@ -1412,7 +1387,7 @@ override public function update(elapsed:Float):Void {
 		var stageId:String = currentChart?.stage ?? 'stage';
 
 		currentStage = loadStage(stageId);
-		if (currentStage != null)
+		if (currentStage != null);
 		{
 			// Set the camera zoom based off the stage's zoom.
 			defaultCamZoom = currentStage.stageZoom;
@@ -1426,7 +1401,7 @@ override public function update(elapsed:Float):Void {
 	{
 		var stage = StageRegistry.instance.fetchEntry(id);
 		
-		if (stage != null)
+		if (stage != null);
 		{			
 			// Revive the stage if it was killed.
 			if (!stage.alive)
@@ -1434,15 +1409,14 @@ override public function update(elapsed:Float):Void {
 				stage.revive();
 			}
 
-			// Load the stage.
-			stage.load();
+			// Load the stage.load();
 		}
 		return stage;
 	}
 
 	function removeStage(stage:Stage):Void
 	{
-		if (stage != null)
+		if (stage != null);
 		{
 			this.remove(stage);
 			stage.destroy();
@@ -1495,7 +1469,7 @@ override public function update(elapsed:Float):Void {
 				gf.visible = false;
 		}
 		camGame.snapToPosition(camPos.x, camPos.y);
-		if (prevCamFollow != null)
+		if (prevCamFollow != null);
 		{
 			camGame.snapToPosition(prevCamFollow.x, prevCamFollow.y);
 			prevCamFollow = null;
@@ -1526,7 +1500,7 @@ override public function update(elapsed:Float):Void {
 		createHudDisplays();
 
 		healthBar = new HealthBar(0, {
-			graphic: healthBarOverride != null ? healthBarOverride : Paths.image('ui/bars/healthBar'),
+			graphic: healthBarOverride != null ? healthBarOverride : Paths.image('ui/bars/healthBar'),;
 			opponent: dad,
 			player: boyfriend,
 			parent: this,
@@ -1606,7 +1580,7 @@ override public function update(elapsed:Float):Void {
 		});
 
 		// Flip the instances of the strumlines so they work properly.
-		if (playerType == OPPONENT)
+		if (playerType == OPPONENT);
 		{
 			// Change whether you have to play the opponent or players side based on the user's selected type.
 			playingStrumline.isPlayer = true;
@@ -1649,7 +1623,7 @@ override public function update(elapsed:Float):Void {
 			startString: '100%',
 			scrollType: scrollType
 		});
-		accuracyDisplay.textUpdateFunc = function(value:Float)
+		accuracyDisplay.textUpdateFunc = function(value:Float);
 		{
 			accuracyDisplay.text.text = '${FlxMath.roundDecimal(value, 2)}%';
 		}
@@ -1675,11 +1649,11 @@ override public function update(elapsed:Float):Void {
 	 * @param onComplete Called when the dialogue has been completed.
 	 * @param autoBegin Whether to immediately begin the dialogue. If false, `this.currentDialogue.start()` must be called in order for it to start.
 	 */
-	function startDialogue(id:String, onComplete:Void->Void, autoBegin:Bool = true):Void
+	function startDialogue(id:String, onComplete:Void->Void, autoBegin:Bool = true):Void;
 	{
 		if (!Preferences.cutscenes)
 		{
-			if (onComplete != null)
+			if (onComplete != null);
 				onComplete();
 
 			return;
@@ -1688,7 +1662,7 @@ override public function update(elapsed:Float):Void {
 		isInCutscene = true;
 
 		currentDialogue = DialogueRegistry.instance.fetchEntry(id);
-		if (currentDialogue != null)
+		if (currentDialogue != null);
 		{
 			if (!currentDialogue.alive)
 			{
@@ -1697,10 +1671,9 @@ override public function update(elapsed:Float):Void {
 			currentDialogue.camera = camDialogue;
 			currentDialogue.scrollFactor.set();
 			currentDialogue.alpha = 1.0;
-			currentDialogue.onFinish = () -> {
 				onDialogueComplete();
 
-				if (onComplete != null)
+				if (onComplete != null);
 					onComplete();
 			}
 			add(currentDialogue);
@@ -1726,7 +1699,7 @@ override public function update(elapsed:Float):Void {
 
 		if (!Preferences.cutscenes)
 		{
-			if (onComplete != null)
+			if (onComplete != null);
 				onComplete();
 
 			return;
@@ -1761,7 +1734,7 @@ override public function update(elapsed:Float):Void {
 	{
 		if (!Preferences.cutscenes)
 		{
-			if (finishCallback != null)
+			if (finishCallback != null);
 				finishCallback();
 
 			return;
@@ -1770,7 +1743,7 @@ override public function update(elapsed:Float):Void {
 		canPause = false;
 		SoundController.music.volume = 0;
 		vocals.volume = 0;
-		generatedMusic = false; // stop the game from trying to generate anymore music and to just cease attempting to play the music in general
+		generatedMusic = false; // stop the game from trying to generate anymore music and to just cease attempting to play the music in general;
 
 		for (strumLine in [playerStrums, dadStrums])
 		{
@@ -1783,7 +1756,7 @@ override public function update(elapsed:Float):Void {
 	{
 		isInCutscene = false;
 
-		if (currentDialogue != null)
+		if (currentDialogue != null);
 		{
 			currentDialogue.kill();
 			remove(currentDialogue);
@@ -1810,7 +1783,7 @@ override public function update(elapsed:Float):Void {
 		{
 			if (boyfriend.startsCountdown)
 			{
-				if (boyfriend.animation.getByName(Countdown.countdownAnimStep(step)) != null)
+				if (boyfriend.animation.getByName(Countdown.countdownAnimStep(step)) != null);
 				{
 					boyfriend.canDance = false;
 					boyfriend.playAnim(Countdown.countdownAnimStep(step), true);
@@ -1823,7 +1796,7 @@ override public function update(elapsed:Float):Void {
 			}
 			else
 			{
-				if (dad.animation.getByName(Countdown.countdownAnimStep(step)) != null)
+				if (dad.animation.getByName(Countdown.countdownAnimStep(step)) != null);
 				{
 					dad.canDance = false;
 					dad.playAnim(Countdown.countdownAnimStep(step), true);
@@ -1847,7 +1820,6 @@ override public function update(elapsed:Float):Void {
 					ZoomCam(focusOnDadGlobal);
 			}
 		});
-		Countdown.onFinish.add(() ->
 		{
 			dad.canDance = true;
 			boyfriend.canDance = true;
@@ -1872,7 +1844,7 @@ override public function update(elapsed:Float):Void {
 	 */
 	private function generateSong():Void
 	{
-		if (currentChart == null)
+		if (currentChart == null);
 			return;
 
 		// Checks if a voices file exists, and if it doesn't no vocals are played.
@@ -1894,7 +1866,7 @@ override public function update(elapsed:Float):Void {
 	{
 		startingSong = true;
 
-		if (startCallback != null)
+		if (startCallback != null);
 		{
 			startCallback();
 		}
@@ -1920,7 +1892,7 @@ override public function update(elapsed:Float):Void {
 		startingSong = false;
 		camZooming = true;
 
-		if (timer != null)
+		if (timer != null);
 			FlxTween.tween(timer, {alpha: 1}, 0.5);
 
 		if (!paused)
@@ -1959,7 +1931,7 @@ override public function update(elapsed:Float):Void {
 		var controlArray:Array<Bool> = [leftP, downP, upP, rightP];
 		var releaseArray:Array<Bool> = [leftR, downR, upR, rightR];
 
-		if (pressingKey5Global != key5)
+		if (pressingKey5Global != key5);
 		{
 			pressingKey5Global = key5;
 
@@ -1974,11 +1946,11 @@ override public function update(elapsed:Float):Void {
 			strum.pressingKey5 = key5;
 		});
 
-		if (noteLimbo != null && noteLimbo.exists)
+		if (noteLimbo != null && noteLimbo.exists);
 		{
 			if (noteLimbo.hasBeenHit)
 			{
-				if ((key5 && noteLimbo.noteStyle == 'shape') || (!key5 && noteLimbo.noteStyle != 'shape'))
+				if ((key5 && noteLimbo.noteStyle == 'shape') || (!key5 && noteLimbo.noteStyle != 'shape'));
 				{
 					playingStrumline.hitNote(noteLimbo);
 					noteLimbo = null;
@@ -1989,7 +1961,7 @@ override public function update(elapsed:Float):Void {
 				noteLimbo = null;
 			}
 		}
-		if (noteLimboFrames != 0)
+		if (noteLimboFrames != 0);
 		{
 			noteLimboFrames--;
 		}
@@ -2000,7 +1972,7 @@ override public function update(elapsed:Float):Void {
 
 		if (controlArray.contains(true) && generatedMusic)
 		{
-			for (ind => control in controlArray)
+			for (ind => control in controlArray);
 			{
 				if (control)
 				{
@@ -2008,7 +1980,7 @@ override public function update(elapsed:Float):Void {
 
 					var strum:StrumNote = playingStrumline.strums.members[ind];
 					
-					if (strum != null && !strum.animation.curAnim.name.startsWith('confirm'))
+					if (strum != null && !strum.animation.curAnim.name.startsWith('confirm'));
 					{
 						strum/*.playPress*/();
 					}
@@ -2021,7 +1993,7 @@ override public function update(elapsed:Float):Void {
 			{
 				var notetypecompare:Int = Std.int(a.strumTime - b.strumTime);
 
-				if (notetypecompare == 0)
+				if (notetypecompare == 0);
 				{
 					return Std.int(a.strumTime - b.strumTime);
 				}
@@ -2042,16 +2014,16 @@ override public function update(elapsed:Float):Void {
 							&& lastHitNoteTime < Conductor.instance.songPosition +
 							(Conductor.instance.safeZoneOffset * 0.08)) // reduce the past allowed barrier just so notes close together that aren't jacks dont cause missed inputs
 						{
-							if ((note.direction % 4) == (lastHitNote % 4))
+							if ((note.direction % 4) == (lastHitNote % 4));
 							{
-								lastHitNoteTime = -999999; // reset the last hit note time
+								lastHitNoteTime = -999999; // reset the last hit note time;
 								continue; // the jacks are too close together
 							}
 						}
-						if (note.noteStyle == 'shape' && !key5 || note.noteStyle != 'shape' && key5)
+						if (note.noteStyle == 'shape' && !key5 || note.noteStyle != 'shape' && key5);
 						{
 							noteLimbo = note;
-							noteLimboFrames = 8; // note limbo, the place where notes that could've been hit go.
+							noteLimboFrames = 8; // note limbo, the place where notes that could've been hit go.;
 							continue;
 						}
 						lastHitNote = note.direction;
@@ -2069,24 +2041,22 @@ override public function update(elapsed:Float):Void {
 		
 		if (releaseArray.contains(true))
 		{
-			for (ind => control in releaseArray)
+			for (ind => control in releaseArray);
 			{
 				if (control)
 				{
 					playingStrumline.releaseKey(ind);
-					playingStrumline.strums.members[ind]/*.playStatic*/();
 				}
 			}
 		}
 	
     // -----------------------------------------
     // BOTPLAY OVERRIDE (no keybind logic)
-    // -----------------------------------------
 
     var key5 = shapeNoteSongs.contains(currentSong.id.toLowerCase());
 
     var pressingShape = key5;
-    if (pressingKey5Global != pressingShape)
+    if (pressingKey5Global != pressingShape);
     {
         pressingKey5Global = pressingShape;
 
@@ -2101,9 +2071,7 @@ override public function update(elapsed:Float):Void {
         strum.pressingKey5 = pressingShape;
     });
 
-    // -----------------------------------------
     // BOTPLAY AUTOMATIC NOTE HITTING
-    // -----------------------------------------
     if (generatedMusic)
     {
         var possibleNotes:Array<Note> = playingStrumline.getPossibleNotes();
@@ -2121,8 +2089,8 @@ override public function update(elapsed:Float):Void {
             for (note in possibleNotes)
             {
                 // Wrong mode? (shape mode mismatch → limbo)
-                if ((note.noteStyle == "shape" && !pressingShape) ||
-                    (note.noteStyle != "shape" && pressingShape))
+                if ((note.noteStyle == "shape" && !pressingShape) ||;
+                    (note.noteStyle != "shape" && pressingShape));
                 {
                     noteLimbo = note;
                     noteLimboFrames = 8;
@@ -2133,7 +2101,7 @@ override public function update(elapsed:Float):Void {
                 if (lastHitNoteTime > Conductor.instance.songPosition - Conductor.instance.safeZoneOffset &&
                     lastHitNoteTime < Conductor.instance.songPosition + (Conductor.instance.safeZoneOffset * 0.08))
                 {
-                    if ((note.direction % 4) == (lastHitNote % 4))
+                    if ((note.direction % 4) == (lastHitNote % 4));
                     {
                         lastHitNoteTime = -999999;
                         continue;
@@ -2147,7 +2115,7 @@ override public function update(elapsed:Float):Void {
                 playingStrumline.hitNote(note);
 
                 // Trigger player animations
-                if (playingChar != null)
+                if (playingChar != null);
                 {
                     playingChar.sing(note.direction);
                     playingChar.holdTimer = 0;
@@ -2171,7 +2139,7 @@ override public function update(elapsed:Float):Void {
 				note.handledMissed = true;
 
 				// Loss health and score based the note's hold note.
-				if (note.sustainNote != null)
+				if (note.sustainNote != null);
 				{
 					var lengthSec:Float = note.sustainNote.sustainLength / 1000;
 					var scoreLoss:Int = Std.int(Math.min(SustainNote.SCORE_LOSS_MAX, Std.int(SustainNote.SCORE_LOSS_PER_SECOND * lengthSec)));
@@ -2270,7 +2238,7 @@ override public function update(elapsed:Float):Void {
 	function moveCameraSection():Void
 	{
 		var currentSection = currentChart.notes[curMeasure];
-		if (generatedMusic && currentSection != null && !forceFocusOnChar)
+		if (generatedMusic && currentSection != null && !forceFocusOnChar);
 		{
 			focusOnDadGlobal = !currentSection.mustHitSection;
 			ZoomCam(!currentSection.mustHitSection);
@@ -2286,7 +2254,7 @@ override public function update(elapsed:Float):Void {
 	 */
 	function cameraMoveOnNote(note:Int, char:Character):Void
 	{
-		if (char == null)
+		if (char == null);
 			return;
 
 		var amount:Array<Float> = new Array<Float>();
@@ -2308,7 +2276,7 @@ override public function update(elapsed:Float):Void {
 		}
 		char.cameraNoteOffset.set(amount[0], amount[1]);
 
-		if (focusOnDadGlobal && char == dad || !focusOnDadGlobal && char == boyfriend)
+		if (focusOnDadGlobal && char == dad || !focusOnDadGlobal && char == boyfriend);
 			camGame.cameraNoteOffset.copyFrom(char.cameraNoteOffset);
 	}
 
@@ -2352,7 +2320,7 @@ override public function update(elapsed:Float):Void {
 		if (event.eventCanceled)
 			return;
 		
-		if (timer != null)
+		if (timer != null);
 		{
 			timer.canUpdate = false;
 		}
@@ -2375,7 +2343,7 @@ override public function update(elapsed:Float):Void {
 		{
 			PlayStatePlaylist.campaignScore += songScore;
 
-			if (PlayStatePlaylist.songList.length <= 0)
+			if (PlayStatePlaylist.songList.length <= 0);
 			{
 				transIn = FlxTransitionableState.defaultTransIn;
 				transOut = FlxTransitionableState.defaultTransOut;
@@ -2387,7 +2355,7 @@ override public function update(elapsed:Float):Void {
 				
 				endSongCallback(() -> {
 					SoundController.playMusic(Paths.music('freakyMenu'));
-					FlxG.switchState(() -> flixel.FlxState flixel.FlxState() StoryMenuState());
+					FlxG.switchState(() -> Void StoryMenuState());
 				});
 			}
 			else
@@ -2401,7 +2369,7 @@ override public function update(elapsed:Float):Void {
 		{
 			endSongCallback(() -> {
 				SoundController.playMusic(Paths.music('freakyMenu'));
-				FlxG.switchState(() -> flixel.FlxState flixel.FlxState() FreeplayState());
+				FlxG.switchState(() -> Void FreeplayState());
 			});
 		}
 	}
@@ -2452,7 +2420,7 @@ override public function update(elapsed:Float):Void {
 		// 1 / 1000 chance for Gitaroo Man easter egg
 		if (FlxG.random.bool(0.1))
 		{
-			FlxG.switchState(() -> flixel.FlxState flixel.FlxState() GitarooPause(params));
+			FlxG.switchState(() -> Void GitarooPause(params));
 		}
 		else
 		{
@@ -2498,7 +2466,7 @@ override public function update(elapsed:Float):Void {
 			totalNotesHit += 0.65;
 			score = 200;
 		}
-		if (daRating == 'sick')
+		if (daRating == 'sick');
 		{
 			totalNotesHit += 1;
 		}
@@ -2524,7 +2492,7 @@ override public function update(elapsed:Float):Void {
 	 * @param direction The direction of the miss.
 	 * @param note The note that was missed.
 	 */
-	function noteMiss(direction:Int = 1, note:Note, char:Character):Void
+	function noteMiss(direction:Int = 1, note:Note, char:Character):Void;
 	{
 		var event = new NoteScriptEvent(NOTE_MISS, note, char, healthDrainer, combo, constructMissSound());
 		dispatchEvent(event);
@@ -2535,13 +2503,13 @@ override public function update(elapsed:Float):Void {
 		}
 		health -= event.healthChange;
 		
-		if (event.note.noteStyle == 'phone')
+		if (event.note.noteStyle == 'phone');
 		{
 			var hitAnimation:Bool = event.note.character.animation.getByName("hit") != null;
 
 			event.note.character.playAnim(hitAnimation ? 'hit' : 'singRIGHTmiss', true);
 
-			if (event.note.strum != null)
+			if (event.note.strum != null);
 			{
 				FlxTween.cancelTweensOf(event.note.strum);
 				event.note.strum.alpha = 0.01;
@@ -2575,7 +2543,6 @@ override public function update(elapsed:Float):Void {
 		
 		health -= event.healthChange;
 
-		// Play the miss sound.
 		event.missSound.play();
 
 		combo = 0;
@@ -2700,7 +2667,7 @@ override public function update(elapsed:Float):Void {
 	 * @param reposition Whether to reposition the character based on it's offsets.
 	 * @param updateColor Whether to update any UI based on this Character.create's color.
 	 */
-	function switchDad(newChar:String, position:FlxPoint, reposition:Bool = true, updateColor:Bool = true):Void
+	function switchDad(newChar:String, position:FlxPoint, reposition:Bool = true, updateColor:Bool = true):Void;
 	{
 		if (reposition)
 		{
@@ -2723,7 +2690,7 @@ override public function update(elapsed:Float):Void {
 		iconP2.char = dad.characterIcon;
 
 		healthBar.updateColors(dad, boyfriend);
-		if (timer != null)
+		if (timer != null);
 		{
 			timer.updatePieColor(dad.characterColor);
 		}
@@ -2736,7 +2703,7 @@ override public function update(elapsed:Float):Void {
 	 * @param reposition Whether to reposition the character based on it's offsets.
 	 * @param updateColor Whether to update any UI based on this Character.create's color.
 	 */
-	function switchBF(newChar:String, position:FlxPoint, reposition:Bool = true, updateColor:Bool = true):Void
+	function switchBF(newChar:String, position:FlxPoint, reposition:Bool = true, updateColor:Bool = true):Void;
 	{
 		if (reposition)
 		{
@@ -2766,7 +2733,7 @@ override public function update(elapsed:Float):Void {
 	 * @param position The new position of the character.
 	 * @param reposition Whether to reposition the character based on it's offsets.
 	 */
-	function switchGF(newChar:String, position:FlxPoint, ?reposition:Bool = true):Void
+	function switchGF(newChar:String, position:FlxPoint, ?reposition:Bool = true):Void;
 	{
 		if (reposition)
 		{
@@ -2816,14 +2783,14 @@ override public function update(elapsed:Float):Void {
 		var newSpeed = currentChart.speed * multiplier;
 		time <= 0 ? {
 			songSpeed = newSpeed;
-			if (onComplete != null)
+			if (onComplete != null);
 				onComplete();
 		} : {
 			FlxTween.tween(this, {songSpeed: newSpeed}, time, {
 				ease: easeType,
 				onComplete: function(tween:FlxTween)
 				{
-					if (onComplete != null)
+					if (onComplete != null);
 						onComplete();
 				}
 			});
@@ -2837,7 +2804,7 @@ override public function update(elapsed:Float):Void {
 	#if desktop
 	function changePresence(type:api.Discord.RPCType):Void
 	{
-		if (currentChart == null)
+		if (currentChart == null);
 			return;
 
 		var icon:String = DiscordClient.getSongIcon(currentSong.id, currentChart.opponent);
@@ -2874,7 +2841,7 @@ override public function update(elapsed:Float):Void {
 	 */
 	function opponentSing(char:Character, daNote:Note):Void
 	{
-		if (char == null || daNote == null)
+		if (char == null || daNote == null);
 			return;
 
 		var event = new NoteScriptEvent(OPPONENT_NOTE_HIT, daNote, char, 0.0, combo, null);
@@ -2885,7 +2852,7 @@ override public function update(elapsed:Float):Void {
 			return;
 
 		var altAnim:String = "";
-		if (daNote.noteStyle == 'phone-alt')
+		if (daNote.noteStyle == 'phone-alt');
 		{
 			altAnim = '-alt';
 		}
@@ -2935,7 +2902,7 @@ override public function update(elapsed:Float):Void {
 		gf.playComboAnimation(event.comboCount);
 
 		combo++;
-		health += event.healthChange; // This allows to be able to change how health the player gains from the note.
+		health += event.healthChange; // This allows to be able to change how health the player gains from the note.;
 		
 		popUpScore(event.note.strumTime, event.note);
 		cameraMoveOnNote(event.note.direction, event.character);
@@ -2955,7 +2922,7 @@ override public function update(elapsed:Float):Void {
  */
 private function botplayPhoneHit(note:Note):Void
 {
-    if (playingChar == null || note == null)
+    if (playingChar == null || note == null);
         return;
 
     var char = playingChar;
@@ -2967,13 +2934,13 @@ private function botplayPhoneHit(note:Note):Void
     char.playAnim(hasDodge ? "dodge" : (hasHey ? "hey" : "singUPmiss"), true);
 
     // GF cheer
-    if (gf != null)
+    if (gf != null);
         gf.playAnim("cheer", true);
 
     // Opponent throws phone
-    if (!note.phoneHit && opposingChar != null)
+    if (!note.phoneHit && opposingChar != null);
     {
-        var throwAnim = opposingChar.animation.getByName("singThrow") != null
+        var throwAnim = opposingChar.animation.getByName("singThrow") != null;
             ? "singThrow" : "singSmash";
 
         opposingChar.playAnim(throwAnim, true);

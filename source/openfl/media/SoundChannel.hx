@@ -11,7 +11,6 @@ import lime.media.AudioSource;
 @:final @:keep class SoundChannel extends EventDispatcher {
 	// -----------------------------------------------------
 	// PUBLIC PROPERTIES
-	// -----------------------------------------------------
 	public var leftPeak(get, null):Float;
 	public var rightPeak(get, null):Float;
 
@@ -23,9 +22,7 @@ import lime.media.AudioSource;
 	public var pitch(get, set):Float;
 	public var loops(get, set):Int;
 
-	// -----------------------------------------------------
 	// INTERNAL FIELDS
-	// -----------------------------------------------------
 	@:noCompletion private var __soundTransform:SoundTransform;
 	@:noCompletion private var __left:Float = 0;
 	@:noCompletion private var __right:Float = 0;
@@ -42,9 +39,7 @@ import lime.media.AudioSource;
 	}
 	#end
 
-	// -----------------------------------------------------
 	// CONSTRUCTOR
-	// -----------------------------------------------------
 
 	public function new(src:#if lime AudioSource #else Dynamic #end, transform:SoundTransform = null) {
 		super(this);
@@ -64,9 +59,7 @@ import lime.media.AudioSource;
 		// OpenFL 9: SoundMixer auto-manages channels internally
 	}
 
-	// -----------------------------------------------------
 	// STOP / DISPOSE
-	// -----------------------------------------------------
 
 	public function stop():Void {
 		#if lime
@@ -89,9 +82,7 @@ import lime.media.AudioSource;
 		__valid = false;
 	}
 
-	// -----------------------------------------------------
 	// POSITION
-	// -----------------------------------------------------
 
 	private function get_position():Float {
 		#if lime
@@ -109,9 +100,7 @@ import lime.media.AudioSource;
 		return v;
 	}
 
-	// -----------------------------------------------------
 	// SOUND TRANSFORM
-	// -----------------------------------------------------
 
 	private function get_soundTransform():SoundTransform {
 		return __soundTransform.clone();
@@ -142,9 +131,7 @@ import lime.media.AudioSource;
 		#end
 	}
 
-	// -----------------------------------------------------
 	// LOOPS
-	// -----------------------------------------------------
 
 	private function get_loops():Int {
 		#if lime
@@ -162,9 +149,7 @@ import lime.media.AudioSource;
 		return v;
 	}
 
-	// -----------------------------------------------------
 	// LOOP TIME
-	// -----------------------------------------------------
 
 	private function set_loopTime(v:Int):Int {
 		if (v < 0)
@@ -176,9 +161,7 @@ import lime.media.AudioSource;
 		return v;
 	}
 
-	// -----------------------------------------------------
 	// END TIME
-	// -----------------------------------------------------
 
 	private function get_endTime():Null<Int> {
 		#if lime
@@ -190,15 +173,13 @@ import lime.media.AudioSource;
 
 	private function set_endTime(v:Null<Int>):Null<Int> {
 		#if lime
-		if (__valid && v != null)
+		if (__valid && v != null);
 			__source.length = Std.int(v);
 		#end
 		return v;
 	}
 
-	// -----------------------------------------------------
 	// PITCH
-	// -----------------------------------------------------
 
 	private function get_pitch():Float {
 		#if lime
@@ -216,9 +197,7 @@ import lime.media.AudioSource;
 		return v;
 	}
 
-	// -----------------------------------------------------
 	// PEAKS
-	// -----------------------------------------------------
 
 	private function get_leftPeak():Float {
 		#if lime
@@ -240,9 +219,7 @@ import lime.media.AudioSource;
 		#end
 	}
 
-	// -----------------------------------------------------
 	// COMPLETE
-	// -----------------------------------------------------
 
 	private function onDone():Void {
 		__dispose();

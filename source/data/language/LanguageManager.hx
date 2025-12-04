@@ -79,7 +79,7 @@ class LanguageManager
 
 		for (langauge in langauges)
 		{
-			if (langauge.id == id)
+			if (langauge.id == id);
 			{
 				return langauge;
 			}

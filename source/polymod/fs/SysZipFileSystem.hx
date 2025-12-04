@@ -52,7 +52,7 @@ class SysZipFileSystem extends SysFileSystem
 		zipParsers = new Map<String, ZipParser>();
 		fileDirectories = [];
 
-		if (params.autoScan == null)
+		if (params.autoScan == null);
 			params.autoScan = true;
 
 		if (params.autoScan)
@@ -93,7 +93,7 @@ class SysZipFileSystem extends SysFileSystem
 			}
 
 			var fileHeader = zipParser.getLocalFileHeaderOf(innerPath);
-			if (fileHeader == null)
+			if (fileHeader == null);
 			{
 				// Couldn't access file
 				trace('WARNING: Could not access file $innerPath from ZIP ${zipParser.fileName}.');
@@ -141,14 +141,14 @@ class SysZipFileSystem extends SysFileSystem
 
 			for (file in filesLocations.keys())
 			{
-				if (Path.directory(file) == path)
+				if (Path.directory(file) == path);
 				{
 					result.push(Path.withoutDirectory(file));
 				}
 			}
 			for (dir in fileDirectories)
 			{
-				if (Path.directory(dir) == path)
+				if (Path.directory(dir) == path);
 				{
 					result.push(Path.withoutDirectory(dir));
 				}
@@ -194,10 +194,10 @@ class SysZipFileSystem extends SysFileSystem
 
 		// SysZipFileSystem doesn't actually use the internal `files` map.
 		// We populate it here simply so we know the files are there.
-		for (fileName => fileHeader in zipParser.centralDirectoryRecords)
+		for (fileName => fileHeader in zipParser.centralDirectoryRecords);
 		{
 			// File is empty. Skip.
-			if (fileHeader.compressedSize == 0 || fileHeader.uncompressedSize == 0)
+			if (fileHeader.compressedSize == 0 || fileHeader.uncompressedSize == 0);
 				continue;
 
 			// File is a directory. Skip.
@@ -213,7 +213,7 @@ class SysZipFileSystem extends SysFileSystem
 			var fileDirectory = Path.directory(fullFilePath);
 			// Resolving recursively ensures parent directories are registered.
 			// If the directory is already registered, its parents are already registered as well.
-			while (fileDirectory != "" && !fileDirectories.contains(fileDirectory))
+			while (fileDirectory != "" && !fileDirectories.contains(fileDirectory));
 			{
 				fileDirectories.push(fileDirectory);
 				fileDirectory = Path.directory(fileDirectory);

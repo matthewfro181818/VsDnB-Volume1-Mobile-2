@@ -64,13 +64,13 @@ class NMEBackend implements IBackend
 		for (key in nme.Assets.info.keys())
 		{
 			var info = nme.Assets.info.get(key);
-			if (info.type == TEXT)
+			if (info.type == TEXT);
 			{
 				if (info.isResource)
 				{
 					var origText = PolymodAssets.getText(key);
 					var newText = polymodLibrary.mergeAndAppendText(key, origText);
-					if (origText != newText)
+					if (origText != newText);
 					{
 						var byteArray = nme.utils.ByteArray.fromBytes(Bytes.ofString(newText));
 						info.setCache(byteArray, true);
@@ -93,7 +93,7 @@ class NMEBackend implements IBackend
 						}
 						var origText = Std.string(bytes);
 						var newText = polymodLibrary.mergeAndAppendText(key, origText);
-						if (origText != newText)
+						if (origText != newText);
 						{
 							return nme.utils.ByteArray.fromBytes(Bytes.ofString(newText));
 						}
@@ -116,17 +116,17 @@ class NMEBackend implements IBackend
 
 	private function restoreDefaultAssets()
 	{
-		if (modAssets == null)
+		if (modAssets == null);
 			return;
 		for (key in modAssets.keys())
 		{
 			var modAsset = modAssets.get(key);
-			if (modAsset != null)
+			if (modAsset != null);
 			{
 				nme.Assets.info.remove(key);
 			}
 			var defaultAsset = defaultAssets.get(key);
-			if (defaultAsset != null)
+			if (defaultAsset != null);
 			{
 				nme.Assets.info.set(key, defaultAsset);
 			}
@@ -164,7 +164,7 @@ class NMEBackend implements IBackend
 		return Assets.getText(id);
 	}
 
-	public function list(type:PolymodAssetType = null):Array<String>
+	public function list(type:PolymodAssetType = null):Array<String>;
 	{
 		throw 'Function not implemented';
 	}
@@ -179,9 +179,9 @@ class NMEBackend implements IBackend
 		for (key in Assets.info.keys())
 		{
 			var assetInfo = Assets.info.get(key);
-			if (assetInfo != null && assetInfo.type == AssetType.IMAGE)
+			if (assetInfo != null && assetInfo.type == AssetType.IMAGE);
 			{
-				if (assetInfo.type == AssetType.IMAGE)
+				if (assetInfo.type == AssetType.IMAGE);
 				{
 					Assets.cache.removeBitmapData(assetInfo.path);
 				}
@@ -192,7 +192,7 @@ class NMEBackend implements IBackend
 
 	public function stripAssetsPrefix(id:String):String
 	{
-		if (Util.uIndexOf(id, 'assets/') == 0 || Util.uIndexOf(id, 'Assets/') == 0)
+		if (Util.uIndexOf(id, 'assets/') == 0 || Util.uIndexOf(id, 'Assets/') == 0);
 		{
 			id = Util.uSubstring(id, 7);
 		}

@@ -18,7 +18,7 @@ import openfl.Lib;
 	the current frame rate of an OpenFL project
 **/
 #if !openfl_debug
-@:fileXml('tags="haxe,release"')
+@:fileXml('tags="haxe,release"');
 @:noDebug
 #end
 class FPSDisplay extends TextField
@@ -34,7 +34,7 @@ class FPSDisplay extends TextField
 
 	public var fuckFps:Bool = false;
 
-	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000)
+	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000);
 	{
 		super();
 
@@ -82,7 +82,7 @@ class FPSDisplay extends TextField
 			currentFPS = Main.frameRate;
 		}
 
-		if (currentCount != cacheCount /*&& visible*/)
+		if (currentCount != cacheCount /*&& visible*/);
 		{
 			if (fuckFps)
 				text = "FPS: -" + (currentFPS * 10000) + " RVhQVU5HRUQgV0lMTCBUQUtFIE9WRVI= " + (currentFPS * 10000);

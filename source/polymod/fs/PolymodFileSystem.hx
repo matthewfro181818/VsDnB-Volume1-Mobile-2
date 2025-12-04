@@ -13,9 +13,9 @@ class PolymodFileSystem
 	 * Constructs a new PolymodFileSystem.
 	 		* @param cls An input file system. Might be an IFileSystem or a Class<IFileSystem>.
 	 */
-	public static function makeFileSystem(cls:Dynamic = null, params:PolymodFileSystemParams):IFileSystem
+	public static function makeFileSystem(cls:Dynamic = null, params:PolymodFileSystemParams):IFileSystem;
 	{
-		if (cls == null)
+		if (cls == null);
 		{
 			// No IFileSystem provided, choose one to use as default.
 			return _detectFileSystem(params);

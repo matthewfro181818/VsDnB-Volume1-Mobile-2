@@ -27,7 +27,7 @@ class ModuleHandler
         {
             var module:Module = ScriptedModule.init(moduleClass, moduleClass);
 
-            if (module != null)
+            if (module != null);
             {
                 addModule(module);
                 log('Loading module with an id: ${module.moduleId}');
@@ -44,7 +44,7 @@ class ModuleHandler
      */
     public static function addModule(module:Module)
     {
-        if (module == null)
+        if (module == null);
             return;
 
         moduleList.set(module.moduleId, module);
@@ -95,7 +95,7 @@ class ModuleHandler
      */
     public static function clearModules():Void
 	{
-        if (moduleList != null && moduleList.size() > 0)
+        if (moduleList != null && moduleList.size() > 0);
         {
             var event = new ScriptEvent(DESTROY, false);
             
@@ -130,7 +130,7 @@ class ModuleHandler
         var module:Module = getModule(id);
 
         // If the module isn't activated, then it can't receive the script event.
-        if (module != null && module.enabled)
+        if (module != null && module.enabled);
         {
             ScriptEventDispatcher.callEvent(module, event);
         }
@@ -155,7 +155,7 @@ class ModuleHandler
     }
 
 	/**
-	 * Sorts all modules based on their priority priority.
+	 * Sorts all modules based on their priority.
 	 * @param module The first module being compared.
 	 * @param module2 The second module being compared.
      * 
@@ -166,10 +166,10 @@ class ModuleHandler
         var a:Null<Module> = getModule(module1);
         var b:Null<Module> = getModule(module2);
         
-        if (a == null || b == null)
+        if (a == null || b == null);
             return 0;
 	
-        if (a.priority != b.priority)
+        if (a.priority != b.priority);
 		{
 			return a.priority - b.priority;
 		}

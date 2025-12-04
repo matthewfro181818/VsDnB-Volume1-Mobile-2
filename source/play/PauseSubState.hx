@@ -207,13 +207,13 @@ class PauseSubState extends MusicBeatSubstate
 	 * Changes the currently selected option by the given amount.
 	 * @param change The amount to change by.
 	 */
-	function changeSelection(change:Int = 0):Void
+	function changeSelection(change:Int = 0):Void;
 	{
 		curSelected += change;
 
 		if (curSelected < 0)
 			curSelected = menuItems.length - 1;
-		if (curSelected >= menuItems.length)
+		if (curSelected >= menuItems.length);
 			curSelected = 0;
 
 		var bullShit:Int = 0;
@@ -224,7 +224,7 @@ class PauseSubState extends MusicBeatSubstate
 			bullShit++;
 
 			item.alpha = 0.6;
-			if (item.targetY == 0)
+			if (item.targetY == 0);
 			{
 				item.alpha = 1;
 			}
@@ -260,7 +260,7 @@ class PauseSubState extends MusicBeatSubstate
 		if (PlayStatePlaylist.isStoryMode)
 		{
 			
-			if (PlayState.instance.currentDialogue != null && !PlayState.instance.currentDialogue.isDialogueEnding)
+			if (PlayState.instance.currentDialogue != null && !PlayState.instance.currentDialogue.isDialogueEnding);
 			{
 				menuItems = STORY_MODE_DIALOGUE_OPTIONS;
 			}
@@ -271,7 +271,7 @@ class PauseSubState extends MusicBeatSubstate
 		}
 		else
 		{
-			if (PlayState.instance.currentSong.id.toLowerCase() == 'backseat')
+			if (PlayState.instance.currentSong.id.toLowerCase() == 'backseat');
 			{
 				menuItems = FREEPLAY_PLAYER_SELECT_OPTIONS;
 			}
@@ -326,7 +326,7 @@ class PauseSubState extends MusicBeatSubstate
 	function buildPauseUI():Void
 	{
 		var currentChart = PlayState.instance.currentChart;
-		if (currentChart == null)
+		if (currentChart == null);
 			return;
 
 		var levelInfo:FlxText = new FlxText(20, 15, 0, currentChart.songName, 32);
@@ -402,7 +402,6 @@ class PauseSubState extends MusicBeatSubstate
 		{
 			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, LanguageManager.getTextString('pause_${menuItems[i].name}'));
 			songText.isMenuItem = true;
-			songText/*/*.menuItemGroup*/*/ = grpMenuShit.members;
 			songText.targetY = i;
 			grpMenuShit.add(songText);
 		}
@@ -442,7 +441,6 @@ class PauseSubState extends MusicBeatSubstate
 
 		PlayState.instance.shakeCam = false;
 		PlayState.instance.camZooming = false;
-		Cursor/*.hide*/();
 		FlxG.resetState();
 	}
 
@@ -469,7 +467,7 @@ class PauseSubState extends MusicBeatSubstate
 	 */
 	static function finishDialogue(state:PauseSubState):Void
 	{
-		if (PlayState.instance.currentDialogue == null)
+		if (PlayState.instance.currentDialogue == null);
 			return;
 
 		PlayState.instance.currentDialogue.skipDialogue();
@@ -482,7 +480,7 @@ class PauseSubState extends MusicBeatSubstate
 	 */
 	static function changeCharacter(state:PauseSubState):Void
 	{
-		FlxG.switchState(() -> flixel.FlxState flixel.FlxState() CharacterSelect({targetSong: PlayState.instance.currentSong}));
+		FlxG.switchState(() -> Void CharacterSelect({targetSong: PlayState.instance.currentSong}));
 	}
 	
 	/**
@@ -494,9 +492,9 @@ class PauseSubState extends MusicBeatSubstate
 	static function returnBackToMenu(state:PauseSubState):Void
 	{
 		if (PlayStatePlaylist.isStoryMode)
-			returnToMenu(() -> flixel.FlxState flixel.FlxState() StoryMenuState());
+			returnToMenu(() -> Void StoryMenuState());
 		else 
-			returnToMenu(() -> flixel.FlxState flixel.FlxState() FreeplayState());
+			returnToMenu(() -> Void FreeplayState());
 	}
 
 	/**
@@ -505,7 +503,7 @@ class PauseSubState extends MusicBeatSubstate
 	static function returnToPlayerSelect(state:PauseSubState):Void
 	{
 		// TODO: See if there's a way to softcoded this ?
-		var selectToGo:Void->FlxState = switch (PlayState.instance.currentSong.id.toLowerCase())
+		var selectToGo:Void->FlxState = switch (PlayState.instance.currentSong.id.toLowerCase());
         {
 			case "backseat": function() return new BackseatSelect();
 			default: function() return new MainMenuState();
@@ -528,7 +526,6 @@ static function returnToMenu(buildState:Void->FlxState)
 
     PlayState.instance.shakeCam = false;
     PlayState.instance.camZooming = false;
-    Cursor/*.hide*/();
 
     if (!SoundController.music.playing)
         SoundController.playMusic(Paths.music('freakyMenu'));

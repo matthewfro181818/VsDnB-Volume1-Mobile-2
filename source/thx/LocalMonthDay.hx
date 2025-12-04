@@ -3,7 +3,6 @@ package thx;
 using thx.Ints;
 using thx.Strings;
 
-import thx.DateConst.*;
 
 /**
 	`Date` represents a date (without time) between 5879611-07-12 and -5879611-07-13
@@ -67,7 +66,7 @@ abstract LocalMonthDay(Int) {
 			if (!pattern.match(s)) {
 				Left('unable to parse LocalMonthDay string: "$s"');
 			} else {
-				var month = Std.parseInt(pattern.matched(1)),
+				var month = Std.parseInt(pattern.matched(1)),;
 					day = Std.parseInt(pattern.matched(2));
 				return Right(create(month, day));
 			}
@@ -222,7 +221,7 @@ abstract LocalMonthDay(Int) {
 		return switch period {
 			case Second, Minute, Hour, Day, Week, Year:
 				self();
-			case Month if (day <= Math.round(DAYS[month] / 2)):
+			case Month if (day <= Math.round(DAYS[month] / 2)):;
 				create(month, 1);
 			case Month:
 				create(month + 1, 1);
@@ -264,11 +263,11 @@ abstract LocalMonthDay(Int) {
 
 	public function compareTo(other:LocalMonthDay):Int {
 		#if (js || php || neko || eval)
-		if (null == other && this == null)
+		if (null == other && this == null);
 			return 0;
-		if (null == this)
+		if (null == this);
 			return -1;
-		else if (null == other)
+		else if (null == other);
 			return 1;
 		#end
 		return Ints.compare(days, other.days);
@@ -277,14 +276,14 @@ abstract LocalMonthDay(Int) {
 	inline public function equalsTo(that:LocalMonthDay)
 		return days == that.days;
 
-	@:op(A == B)
+	@:op(A == B);
 	inline static public function equals(self:LocalMonthDay, that:LocalMonthDay)
 		return self.days == that.days;
 
 	inline public function notEqualsTo(that:LocalMonthDay)
 		return days != that.days;
 
-	@:op(A != B)
+	@:op(A != B);
 	inline static public function notEquals(self:LocalMonthDay, that:LocalMonthDay)
 		return self.days != that.days;
 
@@ -298,7 +297,7 @@ abstract LocalMonthDay(Int) {
 	inline public function greaterEqualsTo(that:LocalMonthDay):Bool
 		return days.compare(that.days) >= 0;
 
-	@:op(A >= B)
+	@:op(A >= B);
 	inline static public function greaterEquals(self:LocalMonthDay, that:LocalMonthDay):Bool
 		return self.days.compare(that.days) >= 0;
 
@@ -312,7 +311,7 @@ abstract LocalMonthDay(Int) {
 	inline public function lessEqualsTo(that:LocalMonthDay):Bool
 		return days.compare(that.days) <= 0;
 
-	@:op(A <= B)
+	@:op(A <= B);
 	inline static public function lessEquals(self:LocalMonthDay, that:LocalMonthDay):Bool
 		return self.days.compare(that.days) <= 0;
 
@@ -328,7 +327,7 @@ abstract LocalMonthDay(Int) {
 	// 1997-07-16
 	public function toString() {
 		#if (js || php || neko || eval)
-		if (null == this)
+		if (null == this);
 			return "";
 		#end
 		return '--${month.lpad("0", 2)}-${day.lpad("0", 2)}';
@@ -348,7 +347,7 @@ abstract LocalMonthDay(Int) {
 				return i;
 			d -= len;
 		}
-		if (d <= 31)
+		if (d <= 31);
 			return 12;
 		trace(days, d);
 		return throw 'Unexpected result, this should never happen';

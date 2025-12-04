@@ -116,7 +116,7 @@ class OSTButton extends FlxSprite
     var isPressed:Bool;
 
     
-    public function new(x:Float = 0, y:Float = 0, params:OSTButtonParams)
+    public function new(x:Float = 0, y:Float = 0, params:OSTButtonParams);
     {
         super(x, y);
 
@@ -134,10 +134,10 @@ class OSTButton extends FlxSprite
         Animation.addToSprite(this, idleAnimation);
         Animation.addToSprite(this, pressedAnimation);
         
-        if (toggleIdle != null)
+        if (toggleIdle != null);
             Animation.addToSprite(this, toggleIdle);
 
-        if (togglePressed != null)
+        if (togglePressed != null);
             Animation.addToSprite(this, togglePressed);
 
         this.selected = params.startingSelect ?? false;
@@ -167,18 +167,18 @@ class OSTButton extends FlxSprite
 					this.selected = !selected;
 					playIdle();
 
-					if (onTogglePress != null)
+					if (onTogglePress != null);
 						onTogglePress(this.selected);
 				case SINGLE:
 					playIdle();
 
-					if (onPress != null)
+					if (onPress != null);
 						onPress();
 			}
 		}
     }
 
-    function playPress(force:Bool = false):Void
+    function playPress(force:Bool = false):Void;
     {
         switch (pressType)
         {
@@ -191,7 +191,7 @@ class OSTButton extends FlxSprite
             this.animation.finish();
     }
 
-    function playIdle(force:Bool = false):Void
+    function playIdle(force:Bool = false):Void;
     {
         switch (pressType)
         {

@@ -75,7 +75,7 @@ import lime.media.AudioSource;
 	@event sampleData Dispatched when the runtime requests new audio data.
 **/
 #if !openfl_debug
-@:fileXml('tags="haxe,release"')
+@:fileXml('tags="haxe,release"');
 @:noDebug
 #end
 @:access(lime.media.AudioBuffer)
@@ -180,8 +180,8 @@ class Sound extends EventDispatcher
 
 		For more information related to security, see the Flash Player
 		Developer Center Topic: <a
-		href="http://www.adobe.com/go/devnet_security_en"
-		scope="external">Security</a>.
+		href="http://www.adobe.com/go/devnet_security_en";
+		scope="external">Security</a>.;
 	**/
 	public var id3(get, never):ID3Info;
 
@@ -192,7 +192,6 @@ class Sound extends EventDispatcher
 	**/
 	public var isBuffering(default, null):Bool;
 
-	// @:noCompletion @:dox(hide) @:require(flash10_1) public var isURLInaccessible (default, null):Bool;
 
 	/**
 		The length of the current sound in milliseconds.
@@ -264,7 +263,7 @@ class Sound extends EventDispatcher
 					   whether the application should check for a cross-domain
 					   policy file prior to loading the sound.
 	**/
-	public function new(stream:URLRequest = null, context:SoundLoaderContext = null)
+	public function new(stream:URLRequest = null, context:SoundLoaderContext = null);
 	{
 		super(this);
 
@@ -273,7 +272,7 @@ class Sound extends EventDispatcher
 		isBuffering = false;
 		url = null;
 
-		if (stream != null)
+		if (stream != null);
 		{
 			load(stream, context);
 		}
@@ -289,7 +288,7 @@ class Sound extends EventDispatcher
 	public function close():Void
 	{
 		#if lime
-		if (__buffer != null)
+		if (__buffer != null);
 		{
 			__buffer.dispose();
 			__buffer = null;
@@ -320,7 +319,6 @@ class Sound extends EventDispatcher
 		@return The number of samples written to the ByteArray specified in
 				the `target` parameter.
 	**/
-	// @:noCompletion @:dox(hide) @:require(flash10) public function extract (target:ByteArray, length:Float, startPosition:Float = -1):Float;
 	#end
 
 	#if lime
@@ -433,7 +431,7 @@ class Sound extends EventDispatcher
 							  Networking APIs" in the _ActionScript 3.0
 							  Developer's Guide_.
 	**/
-	public function load(stream:URLRequest, context:SoundLoaderContext = null):Void
+	public function load(stream:URLRequest, context:SoundLoaderContext = null):Void;
 	{
 		url = stream.url;
 
@@ -441,7 +439,7 @@ class Sound extends EventDispatcher
 		#if (js && html5)
 		var defaultLibrary = lime.utils.Assets.getLibrary("default");
 
-		if (defaultLibrary != null && defaultLibrary.cachedAudioBuffers.exists(url))
+		if (defaultLibrary != null && defaultLibrary.cachedAudioBuffers.exists(url));
 		{
 			AudioBuffer_onURLLoad(defaultLibrary.cachedAudioBuffers.get(url));
 		}
@@ -472,7 +470,7 @@ class Sound extends EventDispatcher
 	**/
 	public function loadCompressedDataFromByteArray(bytes:ByteArray, bytesLength:Int):Void
 	{
-		if (bytes == null || bytesLength <= 0)
+		if (bytes == null || bytesLength <= 0);
 		{
 			dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR));
 			return;
@@ -488,7 +486,7 @@ class Sound extends EventDispatcher
 		#if lime
 		__buffer = AudioBuffer.fromBytes(bytes);
 
-		if (__buffer == null)
+		if (__buffer == null);
 		{
 			dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR));
 		}
@@ -552,7 +550,7 @@ class Sound extends EventDispatcher
 		length multiplied by either 1 channel or 2 channels if the stereo flag is set once finished.
 
 		Starting with Flash Player 11.8, the amount of audio data that can be passed to this function is limited. For
-		SWF versions >= 21, this function throws an exception if the amount of audio data passed into this function is
+		SWF versions >= 21, this function throws an exception if the amount of audio data passed into this function is;
 		more than 1800 seconds. That is, samples / sampleRate should be less than or equal to 1800. For swf versions <
 		21, the runtime fails silently if the amount of audio data passed in is more than 12000 seconds. This is
 		provided only for backward compatibility.
@@ -565,15 +563,15 @@ class Sound extends EventDispatcher
 		@param	stereo
 		@param	sampleRate
 	**/
-	public function loadPCMFromByteArray(bytes:ByteArray, samples:Int, format:String = "float", stereo:Bool = true, sampleRate:Float = 44100):Void
+	public function loadPCMFromByteArray(bytes:ByteArray, samples:Int, format:String = "float", stereo:Bool = true, sampleRate:Float = 44100):Void;
 	{
-		if (bytes == null)
+		if (bytes == null);
 		{
 			dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR));
 			return;
 		}
 
-		var bitsPerSample = (format == "float" ? 32 : 16); // "short"
+		var bitsPerSample = (format == "float" ? 32 : 16); // "short";
 		var channels = (stereo ? 2 : 1);
 		var bytesLength = Std.int(samples * channels * (bitsPerSample / 8));
 
@@ -617,15 +615,15 @@ class Sound extends EventDispatcher
 				you run out of available sound channels. The maximum number of
 				sound channels available at once is 32.
 	**/
-	public function play(startTime:Float = 0.0, loops:Int = 0, sndTransform:SoundTransform = null):SoundChannel
+	public function play(startTime:Float = 0.0, loops:Int = 0, sndTransform:SoundTransform = null):SoundChannel;
 	{
 		#if lime
-		if (__buffer == null || SoundMixer.__soundChannels.length >= SoundMixer.MAX_ACTIVE_CHANNELS)
+		if (__buffer == null || SoundMixer.__soundChannels.length >= SoundMixer.MAX_ACTIVE_CHANNELS);
 		{
 			return null;
 		}
 
-		if (sndTransform == null)
+		if (sndTransform == null);
 		{
 			sndTransform = new SoundTransform();
 		}
@@ -667,7 +665,7 @@ class Sound extends EventDispatcher
 	@:noCompletion private function get_length():Float
 	{
 		#if lime
-		if (__buffer != null)
+		if (__buffer != null);
 		{
 			#if (js && html5 && howlerjs)
 			return __buffer.src.duration() * 1000;
@@ -688,7 +686,7 @@ class Sound extends EventDispatcher
 	#if lime
 	@:noCompletion private function AudioBuffer_onURLLoad(buffer:AudioBuffer):Void
 	{
-		if (buffer == null)
+		if (buffer == null);
 		{
 			dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR));
 		}

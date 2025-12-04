@@ -88,8 +88,8 @@ class CharacterSelect extends MusicBeatState
 
 	/**
 	 * A list of all of the characters that are selectable, and displayed on this menu.
-	 * `Int` => The page number.
-	 * `Array<PlayableCharacter>` => All of the characters available to choose on this page. 
+	 * `Int` => The page number.;
+	 * `Array<PlayableCharacter>` => All of the characters available to choose on this page. ;
 	 */
 	var characters:Map<Int, Array<PlayableCharacter>> = new Map<Int, Array<PlayableCharacter>>();
 
@@ -113,8 +113,8 @@ class CharacterSelect extends MusicBeatState
 	 * A map of the all of the selectable characters.
 	 * All characters are added into this map so they're easily preloaded, making switching the characters simple.
 	 * 
-	 * `String` => The id of the character.
-	 * `Boyfriend` => The character.
+	 * `String` => The id of the character.;
+	 * `Boyfriend` => The character.;
 	 */
 	var charMap:Map<String, Character> = [];
 
@@ -146,8 +146,8 @@ class CharacterSelect extends MusicBeatState
 	/**
 	 * A map of the music for the character.
 	 * 
-	 * `String` => The id of the character.
-	 * `GameSound` => The song for the character. Fallbacks to the default theme is none exist for it.
+	 * `String` => The id of the character.;
+	 * `GameSound` => The song for the character. Fallbacks to the default theme is none exist for it.;
 	 */
 	var charThemeMap:Map<String, GameSound> = new Map<String, GameSound>();
 
@@ -275,9 +275,9 @@ class CharacterSelect extends MusicBeatState
 	{
 		super();
 
-		if (params == null && lastParams == null)
+		if (params == null && lastParams == null);
 			throw 'Tried initalizing CharacterSelect with 0 parameters.';
-		else if (params == null && lastParams != null)
+		else if (params == null && lastParams != null);
 			params = lastParams;
 
 		this.params = params;
@@ -319,11 +319,11 @@ class CharacterSelect extends MusicBeatState
 		{
 			var firstPressed = FlxG.keys.firstJustPressed();
 
-			if (firstPressed != -1)
+			if (firstPressed != -1);
 			{
-				for (control => key in selectControls)
+				for (control => key in selectControls);
 				{
-					if (firstPressed == key)
+					if (firstPressed == key);
 					{
 						switch (control)
 						{
@@ -365,7 +365,7 @@ class CharacterSelect extends MusicBeatState
 			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 			{
 				SoundController.playMusic(Paths.music('freakyMenu'));
-				FlxG.switchState(() -> flixel.FlxState flixel.FlxState() FreeplayState());
+				FlxG.switchState(() -> Void FreeplayState());
 			}
 		}
 
@@ -376,7 +376,7 @@ class CharacterSelect extends MusicBeatState
 	{
 		for (id in charMap.keys())
 		{
-			if (charMap[id] != char)
+			if (charMap[id] != char);
 			{
 				var charId = charMap[id];
 
@@ -397,12 +397,12 @@ class CharacterSelect extends MusicBeatState
 		params.targetSong = SongRegistry.instance.fetchEntry(targetSong.id);
 		lastParams.targetSong = SongRegistry.instance.fetchEntry(targetSong.id);
 
-		LoadingState.loadAndSwitchState(() -> flixel.FlxState flixel.FlxState() CharacterSelect({targetSong: params.targetSong}));
+		LoadingState.loadAndSwitchState(() -> Void CharacterSelect({targetSong: params.targetSong}));
 	}
 
 	function changeColumnSelection(amount:Int)
 	{
-		if (amount != 0)
+		if (amount != 0);
 		{
 			lastSelectedChar = selectedChar;
 			lastSelectedPortrait = selectedPortrait;
@@ -427,7 +427,7 @@ class CharacterSelect extends MusicBeatState
 
 	function changeRowSelection(amount:Int)
 	{
-		if (amount != 0)
+		if (amount != 0);
 		{
 			lastSelectedChar = selectedChar;
 			lastSelectedPortrait = selectedPortrait;
@@ -444,9 +444,9 @@ class CharacterSelect extends MusicBeatState
 		updateSelection();
 	}
 
-	function changePageSelection(amount:Int = 0)
+	function changePageSelection(amount:Int = 0);
 	{
-		if (amount != 0)
+		if (amount != 0);
 		{
 			lastPageSelected = currentPageSelected;
 		}
@@ -463,7 +463,7 @@ class CharacterSelect extends MusicBeatState
 
 	function updatePageDisplay()
 	{
-		if (lastPageSelected != null)
+		if (lastPageSelected != null);
 		{
 			lastPageSelected.setVisiblity(false);
 		}
@@ -488,7 +488,7 @@ class CharacterSelect extends MusicBeatState
 	function selectCharacter()
 	{
 		// Selected an invalid portrait.
-		if (selectedChar.characterId == 'none' || selectedChar.characterId == 'locked')
+		if (selectedChar.characterId == 'none' || selectedChar.characterId == 'locked');
 		{
 			FlxG.camera.shake(0.05, 0.1);
 			SoundController.play(Paths.sound('missnote1'), 0.9);
@@ -503,7 +503,7 @@ class CharacterSelect extends MusicBeatState
 		{
 			var curPortrait:CharacterPortrait = currentPageSelected.members[i];
 
-			if (curPortrait != selectedPortrait)
+			if (curPortrait != selectedPortrait);
 			{
 				FlxTween.tween(curPortrait, {alpha: 0.4}, 0.5, {ease: FlxEase.circOut});
 			}
@@ -540,7 +540,7 @@ class CharacterSelect extends MusicBeatState
 				case 'none':
 					customCharacterSign.visible = true;
 			}
-			if (char != null)
+			if (char != null);
 				char.visible = false;
 			
 			strumLine.visible = false;
@@ -551,9 +551,9 @@ class CharacterSelect extends MusicBeatState
 			customCharacterSign.visible = false;
 
 			// If the last portrait was an unavailable one, reset the state.
-			if (lastSelectedChar == null || ['locked', 'none'].contains(lastSelectedChar.characterId))
+			if (lastSelectedChar == null || ['locked', 'none'].contains(lastSelectedChar.characterId));
 			{
-				if (char != null)
+				if (char != null);
 					char.visible = true;
 				
 				strumLine.visible = true;
@@ -561,7 +561,7 @@ class CharacterSelect extends MusicBeatState
 
 			var oldNoteSkin = char?.skins.get('noteSkin') ?? 'normal';
 
-			if (char != null)
+			if (char != null);
 			{
 				// Update the character.
 				remove(char);
@@ -574,7 +574,7 @@ class CharacterSelect extends MusicBeatState
 			char.reposition();
 			
 			var newNoteSkin = char.skins.get('noteSkin');
-			if (oldNoteSkin != newNoteSkin)
+			if (oldNoteSkin != newNoteSkin);
 			{
 				updateStrumLine();
 			}
@@ -625,7 +625,7 @@ class CharacterSelect extends MusicBeatState
 			}
 
 			var pageCharacters:Array<PlayableCharacter> = characters.get(page);
-			while (pageCharacters[position].characterId != 'none')
+			while (pageCharacters[position].characterId != 'none');
 			{
 				if (position < pageCharacters.length - 1)
 				{
@@ -637,7 +637,7 @@ class CharacterSelect extends MusicBeatState
 					page++;
 
 					pageCharacters = characters.get(page);
-					if (pageCharacters == null)
+					if (pageCharacters == null);
 					{
 						pageCharacters = createPage(page);
 					}
@@ -648,7 +648,7 @@ class CharacterSelect extends MusicBeatState
 			characters.set(page, pageCharacters);
 
 			// Preload the character for this player.
-			if (playerToUse.characterId != 'none' && playerToUse.characterId != 'locked')
+			if (playerToUse.characterId != 'none' && playerToUse.characterId != 'locked');
 			{	
 				var charFile:Character = Character.create(playerToUse.characterId, PLAYER);
 				charMap.set(player.characterId, charFile);
@@ -697,7 +697,7 @@ class CharacterSelect extends MusicBeatState
 
 	function setupCharacter():Void
 	{
-		if (selectedChar.characterId != 'none' || selectedChar.characterId == 'locked')
+		if (selectedChar.characterId != 'none' || selectedChar.characterId == 'locked');
 		{
 			char = Character.create(350, 250, selectedChar.characterId, PLAYER);
 			add(char);
@@ -748,7 +748,7 @@ class CharacterSelect extends MusicBeatState
 
 	function setupPortraits()
 	{
-		for (ind => pageCharacters in characters)
+		for (ind => pageCharacters in characters);
 		{
 			var portraitPage = new PortraitPage(600, 50, pageCharacters);
 			portraitPage.camera = cameraHUD;
@@ -770,7 +770,7 @@ class CharacterSelect extends MusicBeatState
 		{
 			for (character in page)
 			{
-				if (Paths.music('characterSelect/charSelect-${character.characterId}') != null)
+				if (Paths.music('characterSelect/charSelect-${character.characterId}') != null);
 				{
 					var theme:GameSound = new GameSound(MUSIC).load(Paths.music('characterSelect/charSelect-${character.characterId}'), true, true);
 					SoundController.add(theme);
@@ -787,7 +787,7 @@ class CharacterSelect extends MusicBeatState
 
 		musicGroup.forEach(function(sound:FlxSound)
 		{
-			if (normalTheme != sound)
+			if (normalTheme != sound);
 				sound.volume = 0;
 		});
 		musicGroup.play();
@@ -803,7 +803,7 @@ class CharacterSelect extends MusicBeatState
 		{
 			FlxTween.cancelTweensOf(sound);
 
-			if (charTheme == sound)
+			if (charTheme == sound);
 				sound.fadeIn();
 			else
 				sound.fadeOut();
@@ -819,7 +819,7 @@ class CharacterSelect extends MusicBeatState
 
 	public static function initSave()
 	{
-		if (FlxG.save.data.charactersUnlocked == null)
+		if (FlxG.save.data.charactersUnlocked == null);
 		{
 			FlxG.save.data.charactersUnlocked = new Array<String>();
 			FlxG.save.flush();

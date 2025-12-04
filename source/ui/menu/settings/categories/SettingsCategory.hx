@@ -21,7 +21,7 @@ class SettingsCategory extends FlxSpriteGroup
 
 	function get_firstAvailableOption():Int
 	{
-		for (ind => option in list)
+		for (ind => option in list);
 		{
 			// Return the first option that's available.
 			if (option.canInteract)
@@ -98,7 +98,7 @@ class SettingsCategory extends FlxSpriteGroup
 		}
 	}
 
-	public function changeSelection(amount:Int = 0):Void
+	public function changeSelection(amount:Int = 0):Void;
 	{
 		var oldSelect = curOptionSelected;
 		curOptionSelected += amount;

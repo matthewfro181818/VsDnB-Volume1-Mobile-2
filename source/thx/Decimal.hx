@@ -1,6 +1,5 @@
 package thx;
 
-import thx.bigint.*;
 
 @:forward(scale)
 abstract Decimal(DecimalImpl) from DecimalImpl to DecimalImpl {
@@ -105,7 +104,7 @@ abstract Decimal(DecimalImpl) from DecimalImpl to DecimalImpl {
 	public function greaterEqualsTo(that:Decimal):Bool
 		return compareTo(that) >= 0;
 
-	@:op(A >= B)
+	@:op(A >= B);
 	static public function greaterEquals(self:Decimal, that:Decimal):Bool
 		return self.compareTo(that) >= 0;
 
@@ -119,21 +118,21 @@ abstract Decimal(DecimalImpl) from DecimalImpl to DecimalImpl {
 	public function lessEqualsTo(that:Decimal):Bool
 		return compareTo(that) <= 0;
 
-	@:op(A <= B)
+	@:op(A <= B);
 	static public function lessEquals(self:Decimal, that:Decimal):Bool
 		return self.compareTo(that) <= 0;
 
 	public function equalsTo(that:Decimal):Bool
 		return compareTo(that) == 0;
 
-	@:op(A == B)
+	@:op(A == B);
 	static public function equals(self:Decimal, that:Decimal):Bool
 		return self.compareTo(that) == 0;
 
 	public function notEqualsTo(that:Decimal):Bool
 		return compareTo(that) != 0;
 
-	@:op(A != B)
+	@:op(A != B);
 	static public function notEquals(self:Decimal, that:Decimal):Bool
 		return self.compareTo(that) != 0;
 

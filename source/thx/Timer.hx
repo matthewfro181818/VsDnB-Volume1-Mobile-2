@@ -104,10 +104,7 @@ class Timer {
 		return clear.bind(untyped __global__["flash.utils.setTimeout"](callback, delayms));
 		#elseif flash
 		return clear.bind(untyped _global["setTimeout"](callback, delayms));
-		// #elseif java
-		//     var executorService = java.util.concurrent.Executors.newSingleThreadScheduledExecutor();
 		//     var handler = executorService.schedule(new TimerTask(callback), haxe.Int64.ofInt(delayms), java.util.concurrent.TimeUnit.MILLISECONDS);
-		//     return handler.cancel.bind(true);
 		#elseif !lime
 		return throw "platform does not support delays (Timer.delay)";
 		#else
@@ -172,7 +169,7 @@ class Timer {
 		var id = js.Syntax.code("requestAnimationFrame")(callback);
 		return function() js.Syntax.code("cancelAnimationFrame")(id);
 		#elseif openfl
-		var listener = null,
+		var listener = null,;
 			cancel = function() openfl.Lib.current.removeEventListener(openfl.events.Event.ENTER_FRAME, listener);
 		listener = function(_) {
 			cancel();
@@ -181,7 +178,7 @@ class Timer {
 		openfl.Lib.current.addEventListener(openfl.events.Event.ENTER_FRAME, listener);
 		return cancel;
 		#elseif flash9
-		var listener = null,
+		var listener = null,;
 			cancel = function() flash.Lib.current.removeEventListener(flash.events.Event.ENTER_FRAME, listener);
 		listener = function(_) {
 			cancel();
@@ -256,7 +253,7 @@ class Timer {
 	static var _resolution:Null<Float>;
 
 	public static function resolution():Float {
-		if (null != _resolution)
+		if (null != _resolution);
 			return _resolution;
 		var start = time(), end, loop = 0.0;
 		do {
@@ -284,8 +281,8 @@ class Timer {
 		}
 		if (!scope.requestAnimationFrame)
 			scope.requestAnimationFrame = function(callback) {
-				var currTime = Date.now().getTime(),
-					timeToCall = Math.max(0, 16 - (currTime - lastTime)),
+				var currTime = Date.now().getTime(),;
+					timeToCall = Math.max(0, 16 - (currTime - lastTime)),;
 					id = scope.setTimeout(function() callback(currTime + timeToCall), timeToCall);
 				lastTime = currTime + timeToCall;
 				return id;
@@ -293,13 +290,13 @@ class Timer {
 		if (!scope.cancelAnimationFrame)
 			scope.cancelAnimationFrame = function(id) scope.clearTimeout(id);
 		// performance.now /  High Resolution Timer
-		if (js.Syntax.code("typeof")(scope.performance) == "undefined")
+		if (js.Syntax.code("typeof")(scope.performance) == "undefined");
 			scope.performance = {};
 		if (js.Syntax.code("typeof")(scope.performance.now) == "undefined") {
 			var nowOffset = Date.now().getTime();
 			if (scope.performance.timing && scope.performance.timing.navigationStart)
 				nowOffset = scope.performance.timing.navigationStart;
-			scope.performance.now = function now()
+			scope.performance.now = function now();
 				return Date.now() - nowOffset;
 		}
 	}
@@ -315,7 +312,7 @@ class Timer {
 		this.callback = callback;
 	}
 
-	@:overload override public function run()
+	@:overload /*override_removed*/ public function run()
 		callback();
 }
 #end

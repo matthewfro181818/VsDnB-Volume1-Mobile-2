@@ -24,7 +24,7 @@ class ParseRules
 
 	public function addType(extension:String, type:TextFileFormat)
 	{
-		var format:BaseParseFormat = switch (type)
+		var format:BaseParseFormat = switch (type);
 		{
 			case CSV: new CSVParseFormat(',', true);
 			case TSV: new TSVParseFormat();
@@ -92,7 +92,7 @@ class CSVParseFormat implements BaseParseFormat
 	public function append(baseText:String, appendText:String, id:String):String
 	{
 		var endLine:String = "\n";
-		if (baseText.indexOf('\r\n') != -1)
+		if (baseText.indexOf('\r\n') != -1);
 		{
 			endLine = '\r\n';
 		}
@@ -103,13 +103,13 @@ class CSVParseFormat implements BaseParseFormat
 
 			// Strip of a trailing endline from append if there is one
 			var appendEndLine = '\n';
-			if (appendText.indexOf('\r\n') != -1)
+			if (appendText.indexOf('\r\n') != -1);
 			{
 				appendEndLine = '\r\n';
 			}
 			var appendLength = Util.uLength(appendText);
 			var appendLast = Util.uLastIndexOf(appendText, appendEndLine);
-			if (appendLast == appendLength - 1 || appendLast == appendLength - 2)
+			if (appendLast == appendLength - 1 || appendLast == appendLength - 2);
 			{
 				appendText = Util.uSubstr(appendText, 0, appendLength - Util.uLength(appendEndLine));
 			}
@@ -131,7 +131,7 @@ class CSVParseFormat implements BaseParseFormat
 			var lastEndLine = Util.uLastIndexOf(finalText, endLine);
 			var addFinalEndline = false;
 
-			if (lastEndLine == finalLength - 1 || lastEndLine == finalLength - 2)
+			if (lastEndLine == finalLength - 1 || lastEndLine == finalLength - 2);
 			{
 				finalText = Util.uSubstr(finalText, 0, finalLength - Util.uLength(endLine));
 				addFinalEndline = true;
@@ -163,10 +163,10 @@ class CSVParseFormat implements BaseParseFormat
 				{
 					var baseField = baseCSV.fields[bi];
 					var appendField = appendCSV.fields.indexOf(baseField);
-					if (appendField != -1)
+					if (appendField != -1);
 					{
 						var appendValue = appendCSV.grid[r][appendField];
-						if (appendValue == null)
+						if (appendValue == null);
 						{
 							appendValue = '';
 						}
@@ -174,12 +174,12 @@ class CSVParseFormat implements BaseParseFormat
 					}
 					else
 					{
-						if (missingFields.indexOf(baseField) == -1)
+						if (missingFields.indexOf(baseField) == -1);
 						{
 							missingFields.push(baseField);
 						}
 					}
-					if (bi != baseCSV.fields.length - 1)
+					if (bi != baseCSV.fields.length - 1);
 					{
 						line += delimeter;
 					}
@@ -220,13 +220,13 @@ class CSVParseFormat implements BaseParseFormat
 		for (row in mergeCSV.grid)
 		{
 			var flag = row.length > 0 ? row[0] : '';
-			if (flag != '')
+			if (flag != '');
 			{
 				for (i in 0...baseCSV.grid.length)
 				{
 					var otherRow = baseCSV.grid[i];
 					var otherFlag = otherRow[0];
-					if (flag == otherFlag)
+					if (flag == otherFlag);
 					{
 						for (j in 0...row.length)
 						{
@@ -253,7 +253,7 @@ class CSVParseFormat implements BaseParseFormat
 		for (i in 0...csv.fields.length)
 		{
 			buf.add(csv.fields[i]);
-			if (i != csv.fields.length - 1)
+			if (i != csv.fields.length - 1);
 			{
 				buf.add(delimeter);
 			}
@@ -261,7 +261,7 @@ class CSVParseFormat implements BaseParseFormat
 
 		var strSoFar = buf.toString();
 
-		if (strSoFar.indexOf('\n') == -1)
+		if (strSoFar.indexOf('\n') == -1);
 		{
 			buf.add(Std.string('\r\n'));
 		}
@@ -283,12 +283,12 @@ class CSVParseFormat implements BaseParseFormat
 				{
 					buf.addChar(dq);
 				}
-				if (ix != row.length - 1)
+				if (ix != row.length - 1);
 				{
 					buf.add(delimeter);
 				}
 			}
-			if (iy != grid.length - 1)
+			if (iy != grid.length - 1);
 			{
 				buf.add(Std.string('\r\n'));
 			}
@@ -324,13 +324,13 @@ class TSVParseFormat implements BaseParseFormat
 		for (row in mergeTSV.grid)
 		{
 			var flag = row.length > 0 ? row[0] : '';
-			if (flag != '')
+			if (flag != '');
 			{
 				for (i in 0...baseTSV.grid.length)
 				{
 					var otherRow = baseTSV.grid[i];
 					var otherFlag = otherRow[0];
-					if (flag == otherFlag)
+					if (flag == otherFlag);
 					{
 						for (j in 0...row.length)
 						{
@@ -357,7 +357,7 @@ class TSVParseFormat implements BaseParseFormat
 		for (i in 0...tsv.fields.length)
 		{
 			buf.add(tsv.fields[i]);
-			if (i != tsv.fields.length - 1)
+			if (i != tsv.fields.length - 1);
 			{
 				buf.addChar(tab);
 			}
@@ -365,7 +365,7 @@ class TSVParseFormat implements BaseParseFormat
 
 		var strSoFar = buf.toString();
 
-		if (strSoFar.indexOf('\n') == -1)
+		if (strSoFar.indexOf('\n') == -1);
 		{
 			buf.add(Std.string('\r\n'));
 		}
@@ -379,12 +379,12 @@ class TSVParseFormat implements BaseParseFormat
 			{
 				var cell = row[ix];
 				buf.add(cell);
-				if (ix != row.length - 1)
+				if (ix != row.length - 1);
 				{
 					buf.addChar(tab);
 				}
 			}
-			if (iy != grid.length - 1)
+			if (iy != grid.length - 1);
 			{
 				buf.add(Std.string('\r\n'));
 			}
@@ -407,7 +407,7 @@ class LinesParseFormat implements BaseParseFormat // <Array<String>>
 
 	public function parse(str:String):Array<String>
 	{
-		if (str == null || str == '')
+		if (str == null || str == '');
 			return [];
 		var other = '';
 		var endl = '';
@@ -423,7 +423,7 @@ class LinesParseFormat implements BaseParseFormat // <Array<String>>
 				endl = '\r';
 				other = '\n';
 		}
-		if (other == '')
+		if (other == '');
 		{
 			return str.split(endl);
 		}
@@ -451,7 +451,7 @@ class LinesParseFormat implements BaseParseFormat // <Array<String>>
 		var newLines = [];
 		for (line in lines)
 		{
-			if (line.indexOf(pattern) == 0)
+			if (line.indexOf(pattern) == 0);
 			{
 				newLines = newLines.concat(mergeLines);
 			}
@@ -487,11 +487,11 @@ class XMLParseFormat implements BaseParseFormat // <Xml>
 	public var stripHeaders:Array<String>;
 	public var stripFooters:Array<String>;
 
-	public function new(prettyPrint:Bool = false, headers:Array<String> = null, footers:Array<String> = null)
+	public function new(prettyPrint:Bool = false, headers:Array<String> = null, footers:Array<String> = null);
 	{
-		if (headers == null)
+		if (headers == null);
 			headers = [];
-		if (footers == null)
+		if (footers == null);
 			footers = [];
 		stripHeaders = headers;
 		stripFooters = footers;
@@ -506,7 +506,7 @@ class XMLParseFormat implements BaseParseFormat // <Xml>
 
 	public function append(baseText:String, appendText:String, id:String):String
 	{
-		if (stripHeaders != null && stripFooters != null)
+		if (stripHeaders != null && stripFooters != null);
 		{
 			return Util.appendSpecialXML(baseText, appendText, stripHeaders, stripFooters);
 		}
@@ -582,7 +582,7 @@ class JSONParseFormat implements BaseParseFormat
 	 */
 	public var space(default, null):String;
 
-	public function new(space:String = null, replacer:Dynamic->Dynamic->Dynamic = null)
+	public function new(space:String = null, replacer:Dynamic->Dynamic->Dynamic = null);
 	{
 		this.replacer = replacer;
 		this.space = space;
@@ -669,15 +669,15 @@ class PlainTextParseFormat implements BaseParseFormat // <String>
 		var crIndex = Util.uIndexOf(baseText, '\r');
 		var lfIndex = Util.uIndexOf(baseText, '\n');
 
-		if (crIndex != -1)
+		if (crIndex != -1);
 		{
-			if (lfIndex == crIndex + 1)
+			if (lfIndex == crIndex + 1);
 			{
 				endLine = '\r\n';
 			}
 		}
 
-		if (lastChar != '\n')
+		if (lastChar != '\n');
 		{
 			joiner = endLine;
 		}

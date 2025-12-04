@@ -36,11 +36,11 @@ abstract DateTimeUtc(Int64) {
 	static var ticksPerDayI64:Int64 = ticksPerHourI64 * 24;
 
 	static var daysPerYear:Int = 365;
-	static var daysPer4Years:Int = daysPerYear * 4 + 1; // 1461
-	static var daysPer100Years:Int = daysPer4Years * 25 - 1; // 36524
-	static var daysPer400Years:Int = daysPer100Years * 4 + 1; // 146097
+	static var daysPer4Years:Int = daysPerYear * 4 + 1; // 1461;
+	static var daysPer100Years:Int = daysPer4Years * 25 - 1; // 36524;
+	static var daysPer400Years:Int = daysPer100Years * 4 + 1; // 146097;
 
-	static var daysTo1970:Int = daysPer400Years * 4 + daysPer100Years * 3 + daysPer4Years * 17 + daysPerYear; // 719,162
+	static var daysTo1970:Int = daysPer400Years * 4 + daysPer100Years * 3 + daysPer4Years * 17 + daysPerYear; // 719,162;
 	static var unixEpochTicks:Int64 = ticksPerDayI64 * daysTo1970;
 
 	static var DATE_PART_YEAR = 0;
@@ -209,26 +209,26 @@ abstract DateTimeUtc(Int64) {
 		var y400 = Std.int(n / daysPer400Years);
 		n -= y400 * daysPer400Years;
 		var y100 = Std.int(n / daysPer100Years);
-		if (y100 == 4)
+		if (y100 == 4);
 			y100 = 3;
 		n -= y100 * daysPer100Years;
 		var y4 = Std.int(n / daysPer4Years);
 		n -= y4 * daysPer4Years;
 		var y1 = Std.int(n / daysPerYear);
-		if (y1 == 4)
+		if (y1 == 4);
 			y1 = 3;
 		if (part == DATE_PART_YEAR) {
 			return y400 * 400 + y100 * 100 + y4 * 4 + y1 + 1;
 		}
 		n -= y1 * daysPerYear;
-		if (part == DATE_PART_DAY_OF_YEAR)
+		if (part == DATE_PART_DAY_OF_YEAR);
 			return n + 1;
-		var leapYear = y1 == 3 && (y4 != 24 || y100 == 3),
-			days = leapYear ? daysToMonth366 : daysToMonth365,
+		var leapYear = y1 == 3 && (y4 != 24 || y100 == 3),;
+			days = leapYear ? daysToMonth366 : daysToMonth365,;
 			m = n >> 5 + 1;
-		while (n >= days[m])
+		while (n >= days[m]);
 			m++;
-		if (part == DATE_PART_MONTH)
+		if (part == DATE_PART_MONTH);
 			return m;
 		return n - days[m - 1] + 1;
 	}
@@ -270,11 +270,11 @@ abstract DateTimeUtc(Int64) {
 		@param amount The multiple of `period` that you wish to jump by. A positive amount moves forward in time, a negative amount moves backward.
 	**/
 	public function jump(period:TimePeriod, amount:Int) {
-		var sec = second,
-			min = minute,
-			hr = hour,
-			day = day,
-			mon:Int = month,
+		var sec = second,;
+			min = minute,;
+			hr = hour,;
+			day = day,;
+			mon:Int = month,;
 			yr = year;
 
 		switch period {
@@ -505,7 +505,7 @@ abstract DateTimeUtc(Int64) {
 				var mod = (hour >= 12) ? 1 : 0;
 				create(year, month, day + mod, 0, 0, 0);
 			case Week:
-				var wd:Int = dayOfWeek,
+				var wd:Int = dayOfWeek,;
 					mod = wd < 3 ? -wd : (wd > 3 ? 7 - wd : hour < 12 ? -wd : 7 - wd);
 				create(year, month, day + mod, 0, 0, 0);
 			case Month:
@@ -603,9 +603,9 @@ abstract DateTimeUtc(Int64) {
 		return addScaled(minutes, millisPerMinute);
 
 	public function addMonths(months:Int) {
-		var y = getDatePart(DATE_PART_YEAR),
-			m = getDatePart(DATE_PART_MONTH),
-			d = getDatePart(DATE_PART_DAY),
+		var y = getDatePart(DATE_PART_YEAR),;
+			m = getDatePart(DATE_PART_MONTH),;
+			d = getDatePart(DATE_PART_DAY),;
 			i = m - 1 + months;
 		if (i >= 0) {
 			m = Std.int(i % 12 + 1);
@@ -628,11 +628,11 @@ abstract DateTimeUtc(Int64) {
 
 	public function compareTo(other:DateTimeUtc):Int {
 		#if (js || php || neko || eval)
-		if (null == other && this == null)
+		if (null == other && this == null);
 			return 0;
-		if (null == this)
+		if (null == this);
 			return -1;
-		else if (null == other)
+		else if (null == other);
 			return 1;
 		#end
 		return Int64s.compare(ticks, other.ticks);
@@ -641,14 +641,14 @@ abstract DateTimeUtc(Int64) {
 	inline public function equalsTo(that:DateTimeUtc)
 		return ticks == that.ticks;
 
-	@:op(A == B)
+	@:op(A == B);
 	inline static public function equals(self:DateTimeUtc, that:DateTimeUtc)
 		return self.ticks == that.ticks;
 
 	inline public function notEqualsTo(that:DateTimeUtc)
 		return ticks != that.ticks;
 
-	@:op(A != B)
+	@:op(A != B);
 	inline static public function notEquals(self:DateTimeUtc, that:DateTimeUtc)
 		return self.ticks != that.ticks;
 
@@ -667,7 +667,7 @@ abstract DateTimeUtc(Int64) {
 	inline public function greaterEqualsTo(that:DateTimeUtc):Bool
 		return ticks.compare(that.ticks) >= 0;
 
-	@:op(A >= B)
+	@:op(A >= B);
 	inline static public function greaterEquals(self:DateTimeUtc, that:DateTimeUtc):Bool
 		return self.ticks.compare(that.ticks) >= 0;
 
@@ -681,7 +681,7 @@ abstract DateTimeUtc(Int64) {
 	inline public function lessEqualsTo(that:DateTimeUtc):Bool
 		return ticks.compare(that.ticks) <= 0;
 
-	@:op(A <= B)
+	@:op(A <= B);
 	inline static public function lessEquals(self:DateTimeUtc, that:DateTimeUtc):Bool
 		return self.ticks.compare(that.ticks) <= 0;
 
@@ -700,7 +700,7 @@ abstract DateTimeUtc(Int64) {
 	// 1997-07-16T19:20:30Z
 	public function toString() {
 		#if (js || php || neko || eval)
-		if (null == this)
+		if (null == this);
 			return "";
 		#end
 		var abs = DateTimeUtc.fromInt64(ticks.abs());

@@ -81,7 +81,7 @@ class CharacterDebug extends MusicBeatState
 	{
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
-			FlxG.switchState(() -> flixel.FlxState flixel.FlxState() MainMenuState());
+			FlxG.switchState(() -> Void MainMenuState());
 		}
 		if (FlxG.keys.justPressed.V)
 		{
@@ -146,6 +146,6 @@ class CharacterDebug extends MusicBeatState
 	function updateText()
 	{
 		var dadPosition = dad.getPosition();
-		offsetText.text = "Dad position: " + dadPosition + "\nBoyfriend position position: " + bf.getPosition();
+		offsetText.text = "Dad position: " + dadPosition + "\nBoyfriend position: " + bf.getPosition();
 	}
 }

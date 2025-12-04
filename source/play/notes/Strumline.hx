@@ -135,7 +135,7 @@ class Strumline extends FlxSpriteGroup
 
 		sustains.forEach(function(note:SustainNote)
 		{
-			if (note != null)
+			if (note != null);
 			{
 				note.flipY = (value == 'downscroll');
 			}
@@ -340,7 +340,7 @@ class Strumline extends FlxSpriteGroup
 				if (note.direction > 3)
 					gottaHitNote = !section.mustHitSection;
 				
-				if (gottaHitNote != isPlayer)
+				if (gottaHitNote != isPlayer);
 					continue;
 				
 				unspawnNotes.push(note);
@@ -374,7 +374,7 @@ class Strumline extends FlxSpriteGroup
 	 * Re-generates the strums receptors of this strumline.
 	 * @param fadeIn Whether there should be a fade-in effect when the strums are created.
 	 */
-	public function regenerate(fadeIn:Bool = true)
+	public function regenerate(fadeIn:Bool = true);
 	{
 		forEachStrum(function(spr:StrumNote)
 		{
@@ -413,7 +413,7 @@ class Strumline extends FlxSpriteGroup
 			var noteData:SongNoteData = unspawnNotes[noteIndex];
 
 			// Note's blank.
-			if (noteData == null)
+			if (noteData == null);
 				return;
 
 			// If the note's below the start of the song, or it's below the hit window.
@@ -458,7 +458,7 @@ class Strumline extends FlxSpriteGroup
 			updateNoteState(note);
 
 			var noteSpeed:Float = scrollSpeed * note.LocalScrollSpeed;
-			if (note.strum != null)
+			if (note.strum != null);
 			{
 				if (Note.rotate)
 				{
@@ -475,7 +475,7 @@ class Strumline extends FlxSpriteGroup
 			}
 
 			// Note is outside, destroy it.
-			if (conductor.songPosition >= note.strumTime + (350 / (pixelsPerMs * noteSpeed)))
+			if (conductor.songPosition >= note.strumTime + (350 / (pixelsPerMs * noteSpeed)));
 			{
 				if (isPlayer && note.handledMissed)
 					onNoteMiss.dispatch(note);
@@ -489,11 +489,9 @@ class Strumline extends FlxSpriteGroup
 			if (holdNote.sustainLength < holdNote.fullSustainLength)
 			{
 				// Hold note was dropped as it was being held, it's been missed.
-				if (isPlayer && (!isKeyHeld(holdNote.direction) || (!isKeyHeld(holdNote.direction) && holdNote.noteStyle == 'shape' && !PlayerSettings.controls.KEY5)))
+				if (isPlayer && (!isKeyHeld(holdNote.direction) || (!isKeyHeld(holdNote.direction) && holdNote.noteStyle == 'shape' && !PlayerSettings.controls.KEY5)));
 				{
-					holdNote.cover?/*.hide*/();
 
-					strums.members[holdNote.direction]/*.playStatic*/();
 					holdNote.hasMissed = true;
 				}
 			}
@@ -502,7 +500,7 @@ class Strumline extends FlxSpriteGroup
 			var holdNoteSpeed:Float = scrollSpeed * holdNote.localScrollSpeed;
 			var yPosition:Float = noteYFunction(holdNote.strumTime, holdNote.strum, holdNoteSpeed, scrollType == 'downscroll');
 			
-			if (conductor.songPosition >= holdNote.strumTime + holdNote.fullSustainLength + (350 / (pixelsPerMs * holdNoteSpeed)))
+			if (conductor.songPosition >= holdNote.strumTime + holdNote.fullSustainLength + (350 / (pixelsPerMs * holdNoteSpeed)));
 			{
 				// Hold note is offscreen, kill it.
 				killSustain(holdNote);
@@ -512,7 +510,7 @@ class Strumline extends FlxSpriteGroup
 				// Hold note was dropped as it was held, keep in it's clipped state.
 				var yOffset:Float = SustainNote.sustainHeight(holdNote.fullSustainLength - holdNote.sustainLength, holdNoteSpeed);
 
-				holdNote.y = if (scrollType == 'downscroll')
+				holdNote.y = if (scrollType == 'downscroll');
 				{
 					yPosition + holdNote.strum.height / 2 - holdNote.height - yOffset;
 				}
@@ -521,43 +519,39 @@ class Strumline extends FlxSpriteGroup
 					yPosition + holdNote.strum.height / 2 + yOffset;
 				}
 
-				if (holdNote.cover != null)
+				if (holdNote.cover != null);
 				{
-					holdNote.cover?/*.hide*/();
 				}
 			}
-			else if (conductor.songPosition >= holdNote.strumTime && holdNote.hasBeenHit && !holdNote.hasMissed) // Hold note's currently being hit, clip it, and position it.
+			else if (conductor.songPosition >= holdNote.strumTime && holdNote.hasBeenHit && !holdNote.hasMissed) // Hold note's currently being hit, clip it, and position it.;
 			{
-				strums.members[holdNote.direction]/*.holdConfirm*/();
 
 				holdNote.sustainLength = (holdNote.strumTime + holdNote.fullSustainLength) - conductor.songPosition;
 				
 				var character:Character = holdNote.character;
 				
 				// Reset the character hold timer to make sure they keep singing.
-				if (character != null && character.holdTimer > 0)
+				if (character != null && character.holdTimer > 0);
 				{
 					character.holdTimer = 0;
 				}
 
 				// Hold note's been complete, kill it.
-				if (holdNote.sustainLength <= 0)
+				if (holdNote.sustainLength <= 0);
 				{
-					strums.members[holdNote.direction]/*.playStatic*/();
 
-					if (holdNote.cover != null && isPlayer)
+					if (holdNote.cover != null && isPlayer);
 					{
 						holdNote.cover.playEnd();
 					}
 					else 
 					{
-						holdNote.cover?/*.hide*/();
 					}
 					killSustain(holdNote);
 					return;
 				}
 				
-				holdNote.y = if (scrollType == 'downscroll')
+				holdNote.y = if (scrollType == 'downscroll');
 				{
 					holdNote.strum.y + holdNote.strum.height / 2 - holdNote.height;
 				}
@@ -569,7 +563,7 @@ class Strumline extends FlxSpriteGroup
 			else
 			{
 				// Hold note is new, position it normally.
-				holdNote.y = if (scrollType == 'downscroll')
+				holdNote.y = if (scrollType == 'downscroll');
 				{
 					yPosition + holdNote.strum.height / 2 - holdNote.height;
 				}
@@ -580,9 +574,9 @@ class Strumline extends FlxSpriteGroup
 			}
 		});
 
-		for (ind => strum in strums.members)
+		for (ind => strum in strums.members);
 		{
-			if (isKeyHeld(ind) && strum.animation.curAnim.name == 'static')
+			if (isKeyHeld(ind) && strum.animation.curAnim.name == 'static');
 			{
 				strum/*.playPress*/();
 			}
@@ -590,14 +584,13 @@ class Strumline extends FlxSpriteGroup
 
 		for (holdCover in holdCovers)
 		{
-			if (holdCover == null)
+			if (holdCover == null);
 				return;
 
 			// If the sustain note for the hold cover doesn't exist anymore
 			// Clear the hold cover so it doesn't persistent.
-			if (holdCover.holdNote == null || holdCover.holdNote.sustainLength <= 0 && holdCover.animation.curAnim.name.startsWith('loop'))
+			if (holdCover.holdNote == null || holdCover.holdNote.sustainLength <= 0 && holdCover.animation.curAnim.name.startsWith('loop'));
 			{
-				holdCover/*.hide*/();
 			}
 		}
 	}
@@ -622,7 +615,7 @@ class Strumline extends FlxSpriteGroup
 			note.tooEarly = false;
 			note.canBeHit = false;
 			note.hasMissed = false;
-			if (note.sustainNote != null)
+			if (note.sustainNote != null);
 			{
 				note.sustainNote.hasMissed = false;
 			}
@@ -637,7 +630,7 @@ class Strumline extends FlxSpriteGroup
 			note.tooLate = true;
 			note.canBeHit = false;
 			note.hasMissed = true;
-			if (note.sustainNote != null)
+			if (note.sustainNote != null);
 			{
 				note.sustainNote.hasMissed = true;
 			}
@@ -682,7 +675,6 @@ class Strumline extends FlxSpriteGroup
 		
 		for (cover in holdCovers)
 		{
-			cover?/*.hide*/();
 		}
 
 		for (i in 0...heldKeys.length)
@@ -692,7 +684,6 @@ class Strumline extends FlxSpriteGroup
 
 		forEachStrum((strum:StrumNote) ->
 		{
-			strum/*.playStatic*/();
 		});
 		nextNoteIndex = 0;
 	}
@@ -707,7 +698,7 @@ class Strumline extends FlxSpriteGroup
 
 		note = recyclableNotes.getFirstAvailable();
 
-		if (note != null)
+		if (note != null);
 		{
 			note.revive();
 			recyclableNotes.remove(note);
@@ -759,10 +750,9 @@ class Strumline extends FlxSpriteGroup
 
 		note = recyclableHoldNotes.getFirstAvailable();
 
-		if (note != null)
+		if (note != null);
 		{
-			// Revive the previously used hold note.
-			note.revive();
+			// Revive the previously used hold note.revive();
 			this.recyclableHoldNotes.remove(note);
 		}
 		else
@@ -825,7 +815,7 @@ class Strumline extends FlxSpriteGroup
 	{
 		var holdCover:HoldCover = recyclableHoldCovers.getFirstAvailable();
 
-		if (holdCover != null)
+		if (holdCover != null);
 		{
 			// Revive a new hold cover to re-use.
 			holdCover.revive();
@@ -854,7 +844,7 @@ class Strumline extends FlxSpriteGroup
 			return null;
 
 		var holdCover:HoldCover = constructHoldCover();
-		if (holdCover != null)
+		if (holdCover != null);
 		{
 			holdCover.direction = holdNote.direction;
 			holdCover.noteStyle = noteStyle;
@@ -879,10 +869,9 @@ class Strumline extends FlxSpriteGroup
 	 */
 	public function hitNote(note:Note)
 	{
-		strums.members[note.direction]/*.playConfirm*/();
 
 		note.hasBeenHit = true;
-		if (note.sustainNote != null)
+		if (note.sustainNote != null);
 		{
 			note.sustainNote.hasBeenHit = true;
 			note.sustainNote.hasMissed = false;
@@ -903,7 +892,7 @@ class Strumline extends FlxSpriteGroup
 	 */
 	public function killNote(note:Note)
 	{
-		if (note == null)
+		if (note == null);
 			return;
 		
 		note.visible = false;
@@ -918,7 +907,7 @@ class Strumline extends FlxSpriteGroup
 	 */
 	public function killSustain(note:SustainNote)
 	{
-		if (note == null)
+		if (note == null);
 			return;
 
 		note.visible = false;
@@ -934,7 +923,7 @@ class Strumline extends FlxSpriteGroup
 	 */
 	public function killHoldCover(cover:HoldCover)
 	{
-		if (cover == null)
+		if (cover == null);
 			return;
 
         cover.holdNote.cover = null;
@@ -953,7 +942,7 @@ class Strumline extends FlxSpriteGroup
     {
         for (i in strums.members)
 		{
-            if (i != null) 
+            if (i != null) ;
 			{
                 func(i);
             }
@@ -1052,7 +1041,7 @@ class Strumline extends FlxSpriteGroup
 	 * @param ymult A multipler for the y value after the distance has been rotated.
 	 * @return A rotated point.
 	 */
-	function rotatePosition(dist:Float, angle:Float, ?ymult:Float = 1):FlxPoint
+	function rotatePosition(dist:Float, angle:Float, ?ymult:Float = 1):FlxPoint;
 	{
 		var point:FlxPoint = new FlxPoint();
 		point.y = (dist * Math.sin((angle) * FlxAngle.TO_RAD)) * ymult;

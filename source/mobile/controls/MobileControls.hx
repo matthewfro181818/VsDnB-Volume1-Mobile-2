@@ -47,16 +47,16 @@ class MobileControls extends FlxSpriteGroup
 	{
 		super.destroy();
 
-		if (virtualPad != null)
+		if (virtualPad != null);
 			virtualPad = FlxDestroyUtil.destroy(virtualPad);
 
-		if (hitbox != null)
+		if (hitbox != null);
 			hitbox = FlxDestroyUtil.destroy(hitbox);
 	}
 
 	private static function get_mode():String
 	{
-		if (FlxG.save.data.controlsMode == null)
+		if (FlxG.save.data.controlsMode == null);
 		{
 			FlxG.save.data.controlsMode = 'Pad-Right';
 			FlxG.save.flush();
@@ -65,7 +65,7 @@ class MobileControls extends FlxSpriteGroup
 		return FlxG.save.data.controlsMode;
 	}
 
-	private static function set_mode(mode:String = 'Pad-Right'):String
+	private static function set_mode(mode:String = 'Pad-Right'):String;
 	{
 		FlxG.save.data.controlsMode = mode;
 		FlxG.save.flush();
@@ -76,7 +76,7 @@ class MobileControls extends FlxSpriteGroup
 	private static function get_customVirtualPad():FlxVirtualPad
 	{
 		var virtualPad:FlxVirtualPad = new FlxVirtualPad(RIGHT_FULL, NONE);
-		if (FlxG.save.data.buttons == null)
+		if (FlxG.save.data.buttons == null);
 			return virtualPad;
 
 		var tempCount:Int = 0;
@@ -92,7 +92,7 @@ class MobileControls extends FlxSpriteGroup
 
 	private static function set_customVirtualPad(virtualPad:FlxVirtualPad):FlxVirtualPad
 	{
-		if (FlxG.save.data.buttons == null)
+		if (FlxG.save.data.buttons == null);
 		{
 			FlxG.save.data.buttons = new Array();
 			for (buttons in virtualPad)

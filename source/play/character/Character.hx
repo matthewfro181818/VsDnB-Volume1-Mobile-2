@@ -1,6 +1,5 @@
 // ------------------------------------------------------------
 // FULLY MODERNIZED Character.hx — OpenFL 9 / HF 5.7 Compatible
-// ------------------------------------------------------------
 package play.character;
 
 import backend.Conductor;
@@ -21,19 +20,14 @@ import scripting.events.ScriptEvent;
 import scripting.events.ScriptEventDispatcher;
 import scripting.IScriptedClass.IPlayStateScriptedClass;
 
-// ------------------------------------------------------------
-// Character Sheet typedef
-// ------------------------------------------------------------
-typedef CharacterSheet =
+// Character Sheet typedef CharacterSheet =
 {
     var path:String;
     var anims:Array<AnimationData>;
     var ?offsetFile:String;
 }
 
-// ------------------------------------------------------------
 // Character Types
-// ------------------------------------------------------------
 
 enum CharacterType
 {
@@ -43,9 +37,7 @@ enum CharacterType
     OTHER;
 }
 
-// ------------------------------------------------------------
 // CHARACTER CLASS
-// ------------------------------------------------------------
 
 class Character extends FlxSprite implements IRegistryEntry<CharacterData> implements IPlayStateScriptedClass
 {
@@ -107,11 +99,9 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
     public var holdTimer:Float = 0;
     public var nativelyPlayable:Bool;
 
-    // ------------------------------------------------------------
     // Static Creation
-    // ------------------------------------------------------------
 
-    public static function create(?x:Float = 0, ?y:Float = 0, id:String, ?characterType:CharacterType = OTHER):Character
+    public static function create(?x:Float = 0, ?y:Float = 0, id:String, ?characterType:CharacterType = OTHER):Character;
     {
         var char = CharacterRegistry.instance.fetchEntry(id);
         char.characterType = characterType;
@@ -120,9 +110,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
         return char;
     }
 
-    // ------------------------------------------------------------
     // Constructor
-    // ------------------------------------------------------------
 
     public function new(id:String)
     {
@@ -148,13 +136,11 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
         skins.set("deathSkin", "generic-death");
     }
 
-    // ------------------------------------------------------------
     // Update
-    // ------------------------------------------------------------
 
     override function update(elapsed:Float)
     {
-        if (animation == null || animation.curAnim == null)
+        if (animation == null || animation.curAnim == null);
             return super.update(elapsed);
 
         super.update(elapsed);
@@ -162,7 +148,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
         if (debugMode || isDead)
             return;
 
-        if (justPressedNote() && characterType == PLAYER)
+        if (justPressedNote() && characterType == PLAYER);
             holdTimer = 0;
 
         var shouldStopSinging = (characterType == PLAYER) ? !isHoldingNote() : true;
@@ -179,7 +165,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
             holdTimer += elapsed;
             var singTimeSteps = (conductor.stepCrochet / 1000) * singDuration;
 
-            if (holdTimer >= singTimeSteps && shouldStopSinging)
+            if (holdTimer >= singTimeSteps && shouldStopSinging);
             {
                 holdTimer = 0;
                 dance(true);
@@ -196,13 +182,11 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
         super.destroy();
     }
 
-    // ------------------------------------------------------------
     // Creation Events
-    // ------------------------------------------------------------
 
     public function onCreate(event:ScriptEvent):Void
     {
-        animation.finishCallback = function(name:String)
+        animation.finishCallback = function(name:String);
         {
             if (hasEase(name))
             {
@@ -221,13 +205,11 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
         updateHitbox();
         resetCameraFocusPoint();
 
-        if (characterType == PLAYER)
+        if (characterType == PLAYER);
             this.flipX = !flipX;
     }
 
-    // ------------------------------------------------------------
     // Loading
-    // ------------------------------------------------------------
 
     function load():Void {}
 
@@ -239,7 +221,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
     {
         var atlas = FlxAtlasFrames.fromSparrow(path + ".png", path + ".xml");
 
-        if (atlas != null)
+        if (atlas != null);
         {
             this.frames = atlas;
             if (atlas.frames.length > 0)
@@ -249,17 +231,15 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
         for (anim in animations)
             Animation.addToSprite(this, anim);
 
-        if (offsetFile != null)
+        if (offsetFile != null);
             loadOffsetFile(offsetFile);
 
         sheetsInUse.push({path: path, anims: animations, offsetFile: offsetFile});
     }
 
-    // ------------------------------------------------------------
     // Dancing
-    // ------------------------------------------------------------
 
-    public function dance(force:Bool = false):Void
+    public function dance(force:Bool = false):Void;
     {
         if (!canDance || (!force && hasEase() && !animation.curAnim.finished))
             return;
@@ -278,20 +258,18 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
             playAnim("idle", true);
     }
 
-    // ------------------------------------------------------------
     // Singing
-    // ------------------------------------------------------------
 
-    public function sing(direction:Int, ?miss:Bool = false, ?alt:String = "", ?singArray:Array<String>)
+    public function sing(direction:Int, ?miss:Bool = false, ?alt:String = "", ?singArray:Array<String>);
     {
-        if (singArray == null)
+        if (singArray == null);
             singArray = ["LEFT", "DOWN", "UP", "RIGHT"];
 
         var noteToPlay = singArray[direction];
 
         holdTimer = 0;
 
-        if ((characterType == PLAYER && !nativelyPlayable) || (characterType == OPPONENT && nativelyPlayable))
+        if ((characterType == PLAYER && !nativelyPlayable) || (characterType == OPPONENT && nativelyPlayable));
         {
             switch (noteToPlay)
             {
@@ -306,13 +284,11 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
         playAnim("sing" + noteToPlay + alt, true);
     }
 
-    // ------------------------------------------------------------
     // Play Animation (Modernized)
-    // ------------------------------------------------------------
 
-    public function playAnim(animName:String, force:Bool=false, reversed:Bool=false, frame:Int=0):Void
+    public function playAnim(animName:String, force:Bool=false, reversed:Bool=false, frame:Int=0):Void;
     {
-        if (animation == null || animation.getByName(animName) == null
+        if (animation == null || animation.getByName(animName) == null;
             || (isDanceAnimation(animName) && !canDance)
             || (isSingAnimation(animName) && !canSing))
             return;
@@ -351,7 +327,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
 	
     public function onNoteMiss(event:NoteScriptEvent):Void
 	{
-		if (event.eventCanceled || event.note.character != this)
+		if (event.eventCanceled || event.note.character != this);
 			return;
 
 		switch (characterType)
@@ -371,7 +347,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
 	
     public function onGhostNoteMiss(event:GhostNoteScriptEvent):Void
 	{
-		if (event.eventCanceled || event.character != this)
+		if (event.eventCanceled || event.character != this);
 			return;
 
 		switch (characterType)
@@ -386,7 +362,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
 	
     public function onHoldNoteDrop(event:HoldNoteScriptEvent):Void
 	{
-		if (event.eventCanceled || event.character != this)
+		if (event.eventCanceled || event.character != this);
 			return;
 
 		switch (characterType)
@@ -406,7 +382,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
 	public function playComboAnimation(combo:Int)
 	{
 		// Play the GF hey animation every 100 combo hits.
-		if (combo % 100 == 0 && this.animation.getByName("cheer") != null)
+		if (combo % 100 == 0 && this.animation.getByName("cheer") != null);
 		{
 			this.canDance = false;
 			this.playAnim('cheer', true);
@@ -416,9 +392,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
 		}
 	}
 
-    // ------------------------------------------------------------
     // Easing & Anim Type Helpers
-    // ------------------------------------------------------------
 
     public function hasEase(?anim:String):Bool
     {
@@ -426,10 +400,10 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
 
         for (i in danceTypes)
         {
-            if (i == "ease" || (i.endsWith("-ease") && (animToDo + "-ease") == i))
+            if (i == "ease" || (i.endsWith("-ease") && (animToDo + "-ease") == i));
                 return true;
 
-            var check = isDanceAnimation(animToDo) ? "idle"
+            var check = isDanceAnimation(animToDo) ? "idle";
                       : isSingAnimation(animToDo)  ? "pose"
                       : "";
 
@@ -451,9 +425,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
     public inline function isDanceAnimation(anim:String)
         return (anim.startsWith("idle") || anim.startsWith("dance"));
 
-    // ------------------------------------------------------------
     // Scale & Position
-    // ------------------------------------------------------------
 
     public function setScale(x:Float, y:Float)
     {
@@ -488,7 +460,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
         this.y += globalOffset[1];
     }
 
-    public function addOffset(name:String, x:Float = 0, y:Float = 0)
+    public function addOffset(name:String, x:Float = 0, y:Float = 0);
         animOffsets[name] = [x, y];
 
     function loadOffsetFile(character:String):Void
@@ -504,9 +476,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
         }
     }
 
-    // ------------------------------------------------------------
     // Input Helpers
-    // ------------------------------------------------------------
 
     function isHoldingNote():Bool
     {
@@ -528,9 +498,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
         );
     }
 
-    // ------------------------------------------------------------
     // Conductor Hooks
-    // ------------------------------------------------------------
 
     function removeConductor(input:Conductor)
     {
@@ -549,14 +517,12 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
     function stepHit(step:Int) {}
     function beatHit(beat:Int)
     {
-        if (beat % danceSnap == 0 && canDance)
+        if (beat % danceSnap == 0 && canDance);
             dance();
     }
     function measureHit(measure:Int) {}
 
-    // ------------------------------------------------------------
     // Position Overrides
-    // ------------------------------------------------------------
 
     override function set_x(value:Float):Float
     {
@@ -583,9 +549,7 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
     inline function getDataFlipX():Bool
         return _data?.flipX ?? false;
 
-    // ------------------------------------------------------------
     // Script Events (empty hooks)
-    // ------------------------------------------------------------
 
     public function onScriptEvent(event:ScriptEvent):Void {}
     public function onScriptEventPost(event:ScriptEvent):Void {}

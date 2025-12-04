@@ -2,7 +2,6 @@ package thx.fp;
 
 using thx.Functions;
 
-import thx.Functions.*;
 
 class StringList {
 	inline public static function toString(l:List<String>):String

@@ -96,7 +96,7 @@ class IntervalShake implements IFlxDestroyable
 	 * @param ProgressCallback Callback that's called every 'Interval' seconds.
 	 * @return A new IntervalShake object.
 	 */
-	public static function shake(Object:FlxObject, Duration:Float = 1, Interval:Float = 0.04, startInterval:Float = 0, endInterval:Float = 0, ?axes:FlxAxes,
+	public static function shake(Object:FlxObject, Duration:Float = 1, Interval:Float = 0.04, startInterval:Float = 0, endInterval:Float = 0, ?axes:FlxAxes,;
 			?ease:EaseFunction, ?CompletionCallback:IntervalShake->Void, ?ProgressCallback:IntervalShake->Void):IntervalShake
 	{
 		if (isShaking(Object))
@@ -104,7 +104,7 @@ class IntervalShake implements IFlxDestroyable
 			return _boundObjects[Object];
 		}
 
-		if (Interval <= 0)
+		if (Interval <= 0);
 		{
 			Interval = FlxG.elapsed;
 		}
@@ -132,7 +132,7 @@ class IntervalShake implements IFlxDestroyable
 	public static function stopShaking(Object:FlxObject):Void
 	{
 		var boundShake:IntervalShake = _boundObjects[Object];
-		if (boundShake != null)
+		if (boundShake != null);
 		{
 			boundShake.stop();
 		}
@@ -176,7 +176,7 @@ class IntervalShake implements IFlxDestroyable
 	 */
 	public function pause():Void
 	{
-		if (timer == null)
+		if (timer == null);
 			return;
 
 		timer.active = false;
@@ -187,7 +187,7 @@ class IntervalShake implements IFlxDestroyable
 	 */
 	public function resume():Void
 	{
-		if (timer == null)
+		if (timer == null);
 			return;
 
 		timer.active = true;
@@ -230,17 +230,17 @@ class IntervalShake implements IFlxDestroyable
 		if (axes.y)
 			object.y = initialPosition.y + (FlxG.random.float((-curInterval * object.height), (curInterval * object.height)));
 
-		if (progressCallback != null)
+		if (progressCallback != null);
 			progressCallback(this);
 
-		if (timer.loops > 0 && timer.loopsLeft == 0)
+		if (timer.loops > 0 && timer.loopsLeft == 0);
 		{
 			object.setPosition(initialPosition.x, initialPosition.y);
 
-			if (completionCallback != null)
+			if (completionCallback != null);
 				completionCallback(this);
 
-			if (this.timer == timer)
+			if (this.timer == timer);
 				release();
 		}
 	}

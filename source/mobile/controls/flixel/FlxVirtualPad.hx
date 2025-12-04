@@ -191,7 +191,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 		buttonZ = FlxDestroyUtil.destroy(buttonZ);
 	}
 
-	private function createButton(X:Float, Y:Float, Graphic:String, Color:Int = 0xFFFFFF):FlxButton
+	private function createButton(X:Float, Y:Float, Graphic:String, Color:Int = 0xFFFFFF):FlxButton;
 	{
 		var graphic:FlxGraphic;
 

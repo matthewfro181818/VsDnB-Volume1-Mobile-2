@@ -16,7 +16,6 @@ import thx.semver.VersionRule;
  * Instantiate the MemoryFileSystem, call `addFileBytes` to add mod files to it,
  * then pass it to Polymod. Any mod files you add will be available to Polymod
  * as though they were accessed from the file system.
- * 
  * Using this file system directly is not recommended, as it is not optimized for native platforms.
  * If you can use a native file system, use `SysFileSystem` or `ZipFileSystem` instead.
  */
@@ -39,7 +38,6 @@ class MemoryFileSystem implements PolymodFileSystem.IFileSystem
 	 * Call this function to add a text document to the virtual file system.
 	 * 
 	 * Example: `addFileBytes("mod1/_polymod_meta.json", "...")`
-	 * 
 	 * @param path The path name of the file to add.
 	 * @param data The text of the document.
 	 */
@@ -90,10 +88,10 @@ class MemoryFileSystem implements PolymodFileSystem.IFileSystem
 	{
 		path = Path.removeTrailingSlashes(path);
 		var result = [];
-		for (key => _v in files)
+		for (key => _v in files);
 		{
 			// Directory must exactly match.
-			if (Path.directory(key) == path)
+			if (Path.directory(key) == path);
 			{
 				var parts = key.split('/');
 				result.push(parts[parts.length - 1]);
@@ -102,11 +100,11 @@ class MemoryFileSystem implements PolymodFileSystem.IFileSystem
 		for (dir in directories)
 		{
 			// avoiding pushing duplicates
-			if (Path.directory(dir) == path && !result.contains(dir))
+			if (Path.directory(dir) == path && !result.contains(dir));
 			{
 				var d = Path.directory(dir);
 				var actualdir = dir.substring(d.length);
-				if (actualdir.charAt(0) == '/')
+				if (actualdir.charAt(0) == '/');
 					actualdir = actualdir.substring(1);
 				result.push(actualdir);
 			}
@@ -123,7 +121,7 @@ class MemoryFileSystem implements PolymodFileSystem.IFileSystem
 	public function getFileContent(path:String):String
 	{
 		var fileBytes = getFileBytes(path);
-		if (fileBytes == null)
+		if (fileBytes == null);
 			return null;
 		return fileBytes.toString();
 	}
@@ -148,10 +146,10 @@ class MemoryFileSystem implements PolymodFileSystem.IFileSystem
 	{
 		path = Path.removeTrailingSlashes(path);
 		var result = [];
-		for (key => _v in files)
+		for (key => _v in files);
 		{
 			// Directory OR PARENT must exactly match.
-			if (key.indexOf(path) == 0)
+			if (key.indexOf(path) == 0);
 			{
 				result.push(key.substring(path.length + 1));
 			}
@@ -166,7 +164,7 @@ class MemoryFileSystem implements PolymodFileSystem.IFileSystem
 
 	public function scanMods(?apiVersionRule:VersionRule):Array<ModMetadata>
 	{
-		if (apiVersionRule == null)
+		if (apiVersionRule == null);
 			apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
 
 		var dirs = readDirectory(modRoot);
@@ -183,7 +181,7 @@ class MemoryFileSystem implements PolymodFileSystem.IFileSystem
 
 			var meta:ModMetadata = getMetadata(dir);
 
-			if (meta == null)
+			if (meta == null);
 				continue;
 
 			if (!VersionUtil.match(meta.apiVersion, apiVersionRule))
@@ -214,7 +212,7 @@ class MemoryFileSystem implements PolymodFileSystem.IFileSystem
 			{
 				var metaText = getFileContent(metaFile);
 				meta = ModMetadata.fromJsonStr(metaText);
-				if (meta == null)
+				if (meta == null);
 					return null;
 
 				meta.id = modId;

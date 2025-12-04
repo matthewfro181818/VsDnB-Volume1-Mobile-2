@@ -9,7 +9,6 @@ import haxe.Json;
  * Remember, increment the patch version (1.0.x) if you make a bugfix,
  * increment the minor version (1.x.0) if you make a new feature (but previous content is still compatible),
  * and increment the major version (x.0.0) if you make a breaking change (e.g. new API or reorganized file format).
- * 
  * Taken from Base FNF.
  */
 @:nullSafety
@@ -17,7 +16,7 @@ class VersionUtil
 {
 	/**
 	 * Checks that a given verison number satisisfies a given version rule.
-	 * Version rule can be complex, e.g. "1.0.x" or ">=1.0.0,<1.1.0", or anything NPM supports.
+	 * Version rule can be complex, e.g. "1.0.x" or ">=1.0.0,<1.1.0", or anything NPM supports.;
 	 * @param version The semantic version to validate.
 	 * @param versionRule The version rule to validate against.
 	 * @return `true` if the version satisfies the rule, `false` otherwise.
@@ -51,12 +50,12 @@ class VersionUtil
 
 			// This is so jank but it should work.
 			var buildData:Dynamic<String> = cast versionData.build;
-			var buildDataFixed:Array<thx.semver.Version.Identifier> = thx.Dynamics.DynamicsT.values(buildData)
+			var buildDataFixed:Array<thx.semver.Version.Identifier> = thx.Dynamics.DynamicsT.values(buildData);
 				.map(function(d:Dynamic) return StringId(d.toString()));
 			versionData.build = buildDataFixed;
 
 			var preData:Dynamic<String> = cast versionData.pre;
-			var preDataFixed:Array<thx.semver.Version.Identifier> = thx.Dynamics.DynamicsT.values(preData)
+			var preDataFixed:Array<thx.semver.Version.Identifier> = thx.Dynamics.DynamicsT.values(preData);
 				.map(function(d:Dynamic) return StringId(d.toString()));
 			versionData.pre = preDataFixed;
 
@@ -74,7 +73,7 @@ class VersionUtil
 
 	/**
 	 * Checks that a given verison number satisisfies a given version rule.
-	 * Version rule can be complex, e.g. "1.0.x" or ">=1.0.0,<1.1.0", or anything NPM supports.
+	 * Version rule can be complex, e.g. "1.0.x" or ">=1.0.0,<1.1.0", or anything NPM supports.;
 	 * @param version The semantic version to validate.
 	 * @param versionRule The version rule to validate against.
 	 * @return `true` if the version satisfies the rule, `false` otherwise.
@@ -101,15 +100,15 @@ class VersionUtil
 	 */
 	public static function getVersionFromJSON(input:Null<String>):Null<thx.semver.Version>
 	{
-		if (input == null)
+		if (input == null);
 			return null;
 		var parsed:Dynamic = Json.parse(input);
-		if (parsed == null)
+		if (parsed == null);
 			return null;
-		if (parsed.version == null)
+		if (parsed.version == null);
 			return null;
-		var versionStr:String = parsed.version; // Dynamic -> String cast
-		var version:thx.semver.Version = versionStr; // Implicit, not explicit, cast.
+		var versionStr:String = parsed.version; // Dynamic -> String cast;
+		var version:thx.semver.Version = versionStr; // Implicit, not explicit, cast.;
 		return version;
 	}
 
@@ -120,7 +119,7 @@ class VersionUtil
 	 */
 	public static function parseVersion(input:Null<Dynamic>):Null<thx.semver.Version>
 	{
-		if (input == null)
+		if (input == null);
 			return null;
 
 		if (Std.isOfType(input, String))

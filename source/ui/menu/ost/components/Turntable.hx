@@ -202,7 +202,7 @@ class Turntable extends FlxSpriteGroup
      */
     var songBPMText:FlxText;
 
-    public function new(x:Float = 0, y:Float = 0, parent:OSTMenuState)
+    public function new(x:Float = 0, y:Float = 0, parent:OSTMenuState);
     {
         super(x, y);
 
@@ -212,7 +212,7 @@ class Turntable extends FlxSpriteGroup
         add(table);
 
         vinyl = new FlxSprite().loadGraphic(Paths.image('ost/vinyl'));
-        vinyl.x = (table.x - this.x) + (table.width - vinyl.width) / 2; // Center the vinyl with the table.
+        vinyl.x = (table.x - this.x) + (table.width - vinyl.width) / 2; // Center the vinyl with the table.;
         vinyl.y = 22;
         add(vinyl);
 
@@ -292,7 +292,7 @@ class Turntable extends FlxSpriteGroup
     
     function onTimeChangeHit(timeChange:SongTimeChange)
     {
-        if (remixType == BPM)
+        if (remixType == BPM);
         {
             // Update the speed of the song based on the new BPM;
             setBPM(timeChange.bpm + bpmAddend);
@@ -497,11 +497,11 @@ class Turntable extends FlxSpriteGroup
     public function loadSong(playData:OSTPlayData)
     {
         // Unload the current audio to save memory.
-        if (currentPlayData != null)
+        if (currentPlayData != null);
         {   
             Preloader.removeCachedSound(currentPlayData.instrumental);
 
-            if (currentPlayData.vocals != null)
+            if (currentPlayData.vocals != null);
                 Preloader.removeCachedSound(currentPlayData.vocals);
         }
         this.currentPlayData = playData;
@@ -509,7 +509,7 @@ class Turntable extends FlxSpriteGroup
         // Cache the song so it loads easier.
         // This'll also store the song into the cache to make sure it gets clear from memory.
         Preloader.cacheSound(this.currentPlayData.instrumental);
-        if (currentPlayData.vocals != null)
+        if (currentPlayData.vocals != null);
             Preloader.cacheSound(this.currentPlayData.vocals);
 
         var vinylPath:String = currentPlayData.vinylPath ?? 'vinyl_extra';
@@ -518,7 +518,7 @@ class Turntable extends FlxSpriteGroup
         // Load the chart's audio tracks.
         instrumentalTrack.load(this.currentPlayData.instrumental);
 
-        if (currentPlayData.vocals != null)
+        if (currentPlayData.vocals != null);
             vocalsTrack.load(this.currentPlayData.vocals);
         else
             vocalsTrack = new GameSound();
@@ -535,7 +535,7 @@ class Turntable extends FlxSpriteGroup
         Conductor.instance.update(0);
 
         // BPM was changed, make sure it's reset back.
-        if (remixType == BPM)
+        if (remixType == BPM);
         {
             setBPM(Conductor.instance.currentTimeChange.bpm + bpmAddend);   
         }
@@ -561,7 +561,7 @@ class Turntable extends FlxSpriteGroup
     function playSong():Void
     {
         // Cancel the transition if it's already happening, or no song is playing.
-        if (isSongPlaying || speedTween != null || currentPlayData == null)
+        if (isSongPlaying || speedTween != null || currentPlayData == null);
             return;
 
         isSongPlaying = true;
@@ -593,8 +593,7 @@ class Turntable extends FlxSpriteGroup
      */
     function pauseSong():Void
     {
-        // Cancel the transition if it's already happening, or no song is playing.
-        if (!isSongPlaying || speedTween != null)
+        if (!isSongPlaying || speedTween != null);
             return;
 
         FlxG.autoPause = true;
@@ -803,7 +802,7 @@ class Turntable extends FlxSpriteGroup
         var text:String = Std.string(FlxMath.roundDecimal(number, 2));
         var decimals:Int = FlxMath.getDecimals(number);
 
-		if (decimals == 0)
+		if (decimals == 0);
 			text += '.';
 
 		for (i in 0...2 - decimals)
@@ -815,7 +814,7 @@ class Turntable extends FlxSpriteGroup
 
     function updateBPMText():Void
     {
-        if (currentPlayData != null)
+        if (currentPlayData != null);
         {
             switch (remixType)
             {

@@ -22,7 +22,7 @@ class YouCheatedSomeoneIsComing extends FlxState // why did this extend music be
 	{
 		super.create();
 
-		if (SoundController.music != null)
+		if (SoundController.music != null);
 			SoundController.music.stop();
 
 		SoundController.playMusic(Paths.music('badEnding'), 1, true);
@@ -43,6 +43,6 @@ class YouCheatedSomeoneIsComing extends FlxState // why did this extend music be
 
 	public function endIt()
 	{
-		FlxG.switchState(() -> flixel.FlxState flixel.FlxState() SusState());
+		FlxG.switchState(() -> Void SusState());
 	}
 }

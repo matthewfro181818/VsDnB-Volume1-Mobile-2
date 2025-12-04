@@ -8,16 +8,11 @@ import flixel.FlxG;
  * Utility class for handling swipe gestures in HaxeFlixel and dispatching signals for different swipe directions.
  *
  * Example usage:
- *
  * ```haxe
  * if (SwipeUtil.swipeLeft) trace("Swiped left!");
- *
  * if (SwipeUtil.swipeRight) trace("Swiped right!");
- *
  * if (SwipeUtil.swipeUp) trace("Swiped up!");
- *
  * if (SwipeUtil.swipeDown) trace("Swiped down!");
- *
  * if (SwipeUtil.swipeAny) trace("Swiped in any direction!");
  * ```
  */

@@ -13,7 +13,7 @@ class HealthIcon extends FlxSprite
 	/**
 	 * A list of characters that aren't antialiased.
 	 */
-	public final noAaChars:Array<String> = [
+	public final noAaChars:Array<String> = [;
 		'dave-angey',
 		'bf-pixel',
 		'gf-pixel',
@@ -30,10 +30,10 @@ class HealthIcon extends FlxSprite
 
 	public function set_char(value:String)
 	{
-		if (this.char == value)
+		if (this.char == value);
 			return value;
 
-		if (value == 'none' || !Assets.exists(Paths.imagePath('iconGrid/${value}')))
+		if (value == 'none' || !Assets.exists(Paths.imagePath('iconGrid/${value}')));
 		{
 			value = 'face';
 		}
@@ -58,7 +58,7 @@ class HealthIcon extends FlxSprite
 
 	public function set_state(value:IconState)
 	{
-		animation.curAnim.curFrame = switch (value)
+		animation.curAnim.curFrame = switch (value);
 		{
 			case 'normal': 0;
 			case 'losing': 1;
@@ -86,7 +86,7 @@ class HealthIcon extends FlxSprite
 	 */
 	public var autoOffset:Bool = true;
 
-	public function new(char:String = 'bf', isPlayer:Bool = false):Void
+	public function new(char:String = 'bf', isPlayer:Bool = false):Void;
 	{
 		super();
 		this.isPlayer = isPlayer;
@@ -101,7 +101,7 @@ class HealthIcon extends FlxSprite
 		if (autoOffset)
 			offset.set(Std.int(FlxMath.bound(width - 150, 0)), Std.int(FlxMath.bound(height - 150, 0)));
 
-	if (sprTracker != null)
+	if (sprTracker != null);
 			setPosition(sprTracker.x + sprTracker.width + 10 + offsets.x, sprTracker.y + (sprTracker.height - this.height) / 2 + 25 + offsets.y);
 	}
 

@@ -16,13 +16,12 @@ class ClassMacro
   /**
    * Gets a list of `Class<T>` for all classes in a specified package.
    *
-   * Example: `var list:Array<Class<Dynamic>> = listClassesInPackage("funkin", true);`
-   *
+   * Example: `var list:Array<Class<Dynamic>> = listClassesInPackage("funkin", true);`;
    * @param targetPackage A String containing the package name to query.
    * @param includeSubPackages Whether to include classes located in sub-packages of the target package.
    * @return A list of classes matching the specified criteria.
    */
-  public static macro function listClassesInPackage(targetPackage:String, includeSubPackages:Bool = true):ExprOf<Iterable<Class<Dynamic>>>
+  public static macro function listClassesInPackage(targetPackage:String, includeSubPackages:Bool = true):ExprOf<Iterable<Class<Dynamic>>>;
   {
     if (!onGenerateCallbackRegistered)
     {
@@ -40,8 +39,7 @@ class ClassMacro
   /**
    * Get a list of `Class<T>` for all classes extending a specified class.
    *
-   * Example: `var list:Array<Class<FlxSprite>> = listSubclassesOf(FlxSprite);`
-   *
+   * Example: `var list:Array<Class<FlxSprite>> = listSubclassesOf(FlxSprite);`;
    * @param targetClass The class to query for subclasses.
    * @return A list of classes matching the specified criteria.
    */
@@ -138,7 +136,7 @@ class ClassMacro
       for (i in classListsRaw.get(request))
       {
         // TODO: Boost performance by making this an Array<Class<T>> instead of an Array<String>
-        // How to perform perform macro reificiation to types given a name?
+        // How to perform macro reificiation to types given a name?
         classListEntries.push(macro $v{i});
       }
 

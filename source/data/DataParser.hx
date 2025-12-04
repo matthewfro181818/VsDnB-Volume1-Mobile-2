@@ -7,7 +7,6 @@ import flixel.util.FlxAxes;
  * This is for values that aren't normally parsable such a `Dynamic`
  * 
  * Functions must be (T) -> T, with T being the type to be parsed.
- * 
  * @see https://github.com/elnabo/json2object
  */
 class DataParser

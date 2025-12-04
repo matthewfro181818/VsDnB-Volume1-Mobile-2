@@ -10,7 +10,7 @@ using thx.Ints;
 
 	All bit values are defaulted to false unless explicitly set to true.
 
-	Attemptiing to access an index which is < 0 or >= the BitSet length will result in
+	Attemptiing to access an index which is < 0 or >= the BitSet length will result in;
 	an exception.
 **/
 abstract BitSet(Array<Int32>) from Array<Int32> {
@@ -25,7 +25,7 @@ abstract BitSet(Array<Int32>) from Array<Int32> {
 		Creates a new, empty BitSet, with the given `length`
 	**/
 	public inline function new(length:Int) {
-		this = [length]; // store the BitSet length at block index 0
+		this = [length]; // store the BitSet length at block index 0;
 		#if !js // resizing is not needed in JS but might still be a good idea
 		var size = Std.int(length / blockSize) + 1;
 		Arrays.resize(this, size + 1, 0);
@@ -103,7 +103,7 @@ abstract BitSet(Array<Int32>) from Array<Int32> {
 		if (blockIndex >= this.length) {
 			Arrays.resize(this, blockIndex + 1, 0);
 		};
-		if (this[0] <= index)
+		if (this[0] <= index);
 			this[0] = index + 1;
 		var bitIndex:Int32 = index % blockSize;
 		if (value) {
@@ -158,7 +158,7 @@ abstract BitSet(Array<Int32>) from Array<Int32> {
 	}
 
 	/**
-		Expands the BitSet by internally copying each bit `count` times.  E.g. `('101' : BitSet).expand(3) => '111100001111'`
+		Expands the BitSet by internally copying each bit `count` times.  E.g. `('101' : BitSet).expand(3) => '111100001111'`;
 	**/
 	public function expand(count:Int):BitSet {
 		return fromBools(thx.Arrays.flatMap(length.range(), function(index) {
@@ -179,7 +179,7 @@ abstract BitSet(Array<Int32>) from Array<Int32> {
 		ANDs together this BitSet with another BitSet.
 		No changes are made to this BitSet.
 	**/
-	#if (haxe_ver >= 3.300)
+	#if (haxe_ver >= 3.300);
 	@:op(A & B)
 	#end
 	public function and(right:BitSet):BitSet {
@@ -190,7 +190,7 @@ abstract BitSet(Array<Int32>) from Array<Int32> {
 		ORs together this BitSet with another BitSet.
 		No changes are made to this BitSet.
 	**/
-	#if (haxe_ver >= 3.300)
+	#if (haxe_ver >= 3.300);
 	@:op(A | B)
 	#end
 	public function or(right:BitSet):BitSet {
@@ -201,7 +201,7 @@ abstract BitSet(Array<Int32>) from Array<Int32> {
 		XORs together this BitSet with another BitSet.
 		No changes are made to this BitSet.
 	**/
-	#if (haxe_ver >= 3.300)
+	#if (haxe_ver >= 3.300);
 	@:op(A ^ B)
 	#end
 	public function xor(right:BitSet):BitSet {
@@ -212,7 +212,7 @@ abstract BitSet(Array<Int32>) from Array<Int32> {
 		Returns a new BitSet that is a bitwise negation of this BitSet.
 		No changes are made to this BitSet.
 	**/
-	#if (haxe_ver >= 3.200)
+	#if (haxe_ver >= 3.200);
 	@:op(~A)
 	#end
 	public function negate():BitSet {
@@ -222,18 +222,18 @@ abstract BitSet(Array<Int32>) from Array<Int32> {
 		}, new BitSet(0));
 	}
 
-	@:op(A == B)
+	@:op(A == B);
 	public function equals(other:BitSet):Bool {
-		if (length != other.length)
+		if (length != other.length);
 			return false;
 		for (i in 0...length) {
-			if (at(i) != other.at(i))
+			if (at(i) != other.at(i));
 				return false;
 		}
 		return true;
 	}
 
-	@:op(A != B)
+	@:op(A != B);
 	public function notEquals(other:BitSet):Bool {
 		return !equals(other);
 	}

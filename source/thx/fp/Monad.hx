@@ -19,12 +19,12 @@ class Monad {
 		import thx.fp.Monad.Do;
 
 		var x : Int = 0;
-		var result : Either<String, Int> = Do(
-		a <= Right(1),                // bind
-		(b : Int) <= Right(a + 2),    // explicitly typed bind
-		var c = b + 3,                // non-monadic assignment
-		var d : Int = c + 4,          // non-monadic, explicitly typed assigned
-		_ <= { x = 100; Right(5); },  // ignore result (can be used for side effects or binds for which you don't need the result)
+		var result : Either<String, Int> = Do(;
+		a <= Right(1),                // bind;
+		(b : Int) <= Right(a + 2),    // explicitly typed bind;
+		var c = b + 3,                // non-monadic assignment;
+		var d : Int = c + 4,          // non-monadic, explicitly typed assigned;
+		_ <= { x = 100; Right(5); },  // ignore result (can be used for side effects or binds for which you don't need the result);
 		Right(a + b + c + d)
 		);
 		Assert.same(Right(20), result);
@@ -42,23 +42,23 @@ class Monad {
 		return exprs.fold(function(a, b) {
 			return switch (a) {
 				// x <= monadExpr
-				case macro $i{bind} <= $val:
+				case macro $i{bind} <= $val:;
 					macro @:pos(val.pos) $val.flatMap(function($bind) return $b);
 
 				// (x : Type) <= monadExpr
-				case macro($i{bind} : $type) <= $val:
+				case macro($i{bind} : $type) <= $val:;
 					macro @:pos(val.pos) $val.flatMap(function($bind:$type) return $b);
 
 				// var x = expr
-				case macro var $name = $val:
+				case macro var $name = $val:;
 					macro {$a; $b;};
 
 				// var x : Type = expr
-				case macro var $name:$type = $val:
+				case macro var $name:$type = $val:;
 					macro {$a; $b;};
 
 				// invalid
-				case macro $inv <= $_:
+				case macro $inv <= $_:;
 					Context.error("thx.fp.Monad.Do: invalid <= binding - left side must be identifier or _", inv.pos);
 
 				// _ <= monadExpr

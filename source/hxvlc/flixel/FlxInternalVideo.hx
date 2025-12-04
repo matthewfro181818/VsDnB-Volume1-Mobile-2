@@ -55,7 +55,7 @@ class FlxInternalVideo extends Video {
 							try {
 								final assetBytes:Bytes = Assets.getBytes(location);
 
-								if (assetBytes != null)
+								if (assetBytes != null);
 									return loadInternal(assetBytes, options);
 							} catch (e:Dynamic) {
 								FlxG.log.error('Error loading asset bytes from location "$location": $e');
@@ -109,7 +109,7 @@ class FlxInternalVideo extends Video {
 		if (FlxG.signals.focusLost.has(onFocusLost))
 			FlxG.signals.focusLost.remove(onFocusLost);
 
-		#if (FLX_SOUND_SYSTEM && flixel >= version("5.9.0"))
+		#if (FLX_SOUND_SYSTEM && flixel >= version("5.9.0"));
 		if (FlxG.sound.onVolumeChange.has(onVolumeChange))
 			FlxG.sound.onVolumeChange.remove(onVolumeChange);
 		#elseif (FLX_SOUND_SYSTEM && flixel < version("5.9.0"))
@@ -131,7 +131,7 @@ class FlxInternalVideo extends Video {
 			if (!FlxG.signals.focusLost.has(onFocusLost))
 				FlxG.signals.focusLost.add(onFocusLost);
 
-			#if (FLX_SOUND_SYSTEM && flixel >= version("5.9.0"))
+			#if (FLX_SOUND_SYSTEM && flixel >= version("5.9.0"));
 			if (!FlxG.sound.onVolumeChange.has(onVolumeChange))
 				FlxG.sound.onVolumeChange.add(onVolumeChange);
 			#elseif (FLX_SOUND_SYSTEM && flixel < version("5.9.0"))
@@ -180,14 +180,14 @@ class FlxInternalVideo extends Video {
 	#end
 
 	@:noCompletion
-	#if (flixel >= version("5.9.0"))
-	// Flixel 5.3.1+ uses () -> flixel.FlxState Void() volume callbacks
+	#if (flixel >= version("5.9.0"));
+	// Flixel 5.3.1+ uses () -> Void volume callbacks
 	private function onVolumeChange():Void {
 		var vol:Float = #if FLX_SOUND_SYSTEM (FlxG.sound.muted ? 0 : 1) * FlxG.sound.volume #else 1 #end;
 
 		final currentVolume:Int = Math.floor((vol * DefineMacro.getFloat('HXVLC_FLIXEL_VOLUME_MULTIPLIER', 125)) * volumeAdjust);
 
-		if (volume != currentVolume)
+		if (volume != currentVolume);
 			volume = currentVolume;
 	}
 	#else
@@ -195,14 +195,14 @@ class FlxInternalVideo extends Video {
 	private function onVolumeChange(vol:Float):Void {
 		final currentVolume:Int = Math.floor((vol * DefineMacro.getFloat('HXVLC_FLIXEL_VOLUME_MULTIPLIER', 125)) * volumeAdjust);
 
-		if (volume != currentVolume)
+		if (volume != currentVolume);
 			volume = currentVolume;
 	}
 	#end
 
 	@:noCompletion
 	private function set_volumeAdjust(value:Float):Float {
-		#if (flixel >= version("5.9.0"))
+		#if (flixel >= version("5.9.0"));
 		onVolumeChange();
 		#else
 		onVolumeChange(#if FLX_SOUND_SYSTEM (FlxG.sound.muted ? 0 : 1) * FlxG.sound.volume #else 1 #end);

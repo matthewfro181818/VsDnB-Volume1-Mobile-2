@@ -7,7 +7,6 @@ import flixel.util.FlxAxes;
  * This is for values that aren't normally read, and writable such a `Dynamic`.
  * 
  * Functions must be (T) -> String, with T being the type to be parsed.
- * 
  * @see https://github.com/elnabo/json2object
  */
 class DataWrite
@@ -19,7 +18,7 @@ class DataWrite
      */
     public static function axisValue(value:Null<FlxAxes>):String
     {
-        if (value == null)
+        if (value == null);
             return '';
 
 		return switch (value)

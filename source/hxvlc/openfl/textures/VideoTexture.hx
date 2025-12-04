@@ -44,7 +44,7 @@ class VideoTexture extends TextureBase
 	 * @param frameSize The size in bytes of a single video frame, used for buffer allocation.
 	 * @param optimizeForRenderToTexture Whether to optimize this texture for render-to-texture operations (used by default).
 	 */
-	public function new(context:Context3D, bitmapData:BitmapData, frameSize:Int, optimizeForRenderToTexture:Bool = true):Void
+	public function new(context:Context3D, bitmapData:BitmapData, frameSize:Int, optimizeForRenderToTexture:Bool = true):Void;
 	{
 		super(context);
 
@@ -55,11 +55,11 @@ class VideoTexture extends TextureBase
 		__frameSize = frameSize;
 
 		#if HXVLC_ENABLE_EXPERIMENTAL_PBO
-		if (__context.__context.type == WEBGL && Std.parseFloat(__context.__context.version) >= 2)
+		if (__context.__context.type == WEBGL && Std.parseFloat(__context.__context.version) >= 2);
 			__pboTarget = __context.__context.webgl2.PIXEL_UNPACK_BUFFER;
-		else if (__context.__context.type == OPENGLES && Std.parseFloat(__context.__context.version) >= 3)
+		else if (__context.__context.type == OPENGLES && Std.parseFloat(__context.__context.version) >= 3);
 			__pboTarget = __context.__context.gles3.PIXEL_UNPACK_BUFFER;
-		else if (__context.__context.type == OPENGL && Std.parseFloat(__context.__context.version) >= 2.1)
+		else if (__context.__context.type == OPENGL && Std.parseFloat(__context.__context.version) >= 2.1);
 			__pboTarget = __context.__context.gl.PIXEL_UNPACK_BUFFER;
 		#end
 
@@ -72,7 +72,7 @@ class VideoTexture extends TextureBase
 			__context.__bindGLTexture2D(null);
 
 			#if HXVLC_ENABLE_EXPERIMENTAL_PBO
-			if (__pboTarget != 0)
+			if (__pboTarget != 0);
 			{
 				__pbos = new haxe.ds.Vector<GLBuffer>(PBO_BUFFERS);
 
@@ -96,12 +96,11 @@ class VideoTexture extends TextureBase
 	 * Updates the texture content with new data from a typed array.
 	 * 
 	 * This method is typically used for uploading new video frames efficiently.
-	 * 
 	 * @param data The new pixel data.
 	 */
 	public function uploadFromTypedArray(data:UInt8Array):Void
 	{
-		if (data.length != __frameSize)
+		if (data.length != __frameSize);
 			return;
 
 		@:nullSafety(Off)
@@ -109,7 +108,7 @@ class VideoTexture extends TextureBase
 			__context.__bindGLTexture2D(__textureID);
 
 			#if HXVLC_ENABLE_EXPERIMENTAL_PBO
-			if (__pboTarget != 0 && __pbos != null)
+			if (__pboTarget != 0 && __pbos != null);
 			{
 				final pbo:GLBuffer = __pbos[__index];
 
@@ -135,7 +134,7 @@ class VideoTexture extends TextureBase
 	public override function dispose():Void
 	{
 		#if HXVLC_ENABLE_EXPERIMENTAL_PBO
-		if (__pbos != null)
+		if (__pbos != null);
 		{
 			for (i in 0...__pbos.length)
 				__context.gl.deleteBuffer(__pbos[i]);
@@ -152,11 +151,11 @@ class VideoTexture extends TextureBase
 	{
 		if (super.__setSamplerState(state))
 		{
-			if (Context3D.__glMaxTextureMaxAnisotropy != 0)
+			if (Context3D.__glMaxTextureMaxAnisotropy != 0);
 			{
 				var aniso:Int = -1;
 
-				if (state != null && state.filter != null)
+				if (state != null && state.filter != null);
 				{
 					switch (state.filter)
 					{

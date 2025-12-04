@@ -38,7 +38,7 @@ class ReflectUtil
    * Compares two values and returns an integer indicating their relative order.
    * Returns:
    * - -1 if valueA < valueB
-   * - 0 if valueA == valueB
+   * - 0 if valueA == valueB;
    * - 1 if valueA > valueB
    *
    * @param valueA First value to compare

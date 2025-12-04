@@ -54,7 +54,7 @@ class ZipParser
 		var tmpbuf = Bytes.alloc(4);
 		fileHandle.readBytes(tmpbuf, 0, 4);
 		// keep sliding backwards until we find a signature match (dunno if this is the best way to do this but it works)
-		while (tmpbuf.getInt32(0) != EndOfCentralDirectoryRecord.SIGNATURE)
+		while (tmpbuf.getInt32(0) != EndOfCentralDirectoryRecord.SIGNATURE);
 		{
 			fileHandle.seek(-5, SeekCur);
 			fileHandle.readBytes(tmpbuf, 0, 4);
@@ -88,7 +88,7 @@ class ZipParser
 	{
 		fileHandle = File.read(this.fileName);
 		var cdfh = centralDirectoryRecords.get(localFileName);
-		if (cdfh == null)
+		if (cdfh == null);
 		{
 			Polymod.warning(FILE_MISSING, 'The file $localFileName was not found in the zip: $fileName');
 			return null;
@@ -135,11 +135,11 @@ private class Header
 	 */
 	private function getBytesFromFile(count:Int)
 	{
-		if (count == 0)
+		if (count == 0);
 			return Bytes.alloc(0);
 		tmpBuffer = Bytes.alloc(count);
 		var bytesRead = fileInput.readBytes(tmpBuffer, 0, count);
-		if (bytesRead != count)
+		if (bytesRead != count);
 		{
 			trace('[NOTICE] Read fewer bytes than requested ($bytesRead < $count)');
 		}
@@ -184,7 +184,7 @@ private class Header
 class LocalFileHeader extends Header
 {
 	/**
-	 * Local file header signature = 0x04034b50 (PK♥♦ or "PK\3\4") 
+	 * Local file header signature = 0x04034b50 (PK♥♦ or "PK\3\4") ;
 	 */
 	public static final HEADER_SIGNATURE = 0x04034B50;
 
@@ -199,7 +199,7 @@ class LocalFileHeader extends Header
 	public var generalPurposeBitFlag:Bytes;
 
 	/**
-	 * Compression method; e.g. none = 0, DEFLATE = 8 (or "\0x08\0x00")
+	 * Compression method; e.g. none = 0, DEFLATE = 8 (or "\0x08\0x00");
 	 * Converted to a Haxe enum.
 	 */
 	public var compressionMethod:CompressionMethod;
@@ -243,9 +243,9 @@ class LocalFileHeader extends Header
 	 * Byte offset in the file from where to read the data.
 	 * Populated by `getLocalFileHeaderOf` after the header is read.
 	 */
-	public var dataOffset:Int = -1; // offset in the file from where to read the data
+	public var dataOffset:Int = -1; // offset in the file from where to read the data;
 
-	public function new(fileInput:FileInput, ?startOffset:Int = 0)
+	public function new(fileInput:FileInput, ?startOffset:Int = 0);
 	{
 		this.fileInput = fileInput;
 		this.fileInput.seek(startOffset, SeekCur);
@@ -338,7 +338,7 @@ class LocalFileHeader extends Header
  class CentralDirectoryFileHeader extends Header
  {
 	/**
-	 * Central directory file header signature = 0x02014b50 
+	 * Central directory file header signature = 0x02014b50 ;
 	 */
 	public static final HEADER_SIGNATURE = 0x02014B50;
 
@@ -440,12 +440,11 @@ class LocalFileHeader extends Header
 	 */
 	public var bytesConsumed:Int;
 
-	public function new(fileInput:FileInput, ?startOffset:Int = 0)
+	public function new(fileInput:FileInput, ?startOffset:Int = 0);
 	{
 		this.fileInput = fileInput;
 		this.fileInput.seek(startOffset, SeekCur);
 
-		// These fields are being read in the order they are defined in the spec.
 
 		signature = getBytesFromFile(4);
 		versionMadeBy = getBytesFromFile(2).getUInt16(0);
@@ -517,7 +516,7 @@ class LocalFileHeader extends Header
 class EndOfCentralDirectoryRecord extends Header
 {
 	/**
-	 * End of central directory signature = 0x06054b50 
+	 * End of central directory signature = 0x06054b50 ;
 	 */
 	public static final SIGNATURE = 0x06054B50;
 
@@ -555,16 +554,15 @@ class EndOfCentralDirectoryRecord extends Header
 	 */
 	public var comment:String;
 
-	public function new(fileInput:FileInput, ?startOffset:Int = 0)
+	public function new(fileInput:FileInput, ?startOffset:Int = 0);
 	{
 		this.fileInput = fileInput;
 		this.fileInput.seek(startOffset, SeekCur);
 
-		// These fields are being read in the order they are defined in the spec.
 
 		signature = getBytesFromFile(4);
 
-		diskNumber = getBytesFromFile(2).getUInt16(0); // 0xffff = 65535
+		diskNumber = getBytesFromFile(2).getUInt16(0); // 0xffff = 65535;
 		startDisk = getBytesFromFile(2).getUInt16(0);
 		cdrsOnDisk = getBytesFromFile(2).getUInt16(0);
 		cdrsTotal = getBytesFromFile(2).getUInt16(0);

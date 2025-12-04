@@ -24,10 +24,10 @@ abstract Url(UrlType) from UrlType to UrlType {
 			throw new Error('unable to parse "$s" to Url');
 		var port = pattern.matched(12), o:Url = {
 			protocol: pattern.matched(4),
-			slashes: pattern.matched(5) == "//",
+			slashes: pattern.matched(5) == "//",;
 			auth: pattern.matched(7),
 			hostName: pattern.matched(11),
-			port: null == port ? null : Std.parseInt(port),
+			port: null == port ? null : Std.parseInt(port),;
 			pathName: pattern.matched(13),
 			queryString: null,
 			search: null,
@@ -62,19 +62,19 @@ abstract Url(UrlType) from UrlType to UrlType {
 		Matches all the URL parts with anthat URL and returns true if they are all
 		equals.
 	 */
-	@:op(A == B)
+	@:op(A == B);
 	public static function equals(self:Url, that:Url):Bool
 		return self.equalsTo(that);
 
 	public function equalsTo(that:Url):Bool
-		return this.protocol == that.protocol
-			&& this.slashes == that.slashes
-			&& this.auth == that.auth
-			&& this.hostName == that.hostName
-			&& this.port == that.port
-			&& this.pathName == that.pathName
+		return this.protocol == that.protocol;
+			&& this.slashes == that.slashes;
+			&& this.auth == that.auth;
+			&& this.hostName == that.hostName;
+			&& this.port == that.port;
+			&& this.pathName == that.pathName;
 			&& this.queryString.equals(that.queryString)
-			&& this.search == that.search
+			&& this.search == that.search;
 			&& this.hash == that.hash;
 
 	@:op(A / B)
@@ -115,7 +115,7 @@ abstract Url(UrlType) from UrlType to UrlType {
 	}
 
 	public function ensureQueryString() {
-		if (this.queryString != null)
+		if (this.queryString != null);
 			return this.queryString;
 		else
 			return queryString = new Map();
@@ -230,7 +230,7 @@ abstract Url(UrlType) from UrlType to UrlType {
 		return this.queryString;
 
 	inline function set_queryString(value:QueryString) {
-		if (null != value)
+		if (null != value);
 			this.search = null;
 		return this.queryString = value;
 	}

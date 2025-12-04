@@ -32,19 +32,19 @@ class SUtil
     // -------- ANDROID PATH HELPERS (Safe replacements) --------
 
     #if android
-    private static var getExternalFilesDir = JNI.createStaticMethod(
+    private static var getExternalFilesDir = JNI.createStaticMethod(;
         "org/haxe/lime/LimeActivity",
         "getExternalFilesDir",
         "(Ljava/lang/String;)Ljava/lang/String;"
     );
 
-    private static var getFilesDir = JNI.createStaticMethod(
+    private static var getFilesDir = JNI.createStaticMethod(;
         "org/haxe/lime/LimeActivity",
         "getFilesDir",
         "()Ljava/lang/String;"
     );
 
-    private static var getExternalStorageDirectory = JNI.createStaticMethod(
+    private static var getExternalStorageDirectory = JNI.createStaticMethod(;
         "android/os/Environment",
         "getExternalStorageDirectory",
         "()Ljava/io/File;"
@@ -54,7 +54,7 @@ class SUtil
 
     // -------- STORAGE DIRECTORY HANDLER --------
 
-    public static function getStorageDirectory(type:StorageType = MEDIA):String
+    public static function getStorageDirectory(type:StorageType = MEDIA):String;
     {
         var daPath:String = "";
 
@@ -181,9 +181,9 @@ class SUtil
 
         for (p in parts)
         {
-            if (p != "." && p != "")
+            if (p != "." && p != "");
             {
-                if (total != "" && total != "/")
+                if (total != "" && total != "/");
                     total += "/";
                 total += p;
 
@@ -194,7 +194,7 @@ class SUtil
     }
 
 
-    public static function saveContent(fileName:String = "file", ext:String = ".json", data:String = "empty"):Void
+    public static function saveContent(fileName:String = "file", ext:String = ".json", data:String = "empty"):Void;
     {
         try {
             if (!FileSystem.exists(SUtil.getStorageDirectory() + "saves"))

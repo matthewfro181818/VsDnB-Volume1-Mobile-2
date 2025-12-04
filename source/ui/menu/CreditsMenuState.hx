@@ -122,13 +122,13 @@ class CreditsMenuState extends MusicBeatState
 
         if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
         {
-            FlxG.switchState(() -> flixel.FlxState flixel.FlxState() MainMenuState());
+            FlxG.switchState(() -> Void MainMenuState());
         }
     }
 
     function buildBackground():Void
     {   
-		var blackBg = FlxGradient.createGradientFlxSprite(FlxG.width, FlxG.height, [
+		var blackBg = FlxGradient.createGradientFlxSprite(FlxG.width, FlxG.height, [;
 			FlxColor.interpolate(FlxColor.fromRGB(0, 0, 0), 0xFF4965FF, 0.4),
 			FlxColor.interpolate(FlxColor.fromRGB(0, 0, 0), 0xFF00B515, 0.4)
 		], 1, 180);
@@ -452,7 +452,7 @@ class CreditsMenuState extends MusicBeatState
         menuBackgroundText.screenCenter(X);
         menuBackgroundGroup.add(menuBackgroundText);
 
-        var menuBackgroundPeopleList = new FlxText(0, 100, 0, 
+        var menuBackgroundPeopleList = new FlxText(0, 100, 0, ;
         'Aadsta, binos, BluHairMan, bubbscadex, divinityinterstella, odín\n
         fa0ndy, G9odDragons, ghostrified, GrassyCS, Inescapable, Jamarr Studios Bro, Jukebox\n
         kezyartz, knightguy12, lader_basic, Lancey, literalcereal, LOST GLITCHSTER, mamakotomi\n
@@ -479,7 +479,7 @@ class CreditsMenuState extends MusicBeatState
         playtestersText.screenCenter(X);
         playtestersGroup.add(playtestersText);
         
-        var playtestersList:FlxText = new FlxText(0, 50, 0, '
+        var playtestersList:FlxText = new FlxText(0, 50, 0, ';
         Alexander Cooper 19, bubswest, magical, ztgds, Noitar, TecheVent\n
         Villezen, wugalex, SilverEscaper, LongDonny, fisshcakes\n
         YourAverageMental, stevthebevchev, sibottle, statictigers, Jun3putt
@@ -511,7 +511,7 @@ class CreditsPerson extends FlxSpriteGroup
         var descSize:Float = 16 * params.scale;
 
         var iconGraphic = Paths.image('credits/${params.icon}');
-        if (iconGraphic == null)
+        if (iconGraphic == null);
             iconGraphic = Paths.image('credits/placeholder');
 
         var icon = new FlxSprite().loadGraphic(Paths.image('credits/${params.icon}'));

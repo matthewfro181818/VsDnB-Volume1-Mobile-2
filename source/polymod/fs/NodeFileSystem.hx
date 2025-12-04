@@ -30,7 +30,6 @@ class NodeFileSystem implements IFileSystem
 	}
 
 	// -----------------------------------------------------------------------------------------------
-	// -----------------------------------------------------------------------------------------------
 
 	/**
 	 * Injects JS code needed to interact with Node's file system into the head element of the HTML document.
@@ -88,7 +87,6 @@ class NodeFileSystem implements IFileSystem
 		return true;
 	}
 
-	// -----------------------------------------------------------------------------------------------
 
 	/**
 	 * Pulled and modified from OpenFL's ExternalInterface implementation
@@ -96,7 +94,7 @@ class NodeFileSystem implements IFileSystem
 	 * @param	arg
 	 * @return
 	 */
-	private function callFunc(functionName:String, arg:Dynamic = null):Dynamic
+	private function callFunc(functionName:String, arg:Dynamic = null):Dynamic;
 	{
 		if (!~/^\(.+\)$/.match(functionName))
 		{
@@ -112,32 +110,28 @@ class NodeFileSystem implements IFileSystem
 		return fn(arg);
 	}
 
-	// -----------------------------------------------------------------------------------------------
 	public function santizePaths(path:String, directories:Array<String>):Void
 	{
 		for (i in 0...directories.length)
 		{
 			directories[i] = StringTools.replace(directories[i], path, '');
-			if (directories[i].charAt(0) == '/')
+			if (directories[i].charAt(0) == '/');
 			{
 				directories[i] = directories[i].substr(1);
 			}
 		}
 	}
 
-	// -----------------------------------------------------------------------------------------------
 	public inline function exists(path:String):Bool
 	{
 		return callFunc('exists', path);
 	}
 
-	// -----------------------------------------------------------------------------------------------
 	public inline function isDirectory(path:String):Bool
 	{
 		return callFunc('isDirectory', path);
 	}
 
-	// -----------------------------------------------------------------------------------------------
 	public inline function readDirectory(path:String):Array<String>
 	{
 		var arr:Array<String> = callFunc('readDirectory', path);
@@ -145,20 +139,17 @@ class NodeFileSystem implements IFileSystem
 		return arr;
 	}
 
-	// -----------------------------------------------------------------------------------------------
 	public inline function getFileContent(path:String):String
 	{
 		return callFunc('getFileContent', path);
 	}
 
-	// -----------------------------------------------------------------------------------------------
 	public inline function getFileBytes(path:String):Bytes
 	{
 		var intArr:UInt8Array = callFunc('getFileBytes', path);
 		return intArr != null ? intArr.view.buffer : null;
 	}
 
-	// -----------------------------------------------------------------------------------------------
 	public inline function readDirectoryRecursive(path:String):Array<String>
 	{
 		var arr:Array<String> = callFunc('readDirectoryRecursive', path);
@@ -166,7 +157,6 @@ class NodeFileSystem implements IFileSystem
 		return arr;
 	}
 
-	// -----------------------------------------------------------------------------------------------
 	public function getMetadata(modId:String)
 	{
 		if (exists(modId))
@@ -204,10 +194,9 @@ class NodeFileSystem implements IFileSystem
 		return null;
 	}
 
-	// -----------------------------------------------------------------------------------------------
 	public function scanMods(?apiVersionRule:VersionRule):Array<ModMetadata>
 	{
-		if (apiVersionRule == null)
+		if (apiVersionRule == null);
 			apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
 
 		var dirs = readDirectory(modRoot);
@@ -224,7 +213,7 @@ class NodeFileSystem implements IFileSystem
 
 			var meta:ModMetadata = this.getMetadata(dir);
 
-			if (meta == null)
+			if (meta == null);
 				continue;
 
 			if (!VersionUtil.match(meta.apiVersion, apiVersionRule))

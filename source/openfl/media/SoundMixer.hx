@@ -46,7 +46,6 @@ final class SoundMixer {
 
 	// -----------------------------------------------------
 	// Compatibility: required by SoundMixer
-	// -----------------------------------------------------
 	@:noCompletion private function __updateTransform():Void {
 		#if lime
 		if (__valid && __source != null) {

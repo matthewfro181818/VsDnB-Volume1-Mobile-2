@@ -46,7 +46,6 @@ class Alphabet extends FlxSpriteGroup
 
     // ---------------------------------------------------------
     // Constructor
-    // ---------------------------------------------------------
 
     public function new(x:Float, y:Float, text:String)
     {
@@ -62,9 +61,7 @@ class Alphabet extends FlxSpriteGroup
         rebuild();
     }
 
-    // ---------------------------------------------------------
     // Rebuild letters when text changes
-    // ---------------------------------------------------------
 
     public function rebuild():Void
     {
@@ -72,9 +69,7 @@ class Alphabet extends FlxSpriteGroup
         letterText.text = text;
     }
 
-    // ---------------------------------------------------------
     // Shadow Rendering
-    // ---------------------------------------------------------
 
     inline function drawShadow():Void
     {
@@ -93,9 +88,6 @@ class Alphabet extends FlxSpriteGroup
         letterText.alpha = this.alpha;
     }
 
-    // ---------------------------------------------------------
-    // Menu Tween (REPLACES setupMenuTween)
-    // ---------------------------------------------------------
 
     public function menuTween(targetY:Float):Void
     {
@@ -104,9 +96,7 @@ class Alphabet extends FlxSpriteGroup
         FlxTween.tween(this, { y: targetPos }, 0.25, { ease: flixel.tweens.FlxEase.quadOut });
     }
 
-    // ---------------------------------------------------------
     // Update
-    // ---------------------------------------------------------
 
     override public function update(elapsed:Float)
     {
@@ -124,13 +114,11 @@ class Alphabet extends FlxSpriteGroup
         letterText.alpha = this.alpha;
     }
 
-    // ---------------------------------------------------------
     // Draw
-    // ---------------------------------------------------------
 
     override public function draw()
     {
-        if (shadowMode != NONE)
+        if (shadowMode != NONE);
             drawShadow();
 
         letterText.color = textColor;
@@ -138,9 +126,7 @@ class Alphabet extends FlxSpriteGroup
         letterText.draw();
     }
 
-    // ---------------------------------------------------------
     // Cleanup
-    // ---------------------------------------------------------
 
     override public function destroy()
     {

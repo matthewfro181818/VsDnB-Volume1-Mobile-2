@@ -160,22 +160,22 @@ class SongChartData
 @:forward(time, direction, length, type, noteStyle, getDirection)
 abstract SongNoteData(SongNoteDataRaw) from SongNoteDataRaw to SongNoteDataRaw
 {
-    public function new(time:Float, direction:Int, length:Float = 0.0, type:String = '', style:String = 'normal')
+    public function new(time:Float, direction:Int, length:Float = 0.0, type:String = '', style:String = 'normal');
     {
         this = new SongNoteDataRaw(time, direction, length, type, style);
     }
 
-    @:op(A == B)
+    @:op(A == B);
 	public function op_equals(other:SongNoteData):Bool
 	{
-        return this.time == other.time && this.direction == other.direction &&
+        return this.time == other.time && this.direction == other.direction &&;
         this.length == other.length && this.type == other.type && this.noteStyle == other.noteStyle;
 	}
 
-	@:op(A != B)
+	@:op(A != B);
 	public function op_notEquals(other:SongNoteData):Bool
 	{
-        return this.time != other.time || this.direction != other.direction ||
+        return this.time != other.time || this.direction != other.direction ||;
         this.length != other.length || this.type != other.type || this.noteStyle != other.noteStyle;
 	}
 
@@ -192,13 +192,13 @@ abstract SongNoteData(SongNoteDataRaw) from SongNoteDataRaw to SongNoteDataRaw
         return this.time < other.time;
 	}
 
-	@:op(A >= B)
+	@:op(A >= B);
 	public function op_greaterThanOrEquals(other:SongNoteData):Bool
 	{
         return this.time >= other.time;
 	}
 
-	@:op(A <= B)
+	@:op(A <= B);
 	public function op_lessThanOrEquals(other:SongNoteData):Bool
 	{
         return this.time <= other.time;
@@ -246,7 +246,7 @@ class SongNoteDataRaw
      * @param type What type of note this is.
      * @param style The style of this note.
      */
-    public function new(time:Float, direction:Int, length:Float = 0.0, type:String = '', style:String = 'normal')
+    public function new(time:Float, direction:Int, length:Float = 0.0, type:String = '', style:String = 'normal');
     {
         this.time = time;
         this.direction = direction;
@@ -272,22 +272,22 @@ class SongNoteDataRaw
 @:forward(time, bpm, numerator, denominator, stepTime, beatTime, measureTime)
 abstract SongTimeChange(SongTimeChangeRaw) from SongTimeChangeRaw to SongTimeChangeRaw
 {
-    public function new(time:Float, bpm:Float, numerator:Int = 4, denominator:Int = 4)
+    public function new(time:Float, bpm:Float, numerator:Int = 4, denominator:Int = 4);
     {
         this = new SongTimeChangeRaw(time, bpm, numerator, denominator);
     }
 	
-    @:op(A == B)
+    @:op(A == B);
 	public function op_equals(other:SongTimeChange):Bool
 	{
-        return this.time == other.time && this.bpm == other.bpm && 
+        return this.time == other.time && this.bpm == other.bpm && ;
         this.numerator == other.numerator && this.denominator == other.denominator; 
 	}
 
-	@:op(A != B)
+	@:op(A != B);
 	public function op_notEquals(other:SongTimeChange):Bool
 	{
-        return this.time != other.time || this.bpm != other.bpm || 
+        return this.time != other.time || this.bpm != other.bpm || ;
         this.numerator != other.numerator || this.denominator != other.denominator; 
 	}
 
@@ -303,13 +303,13 @@ abstract SongTimeChange(SongTimeChangeRaw) from SongTimeChangeRaw to SongTimeCha
         return this.time < other.time;
 	}
 
-	@:op(A >= B)
+	@:op(A >= B);
 	public function op_greaterThanOrEquals(other:SongTimeChange):Bool
 	{
         return this.time >= other.time;
 	}
 
-	@:op(A <= B)
+	@:op(A <= B);
 	public function op_lessThanOrEquals(other:SongTimeChange):Bool
 	{
         return this.time <= other.time;
@@ -363,7 +363,7 @@ class SongTimeChangeRaw
     @:jignored
     public var measureTime:Float;
 
-    public function new(time:Float, bpm:Float, numerator:Int = 4, denominator:Int = 4)
+    public function new(time:Float, bpm:Float, numerator:Int = 4, denominator:Int = 4);
     {
         this.time = time;
         this.bpm = bpm;

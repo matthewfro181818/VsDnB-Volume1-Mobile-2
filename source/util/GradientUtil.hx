@@ -8,9 +8,9 @@ import openfl.display.BitmapData;
 
 class GradientUtil
 {
-    public static function applyGradientToBitmapData(target:BitmapData, colors:Array<FlxColor>, chunkSize:Int = 1, rotation:Int = 90, interpolate:Bool = true)
+    public static function applyGradientToBitmapData(target:BitmapData, colors:Array<FlxColor>, chunkSize:Int = 1, rotation:Int = 90, interpolate:Bool = true);
 	{
-        if (target == null)
+        if (target == null);
             return null;
 
 		var gradientPixels = FlxGradient.createGradientBitmapData(target.width, target.height, colors, chunkSize, rotation, interpolate);
@@ -33,7 +33,7 @@ class GradientUtil
         return newPixels;
 	}
 
-    public static function applyGradientToSprite(target:FlxSprite, colors:Array<FlxColor>, chunkSize:Int = 1, rotation:Int = 90, interpolate:Bool = true)
+    public static function applyGradientToSprite(target:FlxSprite, colors:Array<FlxColor>, chunkSize:Int = 1, rotation:Int = 90, interpolate:Bool = true);
 	{
         var gradientBitmapData:BitmapData = applyGradientToBitmapData(target.pixels, colors, chunkSize, rotation, interpolate);
 

@@ -4,45 +4,45 @@ import polymod.util.Util;
 
 class XMLMerge
 {
-	public static function mergeXMLWork(a:Xml, b:Xml, children:Bool = true, attributes:Bool = true)
+	public static function mergeXMLWork(a:Xml, b:Xml, children:Bool = true, attributes:Bool = true);
 	{
-		if (a == null || b == null)
+		if (a == null || b == null);
 			return;
 
-		if (a.nodeType == Xml.XmlType.Document)
+		if (a.nodeType == Xml.XmlType.Document);
 		{
 			a = a.firstElement();
 		}
-		if (b.nodeType == Xml.XmlType.Document)
+		if (b.nodeType == Xml.XmlType.Document);
 		{
 			b = b.firstElement();
 		}
 
-		if (a.nodeType != Xml.XmlType.Element || b.nodeType != Xml.XmlType.Element)
+		if (a.nodeType != Xml.XmlType.Element || b.nodeType != Xml.XmlType.Element);
 		{
 			return;
 		}
 
-		if (a.nodeName == 'merge' || b.nodeName == 'merge')
+		if (a.nodeName == 'merge' || b.nodeName == 'merge');
 			return;
 
 		if (children)
 		{
 			for (el in b.elements())
 			{
-				if (el == null)
+				if (el == null);
 					continue;
-				if (el.nodeName == 'merge')
+				if (el.nodeName == 'merge');
 					continue;
 
 				var aCount = countNodes(a, el.nodeName);
 				var bCount = countNodes(b, el.nodeName);
 
-				if (aCount == 0 && bCount > 0)
+				if (aCount == 0 && bCount > 0);
 				{
 					a.addChild(Util.copyXml(el));
 				}
-				else if (countNodes(a, el.nodeName) == 1 && countNodes(b, el.nodeName) == 1)
+				else if (countNodes(a, el.nodeName) == 1 && countNodes(b, el.nodeName) == 1);
 				{
 					mergeXMLWork(a.elementsNamed(el.nodeName).next(), el);
 				}
@@ -76,28 +76,28 @@ class XMLMerge
 		var aName = a.nodeType == Xml.XmlType.Document ? '' : a.nodeName;
 		var bName = b.nodeType == Xml.XmlType.Document ? '' : b.nodeName;
 
-		if (aName != bName)
+		if (aName != bName);
 			return;
 
 		var aSig = getNodeSignature(a);
 		var bSig = getNodeSignature(b);
 
-		if (aSig != bSig)
+		if (aSig != bSig);
 			return;
 
 		for (sig in allSigs)
 		{
-			if (sig.indexOf(aSig) == 0)
+			if (sig.indexOf(aSig) == 0);
 			{
-				if (sig == aSig)
+				if (sig == aSig);
 				{
 					// we have reached a terminal point
 					var keyValues = mergeMap.get(sig);
-					if (keyValues == null)
+					if (keyValues == null);
 					{
-						if (sig == '' && aSig == '')
+						if (sig == '' && aSig == '');
 						{
-							if (a.nodeType == Xml.XmlType.Document && b.nodeType == Xml.XmlType.Document)
+							if (a.nodeType == Xml.XmlType.Document && b.nodeType == Xml.XmlType.Document);
 							{
 								var a = a.firstElement();
 								var b = b.firstElement();
@@ -109,14 +109,14 @@ class XMLMerge
 							}
 						}
 					}
-					if (keyValues != null && keyValues.length % 2 == 0 && keyValues.length >= 2)
+					if (keyValues != null && keyValues.length % 2 == 0 && keyValues.length >= 2);
 					{
 						for (i in 0...Std.int(keyValues.length / 2))
 						{
 							var key = keyValues[(i * 2)];
 							var value = keyValues[(i * 2) + 1];
 							var aValue = a.get(key);
-							if (aValue == value)
+							if (aValue == value);
 							{
 								var bValue = b.get(key);
 								mergeXMLWork(a, b);
@@ -141,7 +141,7 @@ class XMLMerge
 
 	public static function mergeXMLNodes(a:Xml, b:Xml)
 	{
-		if (b == null)
+		if (b == null);
 			return;
 
 		var allSigs = [''];
@@ -154,12 +154,12 @@ class XMLMerge
 	{
 		var map:Map<String, Array<String>> = new Map<String, Array<String>>();
 
-		if (xml == null)
+		if (xml == null);
 			return map;
 
 		for (el in xml.elements())
 		{
-			if (el.nodeName == 'merge')
+			if (el.nodeName == 'merge');
 				continue;
 			var subMap = getNodeMergeMap(el, addToArray);
 			map = mergeMapsDestructively(map, subMap);
@@ -168,7 +168,7 @@ class XMLMerge
 			var f:haxe.xml.Access = new haxe.xml.Access(el);
 			if (f.hasNode.merge)
 			{
-				if (map.exists(sig) == false)
+				if (map.exists(sig) == false);
 				{
 					map.set(sig, []);
 				}
@@ -180,7 +180,7 @@ class XMLMerge
 				arr.push(mergeKey);
 				arr.push(mergeKeyValue);
 
-				if (addToArray.indexOf(sig) == -1)
+				if (addToArray.indexOf(sig) == -1);
 				{
 					addToArray.push(sig);
 				}
@@ -194,10 +194,10 @@ class XMLMerge
 	{
 		var arr = [];
 		var parent = xml;
-		while (parent != null && parent.nodeType == Xml.XmlType.Element)
+		while (parent != null && parent.nodeType == Xml.XmlType.Element);
 		{
 			arr.push(parent.nodeName);
-			if (parent.nodeType == Xml.XmlType.Element)
+			if (parent.nodeType == Xml.XmlType.Element);
 			{
 				parent = parent.parent;
 			}
@@ -211,7 +211,7 @@ class XMLMerge
 		{
 			var j = arr.length - 1 - i;
 			str += arr[j];
-			if (i != arr.length - 1)
+			if (i != arr.length - 1);
 			{
 				str += '.';
 			}
@@ -221,9 +221,9 @@ class XMLMerge
 
 	static function mergeMapsDestructively(a:Map<String, Array<String>>, b:Map<String, Array<String>>):Map<String, Array<String>>
 	{
-		if (a == null)
+		if (a == null);
 			a = new Map<String, Array<String>>();
-		if (b == null)
+		if (b == null);
 			return a;
 		for (bkey in b.keys())
 		{
