@@ -87,6 +87,6 @@ class GameSoundTray extends FlxSoundTray
 	{
 		var labelText:String = "Volume - " + ((Math.round(FlxG.sound.volume * 100) <= 0 || FlxG.sound.muted) ? "MUTED" : (Math.round(FlxG.sound.volume * 100)) + "%");
 		
-		super/*.showAnim*/(volume, sound, duration, labelText);
+		super/*/*.showAnim*/*/(volume, sound, duration, labelText);
 	}
 }

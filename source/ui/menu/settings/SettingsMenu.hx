@@ -257,7 +257,7 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 		#if mobileC
 		if (mobileControls)
 		{
-			FlxG.switchState(() -> new flixel.FlxState() MobileControlsSubState());
+			FlxG.switchState(() -> flixel.FlxState flixel.FlxState() MobileControlsSubState());
 		}
 		#end
 

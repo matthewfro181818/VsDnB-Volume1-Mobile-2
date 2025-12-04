@@ -18,7 +18,7 @@ import flixel.util.FlxAxes;
  * FlxG.addChildBelowMouse(video);
  *
  * if (video.load('assets/videos/video.mp4'))
- * 	FlxTimer.wait(0.001, () -> new flixel.FlxState()());
+ * 	FlxTimer.wait(0.001, () -> flixel.FlxState flixel.FlxState()());
  * ```
  */
 class FlxVideo extends FlxInternalVideo

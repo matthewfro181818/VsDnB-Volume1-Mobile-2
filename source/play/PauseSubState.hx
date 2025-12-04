@@ -402,7 +402,7 @@ class PauseSubState extends MusicBeatSubstate
 		{
 			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, LanguageManager.getTextString('pause_${menuItems[i].name}'));
 			songText.isMenuItem = true;
-			songText/*.menuItemGroup*/ = grpMenuShit.members;
+			songText/*/*.menuItemGroup*/*/ = grpMenuShit.members;
 			songText.targetY = i;
 			grpMenuShit.add(songText);
 		}
@@ -482,7 +482,7 @@ class PauseSubState extends MusicBeatSubstate
 	 */
 	static function changeCharacter(state:PauseSubState):Void
 	{
-		FlxG.switchState(() -> new flixel.FlxState() CharacterSelect({targetSong: PlayState.instance.currentSong}));
+		FlxG.switchState(() -> flixel.FlxState flixel.FlxState() CharacterSelect({targetSong: PlayState.instance.currentSong}));
 	}
 	
 	/**
@@ -494,9 +494,9 @@ class PauseSubState extends MusicBeatSubstate
 	static function returnBackToMenu(state:PauseSubState):Void
 	{
 		if (PlayStatePlaylist.isStoryMode)
-			returnToMenu(() -> new flixel.FlxState() StoryMenuState());
+			returnToMenu(() -> flixel.FlxState flixel.FlxState() StoryMenuState());
 		else 
-			returnToMenu(() -> new flixel.FlxState() FreeplayState());
+			returnToMenu(() -> flixel.FlxState flixel.FlxState() FreeplayState());
 	}
 
 	/**

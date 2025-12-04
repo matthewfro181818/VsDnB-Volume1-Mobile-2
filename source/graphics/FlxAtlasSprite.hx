@@ -172,7 +172,7 @@ class FlxAtlasSprite extends FlxAnimate
 	 */
 	public inline function animationExists(name:String):Bool
 	{
-		return anim/*.existsByName*/(name);
+		return anim/*/*.existsByName*/*/(name);
 	}
 
 	/**

@@ -64,7 +64,7 @@ class TitleState extends MusicBeatState
 		#end
 
 		if (FlxG.random.int(0, 999) == 1)
-			LoadingState.loadAndSwitchState(() -> new flixel.FlxState() SusState());
+			LoadingState.loadAndSwitchState(() -> flixel.FlxState flixel.FlxState() SusState());
 
 		// Initalize intro text.
 		introText = FlxG.random.getObject(getIntroText());
@@ -174,7 +174,7 @@ class TitleState extends MusicBeatState
 
 			new FlxTimer().start(2, function(tmr:FlxTimer)
 			{
-				FlxG.switchState(() -> new flixel.FlxState() MainMenuState());
+				FlxG.switchState(() -> flixel.FlxState flixel.FlxState() MainMenuState());
 			});
 		}
 

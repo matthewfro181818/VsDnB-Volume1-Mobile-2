@@ -247,7 +247,7 @@ class OSTMenuState extends MusicBeatState
         if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
         { 
             FlxG.autoPause = true;
-            FlxG.switchState(() -> new flixel.FlxState() MainMenuState());
+            FlxG.switchState(() -> flixel.FlxState flixel.FlxState() MainMenuState());
         }
         
         if (!canInteract)
@@ -690,7 +690,7 @@ class OSTMenuState extends MusicBeatState
                 var fadingAlpha:Float = FlxMath.remapToRange(targetAlpha, 0, -3, 1, 0);
                 fadingAlpha -= 0.3;
                 
-                song/*.setAlphaDirectly*/(fadingAlpha);
+                song/*/*.setAlphaDirectly*/*/(fadingAlpha);
             }
             targetIndex++;
         }

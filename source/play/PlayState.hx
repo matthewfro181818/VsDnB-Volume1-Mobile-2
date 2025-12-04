@@ -986,9 +986,9 @@ override public function update(elapsed:Float):Void {
 			if (FlxG.keys.firstJustPressed() == i[0])
 			{
 				if (FlxG.keys.pressed.CONTROL)
-					FlxG.switchState(() -> new flixel.FlxState() AnimationDebug(i[1]));
+					FlxG.switchState(() -> flixel.FlxState flixel.FlxState() AnimationDebug(i[1]));
 				if (FlxG.keys.pressed.SHIFT)
-					FlxG.switchState(() -> new flixel.FlxState() CharacterDebug(i[1].id));
+					FlxG.switchState(() -> flixel.FlxState flixel.FlxState() CharacterDebug(i[1].id));
 			}
 		}
 	}
@@ -2387,7 +2387,7 @@ override public function update(elapsed:Float):Void {
 				
 				endSongCallback(() -> {
 					SoundController.playMusic(Paths.music('freakyMenu'));
-					FlxG.switchState(() -> new flixel.FlxState() StoryMenuState());
+					FlxG.switchState(() -> flixel.FlxState flixel.FlxState() StoryMenuState());
 				});
 			}
 			else
@@ -2401,7 +2401,7 @@ override public function update(elapsed:Float):Void {
 		{
 			endSongCallback(() -> {
 				SoundController.playMusic(Paths.music('freakyMenu'));
-				FlxG.switchState(() -> new flixel.FlxState() FreeplayState());
+				FlxG.switchState(() -> flixel.FlxState flixel.FlxState() FreeplayState());
 			});
 		}
 	}
@@ -2452,7 +2452,7 @@ override public function update(elapsed:Float):Void {
 		// 1 / 1000 chance for Gitaroo Man easter egg
 		if (FlxG.random.bool(0.1))
 		{
-			FlxG.switchState(() -> new flixel.FlxState() GitarooPause(params));
+			FlxG.switchState(() -> flixel.FlxState flixel.FlxState() GitarooPause(params));
 		}
 		else
 		{

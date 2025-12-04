@@ -127,7 +127,7 @@ class AnimationDebug extends MusicBeatState
 		}
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
-			FlxG.switchState(() -> new flixel.FlxState() MainMenuState());
+			FlxG.switchState(() -> flixel.FlxState flixel.FlxState() MainMenuState());
 		}
 		if (FlxG.keys.justPressed.E)
 			FlxG.camera.zoom += 0.25;

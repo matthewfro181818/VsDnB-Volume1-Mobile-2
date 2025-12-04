@@ -122,7 +122,7 @@ class CreditsMenuState extends MusicBeatState
 
         if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
         {
-            FlxG.switchState(() -> new flixel.FlxState() MainMenuState());
+            FlxG.switchState(() -> flixel.FlxState flixel.FlxState() MainMenuState());
         }
     }
 
