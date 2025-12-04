@@ -26,7 +26,7 @@ class SoundController
 	/**
 // Redirect to `FlxG.sound.music` for simplification and consistency.
 */
-	public static var music(get, set):FlxSound
+	public static var music(get, set):FlxSound;
 
 	static function set_music(value:FlxSound):FlxSound
 	{
