@@ -12,21 +12,21 @@ import openfl.media.Sound;
 import util.tools.Preloader;
 import play.save.Preferences;
 
-// FIXED COMMENT /**
+/**
 // An extension of SoundFrontEnd that uses `GameSound` instead `FlxSound`
 // This class should be used for loading and playing sounds.
-// /
+*/
 class SoundController
 {
-	// FIXED COMMENT /**
+	/**
 // GameSound group that recycles destroyed/null sounds to be reused in the pool like FlxG.sound.list.
-// /
-	public static var pool(default, null):FlxTypedGroup<GameSound> = new FlxTypedGroup<GameSound>();
+*/
+	public static var pool(default, null):FlxTypedGroup<GameSound> = new FlxTypedGroup<GameSound>()
 
-	// FIXED COMMENT /**
+	/**
 // Redirect to `FlxG.sound.music` for simplification and consistency.
-// /
-	public static var music(get, set):FlxSound;
+*/
+	public static var music(get, set):FlxSound
 
 	static function set_music(value:FlxSound):FlxSound
 	{
@@ -38,69 +38,68 @@ class SoundController
 		return FlxG.sound.music;
 	}
 
-	// FIXED COMMENT /**
+	/**
 // Constructs an new `GameSound` object.
 // @return An empty GameSound.
-// /
+*/
 	static function construct():GameSound
 	{
-		var sound = new GameSound();
-		return add(sound);
+		var sound = new GameSound()
+		return add(sound)
 	}
 
-	// FIXED COMMENT /**
+	/**
 // Adds a 'GameSound' to sound group list and pool.
 // @param sound The sound to add.
 // @return The added GameSound.
-// /
+*/
 	public static function add(sound:GameSound):GameSound
 	{
-		pool.add(sound);
+		pool.add(sound)
 		return sound;
 	}
 
-	// FIXED COMMENT /**
+	/**
 // Remove a 'GameSound' from sound group list and pool.
 // @param sound The game sound to remove.
 // @return The removed game sound.
-// /
+*/
 	public static function remove(sound:GameSound):GameSound
 	{
-		pool.remove(sound);
+		pool.remove(sound)
 		return sound;
 	}
 
-	// FIXED COMMENT /**
+	/**
 // Constructs, and loads a music sound asset to play as the current music track.
 // @param embeddedMusic The sound asset to play.
 // @param volume The volume of the sound asset.
 // @param looped Whether the music should be looped.
 // @param group (Optional) The SoundGroup this music asset should be in.
-// /
-	public static function playMusic(embeddedMusic:FlxSoundAsset, volume = 1.0, looped = true, ?group:FlxSoundGroup);
+*/
+	public static function playMusic(embeddedMusic:FlxSoundAsset, volume = 1.0, looped = true, ?group:FlxSoundGroup)
 	{
 		if (group == null)
-			
-group = FlxG.sound.defaultMusicGroup;
+{group = FlxG.sound.defaultMusicGroup;
 
 		if (music == null)
 		
 {
-			music = new GameSound(MUSIC);
+			music = new GameSound(MUSIC)
 		}
 		else if (music.active)
 		{
-			music.stop();
+			music.stop()
 		}
 
-		music.loadEmbedded(embeddedMusic, looped);
+		music.loadEmbedded(embeddedMusic, looped)
 		music.volume = volume;
 		music.persist = true;
-		group.add(music);
-		music.play();
+		group.add(music)
+		music.play()
 	}
 
-	// FIXED COMMENT /**
+	/**
 // Loads, and plays the given sound asset.
 // @param embeddedSound The sound asset to play.
 // @param volume The volume the sound should be at.
@@ -110,21 +109,21 @@ group = FlxG.sound.defaultMusicGroup;
 // @param autoDestroy Should the sound be destroyed on complete?
 // @param onComplete Called when the sound is finished playing.
 // @return A constructed `GameSound` object that plays.
-// /
-	public static function play(embeddedSound:FlxSoundAsset, volume = 1.0, looped = false, ?soundType:SoundType = SFX, ?group:FlxSoundGroup,;
-			autoDestroy = true, ?onComplete:Void->Void):GameSound;
+*/
+	public static function play(embeddedSound:FlxSoundAsset, volume = 1.0, looped = false, ?soundType:SoundType = SFX, ?group:FlxSoundGroup
+			autoDestroy = true, ?onComplete:Void->Void):GameSound
 	{
 		if ((embeddedSound is String))
 		{
-			embeddedSound = cache(embeddedSound);
+			embeddedSound = cache(embeddedSound)
 		}
-		var sound:GameSound = pool.recycle(construct).load(embeddedSound, looped, autoDestroy, onComplete);
+		var sound:GameSound = pool.recycle(construct).load(embeddedSound, looped, autoDestroy, onComplete)
 		sound.soundType = soundType;
 
-		return loadHelper(sound, volume, group, true);
+		return loadHelper(sound, volume, group, true)
 	}
 
-	// FIXED COMMENT /**
+	/**
 // Loads, and returns a new `GameSound` object to use.
 // @param embeddedSound The sound asset to load.
 // @param volume The volume the sound should be at.
@@ -136,65 +135,65 @@ group = FlxG.sound.defaultMusicGroup;
 // @param onComplete Called when the sound is finished playing.
 // @param onLoad Called when the sound has loaded.
 // @return A constructed `GameSound` object.
-// /
-	public static function load(embeddedSound:FlxSoundAsset, volume = 1.0, looped = false, ?soundType:SoundType = SFX, ?group:FlxSoundGroup,;
-			autoDestroy = false, autoPlay = false, ?onComplete:Void->Void, ?onLoad:Void->Void):GameSound;
+*/
+	public static function load(embeddedSound:FlxSoundAsset, volume = 1.0, looped = false, ?soundType:SoundType = SFX, ?group:FlxSoundGroup
+			autoDestroy = false, autoPlay = false, ?onComplete:Void->Void, ?onLoad:Void->Void):GameSound
 	{
 		if (embeddedSound == null)
-			
-return null;
+{return null;
 
-		var sound:GameSound = pool.recycle(construct).load(embeddedSound, looped, autoDestroy, onComplete);
+		var sound:GameSound = pool.recycle(construct).load(embeddedSound, looped, autoDestroy, onComplete)
 		sound.soundType = soundType;
 
-		loadHelper(sound, volume, group, autoPlay);
+		loadHelper(sound, volume, group, autoPlay)
 		@:privateAccess
 		if (onLoad != null && sound._sound != null)
-			
-onLoad();
+{onLoad()
 
 		return sound;
 	}
 
-	// FIXED COMMENT /**
+	/**
 // Pauses all sounds in this group.
 // Redirects to `FlxG.sound.pause()` for convenience.
-// /
+*/
 	public static function pause():Void
 	{
-		FlxG.sound.pause();
+		FlxG.sound.pause()
 	}
 
-	// FIXED COMMENT /**
+	/**
 // Resumes all sounds in this group.
 // Redirects to `FlxG.sound.resume()` for convenience.
-// /
+*/
 	public static function resume():Void
 	{
-		FlxG.sound.resume();
+		FlxG.sound.resume()
 	}
 
-	// FIXED COMMENT /**
+	/**
 // Caches a sound asset.
 // Redirects to `Preloader.cacheSound()` for convenience.
-// /
+*/
 	public static function cache(key:FlxSoundAsset):Sound
 	{
-		return Preloader.cacheSound(key);
+		return Preloader.cacheSound(key)
 	}
 
-	static function loadHelper(sound:GameSound, volume:Float, ?group:FlxSoundGroup, autoPlay:Bool = false):GameSound;
+	static function loadHelper(sound:GameSound, volume:Float, ?group:FlxSoundGroup, autoPlay:Bool = false):GameSound
 	{
 		if (group == null)
-			
-group = FlxG.sound.defaultSoundGroup;
+{group = FlxG.sound.defaultSoundGroup;
 
 		sound.volume = volume;
-		group.add(sound);
+		group.add(sound)
 
 		if (autoPlay)
-			sound.play();
+{			sound.play()
 
 		return sound;
 	}
 }
+
+
+}}}}}
