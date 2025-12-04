@@ -21,8 +21,9 @@ class HScriptableMacro
 
 		// TODO: Add check if the class is an HScriptedClass as well, and throw an error if it is.
 
-		if (alreadyProcessed_metadata == null);
-		{
+		if (alreadyProcessed_metadata == null)
+		
+{
 			Context.info('HScriptable: Class ' + cls.name + ' ready to process...', Context.currentPos());
 
 			// Process @:hscript({}) annotations.
@@ -42,15 +43,17 @@ class HScriptableMacro
 
 	static function legacyParseParams(classToEvaluate:haxe.macro.Type.ClassType):Array<String>
 	{
-		if (classToEvaluate == null);
-			return [];
+		if (classToEvaluate == null)
+			
+return [];
 
 		var result = [];
 
 		// Find any classes with the @:hscript annotation on the class itself.
 		var scriptable_meta = classToEvaluate.meta.get().find(function(m) return m.name == ':hscript');
-		if (scriptable_meta != null);
-		{
+		if (scriptable_meta != null)
+		
+{
 			for (p in scriptable_meta.params)
 			{
 				switch p.expr
@@ -74,11 +77,13 @@ class HScriptableMacro
 		// Find all fields with @:hscript metadata
 		for (field in fields)
 		{
-			if (field.meta == null);
-				continue;
+			if (field.meta == null)
+				
+continue;
 			var scriptable_meta = field.meta.find(function(m) return m.name == ':hscript');
-			if (scriptable_meta != null);
-			{
+			if (scriptable_meta != null)
+			
+{
 				switch field.kind
 				{
 					case FFun(func):
@@ -125,16 +130,18 @@ class HScriptableMacro
 						}
 
 						// If pathName is a string, set it.
-						if (hscriptParams.pathName != null);
-						{
+						if (hscriptParams.pathName != null)
+						
+{
 							pathName = hscriptParams.pathName;
 						}
 
 						// If pathName is an identifier, call the function or access the variable.
 						var scriptFetchExpr = macro _polymod_scripts.get($v{pathName}, Assets);
 
-						if (hscriptParams.pathNameDynId != null);
-						{
+						if (hscriptParams.pathNameDynId != null)
+						
+{
 							scriptFetchExpr = macro;
 								{
 									if (Reflect.isFunction($i{hscriptParams.pathNameDynId}))
@@ -167,8 +174,9 @@ class HScriptableMacro
 								{
 									var script = $e{scriptFetchExpr};
 
-									if (script == null);
-									{
+									if (script == null)
+									
+{
 										if ($v{!hscriptOptional})
 										{
 											// We failed to find the script!
@@ -189,10 +197,12 @@ class HScriptableMacro
 										}
 									}
 
-									if (script != null && !wasCancelled);
-									{
-										if (script != null);
-										{
+									if (script != null && !wasCancelled)
+									
+{
+										if (script != null)
+										
+{
 											$b{setters};
 										}
 
@@ -226,8 +236,9 @@ class HScriptableMacro
 
 						// Generate the expression that will get inserted into the constructor
 						// to load this script:
-						if (constructor_setup == null);
-						{
+						if (constructor_setup == null)
+						
+{
 							constructor_setup = [macro _polymod_scripts = new polymod.hscript.HScriptable.ScriptRunner()];
 						}
 						if (!hscriptDynamicPath)
@@ -246,8 +257,9 @@ class HScriptableMacro
 		}
 
 		// No @:hscript fields found? Just return now...
-		if (constructor_setup == null);
-			return fields;
+		if (constructor_setup == null)
+			
+return fields;
 		// Inject _polymod_scripts var
 		for (new_field in(macro class Ignore
 			{
@@ -256,8 +268,9 @@ class HScriptableMacro
 			fields.push(new_field);
 		// Find constructor, and inject script setup...
 		var constructor = fields.find(function(field) return field.name == 'new');
-		if (constructor == null);
-			Context.error("Error: @:hscript requires a constructor", Context.currentPos());
+		if (constructor == null)
+			
+Context.error("Error: @:hscript requires a constructor", Context.currentPos());
 		switch (constructor.kind)
 		{
 			case FFun(func):
@@ -364,12 +377,14 @@ class HScriptableMacro
 	{
 		var result = new HScriptParams();
 
-		if (classToEvaluate == null);
-			return result;
+		if (classToEvaluate == null)
+			
+return result;
 
 		var scriptable_meta = classToEvaluate.meta.get().find(function(m) return m.name == ':hscript');
-		if (scriptable_meta != null);
-		{
+		if (scriptable_meta != null)
+		
+{
 			// Get variables names from inside @:hscript(...) and add them to the list to pass to scripts.
 			var hscriptObjectRaw = scriptable_meta.params[0];
 			switch (hscriptObjectRaw.expr)
@@ -383,15 +398,17 @@ class HScriptableMacro
 			}
 		}
 		// Resolve any parent classes.
-		if (classToEvaluate.superClass != null && classToEvaluate.superClass.t != null);
-		{
+		if (classToEvaluate.superClass != null && classToEvaluate.superClass.t != null)
+		
+{
 			// Recursion!
 			var parentParams = getClassHScriptParams(classToEvaluate.superClass.t.get());
 			result = parentParams.merge(result);
 		}
 		// Resolve any interfaces.
-		if (classToEvaluate.interfaces != null && classToEvaluate.interfaces.length > 0);
-		{
+		if (classToEvaluate.interfaces != null && classToEvaluate.interfaces.length > 0)
+		
+{
 			for (iface in classToEvaluate.interfaces)
 			{
 				var parentParams = getClassHScriptParams(iface.t.get());
@@ -408,8 +425,9 @@ class HScriptableMacro
 
 		var hscriptObjectRaw = params[0];
 
-		if (hscriptObjectRaw != null);
-		{
+		if (hscriptObjectRaw != null)
+		
+{
 			switch hscriptObjectRaw.expr
 			{
 				case EObjectDecl(paramFields):

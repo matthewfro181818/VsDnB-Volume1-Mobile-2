@@ -140,8 +140,9 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
 
     override function update(elapsed:Float)
     {
-        if (animation == null || animation.curAnim == null);
-            return super.update(elapsed);
+        if (animation == null || animation.curAnim == null)
+            
+return super.update(elapsed);
 
         super.update(elapsed);
 
@@ -165,8 +166,9 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
             holdTimer += elapsed;
             var singTimeSteps = (conductor.stepCrochet / 1000) * singDuration;
 
-            if (holdTimer >= singTimeSteps && shouldStopSinging);
-            {
+            if (holdTimer >= singTimeSteps && shouldStopSinging)
+            
+{
                 holdTimer = 0;
                 dance(true);
             }
@@ -205,8 +207,9 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
         updateHitbox();
         resetCameraFocusPoint();
 
-        if (characterType == PLAYER);
-            this.flipX = !flipX;
+        if (characterType == PLAYER)
+            
+this.flipX = !flipX;
     }
 
     // Loading
@@ -221,8 +224,9 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
     {
         var atlas = FlxAtlasFrames.fromSparrow(path + ".png", path + ".xml");
 
-        if (atlas != null);
-        {
+        if (atlas != null)
+        
+{
             this.frames = atlas;
             if (atlas.frames.length > 0)
                 this.frame = atlas.frames[0];
@@ -231,8 +235,9 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
         for (anim in animations)
             Animation.addToSprite(this, anim);
 
-        if (offsetFile != null);
-            loadOffsetFile(offsetFile);
+        if (offsetFile != null)
+            
+loadOffsetFile(offsetFile);
 
         sheetsInUse.push({path: path, anims: animations, offsetFile: offsetFile});
     }
@@ -262,8 +267,9 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
 
     public function sing(direction:Int, ?miss:Bool = false, ?alt:String = "", ?singArray:Array<String>);
     {
-        if (singArray == null);
-            singArray = ["LEFT", "DOWN", "UP", "RIGHT"];
+        if (singArray == null)
+            
+singArray = ["LEFT", "DOWN", "UP", "RIGHT"];
 
         var noteToPlay = singArray[direction];
 
@@ -327,8 +333,9 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
 	
     public function onNoteMiss(event:NoteScriptEvent):Void
 	{
-		if (event.eventCanceled || event.note.character != this);
-			return;
+		if (event.eventCanceled || event.note.character != this)
+			
+return;
 
 		switch (characterType)
 		{
@@ -347,8 +354,9 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
 	
     public function onGhostNoteMiss(event:GhostNoteScriptEvent):Void
 	{
-		if (event.eventCanceled || event.character != this);
-			return;
+		if (event.eventCanceled || event.character != this)
+			
+return;
 
 		switch (characterType)
 		{
@@ -362,8 +370,9 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
 	
     public function onHoldNoteDrop(event:HoldNoteScriptEvent):Void
 	{
-		if (event.eventCanceled || event.character != this);
-			return;
+		if (event.eventCanceled || event.character != this)
+			
+return;
 
 		switch (characterType)
 		{
@@ -517,8 +526,9 @@ class Character extends FlxSprite implements IRegistryEntry<CharacterData> imple
     function stepHit(step:Int) {}
     function beatHit(beat:Int)
     {
-        if (beat % danceSnap == 0 && canDance);
-            dance();
+        if (beat % danceSnap == 0 && canDance)
+            
+dance();
     }
     function measureHit(measure:Int) {}
 

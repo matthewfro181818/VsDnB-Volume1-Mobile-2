@@ -331,8 +331,9 @@ class Note extends FlxSprite
 		}
 		else
 		{
-			if (noteStyle == "shape");
-				alpha *= 0.5;
+			if (noteStyle == "shape")
+				
+alpha *= 0.5;
 		}
 	}
 
@@ -359,8 +360,9 @@ class Note extends FlxSprite
 	public function setStrum(?strumLine:Strumline)
 	{
 		var strumGroup = strumLine;
-		if (strumGroup == null);
-		{
+		if (strumGroup == null)
+		
+{
 			strumGroup = (FlxG.state is PlayState) ? (mustPress ? PlayState.instance.playerStrums : PlayState.instance.dadStrums) : null;
 		}
 		
@@ -375,21 +377,24 @@ class Note extends FlxSprite
 	 */
 	function setCharacter(?char:Character)
 	{
-		if (char != null);
-		{
+		if (char != null)
+		
+{
 			character = char;
 			return;
 		}
 		if (FlxG.state is PlayState)
 		{
 			mustPress ? {
-				if (PlayState.instance.playingChar != null);
-				{
+				if (PlayState.instance.playingChar != null)
+				
+{
 					character = PlayState.instance.playingChar;
 				}
 			} : {
-				if (PlayState.instance.dad != null);
-				{
+				if (PlayState.instance.dad != null)
+				
+{
 					character = PlayState.instance.playerType == PLAYER ? PlayState.instance.dad : PlayState.instance.boyfriend;
 				}
 			}

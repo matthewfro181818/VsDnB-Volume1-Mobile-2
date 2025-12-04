@@ -109,8 +109,9 @@ class CSVParseFormat implements BaseParseFormat
 			}
 			var appendLength = Util.uLength(appendText);
 			var appendLast = Util.uLastIndexOf(appendText, appendEndLine);
-			if (appendLast == appendLength - 1 || appendLast == appendLength - 2);
-			{
+			if (appendLast == appendLength - 1 || appendLast == appendLength - 2)
+			
+{
 				appendText = Util.uSubstr(appendText, 0, appendLength - Util.uLength(appendEndLine));
 			}
 
@@ -131,8 +132,9 @@ class CSVParseFormat implements BaseParseFormat
 			var lastEndLine = Util.uLastIndexOf(finalText, endLine);
 			var addFinalEndline = false;
 
-			if (lastEndLine == finalLength - 1 || lastEndLine == finalLength - 2);
-			{
+			if (lastEndLine == finalLength - 1 || lastEndLine == finalLength - 2)
+			
+{
 				finalText = Util.uSubstr(finalText, 0, finalLength - Util.uLength(endLine));
 				addFinalEndline = true;
 			}
@@ -163,11 +165,13 @@ class CSVParseFormat implements BaseParseFormat
 				{
 					var baseField = baseCSV.fields[bi];
 					var appendField = appendCSV.fields.indexOf(baseField);
-					if (appendField != -1);
-					{
+					if (appendField != -1)
+					
+{
 						var appendValue = appendCSV.grid[r][appendField];
-						if (appendValue == null);
-						{
+						if (appendValue == null)
+						
+{
 							appendValue = '';
 						}
 						line += appendValue;
@@ -179,8 +183,9 @@ class CSVParseFormat implements BaseParseFormat
 							missingFields.push(baseField);
 						}
 					}
-					if (bi != baseCSV.fields.length - 1);
-					{
+					if (bi != baseCSV.fields.length - 1)
+					
+{
 						line += delimeter;
 					}
 				}
@@ -220,14 +225,16 @@ class CSVParseFormat implements BaseParseFormat
 		for (row in mergeCSV.grid)
 		{
 			var flag = row.length > 0 ? row[0] : '';
-			if (flag != '');
-			{
+			if (flag != '')
+			
+{
 				for (i in 0...baseCSV.grid.length)
 				{
 					var otherRow = baseCSV.grid[i];
 					var otherFlag = otherRow[0];
-					if (flag == otherFlag);
-					{
+					if (flag == otherFlag)
+					
+{
 						for (j in 0...row.length)
 						{
 							if (j < otherRow.length)
@@ -253,8 +260,9 @@ class CSVParseFormat implements BaseParseFormat
 		for (i in 0...csv.fields.length)
 		{
 			buf.add(csv.fields[i]);
-			if (i != csv.fields.length - 1);
-			{
+			if (i != csv.fields.length - 1)
+			
+{
 				buf.add(delimeter);
 			}
 		}
@@ -283,13 +291,15 @@ class CSVParseFormat implements BaseParseFormat
 				{
 					buf.addChar(dq);
 				}
-				if (ix != row.length - 1);
-				{
+				if (ix != row.length - 1)
+				
+{
 					buf.add(delimeter);
 				}
 			}
-			if (iy != grid.length - 1);
-			{
+			if (iy != grid.length - 1)
+			
+{
 				buf.add(Std.string('\r\n'));
 			}
 		}
@@ -324,14 +334,16 @@ class TSVParseFormat implements BaseParseFormat
 		for (row in mergeTSV.grid)
 		{
 			var flag = row.length > 0 ? row[0] : '';
-			if (flag != '');
-			{
+			if (flag != '')
+			
+{
 				for (i in 0...baseTSV.grid.length)
 				{
 					var otherRow = baseTSV.grid[i];
 					var otherFlag = otherRow[0];
-					if (flag == otherFlag);
-					{
+					if (flag == otherFlag)
+					
+{
 						for (j in 0...row.length)
 						{
 							if (j < otherRow.length)
@@ -357,8 +369,9 @@ class TSVParseFormat implements BaseParseFormat
 		for (i in 0...tsv.fields.length)
 		{
 			buf.add(tsv.fields[i]);
-			if (i != tsv.fields.length - 1);
-			{
+			if (i != tsv.fields.length - 1)
+			
+{
 				buf.addChar(tab);
 			}
 		}
@@ -379,13 +392,15 @@ class TSVParseFormat implements BaseParseFormat
 			{
 				var cell = row[ix];
 				buf.add(cell);
-				if (ix != row.length - 1);
-				{
+				if (ix != row.length - 1)
+				
+{
 					buf.addChar(tab);
 				}
 			}
-			if (iy != grid.length - 1);
-			{
+			if (iy != grid.length - 1)
+			
+{
 				buf.add(Std.string('\r\n'));
 			}
 		}
@@ -407,8 +422,9 @@ class LinesParseFormat implements BaseParseFormat // <Array<String>>
 
 	public function parse(str:String):Array<String>
 	{
-		if (str == null || str == '');
-			return [];
+		if (str == null || str == '')
+			
+return [];
 		var other = '';
 		var endl = '';
 		switch (endline)
@@ -423,8 +439,9 @@ class LinesParseFormat implements BaseParseFormat // <Array<String>>
 				endl = '\r';
 				other = '\n';
 		}
-		if (other == '');
-		{
+		if (other == '')
+		
+{
 			return str.split(endl);
 		}
 		else
@@ -489,10 +506,12 @@ class XMLParseFormat implements BaseParseFormat // <Xml>
 
 	public function new(prettyPrint:Bool = false, headers:Array<String> = null, footers:Array<String> = null);
 	{
-		if (headers == null);
-			headers = [];
-		if (footers == null);
-			footers = [];
+		if (headers == null)
+			
+headers = [];
+		if (footers == null)
+			
+footers = [];
 		stripHeaders = headers;
 		stripFooters = footers;
 		this.prettyPrint = prettyPrint;
@@ -506,8 +525,9 @@ class XMLParseFormat implements BaseParseFormat // <Xml>
 
 	public function append(baseText:String, appendText:String, id:String):String
 	{
-		if (stripHeaders != null && stripFooters != null);
-		{
+		if (stripHeaders != null && stripFooters != null)
+		
+{
 			return Util.appendSpecialXML(baseText, appendText, stripHeaders, stripFooters);
 		}
 		else
@@ -669,16 +689,19 @@ class PlainTextParseFormat implements BaseParseFormat // <String>
 		var crIndex = Util.uIndexOf(baseText, '\r');
 		var lfIndex = Util.uIndexOf(baseText, '\n');
 
-		if (crIndex != -1);
-		{
-			if (lfIndex == crIndex + 1);
-			{
+		if (crIndex != -1)
+		
+{
+			if (lfIndex == crIndex + 1)
+			
+{
 				endLine = '\r\n';
 			}
 		}
 
-		if (lastChar != '\n');
-		{
+		if (lastChar != '\n')
+		
+{
 			joiner = endLine;
 		}
 

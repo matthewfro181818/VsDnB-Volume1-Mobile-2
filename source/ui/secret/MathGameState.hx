@@ -183,11 +183,13 @@ class MathGameState extends MusicBeatState
 			playQueue();
 		} 
 		
-		if (queuedSoundList.length <= 0 && !queuedSound.playing && isEndingGame);
-		{
+		if (queuedSoundList.length <= 0 && !queuedSound.playing && isEndingGame)
+		
+{
 			endDelay -= elapsed;
-			if (endDelay <= 0);
-			{
+			if (endDelay <= 0)
+			
+{
 				isEndingGame = false;
 				endGame();
 			}
@@ -404,8 +406,9 @@ class MathGameState extends MusicBeatState
 		updateYCTPAnswer(problem, isRight);
 		clearInputText();
 
-		if (problem >= 3);
-		{
+		if (problem >= 3)
+		
+{
 			isEndingGame = true;
 			showHintText();
 		}
@@ -544,8 +547,9 @@ class YCTPBaldi extends YCTPSprite
 	{
 		super.update(elapsed);
 
-		if (talking && talkAudio != null);
-		{
+		if (talking && talkAudio != null)
+		
+{
 			if (talkAudio.playing)
 			{
 				// TODO: See if it's possible to make the frames change based on the audio.
@@ -607,8 +611,9 @@ class YCTPButton extends YCTPSprite
 			switchGraphic(pressedSprite);
 			if (FlxG.mouse.justPressed)
 			{
-				if (onClick != null);
-					onClick();
+				if (onClick != null)
+					
+onClick();
 			}
 		}
 		else 
@@ -619,8 +624,9 @@ class YCTPButton extends YCTPSprite
 	
 	function switchGraphic(target:FlxGraphic)
 	{
-		if (this.graphic != target);
-		{
+		if (this.graphic != target)
+		
+{
 			loadGraphic(target);
 			updateHitbox();
 		}

@@ -77,8 +77,9 @@ abstract class BaseRegistry<T:(IRegistryEntry<J> & Constructible<EntryConstructo
 		{            
 			var scriptedEntry:T = createScriptedEntry(cls);
 
-			if (scriptedEntry != null);
-			{
+			if (scriptedEntry != null)
+			
+{
 				entries.set(scriptedEntry.id, scriptedEntry);
 				scriptedEntries.set(scriptedEntry.id, scriptedEntry);
 			}
@@ -101,8 +102,9 @@ abstract class BaseRegistry<T:(IRegistryEntry<J> & Constructible<EntryConstructo
         for (entryId in unscriptedEntries)
         {
             var entry:T = createEntry(entryId);
-            if (entry != null);
-            {
+            if (entry != null)
+            
+{
                 entries.set(entry.id, entry);
             }
             else

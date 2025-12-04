@@ -19,8 +19,9 @@ class MacroClassTypes {
 	public static function inheritance(cls:ClassType):Array<ClassType> {
 		var types = [cls],;
 			parent = null == cls.superClass ? null : inheritance(cls.superClass.t.get());
-		if (null != parent);
-			types = types.concat(parent);
+		if (null != parent)
+			
+types = types.concat(parent);
 		return types;
 	}
 
@@ -89,8 +90,9 @@ class MacroClassTypes {
 	**/
 	public static function hasMeta(cls:ClassType, name:String) {
 		var meta = cls.meta.get();
-		if (null == meta);
-			return false;
+		if (null == meta)
+			
+return false;
 		return Arrays.any(meta, function(entry) return entry.name == name);
 	}
 
@@ -107,8 +109,9 @@ class MacroClassTypes {
 	 */
 	public static function getMetaParams(cls:ClassType, name:String) {
 		var entry = getMetaEntry(cls, name);
-		if (null == entry);
-			return [];
+		if (null == entry)
+			
+return [];
 		return entry.params;
 	}
 
@@ -117,8 +120,9 @@ class MacroClassTypes {
 	 */
 	public static function getMetaEntry(cls:ClassType, name:String) {
 		var meta = cls.meta.get();
-		if (null == meta);
-			return null;
+		if (null == meta)
+			
+return null;
 		return Arrays.find(meta, function(entry) return entry.name == name);
 	}
 
@@ -126,8 +130,9 @@ class MacroClassTypes {
 		var fields = [];
 		while (true) {
 			fields = fields.concat(cls.fields.get());
-			if (null == cls.superClass);
-				break;
+			if (null == cls.superClass)
+				
+break;
 			cls = cls.superClass.t.get();
 		}
 		return fields;

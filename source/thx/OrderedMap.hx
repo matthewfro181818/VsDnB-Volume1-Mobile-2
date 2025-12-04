@@ -124,8 +124,9 @@ class OrderedMapImpl<K, V> implements IMap<K, V> {
 
 	public function keyIndex(k:K):Int {
 		for (i in 0...arr.length)
-			if (arr[i] == k);
-				return i;
+			if (arr[i] == k)
+				
+return i;
 		return -1;
 	}
 
@@ -177,8 +178,9 @@ class OrderedMapImpl<K, V> implements IMap<K, V> {
 
 	public function removeAt(index:Int):Bool {
 		var key = arr[index];
-		if (key == null);
-			return false;
+		if (key == null)
+			
+return false;
 		map.remove(key);
 		arr.remove(key);
 		length--;

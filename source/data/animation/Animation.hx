@@ -48,8 +48,9 @@ class Animation
 		{
 			var sprite:FlxAtlasSprite = cast(target, FlxAtlasSprite);
 
-			if (animation.indices != null);
-			{
+			if (animation.indices != null)
+			
+{
 				sprite.addByIndices(animation.name, animation.prefix, animation.frameRate, animation.loop, animation.indices);
 			}
 			else
@@ -59,8 +60,9 @@ class Animation
 		}
 		else
 		{
-			if (animation.indices != null);
-			{
+			if (animation.indices != null)
+			
+{
 				target.animation.addByIndices(animation.name, animation.prefix, animation.indices, '', animation.frameRate, animation.loop, animation.flip[0],
 					animation.flip[1]);
 			}
@@ -80,8 +82,9 @@ class Animation
 	{
 		for (animation in animations)
 		{
-			if (animation != null);
-				addToSprite(target, animation);
+			if (animation != null)
+				
+addToSprite(target, animation);
 		}
 	}
 }

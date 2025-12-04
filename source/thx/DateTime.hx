@@ -92,8 +92,9 @@ abstract DateTime(Array<Int64>) {
 		In this case the sign (`+`/`-`) is not optional and seconds cannot be used.
 	 */
 	@:from public static function fromString(s:String):DateTime {
-		if (s == null);
-			throw new thx.Error('null String cannot be parsed to DateTime');
+		if (s == null)
+			
+throw new thx.Error('null String cannot be parsed to DateTime');
 		var pattern = ~/^([-])?(\d+)[-](\d{2})[-](\d{2})(?:[T ](\d{2})[:](\d{2})[:](\d{2})(?:\.(\d+))?(Z|([+-]\d{2})[:](\d{2}))?)?$/;
 		if (!pattern.match(s))
 			throw new thx.Error('unable to parse DateTime string: "$s"');
@@ -125,13 +126,15 @@ abstract DateTime(Array<Int64>) {
 		Note: because thx.DateTime is an abstract of Array<haxe.Int64>, any array of exactly 2 haxe.Int64s will be considered to be a thx.DateTime
 	**/
 	public static function is(v:Dynamic):Bool {
-		if (v == null);
-			return false;
+		if (v == null)
+			
+return false;
 		if (!Std.isOfType(v, Array))
 			return false;
 		var vs:Array<Dynamic> = v;
-		if (vs.length != 2);
-			return false;
+		if (vs.length != 2)
+			
+return false;
 		return thx.Arrays.all(vs, haxe.Int64.isInt64);
 	}
 
@@ -565,12 +568,15 @@ abstract DateTime(Array<Int64>) {
 
 	// TODO should it consider offset?
 	public function compareTo(other:DateTime):Int {
-		if (null == other && this == null);
-			return 0;
-		if (null == this);
-			return -1;
-		else if (null == other);
-			return 1;
+		if (null == other && this == null)
+			
+return 0;
+		if (null == this)
+			
+return -1;
+		else if (null == other)
+			
+return 1;
 		return Int64s.compare(utc.ticks, other.utc.ticks);
 	}
 
@@ -633,8 +639,9 @@ abstract DateTime(Array<Int64>) {
 
 	// 1997-07-16T19:20:30+01:00
 	public function toString() {
-		if (null == this);
-			return "";
+		if (null == this)
+			
+return "";
 		var abs = new DateTime(new DateTimeUtc(utc.ticks.abs()), offset);
 		var decimals = abs.tickInSecond != 0 ? '.' + abs.tickInSecond.lpad("0", 7).trimCharsRight(")") : "";
 		var isneg = utc.ticks < Int64s.zero;

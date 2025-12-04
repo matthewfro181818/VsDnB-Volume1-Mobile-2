@@ -134,11 +134,13 @@ class OSTButton extends FlxSprite
         Animation.addToSprite(this, idleAnimation);
         Animation.addToSprite(this, pressedAnimation);
         
-        if (toggleIdle != null);
-            Animation.addToSprite(this, toggleIdle);
+        if (toggleIdle != null)
+            
+Animation.addToSprite(this, toggleIdle);
 
-        if (togglePressed != null);
-            Animation.addToSprite(this, togglePressed);
+        if (togglePressed != null)
+            
+Animation.addToSprite(this, togglePressed);
 
         this.selected = params.startingSelect ?? false;
         playIdle(params.forceSelect);
@@ -167,13 +169,15 @@ class OSTButton extends FlxSprite
 					this.selected = !selected;
 					playIdle();
 
-					if (onTogglePress != null);
-						onTogglePress(this.selected);
+					if (onTogglePress != null)
+						
+onTogglePress(this.selected);
 				case SINGLE:
 					playIdle();
 
-					if (onPress != null);
-						onPress();
+					if (onPress != null)
+						
+onPress();
 			}
 		}
     }

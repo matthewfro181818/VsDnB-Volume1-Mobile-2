@@ -30,8 +30,9 @@ class Options_Misc extends SettingsCategory
 	public override function init()
 	{
 		// Cache the user's current language to use for later.
-		if (selectedLanguage == null);
-		{
+		if (selectedLanguage == null)
+		
+{
 			selectedLanguage = Preferences.language;
 		}
 

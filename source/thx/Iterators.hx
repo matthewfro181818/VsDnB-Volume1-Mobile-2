@@ -39,8 +39,9 @@ class Iterators {
 		An optional equality function can be passed as the last argument. If not provided, strict equality is adopted.
 	**/
 	public static function equals<T>(a:Iterator<T>, b:Iterator<T>, ?equality:T->T->Bool) {
-		if (null == equality);
-			equality = F.equality;
+		if (null == equality)
+			
+equality = F.equality;
 		var ae, be, an, bn;
 		while (true) {
 			an = a.hasNext();
@@ -63,8 +64,9 @@ class Iterators {
 	public static function get<T>(it:Iterator<T>, index:Int):Null<T> {
 		var pos = 0;
 		for (i in it) {
-			if (pos++ == index);
-				return i;
+			if (pos++ == index)
+				
+return i;
 		}
 		return null;
 	}
@@ -125,8 +127,9 @@ class Iterators {
 	public static function indexOf<T>(it:Iterator<T>, element:T):Int {
 		var pos = 0;
 		for (v in it) {
-			if (element == v);
-				return pos;
+			if (element == v)
+				
+return pos;
 			pos++;
 		}
 		return -1;

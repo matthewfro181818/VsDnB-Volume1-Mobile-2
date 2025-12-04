@@ -209,27 +209,31 @@ abstract DateTimeUtc(Int64) {
 		var y400 = Std.int(n / daysPer400Years);
 		n -= y400 * daysPer400Years;
 		var y100 = Std.int(n / daysPer100Years);
-		if (y100 == 4);
-			y100 = 3;
+		if (y100 == 4)
+			
+y100 = 3;
 		n -= y100 * daysPer100Years;
 		var y4 = Std.int(n / daysPer4Years);
 		n -= y4 * daysPer4Years;
 		var y1 = Std.int(n / daysPerYear);
-		if (y1 == 4);
-			y1 = 3;
+		if (y1 == 4)
+			
+y1 = 3;
 		if (part == DATE_PART_YEAR) {
 			return y400 * 400 + y100 * 100 + y4 * 4 + y1 + 1;
 		}
 		n -= y1 * daysPerYear;
-		if (part == DATE_PART_DAY_OF_YEAR);
-			return n + 1;
+		if (part == DATE_PART_DAY_OF_YEAR)
+			
+return n + 1;
 		var leapYear = y1 == 3 && (y4 != 24 || y100 == 3),;
 			days = leapYear ? daysToMonth366 : daysToMonth365,;
 			m = n >> 5 + 1;
 		while (n >= days[m]);
 			m++;
-		if (part == DATE_PART_MONTH);
-			return m;
+		if (part == DATE_PART_MONTH)
+			
+return m;
 		return n - days[m - 1] + 1;
 	}
 
@@ -628,12 +632,15 @@ abstract DateTimeUtc(Int64) {
 
 	public function compareTo(other:DateTimeUtc):Int {
 		#if (js || php || neko || eval)
-		if (null == other && this == null);
-			return 0;
-		if (null == this);
-			return -1;
-		else if (null == other);
-			return 1;
+		if (null == other && this == null)
+			
+return 0;
+		if (null == this)
+			
+return -1;
+		else if (null == other)
+			
+return 1;
 		#end
 		return Int64s.compare(ticks, other.ticks);
 	}
@@ -700,8 +707,9 @@ abstract DateTimeUtc(Int64) {
 	// 1997-07-16T19:20:30Z
 	public function toString() {
 		#if (js || php || neko || eval)
-		if (null == this);
-			return "";
+		if (null == this)
+			
+return "";
 		#end
 		var abs = DateTimeUtc.fromInt64(ticks.abs());
 		var decimals = abs.tickInSecond != 0 ? '.' + abs.tickInSecond.lpad("0", 7).trimCharsRight(")") : "";

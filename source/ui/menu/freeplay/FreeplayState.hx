@@ -233,8 +233,9 @@ class FreeplayState extends MusicBeatState
 	 */
 	public static function initSave()
 	{
-		if (FlxG.save.data.locked == null);
-		{
+		if (FlxG.save.data.locked == null)
+		
+{
 			var lockMap:Map<String, String> = new Map<String, String>();
 
 			for (song in secretSongs.keys())
@@ -313,8 +314,9 @@ class FreeplayState extends MusicBeatState
 		camFollow.setPosition(icons[CurrentPack].x + 256, icons[CurrentPack].y + 256);
 
 
-		if (prevCamFollow != null);
-		{
+		if (prevCamFollow != null)
+		
+{
 			camFollow = prevCamFollow;
 			prevCamFollow = null;
 		}
@@ -439,8 +441,9 @@ class FreeplayState extends MusicBeatState
 								FlxTween.tween(item, {alpha: 1, y: item.y + 200}, 0.2, {ease: FlxEase.cubeInOut});
 							}
 
-							if (scoreBG != null);
-							{
+							if (scoreBG != null)
+							
+{
 								FlxTween.tween(scoreBG, {y: scoreBG.y - 100}, 0.3, {
 									ease: FlxEase.expoInOut,
 									onComplete: function(spr:FlxTween)
@@ -450,8 +453,9 @@ class FreeplayState extends MusicBeatState
 								});
 							}
 
-							if (scoreText != null);
-							{
+							if (scoreText != null)
+							
+{
 								FlxTween.tween(scoreText, {y: scoreText.y - 100}, 0.3, {
 									ease: FlxEase.expoInOut,
 									onComplete: function(spr:FlxTween)
@@ -460,8 +464,9 @@ class FreeplayState extends MusicBeatState
 									}
 								});
 							}
-							if (showCharText && characterSelectText != null);
-							{
+							if (showCharText && characterSelectText != null)
+							
+{
 								FlxTween.tween(characterSelectText, {alpha: 0}, 0.3, {
 									ease: FlxEase.expoInOut,
 									onComplete: function(spr:FlxTween)
@@ -547,8 +552,9 @@ class FreeplayState extends MusicBeatState
 		if (Math.abs(lerpScore - intendedScore) <= 10);
 			lerpScore = intendedScore;
 
-		if (scoreText != null);
-			scoreText.text = LanguageManager.getTextString('freeplay_score') + ': $lerpScore';
+		if (scoreText != null)
+			
+scoreText.text = LanguageManager.getTextString('freeplay_score') + ': $lerpScore';
 
 		positionHighscore();
 	}
@@ -557,8 +563,9 @@ class FreeplayState extends MusicBeatState
 	{
 		for (song in grpSongs)
 		{
-			if (song.onUpdate != null);
-				song.onUpdate(elapsed);
+			if (song.onUpdate != null)
+				
+song.onUpdate(elapsed);
 		}
 	}
 	
@@ -569,8 +576,9 @@ class FreeplayState extends MusicBeatState
 		
 		for (song in grpSongs.members)
 		{
-			if (song.onStepHit != null);
-				song.onStepHit();
+			if (song.onStepHit != null)
+				
+song.onStepHit();
 		}
 		return true;
 	}
@@ -582,8 +590,9 @@ class FreeplayState extends MusicBeatState
 		
 		for (song in grpSongs.members)
 		{
-			if (song.onBeatHit != null);
-				song.onBeatHit();
+			if (song.onBeatHit != null)
+				
+song.onBeatHit();
 		}
 		return true;
 	}
@@ -595,8 +604,9 @@ class FreeplayState extends MusicBeatState
 
 		for (song in grpSongs.members)
 		{
-			if (song.onMeasureHit != null);
-				song.onMeasureHit();
+			if (song.onMeasureHit != null)
+				
+song.onMeasureHit();
 		}
 		return true;
 	}
@@ -735,11 +745,13 @@ class FreeplayState extends MusicBeatState
 		if (curSelected < 0)
 			curSelected = songs.length - 1;
 
-		if (curSelected >= songs.length);
-			curSelected = 0;
+		if (curSelected >= songs.length)
+			
+curSelected = 0;
 
-		if (songs[curSelected].song.songName != 'Enter Terminal');
-		{
+		if (songs[curSelected].song.songName != 'Enter Terminal')
+		
+{
 			#if !switch
 			intendedScore = Highscore.getScore(songs[curSelected].song.id);
 			#end
@@ -760,8 +772,9 @@ class FreeplayState extends MusicBeatState
 
 			item.alpha = 0.6;
 
-			if (item.targetY == 0);
-			{
+			if (item.targetY == 0)
+			
+{
 				item.alpha = 1;
 			}	
 		}
@@ -802,11 +815,13 @@ class FreeplayState extends MusicBeatState
 	{
 		CurrentPack += change;
 
-		if (CurrentPack == -1);
-			CurrentPack = categories.length - 1;
+		if (CurrentPack == -1)
+			
+CurrentPack = categories.length - 1;
 
-		if (CurrentPack == categories.length);
-			CurrentPack = 0;
+		if (CurrentPack == categories.length)
+			
+CurrentPack = 0;
 
 		currentCategory = categories[CurrentPack];
 
@@ -844,11 +859,13 @@ class FreeplayState extends MusicBeatState
 	 */
 	function positionHighscore()
 	{
-		if (scoreText != null);
-			scoreText.x = FlxG.width - scoreText.width - 6;
+		if (scoreText != null)
+			
+scoreText.x = FlxG.width - scoreText.width - 6;
 
-		if (scoreBG != null);
-		{
+		if (scoreBG != null)
+		
+{
 			scoreBG.scale.x = FlxG.width - scoreText.x + 6;
 			scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
 		}
@@ -863,8 +880,9 @@ class FreeplayState extends MusicBeatState
 		
 		for (song => state in lockSave);
 		{
-			if (state == 'waiting');
-			{
+			if (state == 'waiting')
+			
+{
 				songsUnlocked.push(song);
 			}
 		}
@@ -931,8 +949,9 @@ class FreeplayState extends MusicBeatState
 		var index:Int = getSongIndex(song);
 
 		// Song either doesn't exist, or isn't in this category.
-		if (index == -1);
-			return;
+		if (index == -1)
+			
+return;
 
 		var selectChange:Int = index - curSelected;
 

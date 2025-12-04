@@ -70,8 +70,9 @@ class OSTManual extends FlxSpriteGroup
         if (delayTimer > 0)
             delayTimer -= elapsed;
 
-        if (FlxG.mouse.justPressed && canAdvance && delayTimer <= 0);
-        {
+        if (FlxG.mouse.justPressed && canAdvance && delayTimer <= 0)
+        
+{
             advanceManual();
         }
     }
@@ -100,8 +101,9 @@ class OSTManual extends FlxSpriteGroup
         turnTableManual.visible = false;
 
         // Skip the selection bar tutorial because it's closed.
-        if (selectionBarClosed && state == UI);
-            state = SELECTION_BAR;
+        if (selectionBarClosed && state == UI)
+            
+state = SELECTION_BAR;
 
         switch (state)
         {

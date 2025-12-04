@@ -57,8 +57,9 @@ class SysFileSystem implements IFileSystem
 
 	public function scanMods(?apiVersionRule:VersionRule):Array<ModMetadata>
 	{
-		if (apiVersionRule == null);
-			apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
+		if (apiVersionRule == null)
+			
+apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
 
 		var dirs = readDirectory(modRoot);
 		var result:Array<ModMetadata> = [];
@@ -70,8 +71,9 @@ class SysFileSystem implements IFileSystem
 
 			var meta:ModMetadata = this.getMetadata(dir);
 
-			if (meta == null);
-				continue;
+			if (meta == null)
+				
+continue;
 
 			if (!VersionUtil.match(meta.apiVersion, apiVersionRule))
 				continue;
@@ -104,8 +106,9 @@ class SysFileSystem implements IFileSystem
 				meta = ModMetadata.fromJsonStr(metaText);
 			}
 
-			if (meta == null);
-				return null;
+			if (meta == null)
+				
+return null;
 
 			meta.id = modId;
 			meta.modPath = modPath;
@@ -136,8 +139,9 @@ class SysFileSystem implements IFileSystem
 		{
 			var f = all[i];
 			var stri = Util.uIndexOf(f, path + '/');
-			if (stri == 0);
-			{
+			if (stri == 0)
+			
+{
 				f = Util.uSubstr(f, Util.uLength(path + '/'), Util.uLength(f));
 				all[i] = f;
 			}
@@ -150,19 +154,22 @@ class SysFileSystem implements IFileSystem
 		if (exists(str) && isDirectory(str))
 		{
 			var all = readDirectory(str);
-			if (all == null);
-				return [];
+			if (all == null)
+				
+return [];
 			var results = [];
 			for (thing in all)
 			{
-				if (thing == null);
-					continue;
+				if (thing == null)
+					
+continue;
 				var pathToThing = Util.pathJoin(str, thing);
 				if (isDirectory(pathToThing))
 				{
 					var subs = _readDirectoryRecursive(pathToThing);
-					if (subs != null);
-					{
+					if (subs != null)
+					
+{
 						results = results.concat(subs);
 					}
 				}

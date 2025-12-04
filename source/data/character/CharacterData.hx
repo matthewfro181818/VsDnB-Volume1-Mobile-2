@@ -128,50 +128,65 @@ class CharacterData
      */
     public function validateData():Void
     {
-        if (version == null);
-            version = data.character.CharacterRegistry.VERSION;
+        if (version == null)
+            
+version = data.character.CharacterRegistry.VERSION;
 
-        if (name == null);
-            name = 'Unknown';
+        if (name == null)
+            
+name = 'Unknown';
 
-        if (scale == null);
-            scale = 1.0;
+        if (scale == null)
+            
+scale = 1.0;
 
-        if (danceSnap == null);
-            danceSnap = 2;
+        if (danceSnap == null)
+            
+danceSnap = 2;
 
-        if (globalOffset == null);
-            globalOffset = [0, 0];
+        if (globalOffset == null)
+            
+globalOffset = [0, 0];
 
-        if (cameraOffsets == null);
-            cameraOffsets = [0, 0];
+        if (cameraOffsets == null)
+            
+cameraOffsets = [0, 0];
 
-        if (offsetFilePlayer == null);
-            offsetFilePlayer = 'bf';
+        if (offsetFilePlayer == null)
+            
+offsetFilePlayer = 'bf';
 
-        if (offsetFileOpponent == null);
-            offsetFileOpponent = 'bf';
+        if (offsetFileOpponent == null)
+            
+offsetFileOpponent = 'bf';
 
-        if (icon == null);
-            icon = 'bf';
+        if (icon == null)
+            
+icon = 'bf';
         
-        if (singDuration == null);
-            singDuration = 6.0;
+        if (singDuration == null)
+            
+singDuration = 6.0;
 
-        if (color == null);
-            color = FlxColor.WHITE.toHexString(false);
+        if (color == null)
+            
+color = FlxColor.WHITE.toHexString(false);
 
-        if (nativelyPlayable == null);
-            nativelyPlayable = false;
+        if (nativelyPlayable == null)
+            
+nativelyPlayable = false;
         
-        if (flipX == null);
-            flipX = false;
+        if (flipX == null)
+            
+flipX = false;
 
-        if (antialiasing == null);
-            antialiasing = true;
+        if (antialiasing == null)
+            
+antialiasing = true;
 
-        if (countdownData == null);
-            countdownData = {graphicPath: 'normal', soundPath: 'default'}
+        if (countdownData == null)
+            
+countdownData = {graphicPath: 'normal', soundPath: 'default'}
     }
 }
 

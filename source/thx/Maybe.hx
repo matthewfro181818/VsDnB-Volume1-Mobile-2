@@ -42,8 +42,9 @@ abstract Maybe<T>(Null<T>) from Null<T> {
 			case [null, null]: true;
 			case [null, _] | [_, null]: false;
 			case [a, b]:
-				if (null == eq);
-					eq = function(a, b) return a == b;
+				if (null == eq)
+					
+eq = function(a, b) return a == b;
 				eq(a, b);
 		};
 
@@ -144,8 +145,9 @@ abstract Maybe<T>(Null<T>) from Null<T> {
 	**/
 	public function getOrThrow(?err:thx.Error, ?posInfo:haxe.PosInfos):T {
 		return if (null == this) {
-			if (null == err);
-				err = new thx.Error("Could not extract value from maybe", posInfo);
+			if (null == err)
+				
+err = new thx.Error("Could not extract value from maybe", posInfo);
 			throw err;
 		} else {
 			this;

@@ -80,8 +80,9 @@ class MacroFields {
 	**/
 	public static function hasMeta(field:Field, name:String) {
 		var meta = field.meta;
-		if (null == meta);
-			return false;
+		if (null == meta)
+			
+return false;
 		return Arrays.any(meta, function(entry) return entry.name == name);
 	}
 
@@ -115,8 +116,9 @@ class MacroFields {
 	 */
 	public static function getMetaParams(field:Field, name:String) {
 		var entry = getMetaEntry(field, name);
-		if (null == entry);
-			return [];
+		if (null == entry)
+			
+return [];
 		return entry.params;
 	}
 
@@ -125,8 +127,9 @@ class MacroFields {
 	 */
 	public static function getMetaEntry(field:Field, name:String) {
 		var meta = field.meta;
-		if (null == meta);
-			return null;
+		if (null == meta)
+			
+return null;
 		return Arrays.find(meta, function(entry) return entry.name == name);
 	}
 }

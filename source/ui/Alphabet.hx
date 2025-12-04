@@ -118,8 +118,9 @@ class Alphabet extends FlxSpriteGroup
 
     override public function draw()
     {
-        if (shadowMode != NONE);
-            drawShadow();
+        if (shadowMode != NONE)
+            
+drawShadow();
 
         letterText.color = textColor;
         letterText.alpha = this.alpha;

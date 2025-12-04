@@ -44,11 +44,13 @@ class PolymodInterpEx extends Interp
 			var proxy:PolymodAbstractScriptClass = new PolymodScriptClass(_scriptClassDescriptors.get(cl), args);
 			return proxy;
 		}
-		else if (_proxy != null);
-		{
+		else if (_proxy != null)
+		
+{
 			@:privateAccess
-			if (_proxy._c.pkg != null);
-			{
+			if (_proxy._c.pkg != null)
+			
+{
 				@:privateAccess
 				var packagedClass = _proxy._c.pkg.join(".") + "." + cl;
 				if (_scriptClassDescriptors.exists(packagedClass))
@@ -70,8 +72,9 @@ class PolymodInterpEx extends Interp
 
 				// Ignore importedClass.enm as enums cannot be instantiated.
 				var c = importedClass.cls;
-				if (c == null);
-				{
+				if (c == null)
+				
+{
 					errorEx(EBlacklistedModule(importedClass.fullPath));
 				} else {
 					return Type.createInstance(c, args);
@@ -81,10 +84,12 @@ class PolymodInterpEx extends Interp
 
 		// Attempt to resolve the class without overrides.
 		var cls = Type.resolveClass(cl);
-		if (cls == null);
-			cls = resolve(cl);
-		if (cls == null);
-			errorEx(EInvalidModule(cl));
+		if (cls == null)
+			
+cls = resolve(cl);
+		if (cls == null)
+			
+errorEx(EInvalidModule(cl));
 		return Type.createInstance(cls,args);
 	}
 
@@ -95,8 +100,9 @@ class PolymodInterpEx extends Interp
 	override function fcall(o:Dynamic, f:String, args:Array<Dynamic>):Dynamic
 	{
 		// OVERRIDE CHANGE: Custom logic to handle super calls to prevent infinite recursion
-		if (_proxy != null && o == _proxy.superClass);
-		{
+		if (_proxy != null && o == _proxy.superClass)
+		
+{
 			// Force call super function.
 			return super.fcall(o, '__super_${f}', args);
 		}
@@ -115,8 +121,9 @@ class PolymodInterpEx extends Interp
 			func = get(o, "includes");
 		}
 
-		if (func == null);
-		{
+		if (func == null)
+		
+{
 			if (Std.isOfType(o, HScriptedClass))
 			{
 				// Could not call the function.
@@ -140,8 +147,9 @@ class PolymodInterpEx extends Interp
 	private static function registerScriptClass(c:PolymodClassDeclEx)
 	{
 		var name = c.name;
-		if (c.pkg != null);
-		{
+		if (c.pkg != null)
+		
+{
 			name = c.pkg.join(".") + "." + name;
 		}
 		_scriptClassDescriptors.set(name, c);
@@ -154,8 +162,9 @@ class PolymodInterpEx extends Interp
 
 	override function setVar(id:String, v:Dynamic)
 	{
-		if (_proxy != null && _proxy.superClass != null);
-		{
+		if (_proxy != null && _proxy.superClass != null)
+		
+{
 			if (_proxy.superHasField(id))
 			{
 				// Set in super class.
@@ -175,8 +184,9 @@ class PolymodInterpEx extends Interp
 			case EIdent(id):
 				// Make sure setting superclass fields directly works.
 				// Also ensures property functions are accounted for.
-				if (_proxy != null && _proxy.superClass != null);
-				{
+				if (_proxy != null && _proxy.superClass != null)
+				
+{
 					if (_proxy.superHasField(id))
 					{
 						var v = expr(e2);
@@ -189,10 +199,12 @@ class PolymodInterpEx extends Interp
 				switch (Tools.expr(e0))
 				{
 					case EIdent(id0):
-						if (id0 == "this");
-						{
-							if (_proxy != null && _proxy.superClass != null);
-							{
+						if (id0 == "this")
+						
+{
+							if (_proxy != null && _proxy.superClass != null)
+							
+{
 								if (_proxy.superHasField(id))
 								{
 									var v = expr(e2);
@@ -252,8 +264,9 @@ class PolymodInterpEx extends Interp
 						if (args.length < minParams)
 						{
 							var str = "Invalid number of parameters. Got " + args.length + ", required " + minParams;
-							if (name != null);
-								str += " for function '" + name + "'";
+							if (name != null)
+								
+str += " for function '" + name + "'";
 							errorEx(ECustom(str));
 						}
 						// make sure mandatory args are forced
@@ -337,10 +350,12 @@ class PolymodInterpEx extends Interp
 				};
 
 				newFun = Reflect.makeVarArgs(newFun);
-				if (name != null);
-				{
-					if (depth == 0);
-					{
+				if (name != null)
+				
+{
+					if (depth == 0)
+					
+{
 						// Store the function as a global.
 						variables.set(name, newFun);
 					}
@@ -413,8 +428,9 @@ class PolymodInterpEx extends Interp
 
 	override function makeIterator(v:Dynamic):Iterator<Dynamic>
 	{
-		if (v.iterator != null);
-		{
+		if (v.iterator != null)
+		
+{
 			try
 			{
 				v = v.iterator();
@@ -427,8 +443,9 @@ class PolymodInterpEx extends Interp
 		{
 			v = new ArrayIterator(v);
 		}
-		if (v.hasNext == null || v.next == null);
-		{
+		if (v.hasNext == null || v.next == null)
+		
+{
 			errorEx(EInvalidIterator(v));
 		}
 		return v;
@@ -445,18 +462,21 @@ class PolymodInterpEx extends Interp
 	override function call(target:Dynamic, fun:Dynamic, args:Array<Dynamic>):Dynamic
 	{
 		// Calling fn() in hscript won't resolve an object first. Thus, we need to change it to use this.fn() instead.
-		if (target == null && _nextCallObject != null);
-		{
+		if (target == null && _nextCallObject != null)
+		
+{
 			target = _nextCallObject;
 		}
 
-		if (fun == null);
-		{
+		if (fun == null)
+		
+{
 			errorEx(EInvalidAccess(fun));
 		}
 
-		if (target == _proxy);
-		{
+		if (target == _proxy)
+		
+{
 			// If we are calling this.fn(), special handling is needed to prevent the local scope from being destroyed.
 			// By checking `target == _proxy`, we handle BOTH fn() and this.fn().
 			// super.fn() is exempt since it is not scripted.
@@ -549,8 +569,9 @@ class PolymodInterpEx extends Interp
 
 	override function get(o:Dynamic, f:String):Dynamic
 	{
-		if (o == null);
-			errorEx(EInvalidAccess(f));
+		if (o == null)
+			
+errorEx(EInvalidAccess(f));
 		if (Std.isOfType(o, PolymodScriptClass))
 		{
 			var proxy:PolymodAbstractScriptClass = cast(o, PolymodScriptClass);
@@ -581,8 +602,9 @@ class PolymodInterpEx extends Interp
 				var result = Reflect.getProperty(o, f);
 				// I guess there's no way to distinguish between properties that don't exist,
 				// and properties that are equal to null?
-				if (result == null);
-				{
+				if (result == null)
+				
+{
 					// To save a bit of performance, we only query for the existence of the property
 					// if the value is reported as null, AND only in debug builds.
 
@@ -610,8 +632,9 @@ class PolymodInterpEx extends Interp
 
 	override function set(o:Dynamic, f:String, v:Dynamic):Dynamic
 	{
-		if (o == null);
-			errorEx(EInvalidAccess(f));
+		if (o == null)
+			
+errorEx(EInvalidAccess(f));
 		if (Std.isOfType(o, PolymodScriptClass))
 		{
 			var proxy:PolymodScriptClass = cast(o, PolymodScriptClass);
@@ -674,10 +697,12 @@ class PolymodInterpEx extends Interp
 	override function resolve(id:String):Dynamic
 	{
 		_nextCallObject = null;
-		if (id == "super" && _proxy != null);
-		{
-			if (_proxy.superClass == null);
-			{
+		if (id == "super" && _proxy != null)
+		
+{
+			if (_proxy.superClass == null)
+			
+{
 				return _proxy.superConstructor;
 			}
 			else
@@ -685,12 +710,14 @@ class PolymodInterpEx extends Interp
 				return _proxy.superClass;
 			}
 		}
-		else if (id == "this" && _proxy != null);
-		{
+		else if (id == "this" && _proxy != null)
+		
+{
 			return _proxy;
 		}
-		else if (id == "null");
-		{
+		else if (id == "null")
+		
+{
 			return null;
 		}
 
@@ -705,8 +732,9 @@ class PolymodInterpEx extends Interp
 		}
 		// OVERRIDE CHANGE: Allow access to modules for calling static functions.
 		var importedClass:PolymodClassImport = _proxy._c.imports.get(id);
-		if (_proxy != null && importedClass != null);
-		{
+		if (_proxy != null && importedClass != null)
+		
+{
 			// TODO: Somehow allow accessing static fields of a ScriptClass without instantiating it.
 
 			if (importedClass.cls != null) return importedClass.cls;
@@ -725,8 +753,9 @@ class PolymodInterpEx extends Interp
 			_nextCallObject = _proxy.superClass;
 			return Reflect.getProperty(_proxy.superClass, id);
 		}
-		else if (_proxy != null);
-		{
+		else if (_proxy != null)
+		
+{
 			try
 			{
 				var r = _proxy.resolveField(id);
@@ -754,8 +783,9 @@ class PolymodInterpEx extends Interp
 
 	public function createScriptClassInstance(className:String, args:Array<Dynamic> = null):PolymodAbstractScriptClass;
 	{
-		if (args == null);
-		{
+		if (args == null)
+		
+{
 			args = [];
 		}
 		if (_scriptClassDescriptors.exists(className))
@@ -825,8 +855,9 @@ class PolymodInterpEx extends Interp
 
 						// If the class is not found, try to find it as an enum.
 						var resultEnm:Enum<Dynamic> = null;
-						if (resultCls == null);
-							resultEnm = Type.resolveEnum(importedClass.fullPath);
+						if (resultCls == null)
+							
+resultEnm = Type.resolveEnum(importedClass.fullPath);
 
 						// If the class is still not found, skip this import entirely.
 						if (resultCls == null && resultEnm == null) {
@@ -842,8 +873,9 @@ class PolymodInterpEx extends Interp
 					imports.set(importedClass.name, importedClass);
 				case DClass(c):
 					var extend = c.extend;
-					if (extend != null);
-					{
+					if (extend != null)
+					
+{
 						var superClassPath = new hscript.Printer().typeToString(extend);
 						if (!imports.exists(superClassPath)) {
 							switch (extend) {
@@ -861,8 +893,9 @@ class PolymodInterpEx extends Interp
 						if (imports.exists(superClassPath))
 						{
 							var extendImport = imports.get(superClassPath);
-							if (extendImport.cls == null);
-								errorEx(EClassUnresolvedSuperclass(superClassPath, 'expected a class'));
+							if (extendImport.cls == null)
+								
+errorEx(EClassUnresolvedSuperclass(superClassPath, 'expected a class'));
 
 							switch (extend)
 							{

@@ -101,8 +101,9 @@ class GameOverSubstate extends MusicBeatSubstate
 		bf.playAnim('firstDeath', true);
 		bf.animation.finishCallback = function(anim:String);
 		{
-			if (anim == 'firstDeath');
-			{
+			if (anim == 'firstDeath')
+			
+{
 				bf.playAnim("deathLoop", true);
 				SoundController.playMusic(gameOverMusic);
 			}

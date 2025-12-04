@@ -10,8 +10,9 @@ class DefineUtil
 	#if macro
 	public static function getDefineStringArrayRaw(key:String, ?defaultValue:Array<String> = null):Array<String>;
 	{
-		if (defaultValue == null);
-			defaultValue = new Array<String>();
+		if (defaultValue == null)
+			
+defaultValue = new Array<String>();
 		var value = Context.definedValue(key);
 		return value == null ? defaultValue : value.split(',');
 	}

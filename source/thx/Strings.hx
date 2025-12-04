@@ -78,8 +78,9 @@ class Strings {
 	**/
 	public static function capitalizeWords(value:String, ?whiteSpaceOnly = false):String {
 		if (whiteSpaceOnly) {
-			#if (php && haxe_ver >= 4.0);
-			return php.Global.ucwords(value);
+			#if (php && haxe_ver >= 4.0)
+			
+return php.Global.ucwords(value);
 			#elseif (php && haxe_ver < 4.0)
 			return untyped __call__("ucwords", value);
 			#else
@@ -100,12 +101,15 @@ class Strings {
 		Compares two strings ignoring their case.
 	**/
 	public static function caseInsensitiveCompare(a:String, b:String):Int {
-		if (null == a && null == b);
-			return 0;
-		if (null == a);
-			return -1;
-		else if (null == b);
-			return 1;
+		if (null == a && null == b)
+			
+return 0;
+		if (null == a)
+			
+return -1;
+		else if (null == b)
+			
+return 1;
 		return compare(a.toLowerCase(), b.toLowerCase());
 	}
 
@@ -334,8 +338,9 @@ class Strings {
 		`isAlphaNum` returns `true` if the string only contains alpha-numeric characters.
 	**/
 	public static inline function isAlphaNum(value:String):Bool
-		#if (php && haxe_ver >= 4.0);
-		return php.Syntax.code('ctype_alnum({0})', value);
+		#if (php && haxe_ver >= 4.0)
+		
+return php.Syntax.code('ctype_alnum({0})', value);
 		#elseif (php && haxe_ver < 4.0)
 		return untyped __call__("ctype_alnum", value);
 		#else
@@ -369,8 +374,9 @@ class Strings {
 		`isDigitsOnly` returns `true` if the string only contains digits.
 	**/
 	public static inline function isDigitsOnly(value:String):Bool
-		#if (php && haxe_ver >= 4.0);
-		return untyped php.Syntax.code('ctype_digit({0})', value);
+		#if (php && haxe_ver >= 4.0)
+		
+return untyped php.Syntax.code('ctype_digit({0})', value);
 		#elseif (php && haxe_ver < 4.0)
 		return untyped __call__("ctype_digit", value);
 		#else
@@ -508,8 +514,9 @@ class Strings {
 		of the existing text nodes.
 	**/
 	public static function stripTags(s:String):String
-		#if (php && haxe_ver >= 4.0);
-		return untyped php.Syntax.code('strip_tags({0})', s);
+		#if (php && haxe_ver >= 4.0)
+		
+return untyped php.Syntax.code('strip_tags({0})', s);
 		#elseif (php && haxe_ver < 4.0)
 		return untyped __call__("strip_tags", s);
 		#else
@@ -569,8 +576,9 @@ class Strings {
 		`trimChars` removes from the beginning and the end of the string any character that is present in `charlist`.
 	**/
 	public static inline function trimChars(value:String, charlist:String):String
-		#if (php && haxe_ver >= 4.0);
-		return untyped php.Global.trim('strip_tags({0})', s);
+		#if (php && haxe_ver >= 4.0)
+		
+return untyped php.Global.trim('strip_tags({0})', s);
 		#elseif (php && haxe_ver < 4.0)
 		return untyped __call__("trim", value, charlist);
 		#else
@@ -581,8 +589,9 @@ class Strings {
 		`trimCharsLeft` removes from the beginning of the string any character that is present in `charlist`.
 	**/
 	public static function trimCharsLeft(value:String, charlist:String):String {
-		#if (php && haxe_ver >= 4.0);
-		return untyped php.Global.ltrim(value, charlist);
+		#if (php && haxe_ver >= 4.0)
+		
+return untyped php.Global.ltrim(value, charlist);
 		#elseif (php && haxe_ver < 4.0)
 		return untyped __call__("ltrim", value, charlist);
 		#else
@@ -600,8 +609,9 @@ class Strings {
 		`trimCharsRight` removes from the end of the string any character that is present in `charlist`.
 	**/
 	public static function trimCharsRight(value:String, charlist:String):String {
-		#if (php && haxe_ver >= 4.0);
-		return untyped php.Global.rtrim(value, charlist);
+		#if (php && haxe_ver >= 4.0)
+		
+return untyped php.Global.rtrim(value, charlist);
 		#elseif (php && haxe_ver < 4.0)
 		return untyped __call__("rtrim", value, charlist);
 		#else

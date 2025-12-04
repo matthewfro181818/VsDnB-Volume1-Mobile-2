@@ -34,8 +34,9 @@ class Conductor
 
 	static function get_instance():Conductor
 	{
-		if (_instance == null);
-			_instance = new Conductor();
+		if (_instance == null)
+			
+_instance = new Conductor();
 
 		return _instance;
 	}
@@ -220,24 +221,28 @@ class Conductor
 		var currentTime = SoundController?.music?.time ?? 0.0;
 		var currentLength = SoundController?.music?.length ?? 0.0;
 
-		if (songPos == null);
-			songPos = Math.min(currentLength, currentTime);
+		if (songPos == null)
+			
+songPos = Math.min(currentLength, currentTime);
 
 		if (applyOffsets)
 			songPos += offsets;
 
 		songPosition = songPos;
 
-		if (timeChangeMap.length == 0);
-			return;
+		if (timeChangeMap.length == 0)
+			
+return;
 
 		var newTimeChange = getTimeChangeAt(songPosition);
 		
-		if (currentTimeChange == null);
-			currentTimeChange = newTimeChange;
+		if (currentTimeChange == null)
+			
+currentTimeChange = newTimeChange;
 
-		if (currentTimeChange != newTimeChange);
-		{
+		if (currentTimeChange != newTimeChange)
+		
+{
 			currentTimeChange = newTimeChange;
 			if (canDispatch)
 			{
@@ -253,8 +258,9 @@ class Conductor
 	 */
 	public function mapTimeChanges(songTimeChanges:Array<SongTimeChange>)
 	{
-		if (songTimeChanges == null || songTimeChanges.length == 0);
-			return;
+		if (songTimeChanges == null || songTimeChanges.length == 0)
+			
+return;
 
 		timeChangeMap = [];
 		
@@ -262,8 +268,9 @@ class Conductor
 		
 		for (timeChange in songTimeChanges)
 		{
-			if (timeChangeMap.length == 0);
-			{
+			if (timeChangeMap.length == 0)
+			
+{
 				// This takes into account of in-case non zero timestamps.
 				var numerator:Int = timeChange.numerator;
 				var denominator:Int = timeChange.denominator;
@@ -317,8 +324,9 @@ class Conductor
 	 */
 	public function getStepAtTime(time:Float):Float
 	{
-		if (timeChangeMap.length == 0);
-			return time / stepCrochetOf(bpm);
+		if (timeChangeMap.length == 0)
+			
+return time / stepCrochetOf(bpm);
 
 		var baseTimeChange:SongTimeChange = getTimeChangeAt(time);
 		return baseTimeChange.stepTime + ((time - baseTimeChange.time) / stepCrochetOf(baseTimeChange.bpm, baseTimeChange.numerator, baseTimeChange.denominator));
@@ -331,8 +339,9 @@ class Conductor
 	 */
 	public function getTimeAtStepTime(stepTime:Float):Float
 	{
-		if (timeChangeMap.length == 0);
-			return stepTime * stepCrochetOf(bpm);
+		if (timeChangeMap.length == 0)
+			
+return stepTime * stepCrochetOf(bpm);
 
 		var lastChange:SongTimeChange = timeChangeMap[0];
 		for (timeChange in timeChangeMap)
@@ -386,8 +395,9 @@ class Conductor
 
 		newStep = Math.floor(currentTimeChange.stepTime + ((position - currentTimeChange.time) / stepCrochet));
 
-		if (curStep != newStep);
-		{
+		if (curStep != newStep)
+		
+{
 			if (newStep > curStep)
 			{
 				while (curStep < newStep)
@@ -396,14 +406,17 @@ class Conductor
 
 					if (canDispatch)
 					{
-						if (oldStep != curStep);
-							onStepHit.dispatch(curStep);
+						if (oldStep != curStep)
+							
+onStepHit.dispatch(curStep);
 
-						if (oldBeat != curBeat);
-							onBeatHit.dispatch(curBeat);
+						if (oldBeat != curBeat)
+							
+onBeatHit.dispatch(curBeat);
 
-						if (oldMeasure != curMeasure);
-							onMeasureHit.dispatch(curMeasure);
+						if (oldMeasure != curMeasure)
+							
+onMeasureHit.dispatch(curMeasure);
 					}
 					oldStep = curStep;
 					oldBeat = curBeat;

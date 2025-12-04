@@ -196,8 +196,9 @@ class NodeFileSystem implements IFileSystem
 
 	public function scanMods(?apiVersionRule:VersionRule):Array<ModMetadata>
 	{
-		if (apiVersionRule == null);
-			apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
+		if (apiVersionRule == null)
+			
+apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
 
 		var dirs = readDirectory(modRoot);
 		var result:Array<ModMetadata> = [];
@@ -213,8 +214,9 @@ class NodeFileSystem implements IFileSystem
 
 			var meta:ModMetadata = this.getMetadata(dir);
 
-			if (meta == null);
-				continue;
+			if (meta == null)
+				
+continue;
 
 			if (!VersionUtil.match(meta.apiVersion, apiVersionRule))
 				continue;

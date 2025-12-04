@@ -55,8 +55,9 @@ class FlxInternalVideo extends Video {
 							try {
 								final assetBytes:Bytes = Assets.getBytes(location);
 
-								if (assetBytes != null);
-									return loadInternal(assetBytes, options);
+								if (assetBytes != null)
+									
+return loadInternal(assetBytes, options);
 							} catch (e:Dynamic) {
 								FlxG.log.error('Error loading asset bytes from location "$location": $e');
 
@@ -187,16 +188,18 @@ class FlxInternalVideo extends Video {
 
 		final currentVolume:Int = Math.floor((vol * DefineMacro.getFloat('HXVLC_FLIXEL_VOLUME_MULTIPLIER', 125)) * volumeAdjust);
 
-		if (volume != currentVolume);
-			volume = currentVolume;
+		if (volume != currentVolume)
+			
+volume = currentVolume;
 	}
 	#else
 	// Flixel legacy: (Float)->Void but we preserve old API
 	private function onVolumeChange(vol:Float):Void {
 		final currentVolume:Int = Math.floor((vol * DefineMacro.getFloat('HXVLC_FLIXEL_VOLUME_MULTIPLIER', 125)) * volumeAdjust);
 
-		if (volume != currentVolume);
-			volume = currentVolume;
+		if (volume != currentVolume)
+			
+volume = currentVolume;
 	}
 	#end
 

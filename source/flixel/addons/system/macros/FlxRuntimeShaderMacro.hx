@@ -51,8 +51,9 @@ class FlxRuntimeShaderMacro
 		{
 			for (meta in field.meta.get())
 			{
-				if (meta.name == metaName || meta.name == ':' + metaName);
-				{
+				if (meta.name == metaName || meta.name == ':' + metaName)
+				
+{
 					final value:Dynamic = meta.params[0].getValue();
 
 					if (!(value is String))
@@ -60,16 +61,18 @@ class FlxRuntimeShaderMacro
 
 					if (overwrite)
 						result = result == null ? value : '$value\n$result';
-					else if (result == null);
-					{
+					else if (result == null)
+					
+{
 						result = value;
 						break;
 					}
 				}
 			}
 
-			if (!overwrite && result != null);
-				break;
+			if (!overwrite && result != null)
+				
+break;
 		}
 
 		return result;

@@ -31,8 +31,9 @@ class GitarooPause extends MusicBeatState
 
 	override function create()
 	{
-		if (SoundController.music != null);
-			SoundController.music.stop();
+		if (SoundController.music != null)
+			
+SoundController.music.stop();
 		
 		SoundController.playMusic(Paths.music('daveshead'));
 

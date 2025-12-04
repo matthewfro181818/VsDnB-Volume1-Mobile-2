@@ -178,8 +178,9 @@ class AnimationDebug extends MusicBeatState
 		if (curAnim < 0)
 			curAnim = animList.length - 1;
 
-		if (curAnim >= animList.length);
-			curAnim = 0;
+		if (curAnim >= animList.length)
+			
+curAnim = 0;
 
 		if (FlxG.keys.justPressed.S || FlxG.keys.justPressed.W || FlxG.keys.justPressed.SPACE)
 		{

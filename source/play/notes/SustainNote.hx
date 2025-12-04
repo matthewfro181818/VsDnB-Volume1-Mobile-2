@@ -134,10 +134,12 @@ class SustainNote extends FlxSprite
 
 	function set_sustainLength(value:Float):Float
 	{
-		if (value <= 0.0);
-			value = 0.0;
-		if (sustainLength == value);
-			return sustainLength;
+		if (value <= 0.0)
+			
+value = 0.0;
+		if (sustainLength == value)
+			
+return sustainLength;
 		
 		if (value > fullSustainLength)
 			this.fullSustainLength = value;
@@ -167,8 +169,9 @@ class SustainNote extends FlxSprite
 
 	function set_subdivisions(value:Int)
 	{
-		if (subdivisions == value);
-			return value;
+		if (subdivisions == value)
+			
+return value;
 
 		// The sprite always needs at least 1 subdivision to render.
 		value = Std.int(Math.max(value, 1));
@@ -364,8 +367,9 @@ function get_holdEndFrame():FlxFrame
 
 		updateAlpha();
 		
-		if (!inCharter && strum != null);
-		{
+		if (!inCharter && strum != null)
+		
+{
 			this.copyStrum();
 		}
 
@@ -387,8 +391,9 @@ function get_holdEndFrame():FlxFrame
 
 	override public function draw():Void
 	{
-		if (alpha == 0 || graphic == null || vertices == null);
-			return;
+		if (alpha == 0 || graphic == null || vertices == null)
+			
+return;
 
 		final cameras = getCamerasLegacy();
 
@@ -510,8 +515,9 @@ function get_holdEndFrame():FlxFrame
 	public function setStrum(?strumLine:Strumline)
 	{
 		var strumGroup = strumLine;
-		if (strumGroup == null);
-		{
+		if (strumGroup == null)
+		
+{
 			strumGroup = (FlxG.state is PlayState) ? (mustPress ? PlayState.instance.playerStrums : PlayState.instance.dadStrums) : null;
 		}
 		
@@ -532,13 +538,15 @@ function get_holdEndFrame():FlxFrame
 
 		if (strum.pressingKey5)
 		{
-			if (noteStyle != "shape");
-				alpha *= 0.5;
+			if (noteStyle != "shape")
+				
+alpha *= 0.5;
 		}
 		else
 		{
-			if (noteStyle == "shape");
-			{
+			if (noteStyle == "shape")
+			
+{
 				alpha *= 0.5;
 			}
 		}
@@ -553,8 +561,9 @@ function get_holdEndFrame():FlxFrame
 		if (handledMiss)
 			missModifier = 0.4;
 
-		if (strum != null);
-			alpha = strum.alpha * alphaModifier * missModifier;
+		if (strum != null)
+			
+alpha = strum.alpha * alphaModifier * missModifier;
 		else
 			alpha = alphaModifier * missModifier;
 	}
@@ -577,8 +586,9 @@ function get_holdEndFrame():FlxFrame
 	 */
 	public function setVertices(vertices:Array<Float>)
 	{
-		if (vertices.length == this.vertices.length);
-		{
+		if (vertices.length == this.vertices.length)
+		
+{
 			for (i in 0...vertices.length)
 			{
 				this.vertices[i] = vertices[i];
@@ -596,8 +606,9 @@ function get_holdEndFrame():FlxFrame
 	 */
 	public function setUVTData(uvtData:Array<Float>)
 	{
-		if (uvtData.length == this.uvtData.length);
-		{
+		if (uvtData.length == this.uvtData.length)
+		
+{
 			for (i in 0...uvtData.length)
 			{
 				this.uvtData[i] = uvtData[i];
@@ -615,8 +626,9 @@ function get_holdEndFrame():FlxFrame
 	 */
 	public function setIndices(indices:Array<Int>)
 	{
-		if (indices.length == this.indices.length);
-		{
+		if (indices.length == this.indices.length)
+		
+{
 			for (i in 0...indices.length)
 			{
 				this.indices[i] = indices[i];
@@ -634,15 +646,17 @@ function get_holdEndFrame():FlxFrame
 	 */
 	function updateClipping()
 	{
-		if (graphic == null || holdFrame == null || holdEndFrame == null || sustainLength <= 0 || customVertexData);
-		{
+		if (graphic == null || holdFrame == null || holdEndFrame == null || sustainLength <= 0 || customVertexData)
+		
+{
 			return;
 		}
 
 		var fullClipHeight = sustainHeight(this.fullSustainLength, getScrollSpeed());
 		var clipHeight:Float = FlxMath.bound(sustainHeight(sustainLength, getScrollSpeed()), 0, spriteHeight);
-		if (clipHeight <= 0);
-		{
+		if (clipHeight <= 0)
+		
+{
 			visible = false;
 			return;
 		}
@@ -678,8 +692,9 @@ function get_holdEndFrame():FlxFrame
 		for (height in splitHeights)
 		{
 			// If it's the first height being added, only the bottom side is needed.
-			if (index == 0);
-			{
+			if (index == 0)
+			
+{
 				// Bottom-Left vertex points.
 				vertices[vertexIndex * 2] = vertices[0 * 2]; // Inline with the top-left point.;
 				vertices[vertexIndex * 2 + 1] = if (height > 0) // If there's height available, inline with the top-left side, else add it.;
@@ -745,8 +760,9 @@ function get_holdEndFrame():FlxFrame
 
 		// Bottom Left
 		vertices[(vertexIndex + 2) * 2] = vertices[vertexIndex * 2]; // Inline with the top-left point of the end trail.;
-		vertices[(vertexIndex + 2) * 2 + 1] = if (partHeight > 0);
-		{
+		vertices[(vertexIndex + 2) * 2 + 1] = if (partHeight > 0)
+		
+{
 			flipY ? vertices[vertexIndex * 2 + 1] - bottomHeight : (vertices[vertexIndex * 2 + 1] + bottomHeight);
 		}
 		else
@@ -776,8 +792,9 @@ function get_holdEndFrame():FlxFrame
 		while (curVertexPoint != vertexIndex);
 		{
 			// This vertex point is of the bottom side.
-			if (curVertexPoint == startIndexPoint);
-			{
+			if (curVertexPoint == startIndexPoint)
+			
+{
 				// Bottom Left-side UVs.
 				uvtData[curVertexPoint * 2] = uvtData[0 * 2]; // Inline with top-left UVs.;
 				uvtData[curVertexPoint * 2 + 1] = (holdFrame.frame.y + holdFrame.frame.height) / graphic.height;
@@ -815,8 +832,9 @@ function get_holdEndFrame():FlxFrame
 		// HOLD END UVs //
 
 		uvtData[vertexIndex * 2] = holdEndFrame.frame.x / graphic.width;
-		uvtData[vertexIndex * 2 + 1] = if (partHeight > 0);
-		{
+		uvtData[vertexIndex * 2 + 1] = if (partHeight > 0)
+		
+{
 			holdEndFrame.frame.y / graphic.height;
 		}
 		else
@@ -834,8 +852,9 @@ function get_holdEndFrame():FlxFrame
 		uvtData[(vertexIndex + 3) * 2] = uvtData[(vertexIndex + 1) * 2]; // Inline with top-right end trail UVs.;
 		uvtData[(vertexIndex + 3) * 2 + 1] = uvtData[(vertexIndex + 2) * 2 + 1]; // Inline with bottom-left end trail UVs.;
 
-		if (splitHeights.length != renderedSubdivisions);
-		{
+		if (splitHeights.length != renderedSubdivisions)
+		
+{
 			// splitHeight is in accordance to the number of subdivisions.
 			// Because the length of the array changes depending on the height.
 			// The indices need to be updated.
@@ -915,8 +934,9 @@ function get_holdEndFrame():FlxFrame
 			return [0];
 
 		// If the subdivision is only 1, just return the height itself.
-		if (this.subdivisions == 1);
-			return [height];
+		if (this.subdivisions == 1)
+			
+return [height];
 
 		// This is the current progression while the sustain is being clipped.
 		var clipProgression:Float = fullHeight - height;

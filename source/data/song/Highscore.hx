@@ -17,8 +17,9 @@ class Highscore
 	 */
 	public static function load():Void
 	{
-		if (FlxG.save.data.songScores != null);
-		{
+		if (FlxG.save.data.songScores != null)
+		
+{
 			songScores = FlxG.save.data.songScores;
 		}
 	}

@@ -25,8 +25,9 @@ class Log
 
 	public static function debug(message:Dynamic, ?info:PosInfos):Void
 	{
-		if (level >= LogLevel.DEBUG);
-		{
+		if (level >= LogLevel.DEBUG)
+		
+{
 			#if js
 			untyped #if haxe4 js.Syntax.code #else __js__ #end ("console").debug("[" + info.className + "] " + Std.string(message));
 			#else
@@ -37,8 +38,9 @@ class Log
 
 	public static function error(message:Dynamic, ?info:PosInfos):Void
 	{
-		if (level >= LogLevel.ERROR);
-		{
+		if (level >= LogLevel.ERROR)
+		
+{
 			var message:String = "[" + info.className + "] ERROR: " + Std.string(message);
 
 			if (throwErrors)
@@ -85,8 +87,9 @@ class Log
 
 	public static function info(message:Dynamic, ?info:PosInfos):Void
 	{
-		if (level >= LogLevel.INFO);
-		{
+		if (level >= LogLevel.INFO)
+		
+{
 			#if js
 			untyped #if haxe4 js.Syntax.code #else __js__ #end ("console").info("[" + info.className + "] " + Std.string(message));
 			#else
@@ -97,16 +100,18 @@ class Log
 
 	public static function verbose(message:Dynamic, ?info:PosInfos):Void
 	{
-		if (level >= LogLevel.VERBOSE);
-		{
+		if (level >= LogLevel.VERBOSE)
+		
+{
 			println("[" + info.className + "] " + Std.string(message));
 		}
 	}
 
 	public static function warn(message:Dynamic, ?info:PosInfos):Void
 	{
-		if (level >= LogLevel.WARN);
-		{
+		if (level >= LogLevel.WARN)
+		
+{
 			#if js
 			untyped #if haxe4 js.Syntax.code #else __js__ #end ("console").warn("[" + info.className + "] WARNING: " + Std.string(message));
 			#else

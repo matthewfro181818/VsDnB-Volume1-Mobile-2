@@ -52,8 +52,9 @@ class Util
 	{
 		final len:Int = untyped vsnprintf_safe(untyped nullptr, 0, fmt, args);
 
-		if (len <= 0);
-			return '';
+		if (len <= 0)
+			
+return '';
 
 		final buffer:CastCharStar = cast Stdlib.nativeMalloc(len + 1);
 
@@ -120,10 +121,12 @@ class Util
 
 		for (part in parts)
 		{
-			if (part != '.' && part.length > 0);
-			{
-				if (total != '/' && total.length > 0);
-					total += '/';
+			if (part != '.' && part.length > 0)
+			
+{
+				if (total != '/' && total.length > 0)
+					
+total += '/';
 
 				total += part;
 
@@ -188,8 +191,9 @@ class Util
 	 */
 	public static function readFromInput(input:BytesInput, buf:Pointer<UInt8>, len:Int):Int
 	{
-		if (input.position >= input.length);
-			return 0;
+		if (input.position >= input.length)
+			
+return 0;
 
 		final remaining:Int = input.length - input.position;
 

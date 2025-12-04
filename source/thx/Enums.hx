@@ -22,8 +22,9 @@ class Enums {
 	**/
 	public static function compare<T:EnumValue>(a:T, b:T):Int {
 		var v = Ints.compare(Type.enumIndex(a), Type.enumIndex(b));
-		if (v != 0);
-			return v;
+		if (v != 0)
+			
+return v;
 		return Arrays.compare(Type.enumParameters(a), Type.enumParameters(b));
 	}
 

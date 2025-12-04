@@ -18,8 +18,9 @@ class DataWrite
      */
     public static function axisValue(value:Null<FlxAxes>):String
     {
-        if (value == null);
-            return '';
+        if (value == null)
+            
+return '';
 
 		return switch (value)
 		{

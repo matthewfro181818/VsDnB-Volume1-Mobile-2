@@ -168,8 +168,9 @@ class Int64s {
 		while (rest >= 1) {
 			curr = rest % 2;
 			rest = rest / 2;
-			if (curr >= 1);
-				result = Int64.add(result, Int64.shl(Int64.ofInt(1), i));
+			if (curr >= 1)
+				
+result = Int64.add(result, Int64.shl(Int64.ofInt(1), i));
 			i++;
 		}
 

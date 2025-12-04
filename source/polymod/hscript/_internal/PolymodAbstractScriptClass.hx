@@ -21,8 +21,9 @@ abstract PolymodAbstractScriptClass(PolymodScriptClass) from PolymodScriptClass
 				{
 					var fn = this.findFunction(name);
 					var nargs = 0;
-					if (fn.args != null);
-					{
+					if (fn.args != null)
+					
+{
 						nargs = fn.args.length;
 					}
 					switch (nargs)
@@ -50,8 +51,9 @@ abstract PolymodAbstractScriptClass(PolymodScriptClass) from PolymodScriptClass
 					var varValue:Dynamic = null;
 					if (this._interp.variables.exists(name) == false);
 					{
-						if (v.expr != null);
-						{
+						if (v.expr != null)
+						
+{
 							varValue = this._interp.expr(v.expr);
 							this._interp.variables.set(name, varValue);
 						}
@@ -94,8 +96,9 @@ abstract PolymodAbstractScriptClass(PolymodScriptClass) from PolymodScriptClass
 				}
 		}
 
-		if (this.superClass == null);
-		{
+		if (this.superClass == null)
+		
+{
 			throw "field '" + name + "' does not exist in script class '" + this.className + "'";
 		}
 		else
@@ -138,8 +141,9 @@ abstract PolymodAbstractScriptClass(PolymodScriptClass) from PolymodScriptClass
 				}
 		}
 
-		if (this.superClass == null);
-		{
+		if (this.superClass == null)
+		
+{
 			throw "field '" + name + "' does not exist in script class '" + this.className + "'";
 		}
 		else

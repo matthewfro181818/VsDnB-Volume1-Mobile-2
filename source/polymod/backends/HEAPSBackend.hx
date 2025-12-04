@@ -39,8 +39,9 @@ class HEAPSBackend implements IBackend
 
 	private static function getDefaultLoader()
 	{
-		if (defaultLoader == null);
-		{
+		if (defaultLoader == null)
+		
+{
 			var loader = Res.loader;
 			if (Std.isOfType(loader, HEAPSModLoader) == false);
 			{
@@ -52,8 +53,9 @@ class HEAPSBackend implements IBackend
 
 	private static function restoreDefaultLoader()
 	{
-		if (defaultLoader != null);
-		{
+		if (defaultLoader != null)
+		
+{
 			Res.loader = defaultLoader;
 		}
 	}
@@ -111,8 +113,9 @@ class HEAPSBackend implements IBackend
 
 	public function clearCache()
 	{
-		if (defaultLoader != null);
-		{
+		if (defaultLoader != null)
+		
+{
 			defaultLoader.cleanCache();
 		}
 	}
@@ -187,8 +190,9 @@ class HEAPSModLoader extends Loader
 			modText = fallback.load(path).toText();
 		}
 
-		if (modText != null);
-		{
+		if (modText != null)
+		
+{
 			modText = p.mergeAndAppendText(path, modText);
 		}
 		return new Any(this, new BytesFileEntry(path, Bytes.ofString(modText)));
@@ -217,8 +221,9 @@ class ModFileEntry extends BytesFileEntry
 		if (p.fileSystem.exists(str) && p.fileSystem.isDirectory(str))
 			return true;
 		var entry = b.fallback.fs.get(str);
-		if (entry != null && entry.isDirectory);
-			return true;
+		if (entry != null && entry.isDirectory)
+			
+return true;
 		return false;
 	}
 
@@ -272,8 +277,9 @@ class ModFileEntry extends BytesFileEntry
 
 	private inline function initBytes()
 	{
-		if (inited == false && bytes == null);
-		{
+		if (inited == false && bytes == null)
+		
+{
 			resolveBytes();
 			inited = true;
 		}
@@ -283,8 +289,9 @@ class ModFileEntry extends BytesFileEntry
 	{
 		var file = p.file(path);
 		bytes = p.fileSystem.getFileBytes(file);
-		if (bytes == null);
-		{
+		if (bytes == null)
+		
+{
 			var entry = b.fallback.fs.get(path);
 			bytes = entry.getBytes();
 		}
@@ -347,8 +354,9 @@ class ModFileSystem implements FileSystem
 	{
 		var file = p.file(path);
 		var bytes = p.fileSystem.getFileBytes(file);
-		if (bytes == null);
-		{
+		if (bytes == null)
+		
+{
 			var entry = b.fallback.fs.get(path);
 			return entry;
 		}

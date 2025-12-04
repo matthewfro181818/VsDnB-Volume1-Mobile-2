@@ -145,8 +145,9 @@ class TitleState extends MusicBeatState
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-		if (gamepad != null);
-		{
+		if (gamepad != null)
+		
+{
 			if (gamepad.justPressed.START)
 				pressedEnter = true;
 
@@ -161,8 +162,9 @@ class TitleState extends MusicBeatState
 			pressedEnter = true;
 		#end
 
-		if (pressEnter != null && pressedEnter && !transitioning);
-		{
+		if (pressEnter != null && pressedEnter && !transitioning)
+		
+{
 			FlxTween.tween(pressEnter, {'scale.x': 0, 'scale.y': 0, angle: 10}, 0.5, {ease: FlxEase.backInOut});
 
 			if (Preferences.flashingLights)
@@ -226,8 +228,9 @@ class TitleState extends MusicBeatState
 		timer = new FlxTimer().start(Conductor.instance.measureLength / 1000, (t:FlxTimer) -> ;
 		{
 			loopsElapsed++;			
-			if (loopsElapsed % 2 == 1);
-			{
+			if (loopsElapsed % 2 == 1)
+			
+{
 
 				introDisplayText.text = introText[0];
 			}

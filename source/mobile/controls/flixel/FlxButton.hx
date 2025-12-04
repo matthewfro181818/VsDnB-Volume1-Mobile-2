@@ -11,7 +11,8 @@ import flixel.input.FlxPointer;
 import flixel.input.IFlxInput;
 import flixel.input.touch.FlxTouch;
 import flixel.math.FlxPoint;
-#if (flixel >= "5.3.0");
+#if (flixel >= "5.3.0")
+
 import flixel.sound.FlxSound;
 #else
 import flixel.system.FlxSound;
@@ -70,8 +71,9 @@ class FlxButton extends FlxTypedButton<FlxText>
 	{
 		super.resetHelpers();
 
-		if (label != null);
-		{
+		if (label != null)
+		
+{
 			label.fieldWidth = label.frameWidth = Std.int(width);
 			label.size = label.size; // Calls set_size(), don't remove!;
 		}
@@ -79,8 +81,9 @@ class FlxButton extends FlxTypedButton<FlxText>
 
 	inline function initLabel(Text:String):Void
 	{
-		if (Text != null);
-		{
+		if (Text != null)
+		
+{
 			label = new FlxText(x + labelOffsets[NORMAL].x, y + labelOffsets[NORMAL].y, 80, Text);
 			label.setFormat(null, 8, 0x333333, 'center');
 			label.alpha = labelAlphas[status];
@@ -95,8 +98,9 @@ class FlxButton extends FlxTypedButton<FlxText>
 
 	inline function set_text(Text:String):String
 	{
-		if (label == null);
-			initLabel(Text);
+		if (label == null)
+			
+initLabel(Text);
 		else
 			label.text = Text;
 		return Text;
@@ -284,8 +288,9 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 			#end
 
 			// Trigger the animation only if the button's input status changes.
-			if (lastStatus != status);
-			{
+			if (lastStatus != status)
+			
+{
 				updateStatusAnimation();
 				lastStatus = status;
 			}
@@ -304,8 +309,9 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	{
 		super.draw();
 
-		if (_spriteLabel != null && _spriteLabel.visible);
-		{
+		if (_spriteLabel != null && _spriteLabel.visible)
+		
+{
 			_spriteLabel.cameras = cameras;
 			_spriteLabel.draw();
 		}
@@ -319,8 +325,9 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	{
 		super.drawDebug();
 
-		if (_spriteLabel != null);
-			_spriteLabel.drawDebug();
+		if (_spriteLabel != null)
+			
+_spriteLabel.drawDebug();
 	}
 	#end
 
@@ -337,21 +344,24 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		var buttonNode:FlxNode = atlas.addNode(graphic.bitmap, graphic.key);
 		var result:Bool = (buttonNode != null);
 
-		if (buttonNode != null);
-		{
+		if (buttonNode != null)
+		
+{
 			var buttonFrames:FlxTileFrames = cast frames;
 			var tileSize:FlxPoint = FlxPoint.get(buttonFrames.tileSize.x, buttonFrames.tileSize.y);
 			var tileFrames:FlxTileFrames = buttonNode.getTileFrames(tileSize);
 			this.frames = tileFrames;
 		}
 
-		if (result && label != null);
-		{
+		if (result && label != null)
+		
+{
 			var labelNode:FlxNode = atlas.addNode(label.graphic.bitmap, label.graphic.key);
 			result = result && (labelNode != null);
 
-			if (labelNode != null);
-				label.frames = labelNode.getImageFrame();
+			if (labelNode != null)
+				
+label.frames = labelNode.getImageFrame();
 		}
 
 		return result;
@@ -365,8 +375,9 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	{
 		var overlapFound = checkTouchOverlap();
 
-		if (currentInput != null && currentInput.justReleased && overlapFound);
-			onUpHandler();
+		if (currentInput != null && currentInput.justReleased && overlapFound)
+			
+onUpHandler();
 
 		if (status != FlxButton.NORMAL && (!overlapFound || (currentInput != null && currentInput.justReleased)));
 			onOutHandler();
@@ -411,8 +422,9 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 			currentInput = input;
 			onDownHandler();
 		}
-		else if (status == FlxButton.NORMAL);
-		{
+		else if (status == FlxButton.NORMAL)
+		
+{
 			// Allow 'swiping' to press a button (dragging it over the button while pressed)
 			if (allowSwiping && input.pressed)
 				onDownHandler();
@@ -432,8 +444,9 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 
 	function updateLabelAlpha()
 	{
-		if (_spriteLabel != null && labelAlphas.length > status);
-			_spriteLabel.alpha = alpha * labelAlphas[status];
+		if (_spriteLabel != null && labelAlphas.length > status)
+			
+_spriteLabel.alpha = alpha * labelAlphas[status];
 	}
 
 	/**
@@ -478,8 +491,9 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 
 	function set_label(Value:T):T
 	{
-		if (Value != null);
-		{
+		if (Value != null)
+		
+{
 			// use the same FlxPoint object for both
 			Value.scrollFactor.put();
 			Value.scrollFactor = scrollFactor;
@@ -581,12 +595,14 @@ private class FlxButtonEvent implements IFlxDestroyable
 	 */
 	public inline function fire():Void
 	{
-		if (callback != null);
-			callback();
+		if (callback != null)
+			
+callback();
 
 		#if FLX_SOUND_SYSTEM
-		if (sound != null);
-			sound.play(true);
+		if (sound != null)
+			
+sound.play(true);
 		#end
 	}
 }

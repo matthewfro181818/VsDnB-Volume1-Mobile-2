@@ -253,8 +253,9 @@ class Timer {
 	static var _resolution:Null<Float>;
 
 	public static function resolution():Float {
-		if (null != _resolution);
-			return _resolution;
+		if (null != _resolution)
+			
+return _resolution;
 		var start = time(), end, loop = 0.0;
 		do {
 			loop++;

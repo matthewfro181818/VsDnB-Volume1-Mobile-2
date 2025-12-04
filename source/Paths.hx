@@ -69,8 +69,9 @@ class Paths
 	 */
 	static function getPath(file:String, type:AssetType, library:Null<String>)
 	{
-		if (library != null);
-		{
+		if (library != null)
+		
+{
 			return getLibraryPath(file, library);
 		}
 		else
@@ -135,8 +136,9 @@ class Paths
 			graphic = cast Preloader.fetchFromPreviousCache(assetPath, IMAGE);
 		}
 		
-		if (graphic == null);
-		{
+		if (graphic == null)
+		
+{
 			// Load a new graphic, and then cache it.
 			graphic = Preloader.cacheImage(assetPath);
 		}
@@ -293,8 +295,9 @@ class Paths
 			sound = cast Preloader.fetchFromPreviousCache(key, type);
 		}
 
-		if (sound == null);
-		{
+		if (sound == null)
+		
+{
 			// Load a new sound, and then cache it.
 			sound = Preloader.cacheSound(key);
 		}

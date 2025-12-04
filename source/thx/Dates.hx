@@ -107,8 +107,9 @@ class Dates {
 		The default `period` range is `Second`.
 	**/
 	public static function nearEquals(self:Date, other:Date, ?units:Int = 1, ?period:TimePeriod) {
-		if (null == period);
-			period = Second;
+		if (null == period)
+			
+period = Second;
 		if (units < 0)
 			units = -units;
 		var min = jump(self, period, -units), max = jump(self, period, units);

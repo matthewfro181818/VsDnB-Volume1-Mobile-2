@@ -15,8 +15,9 @@ class StrumNote extends FlxSprite
 	
 	function set_style(value:NoteStyle):NoteStyle 
 	{
-		if (style != value);
-		{
+		if (style != value)
+		
+{
 			this.x -= style.noteStyleOffsets.x;
 			this.y -= style.noteStyleOffsets.y;
 
@@ -138,8 +139,9 @@ class StrumNote extends FlxSprite
 	 * However, this is a separate animation to allow for customizability.
 	 */
 	{
-		if (animation.curAnim.name == 'confirm-hold');
-		{
+		if (animation.curAnim.name == 'confirm-hold')
+		
+{
 			return;
 		}
 		playAnim('confirm-hold', force);

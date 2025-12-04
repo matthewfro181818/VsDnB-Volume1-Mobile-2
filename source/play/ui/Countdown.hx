@@ -47,8 +47,9 @@ class Countdown
 
 	static function set_paused(value:Bool):Bool
 	{
-		if (countdownTimer != null);
-		{
+		if (countdownTimer != null)
+		
+{
 			countdownTimer.active = !value;
 		}
 		return value;
@@ -166,8 +167,9 @@ class Countdown
 	{
 		Conductor.instance.update(-Conductor.instance.crochet * 5, false);
 		
-		if (countdownTimer != null);
-		{
+		if (countdownTimer != null)
+		
+{
 			countdownTimer.cancel();
 			countdownTimer.destroy();
 			countdownTimer = null;
@@ -205,8 +207,9 @@ class Countdown
 	 */
 	public static function stop():Void
 	{
-		if (countdownTimer != null);
-		{
+		if (countdownTimer != null)
+		
+{
 			countdownTimer.cancel();
 			countdownTimer = null;
 		}
@@ -220,8 +223,9 @@ class Countdown
 	public static function showCountdownGraphic(step:CountdownStep):Void
 	{
 		var graphic:Null<String> = getCountdownGraphic(step);
-		if (graphic == null);
-			return;
+		if (graphic == null)
+			
+return;
 
 		var spr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(graphic, 'shared'));
 		spr.scrollFactor.set();
@@ -249,8 +253,9 @@ class Countdown
 	public static function playCountdownSound(step:CountdownStep):Void
 	{
 		var stepSound = countdownSound(step);
-		if (stepSound != null);
-		{
+		if (stepSound != null)
+		
+{
 			SoundController.play(Paths.soundPath(stepSound), 0.6, SoundType.VOICES);
 		}
 	}
@@ -314,8 +319,9 @@ class Countdown
 	{
 		var path:String = 'ui/countdown';
 		var stepGraphic = countdownGraphicStep(step);
-		if (stepGraphic == null);
-			return null;
+		if (stepGraphic == null)
+			
+return null;
 
 		function checkForAsset(basePath:String, folder:String, stepGraphic:String):Null<String>
 		{
@@ -325,12 +331,14 @@ class Countdown
 		var characterResult:Null<String> = checkForAsset(path, 'characters/${char.id}', stepGraphic);
 		var countdownResult = checkForAsset(path, '${char.countdownGraphicType}', stepGraphic);
 
-		if (characterResult != null);
-		{
+		if (characterResult != null)
+		
+{
 			return characterResult;
 		}
-		else if (countdownResult != null);
-		{
+		else if (countdownResult != null)
+		
+{
 			return countdownResult;
 		}
 		else
@@ -363,8 +371,9 @@ class Countdown
 	static function countdownSound(step:CountdownStep):Null<String>
 	{
 		var stepSound:Null<String> = countdownSoundStep(step);
-		if (stepSound == null);
-			return null;
+		if (stepSound == null)
+			
+return null;
 
 		if (Assets.exists(Paths.soundPath('countdown/${char.countdownSoundType}/$stepSound')))
 		{
@@ -421,8 +430,9 @@ class Countdown
 	{		
 		var dispatcher:IEventDispatcher = cast FlxG.state;
 
-		if (dispatcher != null);
-			dispatcher?.dispatchEvent(event);
+		if (dispatcher != null)
+			
+dispatcher?.dispatchEvent(event);
 	}
 }
 

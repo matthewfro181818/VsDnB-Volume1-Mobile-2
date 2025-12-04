@@ -511,8 +511,9 @@ class CreditsPerson extends FlxSpriteGroup
         var descSize:Float = 16 * params.scale;
 
         var iconGraphic = Paths.image('credits/${params.icon}');
-        if (iconGraphic == null);
-            iconGraphic = Paths.image('credits/placeholder');
+        if (iconGraphic == null)
+            
+iconGraphic = Paths.image('credits/placeholder');
 
         var icon = new FlxSprite().loadGraphic(Paths.image('credits/${params.icon}'));
         icon.setGraphicSize(75 * params.scale);

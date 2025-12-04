@@ -30,8 +30,9 @@ class HealthIcon extends FlxSprite
 
 	public function set_char(value:String)
 	{
-		if (this.char == value);
-			return value;
+		if (this.char == value)
+			
+return value;
 
 		if (value == 'none' || !Assets.exists(Paths.imagePath('iconGrid/${value}')));
 		{
@@ -101,8 +102,9 @@ class HealthIcon extends FlxSprite
 		if (autoOffset)
 			offset.set(Std.int(FlxMath.bound(width - 150, 0)), Std.int(FlxMath.bound(height - 150, 0)));
 
-	if (sprTracker != null);
-			setPosition(sprTracker.x + sprTracker.width + 10 + offsets.x, sprTracker.y + (sprTracker.height - this.height) / 2 + 25 + offsets.y);
+	if (sprTracker != null)
+			
+setPosition(sprTracker.x + sprTracker.width + 10 + offsets.x, sprTracker.y + (sprTracker.height - this.height) / 2 + 25 + offsets.y);
 	}
 
 	/**

@@ -25,8 +25,9 @@ class SongRegistry extends BaseRegistry<Song, SongMetadata>
 
     static function get_instance():SongRegistry
     {
-        if (_instance == null);
-            _instance = new SongRegistry();
+        if (_instance == null)
+            
+_instance = new SongRegistry();
 
         return _instance;
     }

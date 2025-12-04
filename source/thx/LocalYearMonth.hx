@@ -261,12 +261,15 @@ abstract LocalYearMonth(Int) {
 
 	public function compareTo(other:LocalYearMonth):Int {
 		#if (js || php || neko || eval)
-		if (null == other && this == null);
-			return 0;
-		if (null == this);
-			return -1;
-		else if (null == other);
-			return 1;
+		if (null == other && this == null)
+			
+return 0;
+		if (null == this)
+			
+return -1;
+		else if (null == other)
+			
+return 1;
 		#end
 		return Ints.compare(months, other.months);
 	}
@@ -325,8 +328,9 @@ abstract LocalYearMonth(Int) {
 	// 1997-07-16
 	public function toString() {
 		#if (js || php || neko || eval)
-		if (null == this);
-			return "";
+		if (null == this)
+			
+return "";
 		#end
 		return '${year}-${month.lpad("0", 2)}';
 	}

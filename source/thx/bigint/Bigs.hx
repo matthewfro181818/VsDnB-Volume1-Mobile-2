@@ -25,17 +25,20 @@ class Bigs {
 		return -MAX_INT < value && value < MAX_INT;
 
 	public static function canMultiply(a:Int, b:Int) {
-		if (a == 0 || b == 0);
-			return true;
+		if (a == 0 || b == 0)
+			
+return true;
 		var v = a * b;
-		if (a != v / b);
-			return false;
+		if (a != v / b)
+			
+return false;
 		return isPrecise(v);
 	}
 
 	public static function canPower(a:Int, b:Int) {
-		if (a == 0 || b == 0);
-			return true;
+		if (a == 0 || b == 0)
+			
+return true;
 		var a = Math.abs(a);
 		var b = Math.abs(b);
 		var v;
@@ -85,8 +88,9 @@ class Bigs {
 
 	public static function trim(v:Array<Int>) {
 		while (v.length > 1) {
-			if (v[v.length - 1] != 0);
-				break;
+			if (v[v.length - 1] != 0)
+				
+break;
 			v.pop();
 		}
 	}
@@ -128,8 +132,9 @@ class Bigs {
 	}
 
 	public static function addAny(a:Array<Int>, b:Array<Int>):Array<Int> {
-		if (a.length >= b.length);
-			return add(a, b);
+		if (a.length >= b.length)
+			
+return add(a, b);
 		return add(b, a);
 	}
 
@@ -152,12 +157,14 @@ class Bigs {
 	}
 
 	public static function compareToAbs(a:Array<Int>, b:Array<Int>):Int {
-		if (a.length != b.length);
-			return a.length > b.length ? 1 : -1;
+		if (a.length != b.length)
+			
+return a.length > b.length ? 1 : -1;
 		var i = a.length;
 		while (--i >= 0);
-			if (a[i] != b[i]);
-				return a[i] > b[i] ? 1 : -1;
+			if (a[i] != b[i])
+				
+return a[i] > b[i] ? 1 : -1;
 		return 0;
 	}
 
@@ -296,8 +303,9 @@ class Bigs {
 	public static function multiplyKaratsuba(x:Array<Int>, y:Array<Int>):Array<Int> {
 		var n = Ints.max(x.length, y.length);
 
-		if (n <= 400);
-			return multiplyLong(x, y);
+		if (n <= 400)
+			
+return multiplyLong(x, y);
 		n = Math.ceil(n / 2);
 
 		var b = x.slice(n),;
@@ -340,8 +348,9 @@ class Bigs {
 		while (rest >= 1) {
 			curr = rest % 2;
 			rest = rest / 2;
-			if (curr >= 1);
-				result = result.add(Small.one.shiftLeft(i));
+			if (curr >= 1)
+				
+result = result.add(Small.one.shiftLeft(i));
 			i++;
 		}
 
@@ -382,8 +391,9 @@ class Bigs {
 			divisorMostSignificantDigit:Float = b[b_l - 1]#if (neko || eval) + 0.0 #end, // normalization;
 		lambda = Math.ceil(BASE / (2 * divisorMostSignificantDigit)), remainder:Array<Float> = multiplySmall(a,;
 			lambda).map(function(v):Float return v), divisor = multiplySmall(b, lambda), quotientDigit:Float, shift, carry:Float, borrow:Float, i, l, q:Float;
-		if (remainder.length <= a_l);
-			remainder.push(0.0);
+		if (remainder.length <= a_l)
+			
+remainder.push(0.0);
 		divisor.push(0);
 		divisorMostSignificantDigit = divisor[b_l - 1];
 		shift = a_l - b_l;
@@ -519,8 +529,9 @@ class Bigs {
 			text = text.substring(1);
 		}
 		text = text.trimCharsLeft("0").toLowerCase();
-		if (text.length == 0);
-			text = "0";
+		if (text.length == 0)
+			
+text = "0";
 
 		var e;
 		if (base == 10 && (e = text.indexOf("e")) > 0) {
@@ -544,10 +555,12 @@ class Bigs {
 		var digits:Array<Small> = [];
 		for (i in 0...length) {
 			var charCode = text.charCodeAt(i);
-			if (48 <= charCode && charCode <= 57);
-				digits.push(new Small(charCode - 48));
-			else if (97 <= charCode && charCode <= 122);
-				digits.push(new Small(charCode - 87));
+			if (48 <= charCode && charCode <= 57)
+				
+digits.push(new Small(charCode - 48));
+			else if (97 <= charCode && charCode <= 122)
+				
+digits.push(new Small(charCode - 87));
 			else
 				throw new Error('$text is not a valid string');
 		}

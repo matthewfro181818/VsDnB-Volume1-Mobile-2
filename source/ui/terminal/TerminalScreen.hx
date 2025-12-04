@@ -175,8 +175,9 @@ class TerminalScreen extends FlxSprite
 		var characterInd:Int = this.IndexFromPosition(x, y);
 		var character:TerminalCharacter = this.characters[characterInd];
 		var ind:Int = character.index;
-		if (character.index == -1);
-		{
+		if (character.index == -1)
+		
+{
 			ind = FlxG.random.int(0, 255);
 		}
 		var charX:Int = (ind % sheetWidth) * characterWidth;

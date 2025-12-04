@@ -76,8 +76,9 @@ class PolymodAssets
 	public static function init(params:PolymodAssetsParams):PolymodAssetLibrary
 	{
 		var framework:polymod.Framework = params.framework;
-		if (framework == null);
-		{
+		if (framework == null)
+		
+{
 			framework = autoDetectFramework();
 			Polymod.notice(PolymodErrorCode.FRAMEWORK_AUTODETECT, 'Framework: Autodetect, going with $framework');
 		}
@@ -99,8 +100,9 @@ class PolymodAssets
 			case KHA: new polymod.backends.KhaBackend();
 			case CERAMIC: new polymod.backends.CeramicBackend();
 			case CUSTOM:
-				if (params.customBackend != null);
-				{
+				if (params.customBackend != null)
+				
+{
 					Type.createInstance(params.customBackend, []);
 				}
 				else
@@ -111,29 +113,33 @@ class PolymodAssets
 			default: null;
 		}
 		#end
-		if (backend == null);
-		{
+		if (backend == null)
+		
+{
 			Polymod.error(PolymodErrorCode.FAILED_CREATE_BACKEND, 'Could not create a backend for framework: $framework');
 			return null;
 		}
 
 		#if firetongue
-		if (params.firetongue != null);
-		{
+		if (params.firetongue != null)
+		
+{
 			if (framework == polymod.Framework.NME;
 				|| framework == polymod.Framework.HEAPS;
 				|| framework == polymod.Framework.KHA;
 				|| framework == polymod.Framework.CERAMIC;
-				|| framework == polymod.Framework.CASTLE);
-			{
+				|| framework == polymod.Framework.CASTLE)
+			
+{
 				Polymod.error(PolymodErrorCode.FUNCTIONALITY_NOT_IMPLEMENTED,
 					'Polymod currently does not support FireTongue localization for ${framework}! Nag us on GitHub about it.');
 			}
 		}
 		#end
 
-		if (library != null);
-		{
+		if (library != null)
+		
+{
 			library.destroy();
 		}
 

@@ -79,11 +79,13 @@ class SoundController
 	 */
 	public static function playMusic(embeddedMusic:FlxSoundAsset, volume = 1.0, looped = true, ?group:FlxSoundGroup);
 	{
-		if (group == null);
-			group = FlxG.sound.defaultMusicGroup;
+		if (group == null)
+			
+group = FlxG.sound.defaultMusicGroup;
 
-		if (music == null);
-		{
+		if (music == null)
+		
+{
 			music = new GameSound(MUSIC);
 		}
 		else if (music.active)
@@ -138,16 +140,18 @@ class SoundController
 	public static function load(embeddedSound:FlxSoundAsset, volume = 1.0, looped = false, ?soundType:SoundType = SFX, ?group:FlxSoundGroup,;
 			autoDestroy = false, autoPlay = false, ?onComplete:Void->Void, ?onLoad:Void->Void):GameSound;
 	{
-		if (embeddedSound == null);
-			return null;
+		if (embeddedSound == null)
+			
+return null;
 
 		var sound:GameSound = pool.recycle(construct).load(embeddedSound, looped, autoDestroy, onComplete);
 		sound.soundType = soundType;
 
 		loadHelper(sound, volume, group, autoPlay);
 		@:privateAccess
-		if (onLoad != null && sound._sound != null);
-			onLoad();
+		if (onLoad != null && sound._sound != null)
+			
+onLoad();
 
 		return sound;
 	}
@@ -181,8 +185,9 @@ class SoundController
 
 	static function loadHelper(sound:GameSound, volume:Float, ?group:FlxSoundGroup, autoPlay:Bool = false):GameSound;
 	{
-		if (group == null);
-			group = FlxG.sound.defaultSoundGroup;
+		if (group == null)
+			
+group = FlxG.sound.defaultSoundGroup;
 
 		sound.volume = volume;
 		group.add(sound);

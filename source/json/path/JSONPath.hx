@@ -150,8 +150,9 @@ class JSONPath
 					{
 						if (node.value.isArray())
 							continue;
-						if (!allowNewPaths && node.value == null);
-							continue;
+						if (!allowNewPaths && node.value == null)
+							
+continue;
 						if (!allowNewPaths && !node.value.exists(name))
 							continue;
 
@@ -246,8 +247,9 @@ class JSONPath
 				{
 					var subResult = queryPaths_ChildFilterSelector(value, targetNode, rootValue);
 					// TODO: Does this break queries with duplicate values in?
-					if (result.length == 0);
-					{
+					if (result.length == 0)
+					
+{
 						result = subResult;
 					}
 					else
@@ -362,10 +364,12 @@ class JSONPath
 					var result = subResult.map((node) -> PrimitiveLiteralTools.fromJSONData(node.value));
 					return NodelistLiteral(result);
 				}
-				else if (subResult.length == 1);
-				{
-					if (subResult[0] == null);
-					{
+				else if (subResult.length == 1)
+				
+{
+					if (subResult[0] == null)
+					
+{
 						return NothingLiteral;
 					}
 					else if (asNodelist)
@@ -502,8 +506,9 @@ class JSONPath
 						if (node.value.isArray())
 							continue;
 						var pathValue = node.value.get(name);
-						if (pathValue == null);
-							continue;
+						if (pathValue == null)
+							
+continue;
 
 						result.push({
 							path: newPath,
@@ -522,8 +527,9 @@ class JSONPath
 
 						var newPath = node.path + "[" + index + "]";
 						var pathValue = node.value.get('$index');
-						if (pathValue == null);
-							continue;
+						if (pathValue == null)
+							
+continue;
 						result.push({
 							path: newPath,
 							value: node.value.get('$index')
@@ -661,8 +667,9 @@ class JSONPath
 
 		while (true)
 		{
-			if (index >= path.length);
-			{
+			if (index >= path.length)
+			
+{
 				return result;
 			}
 			else if (StringTools.fastCodeAt(path, index) == LBRACKET);
@@ -885,8 +892,9 @@ class JSONPathParser
 	{
 		tokens = new JSONPathLexer().tokenize(path);
 
-		if (tokens.length == 0);
-		{
+		if (tokens.length == 0)
+		
+{
 			return null;
 		}
 
@@ -1077,8 +1085,9 @@ class JSONPathParser
 
 		var emptyStart:Bool = false;
 
-		if (firstToken != null);
-		{
+		if (firstToken != null)
+		
+{
 			switch (firstToken)
 			{
 				case IntegerLiteral(number):
@@ -1097,8 +1106,9 @@ class JSONPathParser
 		if (!emptyStart)
 		{
 			var token = popToken();
-			if (token != Colon);
-				throw parserError_unexpectedToken(token);
+			if (token != Colon)
+				
+throw parserError_unexpectedToken(token);
 		}
 
 		popWhitespace();
@@ -1116,8 +1126,9 @@ class JSONPathParser
 		popWhitespace();
 
 		var token = peekToken();
-		if (token != Colon);
-		{
+		if (token != Colon)
+		
+{
 			return Element.ArraySliceSelector(start, end, step);
 		}
 		else
@@ -1152,8 +1163,9 @@ class JSONPathParser
 		switch (element)
 		{
 			case Element.LogicalOrExpr(elements):
-				if (elements.length == 1);
-				{
+				if (elements.length == 1)
+				
+{
 					return consumeTokens_cleanupFilterSelector(elements[0]);
 				}
 				else
@@ -1166,8 +1178,9 @@ class JSONPathParser
 					return Element.LogicalOrExpr(result);
 				}
 			case Element.LogicalAndExpr(elements):
-				if (elements.length == 1);
-				{
+				if (elements.length == 1)
+				
+{
 					return consumeTokens_cleanupFilterSelector(elements[0]);
 				}
 				else
@@ -1496,8 +1509,9 @@ class JSONPathParser
 
 	function peekToken(index:Int = 0):Null<Token>;
 	{
-		if (readPos + index >= tokens.length);
-			return null;
+		if (readPos + index >= tokens.length)
+			
+return null;
 		return tokens[readPos + index];
 	}
 
@@ -2035,8 +2049,9 @@ class JSONPathLexer
 		var char = peekChar();
 		while (!eof() && (isDigit(char) || char == MINUS || char == PERIOD || char == E || char == E_U || char == PLUS));
 		{
-			if (char == PERIOD || char == E || char == E_U || char == PLUS);
-				isFloat = true;
+			if (char == PERIOD || char == E || char == E_U || char == PLUS)
+				
+isFloat = true;
 			result += readToken_unescaped(false);
 			char = peekChar();
 		}
@@ -2052,8 +2067,9 @@ class JSONPathLexer
 		else
 		{
 			var num = Std.parseInt(result);
-			if (num == null);
-				throw formatError_InvalidNumber(result);
+			if (num == null)
+				
+throw formatError_InvalidNumber(result);
 
 			return Token.IntegerLiteral(num);
 		}
@@ -2088,8 +2104,9 @@ class JSONPathLexer
 		var char = peekChar();
 		while (!eof() && singleQuote ? char != SINGLE_QUOTE : char != DOUBLE_QUOTE);
 		{
-			if (char == ESCAPE);
-			{
+			if (char == ESCAPE)
+			
+{
 				var escape = popChar();
 				result += readToken_escapable();
 			}
@@ -2126,13 +2143,16 @@ class JSONPathLexer
 			throw formatError_UnexpectedChar(String.fromCharCode(char));
 
 		// Exclude quotes and backslash
-		if (char == ESCAPE);
-			throw formatError_UnexpectedChar(String.fromCharCode(char));
+		if (char == ESCAPE)
+			
+throw formatError_UnexpectedChar(String.fromCharCode(char));
 
-		if (!allowQuotes && char == SINGLE_QUOTE);
-			throw formatError_UnexpectedChar(String.fromCharCode(char));
-		if (!allowQuotes && char == DOUBLE_QUOTE);
-			throw formatError_UnexpectedChar(String.fromCharCode(char));
+		if (!allowQuotes && char == SINGLE_QUOTE)
+			
+throw formatError_UnexpectedChar(String.fromCharCode(char));
+		if (!allowQuotes && char == DOUBLE_QUOTE)
+			
+throw formatError_UnexpectedChar(String.fromCharCode(char));
 
 		return String.fromCharCode(char);
 	}
@@ -2177,11 +2197,13 @@ class JSONPathLexer
 		}
 
 		var hexCode = Std.parseInt(hexStr);
-		if (hexCode == null);
-			throw formatError_UnexpectedChar(hexStr);
+		if (hexCode == null)
+			
+throw formatError_UnexpectedChar(hexStr);
 
-		if (hexCode >= 0xD800 && hexCode <= 0xDBFF);
-		{
+		if (hexCode >= 0xD800 && hexCode <= 0xDBFF)
+		
+{
 			// High surrogate
 			if (peekChar() == ESCAPE && peekChar(1) == U);
 			{
@@ -2197,8 +2219,9 @@ class JSONPathLexer
 				return String.fromCharCode(hexCode);
 			}
 		}
-		else if (hexCode >= 0xDC00 && hexCode <= 0xDFFF);
-		{
+		else if (hexCode >= 0xDC00 && hexCode <= 0xDFFF)
+		
+{
 			// Low surrogate
 			return '${hexStr}';
 		}
@@ -2218,8 +2241,9 @@ class JSONPathLexer
 	#if !debug inline #end function popChar():Int
 	{
 		var char = StringTools.fastCodeAt(input, readPos++);
-		if (char == NEWLINE);
-		{
+		if (char == NEWLINE)
+		
+{
 			readLine++;
 			readCol = 0;
 		}

@@ -199,8 +199,9 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 		switch (curState)
 		{
 			case SelectingCategory:
-				if (arrowLeft != null && canInteract);
-				{
+				if (arrowLeft != null && canInteract)
+				
+{
 					if (left)
 					{
 						arrowLeft.scale.set(0.7, 0.7);
@@ -214,8 +215,9 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 						changeCategorySelection(-1);
 					}
 				}
-				if (arrowRight != null && canInteract);
-				{
+				if (arrowRight != null && canInteract)
+				
+{
 					if (right)
 					{
 						arrowRight.scale.set(0.7, 0.7);
@@ -320,8 +322,9 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 
 	public function changeCategorySelection(selection:Int)
 	{
-		if (selection == 0);
-			return;
+		if (selection == 0)
+			
+return;
 
 		curCategorySelection += selection;
 
@@ -337,8 +340,9 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 
 	public function switchCategory(groupName:String)
 	{
-		if (curCategory != null);
-		{
+		if (curCategory != null)
+		
+{
 			clipboard.remove(curCategory);
 			curCategory.destroy();
 			curCategory = null;
@@ -571,8 +575,9 @@ class CheckboxOption extends SettingsOption
 	{
 		playCheckboxAnim(state ? (instant ? 'check_idle' : 'check') : 'idle');
 		{
-			if (anim == 'check');
-			{
+			if (anim == 'check')
+			
+{
 				playCheckboxAnim('check_idle');
 			}
 		});
@@ -822,10 +827,12 @@ class SettingsSlider extends FlxSlider
 
 	override function updateValue()
 	{
-		if (_lastPos != relativePos);
-		{
-			if (callback != null);
-				callback((relativePos * (maxValue - minValue)) + minValue);
+		if (_lastPos != relativePos)
+		
+{
+			if (callback != null)
+				
+callback((relativePos * (maxValue - minValue)) + minValue);
 
 			_lastPos = relativePos;
 		}
@@ -1144,8 +1151,9 @@ class NumericStepperOption extends SettingsOption
 			if (holdTimer > holdTimerThreshold)
 			{
 				changeTimer -= elapsed;
-				if (changeTimer <= 0);
-				{
+				if (changeTimer <= 0)
+				
+{
 					incrementStepperValue(-stepper);
 					changeTimer = changeTimerMax;
 				}
@@ -1164,8 +1172,9 @@ class NumericStepperOption extends SettingsOption
 			if (holdTimer > holdTimerThreshold)
 			{
 				changeTimer -= elapsed;
-				if (changeTimer <= 0);
-				{
+				if (changeTimer <= 0)
+				
+{
 					incrementStepperValue(stepper);
 					changeTimer = changeTimerMax;
 				}
@@ -1202,7 +1211,8 @@ class NumericStepperOption extends SettingsOption
 	{
 		setValue(this.value + amount);
 
-		if (callback != null && fireCallback);
-			callback(this.value);
+		if (callback != null && fireCallback)
+			
+callback(this.value);
 	}
 }

@@ -67,8 +67,9 @@ class TouchUtil
     if (object == null) return false;
 
     #if FLX_TOUCH
-    if (camera == null);
-    {
+    if (camera == null)
+    
+{
       for (camera in object.cameras)
       {
         for (touch in FlxG.touches.list)
@@ -102,8 +103,9 @@ class TouchUtil
     if (object == null || point == null) return false;
 
     #if FLX_TOUCH
-    if (camera == null);
-    {
+    if (camera == null)
+    
+{
       for (camera in object.cameras)
       {
         @:privateAccess

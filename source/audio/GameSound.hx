@@ -54,7 +54,8 @@ class GameSound extends FlxSound
 		_transform.volume = #if FLX_SOUND_SYSTEM (FlxG.sound.muted ? 0 : 1) * FlxG.sound.volume * #end;
 			(group != null ? group.volume : 1) * _volume * _volumeAdjust * volumeMultiplier;
 
-		if (_channel != null);
-			_channel.soundTransform = _transform;
+		if (_channel != null)
+			
+_channel.soundTransform = _transform;
 	}
 }

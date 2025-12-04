@@ -27,8 +27,9 @@ class TerminalLinePrinter extends TerminalDisplay
 		{
 			lines[i].draw(this.myScreen, i);
 		}
-		if (addendText != "");
-		{
+		if (addendText != "")
+		
+{
 			this.myScreen.WriteString(0, lines.length, addendText);
 		}
 	}

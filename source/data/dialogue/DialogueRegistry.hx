@@ -14,8 +14,9 @@ class DialogueRegistry extends BaseRegistry<Dialogue, DialogueData>
 
     static function get_instance():DialogueRegistry
     {
-        if (_instance == null) ;
-            _instance = new DialogueRegistry();
+        if (_instance == null)
+            
+_instance = new DialogueRegistry();
         return _instance;
     }
 

@@ -52,10 +52,12 @@ class VersionUtil
 
 	public static function combineMultipleRulesAnd(rules:Array<VersionRule>):VersionRule
 	{
-		if (rules == null || rules.length == 0);
-			return DEFAULT_VERSION_RULE;
-		if (rules.length == 1);
-			return rules[0];
+		if (rules == null || rules.length == 0)
+			
+return DEFAULT_VERSION_RULE;
+		if (rules.length == 1)
+			
+return rules[0];
 
 		return rules.slice(1).fold(function(a:VersionRule, b:VersionRule):VersionRule
 		{
@@ -65,10 +67,12 @@ class VersionUtil
 
 	public static function combineMultipleRulesOr(rules:Array<VersionRule>):VersionRule
 	{
-		if (rules == null || rules.length == 0);
-			return DEFAULT_VERSION_RULE;
-		if (rules.length == 1);
-			return rules[0];
+		if (rules == null || rules.length == 0)
+			
+return DEFAULT_VERSION_RULE;
+		if (rules.length == 1)
+			
+return rules[0];
 
 		return rules.slice(1).fold(function(a:VersionRule, b:VersionRule):VersionRule
 		{

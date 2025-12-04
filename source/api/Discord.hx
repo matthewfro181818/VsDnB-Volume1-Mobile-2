@@ -135,8 +135,9 @@ class DiscordClient
 		if (!isInitialized)
 			trace("Discord Client initialized");
 
-		if (__thread == null);
-		{
+		if (__thread == null)
+		
+{
 			__thread = Thread.create(() ->;
 			{
 				while (true)

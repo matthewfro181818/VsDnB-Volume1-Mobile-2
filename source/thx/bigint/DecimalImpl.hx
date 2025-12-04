@@ -116,8 +116,9 @@ class DecimalImpl {
 	}
 
 	public function scaleTo(newscale:Int):DecimalImpl {
-		if (newscale == scale);
-			return this;
+		if (newscale == scale)
+			
+return this;
 		if (newscale > scale) {
 			var mul = Small.ten.pow(Bigs.fromInt(newscale - scale));
 			return new DecimalImpl(value.multiply(mul), newscale);
@@ -155,8 +156,9 @@ class DecimalImpl {
 
 	// TODO needs better implementation
 	public function trim(?min = 0):DecimalImpl {
-		if (scale == 0);
-			return this;
+		if (scale == 0)
+			
+return this;
 		var s = toString(),;
 			parts = s.split("."),;
 			dec = parts[1].trimCharsRight("0").rpad("0", min);
@@ -193,8 +195,9 @@ class DecimalImpl {
 	///////////////////////
 
 	function matchScale(that:DecimalImpl):DecimalImpl {
-		if (scale >= that.scale);
-			return this;
+		if (scale >= that.scale)
+			
+return this;
 		return scaleTo(that.scale);
 	}
 }

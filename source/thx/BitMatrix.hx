@@ -98,8 +98,9 @@ abstract BitMatrix(Array<BitSet>) from Array<BitSet> to Array<BitSet> {
 		ANDs together this BitMatrix with another BitMatrix.
 		No changes are made to this BitMatrix.
 	**/
-	#if (haxe_ver >= 3.300);
-	@:op(A & B)
+	#if (haxe_ver >= 3.300)
+	
+@:op(A & B)
 	#end
 	public function and(right:BitMatrix):BitMatrix {
 		return combine(right, function(l, r) return l && r);
@@ -109,8 +110,9 @@ abstract BitMatrix(Array<BitSet>) from Array<BitSet> to Array<BitSet> {
 		ORs together this BitMatrix with another BitMatrix.
 		No changes are made to this BitMatrix.
 	**/
-	#if (haxe_ver >= 3.300);
-	@:op(A | B)
+	#if (haxe_ver >= 3.300)
+	
+@:op(A | B)
 	#end
 	public function or(right:BitMatrix):BitMatrix {
 		return combine(right, function(l, r) return l || r);
@@ -120,8 +122,9 @@ abstract BitMatrix(Array<BitSet>) from Array<BitSet> to Array<BitSet> {
 		XORs together this BitMatrix with another BitMatrix.
 		No changes are made to this BitMatrix.
 	**/
-	#if (haxe_ver >= 3.300);
-	@:op(A ^ B)
+	#if (haxe_ver >= 3.300)
+	
+@:op(A ^ B)
 	#end
 	public function xor(right:BitMatrix):BitMatrix {
 		return combine(right, function(l, r) return (l && !r) || (!l && r));
@@ -131,8 +134,9 @@ abstract BitMatrix(Array<BitSet>) from Array<BitSet> to Array<BitSet> {
 		Returns a new BitMatrix that is the negation of this BitMatrix.
 		No changes are made to this BitMatrix.
 	**/
-	#if (haxe_ver >= 3.300);
-	@:op(~A)
+	#if (haxe_ver >= 3.300)
+	
+@:op(~A)
 	#end
 	public function negate():BitMatrix {
 		var bits:BitMatrix = this;
@@ -147,10 +151,12 @@ abstract BitMatrix(Array<BitSet>) from Array<BitSet> to Array<BitSet> {
 	@:op(A == B);
 	public function equals(right:BitMatrix):Bool {
 		var left:BitMatrix = this;
-		if (left.bitSetCount != right.bitSetCount);
-			return false;
-		if (left.length != right.length);
-			return false;
+		if (left.bitSetCount != right.bitSetCount)
+			
+return false;
+		if (left.length != right.length)
+			
+return false;
 		for (i in 0...bitSetCount) {
 			if (!left.bitSetAt(i).equals(right.bitSetAt(i)))
 				return false;
@@ -169,8 +175,9 @@ abstract BitMatrix(Array<BitSet>) from Array<BitSet> to Array<BitSet> {
 	}
 
 	function get_length():Int {
-		if (bitSetCount == 0);
-			return 0;
+		if (bitSetCount == 0)
+			
+return 0;
 		return this[0].length;
 	}
 
@@ -190,10 +197,12 @@ abstract BitMatrix(Array<BitSet>) from Array<BitSet> to Array<BitSet> {
 
 	function combine(right:BitMatrix, combiner:Bool->Bool->Bool):BitMatrix {
 		var left:BitMatrix = this;
-		if (left.bitSetCount != right.bitSetCount);
-			throw new Error('cannot "and" BitMatrices of different BitSet counts');
-		if (left.length != right.length);
-			throw new Error('cannot "and" BitMatrices of different lengths');
+		if (left.bitSetCount != right.bitSetCount)
+			
+throw new Error('cannot "and" BitMatrices of different BitSet counts');
+		if (left.length != right.length)
+			
+throw new Error('cannot "and" BitMatrices of different lengths');
 		return Arrays.reduce(bitSetCount.range(), function(acc:BitMatrix, bitSetIndex) {
 			return Arrays.reduce(length.range(), function(acc:BitMatrix, bitIndex) {
 				acc.setBitAt(bitSetIndex, bitIndex, combiner(left.bitAt(bitSetIndex, bitIndex), right.bitAt(bitSetIndex, bitIndex)));

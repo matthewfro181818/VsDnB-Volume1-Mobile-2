@@ -123,8 +123,9 @@ class BuildResource {
 
 	static function getMatchingFile(type:String, module:String, formats:Array<String>, prefix:String) {
 		var path = Macros.getModulePath(module);
-		if (null == path);
-			return {};
+		if (null == path)
+			
+return {};
 		// strip extension
 		path = path.split(".").slice(0, -1).join(".");
 		// change file name
@@ -172,8 +173,9 @@ class BuildResource {
 
 	// TODO: add XML? Is anyone using that anymore?
 	static function getFromFile(file:String, module:String, prefix:String, ?format:String, ?allowText:Bool = false):Dynamic {
-		if (null == format);
-			format = file.split(".").pop();
+		if (null == format)
+			
+format = file.split(".").pop();
 		var content:String = sys.io.File.getContent(file);
 		Context.registerModuleDependency(module, file);
 		var o = switch format.toLowerCase() {

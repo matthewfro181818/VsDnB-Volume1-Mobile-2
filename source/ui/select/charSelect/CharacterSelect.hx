@@ -275,10 +275,12 @@ class CharacterSelect extends MusicBeatState
 	{
 		super();
 
-		if (params == null && lastParams == null);
-			throw 'Tried initalizing CharacterSelect with 0 parameters.';
-		else if (params == null && lastParams != null);
-			params = lastParams;
+		if (params == null && lastParams == null)
+			
+throw 'Tried initalizing CharacterSelect with 0 parameters.';
+		else if (params == null && lastParams != null)
+			
+params = lastParams;
 
 		this.params = params;
 
@@ -319,12 +321,14 @@ class CharacterSelect extends MusicBeatState
 		{
 			var firstPressed = FlxG.keys.firstJustPressed();
 
-			if (firstPressed != -1);
-			{
+			if (firstPressed != -1)
+			
+{
 				for (control => key in selectControls);
 				{
-					if (firstPressed == key);
-					{
+					if (firstPressed == key)
+					
+{
 						switch (control)
 						{
 							case LEFT:
@@ -376,8 +380,9 @@ class CharacterSelect extends MusicBeatState
 	{
 		for (id in charMap.keys())
 		{
-			if (charMap[id] != char);
-			{
+			if (charMap[id] != char)
+			
+{
 				var charId = charMap[id];
 
 				charId.destroy();
@@ -402,8 +407,9 @@ class CharacterSelect extends MusicBeatState
 
 	function changeColumnSelection(amount:Int)
 	{
-		if (amount != 0);
-		{
+		if (amount != 0)
+		
+{
 			lastSelectedChar = selectedChar;
 			lastSelectedPortrait = selectedPortrait;
 			SoundController.play(Paths.sound('scrollMenu'));
@@ -427,8 +433,9 @@ class CharacterSelect extends MusicBeatState
 
 	function changeRowSelection(amount:Int)
 	{
-		if (amount != 0);
-		{
+		if (amount != 0)
+		
+{
 			lastSelectedChar = selectedChar;
 			lastSelectedPortrait = selectedPortrait;
 			SoundController.play(Paths.sound('scrollMenu'));
@@ -446,8 +453,9 @@ class CharacterSelect extends MusicBeatState
 
 	function changePageSelection(amount:Int = 0);
 	{
-		if (amount != 0);
-		{
+		if (amount != 0)
+		
+{
 			lastPageSelected = currentPageSelected;
 		}
 		currentPage += amount;
@@ -463,8 +471,9 @@ class CharacterSelect extends MusicBeatState
 
 	function updatePageDisplay()
 	{
-		if (lastPageSelected != null);
-		{
+		if (lastPageSelected != null)
+		
+{
 			lastPageSelected.setVisiblity(false);
 		}
 		currentPageSelected.setVisiblity(true);
@@ -488,8 +497,9 @@ class CharacterSelect extends MusicBeatState
 	function selectCharacter()
 	{
 		// Selected an invalid portrait.
-		if (selectedChar.characterId == 'none' || selectedChar.characterId == 'locked');
-		{
+		if (selectedChar.characterId == 'none' || selectedChar.characterId == 'locked')
+		
+{
 			FlxG.camera.shake(0.05, 0.1);
 			SoundController.play(Paths.sound('missnote1'), 0.9);
 			return;
@@ -503,8 +513,9 @@ class CharacterSelect extends MusicBeatState
 		{
 			var curPortrait:CharacterPortrait = currentPageSelected.members[i];
 
-			if (curPortrait != selectedPortrait);
-			{
+			if (curPortrait != selectedPortrait)
+			
+{
 				FlxTween.tween(curPortrait, {alpha: 0.4}, 0.5, {ease: FlxEase.circOut});
 			}
 			else
@@ -540,8 +551,9 @@ class CharacterSelect extends MusicBeatState
 				case 'none':
 					customCharacterSign.visible = true;
 			}
-			if (char != null);
-				char.visible = false;
+			if (char != null)
+				
+char.visible = false;
 			
 			strumLine.visible = false;
 		}
@@ -553,16 +565,18 @@ class CharacterSelect extends MusicBeatState
 			// If the last portrait was an unavailable one, reset the state.
 			if (lastSelectedChar == null || ['locked', 'none'].contains(lastSelectedChar.characterId));
 			{
-				if (char != null);
-					char.visible = true;
+				if (char != null)
+					
+char.visible = true;
 				
 				strumLine.visible = true;
 			}
 
 			var oldNoteSkin = char?.skins.get('noteSkin') ?? 'normal';
 
-			if (char != null);
-			{
+			if (char != null)
+			
+{
 				// Update the character.
 				remove(char);
 			}
@@ -574,8 +588,9 @@ class CharacterSelect extends MusicBeatState
 			char.reposition();
 			
 			var newNoteSkin = char.skins.get('noteSkin');
-			if (oldNoteSkin != newNoteSkin);
-			{
+			if (oldNoteSkin != newNoteSkin)
+			
+{
 				updateStrumLine();
 			}
 		}
@@ -637,8 +652,9 @@ class CharacterSelect extends MusicBeatState
 					page++;
 
 					pageCharacters = characters.get(page);
-					if (pageCharacters == null);
-					{
+					if (pageCharacters == null)
+					
+{
 						pageCharacters = createPage(page);
 					}
 				}
@@ -648,8 +664,9 @@ class CharacterSelect extends MusicBeatState
 			characters.set(page, pageCharacters);
 
 			// Preload the character for this player.
-			if (playerToUse.characterId != 'none' && playerToUse.characterId != 'locked');
-			{	
+			if (playerToUse.characterId != 'none' && playerToUse.characterId != 'locked')
+			
+{	
 				var charFile:Character = Character.create(playerToUse.characterId, PLAYER);
 				charMap.set(player.characterId, charFile);
 			}
@@ -697,8 +714,9 @@ class CharacterSelect extends MusicBeatState
 
 	function setupCharacter():Void
 	{
-		if (selectedChar.characterId != 'none' || selectedChar.characterId == 'locked');
-		{
+		if (selectedChar.characterId != 'none' || selectedChar.characterId == 'locked')
+		
+{
 			char = Character.create(350, 250, selectedChar.characterId, PLAYER);
 			add(char);
 		}
@@ -787,8 +805,9 @@ class CharacterSelect extends MusicBeatState
 
 		musicGroup.forEach(function(sound:FlxSound)
 		{
-			if (normalTheme != sound);
-				sound.volume = 0;
+			if (normalTheme != sound)
+				
+sound.volume = 0;
 		});
 		musicGroup.play();
 
@@ -803,8 +822,9 @@ class CharacterSelect extends MusicBeatState
 		{
 			FlxTween.cancelTweensOf(sound);
 
-			if (charTheme == sound);
-				sound.fadeIn();
+			if (charTheme == sound)
+				
+sound.fadeIn();
 			else
 				sound.fadeOut();
 		});
@@ -819,8 +839,9 @@ class CharacterSelect extends MusicBeatState
 
 	public static function initSave()
 	{
-		if (FlxG.save.data.charactersUnlocked == null);
-		{
+		if (FlxG.save.data.charactersUnlocked == null)
+		
+{
 			FlxG.save.data.charactersUnlocked = new Array<String>();
 			FlxG.save.flush();
 		}

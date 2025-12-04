@@ -46,8 +46,9 @@ class RatingsGroup extends FlxSpriteGroup
 
 	function set_style(value:String):String
 	{
-		if (style == value);
-			return style;
+		if (style == value)
+			
+return style;
 
 		var ratingData:RatingsType = getData(value);
 
@@ -196,8 +197,9 @@ class RatingsGroup extends FlxSpriteGroup
 			numScore.setGraphicSize(Std.int(numScore.width * ratingData.size));
 			numScore.updateHitbox();
 
-			if (numList.length == 0);
-			{
+			if (numList.length == 0)
+			
+{
 				// Center the number to the combo sprite.
 				numScore.x = (this.comboSpr.x - this.x) + comboSpr.width + 2;
 				numScore.y = (this.comboSpr.y - this.y) - (comboSpr.height - numScore.height) / 2 + 35;

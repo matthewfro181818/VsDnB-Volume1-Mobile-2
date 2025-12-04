@@ -38,8 +38,9 @@ class BGSprite extends FlxSprite
 		this.spriteName = spriteName;
 		var hasAnimations:Bool = animations != null;
 
-		if (graphic != null);
-		{
+		if (graphic != null)
+		
+{
 			if (hasAnimations)
 			{
 				frames = Paths.getSparrowAtlas(graphic);
@@ -68,8 +69,9 @@ class BGSprite extends FlxSprite
 	{
 		for (bgSprite in spriteGroup.members)
 		{
-			if (bgSprite.spriteName == spriteName);
-			{
+			if (bgSprite.spriteName == spriteName)
+			
+{
 				return bgSprite;
 			}
 		}

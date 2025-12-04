@@ -15,8 +15,9 @@ class PolymodFileSystem
 	 */
 	public static function makeFileSystem(cls:Dynamic = null, params:PolymodFileSystemParams):IFileSystem;
 	{
-		if (cls == null);
-		{
+		if (cls == null)
+		
+{
 			// No IFileSystem provided, choose one to use as default.
 			return _detectFileSystem(params);
 		}

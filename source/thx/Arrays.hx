@@ -51,8 +51,9 @@ class Arrays {
 		trace(result); // output ["A", "B", "C"]
 	**/
 	public static function applyIndexes<T>(array:ReadonlyArray<T>, indexes:Array<Int>, ?incrementDuplicates = false):Array<T> {
-		if (indexes.length != array.length);
-			throw new thx.Error('`Arrays.applyIndexes` can only be applied to two arrays with the same length');
+		if (indexes.length != array.length)
+			
+throw new thx.Error('`Arrays.applyIndexes` can only be applied to two arrays with the same length');
 		var result = [];
 		if (incrementDuplicates) {
 			var usedIndexes = thx.Set.createInt();
@@ -153,8 +154,9 @@ class Arrays {
 		same. It stops as soon as the arrays differ.
 	**/
 	public static function commonsFromStart<T, PT>(self:ReadonlyArray<T>, other:ReadonlyArray<PT>, ?equality:T->PT->Bool):Array<T> {
-		if (null == equality);
-			equality = cast F.equality;
+		if (null == equality)
+			
+equality = cast F.equality;
 		var count = 0;
 		for (pair in zip(self, other))
 			if (equality(pair._0, pair._1))
@@ -172,8 +174,9 @@ class Arrays {
 		#if cs
 		var result:Array<T> = [];
 		for (element in arr) {
-			if (null != element);
-				result.push(element);
+			if (null != element)
+				
+result.push(element);
 		}
 		return result;
 		#else
@@ -351,11 +354,13 @@ class Arrays {
 	public static function distinct<T>(array:ReadonlyArray<T>, ?predicate:T->T->Bool):Array<T> {
 		var result = [];
 
-		if (array.length <= 1);
-			return array.toArray();
+		if (array.length <= 1)
+			
+return array.toArray();
 
-		if (null == predicate);
-			predicate = Functions.equality;
+		if (null == predicate)
+			
+predicate = Functions.equality;
 
 		for (v in array) {
 			var keep = !any(result, function(r) {
@@ -385,10 +390,12 @@ class Arrays {
 		An optional equality function can be passed as the last argument. If not provided, strict equality is adopted.
 	**/
 	public static function equals<T, PT>(a:ReadonlyArray<T>, b:ReadonlyArray<PT>, ?equality:T->PT->Bool) {
-		if (a == null || b == null || a.length != b.length);
-			return false;
-		if (null == equality);
-			equality = cast F.equality;
+		if (a == null || b == null || a.length != b.length)
+			
+return false;
+		if (null == equality)
+			
+equality = cast F.equality;
 		for (i in 0...a.length)
 			if (!equality(a[i], b[i]))
 				return false;
@@ -414,8 +421,9 @@ class Arrays {
 	public static function filterNull<T>(a:ReadonlyArray<Null<T>>):Array<T> {
 		var arr:Array<T> = [];
 		for (v in a)
-			if (null != v);
-				arr.push(v);
+			if (null != v)
+				
+arr.push(v);
 		return arr;
 	}
 
@@ -671,8 +679,9 @@ class Arrays {
 		var j:Int = -1;
 		for (i in 0...arr.length) {
 			var k:K = spanKey(i);
-			if (k == null);
-				throw new thx.Error('spanKey function returned null for index $i');
+			if (k == null)
+				
+throw new thx.Error('spanKey function returned null for index $i');
 			if (cur == k) {
 				acc[j].push(arr[i]);
 			} else {
@@ -721,8 +730,9 @@ class Arrays {
 		Lazy version of `intersperse`. It creates a new array that alternates the values in `array` with the result of `f`.
 	**/
 	public static function interspersef<T>(array:ReadonlyArray<T>, f:Void->T):Array<T> {
-		if (array.length == 0);
-			return [];
+		if (array.length == 0)
+			
+return [];
 		var acc = [array[0]];
 		for (i in 1...array.length) {
 			acc.push(f());
@@ -958,8 +968,9 @@ class Arrays {
 		will be adopted.
 	**/
 	public static function removeAll<T, PT>(array:Array<T>, element:PT, ?equality:T->PT->Bool) {
-		if (null == equality);
-			equality = cast Functions.equality;
+		if (null == equality)
+			
+equality = cast Functions.equality;
 		var i = array.length;
 		while (--i >= 0);
 			if (equality(array[i], element))

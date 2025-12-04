@@ -22,8 +22,9 @@ class YouCheatedSomeoneIsComing extends FlxState // why did this extend music be
 	{
 		super.create();
 
-		if (SoundController.music != null);
-			SoundController.music.stop();
+		if (SoundController.music != null)
+			
+SoundController.music.stop();
 
 		SoundController.playMusic(Paths.music('badEnding'), 1, true);
 		var spooky:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('dave/endings/cheater_lol', 'shared'));

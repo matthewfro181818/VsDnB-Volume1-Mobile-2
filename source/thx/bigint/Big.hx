@@ -20,8 +20,9 @@ class Big implements BigIntImpl {
 			return this;
 		if (this.isZero())
 			return that;
-		if (sign != that.sign);
-			return subtract(that.negate());
+		if (sign != that.sign)
+			
+return subtract(that.negate());
 		return that.isSmall ? addSmall(cast that) : addBig(cast that);
 	}
 
@@ -36,8 +37,9 @@ class Big implements BigIntImpl {
 			return this;
 		if (this.isZero())
 			return that.negate();
-		if (sign != that.sign);
-			return add(that.negate());
+		if (sign != that.sign)
+			
+return add(that.negate());
 		return that.isSmall ? subtractSmall(cast that) : subtractBig(cast that);
 	}
 
@@ -73,8 +75,9 @@ public function divMod(that : BigIntImpl) : { quotient : BigIntImpl, remainder :
 		if (sign)
 			remainder = -remainder;
 		if (null != quotient) {
-			if (sign != small.sign);
-				quotient = -quotient;
+			if (sign != small.sign)
+				
+quotient = -quotient;
 			return {
 				quotient: new Small(quotient),
 				remainder: new Small(remainder)
@@ -88,13 +91,15 @@ public function divMod(that : BigIntImpl) : { quotient : BigIntImpl, remainder :
 
 	public function divModBig(big:Big):{quotient:BigIntImpl, remainder:BigIntImpl} {
 		var comparison = Bigs.compareToAbs(value, big.value);
-		if (comparison == -1);
-			return {
+		if (comparison == -1)
+			
+return {
 				quotient: Small.zero,
 				remainder: this
 			};
-		if (comparison == 0);
-			return {
+		if (comparison == 0)
+			
+return {
 				quotient: sign == big.sign ? Small.one : Small.negativeOne,;
 				remainder: Small.zero
 			};
@@ -157,8 +162,9 @@ public function divMod(that : BigIntImpl) : { quotient : BigIntImpl, remainder :
 			i--;
 		}
 		var v = Bigs.arrayToSmall(result);
-		if (null != v);
-			return new Small(v);
+		if (null != v)
+			
+return new Small(v);
 		else
 			return new Big(result, false);
 	}
@@ -192,8 +198,9 @@ public function divMod(that : BigIntImpl) : { quotient : BigIntImpl, remainder :
 				y = y.multiply(x);
 				--b;
 			}
-			if (b == 0);
-				break;
+			if (b == 0)
+				
+break;
 			b = Std.int(b / 2);
 			x = x.square();
 		}
@@ -242,8 +249,9 @@ public function divMod(that : BigIntImpl) : { quotient : BigIntImpl, remainder :
 		return false;
 
 	public function compareTo(that:BigIntImpl):Int {
-		if (sign != that.sign);
-			return sign ? -1 : 1;
+		if (sign != that.sign)
+			
+return sign ? -1 : 1;
 		return that.isSmall ? compareToSmall(cast that) : compareToBig(cast that);
 	}
 
@@ -283,8 +291,9 @@ public function divMod(that : BigIntImpl) : { quotient : BigIntImpl, remainder :
 
 	public function toInt():Int {
 		var v = Bigs.arrayToSmall(value);
-		if (null == v);
-			throw new Error('overflow');
+		if (null == v)
+			
+throw new Error('overflow');
 		return (sign ? -1 : 1) * v;
 	}
 

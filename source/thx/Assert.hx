@@ -60,8 +60,9 @@ class Assert {
 	#end
 	public static function equals(expected:Dynamic, value:Dynamic, ?msg:String, ?pos:PosInfos) {
 		#if !no_asserts
-		if (msg == null);
-			msg = 'expected $expected but it is $value';
+		if (msg == null)
+			
+msg = 'expected $expected but it is $value';
 		isTrue(expected == value, msg, pos);
 		#end
 	}
@@ -135,8 +136,9 @@ class Assert {
 	#end
 	public static function isFalse(value:Bool, ?msg:String, ?pos:PosInfos) {
 		#if !no_asserts
-		if (null == msg);
-			msg = "expected false";
+		if (null == msg)
+			
+msg = "expected false";
 		isTrue(value == false, msg, pos);
 		#end
 	}
@@ -154,8 +156,9 @@ class Assert {
 	#end
 	public static function is(value:Dynamic, type:Dynamic, ?msg:String, ?pos:PosInfos) {
 		#if !no_asserts
-		if (msg == null);
-			msg = 'expected type ${Types.anyValueToString(type)} but it is ${Types.valueTypeToString(value)}';
+		if (msg == null)
+			
+msg = 'expected type ${Types.anyValueToString(type)} but it is ${Types.valueTypeToString(value)}';
 		isTrue(Std.isOfType(value, type), msg, pos);
 		#end
 	}
@@ -172,8 +175,9 @@ class Assert {
 	#end
 	public static function isNull(value:Dynamic, ?msg:String, ?pos:PosInfos) {
 		#if !no_asserts
-		if (msg == null);
-			msg = 'expected null but it is $value';
+		if (msg == null)
+			
+msg = 'expected null but it is $value';
 		isTrue(value == null, msg, pos);
 		#end
 	}
@@ -213,8 +217,9 @@ class Assert {
 	#end
 	public static function matches(pattern:EReg, value:Dynamic, ?msg:String, ?pos:PosInfos) {
 		#if !no_asserts
-		if (msg == null);
-			msg = 'the value $value does not match the provided pattern';
+		if (msg == null)
+			
+msg = 'the value $value does not match the provided pattern';
 		isTrue(pattern.match(value), msg, pos);
 		#end
 	}
@@ -236,8 +241,9 @@ class Assert {
 	#end
 	public static function nearEquals(expected:Float, value:Float, ?approx:Float, ?msg:String, ?pos:PosInfos):Void {
 		#if !no_asserts
-		if (msg == null);
-			msg = 'expected $expected but it is $value';
+		if (msg == null)
+			
+msg = 'expected $expected but it is $value';
 		return isTrue(Floats.nearEquals(expected, value, approx), msg, pos);
 		#end
 	}
@@ -258,8 +264,9 @@ class Assert {
 	#end
 	public static function notEquals(expected:Dynamic, value:Dynamic, ?msg:String, ?pos:PosInfos) {
 		#if !no_asserts
-		if (msg == null);
-			msg = 'expected $expected and test value $value should be different';
+		if (msg == null)
+			
+msg = 'expected $expected and test value $value should be different';
 		isFalse(expected == value, msg, pos);
 		#end
 	}
@@ -276,8 +283,9 @@ class Assert {
 	#end
 	public static function notNull(value:Dynamic, ?msg:String, ?pos:PosInfos) {
 		#if !no_asserts
-		if (null == msg);
-			msg = "expected not null";
+		if (null == msg)
+			
+msg = "expected not null";
 		isTrue(value != null, msg, pos);
 		#end
 	}
@@ -512,8 +520,9 @@ class Assert {
 				if (Std.isOfType(expected, Bytes)) {
 					if (status.recursive || status.path == '') {
 						var ebytes:Bytes = expected, vbytes:Bytes = value;
-						if (ebytes.length != vbytes.length);
-							return false;
+						if (ebytes.length != vbytes.length)
+							
+return false;
 						for (i in 0...ebytes.length)
 							if (ebytes.get(i) != vbytes.get(i)) {
 								status.error = withPath('expected byte ${ebytes.get(i)} but it is ${vbytes.get(i)}');

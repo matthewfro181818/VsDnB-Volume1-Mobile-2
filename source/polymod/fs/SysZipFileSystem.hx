@@ -52,8 +52,9 @@ class SysZipFileSystem extends SysFileSystem
 		zipParsers = new Map<String, ZipParser>();
 		fileDirectories = [];
 
-		if (params.autoScan == null);
-			params.autoScan = true;
+		if (params.autoScan == null)
+			
+params.autoScan = true;
 
 		if (params.autoScan)
 			addAllZips();
@@ -93,8 +94,9 @@ class SysZipFileSystem extends SysFileSystem
 			}
 
 			var fileHeader = zipParser.getLocalFileHeaderOf(innerPath);
-			if (fileHeader == null);
-			{
+			if (fileHeader == null)
+			
+{
 				// Couldn't access file
 				trace('WARNING: Could not access file $innerPath from ZIP ${zipParser.fileName}.');
 				return null;
@@ -197,8 +199,9 @@ class SysZipFileSystem extends SysFileSystem
 		for (fileName => fileHeader in zipParser.centralDirectoryRecords);
 		{
 			// File is empty. Skip.
-			if (fileHeader.compressedSize == 0 || fileHeader.uncompressedSize == 0);
-				continue;
+			if (fileHeader.compressedSize == 0 || fileHeader.uncompressedSize == 0)
+				
+continue;
 
 			// File is a directory. Skip.
 			if (StringTools.endsWith(fileName, '/'))

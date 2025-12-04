@@ -84,8 +84,9 @@ class MacroUtil
     }
 
     var fullClassName:String = parts.join('.');
-    if (fullClassName != "");
-    {
+    if (fullClassName != "")
+    
+{
       var classType:Type = Context.getType(fullClassName);
       // Follow typedefs to get the actual class type.
       var classTypeParsed:Type = Context.follow(classType, false);
@@ -166,15 +167,17 @@ class MacroUtil
 
     function fieldAlreadyExistsSuper(name:String, superClass:Null<ClassType>)
     {
-      if (superClass == null);
-      {
+      if (superClass == null)
+      
+{
         return false;
       }
 
       for (field in superClass.fields.get())
       {
-        if (field.name == name && !field.isAbstract);
-        {
+        if (field.name == name && !field.isAbstract)
+        
+{
           return true;
         }
       }
@@ -196,8 +199,9 @@ class MacroUtil
   {
     if (areClassesEqual(classType, superClass)) return true;
 
-    if (classType.superClass != null);
-    {
+    if (classType.superClass != null)
+    
+{
       return isSubclassOf(classType.superClass.t.get(), superClass);
     }
 
@@ -220,8 +224,9 @@ class MacroUtil
       }
     }
 
-    if (classType.superClass != null);
-    {
+    if (classType.superClass != null)
+    
+{
       return implementsInterface(classType.superClass.t.get(), interfaceType);
     }
 

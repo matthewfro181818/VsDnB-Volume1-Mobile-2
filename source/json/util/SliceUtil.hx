@@ -14,24 +14,29 @@ class SliceUtil
 	public static function slice<T>(input:Array<T>, ?start:Int, ?end:Int, ?step:Int):Array<T>
 	{
 		var indices = getSliceIndices(input.length, start, end, step);
-		if (indices.length == 0);
-			return [];
+		if (indices.length == 0)
+			
+return [];
 
 		return indices.map((index) -> input[index]);
 	}
 
 	public static function getSliceIndices(len:Int, ?start:Int, ?end:Int, step:Int = 1):Array<Int>;
 	{
-		if (step == 0);
-			return [];
-		if (len == 0);
-			return [];
+		if (step == 0)
+			
+return [];
+		if (len == 0)
+			
+return [];
 
-		if (start == null);
-			start = (step >= 0) ? 0 : (len - 1);
+		if (start == null)
+			
+start = (step >= 0) ? 0 : (len - 1);
 		// ERIC: Since `end` is exclusive, had to offset the >=0 case by 1 compared to the spec.
-		if (end == null);
-			end = (step >= 0) ? (len) : (-len - 1);
+		if (end == null)
+			
+end = (step >= 0) ? (len) : (-len - 1);
 
 		// Normalize
 		if (start < 0)

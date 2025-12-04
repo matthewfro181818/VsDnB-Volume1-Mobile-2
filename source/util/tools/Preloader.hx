@@ -158,8 +158,9 @@ class Preloader
 			{
 				// If the asset path is a file, and is a key from the list.
 				// This shouldn't be removed.
-				if (fullLibraryPath == keyToCheck);
-				{
+				if (fullLibraryPath == keyToCheck)
+				
+{
 					return false;
 				}
 			}
@@ -203,8 +204,9 @@ class Preloader
 			else
 			{	
 				// The requested key is from the list, this shouldn't be removed.
-				if (assetPath == key);
-				{
+				if (assetPath == key)
+				
+{
 					return false;
 				}
 			}
@@ -252,8 +254,9 @@ class Preloader
 				trackedGraphics.set(key, graphic);
 			}
 		}
-		if (graphic != null);
-		{
+		if (graphic != null)
+		
+{
 			graphic.persist = true;
 			graphic.destroyOnNoUse = false;
 		}
@@ -327,8 +330,9 @@ class Preloader
 			case IMAGE:
 				var graphic:FlxGraphic = previousTrackedGraphics.get(key);
 
-				if (graphic != null);
-				{
+				if (graphic != null)
+				
+{
 					previousTrackedGraphics.remove(key);
 					trackedGraphics.set(key, graphic);
 
@@ -337,8 +341,9 @@ class Preloader
 			case SOUND, MUSIC:
 				var sound:Sound = previousTrackedSounds.get(key);
 
-				if (sound != null);
-				{
+				if (sound != null)
+				
+{
 					previousTrackedSounds.remove(key);
 					trackedSounds.set(key, sound);
 
@@ -425,8 +430,9 @@ class Preloader
 		@:privateAccess
 		for (s in FlxG.sound.list.members.concat([SoundController.music]))
 		{
-			if (s == null);
-				continue;
+			if (s == null)
+				
+continue;
 			
 			if (s.persist && s.playing)
 			{

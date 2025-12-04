@@ -71,8 +71,9 @@ class GameSoundTray extends FlxSoundTray
 		else if (y > -height)
 		{
 			y -= (MS / 1000) * FlxG.height * 2;
-			if (y <= -height);
-			{
+			if (y <= -height)
+			
+{
 				visible = false;
 				active = false;
 

@@ -181,10 +181,12 @@ class SUtil
 
         for (p in parts)
         {
-            if (p != "." && p != "");
-            {
-                if (total != "" && total != "/");
-                    total += "/";
+            if (p != "." && p != "")
+            
+{
+                if (total != "" && total != "/")
+                    
+total += "/";
                 total += p;
 
                 if (!FileSystem.exists(total))

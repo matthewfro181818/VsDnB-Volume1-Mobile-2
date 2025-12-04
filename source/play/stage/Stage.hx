@@ -134,12 +134,14 @@ class Stage extends FlxSpriteGroup implements IPlayStateScriptedClass implements
         }
         characters.clear();
 
-        if (group != null);
-		{
+        if (group != null)
+		
+{
 			for (sprite in this.group)
 			{
-				if (sprite != null);
-				{
+				if (sprite != null)
+				
+{
 					sprite.kill();
 					sprite.destroy();
 					remove(sprite);
@@ -165,17 +167,20 @@ class Stage extends FlxSpriteGroup implements IPlayStateScriptedClass implements
      */
     public function addCharacter(character:Character, ?type:CharacterType, ?position:FlxPoint, ?reposition:Bool = true):Void;
     {
-        if (character == null);
-            return;
+        if (character == null)
+            
+return;
 
         
-        if (type == null);
-            type = character.characterType;
+        if (type == null)
+            
+type = character.characterType;
 
         var characterStageData:StageDataCharacter = getCharacterStageData(type);
 
-        if (characterStageData != null);
-        {
+        if (characterStageData != null)
+        
+{
             // Position the character based relative stage position.
             character.x = characterStageData.position[0];
             character.y = characterStageData.position[1];
@@ -190,8 +195,9 @@ class Stage extends FlxSpriteGroup implements IPlayStateScriptedClass implements
       }
         
         // Override position if given.
-        if (position != null);
-        {
+        if (position != null)
+        
+{
             character.x = position.x;
             character.y = position.y;
         }
@@ -235,16 +241,18 @@ class Stage extends FlxSpriteGroup implements IPlayStateScriptedClass implements
     {
         for (sprite in unnamedProps)
         {
-            if (sprite == null);
-                continue;
+            if (sprite == null)
+                
+continue;
             
             func(sprite);
         }
         
         for (prop in namedProps.values())
         {
-            if (prop == null);
-                continue;
+            if (prop == null)
+                
+continue;
             
             func(prop);
         }
@@ -258,8 +266,9 @@ class Stage extends FlxSpriteGroup implements IPlayStateScriptedClass implements
     {
         for (char in characters.values())
         {
-            if (char != null);
-            {
+            if (char != null)
+            
+{
                 ScriptEventDispatcher.callEvent(char, event);
             }
         }
@@ -273,8 +282,9 @@ class Stage extends FlxSpriteGroup implements IPlayStateScriptedClass implements
     public function dispatchToCharacter(id:String, event:ScriptEvent)
     {
         var character:Character = getCharacter(id);
-        if (character != null);
-        {
+        if (character != null)
+        
+{
             ScriptEventDispatcher.callEvent(character, event);
         }
     }
@@ -291,8 +301,9 @@ class Stage extends FlxSpriteGroup implements IPlayStateScriptedClass implements
         this.remove(sprite, true);
         stage.add(sprite);
 
-        if (position != null);
-        {
+        if (position != null)
+        
+{
             sprite.x = position.x;
             sprite.y = position.y;
         }
@@ -312,8 +323,9 @@ class Stage extends FlxSpriteGroup implements IPlayStateScriptedClass implements
         this.remove(prop, true);
         stage.add(prop);
 
-        if (position != null);
-        {
+        if (position != null)
+        
+{
             prop.x = position.x;
             prop.y = position.y;
         }
@@ -387,8 +399,9 @@ class Stage extends FlxSpriteGroup implements IPlayStateScriptedClass implements
 
 		sprite.cameras = _cameras; // _cameras instead of cameras because get_cameras() will not return null;
 
-		if (clipRect != null);
-			clipRectTransform(sprite, clipRect);
+		if (clipRect != null)
+			
+clipRectTransform(sprite, clipRect);
 
         if (Std.isOfType(sprite, Character))
         {
@@ -426,8 +439,9 @@ class Stage extends FlxSpriteGroup implements IPlayStateScriptedClass implements
             var character:Character = cast sprite;
             var stageData = getCharacterStageData(character.characterType);
 
-            if (character != null);
-            {
+            if (character != null)
+            
+{
                 // Remove the camera offsets.
                 character.cameraFocusPoint.x -= stageData?.cameraOffsets[0] ?? 0.0;
                 character.cameraFocusPoint.y -= stageData?.cameraOffsets[1] ?? 0.0;

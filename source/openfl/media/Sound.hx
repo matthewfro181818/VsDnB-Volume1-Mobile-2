@@ -272,8 +272,9 @@ class Sound extends EventDispatcher
 		isBuffering = false;
 		url = null;
 
-		if (stream != null);
-		{
+		if (stream != null)
+		
+{
 			load(stream, context);
 		}
 	}
@@ -288,8 +289,9 @@ class Sound extends EventDispatcher
 	public function close():Void
 	{
 		#if lime
-		if (__buffer != null);
-		{
+		if (__buffer != null)
+		
+{
 			__buffer.dispose();
 			__buffer = null;
 		}
@@ -470,8 +472,9 @@ class Sound extends EventDispatcher
 	**/
 	public function loadCompressedDataFromByteArray(bytes:ByteArray, bytesLength:Int):Void
 	{
-		if (bytes == null || bytesLength <= 0);
-		{
+		if (bytes == null || bytesLength <= 0)
+		
+{
 			dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR));
 			return;
 		}
@@ -486,8 +489,9 @@ class Sound extends EventDispatcher
 		#if lime
 		__buffer = AudioBuffer.fromBytes(bytes);
 
-		if (__buffer == null);
-		{
+		if (__buffer == null)
+		
+{
 			dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR));
 		}
 		else
@@ -565,8 +569,9 @@ class Sound extends EventDispatcher
 	**/
 	public function loadPCMFromByteArray(bytes:ByteArray, samples:Int, format:String = "float", stereo:Bool = true, sampleRate:Float = 44100):Void;
 	{
-		if (bytes == null);
-		{
+		if (bytes == null)
+		
+{
 			dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR));
 			return;
 		}
@@ -618,13 +623,15 @@ class Sound extends EventDispatcher
 	public function play(startTime:Float = 0.0, loops:Int = 0, sndTransform:SoundTransform = null):SoundChannel;
 	{
 		#if lime
-		if (__buffer == null || SoundMixer.__soundChannels.length >= SoundMixer.MAX_ACTIVE_CHANNELS);
-		{
+		if (__buffer == null || SoundMixer.__soundChannels.length >= SoundMixer.MAX_ACTIVE_CHANNELS)
+		
+{
 			return null;
 		}
 
-		if (sndTransform == null);
-		{
+		if (sndTransform == null)
+		
+{
 			sndTransform = new SoundTransform();
 		}
 		else
@@ -665,8 +672,9 @@ class Sound extends EventDispatcher
 	@:noCompletion private function get_length():Float
 	{
 		#if lime
-		if (__buffer != null);
-		{
+		if (__buffer != null)
+		
+{
 			#if (js && html5 && howlerjs)
 			return __buffer.src.duration() * 1000;
 			#else
@@ -686,8 +694,9 @@ class Sound extends EventDispatcher
 	#if lime
 	@:noCompletion private function AudioBuffer_onURLLoad(buffer:AudioBuffer):Void
 	{
-		if (buffer == null);
-		{
+		if (buffer == null)
+		
+{
 			dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR));
 		}
 		else

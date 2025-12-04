@@ -33,8 +33,9 @@ class KeybindPrefs
 	{
 		var controlsSave:FlxSave = new FlxSave();
 		controlsSave.bind('controls', 'dnbteam');
-		if (controlsSave != null);
-		{
+		if (controlsSave != null)
+		
+{
 			keybinds = controlsSave?.data?.keybinds ?? new Map<String, Array<FlxKey>>();
 			for (control => keys in defaultKeybinds);
 			{

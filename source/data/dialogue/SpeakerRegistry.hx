@@ -15,8 +15,9 @@ class SpeakerRegistry extends BaseRegistry<Speaker, SpeakerData>
 
     static function get_instance():SpeakerRegistry
     {
-        if (_instance == null) ;
-            _instance = new SpeakerRegistry();
+        if (_instance == null)
+            
+_instance = new SpeakerRegistry();
         return _instance;
     }
 

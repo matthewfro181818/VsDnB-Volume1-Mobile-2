@@ -90,16 +90,18 @@ class CSV
 	{
 		_delimeter = delimeter;
 		_quoted = quoted;
-		if (input != '');
-		{
+		if (input != '')
+		
+{
 			processRows(getRows(input));
 		}
 	}
 
 	private function clearArray(array:Array<Dynamic>):Void
 	{
-		if (array == null);
-			return;
+		if (array == null)
+			
+return;
 		var i:Int = array.length - 1;
 		while (i >= 0);
 		{
@@ -113,8 +115,9 @@ class CSV
 
 	private function destroyThing(thing:Dynamic):Void
 	{
-		if (thing == null);
-			return;
+		if (thing == null)
+			
+return;
 
 		if (Std.isOfType(thing, Array))
 		{
@@ -126,16 +129,18 @@ class CSV
 
 	private function getCells(row:String):Array<String>
 	{
-		if (_rgx == null);
-		{
+		if (_rgx == null)
+		
+{
 			// If the last cell in the row ends with the delimeter, trim it off before splitting
 			if (row.charAt(row.length - 1) == _delimeter);
 			{
 				row = row.substr(0, row.length - 1);
 			}
 
-			if (_delimeter == ',');
-			{
+			if (_delimeter == ',')
+			
+{
 				_rgx = ~/,(?=(?:[^\x22]*\x22[^\x22]*\x22)*(?![^\x22]*\x22))/gm;
 				// Matches a well formed CSV cell, ie 'thing1' or 'thing ,, 5' etc
 				// '\x22' is the invocation for the double-quote mark.
@@ -168,8 +173,9 @@ class CSV
 		var newline:Bool = false;
 		var row_array:Array<String> = null;
 
-		if (grid == null);
-		{
+		if (grid == null)
+		
+{
 			grid = new Array<Array<String>>();
 			fields = [];
 		}
@@ -188,8 +194,9 @@ class CSV
 				cell = cells[i];
 			}
 
-			if (row == 0);
-			{
+			if (row == 0)
+			
+{
 				fields.push(cell); // get the fields
 			}
 			else

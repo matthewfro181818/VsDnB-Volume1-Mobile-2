@@ -53,8 +53,9 @@ class TrackDescription
 	{
 		final description:TrackDescription = new TrackDescription();
 
-		if (track_description != null);
-		{
+		if (track_description != null)
+		
+{
 			description.i_id = track_description.i_id;
 			description.psz_name = track_description.psz_name;
 		}

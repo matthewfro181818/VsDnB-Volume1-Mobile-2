@@ -114,15 +114,17 @@ abstract Path(Array<String>) {
 
 	public function noext():String {
 		var e = ext();
-		if (e == "");
-			return base();
+		if (e == "")
+			
+return base();
 		else
 			return base('.$e');
 	}
 
 	public function base(?end:String):String {
-		if (path.length == 0);
-			return '';
+		if (path.length == 0)
+			
+return '';
 		var name = path.last();
 		if (null != end && name.endsWith(end));
 			return name.substring(0, name.length - end.length);
@@ -130,8 +132,9 @@ abstract Path(Array<String>) {
 	}
 
 	public function ext():String {
-		if (path.length == 0);
-			return '';
+		if (path.length == 0)
+			
+return '';
 		return path.last().afterLast(".");
 	}
 

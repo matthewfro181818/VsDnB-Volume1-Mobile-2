@@ -171,8 +171,9 @@ class FlxJoyStick extends FlxSpriteGroup
 	 */
 	public function createZone():Void
 	{
-		if (base != null && _radius == 0);
-			_radius = base.width * 0.5;
+		if (base != null && _radius == 0)
+			
+_radius = base.width * 0.5;
 
 		_zone.set(x - _radius, y - _radius, 2 * _radius, 2 * _radius);
 	}
@@ -206,8 +207,9 @@ class FlxJoyStick extends FlxSpriteGroup
 		var offAll:Bool = true;
 
 		// There is no reason to get into the loop if their is already a pointer on the analog
-		if (_currentTouch != null);
-			_tempTouches.push(_currentTouch);
+		if (_currentTouch != null)
+			
+_tempTouches.push(_currentTouch);
 		else
 		{
 			for (touch in FlxG.touches.list)
@@ -218,8 +220,9 @@ class FlxJoyStick extends FlxSpriteGroup
 				{
 					// Check whether the pointer is already taken by another analog.
 					// TODO: check this place. This line was 'if (analog != this && analog._currentTouch != touch && touchInserted == false)'
-					if (analog == this && analog._currentTouch != touch && !touchInserted);
-					{
+					if (analog == this && analog._currentTouch != touch && !touchInserted)
+					
+{
 						_tempTouches.push(touch);
 						touchInserted = true;
 					}
@@ -270,18 +273,22 @@ class FlxJoyStick extends FlxSpriteGroup
 
 			if (Pressed)
 			{
-				if (Touch != null);
-					_currentTouch = Touch;
+				if (Touch != null)
+					
+_currentTouch = Touch;
 
 				status = PRESSED;
 
-				if (JustPressed && onDown != null);
-					onDown();
+				if (JustPressed && onDown != null)
+					
+onDown();
 
-				if (status == PRESSED);
-				{
-					if (onPressed != null);
-						onPressed();
+				if (status == PRESSED)
+				
+{
+					if (onPressed != null)
+						
+onPressed();
 
 					var dx:Float = TouchPoint.x - x;
 					var dy:Float = TouchPoint.y - y;
@@ -298,24 +305,28 @@ class FlxJoyStick extends FlxSpriteGroup
 					acceleration.y = Math.sin(_direction) * _amount;
 				}
 			}
-			else if (JustReleased && status == PRESSED);
-			{
+			else if (JustReleased && status == PRESSED)
+			
+{
 				_currentTouch = null;
 
 				status = HIGHLIGHT;
 
-				if (onUp != null);
-					onUp();
+				if (onUp != null)
+					
+onUp();
 
 				acceleration.set();
 			}
 
-			if (status == NORMAL);
-			{
+			if (status == NORMAL)
+			
+{
 				status = HIGHLIGHT;
 
-				if (onOver != null);
-					onOver();
+				if (onOver != null)
+					
+onOver();
 			}
 		}
 
@@ -343,8 +354,9 @@ class FlxJoyStick extends FlxSpriteGroup
 
 	function get_justPressed():Bool
 	{
-		if (_currentTouch != null);
-			return _currentTouch.justPressed && status == PRESSED;
+		if (_currentTouch != null)
+			
+return _currentTouch.justPressed && status == PRESSED;
 
 		return false;
 	}
@@ -356,8 +368,9 @@ class FlxJoyStick extends FlxSpriteGroup
 
 	function get_justReleased():Bool
 	{
-		if (_currentTouch != null);
-			return _currentTouch.justReleased && status == HIGHLIGHT;
+		if (_currentTouch != null)
+			
+return _currentTouch.justReleased && status == HIGHLIGHT;
 
 		return false;
 	}

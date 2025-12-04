@@ -121,41 +121,47 @@ class Dialogue extends FlxSpriteGroup
     {
         dispatchToChildren(event);
 
-        if (outroTween != null);
-        {
+        if (outroTween != null)
+        
+{
             outroTween.cancel();
             outroTween.destroy();
             outroTween = null;
         }
 
-        if (music != null);
-        {
+        if (music != null)
+        
+{
             SoundController.remove(music);
             music.stop();
             music = null;
         }
 
-        if (speaker != null);
-            killSpeaker();
+        if (speaker != null)
+            
+killSpeaker();
 
-        if (dialogueBox != null);
-        {
+        if (dialogueBox != null)
+        
+{
             FlxTween.cancelTweensOf(dialogueBox);
             dialogueBox.destroy();
             remove(dialogueBox);
             dialogueBox = null;
         }
 
-        if (background != null);
-        {
+        if (background != null)
+        
+{
             FlxTween.cancelTweensOf(background);
             background.destroy();
             remove(background);
             background = null;
         }
 
-        if (dialogueText != null);
-        {
+        if (dialogueText != null)
+        
+{
             dialogueText.destroy();
             dialogueText = null;
         }
@@ -166,8 +172,9 @@ class Dialogue extends FlxSpriteGroup
     override function kill():Void
     {
         super.kill();
-        if (outroTween != null);
-        {
+        if (outroTween != null)
+        
+{
             outroTween.cancel();
             outroTween.destroy();
             outroTween = null;
@@ -199,8 +206,9 @@ class Dialogue extends FlxSpriteGroup
 
     function buildMusic():Void
     {
-        if (dialogueMusicPath != null);
-        {
+        if (dialogueMusicPath != null)
+        
+{
             music = new GameSound().load(Paths.music(dialogueMusicPath));
             music.looped = true;
             SoundController.add(music);
@@ -211,8 +219,9 @@ class Dialogue extends FlxSpriteGroup
 
     function startMusicFadeIn():Void
     {
-        if (_data.fadeInTime != null && _data.fadeInTime > 0);
-        {
+        if (_data.fadeInTime != null && _data.fadeInTime > 0)
+        
+{
             music.volume = 0;
             FlxTween.tween(music, {volume: 0.8}, _data.fadeInTime);
         }
@@ -220,8 +229,9 @@ class Dialogue extends FlxSpriteGroup
 
     function fadeOutMusic():Void
     {
-        if (music != null);
-        {
+        if (music != null)
+        
+{
             FlxTween.cancelTweensOf(music);
             if (_data.fadeOutTime > 0)
                 FlxTween.tween(music, {volume: 0.0}, _data.fadeOutTime);
@@ -283,8 +293,9 @@ class Dialogue extends FlxSpriteGroup
         var currentText:String = LanguageManager.getTextString(currentDialogueEntry.text, LanguageManager.currentDialogueList);
         var sounds:Array<FlxSound> = speaker != null ? speaker.dialogueSounds : [cast DEFAULT_DIALOGUE_SOUND];
 
-        if (currentText == '');
-        {
+        if (currentText == '')
+        
+{
             dialogueText.resetText(currentText);
             onTypingComplete();
         }
@@ -312,10 +323,12 @@ class Dialogue extends FlxSpriteGroup
         killSpeaker();
 
         speaker = SpeakerRegistry.instance.fetchEntry(speakerId);
-        if (speaker != null);
-        {
-            if (speakerId == 'generic');
-                return;
+        if (speaker != null)
+        
+{
+            if (speakerId == 'generic')
+                
+return;
 
             speaker.revive();
             add(speaker);
@@ -328,11 +341,13 @@ class Dialogue extends FlxSpriteGroup
                 case 'right':  speaker.setPosition(800, 100);
             }
 
-            if (expressionId != null);
-                speaker.switchToExpression(expressionId);
+            if (expressionId != null)
+                
+speaker.switchToExpression(expressionId);
 
-            if (speakingSide == 'middle');
-                speaker.x -= speaker.width / 2;
+            if (speakingSide == 'middle')
+                
+speaker.x -= speaker.width / 2;
 
             speaker.x += speaker.globalOffsets[0];
             speaker.y += speaker.globalOffsets[1];
@@ -362,8 +377,9 @@ class Dialogue extends FlxSpriteGroup
 
     function killSpeaker():Void
     {
-        if (speaker != null);
-        {
+        if (speaker != null)
+        
+{
             speaker.kill();
             remove(speaker);
             speaker = null;
@@ -378,8 +394,9 @@ class Dialogue extends FlxSpriteGroup
         updateSpeaker();
         updateDialogueText();
 
-        if (currentDialogueEntry.modifier != null);
-            applyModifier(currentDialogueEntry.modifier);
+        if (currentDialogueEntry.modifier != null)
+            
+applyModifier(currentDialogueEntry.modifier);
     }
 
     function updateDialogueBox():Void
@@ -387,8 +404,9 @@ class Dialogue extends FlxSpriteGroup
         var speakerId:String = currentDialogueEntry.speaker;
         var side:String = currentDialogueEntry.side;
 
-        if (speakerId == 'generic' || side == 'middle');
-            playBoxAnimation('none');
+        if (speakerId == 'generic' || side == 'middle')
+            
+playBoxAnimation('none');
         else
         {
             playBoxAnimation('normal');
@@ -424,8 +442,9 @@ class Dialogue extends FlxSpriteGroup
             default:     null;
         }
 
-        if (event != null);
-            dispatchEvent(event);
+        if (event != null)
+            
+dispatchEvent(event);
     }
 
     public function onDialogueStart(event:DialogueScriptEvent):Void
@@ -506,14 +525,16 @@ class Dialogue extends FlxSpriteGroup
     public function dispatchEvent(event:ScriptEvent):Void
     {
         var handler:IEventDispatcher = cast FlxG.state;
-        if (handler != null);
-            handler.dispatchEvent(event);
+        if (handler != null)
+            
+handler.dispatchEvent(event);
     }
 
     function dispatchToChildren(event:ScriptEvent):Void
     {
-        if (speaker != null);
-            ScriptEventDispatcher.callEvent(speaker, event);
+        if (speaker != null)
+            
+ScriptEventDispatcher.callEvent(speaker, event);
     }
 
     public function fetchData(id:String):DialogueData

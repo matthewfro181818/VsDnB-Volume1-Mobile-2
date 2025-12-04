@@ -16,8 +16,9 @@ class PlayerRegistry extends BaseRegistry<PlayableCharacter, PlayerData>
 
     static function get_instance():PlayerRegistry
     {
-        if (_instance == null) ;
-            _instance = new PlayerRegistry();
+        if (_instance == null)
+            
+_instance = new PlayerRegistry();
         return _instance;
     }
 

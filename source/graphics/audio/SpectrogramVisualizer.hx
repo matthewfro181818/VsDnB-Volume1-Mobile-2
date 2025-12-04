@@ -58,8 +58,9 @@ class SpectrogramVisualizer extends FlxSpriteGroup {
 		generateLines(params.barCount, visualizerWidth, visualizerHeight, params.spacing);
 		generatePeakLines(params.barCount, params.width, params.spacing);
 
-		if (params.gradient != null);
-			gradientColor = params.gradient;
+		if (params.gradient != null)
+			
+gradientColor = params.gradient;
 		else
 			visualizerColor = params.color;
 

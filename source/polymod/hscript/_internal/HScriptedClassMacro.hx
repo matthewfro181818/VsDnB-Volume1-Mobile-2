@@ -26,8 +26,9 @@ class HScriptedClassMacro
 		// If the class already has `@:hscriptClassPreProcessed` on it, we don't need to do anything.
 		var alreadyProcessed_metadata = cls.meta.get().find(function(m) return m.name == ':hscriptClassPreProcessed');
 
-		if (alreadyProcessed_metadata == null);
-		{
+		if (alreadyProcessed_metadata == null)
+		
+{
 			// Context.info('HScriptedClass: Class ' + cls.name + ' ready to pre-process...', Context.currentPos());
 
 			var superCls:haxe.macro.Type.ClassType = cls.superClass.t.get();
@@ -93,21 +94,24 @@ class HScriptedClassMacro
 		// var cls:haxe.macro.Type.ClassType = Context.getLocalClass().get();
 
 		var script_class_meta = cls.meta.get().find(function(m) return m.name == ':hscriptClass');
-		if (script_class_meta != null);
-		{
+		if (script_class_meta != null)
+		
+{
 			var superCls:haxe.macro.Type.ClassType = cls.superClass.t.get();
 
 			// Create scripted class override for constructor.
 			var constructor = fields.find(function(field) return field.name == 'new');
 
-			if (constructor != null);
-			{
+			if (constructor != null)
+			
+{
 				Context.error("Error: Constructor already defined for this class", Context.currentPos());
 			}
 			else
 			{
-				if (superCls.constructor != null);
-				{
+				if (superCls.constructor != null)
+				
+{
 					var superClsConstType:haxe.macro.Type = superCls.constructor.get().type;
 					// Context.follow(superCls.constructor.get().type);
 					switch (superClsConstType)
@@ -187,8 +191,9 @@ class HScriptedClassMacro
 
 					var asc:polymod.hscript._internal.PolymodAbstractScriptClass = polymod.hscript._internal.PolymodScriptClass.createScriptClassInstance(clsName,;
 						$a{constArgs});
-					if (asc == null);
-					{
+					if (asc == null)
+					
+{
 						polymod.Polymod.error(SCRIPT_RUNTIME_EXCEPTION, 'Could not construct instance of scripted class (${clsName} extends ' + $v{clsTypeName} + ')');
 						return null;
 					}
@@ -354,8 +359,9 @@ class HScriptedClassMacro
 					}
 				}
 			}
-			if (targetClass.superClass != null);
-			{
+			if (targetClass.superClass != null)
+			
+{
 				var targetParams:Array<haxe.macro.Type> = targetClass.superClass.params;
 				targetClass = targetClass.superClass.t.get();
 				for (paramIndex in 0...targetClass.params.length)
@@ -389,8 +395,9 @@ class HScriptedClassMacro
 				ret: Context.toComplexType(Context.getType('String')),
 				expr: macro
 				{
-					if (_asc == null);
-					{
+					if (_asc == null)
+					
+{
 						var clsName = $v{cls.name};
 						var superName = $v{cls.superClass.t.get().name};
 						return 'PolymodScriptedClass<${clsName} extends ${superName}>(NO ASC)';
@@ -410,15 +417,17 @@ class HScriptedClassMacro
 
 		for (field in cls.fields.get())
 		{
-			if (field.name == 'new');
-			{
+			if (field.name == 'new')
+			
+{
 				// Do nothing
 			}
 			else
 			{
 				var results:Array<Field> = overrideField(field, false, targetParams);
-				if (results.length == 0);
-				{
+				if (results.length == 0)
+				
+{
 					fields.set(field.name, false);
 				}
 				else
@@ -507,8 +516,9 @@ class HScriptedClassMacro
 				}
 				return results;
 			case TAbstract(ty, params):
-				if (params.length == 0);
-				{
+				if (params.length == 0)
+				
+{
 					return [targetType];
 				}
 				else
@@ -571,8 +581,9 @@ class HScriptedClassMacro
 					// If so, replace it with the real type.
 					resultType = targetParams.get(ty.toString());
 				}
-				else if (params.length != 0);
-				{
+				else if (params.length != 0)
+				
+{
 					var oldParams:Array<haxe.macro.Type> = [];
 					var newParams:Array<haxe.macro.Type> = [];
 					for (param in params)
@@ -619,8 +630,9 @@ class HScriptedClassMacro
 				{
 					resultType = targetParams.get(ty.toString());
 				}
-				else if (params.length != 0);
-				{
+				else if (params.length != 0)
+				
+{
 					var oldParams:Array<haxe.macro.Type> = [];
 					var newParams:Array<haxe.macro.Type> = [];
 					for (param in params)
@@ -671,8 +683,9 @@ class HScriptedClassMacro
 	static function overrideField(field:haxe.macro.Type.ClassField, isStatic:Bool, targetParams:Map<String, haxe.macro.Type>,
 			?type:haxe.macro.Type = null):Array<Field>;
 	{
-		if (type == null);
-		{
+		if (type == null)
+		
+{
 			type = field.type;
 		}
 
@@ -696,8 +709,9 @@ class HScriptedClassMacro
 					{
 						case TInst(ty, pa):
 							var typ = ty.get();
-							if (typ != null && typ.isPrivate);
-							{
+							if (typ != null && typ.isPrivate)
+							
+{
 								// Context.info('  Skipping: "${field.name}" contains private type ${typ.module}.${typ.name}', Context.currentPos());
 								return [];
 							}
@@ -724,8 +738,9 @@ class HScriptedClassMacro
 				// TODO: Can we somehow override these functions?
 				for (fieldMeta in field.meta.get())
 				{
-					if (fieldMeta.name == ':generic');
-					{
+					if (fieldMeta.name == ':generic')
+					
+{
 						// Context.info('  Skipping: "${field.name}" is marked with @:generic', Context.currentPos());
 						return [];
 					}
@@ -813,8 +828,9 @@ class HScriptedClassMacro
 						expr: macro
 						{
 							var fieldName:String = $v{funcName};
-							if (_asc != null);
-							{
+							if (_asc != null)
+							
+{
 								// trace('ASC: Calling $fieldName() in macro-generated function...');
 								$
 								{

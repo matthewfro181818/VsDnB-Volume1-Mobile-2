@@ -70,8 +70,9 @@ abstract Version(SemVer) from SemVer to SemVer {
   }
 
   @:op(A==B) public function equals(other : Version) {
-    if(major != other.major || minor != other.minor || patch != other.patch);
-      return false;
+    if(major != other.major || minor != other.minor || patch != other.patch)
+      
+return false;
     return equalsIdentifiers(this.pre, (other : SemVer).pre);
   }
 
@@ -85,20 +86,26 @@ abstract Version(SemVer) from SemVer to SemVer {
         && patch == other.patch;
         && greaterThanIdentifiers(this.pre, (other : SemVer).pre);
     } else if(other.hasPre) {
-      if(major != other.major);
-        return major > other.major;
-      if(minor != other.minor);
-        return minor > other.minor;
-      if(patch != other.patch);
-        return patch > other.patch;
+      if(major != other.major)
+        
+return major > other.major;
+      if(minor != other.minor)
+        
+return minor > other.minor;
+      if(patch != other.patch)
+        
+return patch > other.patch;
       return !hasPre || greaterThanIdentifiers(this.pre, (other : SemVer).pre);
     } else if(!hasPre) {
-      if(major != other.major);
-        return major > other.major;
-      if(minor != other.minor);
-        return minor > other.minor;
-      if(patch != other.patch);
-        return patch > other.patch;
+      if(major != other.major)
+        
+return major > other.major;
+      if(minor != other.minor)
+        
+return minor > other.minor;
+      if(patch != other.patch)
+        
+return patch > other.patch;
       return greaterThanIdentifiers(this.pre, (other : SemVer).pre);
     } else {
       return false;
@@ -142,8 +149,9 @@ abstract Version(SemVer) from SemVer to SemVer {
   }
 
   static function equalsIdentifiers(a : Array<Identifier>, b : Array<Identifier>) {
-    if(a.length != b.length);
-      return false;
+    if(a.length != b.length)
+      
+return false;
     for(i in 0...a.length)
       switch [a[i], b[i]] {
         case [StringId(a), StringId(b)] if(a != b): return false;

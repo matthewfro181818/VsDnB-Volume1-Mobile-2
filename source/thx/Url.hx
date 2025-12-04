@@ -115,8 +115,9 @@ abstract Url(UrlType) from UrlType to UrlType {
 	}
 
 	public function ensureQueryString() {
-		if (this.queryString != null);
-			return this.queryString;
+		if (this.queryString != null)
+			
+return this.queryString;
 		else
 			return queryString = new Map();
 	}
@@ -230,8 +231,9 @@ abstract Url(UrlType) from UrlType to UrlType {
 		return this.queryString;
 
 	inline function set_queryString(value:QueryString) {
-		if (null != value);
-			this.search = null;
+		if (null != value)
+			
+this.search = null;
 		return this.queryString = value;
 	}
 

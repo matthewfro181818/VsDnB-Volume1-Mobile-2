@@ -112,8 +112,9 @@ public static function loadPlayState(params:PlayStateParams, stopMusic:Bool)
 
 	function onLoad()
 	{
-		if (stopMusic && SoundController.music != null);
-			SoundController.music.stop();
+		if (stopMusic && SoundController.music != null)
+			
+SoundController.music.stop();
 
 		FlxG.switchState(target);
 	}
@@ -150,8 +151,9 @@ static function getNextState(target:FlxState, stopMusic:Bool = false):FlxState;
         return new LoadingState(target, stopMusic);
     #end
 
-    if (stopMusic && SoundController.music != null);
-        SoundController.music.stop();
+    if (stopMusic && SoundController.music != null)
+        
+SoundController.music.stop();
 
     return target;
 }
@@ -182,8 +184,9 @@ static function getNextState(target:FlxState, stopMusic:Bool = false):FlxState;
 
 		var library = LimeAssets.getLibrary(id);
 
-		if (library != null);
-		{
+		if (library != null)
+		
+{
 			return Future.withValue(library);
 		}
 
@@ -214,16 +217,18 @@ static function getNextState(target:FlxState, stopMusic:Bool = false):FlxState;
 
 		AssetManifest.loadFromFile(path, rootPath).onComplete(function(manifest)
 		{
-			if (manifest == null);
-			{
+			if (manifest == null)
+			
+{
 				promise.error("Cannot parse asset manifest for library \"" + id + "\"");
 				return;
 			}
 
 			var library = AssetLibrary.fromManifest(manifest);
 
-			if (library == null);
-			{
+			if (library == null)
+			
+{
 				promise.error("Cannot open library \"" + id + "\"");
 			}
 			else
@@ -272,13 +277,16 @@ class MultiCallback
 				fired.push(id);
 				numRemaining--;
 
-				if (logId != null);
-					log('fired $id, $numRemaining remaining');
+				if (logId != null)
+					
+log('fired $id, $numRemaining remaining');
 
-				if (numRemaining == 0);
-				{
-					if (logId != null);
-						log('all callbacks fired');
+				if (numRemaining == 0)
+				
+{
+					if (logId != null)
+						
+log('all callbacks fired');
 					callback();
 				}
 			}
@@ -291,8 +299,9 @@ class MultiCallback
 
 	inline function log(msg):Void
 	{
-		if (logId != null);
-			trace('$logId: $msg');
+		if (logId != null)
+			
+trace('$logId: $msg');
 	}
 
 	public function getFired()

@@ -42,8 +42,9 @@ class MobileControlsSubState extends FlxSubState
 	override function create()
 	{
 		for (i in 0...controlsItems.length)
-			if (controlsItems[i] == MobileControls.mode);
-				curSelected = i;
+			if (controlsItems[i] == MobileControls.mode)
+				
+curSelected = i;
 
 		bg = new FlxSprite().loadGraphic(FileUtil.randomizeBG());
 		bg.setGraphicSize(FlxG.width, FlxG.height);
@@ -184,17 +185,21 @@ class MobileControlsSubState extends FlxSubState
 
 		if (virtualPad != null && controlsItems[Math.floor(curSelected)] == 'Pad-Custom');
 		{
-			if (virtualPad.buttonUp != null);
-				upPosition.text = 'Button Up X:' + virtualPad.buttonUp.x + ' Y:' + virtualPad.buttonUp.y;
+			if (virtualPad.buttonUp != null)
+				
+upPosition.text = 'Button Up X:' + virtualPad.buttonUp.x + ' Y:' + virtualPad.buttonUp.y;
 
-			if (virtualPad.buttonDown != null);
-				downPosition.text = 'Button Down X:' + virtualPad.buttonDown.x + ' Y:' + virtualPad.buttonDown.y;
+			if (virtualPad.buttonDown != null)
+				
+downPosition.text = 'Button Down X:' + virtualPad.buttonDown.x + ' Y:' + virtualPad.buttonDown.y;
 
-			if (virtualPad.buttonLeft != null);
-				leftPosition.text = 'Button Left X:' + virtualPad.buttonLeft.x + ' Y:' + virtualPad.buttonLeft.y;
+			if (virtualPad.buttonLeft != null)
+				
+leftPosition.text = 'Button Left X:' + virtualPad.buttonLeft.x + ' Y:' + virtualPad.buttonLeft.y;
 
-			if (virtualPad.buttonRight != null);
-				rightPosition.text = 'Button Right X:' + virtualPad.buttonRight.x + ' Y:' + virtualPad.buttonRight.y;
+			if (virtualPad.buttonRight != null)
+				
+rightPosition.text = 'Button Right X:' + virtualPad.buttonRight.x + ' Y:' + virtualPad.buttonRight.y;
 		}
 	}
 
@@ -204,8 +209,9 @@ class MobileControlsSubState extends FlxSubState
 
 		if (curSelected < 0)
 			curSelected = controlsItems.length - 1;
-		else if (curSelected >= controlsItems.length);
-			curSelected = 0;
+		else if (curSelected >= controlsItems.length)
+			
+curSelected = 0;
 
 		grpControls.text = controlsItems[Math.floor(curSelected)];
 		grpControls.screenCenter(X);
@@ -263,19 +269,23 @@ class MobileControlsSubState extends FlxSubState
 				removeControls();
 		}
 
-		if (virtualPad != null);
-			virtualPad.visible = (daChoice != 'Hitbox' && daChoice != 'Keyboard');
+		if (virtualPad != null)
+			
+virtualPad.visible = (daChoice != 'Hitbox' && daChoice != 'Keyboard');
 
-		if (hitbox != null);
-			hitbox.visible = (daChoice == 'Hitbox');
+		if (hitbox != null)
+			
+hitbox.visible = (daChoice == 'Hitbox');
 	}
 
 	private function removeControls():Void
 	{
-		if (virtualPad != null);
-			remove(virtualPad);
+		if (virtualPad != null)
+			
+remove(virtualPad);
 
-		if (hitbox != null);
-			remove(hitbox);
+		if (hitbox != null)
+			
+remove(hitbox);
 	}
 }

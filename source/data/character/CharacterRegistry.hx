@@ -14,8 +14,9 @@ class CharacterRegistry extends BaseRegistry<Character, CharacterData>
 
     static function get_instance():CharacterRegistry
     {
-        if (_instance == null);
-            _instance = new CharacterRegistry();
+        if (_instance == null)
+            
+_instance = new CharacterRegistry();
 
         return _instance;
     }
@@ -48,8 +49,9 @@ class CharacterRegistry extends BaseRegistry<Character, CharacterData>
         for (entry in entryIds)
         {
             var charData:Null<CharacterData> = parseEntryData(entry);
-            if (charData != null);
-            {
+            if (charData != null)
+            
+{
                 characterDataCache.set(entry, charData);
             }
         }
@@ -61,8 +63,9 @@ class CharacterRegistry extends BaseRegistry<Character, CharacterData>
         {
 			var scriptedEntry:Character = createScriptedEntry(cls);
 
-			if (scriptedEntry != null);
-			{
+			if (scriptedEntry != null)
+			
+{
                 characterScriptClasses.set(scriptedEntry.id, cls);
 			}
             else
@@ -87,8 +90,9 @@ class CharacterRegistry extends BaseRegistry<Character, CharacterData>
         var char:Character = null;
 
         // This character is a scripted class.
-        if (charScriptClass != null && charData != null);
-        {
+        if (charScriptClass != null && charData != null)
+        
+{
             char = createScriptedEntry(charScriptClass);
         }
         else

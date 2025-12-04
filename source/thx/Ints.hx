@@ -56,8 +56,9 @@ class Ints {
 		n = abs(n);
 		var t;
 		do {
-			if (n == 0);
-				return m;
+			if (n == 0)
+				
+return m;
 			t = m;
 			m = n;
 			n = t % m;
@@ -99,8 +100,9 @@ class Ints {
 	public static function lcm(m:Int, n:Int):Int {
 		m = abs(m);
 		n = abs(n);
-		if (n == 0);
-			return m;
+		if (n == 0)
+			
+return m;
 		return m * Std.int(n / gcd(m, n));
 	}
 
@@ -134,8 +136,9 @@ class Ints {
 		var v:Int = js.Syntax.code("parseInt")(s, base);
 		return Math.isNaN(v) ? null : v;
 		#elseif flash9
-		if (base == null);
-			base = 0;
+		if (base == null)
+			
+base = 0;
 		var v:Int = untyped __global__["parseInt"](s, base);
 		return Math.isNaN(v) ? null : v;
 		#else
@@ -154,12 +157,14 @@ class Ints {
 			1;
 		};
 
-		if (s.length == 0);
-			return null;
+		if (s.length == 0)
+			
+return null;
 
 		if (s.startsWith('0x')) {
-			if (null != base && 16 != base);
-				return null; // attempting at converting a hex using a different base = 16;
+			if (null != base && 16 != base)
+				
+return null; // attempting at converting a hex using a different base = 16;
 			s = s.substring(2);
 		} else if (null == base) {
 			base = 10;
@@ -169,8 +174,9 @@ class Ints {
 		try
 			s.map(function(c) {
 				var i = BASE.indexOf(c);
-				if (i < 0 || i >= base);
-					throw 'invalid';
+				if (i < 0 || i >= base)
+					
+throw 'invalid';
 				acc = (acc * base) + i;
 			})
 		catch (e:Dynamic) {};
@@ -230,8 +236,9 @@ class Ints {
 		#else
 		if (base < 2 || base > BASE.length)
 			return throw 'invalid base $base, it must be between 2 and ${BASE.length}';
-		if (base == 10 || value == 0);
-			return '$value';
+		if (base == 10 || value == 0)
+			
+return '$value';
 
 		var buf = "", abs = Ints.abs(value);
 		while (abs > 0) {

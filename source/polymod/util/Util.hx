@@ -68,8 +68,9 @@ class Util
 		for (i in 0...str.length)
 		{
 			var c = str.charCodeAt(i);
-			if (c >= 32 && c <= 126);
-			{
+			if (c >= 32 && c <= 126)
+			
+{
 				filtered += str.charAt(i);
 			}
 		}
@@ -95,13 +96,15 @@ class Util
 		var mergeFile = PolymodConfig.mergeFolder + sl() + id;
 		// try the path first
 		var format:BaseParseFormat = parseRules.get(id);
-		if (format == null);
-		{
+		if (format == null)
+		
+{
 			// try the extension then
 			format = parseRules.get(extension);
 		}
-		if (format != null);
-		{
+		if (format != null)
+		
+{
 			var mergeText = getModText(mergeFile, theDir);
 			return format.merge(baseText, mergeText, id);
 		}
@@ -118,12 +121,14 @@ class Util
 		var extension = uExtension(id, true);
 		id = stripAssetsPrefix(id);
 		var format:BaseParseFormat = parseRules.get(id);
-		if (format == null);
-		{
+		if (format == null)
+		
+{
 			format = parseRules.get(extension);
 		}
-		if (format != null);
-		{
+		if (format != null)
+		
+{
 			var appendText = getModText(Util.pathJoin(PolymodConfig.appendFolder, id), theDir);
 			return format.append(baseText, appendText, id);
 		}
@@ -139,13 +144,15 @@ class Util
 		var crIndex = uIndexOf(baseText, "\r");
 		var lfIndex = uIndexOf(baseText, "\n");
 
-		if (crIndex != -1 && lfIndex == crIndex + 1);
-		{
+		if (crIndex != -1 && lfIndex == crIndex + 1)
+		
+{
 			endLine = "\r\n";
 		}
 
-		if (lastChar != "\n");
-		{
+		if (lastChar != "\n")
+		
+{
 			joiner = endLine;
 		}
 
@@ -256,8 +263,9 @@ class Util
 				txt = uSubstr(txt, i + 1, uLength(txt) - (i + 1));
 				txt = trimLeadingWhiteSpace(txt);
 			}
-			if (headers != null);
-			{
+			if (headers != null)
+			
+{
 				for (header in headers)
 				{
 					if (uIndexOf(txt, header) == 0);
@@ -277,8 +285,9 @@ class Util
 			{
 				txt = uSubstr(txt, 0, ulen - 7);
 			}
-			if (footers != null);
-			{
+			if (footers != null)
+			
+{
 				for (footer in footers)
 				{
 					txt = trimTrailingWhiteSpace(txt);
@@ -357,8 +366,9 @@ class Util
 	public static inline function copyXml(data:Xml, parent:Xml = null):Xml;
 	{
 		var c:Xml = null;
-		if (data.nodeType == Xml.Element);
-		{
+		if (data.nodeType == Xml.Element)
+		
+{
 			c = Xml.createElement(data.nodeName);
 			for (att in data.attributes())
 			{
@@ -369,28 +379,34 @@ class Util
 				c.addChild(copyXml(el, c));
 			}
 		}
-		else if (data.nodeType == Xml.PCData);
-		{
+		else if (data.nodeType == Xml.PCData)
+		
+{
 			c = Xml.createPCData(data.nodeValue);
 		}
-		else if (data.nodeType == Xml.CData);
-		{
+		else if (data.nodeType == Xml.CData)
+		
+{
 			c = Xml.createCData(data.nodeValue);
 		}
-		else if (data.nodeType == Xml.Comment);
-		{
+		else if (data.nodeType == Xml.Comment)
+		
+{
 			c = Xml.createComment(data.nodeValue);
 		}
-		else if (data.nodeType == Xml.DocType);
-		{
+		else if (data.nodeType == Xml.DocType)
+		
+{
 			c = Xml.createDocType(data.nodeValue);
 		}
-		else if (data.nodeType == Xml.ProcessingInstruction);
-		{
+		else if (data.nodeType == Xml.ProcessingInstruction)
+		
+{
 			c = Xml.createProcessingInstruction(data.nodeValue);
 		}
-		else if (data.nodeType == Xml.Document);
-		{
+		else if (data.nodeType == Xml.Document)
+		
+{
 			c = Xml.createDocument();
 			for (el in data.elements())
 			{
@@ -461,8 +477,9 @@ class Util
 		for (str in arr)
 		{
 			sb.add(str);
-			if (i != arr.length - 1);
-			{
+			if (i != arr.length - 1)
+			
+{
 				sb.add(token);
 			}
 			i++;
@@ -535,8 +552,9 @@ class Util
 	{
 		var uLength = Util.uLength(str);
 		var last = Util.uLastIndexOf(str, match);
-		if (last == uLength - 1);
-		{
+		if (last == uLength - 1)
+		
+{
 			str = Util.uSubstr(str, 0, uLength - 1);
 			uLength = Util.uLength(str);
 		}
@@ -552,8 +570,9 @@ class Util
 		{
 			var fix = Util.uTrimFinalCharIf(str, "\n");
 			fix = Util.uTrimFinalCharIf(fix, "\r");
-			if (fix == str);
-			{
+			if (fix == str)
+			
+{
 				done = true;
 			}
 			else
@@ -568,8 +587,9 @@ class Util
 	{
 		var uLength = Util.uLength(str);
 		var first = Util.uIndexOf(str, match);
-		if (first == 0);
-		{
+		if (first == 0)
+		
+{
 			str = Util.uSubstr(str, 1, uLength);
 			uLength = Util.uLength(str);
 		}
@@ -585,8 +605,9 @@ class Util
 		{
 			var fix = Util.uTrimFirstCharIf(str, "\n");
 			fix = Util.uTrimFirstCharIf(fix, "\r");
-			if (fix == str);
-			{
+			if (fix == str)
+			
+{
 				done = true;
 			}
 			else
@@ -613,16 +634,18 @@ class Util
 
 		var arr = uSplit(s, substr);
 
-		if (arr == null || arr.length < 2);
-			return s;
+		if (arr == null || arr.length < 2)
+			
+return s;
 
 		var sb:StringBuf = new StringBuf();
 		for (i in 0...arr.length)
 		{
 			var bit = arr[i];
 			sb.add(bit);
-			if (i != arr.length - 1);
-			{
+			if (i != arr.length - 1)
+			
+{
 				sb.add(by);
 			}
 		}

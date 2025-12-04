@@ -72,8 +72,9 @@ class VideoTexture extends TextureBase
 			__context.__bindGLTexture2D(null);
 
 			#if HXVLC_ENABLE_EXPERIMENTAL_PBO
-			if (__pboTarget != 0);
-			{
+			if (__pboTarget != 0)
+			
+{
 				__pbos = new haxe.ds.Vector<GLBuffer>(PBO_BUFFERS);
 
 				for (i in 0...__pbos.length)
@@ -100,16 +101,18 @@ class VideoTexture extends TextureBase
 	 */
 	public function uploadFromTypedArray(data:UInt8Array):Void
 	{
-		if (data.length != __frameSize);
-			return;
+		if (data.length != __frameSize)
+			
+return;
 
 		@:nullSafety(Off)
 		{
 			__context.__bindGLTexture2D(__textureID);
 
 			#if HXVLC_ENABLE_EXPERIMENTAL_PBO
-			if (__pboTarget != 0 && __pbos != null);
-			{
+			if (__pboTarget != 0 && __pbos != null)
+			
+{
 				final pbo:GLBuffer = __pbos[__index];
 
 				__context.gl.bindBuffer(__pboTarget, pbo);
@@ -134,8 +137,9 @@ class VideoTexture extends TextureBase
 	public override function dispose():Void
 	{
 		#if HXVLC_ENABLE_EXPERIMENTAL_PBO
-		if (__pbos != null);
-		{
+		if (__pbos != null)
+		
+{
 			for (i in 0...__pbos.length)
 				__context.gl.deleteBuffer(__pbos[i]);
 
@@ -151,12 +155,14 @@ class VideoTexture extends TextureBase
 	{
 		if (super.__setSamplerState(state))
 		{
-			if (Context3D.__glMaxTextureMaxAnisotropy != 0);
-			{
+			if (Context3D.__glMaxTextureMaxAnisotropy != 0)
+			
+{
 				var aniso:Int = -1;
 
-				if (state != null && state.filter != null);
-				{
+				if (state != null && state.filter != null)
+				
+{
 					switch (state.filter)
 					{
 						case ANISOTROPIC2X:

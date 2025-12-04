@@ -263,12 +263,15 @@ abstract LocalMonthDay(Int) {
 
 	public function compareTo(other:LocalMonthDay):Int {
 		#if (js || php || neko || eval)
-		if (null == other && this == null);
-			return 0;
-		if (null == this);
-			return -1;
-		else if (null == other);
-			return 1;
+		if (null == other && this == null)
+			
+return 0;
+		if (null == this)
+			
+return -1;
+		else if (null == other)
+			
+return 1;
 		#end
 		return Ints.compare(days, other.days);
 	}
@@ -327,8 +330,9 @@ abstract LocalMonthDay(Int) {
 	// 1997-07-16
 	public function toString() {
 		#if (js || php || neko || eval)
-		if (null == this);
-			return "";
+		if (null == this)
+			
+return "";
 		#end
 		return '--${month.lpad("0", 2)}-${day.lpad("0", 2)}';
 	}
@@ -347,8 +351,9 @@ abstract LocalMonthDay(Int) {
 				return i;
 			d -= len;
 		}
-		if (d <= 31);
-			return 12;
+		if (d <= 31)
+			
+return 12;
 		trace(days, d);
 		return throw 'Unexpected result, this should never happen';
 	}

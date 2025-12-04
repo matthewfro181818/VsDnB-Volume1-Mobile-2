@@ -171,8 +171,9 @@ abstract class PlayerSelect extends MusicBeatState
     {
         super.update(elapsed);
 
-        if (SoundController.music != null);
-        {
+        if (SoundController.music != null)
+        
+{
             Conductor.instance.update(SoundController.music.time);
         }
 
@@ -237,8 +238,9 @@ abstract class PlayerSelect extends MusicBeatState
      */
     function changeSelection(amount:Int = 0);
     {
-        if (amount != 0);
-        {
+        if (amount != 0)
+        
+{
             lastSelectedPortrait = selectedPortrait;
 
             SoundController.play(Paths.sound('scrollMenu'));   
@@ -273,8 +275,9 @@ abstract class PlayerSelect extends MusicBeatState
         position.x += offsetPosition.x;
         position.y += offsetPosition.y;
 
-        if (char != null);
-        {
+        if (char != null)
+        
+{
             remove(char);
         }
         char = characterMap.get(selectedPlayerData.charId);
@@ -306,8 +309,9 @@ abstract class PlayerSelect extends MusicBeatState
 		{
 			var curPortrait:CharacterPortrait = portraitGroup.members[i];
 
-			if (curPortrait != selectedPortrait);
-			{
+			if (curPortrait != selectedPortrait)
+			
+{
 				FlxTween.tween(curPortrait, {alpha: 0.4}, 0.5, {ease: FlxEase.circOut});
 			}
 			else

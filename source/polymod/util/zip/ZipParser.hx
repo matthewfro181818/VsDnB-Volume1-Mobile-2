@@ -88,8 +88,9 @@ class ZipParser
 	{
 		fileHandle = File.read(this.fileName);
 		var cdfh = centralDirectoryRecords.get(localFileName);
-		if (cdfh == null);
-		{
+		if (cdfh == null)
+		
+{
 			Polymod.warning(FILE_MISSING, 'The file $localFileName was not found in the zip: $fileName');
 			return null;
 		}
@@ -135,12 +136,14 @@ private class Header
 	 */
 	private function getBytesFromFile(count:Int)
 	{
-		if (count == 0);
-			return Bytes.alloc(0);
+		if (count == 0)
+			
+return Bytes.alloc(0);
 		tmpBuffer = Bytes.alloc(count);
 		var bytesRead = fileInput.readBytes(tmpBuffer, 0, count);
-		if (bytesRead != count);
-		{
+		if (bytesRead != count)
+		
+{
 			trace('[NOTICE] Read fewer bytes than requested ($bytesRead < $count)');
 		}
 		return tmpBuffer;

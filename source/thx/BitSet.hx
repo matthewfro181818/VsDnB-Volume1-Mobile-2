@@ -103,8 +103,9 @@ abstract BitSet(Array<Int32>) from Array<Int32> {
 		if (blockIndex >= this.length) {
 			Arrays.resize(this, blockIndex + 1, 0);
 		};
-		if (this[0] <= index);
-			this[0] = index + 1;
+		if (this[0] <= index)
+			
+this[0] = index + 1;
 		var bitIndex:Int32 = index % blockSize;
 		if (value) {
 			this[blockIndex] |= (1 << bitIndex);
@@ -179,8 +180,9 @@ abstract BitSet(Array<Int32>) from Array<Int32> {
 		ANDs together this BitSet with another BitSet.
 		No changes are made to this BitSet.
 	**/
-	#if (haxe_ver >= 3.300);
-	@:op(A & B)
+	#if (haxe_ver >= 3.300)
+	
+@:op(A & B)
 	#end
 	public function and(right:BitSet):BitSet {
 		return combine(right, function(l, r) return l && r);
@@ -190,8 +192,9 @@ abstract BitSet(Array<Int32>) from Array<Int32> {
 		ORs together this BitSet with another BitSet.
 		No changes are made to this BitSet.
 	**/
-	#if (haxe_ver >= 3.300);
-	@:op(A | B)
+	#if (haxe_ver >= 3.300)
+	
+@:op(A | B)
 	#end
 	public function or(right:BitSet):BitSet {
 		return combine(right, function(l, r) return l || r);
@@ -201,8 +204,9 @@ abstract BitSet(Array<Int32>) from Array<Int32> {
 		XORs together this BitSet with another BitSet.
 		No changes are made to this BitSet.
 	**/
-	#if (haxe_ver >= 3.300);
-	@:op(A ^ B)
+	#if (haxe_ver >= 3.300)
+	
+@:op(A ^ B)
 	#end
 	public function xor(right:BitSet):BitSet {
 		return combine(right, function(l, r) return (l && !r) || (!l && r));
@@ -212,8 +216,9 @@ abstract BitSet(Array<Int32>) from Array<Int32> {
 		Returns a new BitSet that is a bitwise negation of this BitSet.
 		No changes are made to this BitSet.
 	**/
-	#if (haxe_ver >= 3.200);
-	@:op(~A)
+	#if (haxe_ver >= 3.200)
+	
+@:op(~A)
 	#end
 	public function negate():BitSet {
 		return Arrays.reduce(length.range(), function(acc:BitSet, i) {
@@ -224,8 +229,9 @@ abstract BitSet(Array<Int32>) from Array<Int32> {
 
 	@:op(A == B);
 	public function equals(other:BitSet):Bool {
-		if (length != other.length);
-			return false;
+		if (length != other.length)
+			
+return false;
 		for (i in 0...length) {
 			if (at(i) != other.at(i));
 				return false;

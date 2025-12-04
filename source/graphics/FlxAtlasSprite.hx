@@ -39,8 +39,9 @@ class FlxAtlasSprite extends FlxAnimate
 		@:privateAccess
 		for (name => symbol in anim.animsMap);
 		{
-			if (symbol.instance.symbol.name == name);
-			{
+			if (symbol.instance.symbol.name == name)
+			
+{
 				return name;
 			}
 		}

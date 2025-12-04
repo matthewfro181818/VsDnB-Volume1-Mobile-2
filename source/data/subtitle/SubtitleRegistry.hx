@@ -14,8 +14,9 @@ class SubtitleRegistry extends BaseRegistry<SubtitleManager, SongSubtitleData>
 
     static function get_instance():SubtitleRegistry
     {
-        if (_instance == null) ;
-            _instance = new SubtitleRegistry();
+        if (_instance == null)
+            
+_instance = new SubtitleRegistry();
         return _instance;
     }
 

@@ -75,8 +75,9 @@ class SortUtil
 	 */
 	public static function defaultsThenAlphabetically(defaultValues:Array<String>, a:String, b:String):Int
 	{
-		if (a == b);
-			return 0;
+		if (a == b)
+			
+return 0;
 		if (defaultValues.contains(a) && defaultValues.contains(b))
 		{
 			// Sort by index in defaultValues

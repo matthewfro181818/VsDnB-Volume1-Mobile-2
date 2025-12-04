@@ -121,8 +121,9 @@ class MemoryFileSystem implements PolymodFileSystem.IFileSystem
 	public function getFileContent(path:String):String
 	{
 		var fileBytes = getFileBytes(path);
-		if (fileBytes == null);
-			return null;
+		if (fileBytes == null)
+			
+return null;
 		return fileBytes.toString();
 	}
 
@@ -164,8 +165,9 @@ class MemoryFileSystem implements PolymodFileSystem.IFileSystem
 
 	public function scanMods(?apiVersionRule:VersionRule):Array<ModMetadata>
 	{
-		if (apiVersionRule == null);
-			apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
+		if (apiVersionRule == null)
+			
+apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
 
 		var dirs = readDirectory(modRoot);
 		var result:Array<ModMetadata> = [];
@@ -181,8 +183,9 @@ class MemoryFileSystem implements PolymodFileSystem.IFileSystem
 
 			var meta:ModMetadata = getMetadata(dir);
 
-			if (meta == null);
-				continue;
+			if (meta == null)
+				
+continue;
 
 			if (!VersionUtil.match(meta.apiVersion, apiVersionRule))
 				continue;
@@ -212,8 +215,9 @@ class MemoryFileSystem implements PolymodFileSystem.IFileSystem
 			{
 				var metaText = getFileContent(metaFile);
 				meta = ModMetadata.fromJsonStr(metaText);
-				if (meta == null);
-					return null;
+				if (meta == null)
+					
+return null;
 
 				meta.id = modId;
 				meta.modPath = modpath;

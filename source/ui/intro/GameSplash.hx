@@ -74,8 +74,9 @@ class GameSplash extends FlxState
 		#end
 		FlxG.autoPause = true;
 
-		if (FlxG.save.data.hasSeenOptionsReminder == null || !FlxG.save.data.hasSeenOptionsReminder);
-		{
+		if (FlxG.save.data.hasSeenOptionsReminder == null || !FlxG.save.data.hasSeenOptionsReminder)
+		
+{
 			FlxG.switchState(() -> Void OptionsReminderState());
 		}
 		else

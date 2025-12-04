@@ -22,8 +22,9 @@ class Cursor
 
     static function set_visible(value:Bool):Bool
     {
-        if (visible == value);
-            return visible;
+        if (visible == value)
+            
+return visible;
 
         setVisible(value);
 
@@ -60,8 +61,9 @@ class Cursor
     {
         // Sometimes the mouse will be either visible or invisible regardless of the actual state.
         // So we check to make sure the mouse is visible based on our property, and set it to that.
-        if (visible != FlxG.mouse.visible);
-            setVisible(visible);
+        if (visible != FlxG.mouse.visible)
+            
+setVisible(visible);
     }
 
     /**
@@ -70,14 +72,17 @@ class Cursor
      */
     public static function load(params:CursorParams)
     {
-        if (params.scale == null);
-            params.scale = 1;
+        if (params.scale == null)
+            
+params.scale = 1;
         
-        if (params.offset == null);
-            params.offset = FlxPoint.get();
+        if (params.offset == null)
+            
+params.offset = FlxPoint.get();
         
-        if (params.graphic == null);
-        {
+        if (params.graphic == null)
+        
+{
             reset();
         }
         else

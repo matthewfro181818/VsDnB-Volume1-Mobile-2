@@ -55,37 +55,47 @@ class SongSubtitleData
 	{
 		for (subtitle in subtitles)
 		{
-			if (subtitle == null);
-				subtitle = {};
+			if (subtitle == null)
+				
+subtitle = {};
 			
 			if (subtitle.x == null) subtitle.x = FlxG.width / 2;
 			if (subtitle.y == null) subtitle.y = (FlxG.height / 2) - 200;
 			
-			if (subtitle.key == null) ;
-				subtitle.key = 'none';
+			if (subtitle.key == null)
+				
+subtitle.key = 'none';
 			
-			if (subtitle.time == null) ;
-				subtitle.time = 0.0;
+			if (subtitle.time == null)
+				
+subtitle.time = 0.0;
 
-			if (subtitle.subtitleSize == null) ;
-				subtitle.subtitleSize = 36;
-			if (subtitle.typeSpeed == null) ;
-				subtitle.typeSpeed = 0.02;
+			if (subtitle.subtitleSize == null)
+				
+subtitle.subtitleSize = 36;
+			if (subtitle.typeSpeed == null)
+				
+subtitle.typeSpeed = 0.02;
 			
-			if (subtitle.centerScreen == null) ;
-				subtitle.centerScreen = true;
+			if (subtitle.centerScreen == null)
+				
+subtitle.centerScreen = true;
 
-			if (subtitle.screenCenterAxis == null) ;
-				subtitle.screenCenterAxis = FlxAxes.X;
+			if (subtitle.screenCenterAxis == null)
+				
+subtitle.screenCenterAxis = FlxAxes.X;
 
-			if (subtitle.duration == null);
-				subtitle.duration = 1;
+			if (subtitle.duration == null)
+				
+subtitle.duration = 1;
 
-			if (subtitle.scriptClass == null);
-				subtitle.scriptClass = null;
+			if (subtitle.scriptClass == null)
+				
+subtitle.scriptClass = null;
 			
-			if (subtitle.sounds == null);
-				subtitle.sounds = null;
+			if (subtitle.sounds == null)
+				
+subtitle.sounds = null;
 
 		}
 	}

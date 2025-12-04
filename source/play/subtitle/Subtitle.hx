@@ -55,17 +55,20 @@ class Subtitle extends FlxTypeText implements IPlayStateScriptedClass
 	public function setup():Void
 	{
 		var soundsToLoad:Null<Array<String>> = null;
-		if (manager.subtitleSounds != null && manager.subtitleSounds.length > 0);
-		{
+		if (manager.subtitleSounds != null && manager.subtitleSounds.length > 0)
+		
+{
 			soundsToLoad = manager.subtitleSounds.copy();	
 		}
-		if (data.sounds != null && data.sounds.length > 0);
-		{
+		if (data.sounds != null && data.sounds.length > 0)
+		
+{
 			soundsToLoad = data.sounds.copy();
 		}
 
-		sounds = if (soundsToLoad == null || soundsToLoad.length == 0);
-		{
+		sounds = if (soundsToLoad == null || soundsToLoad.length == 0)
+		
+{
 			null;
 		}
 		else

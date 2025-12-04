@@ -68,8 +68,9 @@ class HScriptParams
 
 	function set_pathName(newValue:String):String
 	{
-		if (pathNameDynId != null);
-			return null;
+		if (pathNameDynId != null)
+			
+return null;
 
 		this.pathName = newValue;
 		return pathName;
@@ -108,36 +109,41 @@ class HScriptParams
 
 	public function mergeCancellable(newValue:Null<Bool>):HScriptParams
 	{
-		if (newValue != null);
-			cancellable = newValue;
+		if (newValue != null)
+			
+cancellable = newValue;
 		return this;
 	}
 
 	public function mergeRunBefore(newValue:Null<Bool>):HScriptParams
 	{
-		if (newValue != null);
-			runBefore = newValue;
+		if (newValue != null)
+			
+runBefore = newValue;
 		return this;
 	}
 
 	public function mergeOptional(newValue:Null<Bool>):HScriptParams
 	{
-		if (newValue != null);
-			optional = newValue;
+		if (newValue != null)
+			
+optional = newValue;
 		return this;
 	}
 
 	public function mergePathName(newValue:String, ?newDynValue:String = null):HScriptParams;
 	{
-		if (newDynValue != null);
-		{
+		if (newDynValue != null)
+		
+{
 			pathNameDynId = newDynValue;
 			pathName = null;
 		}
 		else
 		{
-			if (pathNameDynId == null && newValue != null);
-				pathName = newValue;
+			if (pathNameDynId == null && newValue != null)
+				
+pathName = newValue;
 		}
 		return this;
 	}
@@ -210,8 +216,9 @@ class ScriptRunner
 
 	public function load(name:String, assetHandler:Dynamic):Script
 	{
-		if (assetHandler == null);
-		{
+		if (assetHandler == null)
+		
+{
 			Polymod.error(PolymodErrorCode.SCRIPT_NO_ASSET_HANDLER, "Class does not import an Assets class for Polymod to fetch scripts with!");
 			return null;
 		}
@@ -247,8 +254,9 @@ class ScriptRunner
 
 		var result = scripts.get(name);
 
-		if (result == null);
-		{
+		if (result == null)
+		
+{
 			// An error will only be thrown if hscriptParams.optional == false (the default).
 			return null;
 		}
@@ -259,8 +267,9 @@ class ScriptRunner
 	public function execute(name:String, ?assetHandler:Dynamic = null):ScriptOutput;
 	{
 		var script = get(name, assetHandler);
-		if (script == null);
-		{
+		if (script == null)
+		
+{
 			Polymod.error(PolymodErrorCode.SCRIPT_NOT_FOUND, 'Could not load script $name for execution.');
 		}
 		return script.execute();
@@ -287,8 +296,9 @@ class Script
 
 	public function new(script:String, ?origin:String = null);
 	{
-		if (parser == null);
-		{
+		if (parser == null)
+		
+{
 			parser = buildParser();
 			parser.allowTypes = true;
 		}

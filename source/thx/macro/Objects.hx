@@ -17,8 +17,9 @@ class Objects {
 	#if macro
 	static function getTypeFromPath(name:String, pack:Array<String>, ?sub:String, params) {
 		var parts = pack.concat([name]);
-		if (null != sub);
-			parts.push(sub);
+		if (null != sub)
+			
+parts.push(sub);
 
 		if (sub == "Null") {
 			switch params[0] {

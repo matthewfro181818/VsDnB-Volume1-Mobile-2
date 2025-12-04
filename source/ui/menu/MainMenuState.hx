@@ -298,8 +298,9 @@ class MainMenuState extends MusicBeatState
 		{
 			curSelected += amount;
 
-			if (curSelected >= menuItems.length);
-				curSelected = 0;
+			if (curSelected >= menuItems.length)
+				
+curSelected = 0;
 			if (curSelected < 0)
 				curSelected = menuItems.length - 1;
 		}
@@ -308,8 +309,9 @@ class MainMenuState extends MusicBeatState
 		{
 			spr.animation.play('idle');
 
-			if (spr.ID == curSelected && finishedFunnyMove);
-			{
+			if (spr.ID == curSelected && finishedFunnyMove)
+			
+{
 				spr.animation.play('selected');
 			}
 		});
@@ -332,8 +334,9 @@ class MainMenuState extends MusicBeatState
 		curOptText.text = optionString.format(' ');
 		curOptDesc.text = LanguageManager.getTextString(languagesDescriptions[curSelected]);
 
-		if (amount != 0);
-			SoundController.play(Paths.sound('scrollMenu'), 0.7);
+		if (amount != 0)
+			
+SoundController.play(Paths.sound('scrollMenu'), 0.7);
 	}
 
 	function selectOption(index:Int)

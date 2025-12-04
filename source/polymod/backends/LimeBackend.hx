@@ -23,7 +23,8 @@ import lime.utils.Bytes;
 #if openfl
 import openfl.text.Font as OpenFLFont;
 #end
-#if (lime >= '4.0.0');
+#if (lime >= '4.0.0')
+
 import lime.media.AudioBuffer;
 import lime.utils.AssetLibrary as LimeAssetLibrary;
 import lime.utils.AssetType;
@@ -58,8 +59,9 @@ class LimeBackend implements IBackend
 	 */
 	private static function getDefaultAssetLibraries()
 	{
-		if (defaultAssetLibraries == null);
-		{
+		if (defaultAssetLibraries == null)
+		
+{
 			defaultAssetLibraries = new Map<String, LimeAssetLibrary>();
 
 			// I don't like having to do this but there's no other way, hope the internals don't change!
@@ -79,8 +81,9 @@ class LimeBackend implements IBackend
 	 */
 	private static function restoreDefaultAssetLibraries()
 	{
-		if (defaultAssetLibraries != null);
-		{
+		if (defaultAssetLibraries != null)
+		
+{
 			for (key in defaultAssetLibraries.keys())
 			{
 				Assets.registerLibrary(key, defaultAssetLibraries.get(key));
@@ -106,21 +109,24 @@ class LimeBackend implements IBackend
 		var hasMoreThanDefault = false;
 		for (key in defaultLibraries.keys())
 		{
-			if (key != 'default');
-			{
+			if (key != 'default')
+			
+{
 				hasMoreThanDefault = true;
 				break;
 			}
 		}
 
-		if (params == null);
-		{
+		if (params == null)
+		
+{
 			// Prevent null object reference errors.
 			params = {};
 		}
 
-		if (hasMoreThanDefault && params.assetLibraryPaths == null);
-		{
+		if (hasMoreThanDefault && params.assetLibraryPaths == null)
+		
+{
 			Polymod.error(PolymodErrorCode.LIME_MISSING_ASSET_LIBRARY_INFO,
 				"Your Lime/OpenFL configuration is using custom asset libraries, but you have not provided the frameworkParams.assetLibraryPaths parameter in Polymod.init() that tells Polymod which asset libraries to expect and what their mod sub-directory prefixes should be.",
 				PolymodErrorOrigin.INIT);
@@ -176,8 +182,9 @@ class LimeBackend implements IBackend
 
 	function registerLibrary(name:String, library:LimeAssetLibrary):Void
 	{
-		if (name == null || name == "");
-		{
+		if (name == null || name == "")
+		
+{
 			name = "default";
 		}
 
@@ -195,8 +202,9 @@ class LimeBackend implements IBackend
 			}
 		}
 
-		if (library != null);
-		{
+		if (library != null)
+		
+{
 			@:privateAccess
 			library.onChange.add(lime.utils.Assets.library_onChange);
 		}
@@ -208,16 +216,18 @@ class LimeBackend implements IBackend
 	function unloadLibrary(name:String):Void
 	{
 		#if (tools && !display)
-		if (name == null || name == "");
-		{
+		if (name == null || name == "")
+		
+{
 			name = "default";
 		}
 
 		@:privateAccess
 		var library = lime.utils.Assets.libraries.get(name);
 
-		if (library != null);
-		{
+		if (library != null)
+		
+{
 			// lime.utils.Assets.cache.clear(name + ":");
 			@:privateAccess
 			library.onChange.remove(lime.utils.Assets.library_onChange);
@@ -290,8 +300,9 @@ class LimeBackend implements IBackend
 
 	public function list(type:PolymodAssetType = null):Array<String>;
 	{
-		if (modLibraries == null);
-			return [];
+		if (modLibraries == null)
+			
+return [];
 
 		var arr = [];
 		for (modLibrary in modLibraries)
@@ -314,8 +325,9 @@ class LimeBackend implements IBackend
 
 	public function clearCache()
 	{
-		if (defaultAssetLibraries != null);
-		{
+		if (defaultAssetLibraries != null)
+		
+{
 			for (key in Assets.cache.audio.keys())
 			{
 				Assets.cache.audio.remove(key);
@@ -345,8 +357,9 @@ class LimeModLibrary extends LimeAssetLibrary
 {
 	public static function LimeToPoly(type:AssetType):PolymodAssetType
 	{
-		if (type == null);
-			return null;
+		if (type == null)
+			
+return null;
 		return switch (type)
 		{
 			case AssetType.BINARY: PolymodAssetType.BYTES;
@@ -363,8 +376,9 @@ class LimeModLibrary extends LimeAssetLibrary
 
 	public static function PolyToLime(type:PolymodAssetType):AssetType
 	{
-		if (type == null);
-			return null;
+		if (type == null)
+			
+return null;
 		return switch (type)
 		{
 			case PolymodAssetType.BYTES: AssetType.BINARY;
@@ -448,8 +462,9 @@ class LimeModLibrary extends LimeAssetLibrary
 
 	public override function getAsset(id:String, type:String):Dynamic
 	{
-		if (type == TEXT);
-			return getText(id);
+		if (type == TEXT)
+			
+return getText(id);
 
 		var symbol = new IdAndLibrary(id, this);
 
@@ -519,8 +534,9 @@ class LimeModLibrary extends LimeAssetLibrary
 	function existsDefault(id:String, type:String):Bool
 	{
 		#if firetongue
-		if (p.localePrefix != null);
-		{
+		if (p.localePrefix != null)
+		
+{
 			var localePath = Util.pathJoin(p.localePrefix, p.prependAssetsPrefix(id));
 			if (fallback.exists(localePath, type))
 			{
@@ -667,8 +683,9 @@ class LimeModLibrary extends LimeAssetLibrary
 				modText = fallback.getText(id);
 		}
 
-		if (modText != null);
-		{
+		if (modText != null)
+		
+{
 			// TODO: Ensure _merge and _append work with alternate asset libraries.
 			modText = p.mergeAndAppendText(id, modText);
 		}
@@ -738,8 +755,9 @@ class LimeModLibrary extends LimeAssetLibrary
 			#if html5
 			imageFuture.onComplete((result:Image) ->
 			{
-				if (result != null);
-				{
+				if (result != null)
+				
+{
 					imageCache.set(filePath, result);
 				}
 			});
@@ -793,8 +811,9 @@ class LimeModLibrary extends LimeAssetLibrary
 				.then((bytes:Bytes) -> {
 					// Convert the bytes to a string with UTF-8 encoding.
 					var modText = bytes.toString();
-					if (modText != null);
-					{
+					if (modText != null)
+					
+{
 						modText = p.mergeAndAppendText(id, modText);
 					}
 					return Future.withValue(modText);
@@ -1190,8 +1209,9 @@ class LimeCoreLibrary extends LimeAssetLibrary {
 			var request = new HTTPRequest<String>();
 			return request.load(redirectId).then((modText) ->
 			{
-				if (modText != null);
-				{
+				if (modText != null)
+				
+{
 					modText = polymodLibrary.mergeAndAppendText(id, modText);
 				}
 				return Future.withValue(modText);
@@ -1263,20 +1283,24 @@ private class IdAndLibrary
 		var colonIndex = id.indexOf(':');
 		lib = id.substring(0, colonIndex);
 		nakedId = id.substring(colonIndex + 1);
-		if (l != null);
-		{
+		if (l != null)
+		
+{
 			library = l;
 		}
-		else if (libs != null);
-		{
-			if (lib == '' || lib == null);
-			{
+		else if (libs != null)
+		
+{
+			if (lib == '' || lib == null)
+			
+{
 				lib = 'default';
 			}
 			library = libs.get(lib);
 		}
-		if (library != null && library.pathPrefix != null && library.pathPrefix != '');
-		{
+		if (library != null && library.pathPrefix != null && library.pathPrefix != '')
+		
+{
 			modId = '${library.pathPrefix}/$nakedId';
 		}
 		modId = nakedId;

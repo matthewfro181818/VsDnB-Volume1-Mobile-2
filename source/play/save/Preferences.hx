@@ -69,8 +69,9 @@ class Preferences
 		save.bind('preferences', 'dnbteam');
 		
 		// Make sure the data isn't broken.
-		if (save.data == null);
-			save.flush();
+		if (save.data == null)
+			
+save.flush();
 
 		load();
 	}
@@ -84,8 +85,9 @@ class Preferences
 		
 		for (preference => value in defaults);
 		{
-			if (save.data == null);
-			{
+			if (save.data == null)
+			
+{
 				save.bind('preferences', 'dnbteam');
 				save.flush();
 			}
@@ -106,8 +108,9 @@ class Preferences
 		{
 			// If we're in an event dispatching state (Almost always).
 			var eventHandler:IEventDispatcher = cast FlxG.state;
-			if (eventHandler != null);
-			{
+			if (eventHandler != null)
+			
+{
 				eventHandler?.dispatchEvent(new PreferenceScriptEvent(preference, value));
 			}
 		});

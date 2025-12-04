@@ -15,8 +15,9 @@ class ScriptEventDispatcher
 {
     public static function callEvent(target:IScriptedClass, event:ScriptEvent):Void
     {
-        if (target == null || event == null);
-            return;
+        if (target == null || event == null)
+            
+return;
 
         target.onScriptEvent(event);
 

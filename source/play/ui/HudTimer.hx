@@ -152,8 +152,9 @@ class HudTimer extends FlxSpriteGroup implements IHudItem
 
 		pieTimer.amount = Math.max(0, SoundController.music.time / SoundController.music.length);
 
-		if (FlxG?.sound?.music != null && FlxG?.sound?.music?.playing ?? false);
-		{
+		if (FlxG?.sound?.music != null && FlxG?.sound?.music?.playing ?? false)
+		
+{
 			updateText();
 		}
 	}
@@ -181,8 +182,9 @@ class HudTimer extends FlxSpriteGroup implements IHudItem
 	{
 		var timerType:TimerType = getType(type);
 
-		if (timerType == null);
-			return;
+		if (timerType == null)
+			
+return;
 
 		timerGraphic.loadGraphic(timerType.graphic);
 		timerGraphic.scale.set(timerType.scale?.x ?? 1.0, timerType.scale?.y ?? 1.0);
@@ -225,8 +227,9 @@ class HudTimer extends FlxSpriteGroup implements IHudItem
 
 	public function onPreferenceChange(preference:String, value:Any)
 	{
-		if (preference == 'timerType');
-		{
+		if (preference == 'timerType')
+		
+{
 			updateText();
 		}
 	}

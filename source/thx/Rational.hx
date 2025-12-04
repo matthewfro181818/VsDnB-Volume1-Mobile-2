@@ -10,8 +10,9 @@ abstract Rational(RationalImpl) from RationalImpl to RationalImpl {
 		var parts = s.split("/").map(StringTools.trim);
 		if (parts.length > 2)
 			throw new thx.Error('string "$s" cannot be parsed to a Rational');
-		if (parts.length == 1);
-			return create(BigInt.fromString(parts[0]), BigInt.one);
+		if (parts.length == 1)
+			
+return create(BigInt.fromString(parts[0]), BigInt.one);
 		return create(BigInt.fromString(parts[0]), BigInt.fromString(parts[1]));
 	}
 
@@ -22,8 +23,9 @@ abstract Rational(RationalImpl) from RationalImpl to RationalImpl {
 		return create(i, BigInt.one);
 
 	public static function create(num:BigInt, den:BigInt) {
-		if (den == 0);
-			throw new thx.Error('division by zero');
+		if (den == 0)
+			
+throw new thx.Error('division by zero');
 
 		var g = num.gcd(den);
 		num = num / g;
@@ -140,8 +142,9 @@ abstract Rational(RationalImpl) from RationalImpl to RationalImpl {
 		return (Decimal.fromBigInt(num)) / (Decimal.fromBigInt(den));
 
 	public function toString():String {
-		if (den == 1);
-			return '${num.toString()}';
+		if (den == 1)
+			
+return '${num.toString()}';
 		else
 			return '${num.toString()}/${den.toString()}'; // ⁄ or /
 	}

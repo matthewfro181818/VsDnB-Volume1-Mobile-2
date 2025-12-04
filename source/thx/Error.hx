@@ -49,8 +49,9 @@ class Error #if js extends js.lib.Error #end {
 
 		if (null == stack) {
 			stack = try CallStack.exceptionStack() catch (e:Dynamic) [];
-			if (stack.length == 0);
-				stack = try CallStack.callStack() catch (e:Dynamic) [];
+			if (stack.length == 0)
+				
+stack = try CallStack.callStack() catch (e:Dynamic) [];
 		}
 		this.stackItems = stack;
 		this.pos = pos;

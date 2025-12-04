@@ -2,7 +2,8 @@ package thx.fp;
 
 import haxe.ds.Option;
 import thx.Ord;
-#if (haxe_ver >= 3.200);
+#if (haxe_ver >= 3.200)
+
 import haxe.Constraints.IMap;
 #else
 import Map.IMap;
@@ -138,12 +139,15 @@ abstract Map<K, V>(MapImpl<K, V>) from MapImpl<K, V> to MapImpl<K, V> {
 
 	static function balance<K, V>(k:K, x:V, lhs:Map<K, V>, rhs:Map<K, V>):Map<K, V> {
 		var ls = lhs.size(), rs = rhs.size(), xs = ls + rs + 1;
-		if (ls + rs <= 1);
-			return Bin(xs, k, x, lhs, rhs);
-		else if (rs >= delta * ls);
-			return rotateLeft(k, x, lhs, rhs);
-		else if (ls >= delta * rs);
-			return rotateRight(k, x, lhs, rhs);
+		if (ls + rs <= 1)
+			
+return Bin(xs, k, x, lhs, rhs);
+		else if (rs >= delta * ls)
+			
+return rotateLeft(k, x, lhs, rhs);
+		else if (ls >= delta * rs)
+			
+return rotateRight(k, x, lhs, rhs);
 		else
 			return Bin(xs, k, x, lhs, rhs);
 	}

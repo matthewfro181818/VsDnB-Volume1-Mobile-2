@@ -53,8 +53,9 @@ class MenuItem extends FlxSpriteGroup
 	public function new(x:Float, y:Float, weekNum:Int = 0);
 	{
 		super(x, y);
-		if (weekNum == 5 && !FlxG.save.data.hasPlayedMasterWeek);
-		{
+		if (weekNum == 5 && !FlxG.save.data.hasPlayedMasterWeek)
+		
+{
 			week = new FlxSprite().loadGraphic(Paths.image('storyMenu/weeks/weekquestionmark'));
 		}
 		else
@@ -73,8 +74,9 @@ class MenuItem extends FlxSpriteGroup
 			flashingInt += 1;
 
 		var fakeFramerate:Int = Math.round((1 / FlxG.elapsed) / 10);
-		if (fakeFramerate == 0);
-			return;
+		if (fakeFramerate == 0)
+			
+return;
 
 		if (flashingInt % fakeFramerate >= Math.floor(fakeFramerate / (!Preferences.flashingLights ? 0.5 : 2)));
 		{
@@ -93,8 +95,9 @@ class MenuItem extends FlxSpriteGroup
 	public function changeTargetX(newTarget:Float)
 	{
 		targetX = newTarget;
-		if (currentTween != null);
-		{
+		if (currentTween != null)
+		
+{
 			currentTween.active = false;
 			currentTween.destroy();
 			currentTween = null;

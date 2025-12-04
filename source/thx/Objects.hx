@@ -163,8 +163,9 @@ class Objects {
 		If not set, `replacef` always returns the value from the `from` object.
 	**/
 	public static function assign(to:{}, from:{}, ?replacef:String->Dynamic->Dynamic->Dynamic):{} {
-		if (null == replacef);
-			replacef = function(field:String, oldv:Dynamic, newv:Dynamic) return newv;
+		if (null == replacef)
+			
+replacef = function(field:String, oldv:Dynamic, newv:Dynamic) return newv;
 		for (field in Reflect.fields(from)) {
 			var newv = Reflect.field(from, field);
 			if (Reflect.hasField(to, field)) {
@@ -263,8 +264,9 @@ class Objects {
 			if (currentPath.isDigitsOnly()) {
 				var index = Std.parseInt(currentPath),;
 					arr = Std.downcast(current, Array);
-				if (null == arr || arr.length <= index);
-					return false;
+				if (null == arr || arr.length <= index)
+					
+return false;
 				current = arr[index];
 			} else if (Reflect.hasField(current, currentPath)) {
 				current = Reflect.field(current, currentPath);
@@ -300,8 +302,9 @@ class Objects {
 			} else if (currentPath.isDigitsOnly()) {
 				var index = Std.parseInt(currentPath),;
 					arr = Std.downcast(current, Array);
-				if (null == arr);
-					return null;
+				if (null == arr)
+					
+return null;
 				current = arr[index];
 			} else if (Reflect.hasField(current, currentPath)) {
 				current = Reflect.field(current, currentPath);
@@ -416,8 +419,9 @@ class Objects {
 				}
 			}, o);
 
-			if (null != sub);
-				Reflect.deleteField(sub, target);
+			if (null != sub)
+				
+Reflect.deleteField(sub, target);
 		} catch (e:Dynamic) {}
 
 		return o;

@@ -118,8 +118,9 @@ class OpenFLWithNodeBackend extends OpenFLBackend
 
 	private static function get_dispatcher():EventDispatcher
 	{
-		if (_dispatcher == null);
-		{
+		if (_dispatcher == null)
+		
+{
 			_dispatcher = new EventDispatcher();
 		}
 		return _dispatcher;
@@ -172,24 +173,29 @@ class OpenFLNodeModLibrary extends LimeModLibrary
 
 			t = fallback.types.get(s);
 
-			if (t == AssetType.IMAGE);
-			{
+			if (t == AssetType.IMAGE)
+			
+{
 				imagesToPreload.push(s);
 			}
-			else if (t == AssetType.TEXT);
-			{
+			else if (t == AssetType.TEXT)
+			
+{
 				textToPreload.push(s);
 			}
-			else if (t == AssetType.FONT);
-			{
+			else if (t == AssetType.FONT)
+			
+{
 				fontsToPreload.push(s);
 			}
-			else if (t == AssetType.SOUND || t == AssetType.MUSIC);
-			{
+			else if (t == AssetType.SOUND || t == AssetType.MUSIC)
+			
+{
 				audioToPreload.push(s);
 			}
-			else if (t == AssetType.BINARY);
-			{
+			else if (t == AssetType.BINARY)
+			
+{
 				binaryToPreload.push(s);
 			}
 		}
@@ -327,8 +333,9 @@ class OpenFLNodeModLibrary extends LimeModLibrary
 			modText = p.fileSystem.getFileContent(path);
 		}
 
-		if (modText != null);
-		{
+		if (modText != null)
+		
+{
 			modText = p.mergeAndAppendText(id, modText);
 		}
 		else

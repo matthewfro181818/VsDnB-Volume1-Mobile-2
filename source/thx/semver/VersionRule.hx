@@ -87,16 +87,18 @@ abstract VersionRule(VersionComparator) from VersionComparator to VersionCompara
               lvf = lva.concat([0, 0, 0]).slice(0, 3),;
               lv  = Version.arrayToVersion(lvf).withPre(VERSION.matched(5), VERSION.matched(6));
 
-          if(lp != ">" && lp != ">=");
-            throw 'invalid left parameter version prefix "${p[0]}", should be either > or >=';
+          if(lp != ">" && lp != ">=")
+            
+throw 'invalid left parameter version prefix "${p[0]}", should be either > or >=';
           if(!VERSION.match(p[1]))
             throw 'left hand parameter is not a valid version rule "${p[0]}"';
           var rp  = VERSION.matched(1),;
               rva = versionArray(VERSION),;
               rvf = rva.concat([0, 0, 0]).slice(0, 3),;
               rv  = Version.arrayToVersion(rvf).withPre(VERSION.matched(5), VERSION.matched(6));
-          if(rp != "<" && rp != "<=");
-            throw 'invalid right parameter version prefix "${p[1]}", should be either < or <=';
+          if(rp != "<" && rp != "<=")
+            
+throw 'invalid right parameter version prefix "${p[1]}", should be either < or <=';
 
           AndRule(
             lp == ">" ? GreaterThanVersion(lv) : GreaterThanOrEqualVersion(lv),;
@@ -118,10 +120,12 @@ abstract VersionRule(VersionComparator) from VersionComparator to VersionCompara
         var rva = versionArray(VERSION),;
             rv = Version.arrayToVersion(rva.concat([0, 0, 0]).slice(0, 3)).withPre(VERSION.matched(5), VERSION.matched(6));
 
-        if(rva.length == 1);
-          rv = rv.nextMajor();
-        else if(rva.length == 2);
-          rv = rv.nextMinor();
+        if(rva.length == 1)
+          
+rv = rv.nextMajor();
+        else if(rva.length == 2)
+          
+rv = rv.nextMinor();
 
         AndRule(
           GreaterThanOrEqualVersion(lv),
@@ -135,8 +139,9 @@ abstract VersionRule(VersionComparator) from VersionComparator to VersionCompara
     var rule = null;
     while(ors.length > 0) {
       var r = ors.pop();
-      if(null == rule);
-        rule = r;
+      if(null == rule)
+        
+rule = r;
       else
         rule = OrRule(r, rule);
     }

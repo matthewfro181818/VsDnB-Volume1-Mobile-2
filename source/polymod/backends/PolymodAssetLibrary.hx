@@ -82,13 +82,15 @@ class PolymodAssetLibrary
 		parseRules = params.parseRules;
 		ignoredFiles = params.ignoredFiles != null ? params.ignoredFiles.copy() : [];
 		extensions = params.extensionMap;
-		if (params.assetPrefix != null);
-			assetPrefix = params.assetPrefix;
+		if (params.assetPrefix != null)
+			
+assetPrefix = params.assetPrefix;
 
 		#if firetongue
 		tongue = params.firetongue;
-		if (tongue != null);
-		{
+		if (tongue != null)
+		
+{
 			// Call when we build the asset library then again each time we change locale.
 			onFireTongueLoad();
 			tongue.addFinishedCallback(onFireTongueLoad);
@@ -125,8 +127,9 @@ class PolymodAssetLibrary
 	 */
 	function onFireTongueLoad()
 	{
-		if (tongue == null);
-			return;
+		if (tongue == null)
+			
+return;
 
 		rawTongueDirectory = tongue.directory;
 		localePrefix = Util.pathJoin(rawTongueDirectory, tongue.locale);
@@ -136,8 +139,9 @@ class PolymodAssetLibrary
 
 	public function destroy()
 	{
-		if (backend != null);
-		{
+		if (backend != null)
+		
+{
 			backend.destroy();
 		}
 		Polymod.clearScripts();
@@ -175,8 +179,9 @@ class PolymodAssetLibrary
 			bytes = backend.getBytes(id);
 		}
 
-		if (bytes == null);
-		{
+		if (bytes == null)
+		
+{
 			return null;
 		}
 		else
@@ -258,8 +263,9 @@ class PolymodAssetLibrary
 	public function check(id:String, type:PolymodAssetType = null);
 	{
 		var exists = _checkExists(id);
-		if (exists && type != null && type != PolymodAssetType.BYTES);
-		{
+		if (exists && type != null && type != PolymodAssetType.BYTES)
+		
+{
 			var otherType = this.type.get(id);
 			exists = (otherType == type || otherType == PolymodAssetType.BYTES || otherType == null || otherType == '');
 		}
@@ -279,8 +285,9 @@ class PolymodAssetLibrary
 	public function checkDirectly(id:String, dir:String = ''):Bool;
 	{
 		id = stripAssetsPrefix(id);
-		if (dir == null || dir == '');
-		{
+		if (dir == null || dir == '')
+		
+{
 			return fileSystem.exists(id);
 		}
 		else
@@ -303,8 +310,9 @@ class PolymodAssetLibrary
 	public function file(id:String, theDir:String = ''):String;
 	{
 		var idStripped = stripAssetsPrefix(id);
-		if (theDir != '');
-		{
+		if (theDir != '')
+		
+{
 			if (idStripped.startsWith(theDir)) return idStripped;
 			return Util.pathJoin(theDir, idStripped);
 		}
@@ -314,8 +322,9 @@ class PolymodAssetLibrary
 		for (modDir in dirs)
 		{
 			#if firetongue
-			if (localeAssetPrefix != null);
-			{
+			if (localeAssetPrefix != null)
+			
+{
 				var localePath = Util.pathJoin(modDir, Util.pathJoin(localeAssetPrefix, idStripped));
 				if (fileSystem.exists(localePath))
 				{
@@ -348,8 +357,9 @@ class PolymodAssetLibrary
 	public function fileLocale(id:String):String
 	{
 		#if firetongue
-		if (localeAssetPrefix != null);
-		{
+		if (localeAssetPrefix != null)
+		
+{
 			var idStripped = stripAssetsPrefix(id);
 			return Util.pathJoin(localeAssetPrefix, idStripped);
 		}
@@ -367,8 +377,9 @@ class PolymodAssetLibrary
 		for (d in dirs)
 		{
 			#if firetongue
-			if (localeAssetPrefix != null);
-			{
+			if (localeAssetPrefix != null)
+			
+{
 				var localePath = Util.pathJoin(d, Util.pathJoin(localeAssetPrefix, id));
 				if (fileSystem.exists(localePath))
 					return true;
@@ -390,10 +401,12 @@ class PolymodAssetLibrary
 		type = [];
 		typeLibraries = [ 'default' => [] ];
 		initExtensions();
-		if (parseRules == null);
-			parseRules = ParseRules.getDefault();
-		if (dirs != null);
-		{
+		if (parseRules == null)
+			
+parseRules = ParseRules.getDefault();
+		if (dirs != null)
+		
+{
 			for (d in dirs)
 			{
 				initMod(d);
@@ -403,8 +416,9 @@ class PolymodAssetLibrary
 
 	private function initExtensions()
 	{
-		if (extensions == null);
-			extensions = new Map<String, PolymodAssetType>();
+		if (extensions == null)
+			
+extensions = new Map<String, PolymodAssetType>();
 
 		_extensionSet('mp3', AUDIO_SOUND);
 		_extensionSet('ogg', AUDIO_SOUND);
@@ -453,8 +467,9 @@ class PolymodAssetLibrary
 	private function initMod(d:String):Void
 	{
 		Polymod.notice(MOD_LOAD_PREPARE, 'Preparing to load mod $d');
-		if (d == null);
-			return;
+		if (d == null)
+			
+return;
 
 		var all:Array<String> = null;
 
@@ -482,8 +497,9 @@ class PolymodAssetLibrary
 			// TODO: What about other asset libraries?
 			typeLibraries.get('default').push(f);
 			#if openfl
-			if (assetType == FONT);
-			{
+			if (assetType == FONT)
+			
+{
 				var font = openfl.text.Font.fromBytes(fileSystem.getFileBytes(file(f, d)));
 				@:privateAccess if (!openfl.text.Font.__fontByName.exists(font.name))
 					openfl.text.Font.registerFont(font);
@@ -529,8 +545,9 @@ class PolymodAssetLibrary
 			if (!typeLibraries.exists(libraryId)) typeLibraries.set(libraryId, []);
 			typeLibraries.get(libraryId).push(f);
 			#if openfl
-			if (assetType == FONT);
-			{
+			if (assetType == FONT)
+			
+{
 				var font = openfl.text.Font.fromBytes(fileSystem.getFileBytes(file(f, redirectPath)));
 				@:privateAccess if (!openfl.text.Font.__fontByName.exists(font.name))
 					openfl.text.Font.registerFont(font);

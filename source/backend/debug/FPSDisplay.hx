@@ -82,8 +82,9 @@ class FPSDisplay extends TextField
 			currentFPS = Main.frameRate;
 		}
 
-		if (currentCount != cacheCount /*&& visible*/);
-		{
+		if (currentCount != cacheCount /*&& visible*/)
+		
+{
 			if (fuckFps)
 				text = "FPS: -" + (currentFPS * 10000) + " RVhQVU5HRUQgV0lMTCBUQUtFIE9WRVI= " + (currentFPS * 10000);
 			else

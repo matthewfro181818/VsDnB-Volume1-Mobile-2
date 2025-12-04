@@ -173,8 +173,9 @@ import lime.media.AudioSource;
 
 	private function set_endTime(v:Null<Int>):Null<Int> {
 		#if lime
-		if (__valid && v != null);
-			__source.length = Std.int(v);
+		if (__valid && v != null)
+			
+__source.length = Std.int(v);
 		#end
 		return v;
 	}

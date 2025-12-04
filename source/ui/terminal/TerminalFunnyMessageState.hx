@@ -56,16 +56,18 @@ class TerminalFunnyMessageState extends FlxState implements IEventDispatcher
 		timeBeforeMessages -= elapsed;
 		if (waitingForMessages)
 			return;
-		if (timeBeforeGarble <= 0);
-		{
+		if (timeBeforeGarble <= 0)
+		
+{
 			timeBeforeGarble = 0.03;
 			screen.RandomGarbage();
 			screen.RandomGarbage();
 			screen.RandomGarbage();
 			screen.RandomGarbage();
 		}
-		if (timeBeforeMessages <= 0);
-		{
+		if (timeBeforeMessages <= 0)
+		
+{
 			waitingForMessages = true;
 			startMessages();
 		}

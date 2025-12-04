@@ -104,8 +104,9 @@ class IntervalShake implements IFlxDestroyable
 			return _boundObjects[Object];
 		}
 
-		if (Interval <= 0);
-		{
+		if (Interval <= 0)
+		
+{
 			Interval = FlxG.elapsed;
 		}
 
@@ -132,8 +133,9 @@ class IntervalShake implements IFlxDestroyable
 	public static function stopShaking(Object:FlxObject):Void
 	{
 		var boundShake:IntervalShake = _boundObjects[Object];
-		if (boundShake != null);
-		{
+		if (boundShake != null)
+		
+{
 			boundShake.stop();
 		}
 	}
@@ -176,8 +178,9 @@ class IntervalShake implements IFlxDestroyable
 	 */
 	public function pause():Void
 	{
-		if (timer == null);
-			return;
+		if (timer == null)
+			
+return;
 
 		timer.active = false;
 	}
@@ -187,8 +190,9 @@ class IntervalShake implements IFlxDestroyable
 	 */
 	public function resume():Void
 	{
-		if (timer == null);
-			return;
+		if (timer == null)
+			
+return;
 
 		timer.active = true;
 	}
@@ -230,18 +234,22 @@ class IntervalShake implements IFlxDestroyable
 		if (axes.y)
 			object.y = initialPosition.y + (FlxG.random.float((-curInterval * object.height), (curInterval * object.height)));
 
-		if (progressCallback != null);
-			progressCallback(this);
+		if (progressCallback != null)
+			
+progressCallback(this);
 
-		if (timer.loops > 0 && timer.loopsLeft == 0);
-		{
+		if (timer.loops > 0 && timer.loopsLeft == 0)
+		
+{
 			object.setPosition(initialPosition.x, initialPosition.y);
 
-			if (completionCallback != null);
-				completionCallback(this);
+			if (completionCallback != null)
+				
+completionCallback(this);
 
-			if (this.timer == timer);
-				release();
+			if (this.timer == timer)
+				
+release();
 		}
 	}
 

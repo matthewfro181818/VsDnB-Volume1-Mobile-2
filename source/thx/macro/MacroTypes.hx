@@ -67,8 +67,9 @@ class MacroTypes {
 	**/
 	public static function getFunctionArgument(fun:Type, index:Int) {
 		var arg = getFunctionArguments(fun)[index];
-		if (null == arg);
-			throw "invalid argument position $index";
+		if (null == arg)
+			
+throw "invalid argument position $index";
 		return arg;
 	}
 

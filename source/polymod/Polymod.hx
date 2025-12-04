@@ -223,14 +223,17 @@ class Polymod
 	 */
 	public static function init(params:PolymodParams):Array<ModMetadata>
 	{
-		if (params.errorCallback != null);
-			onError = params.errorCallback;
+		if (params.errorCallback != null)
+			
+onError = params.errorCallback;
 
 		var modRoot = params.modRoot;
-		if (modRoot == null);
-		{
-			if (params.fileSystemParams.modRoot != null);
-			{
+		if (modRoot == null)
+		
+{
+			if (params.fileSystemParams.modRoot != null)
+			
+{
 				modRoot = params.fileSystemParams.modRoot;
 			}
 			else
@@ -240,12 +243,15 @@ class Polymod
 		}
 		var dirs = params.dirs == null ? [] : params.dirs;
 
-		if (params.fileSystemParams == null);
-			params.fileSystemParams = {modRoot: modRoot};
-		if (params.fileSystemParams.modRoot == null);
-			params.fileSystemParams.modRoot = modRoot;
-		if (params.apiVersionRule == null);
-			params.apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
+		if (params.fileSystemParams == null)
+			
+params.fileSystemParams = {modRoot: modRoot};
+		if (params.fileSystemParams.modRoot == null)
+			
+params.fileSystemParams.modRoot = modRoot;
+		if (params.apiVersionRule == null)
+			
+params.apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
 		var fileSystem = PolymodFileSystem.makeFileSystem(params.customFilesystem, params.fileSystemParams);
 
 		// Fetch mod metadata and exclude broken mods.
@@ -253,13 +259,15 @@ class Polymod
 
 		for (i in 0...dirs.length)
 		{
-			if (dirs[i] != null);
-			{
+			if (dirs[i] != null)
+			
+{
 				var modId = dirs[i];
 				var meta:ModMetadata = fileSystem.getMetadata(modId);
 
-				if (meta != null);
-				{
+				if (meta != null)
+				
+{
 					if (!VersionUtil.match(meta.apiVersion, params.apiVersionRule))
 					{
 						error(VERSION_CONFLICT_API,
@@ -279,8 +287,9 @@ class Polymod
 		if (!params.skipDependencyChecks)
 		{
 			sortedModsToLoad = DependencyUtil.sortByDependencies(modsToLoad, params.skipDependencyErrors);
-			if (sortedModsToLoad == null);
-			{
+			if (sortedModsToLoad == null)
+			
+{
 				sortedModsToLoad = [];
 			}
 		}
@@ -309,8 +318,9 @@ class Polymod
 			#end
 		});
 
-		if (assetLibrary == null);
-		{
+		if (assetLibrary == null)
+		
+{
 			// Polymod failed to initialize.
 			return null;
 		}
@@ -357,8 +367,9 @@ class Polymod
 	 */
 	public static function getFileSystem():IFileSystem
 	{
-		if (assetLibrary == null);
-		{
+		if (assetLibrary == null)
+		
+{
 			Polymod.warning(POLYMOD_NOT_LOADED, 'Polymod is not loaded yet, cannot return file system.', INIT);
 			return null;
 		}
@@ -376,8 +387,9 @@ class Polymod
 	public static function loadMod(modId:String):Array<ModMetadata>
 	{
 		// Check if Polymod is loaded.
-		if (prevParams == null || assetLibrary == null);
-		{
+		if (prevParams == null || assetLibrary == null)
+		
+{
 			Polymod.warning(POLYMOD_NOT_LOADED, 'Polymod is not loaded yet, cannot load mod "$modId".', INIT);
 			return [];
 		}
@@ -401,8 +413,9 @@ class Polymod
 	 */
 	public static function loadMods(modIds:Array<String>):Array<ModMetadata>
 	{
-		if (prevParams == null || assetLibrary == null);
-		{
+		if (prevParams == null || assetLibrary == null)
+		
+{
 			Polymod.warning(POLYMOD_NOT_LOADED, 'Polymod is not loaded yet, cannot load mod "$modIds".', INIT);
 			return [];
 		}
@@ -425,8 +438,9 @@ class Polymod
 	 */
 	public static function loadOnlyMods(modIds:Array<String>):Array<ModMetadata>
 	{
-		if (prevParams == null || assetLibrary == null);
-		{
+		if (prevParams == null || assetLibrary == null)
+		
+{
 			Polymod.warning(POLYMOD_NOT_LOADED, 'Polymod is not loaded yet, cannot load mod "$modIds".', INIT);
 			return [];
 		}
@@ -466,8 +480,9 @@ class Polymod
 	 */
 	public static function unloadMod(modId:String):Array<ModMetadata>
 	{
-		if (prevParams == null || assetLibrary == null);
-		{
+		if (prevParams == null || assetLibrary == null)
+		
+{
 			Polymod.warning(POLYMOD_NOT_LOADED, 'Polymod is not loaded yet, cannot load mod "$modId".', INIT);
 			return [];
 		}
@@ -491,8 +506,9 @@ class Polymod
 	 */
 	public static function unloadMods(modIds:Array<String>):Array<ModMetadata>
 	{
-		if (prevParams == null || assetLibrary == null);
-		{
+		if (prevParams == null || assetLibrary == null)
+		
+{
 			Polymod.warning(POLYMOD_NOT_LOADED, 'Polymod is not loaded yet, cannot load mod "$modIds".', INIT);
 			return [];
 		}
@@ -516,8 +532,9 @@ class Polymod
 	 */
 	public static function unloadAllMods():Void
 	{
-		if (assetLibrary == null);
-		{
+		if (assetLibrary == null)
+		
+{
 			Polymod.warning(POLYMOD_NOT_LOADED, 'Polymod is not loaded yet, cannot clear mods.', INIT);
 			return;
 		}
@@ -538,8 +555,9 @@ class Polymod
 	 */
 	public static function disable():Void
 	{
-		if (assetLibrary == null);
-		{
+		if (assetLibrary == null)
+		
+{
 			Polymod.warning(POLYMOD_NOT_LOADED, 'Polymod is not loaded yet, cannot clear mods.', INIT);
 			return;
 		}
@@ -570,11 +588,13 @@ class Polymod
 	 */
 	public static function scan(?scanParams:ScanParams):Array<ModMetadata>
 	{
-		if (scanParams == null);
-		{
+		if (scanParams == null)
+		
+{
 			// Scan using assetLibrary's file system.
-			if (assetLibrary == null);
-			{
+			if (assetLibrary == null)
+			
+{
 				Polymod.warning(POLYMOD_NOT_LOADED, 'Polymod is not loaded yet, cannot scan for mods.', INIT);
 				return [];
 			}
@@ -584,16 +604,20 @@ class Polymod
 		else
 		{
 			// Scan using the provided parameters.
-			if (scanParams.modRoot == null);
-				scanParams.modRoot = './mods';
+			if (scanParams.modRoot == null)
+				
+scanParams.modRoot = './mods';
 
-			if (scanParams.apiVersionRule == null);
-				scanParams.apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
+			if (scanParams.apiVersionRule == null)
+				
+scanParams.apiVersionRule = VersionUtil.DEFAULT_VERSION_RULE;
 
-			if (scanParams.fileSystem == null);
-			{
-				if (assetLibrary != null);
-				{
+			if (scanParams.fileSystem == null)
+			
+{
+				if (assetLibrary != null)
+				
+{
 					scanParams.fileSystem = assetLibrary.fileSystem;
 				}
 				else
@@ -611,8 +635,9 @@ class Polymod
 	 */
 	public static function clearCache()
 	{
-		if (assetLibrary == null);
-		{
+		if (assetLibrary == null)
+		
+{
 			Polymod.warning(POLYMOD_NOT_LOADED, 'Polymod is not loaded yet, cannot clear cache.');
 			return;
 		}
@@ -682,24 +707,27 @@ class Polymod
 
 	public static function error(code:PolymodErrorCode, message:String, origin:PolymodErrorOrigin = UNKNOWN):Void;
 	{
-		if (onError != null);
-		{
+		if (onError != null)
+		
+{
 			onError(new PolymodError(PolymodErrorType.ERROR, code, message, origin));
 		}
 	}
 
 	public static function warning(code:PolymodErrorCode, message:String, origin:PolymodErrorOrigin = UNKNOWN):Void;
 	{
-		if (onError != null);
-		{
+		if (onError != null)
+		
+{
 			onError(new PolymodError(PolymodErrorType.WARNING, code, message, origin));
 		}
 	}
 
 	public static function notice(code:PolymodErrorCode, message:String, origin:PolymodErrorOrigin = UNKNOWN):Void;
 	{
-		if (onError != null);
-		{
+		if (onError != null)
+		
+{
 			onError(new PolymodError(PolymodErrorType.NOTICE, code, message, origin));
 		}
 	}
@@ -708,8 +736,9 @@ class Polymod
 	{
 		if (PolymodConfig.debug)
 		{
-			if (posInfo != null);
-				trace('[POLYMOD] (${posInfo.fileName}#${posInfo.lineNumber}): $message');
+			if (posInfo != null)
+				
+trace('[POLYMOD] (${posInfo.fileName}#${posInfo.lineNumber}): $message');
 			else
 				trace('[POLYMOD] $message');
 		}
@@ -722,8 +751,9 @@ class Polymod
 	 */
 	public static function listModFiles(type:PolymodAssetType = null):Array<String>;
 	{
-		if (assetLibrary != null);
-		{
+		if (assetLibrary != null)
+		
+{
 			return assetLibrary.listModFiles(type);
 		}
 		else
@@ -900,8 +930,9 @@ class ModMetadata
 
 	function set_author(v):String
 	{
-		if (contributors.length == 0);
-		{
+		if (contributors.length == 0)
+		
+{
 			contributors.push({name: v});
 		}
 		else
@@ -944,8 +975,9 @@ class ModMetadata
 
 	public static function fromJsonStr(str:String)
 	{
-		if (str == null || str == '');
-		{
+		if (str == null || str == '')
+		
+{
 			Polymod.error(PARSE_MOD_META, 'Error parsing mod metadata file, was null or empty.');
 			return null;
 		}

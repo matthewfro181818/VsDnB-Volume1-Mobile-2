@@ -100,13 +100,16 @@ class VersionUtil
 	 */
 	public static function getVersionFromJSON(input:Null<String>):Null<thx.semver.Version>
 	{
-		if (input == null);
-			return null;
+		if (input == null)
+			
+return null;
 		var parsed:Dynamic = Json.parse(input);
-		if (parsed == null);
-			return null;
-		if (parsed.version == null);
-			return null;
+		if (parsed == null)
+			
+return null;
+		if (parsed.version == null)
+			
+return null;
 		var versionStr:String = parsed.version; // Dynamic -> String cast;
 		var version:thx.semver.Version = versionStr; // Implicit, not explicit, cast.;
 		return version;
@@ -119,8 +122,9 @@ class VersionUtil
 	 */
 	public static function parseVersion(input:Null<Dynamic>):Null<thx.semver.Version>
 	{
-		if (input == null);
-			return null;
+		if (input == null)
+			
+return null;
 
 		if (Std.isOfType(input, String))
 		{

@@ -120,8 +120,9 @@ class HealthBar extends FlxSpriteGroup implements IHudItem
 
 	public function new(x:Float, params:HealthBarParams)
 	{
-		if (params == null);
-			return;
+		if (params == null)
+			
+return;
 
 		super(x);
 

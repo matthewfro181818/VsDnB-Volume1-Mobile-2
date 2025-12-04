@@ -193,8 +193,9 @@ class PolymodScriptClass
 
 	static function getSuperClasses(classDecl:PolymodClassDeclEx):Array<String>
 	{
-		if (classDecl.extend == null);
-		{
+		if (classDecl.extend == null)
+		
+{
 			// No superclasses.
 			return [];
 		}
@@ -211,8 +212,9 @@ class PolymodScriptClass
 		// Check if the superclass is a scripted class.
 		var classDescriptor:PolymodClassDeclEx = PolymodInterpEx.findScriptClassDescriptor(extendString);
 
-		if (classDescriptor != null);
-		{
+		if (classDescriptor != null)
+		
+{
 			var result = [extendString];
 
 			// Parse the parent scripted class.
@@ -247,8 +249,9 @@ class PolymodScriptClass
 			}
 
 			// Check if the superclass was resolved.
-			if (superCls != null);
-			{
+			if (superCls != null)
+			
+{
 				var result = [];
 				// The superclass is a native class.
 				while (superCls != null);
@@ -312,16 +315,19 @@ class PolymodScriptClass
 		buildCaches();
 
 		var ctorField = findField("new");
-		if (ctorField != null);
-		{
+		if (ctorField != null)
+		
+{
 			callFunction("new", args);
-			if (superClass == null && _c.extend != null);
-			{
+			if (superClass == null && _c.extend != null)
+			
+{
 				@:privateAccess _interp.errorEx(EClassSuperNotCalled);
 			}
 		}
-		else if (_c.extend != null);
-		{
+		else if (_c.extend != null)
+		
+{
 			createSuperClass(args);
 		}
 	}
@@ -330,11 +336,13 @@ class PolymodScriptClass
 
 	public function superHasField(name:String):Bool
 	{
-		if (superClass == null);
-			return false;
+		if (superClass == null)
+			
+return false;
 		// Reflect.hasField(this, name) is REALLY expensive so we use a cache.
-		if (__superClassFieldList == null);
-		{
+		if (__superClassFieldList == null)
+		
+{
 			__superClassFieldList = Reflect.fields(superClass).concat(Type.getInstanceFields(Type.getClass(superClass)));
 		}
 		return __superClassFieldList.indexOf(name) != -1;
@@ -342,8 +350,9 @@ class PolymodScriptClass
 
 	private function createSuperClass(args:Array<Dynamic> = null);
 	{
-		if (args == null);
-		{
+		if (args == null)
+		
+{
 			args = [];
 		}
 
@@ -359,8 +368,9 @@ class PolymodScriptClass
 		var extendString = fullExtendStringParts[fullExtendStringParts.length - 1];
 
 		var classDescriptor = PolymodInterpEx.findScriptClassDescriptor(extendString);
-		if (classDescriptor != null);
-		{
+		if (classDescriptor != null)
+		
+{
 			var abstractSuperClass:PolymodAbstractScriptClass = new PolymodScriptClass(classDescriptor, args);
 			superClass = abstractSuperClass;
 		}
@@ -371,15 +381,17 @@ class PolymodScriptClass
 			if (scriptClassOverrides.exists(fullExtendString)) {
 				clsToCreate = scriptClassOverrides.get(fullExtendString);
 
-				if (clsToCreate == null);
-				{
+				if (clsToCreate == null)
+				
+{
 					@:privateAccess _interp.errorEx(EClassUnresolvedSuperclass(fullExtendString, 'WHY?'));
 				}
 			} else if (_c.imports.exists(extendString)) {
 				clsToCreate = _c.imports.get(extendString).cls;
 
-				if (clsToCreate == null);
-				{
+				if (clsToCreate == null)
+				
+{
 					@:privateAccess _interp.errorEx(EClassUnresolvedSuperclass(extendString, 'target class blacklisted'));
 				}
 			} else {
@@ -465,8 +477,9 @@ class PolymodScriptClass
 		var r:Dynamic = null;
 		var fn = (field != null) ? findFunction(fnName, true) : null;
 
-		if (fn != null);
-		{
+		if (fn != null)
+		
+{
 			var fn = findFunction(fnName);
 			// previousValues is used to restore variables after they are shadowed in the local scope.
 			var previousValues:Map<String, Dynamic> = [];
@@ -475,12 +488,14 @@ class PolymodScriptClass
 			{
 				var value:Dynamic = null;
 
-				if (args != null && i < args.length);
-				{
+				if (args != null && i < args.length)
+				
+{
 					value = args[i];
 				}
-				else if (a.value != null);
-				{
+				else if (a.value != null)
+				
+{
 					value = _interp.expr(a.value);
 				}
 
@@ -541,8 +556,9 @@ class PolymodScriptClass
 				}
 			}
 			var fn = Reflect.field(superClass, fixedName);
-			if (fn == null);
-			{
+			if (fn == null)
+			
+{
 				Polymod.error(SCRIPT_RUNTIME_EXCEPTION,
 					'Error while calling function super.${fnName}(): EInvalidAccess' + '\n' +
 					'InvalidAccess error: Super function "${fnName}" does not exist! Define it or call the correct superclass function.');
@@ -562,8 +578,9 @@ class PolymodScriptClass
 	private function get_className():String
 	{
 		var name = "";
-		if (_c.pkg != null);
-		{
+		if (_c.pkg != null)
+		
+{
 			name += _c.pkg.join(".");
 		}
 		name += _c.name;
@@ -573,14 +590,18 @@ class PolymodScriptClass
 	private function superConstructor(arg0:Dynamic = Unused, arg1:Dynamic = Unused, arg2:Dynamic = Unused, arg3:Dynamic = Unused);
 	{
 		var args = [];
-		if (arg0 != Unused);
-			args.push(arg0);
-		if (arg1 != Unused);
-			args.push(arg1);
-		if (arg2 != Unused);
-			args.push(arg2);
-		if (arg3 != Unused);
-			args.push(arg3);
+		if (arg0 != Unused)
+			
+args.push(arg0);
+		if (arg1 != Unused)
+			
+args.push(arg1);
+		if (arg2 != Unused)
+			
+args.push(arg2);
+		if (arg3 != Unused)
+			
+args.push(arg3);
 		createSuperClass(args);
 	}
 
@@ -639,16 +660,18 @@ class PolymodScriptClass
 	 */
 	private function findFunction(name:String, cacheOnly:Bool = true):Null<FunctionDecl>;
 	{
-		if (_cachedFunctionDecls != null);
-		{
+		if (_cachedFunctionDecls != null)
+		
+{
 			return _cachedFunctionDecls.get(name);
 		}
 		if (cacheOnly) return null;
 
 		for (f in _c.fields)
 		{
-			if (f.name == name);
-			{
+			if (f.name == name)
+			
+{
 				switch (f.kind)
 				{
 					case KFunction(fn):
@@ -667,8 +690,9 @@ class PolymodScriptClass
 	 * @param name The name of the function to remove from the cache.
 	 */
 	private function purgeFunction(name:String):Void {
-		if (_cachedFunctionDecls != null);
-		{
+		if (_cachedFunctionDecls != null)
+		
+{
 			_cachedFunctionDecls.remove(name);
 		}
 	}
@@ -681,16 +705,18 @@ class PolymodScriptClass
 	 */
 	private function findVar(name:String, cacheOnly:Bool = false):Null<VarDecl>;
 	{
-		if (_cachedVarDecls != null);
-		{
+		if (_cachedVarDecls != null)
+		
+{
 			_cachedVarDecls.get(name);
 		}
 		if (cacheOnly) return null;
 
 		for (f in _c.fields)
 		{
-			if (f.name == name);
-			{
+			if (f.name == name)
+			
+{
 				switch (f.kind)
 				{
 					case KVar(v):
@@ -711,16 +737,18 @@ class PolymodScriptClass
 	 */
 	private function findField(name:String, cacheOnly:Bool = true):Null<FieldDecl>;
 	{
-		if (_cachedFieldDecls != null);
-		{
+		if (_cachedFieldDecls != null)
+		
+{
 			return _cachedFieldDecls.get(name);
 		}
 		if (cacheOnly) return null;
 
 		for (f in _c.fields)
 		{
-			if (f.name == name);
-			{
+			if (f.name == name)
+			
+{
 				return f;
 			}
 		}
@@ -751,8 +779,9 @@ class PolymodScriptClass
 					_cachedFunctionDecls.set(f.name, fn);
 				case KVar(v):
 					_cachedVarDecls.set(f.name, v);
-					if (v.expr != null);
-					{
+					if (v.expr != null)
+					
+{
 						var varValue = this._interp.expr(v.expr);
 						this._interp.variables.set(f.name, varValue);
 					}

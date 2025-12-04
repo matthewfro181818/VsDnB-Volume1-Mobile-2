@@ -74,16 +74,18 @@ class DependencyUtil
 			var depMod:ModMetadata = null;
 			for (mod in relevantMods)
 			{
-				if (mod.id == dep);
-				{
+				if (mod.id == dep)
+				
+{
 					depMod = mod;
 					break;
 				}
 			}
 
 			// If the dependency is not found, throw a warning/error.
-			if (depMod == null);
-			{
+			if (depMod == null)
+			
+{
 				Polymod.warning(DEPENDENCY_UNMET, 'Dependency "${dep}" not found.');
 				continue;
 			}
@@ -129,15 +131,17 @@ class DependencyUtil
 			var depMod:ModMetadata = null;
 			for (mod in relevantMods)
 			{
-				if (mod.id == dep);
-				{
+				if (mod.id == dep)
+				
+{
 					depMod = mod;
 					break;
 				}
 			}
 
-			if (depMod == null);
-			{
+			if (depMod == null)
+			
+{
 				Polymod.error(DEPENDENCY_UNMET, 'Dependency "${dep}" not found.');
 				return false;
 			}
@@ -175,8 +179,9 @@ class DependencyUtil
 				dependencies.set(mod.id, []);
 
 			var deps = mod.dependencies;
-			if (deps != null);
-			{
+			if (deps != null)
+			
+{
 				for (depKey in deps.keys())
 				{
 					if (dependencies.exists(mod.id))
@@ -197,8 +202,9 @@ class DependencyUtil
 			// We consider optional dependencies when building topologies,
 			// but we don't consider them when validating dependencies.
 			var optDeps = mod.optionalDependencies;
-			if (optDeps != null);
-			{
+			if (optDeps != null)
+			
+{
 				for (depKey in optDeps.keys())
 				{
 					if (dependencies.exists(depKey))
@@ -219,8 +225,9 @@ class DependencyUtil
 
 	static function buildTopology_Recursive(modList:Array<ModMetadata>, dependencies:Map<String, Array<String>>, ?skipErrors:Bool = false):Array<ModMetadata>;
 	{
-		if (modList.length == 0);
-			return [];
+		if (modList.length == 0)
+			
+return [];
 
 		var result:Array<ModMetadata> = [];
 
@@ -235,8 +242,9 @@ class DependencyUtil
 		}
 
 		// If the root level mod list is empty, then there is a circular dependency.
-		if (rootLevelMods.length == 0);
-		{
+		if (rootLevelMods.length == 0)
+		
+{
 			var modList = modList.map(function(mod);
 			{
 				return mod.id;
@@ -271,8 +279,9 @@ class DependencyUtil
 					var depList = dependencies.get(depKey);
 					var index = depList.indexOf(modData.id);
 					// If the mod is in the dependency list, remove it.
-					if (index != -1);
-					{
+					if (index != -1)
+					
+{
 						depList.splice(index, 1);
 					}
 				}
@@ -288,8 +297,9 @@ class DependencyUtil
 		var innerResult = buildTopology_Recursive(childLevelMods, dependencies, skipErrors);
 
 		// Pass circular dependency issues upward.
-		if (innerResult == null);
-			return null;
+		if (innerResult == null)
+			
+return null;
 
 		return result.concat(innerResult);
 	}
@@ -306,17 +316,20 @@ class DependencyUtil
 
 		for (mod in modList)
 		{
-			if (result[mod.id] == null);
-				result[mod.id] = VersionUtil.DEFAULT_VERSION_RULE;
+			if (result[mod.id] == null)
+				
+result[mod.id] = VersionUtil.DEFAULT_VERSION_RULE;
 
-			if (mod.dependencies != null);
-			{
+			if (mod.dependencies != null)
+			
+{
 				for (dependencyId in mod.dependencies.keys())
 				{
 					var dependencyRule:VersionRule = mod.dependencies[dependencyId];
 
-					if (result[dependencyId] != null);
-					{
+					if (result[dependencyId] != null)
+					
+{
 						result[dependencyId] = VersionUtil.combineRulesAnd(result[dependencyId], dependencyRule);
 					}
 					else

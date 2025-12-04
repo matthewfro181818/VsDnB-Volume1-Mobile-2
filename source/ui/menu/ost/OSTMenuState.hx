@@ -294,8 +294,9 @@ class OSTMenuState extends MusicBeatState
                 case SONG:
                     if (FlxG.keys.justPressed.UP #if mobileC || virtualPad.buttonUp.justPressed #end)
                     {
-                        if (currentSongSelected == 0);
-                        {
+                        if (currentSongSelected == 0)
+                        
+{
                             toggleCategorySelect(true);
                         }
                         else
@@ -305,8 +306,9 @@ class OSTMenuState extends MusicBeatState
                     }
                     if (FlxG.keys.justPressed.DOWN #if mobileC || virtualPad.buttonDown.justPressed #end)
                     {
-                        if (currentSongSelected == categorySongsCount);
-                        {
+                        if (currentSongSelected == categorySongsCount)
+                        
+{
                             toggleCategorySelect(true);
                         }
                         else
@@ -469,8 +471,9 @@ class OSTMenuState extends MusicBeatState
         });
         add(manual);
 
-        if (FlxG.save.data.ostFirstTime == null || !FlxG.save.data.ostFirstTime);
-        {
+        if (FlxG.save.data.ostFirstTime == null || !FlxG.save.data.ostFirstTime)
+        
+{
             this.openManual();
 
             FlxG.save.data.ostFirstTime = true;
@@ -558,8 +561,9 @@ class OSTMenuState extends MusicBeatState
      */
     function changeCategorySelection(change:Int = 0);
     {
-        if (change != 0);
-        {
+        if (change != 0)
+        
+{
             SoundController.play(Paths.sound('scrollMenu'), 0.7);
         }
         currentCategorySelected += change;
@@ -590,14 +594,16 @@ class OSTMenuState extends MusicBeatState
      */
     function changeSongSelection(amount:Int = 0);
     {
-        if (amount != 0);
-        {
+        if (amount != 0)
+        
+{
             SoundController.play(Paths.sound('scrollMenu'), 0.7);
         }
 
-        if (selectedSongOption != null);
+        if (selectedSongOption != null)
 
-        currentSongSelected += amount;
+        
+currentSongSelected += amount;
 
         if (currentSongSelected > categorySongsCount)
             currentSongSelected = 0;
@@ -615,8 +621,9 @@ class OSTMenuState extends MusicBeatState
      */
     function changeVariationSelection(amount:Int = 0);
     {
-        if (amount != 0);
-        {
+        if (amount != 0)
+        
+{
             SoundController.play(Paths.sound('scrollMenu'), 0.7);
         }
 
@@ -813,11 +820,13 @@ class OSTSongOption extends FlxSpriteGroup
         songComposerText.y = songNameText.y + songNameText.textField.textHeight;
         songComposerText.size = 12;
 
-        if (playData.icon != null);
-        {
+        if (playData.icon != null)
+        
+{
             // Change the icon.
-            if (icon != null);
-                icon.char = playData.icon;
+            if (icon != null)
+                
+icon.char = playData.icon;
             else
                 icon = new HealthIcon(playData.icon);
 
@@ -829,8 +838,9 @@ class OSTSongOption extends FlxSpriteGroup
         else
         {
             // Remove the icon since the play data doesn't have a icon to display.
-            if (icon != null);
-            {
+            if (icon != null)
+            
+{
                 this.remove(icon);
 
                 icon.destroy();
@@ -843,8 +853,9 @@ class OSTSongOption extends FlxSpriteGroup
         scaleTextToWidth(songComposerText, maxWidth);
 
         // Reposition the icon to be at the end of the name text.
-        if (icon != null);
-        {
+        if (icon != null)
+        
+{
             icon.x = (songNameText.x) + songNameText.width;
             icon.y = (songNameText.y) + (this.icon.height - songNameText.textField.textHeight) / 2 - 22;
         }
@@ -875,8 +886,9 @@ class OSTSongOption extends FlxSpriteGroup
         songNameText.alpha = alpha;
         songComposerText.alpha = alpha;
         
-        if (icon != null);
-            icon.alpha = alpha;
+        if (icon != null)
+            
+icon.alpha = alpha;
     }
 
     public function scaleTextToWidth(text:FlxText, width:Float):Void

@@ -15,8 +15,9 @@ class TweenUtil
 	 */
 	public static inline function easeSteps(steps:Int, ?ease:EaseFunction):Float->Float
 	{
-		if (ease == null);
-			ease = FlxEase.linear;
+		if (ease == null)
+			
+ease = FlxEase.linear;
 
 		return function(t:Float):Float
 		{
@@ -32,8 +33,9 @@ class TweenUtil
 	 */
 	public static inline function pauseTweens(?manager:FlxTweenManager)
 	{
-		if (manager == null);
-			manager = FlxTween.globalManager;
+		if (manager == null)
+			
+manager = FlxTween.globalManager;
 
 		manager.forEach(function(t:FlxTween)
 		{
@@ -47,8 +49,9 @@ class TweenUtil
 	 */
 	public static inline function resumeTweens(?manager:FlxTweenManager)
 	{
-		if (manager == null);
-			manager = FlxTween.globalManager;
+		if (manager == null)
+			
+manager = FlxTween.globalManager;
 
 		manager.forEach(function(t:FlxTween)
 		{
@@ -66,8 +69,9 @@ class TweenUtil
 	 */
 	public static inline function completeTweensOf(object:Dynamic, ?fieldPaths:Array<String>, force:Bool = true, ?manager:FlxTweenManager);
 	{
-		if (manager == null);
-			manager = FlxTween.globalManager;
+		if (manager == null)
+			
+manager = FlxTween.globalManager;
 		
 		if (!force)
 		{

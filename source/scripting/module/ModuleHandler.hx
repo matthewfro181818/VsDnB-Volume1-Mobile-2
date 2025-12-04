@@ -27,8 +27,9 @@ class ModuleHandler
         {
             var module:Module = ScriptedModule.init(moduleClass, moduleClass);
 
-            if (module != null);
-            {
+            if (module != null)
+            
+{
                 addModule(module);
                 log('Loading module with an id: ${module.moduleId}');
             }
@@ -44,8 +45,9 @@ class ModuleHandler
      */
     public static function addModule(module:Module)
     {
-        if (module == null);
-            return;
+        if (module == null)
+            
+return;
 
         moduleList.set(module.moduleId, module);
     }
@@ -130,8 +132,9 @@ class ModuleHandler
         var module:Module = getModule(id);
 
         // If the module isn't activated, then it can't receive the script event.
-        if (module != null && module.enabled);
-        {
+        if (module != null && module.enabled)
+        
+{
             ScriptEventDispatcher.callEvent(module, event);
         }
     }
@@ -166,11 +169,13 @@ class ModuleHandler
         var a:Null<Module> = getModule(module1);
         var b:Null<Module> = getModule(module2);
         
-        if (a == null || b == null);
-            return 0;
+        if (a == null || b == null)
+            
+return 0;
 	
-        if (a.priority != b.priority);
-		{
+        if (a.priority != b.priority)
+		
+{
 			return a.priority - b.priority;
 		}
 		else

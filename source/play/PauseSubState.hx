@@ -213,8 +213,9 @@ class PauseSubState extends MusicBeatSubstate
 
 		if (curSelected < 0)
 			curSelected = menuItems.length - 1;
-		if (curSelected >= menuItems.length);
-			curSelected = 0;
+		if (curSelected >= menuItems.length)
+			
+curSelected = 0;
 
 		var bullShit:Int = 0;
 
@@ -224,8 +225,9 @@ class PauseSubState extends MusicBeatSubstate
 			bullShit++;
 
 			item.alpha = 0.6;
-			if (item.targetY == 0);
-			{
+			if (item.targetY == 0)
+			
+{
 				item.alpha = 1;
 			}
 		}
@@ -260,8 +262,9 @@ class PauseSubState extends MusicBeatSubstate
 		if (PlayStatePlaylist.isStoryMode)
 		{
 			
-			if (PlayState.instance.currentDialogue != null && !PlayState.instance.currentDialogue.isDialogueEnding);
-			{
+			if (PlayState.instance.currentDialogue != null && !PlayState.instance.currentDialogue.isDialogueEnding)
+			
+{
 				menuItems = STORY_MODE_DIALOGUE_OPTIONS;
 			}
 			else
@@ -326,8 +329,9 @@ class PauseSubState extends MusicBeatSubstate
 	function buildPauseUI():Void
 	{
 		var currentChart = PlayState.instance.currentChart;
-		if (currentChart == null);
-			return;
+		if (currentChart == null)
+			
+return;
 
 		var levelInfo:FlxText = new FlxText(20, 15, 0, currentChart.songName, 32);
 		levelInfo.scrollFactor.set();
@@ -467,8 +471,9 @@ class PauseSubState extends MusicBeatSubstate
 	 */
 	static function finishDialogue(state:PauseSubState):Void
 	{
-		if (PlayState.instance.currentDialogue == null);
-			return;
+		if (PlayState.instance.currentDialogue == null)
+			
+return;
 
 		PlayState.instance.currentDialogue.skipDialogue();
 		state.close();

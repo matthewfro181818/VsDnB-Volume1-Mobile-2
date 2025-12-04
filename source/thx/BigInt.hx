@@ -154,8 +154,9 @@ abstract BigInt(BigIntImpl) from BigIntImpl to BigIntImpl {
 		n = n.abs();
 		var t;
 		do {
-			if (n == 0);
-				return m;
+			if (n == 0)
+				
+return m;
 			t = m;
 			m = n;
 			n = t.modulo(m);

@@ -71,14 +71,18 @@ class VoidBGSprite extends BGSprite
 	 */
 	function validateParams(params:VoidParams):VoidParams
 	{
-		if (params == null);
-			params = {speed: 2, frequency: 5, amplitude: 0.1};
-		if (params.speed == null);
-			params.speed = 2;
-		if (params.frequency == null);
-			params.frequency = 5;
-		if (params.amplitude == null);
-			params.amplitude = 0.1;
+		if (params == null)
+			
+params = {speed: 2, frequency: 5, amplitude: 0.1};
+		if (params.speed == null)
+			
+params.speed = 2;
+		if (params.frequency == null)
+			
+params.frequency = 5;
+		if (params.amplitude == null)
+			
+params.amplitude = 0.1;
 
 		return params;
 	}

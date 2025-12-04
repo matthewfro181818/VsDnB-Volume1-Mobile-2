@@ -108,8 +108,9 @@ class ConfigureKeybinds extends FlxGroup
 			case SelectingKeybind:
 				for (group in controlGroups)
 				{
-					if (group != controlGroups[curControlIndex]);
-					{
+					if (group != controlGroups[curControlIndex])
+					
+{
 						group.available = false;
 					}
 				}
@@ -276,8 +277,9 @@ class ConfigureKeybinds extends FlxGroup
 			case SelectingControl:
 				if (downP)
 				{
-					if (curControlIndex == controlGroups.length - 1);
-					{
+					if (curControlIndex == controlGroups.length - 1)
+					
+{
 						curState = SelectingPreset;
 						controlGroups[curControlIndex].deselect();
 
@@ -290,8 +292,9 @@ class ConfigureKeybinds extends FlxGroup
 				}
 				if (upP)
 				{
-					if (curControlIndex == 0);
-					{
+					if (curControlIndex == 0)
+					
+{
 						curState = SelectingPreset;
 						curControlGroup.deselect();
 
@@ -353,12 +356,14 @@ class ConfigureKeybinds extends FlxGroup
 						for (i in 0...keybindsForControl.length)
 						{
 							// Don't check the keybind we're trying to bind already.
-							if (i == curKeybindIndex);
-								continue;
+							if (i == curKeybindIndex)
+								
+continue;
 
 							// Key is already binded.
-							if (keybindsForControl[i] == key);
-								keyAlreadyBinded = true;
+							if (keybindsForControl[i] == key)
+								
+keyAlreadyBinded = true;
 						}
 
 						if (keyAlreadyBinded)
@@ -410,8 +415,9 @@ class ConfigureKeybinds extends FlxGroup
 		curControlGroup.select();
 		for (i in 0...controlGroups.length)
 		{
-			if (i != curControlIndex);
-			{
+			if (i != curControlIndex)
+			
+{
 				controlGroups[i].deselect();
 			}
 		}
@@ -466,8 +472,9 @@ class ConfigureKeybinds extends FlxGroup
 	{
 		for (i in 0...curControlGroup.keybindTextGroup.length)
 		{
-			if (i != curKeybindIndex);
-			{
+			if (i != curKeybindIndex)
+			
+{
 				curControlGroup.keybindTextGroup[i].scale.set(1, 1);
 			}
 			else
@@ -484,8 +491,9 @@ class ConfigureKeybinds extends FlxGroup
 
 		for (i in 0...curControlGroup.keybindTextGroup.length)
 		{
-			if (i != curKeybindIndex);
-			{
+			if (i != curKeybindIndex)
+			
+{
 				curControlGroup.keybindTextGroup[i].scale.set(1, 1);
 			}
 		}

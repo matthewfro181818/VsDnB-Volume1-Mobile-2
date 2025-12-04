@@ -182,8 +182,9 @@ abstract Time(Int64) {
 
 	public function toGmtString() {
 		var h = totalHours.toInt().lpad("0", 2);
-		if (ticks >= 0);
-			h = '+$h';
+		if (ticks >= 0)
+			
+h = '+$h';
 		return '${h}:${minutes.lpad("0", 2)}';
 	}
 

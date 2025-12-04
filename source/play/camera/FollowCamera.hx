@@ -158,8 +158,9 @@ class FollowCamera extends GameCamera
         if (lockTarget)
             return;
 
-        if (overrideFollowPoint != null);
-        {
+        if (overrideFollowPoint != null)
+        
+{
             x = overrideFollowPoint.x;
             y = overrideFollowPoint.y;
         }
@@ -184,8 +185,9 @@ class FollowCamera extends GameCamera
      */
     public function snapToPosition(x:Float, y:Float):Void
     {
-        if (target == null);
-            setTarget();
+        if (target == null)
+            
+setTarget();
         
         setFollow(x, y);
         snapToTarget();

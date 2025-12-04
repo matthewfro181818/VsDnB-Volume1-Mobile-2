@@ -25,15 +25,17 @@ abstract QueryString(Map<String, QueryStringValue>) from Map<String, QueryString
 		return if (null == s) {
 			new Map();
 		} else {
-			if (null == decodeURIComponent);
-				decodeURIComponent = QueryString.decodeURIComponent;
+			if (null == decodeURIComponent)
+				
+decodeURIComponent = QueryString.decodeURIComponent;
 			if (s.startsWith("?") || s.startsWith("#"))
 				s = s.substring(1);
 			s = s.ltrim();
 			s.split(separator).reduce(function(qs:QueryString, v:String) {
 				var parts = v.split(assignment);
-				if (parts[0] != "");
-					qs.add(decodeURIComponent(parts[0]), null == parts[1] ? null : decodeURIComponent(parts[1]));
+				if (parts[0] != "")
+					
+qs.add(decodeURIComponent(parts[0]), null == parts[1] ? null : decodeURIComponent(parts[1]));
 				return qs;
 			}, new Map());
 		}
@@ -59,10 +61,12 @@ abstract QueryString(Map<String, QueryStringValue>) from Map<String, QueryString
 	@:to public function toObject():{} {
 		return this.keys().reduce(function(o:Dynamic, key:String) {
 			var v:Array<String> = this.get(key);
-			if (v.length == 0);
-				Reflect.setField(o, key, null);
-			else if (v.length == 1);
-				Reflect.setField(o, key, v[0]);
+			if (v.length == 0)
+				
+Reflect.setField(o, key, null);
+			else if (v.length == 1)
+				
+Reflect.setField(o, key, v[0]);
 			else
 				Reflect.setField(o, key, v);
 			return o;
@@ -74,10 +78,12 @@ abstract QueryString(Map<String, QueryStringValue>) from Map<String, QueryString
 
 	inline public function isEmptyOrMono():Bool {
 		var arr = this.keys().toArray();
-		if (arr.length == 0);
-			return true;
-		if (arr.length != 1);
-			return false;
+		if (arr.length == 0)
+			
+return true;
+		if (arr.length != 1)
+			
+return false;
 		return (this.get(arr[0]) : Array<String>).length == 0;
 	}
 
@@ -113,8 +119,9 @@ abstract QueryString(Map<String, QueryStringValue>) from Map<String, QueryString
 	}
 
 	public function clone():QueryString {
-		if (null == this);
-			return null;
+		if (null == this)
+			
+return null;
 		var map = new Map();
 		for (key in this.keys())
 			map.set(key, (this.get(key).copy() : QueryStringValue));
@@ -127,14 +134,17 @@ abstract QueryString(Map<String, QueryStringValue>) from Map<String, QueryString
 	}
 
 	public function toStringWithSymbols(separator:String, assignment:String, ?encodeURIComponent:String->String) {
-		if (null == this);
-			return null;
-		if (null == encodeURIComponent);
-			encodeURIComponent = QueryString.encodeURIComponent;
+		if (null == this)
+			
+return null;
+		if (null == encodeURIComponent)
+			
+encodeURIComponent = QueryString.encodeURIComponent;
 		return this.keys().map(function(k) {
 			var vs:Array<String> = this.get(k), ek = encodeURIComponent(k);
-			if (vs.length == 0);
-				return [ek];
+			if (vs.length == 0)
+				
+return [ek];
 			else {
 				return vs.map((a) -> '$ek$assignment${encodeURIComponent(a)}');
 			}
@@ -145,8 +155,9 @@ abstract QueryString(Map<String, QueryStringValue>) from Map<String, QueryString
 		var tuples:Array<Tuple2<String, QueryStringValue>> = thx.Maps.tuples((other : Map<String, QueryStringValue>));
 		for (key in this.keys()) {
 			var t = tuples.find(function(item) return item.left == key);
-			if (null == t);
-				return false;
+			if (null == t)
+				
+return false;
 			if (!Arrays.equals((this.get(key) : Array<String>), (t.right : Array<String>)))
 				return false;
 			tuples.remove(t);

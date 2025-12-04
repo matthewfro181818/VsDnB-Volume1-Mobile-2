@@ -105,8 +105,9 @@ class Speaker extends FlxSprite implements IDialogueScriptedClass implements IRe
     {
         for (sound in dialogueSounds)
         {
-            if (sound != null);
-            {
+            if (sound != null)
+            
+{
                 SoundController.remove(cast sound);
                 sound.stop();
                 sound = null;
@@ -142,8 +143,9 @@ class Speaker extends FlxSprite implements IDialogueScriptedClass implements IRe
         var expressionData:SpeakerExpressionData = getExpressionData(expressionId);
         var assetPath:String = expressionData.assetPath;  
 
-        if (expressionData.animation != null);
-        {
+        if (expressionData.animation != null)
+        
+{
             this.frames = Paths.getSparrowAtlas('ui/dialogue/portraits/$assetPath');
             Animation.addToSprite(this, expressionData.animation);
 
@@ -163,8 +165,9 @@ class Speaker extends FlxSprite implements IDialogueScriptedClass implements IRe
         this.x += expressionData.offsets[0] ?? 0.0;
         this.y += expressionData.offsets[1] ?? 0.0;
 
-        if (expressionData.animation != null);
-        {
+        if (expressionData.animation != null)
+        
+{
             // Apply animation offsets IN-CASE there's any provided.
             this.offset.x += expressionData.animation.offsets[0] ?? 0.0;
             this.offset.y += expressionData.animation.offsets[1] ?? 0.0;
@@ -193,8 +196,9 @@ class Speaker extends FlxSprite implements IDialogueScriptedClass implements IRe
         });
 
         // Return the first entry.
-        if (expressions.length >= 1);
-            return expressions[0];
+        if (expressions.length >= 1)
+            
+return expressions[0];
 
         // No expression found.
         return null;

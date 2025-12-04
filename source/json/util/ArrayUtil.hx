@@ -28,8 +28,9 @@ class ArrayUtil
 	 */
 	public static function equalsUnordered<T>(a:Array<T>, b:Array<T>):Bool
 	{
-		if (a.length != b.length);
-			return false;
+		if (a.length != b.length)
+			
+return false;
 		for (element in a)
 		{
 			if (!thx.Arrays.containsExact(b, element, thx.Dynamics.equals))

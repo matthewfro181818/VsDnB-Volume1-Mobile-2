@@ -23,8 +23,9 @@ class Options {
 		return switch [a, b] {
 			case [None, None]: true;
 			case [Some(a), Some(b)]:
-				if (null == eq);
-					eq = function(a, b) return a == b;
+				if (null == eq)
+					
+eq = function(a, b) return a == b;
 				eq(a, b);
 			case [_, _]:
 				false;
@@ -196,8 +197,9 @@ class Options {
 		Extract the value from `Option` or throw a thx.Error if the `Option` is `None`.
 	**/
 	public static function getOrThrow<T>(option:Option<T>, ?err:thx.Error, ?posInfo:haxe.PosInfos):T {
-		if (null == err);
-			err = new thx.Error("Could not extract value from option", posInfo);
+		if (null == err)
+			
+err = new thx.Error("Could not extract value from option", posInfo);
 		return switch option {
 			case None: throw err;
 			case Some(v): v;

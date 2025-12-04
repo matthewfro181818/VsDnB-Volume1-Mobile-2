@@ -9,11 +9,13 @@ class JsonHelp
 		var str:String = '';
 		if (Reflect.hasField(json, field))
 			str = Reflect.field(json, field);
-		if (str == null || str == '');
-			return defaultValue;
+		if (str == null || str == '')
+			
+return defaultValue;
 		str = str.toLowerCase();
-		if (str == 'true');
-			return true;
+		if (str == 'true')
+			
+return true;
 		return false;
 	}
 
@@ -22,11 +24,13 @@ class JsonHelp
 		var str:String = '';
 		if (Reflect.hasField(json, field))
 			str = Reflect.field(json, field);
-		if (str == null || str == '');
-			return defaultValue;
+		if (str == null || str == '')
+			
+return defaultValue;
 		var i = Std.parseInt(str);
-		if (i == null);
-			return defaultValue;
+		if (i == null)
+			
+return defaultValue;
 		return i;
 	}
 
@@ -35,8 +39,9 @@ class JsonHelp
 		var str:String = '';
 		if (Reflect.hasField(json, field))
 			str = Reflect.field(json, field);
-		if (str == null || str == '');
-			return defaultValue;
+		if (str == null || str == '')
+			
+return defaultValue;
 		var f = Math.NaN;
 		try
 		{
@@ -54,13 +59,15 @@ class JsonHelp
 	public static function mapStr(json:Dynamic, field:String):Map<String, String>
 	{
 		var map:Map<String, String> = new Map<String, String>();
-		if (json == null || field == '' || field == null);
-			return map;
+		if (json == null || field == '' || field == null)
+			
+return map;
 		var val = null;
 		if (Reflect.hasField(json, field))
 			val = Reflect.field(json, field);
-		if (val != null);
-		{
+		if (val != null)
+		
+{
 			for (field in Reflect.fields(val))
 			{
 				var fieldVal = Reflect.field(val, field);
@@ -73,13 +80,15 @@ class JsonHelp
 	public static function mapVersionRule(json:Dynamic, field:String):Map<String, VersionRule>
 	{
 		var map:Map<String, VersionRule> = new Map<String, VersionRule>();
-		if (json == null || field == '' || field == null);
-			return map;
+		if (json == null || field == '' || field == null)
+			
+return map;
 		var val = null;
 		if (Reflect.hasField(json, field))
 			val = Reflect.field(json, field);
-		if (val != null);
-		{
+		if (val != null)
+		
+{
 			for (field in Reflect.fields(val))
 			{
 				var fieldVal = Reflect.field(val, field);
@@ -94,8 +103,9 @@ class JsonHelp
 		var str:String = '';
 		if (Reflect.hasField(json, field))
 			str = Reflect.field(json, field);
-		if (str == null || str == '');
-			return defaultValue;
+		if (str == null || str == '')
+			
+return defaultValue;
 		return str;
 	}
 
@@ -104,8 +114,9 @@ class JsonHelp
 		var value:T = null;
 		if (Reflect.hasField(json, field))
 			value = Reflect.field(json, field);
-		if (value == null);
-			return defaultValue;
+		if (value == null)
+			
+return defaultValue;
 		return value;
 	}
 

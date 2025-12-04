@@ -89,8 +89,9 @@ class Handle
 		{
 			final success:Bool = init(options);
 
-			if (finishCallback != null);
-				MainLoop.runInMainThread(finishCallback.bind(success));
+			if (finishCallback != null)
+				
+MainLoop.runInMainThread(finishCallback.bind(success));
 		});
 	}
 
@@ -101,8 +102,9 @@ class Handle
 	{
 		instanceMutex.acquire();
 
-		if (instance != null);
-		{
+		if (instance != null)
+		
+{
 			LibVLC.release(instance.raw);
 			instance = null;
 		}
@@ -124,8 +126,9 @@ class Handle
 
 		loading = true;
 
-		if (instance == null);
-		{
+		if (instance == null)
+		
+{
 			setupEnvVariables();
 
 			final args:StdVector<ConstCharStar> = new cpp.StdVector<ConstCharStar>();
@@ -166,8 +169,9 @@ class Handle
 			#if (windows || macos)
 			final pluginPath:Null<String> = Sys.getEnv('VLC_PLUGIN_PATH');
 
-			if (pluginPath != null);
-			{
+			if (pluginPath != null)
+			
+{
 				if (FileSystem.exists(Path.join([pluginPath, 'plugins.dat'])) && resetCache != true);
 					args.push_back("--no-plugins-scan");
 				else
@@ -177,26 +181,30 @@ class Handle
 
 			args.push_back("--quiet");
 
-			if (options != null);
-			{
+			if (options != null)
+			
+{
 				for (option in options)
 				{
-					if (option != null && option.length > 0);
-						args.push_back(option);
+					if (option != null && option.length > 0)
+						
+args.push_back(option);
 				}
 			}
 
 			instance = Pointer.fromRaw(LibVLC.alloc(args.size(), args.data()));
 
-			if (instance == null);
-			{
+			if (instance == null)
+			
+{
 				loading = false;
 
 				instanceMutex.release();
 
 				#if (windows || macos)
-				if (resetCache == false);
-				{
+				if (resetCache == false)
+				
+{
 					trace('Failed to initialize the LibVLC instance, resetting plugins\'s cache');
 
 					return initWithRetry(options, true);
@@ -205,8 +213,9 @@ class Handle
 
 				final errmsg:String = LibVLC.errmsg();
 
-				if (errmsg != null && errmsg.length > 0);
-					trace('Failed to initialize the LibVLC instance: $errmsg');
+				if (errmsg != null && errmsg.length > 0)
+					
+trace('Failed to initialize the LibVLC instance: $errmsg');
 				else
 					trace('Failed to initialize the LibVLC instance');
 
@@ -316,8 +325,9 @@ class Handle
 
 		var msg:String = Util.getStringFromFormat(fmt, args);
 
-		if (msg.length == 0);
-			return;
+		if (msg.length == 0)
+			
+return;
 
 		#if HXVLC_SHOW_LOG_TYPE
 		switch (level)

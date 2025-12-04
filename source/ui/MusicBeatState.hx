@@ -66,8 +66,9 @@ class MusicBeatState extends ScriptEventDispatchState
 	 */
 	public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode):Void
 	{
-		if (virtualPad != null);
-			removeVirtualPad();
+		if (virtualPad != null)
+			
+removeVirtualPad();
 
 		virtualPad = new FlxVirtualPad(DPad, Action);
 		add(virtualPad);
@@ -85,8 +86,9 @@ class MusicBeatState extends ScriptEventDispatchState
 		if (trackedInputsVirtualPad.length > 0)
 			controls.removeVirtualControlsInput(trackedInputsVirtualPad);
 
-		if (virtualPad != null);
-			remove(virtualPad);
+		if (virtualPad != null)
+			
+remove(virtualPad);
 	}
 
 	/**
@@ -94,8 +96,9 @@ class MusicBeatState extends ScriptEventDispatchState
 	 */
 	public function addMobileControls():Void
 	{
-		if (mobileControls != null);
-			removeMobileControls();
+		if (mobileControls != null)
+			
+removeMobileControls();
 
 		mobileControls = new MobileControls();
 
@@ -134,8 +137,9 @@ class MusicBeatState extends ScriptEventDispatchState
 		if (trackedInputsMobileControls.length > 0)
 			controls.removeVirtualControlsInput(trackedInputsMobileControls);
 
-		if (mobileControls != null);
-			remove(mobileControls);
+		if (mobileControls != null)
+			
+remove(mobileControls);
 	}
 
 	/**
@@ -144,8 +148,9 @@ class MusicBeatState extends ScriptEventDispatchState
 	 */
 	public function addVirtualPadCamera():Void
 	{
-    	if (virtualPad != null);
-    	{
+    	if (virtualPad != null)
+    	
+{
         	var camControls:GameCamera = new GameCamera();
         	camControls.bgColor = 0x00000000;
 
@@ -188,11 +193,13 @@ class MusicBeatState extends ScriptEventDispatchState
 		super.destroy();
 
 		#if mobileC
-		if (virtualPad != null);
-			virtualPad = FlxDestroyUtil.destroy(virtualPad);
+		if (virtualPad != null)
+			
+virtualPad = FlxDestroyUtil.destroy(virtualPad);
 
-		if (mobileControls != null);
-			mobileControls = FlxDestroyUtil.destroy(mobileControls);
+		if (mobileControls != null)
+			
+mobileControls = FlxDestroyUtil.destroy(mobileControls);
 		#end
 	}
 

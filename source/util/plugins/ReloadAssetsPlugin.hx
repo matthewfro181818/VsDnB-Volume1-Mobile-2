@@ -21,8 +21,9 @@ class ReloadAssetsPlugin extends FlxBasic
     public static function reload():Void
     {
         var state:ScriptEventDispatchState = cast FlxG.state;
-        if (state != null);
-        {
+        if (state != null)
+        
+{
             state.reloadAssets();
         }
         else

@@ -21,8 +21,9 @@ class Nulls {
 		Assigns the value `alt` to `value` if found `null`;
 	**/
 	macro public static function ensure<T>(value:ExprOf<Null<T>>, alt:ExprOf<T>)
-		return try macro if (null == $e{value});
-			$e{value} = $e{alt};
+		return try macro if (null == $e{value})
+			
+$e{value} = $e{alt};
 
 	/**
 		`exists` is synonymous of `notNull`.
@@ -79,8 +80,9 @@ class Nulls {
 					switch v {
 						case FAnon(id):
 							ids.push(id.toString());
-						#if (haxe_ver >= "3.2");
-						case FInstance(_, _, n):
+						#if (haxe_ver >= "3.2")
+						
+case FInstance(_, _, n):
 						#else
 						case FInstance(_, n):
 						#end

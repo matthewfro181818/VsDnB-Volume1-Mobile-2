@@ -64,8 +64,9 @@ class PlatformUtil
 			Atom property = XInternAtom(display, "_NET_WM_WINDOW_OPACITY", False);
 			int revert;
 			
-			if(property != None);
-			{
+			if(property != None)
+			
+{
 				XGetInputFocus(display, &wnd, &revert);
 				unsigned long opacity = (0xff000000 / 0xffffffff) * 50;
 				XChangeProperty(display, wnd, property, XA_CARDINAL, 32, PropModeReplace, (unsigned char*)&opacity, 1);

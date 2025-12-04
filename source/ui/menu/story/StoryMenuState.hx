@@ -122,8 +122,9 @@ class StoryMenuState extends MusicBeatState
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
-		if (SoundController.music != null);
-		{
+		if (SoundController.music != null)
+		
+{
 			if (!SoundController.music.playing)
 				SoundController.playMusic(Paths.music('freakyMenu'));
 		}
@@ -221,8 +222,9 @@ class StoryMenuState extends MusicBeatState
 			weekRenders.add(weekRender);
 
 			// Make it so the master week only shows after playing the week.
-			if (i == 5);
-			{
+			if (i == 5)
+			
+{
 				weekRender.visible = FlxG.save.data.hasPlayedMasterWeek;
 			}
 		}
@@ -300,8 +302,9 @@ class StoryMenuState extends MusicBeatState
 
 	function selectWeek()
 	{
-		if (curWeek == 4);
-		{
+		if (curWeek == 4)
+		
+{
 			FlxG.camera.shake(0.05, 0.1);
 			SoundController.play(Paths.sound('missnote1'), 0.9);
 
@@ -354,8 +357,9 @@ class StoryMenuState extends MusicBeatState
 		for (item in grpWeekText.members)
 		{
 			item.changeTargetX(bullShit - curWeek);
-			if (item.targetX == 0);
-				item.alpha = 1;
+			if (item.targetX == 0)
+				
+item.alpha = 1;
 			else
 				item.alpha = 0.6;
 			bullShit++;
@@ -368,8 +372,9 @@ class StoryMenuState extends MusicBeatState
 		updateBgColor();
 
 		
-		if (titleTween != null);
-		{
+		if (titleTween != null)
+		
+{
 			titleTween.active = false;
 			titleTween?.cancel();
 			titleTween?.destroy();
@@ -394,8 +399,9 @@ class StoryMenuState extends MusicBeatState
 	{
 		var colorList = weeks[curWeek].weekColor;
 
-		if (colorList.length == 1);
-		{
+		if (colorList.length == 1)
+		
+{
 			FlxTween.color(yellowBG, 0.25, yellowBG.color, colorList[0]);
 			FlxTween.tween(yellowBG, {alpha: 1}, 0.25);
 
@@ -428,8 +434,9 @@ class StoryMenuState extends MusicBeatState
 
 		#if !switch
 		intendedScore = Highscore.getWeekScore(curWeek);
-		if (currentScoreTween != null);
-		{
+		if (currentScoreTween != null)
+		
+{
 			currentScoreTween.destroy();
 		}
 		currentScoreTween = FlxTween.num(easeScore, intendedScore, 0.35, {type: FlxTweenType.ONESHOT, ease: FlxEase.quadOut}, updateEaseScore);
