@@ -5,7 +5,7 @@
 	Saturday.
  */
 enum abstract Weekday(Int) from Int to Int {
-	var Sunday = 0;
+var Sunday = 0;
 	var Monday = 1;
 	var Tuesday = 2;
 	var Wednesday = 3;

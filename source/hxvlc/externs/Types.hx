@@ -40,9 +40,8 @@ extern class LibVLC_Media_T {}
 @:native('libvlc_media_list_t')
 extern class LibVLC_Media_List_T {}
 
-extern enum abstract LibVLC_Meta_T(LibVLC_Meta_T_Impl)
-{
-	@:native('libvlc_meta_Title')
+extern enum abstract LibVLC_Meta_T(LibVLC_Meta_T_Impl) {
+@:native('libvlc_meta_Title')
 	var LibVLC_Meta_Title;
 
 	@:native('libvlc_meta_Artist')
@@ -133,9 +132,8 @@ extern enum abstract LibVLC_Meta_T(LibVLC_Meta_T_Impl)
 @:native('libvlc_meta_t')
 private extern class LibVLC_Meta_T_Impl {}
 
-extern enum abstract LibVLC_Track_Type(LibVLC_Track_Type_Impl)
-{
-	@:native('libvlc_track_unknown')
+extern enum abstract LibVLC_Track_Type(LibVLC_Track_Type_Impl) {
+@:native('libvlc_track_unknown')
 	var LibVLC_Track_Unknown;
 
 	@:native('libvlc_track_audio')
@@ -161,9 +159,8 @@ extern enum abstract LibVLC_Track_Type(LibVLC_Track_Type_Impl)
 @:native('libvlc_track_type_t')
 private extern class LibVLC_Track_Type_Impl {}
 
-extern enum abstract LibVLC_Video_Orient(LibVLC_Video_Orient_Impl)
-{
-	@:native('libvlc_video_orient_top_left')
+extern enum abstract LibVLC_Video_Orient(LibVLC_Video_Orient_Impl) {
+@:native('libvlc_video_orient_top_left')
 	var LibVLC_Video_Orient_Top_Left;
 
 	@:native('libvlc_video_orient_top_right')
@@ -205,9 +202,8 @@ private extern class LibVLC_Video_Orient_Impl {}
 @:include('vlc/vlc.h')
 @:structAccess
 @:native('libvlc_media_stats_t')
-extern class LibVLC_Media_Stats_T
-{
-	function new():Void;
+extern class LibVLC_Media_Stats_T {
+function new():Void;
 
 	var i_read_bytes:Int;
 	var f_input_bitrate:Single;
@@ -230,9 +226,8 @@ extern class LibVLC_Media_Stats_T
 @:include('vlc/vlc.h')
 @:structAccess
 @:native('libvlc_audio_track_t')
-extern class LibVLC_Audio_Track_T
-{
-	function new():Void;
+extern class LibVLC_Audio_Track_T {
+function new():Void;
 
 	var i_channels:UInt32;
 	var i_rate:UInt32;
@@ -242,9 +237,8 @@ extern class LibVLC_Audio_Track_T
 @:include('vlc/vlc.h')
 @:structAccess
 @:native('libvlc_video_track_t')
-extern class LibVLC_Video_Track_T
-{
-	function new():Void;
+extern class LibVLC_Video_Track_T {
+function new():Void;
 
 	var i_height:UInt32;
 	var i_width:UInt32;
@@ -259,9 +253,8 @@ extern class LibVLC_Video_Track_T
 @:include('vlc/vlc.h')
 @:structAccess
 @:native('libvlc_subtitle_track_t')
-extern class LibVLC_Subtitle_Track_T
-{
-	function new():Void;
+extern class LibVLC_Subtitle_Track_T {
+function new():Void;
 
 	var psz_encoding:CastCharStar;
 }
@@ -270,9 +263,8 @@ extern class LibVLC_Subtitle_Track_T
 @:include('vlc/vlc.h')
 @:structAccess
 @:native('libvlc_media_track_t')
-extern class LibVLC_Media_Track_T
-{
-	function new():Void;
+extern class LibVLC_Media_Track_T {
+function new():Void;
 
 	var i_codec:UInt32;
 	var i_original_fourcc:UInt32;
@@ -291,9 +283,8 @@ extern class LibVLC_Media_Track_T
 	var psz_description:CastCharStar;
 }
 
-extern enum abstract LibVLC_Media_Parse_Flag_T(LibVLC_Media_Parse_Flag_T_Impl)
-{
-	@:native('libvlc_media_parse_local')
+extern enum abstract LibVLC_Media_Parse_Flag_T(LibVLC_Media_Parse_Flag_T_Impl) {
+@:native('libvlc_media_parse_local')
 	var LibVLC_Media_Parse_Local;
 
 	@:native('libvlc_media_parse_network')
@@ -321,9 +312,8 @@ extern enum abstract LibVLC_Media_Parse_Flag_T(LibVLC_Media_Parse_Flag_T_Impl)
 @:native('libvlc_media_slave_type_t')
 private extern class LibVLC_Media_Slave_Type_T_Impl {}
 
-extern enum abstract LibVLC_Media_Slave_Type_T(LibVLC_Media_Slave_Type_T_Impl)
-{
-	@:native('libvlc_media_slave_type_subtitle')
+extern enum abstract LibVLC_Media_Slave_Type_T(LibVLC_Media_Slave_Type_T_Impl) {
+@:native('libvlc_media_slave_type_subtitle')
 	var LibVLC_Media_Slave_Type_Subtitle;
 
 	@:native('libvlc_media_slave_type_audio')
@@ -342,9 +332,8 @@ extern enum abstract LibVLC_Media_Slave_Type_T(LibVLC_Media_Slave_Type_T_Impl)
 @:native('libvlc_media_parse_flag_t')
 private extern class LibVLC_Media_Parse_Flag_T_Impl {}
 
-extern enum abstract LibVLC_Media_Parsed_Status_T(LibVLC_Media_Parsed_Status_T_Impl)
-{
-	@:native('libvlc_media_parsed_status_skipped')
+extern enum abstract LibVLC_Media_Parsed_Status_T(LibVLC_Media_Parsed_Status_T_Impl) {
+@:native('libvlc_media_parsed_status_skipped')
 	var LibVLC_Media_Parsed_Status_Skipped;
 
 	@:native('libvlc_media_parsed_status_failed')
@@ -383,9 +372,8 @@ extern class LibVLC_Event_Manager_T {}
 @:include('vlc/vlc.h')
 @:structAccess
 @:native('libvlc_event_t')
-extern class LibVLC_Event_T
-{
-	function new():Void;
+extern class LibVLC_Event_T {
+function new():Void;
 
 	var type:Int;
 }
@@ -395,9 +383,8 @@ extern class LibVLC_Event_T
 @:native('libvlc_log_t')
 extern class LibVLC_Log_T {}
 
-extern enum abstract LibVLC_Event_E(LibVLC_Event_E_Impl)
-{
-	@:native('libvlc_MediaMetaChanged')
+extern enum abstract LibVLC_Event_E(LibVLC_Event_E_Impl) {
+@:native('libvlc_MediaMetaChanged')
 	var LibVLC_MediaMetaChanged;
 
 	@:native('libvlc_MediaSubItemAdded')
@@ -645,18 +632,16 @@ typedef LibVLC_Audio_Set_Volume_CB = cpp.Callable<(data:RawPointer<cpp.Void>, vo
 @:include('vlc/vlc.h')
 @:structAccess
 @:native('libvlc_track_description_t')
-extern class LibVLC_Track_Description_T
-{
-	function new():Void;
+extern class LibVLC_Track_Description_T {
+function new():Void;
 
 	var i_id:Int;
 	var psz_name:ConstCharStar;
 	var p_next:RawPointer<LibVLC_Track_Description_T>;
 }
 
-extern enum abstract LibVLC_Media_Player_Role_T(LibVLC_Media_Player_Role_T_Impl)
-{
-	@:native('libvlc_role_None')
+extern enum abstract LibVLC_Media_Player_Role_T(LibVLC_Media_Player_Role_T_Impl) {
+@:native('libvlc_role_None')
 	var LibVLC_Role_None;
 
 	@:native('libvlc_role_Music')

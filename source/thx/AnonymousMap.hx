@@ -1,11 +1,9 @@
 package thx;
 
-#if (haxe_ver >= 3.200)
-
-import haxe.Constraints.IMap;
+##(haxe_ver >= 3.200 ? import : null)
+#haxe.Constraints.IMap
 #else
 import Map.IMap;
-#end
 
 using thx.Iterators;
 
@@ -14,14 +12,16 @@ using thx.Iterators;
 	as sources for IMap without the need of explicitely extracting all of its values.
 
 	```haxe
-	var map = new AnonymousMap({ a : "A", b : "B" });
+	var map = new AnonymousMap({
+a : "A", b : "B"
+});
 	trace(map.get("a"));
 	```
 
 	The API is exactly the same for `Map<TKey, TValue>`.
 **/
 class AnonymousMap<V> implements IMap<String, V> {
-	var o:{};
+var o:{};
 
 	/**
 		Creates an instance of `IMap<String, V>` (`AnonymousMap<V>`) out of an anonymous object.
@@ -88,21 +88,23 @@ class AnonymousMap<V> implements IMap<String, V> {
 		It returns a string representation of the object.
 	**/
 	public function toString():String
-		return '{ ' + Maps.tuples(this).map(function(t) return t._0 + " => " + t._1).join(", ") + ' }';
+		return '{
+' + Maps.tuples(this).map(function(t) return t._0 + " => " + t._1).join(", ") + ';
+}';
 
 	public function copy():AnonymousMap<V> {
-		var target:AnonymousMap<V> = new AnonymousMap({});
+var target:AnonymousMap<V> = new AnonymousMap({});
 		for (k in keys())
 			target.set(k, get(k));
 		return target;
-	}
+}
 
 	public function keyValueIterator():KeyValueIterator<String, V> {
-		var a = [];
+var a = [];
 		for (key in keys()) {
-			a.push({key: key, value: get(key)});
-		}
+a.push({key: key, value: get(key)});
+}
 		a.sort((a, b) -> Reflect.compare(a.key, b.key));
 		return a.iterator();
-	}
+}
 }

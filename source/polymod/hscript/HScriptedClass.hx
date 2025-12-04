@@ -4,9 +4,8 @@ package polymod.hscript;
  * This interface triggers the execution of a macro which redirects all function calls to a scripted class.
  */
 @:autoBuild(polymod.hscript._internal.HScriptedClassMacro.build())
-interface HScriptedClass
-{
-	// The following functions ARE REAL, and are generated and applied to any class that implements this interface.
+interface HScriptedClass {
+// The following functions ARE REAL, and are generated and applied to any class that implements this interface.
 	// I attempted to uncomment the below functions previously, and spent a good chunk of time tackling it,
 	// but found that cyclic dependencies resulted (building some methods of the class relies on building other classes,
 	// and those classes rely on the scripted class functions having already been defined).
@@ -34,5 +33,4 @@ interface HScriptedClass
 	 * @param value The value to set.
 	 * @return The newly set value.
 	 */
-	// public function scriptSet(fieldName:String, value:Dynamic):Dynamic;
-}
+	// public function scriptSet(fieldName:String, value:Dynamic}

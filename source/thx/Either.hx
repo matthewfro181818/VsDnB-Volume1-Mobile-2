@@ -1,15 +1,14 @@
 package thx;
 
-#if (haxe_version >= 3.2)
-
-typedef Either = haxe.ds.Either;
+##(haxe_version >= 3.2 ? typedef : null)
+#Either = haxe.ds.Either
 #else
 
 /**
 	`Either` wraps one value of two possible types.
  */
 enum Either<L, R> {
-	/**
+/**
 		Left contructors wrapping a value of type L
 	 */
 	Left(value:L);
@@ -19,4 +18,3 @@ enum Either<L, R> {
 	 */
 	Right(value:R);
 }
-#end

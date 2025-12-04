@@ -4,7 +4,7 @@ package thx;
 	Represents one Utf8 character stored as an integer value.
  */
 abstract Char(Int) {
-	/**
+/**
 		Retrieve a `Char` at the specified position `index` in string `s`.
 	 */
 	public static function at(s:String, index:Int):Char
@@ -16,9 +16,9 @@ abstract Char(Int) {
 		Converts an `Int` value to `Char`.
 	 */
 	@:from inline public static function fromInt(i:Int):Char {
-		Assert.isTrue(i >= 0, 'Char value should be greater than zero: $i');
+Assert.isTrue(i >= 0, 'Char value should be greater than zero: $i');
 		return new Char(i);
-	}
+}
 
 	/**
 		Converts a `String` into a `Char.` Only the first character in the string
@@ -39,8 +39,8 @@ abstract Char(Int) {
 		Compares two chars returning -1, 0 or 1.
 	 */
 	inline public function compareTo(other:Char):Int {
-		return Ints.compare(this, other.toInt());
-	}
+return Ints.compare(this, other.toInt());
+}
 
 	/**
 		Returns true if a string is all breaking whitespace.
@@ -132,15 +132,15 @@ abstract Char(Int) {
 	/**
 		Converts a `Char` to `String`.
 	 */
-	@:to #if !(neko || php || cpp || eval) inline #end public function toString():String {
-		// #if (neko || php || cpp || eval)
+	@:to #if !(neko || php || cpp || eval) inline # public function toString():String {
+// #if (neko || php || cpp || eval)
 		// var c = new UnicodeString();
 		// c.addChar(this);
 		// return c.toString();
 		// #else
 		return String.fromCharCode(this);
-		// #end
-	}
+		// #
+}
 
 	/**
 		Converts an array of `Char`s to `String`.

@@ -25,12 +25,10 @@ import ui.menu.story.MenuItem;
 import flixel.util.FlxTimer;
 #if desktop
 import api.Discord.DiscordClient;
-#end
 using StringTools;
 
-typedef StoryModeRender = 
-{
-	/**
+typedef StoryModeRender = ; {
+/**
 	 * The asset path for the render.
 	 */
 	var assetPath:String;
@@ -39,11 +37,9 @@ typedef StoryModeRender =
 	 * The animation data for this render.
 	 */
 	var animation:AnimationData;
-}
 
-class StoryMenuState extends MusicBeatState
-{
-	var canInteract:Bool = true;
+class StoryMenuState extends MusicBeatState {
+var canInteract:Bool = true;
 
 	var movedBack:Bool = false;
 	var selectedWeek:Bool = false;
@@ -70,29 +66,29 @@ class StoryMenuState extends MusicBeatState
 	var weeks:Array<Week> = [;
 		// WARMUP
 		new Week(['warmup'], LanguageManager.getTextString('story_tutorial'), [0xFF8A42B7], 'warmup', {
-			assetPath: 'daverender_warmup',
-			animation: {name: 'render', prefix: 'warmup', loop: true, offsets: [0, 86]}
-		}), 
+assetPath: 'daverender_warmup',
+			animation: {name: 'render', prefix: 'warmup', loop: true, offsets: [0, 86]
+}), 
 		// DAVE
 		new Week(['house', 'insanity', 'polygonized'], LanguageManager.getTextString('story_daveWeek'), [0xFF4965FF], 'DaveHouse', {
-			assetPath: 'daverender',
+assetPath: 'daverender',
 			animation: {name: 'render', prefix: 'davestuff', loop: true, offsets: [0, 95]}
-		}), 
+}), 
 		// MISTER BAMBI bro
 		new Week(['blocked', 'corn-theft', 'maze'], LanguageManager.getTextString('story_bambiWeek'), [0xFF00B515], 'bamboi', {
-			assetPath: 'bambirender',
+assetPath: 'bambirender',
 			animation: {name: 'render', prefix: 'bambiweek', loop: true, offsets: [0, 84]}
-		}), 
+}), 
 		// SPLIT THE THONNNNN
 		new Week(['splitathon'], LanguageManager.getTextString('story_finale'), [0xFF4965FF, 0xFF00B515], 'splitathon', {
-			assetPath: 'daverender-splitathon',
+assetPath: 'daverender-splitathon',
 			animation: {name: 'render', prefix: 'davesplitathon', loop: true, offsets: [0, 90]}
-		}),
+}),
 		// FESTEVAL
 		new Week(['warmup', 'house', 'insanity'], LanguageManager.getTextString('story_festivalWeek'), [0xFF800080], 'festival', {
-			assetPath: 'festivalrender',
+assetPath: 'festivalrender',
 			animation: {name: 'render', prefix: 'festival', loop: true, offsets: [0, 50]}
-		}),
+}),
 	];
 
 	var awaitingToPlayMasterWeek:Bool;
@@ -100,34 +96,29 @@ class StoryMenuState extends MusicBeatState
 	var weekBanners:FlxSpriteGroup = new FlxSpriteGroup();
 	var weekRenders:FlxSpriteGroup = new FlxSpriteGroup();
 
-	override function create()
-	{
-		if (FlxG.save.data.masterWeekUnlocked)
-		{
-			var weekName:String = !FlxG.save.data.hasPlayedMasterWeek ? LanguageManager.getTextString('story_masterWeekToPlay') : LanguageManager.getTextString('story_masterWeek');
+	override function create() {
+if (FlxG.save.data.masterWeekUnlocked) {
+var weekName:String = !FlxG.save.data.hasPlayedMasterWeek ? LanguageManager.getTextString('story_masterWeekToPlay') : LanguageManager.getTextString('story_masterWeek');
 
 			// MASTERA BAMBI			
 			var jokeWeek = new Week(['supernovae', 'glitch', 'master'], weekName, [0xFF116E1C], FlxG.save.data.hasPlayedMasterWeek ? 'masterweek' : 'masterweekquestion', {
-				assetPath: 'jokerender',
+assetPath: 'jokerender',
 				animation: {name: 'render', prefix: 'joke', loop: true, offsets: [0, 73.8]}
-			});
+});
 
 			weeks.push(jokeWeek);
-		}
+}
 
-		#if desktop
+#if desktop
 		DiscordClient.changePresence("In the Story Menu", null);
-		#end
 
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
-		if (SoundController.music != null)
-		
-{
-			if (!SoundController.music.playing)
-				SoundController.playMusic(Paths.music('freakyMenu'));
-		}
+		if (SoundController.music != null) {
+#(!SoundController.music.playing ? SoundController.playMusic : null)
+#(Paths.music('freakyMenu'))
+}
 
 		persistentUpdate = persistentDraw = true;
 
@@ -162,14 +153,13 @@ class StoryMenuState extends MusicBeatState
 		grpLocks = new FlxTypedGroup<FlxSprite>();
 		add(grpLocks);
 
-		for (i in 0...weeks.length)
-		{
-			var weekThing:MenuItem = new MenuItem(0, yellowBG.y + yellowBG.height + 80, i);
+		for (i in 0...weeks.length) {
+var weekThing:MenuItem = new MenuItem(0, yellowBG.y + yellowBG.height + 80, i);
 			weekThing.x += ((weekThing.width + 20) * i);
 			weekThing.targetX = i;
 			weekThing.antialiasing = true;
 			grpWeekText.add(weekThing);
-		}
+}
 
 		add(yellowBG);
 		add(gradientBg);
@@ -192,24 +182,21 @@ class StoryMenuState extends MusicBeatState
 
 		add(weekBanners);
 		add(weekRenders);
-		for (i in 0...weeks.length)
-		{
-			var bannerX = i != 0 ? weekBanners.members[i - 1].x + weekBanners.members[i - 1].width : 0;
+		for (i in 0...weeks.length) {
+var bannerX = i != 0 ? weekBanners.members[i - 1].x + weekBanners.members[i - 1].width : 0;
 			var weekBanner:FlxSprite = new FlxSprite(bannerX, 56).loadGraphic(Paths.image('storyMenu/weekBanners/${weeks[i].bannerName}'));
 			weekBanner.antialiasing = true;
 			weekBanner.active = false;
 			weekBanners.add(weekBanner);
 
-			switch (i)
-			{
-				case 3:
+			switch (i) {
+case 3:
 					var hasBeatSplitathon:Bool = (FlxG.save.data.splitathonBeat != null && FlxG.save.data.splitathonBeat);
-					if (hasBeatSplitathon)
-					{
-						weeks[3].render.assetPath = 'splitathonrender';
+					if (hasBeatSplitathon) {
+weeks[3].render.assetPath = 'splitathonrender';
 						weeks[3].render.animation = {name: 'render', prefix: 'splitathon', loop: true, offsets: [0, 91]}
-					}
-			}
+}
+}
 			var weekRender:FlxSprite = new FlxSprite(bannerX, 56);
 
 			weekRender.frames = Paths.getSparrowAtlas('storyMenu/renders/${weeks[i].render.assetPath}');
@@ -222,94 +209,77 @@ class StoryMenuState extends MusicBeatState
 			weekRenders.add(weekRender);
 
 			// Make it so the master week only shows after playing the week.
-			if (i == 5)
-			
-{
-				weekRender.visible = FlxG.save.data.hasPlayedMasterWeek;
-			}
-		}
+			if (i == 5) {
+weekRender.visible = FlxG.save.data.hasPlayedMasterWeek;
+}
+}
 
 		updateText();
 
-		if (awaitingToPlayMasterWeek)
-		{
-			awaitingToPlayMasterWeek = false;
+		if (awaitingToPlayMasterWeek) {
+awaitingToPlayMasterWeek = false;
 			changeWeek(5 - curWeek);
-		}
-		else
-		{
-			changeWeek(0);
-		}
-		#if mobileC
+}
+#else
+changeWeek(0);
+}
+#if mobileC
 		addVirtualPad(LEFT_RIGHT, A_B);
-		#end
 		super.create();
-	}
+}
 
 	var titleTween:FlxTween;
 
-	override function update(elapsed:Float)
-	{
-		txtWeekTitle.text = weeks[curWeek].weekName.toUpperCase();
+	override function update(elapsed:Float) {
+txtWeekTitle.text = weeks[curWeek].weekName.toUpperCase();
 		txtWeekTitle.x = FlxG.width - (txtWeekTitle.width + 10);
 
-		if (!selectedWeek && !movedBack && canInteract)
-		{
-			if (controls.LEFT_P || FlxG.mouse.wheel < 0)
-			{
-				changeWeek(-1);
-			}
-			if (controls.RIGHT_P || FlxG.mouse.wheel > 0)
-			{
-				changeWeek(1);
-			}
-			if (controls.ACCEPT)
-			{
-				selectWeek();
-			}
-			if (controls.BACK && !movedBack)
-			{
-				SoundController.play(Paths.sound('cancelMenu'));
+		if (!selectedWeek && !movedBack && canInteract) {
+if (controls.LEFT_P || FlxG.mouse.wheel < 0) {
+changeWeek(-1);
+}
+			if (controls.RIGHT_P || FlxG.mouse.wheel > 0) {
+changeWeek(1);
+}
+			if (controls.ACCEPT) {
+selectWeek();
+}
+			if (controls.BACK && !movedBack) {
+SoundController.play(Paths.sound('cancelMenu'));
 				movedBack = true;
 				FlxG.switchState(() -> Void MainMenuState());
-			}
-		}
+}
+}
 
-		if (FlxG.keys.justPressed.SEVEN #if android || FlxG.android.justReleased.BACK #end && !FlxG.save.data.masterWeekUnlocked && canInteract)
-		{
-			canInteract = false;
+		if (FlxG.keys.justPressed.SEVEN #if android || FlxG.android.justReleased.BACK # && !FlxG.save.data.masterWeekUnlocked && canInteract) {
+canInteract = false;
 			SoundController.music.fadeOut(1, 0);
 
 			FlxG.camera.shake(0.01, 5.1);
-			FlxG.camera.fade(FlxColor.WHITE, 5.05, false, function()
-			{
-				FlxG.save.data.masterWeekUnlocked = true;
+			FlxG.camera.fade(FlxColor.WHITE, 5.05, false, function() {
+FlxG.save.data.masterWeekUnlocked = true;
 				FlxG.save.data.hasPlayedMasterWeek = false;
-				for (i in ['supernovae', 'glitch', 'master'])
-				{
-					FreeplayState.unlockSong(i);
-				}
+				for (i in ['supernovae', 'glitch', 'master']) {
+FreeplayState.unlockSong(i);
+}
 				awaitingToPlayMasterWeek = true;
 				FlxG.save.flush();
 
 				FlxG.resetState();
-			});
+});
 			SoundController.play(Paths.sound('doom'));
-		}
+}
 
 		super.update(elapsed);
-	}
+}
 
-	function selectWeek()
-	{
-		if (curWeek == 4)
-		
-{
-			FlxG.camera.shake(0.05, 0.1);
+	function selectWeek() {
+if (curWeek == 4) {
+FlxG.camera.shake(0.05, 0.1);
 			SoundController.play(Paths.sound('missnote1'), 0.9);
 
 			return;
-		}
+}
 		SoundController.play(Paths.sound('confirmMenu'));
 		grpWeekText.members[curWeek].startFlashing();
 
@@ -323,47 +293,42 @@ class StoryMenuState extends MusicBeatState
 		var storySong:Song = SongRegistry.instance.fetchEntry(PlayStatePlaylist.songList.shift().toLowerCase());
 		var params = {targetSong: storySong, targetVariation: ''}
 
-		new FlxTimer().start(1, function(tmr:FlxTimer)
-		{
-			switch (PlayStatePlaylist.storyWeek)
-			{
-				case 1:
+		new FlxTimer().start(1, function(tmr:FlxTimer) {
+switch (PlayStatePlaylist.storyWeek) {
+case 1:
 					SoundController.music.stop();
 					LoadingState.loadPlayState(params, true);
 				case 5:
-					if (!FlxG.save.data.hasPlayedMasterWeek)
-					{
-						FlxG.save.data.hasPlayedMasterWeek = true;
+					if (!FlxG.save.data.hasPlayedMasterWeek) {
+FlxG.save.data.hasPlayedMasterWeek = true;
 						FlxG.save.flush();
-					}
+}
 					LoadingState.loadPlayState(params, true);
 				default:
 					LoadingState.loadPlayState(params, true);
-			}
-		});
-	}
+}
+});
+}
 
-	function changeWeek(change:Int = 0):Void;
-	{
-		curWeek += change;
+	function changeWeek(change:Int = 0):Void; {
+curWeek += change;
 
-		if (curWeek > weeks.length - 1)
-			curWeek = 0;
-		if (curWeek < 0)
-			curWeek = weeks.length - 1;
+		#(curWeek > weeks.length - 1 ? curWeek : null)
+#= 0
+		#(curWeek < 0 ? curWeek : null)
+#= weeks.length - 1
 
 		var bullShit:Int = 0;
 
-		for (item in grpWeekText.members)
-		{
-			item.changeTargetX(bullShit - curWeek);
-			if (item.targetX == 0)
+		for (item in grpWeekText.members) {
+item.changeTargetX(bullShit - curWeek);
+			if (item.targetX == 0);
 				
 item.alpha = 1;
-			else
+#else
 				item.alpha = 0.6;
 			bullShit++;
-		}
+}
 		updateBgColor();
 
 		SoundController.play(Paths.sound('scrollMenu'));
@@ -372,100 +337,91 @@ item.alpha = 1;
 		updateBgColor();
 
 		
-		if (titleTween != null)
-		
-{
-			titleTween.active = false;
+		if (titleTween != null) {
+titleTween.active = false;
 			titleTween?.cancel();
 			titleTween?.destroy();
 			titleTween = null;
-		}
+}
 		titleTween = FlxTween.tween(weekBanners, {x: -FlxG.width * curWeek}, MenuItem.easeTime, {
-			type: ONESHOT,
+type: ONESHOT,
 			ease: MenuItem.easeType,
 			onComplete: (t:FlxTween) -> {
-				weekRenders.x = weekBanners.x;
+weekRenders.x = weekBanners.x;
 		
 				titleTween?.destroy();
 				titleTween = null;
-			},
+},
 			onUpdate: (t:FlxTween) -> {
-				weekRenders.x = weekBanners.x;
-			}
-		});
-	}
+weekRenders.x = weekBanners.x;
+}
+});
+}
 	
-	function updateBgColor()
-	{
-		var colorList = weeks[curWeek].weekColor;
+	function updateBgColor() {
+var colorList = weeks[curWeek].weekColor;
 
-		if (colorList.length == 1)
-		
-{
-			FlxTween.color(yellowBG, 0.25, yellowBG.color, colorList[0]);
+		if (colorList.length == 1) {
+FlxTween.color(yellowBG, 0.25, yellowBG.color, colorList[0]);
 			FlxTween.tween(yellowBG, {alpha: 1}, 0.25);
 
 			FlxTween.tween(gradientBg, {alpha: 0}, 0.25);
-		}
-		else
-		{
-			FlxGradient.overlayGradientOnFlxSprite(gradientBg, yellowBG.pixels.width, yellowBG.pixels.height, colorList, 1, 0);
+}
+#else
+FlxGradient.overlayGradientOnFlxSprite(gradientBg, yellowBG.pixels.width, yellowBG.pixels.height, colorList, 1, 0);
 			gradientBg.alpha = 0;
 
 			FlxTween.tween(gradientBg, {alpha: 1}, 0.25);
 			FlxTween.tween(yellowBG, {alpha: 0}, 0.25);
-		}
-	}
+}
+}
 
-	function updateText()
-	{
-		txtTracklist.text = "";
+	function updateText() {
+txtTracklist.text = "";
 
 		var stringThing:Array<String> = [for (songId in weeks[curWeek].songList) SongRegistry.instance.fetchEntry(songId).songName];
-		switch (curWeek)
-		{
-			case 4:
+		switch (curWeek) {
+case 4:
 				stringThing = ['???', '???', '???', '???'];
 			case 5:
-				if (!FlxG.save.data.hasPlayedMasterWeek)
-					stringThing = ['???', '???', '???'];
-		}
+				#(!FlxG.save.data.hasPlayedMasterWeek ? stringThing : null)
+#= ['???', '???', '???']
+}
 		txtTracklist.text = stringThing.join(' - ');
 
-		#if !switch
+#if !switch
 		intendedScore = Highscore.getWeekScore(curWeek);
-		if (currentScoreTween != null)
-		
-{
-			currentScoreTween.destroy();
-		}
+		if (currentScoreTween != null) {
+currentScoreTween.destroy();
+}
 		currentScoreTween = FlxTween.num(easeScore, intendedScore, 0.35, {type: FlxTweenType.ONESHOT, ease: FlxEase.quadOut}, updateEaseScore);
-		#end
-	}
+}
 
 	var currentScoreTween:flixel.tweens.misc.NumTween;
 
-	function updateEaseScore(value:Float):Void
-	{
-		easeScore = Std.int(value);
+	function updateEaseScore(value:Float):Void {
+easeScore = Std.int(value);
 		scoreText.text = LanguageManager.getTextString('story_weekScore') + " " + easeScore;
-	}
+}
 // FIXED stray brace
 
-class Week
-{
-	public var songList:Array<String>;
+class Week {
+public var songList:Array<String>;
 	public var weekName:String;
 	public var weekColor:Array<FlxColor>;
 	public var bannerName:String;
 	public var render:StoryModeRender;
 
-	public function new(songList:Array<String>, weekName:String, weekColor:Array<FlxColor>, bannerName:String, ?render:StoryModeRender)
-	{
-		this.songList = songList;
+	public function new(songList:Array<String>, weekName:String, weekColor:Array<FlxColor>, bannerName:String, ?render:StoryModeRender) {
+this.songList = songList;
 		this.weekName = weekName;
 		this.weekColor = weekColor;
 		this.bannerName = bannerName;
 		this.render = render;
-	}
 }
+}
+}
+#
+#
+#
+#

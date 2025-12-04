@@ -9,129 +9,122 @@ import flixel.animation.FlxAnimationController;
 import flixel.math.FlxMath;
 import openfl.geom.Point;
 
-enum AlphabetShadowMode
-{
-    NONE;
-    SIMPLE;
+enum AlphabetShadowMode {
+NONE;
+ SIMPLE;
 }
 
-class Alphabet extends FlxSpriteGroup
-{
-    public var text:String = "";
-    public var targetY:Float = 0;
+class Alphabet extends FlxSpriteGroup {
+public var text:String = "";
+ public var targetY:Float = 0;
 
-    public var isMenuItem:Bool = false;
-    public var bold:Bool = false;
-    public var isStatic:Bool = false;
-    public var shadowMode:AlphabetShadowMode = NONE;
+ public var isMenuItem:Bool = false;
+ public var bold:Bool = false;
+ public var isStatic:Bool = false;
+ public var shadowMode:AlphabetShadowMode = NONE;
 
-    public var textColor:FlxColor = FlxColor.WHITE;
+ public var textColor:FlxColor = FlxColor.WHITE;
 
-    public var letterSpacing:Float = 2;
-    public var lineSpacing:Float = 0;
+ public var letterSpacing:Float = 2;
+ public var lineSpacing:Float = 0;
 
-    public var dropShadowOffset:Point = new Point(2, 2);
-    public var dropShadowColor:FlxColor = FlxColor.BLACK;
+ public var dropShadowOffset:Point = new Point(2, 2);
+ public var dropShadowColor:FlxColor = FlxColor.BLACK;
 
-    public var letterText:FlxText;
+ public var letterText:FlxText;
 
-    public var wobble:Bool = false;
-    public var wobbleIntensity:Float = 1.0;
+ public var wobble:Bool = false;
+ public var wobbleIntensity:Float = 1.0;
 
-    public var scrollSpeed:Float = 120;
-    public var scrollOffset:Float = 0;
+ public var scrollSpeed:Float = 120;
+ public var scrollOffset:Float = 0;
 
-    public var alphaTarget:Float = 1;
-    public var alphaLerpSpeed:Float = 6;
+ public var alphaTarget:Float = 1;
+ public var alphaLerpSpeed:Float = 6;
 
-    // ---------------------------------------------------------
-    // Constructor
+ // ---------------------------------------------------------
+ // Constructor
 
-    public function new(x:Float, y:Float, text:String)
-    {
-        super(x, y);
+ public function new(x:Float, y:Float, text:String) {
+super(x, y);
 
-        this.text = text;
+ this.text = text;
 
-        letterText = new FlxText(0, 0, 0, text, 32);
-        letterText.setFormat("VCR OSD Mono", 32, textColor);
-        letterText.scrollFactor.set();
-        add(letterText);
+ letterText = new FlxText(0, 0, 0, text, 32);
+ letterText.setFormat("VCR OSD Mono", 32, textColor);
+ letterText.scrollFactor.set();
+ add(letterText);
 
-        rebuild();
-    }
+ rebuild();
+}
 
-    // Rebuild letters when text changes
+ // Rebuild letters when text changes
 
-    public function rebuild():Void
-    {
-        if (letterText == null) return;
-        letterText.text = text;
-    }
+ public function rebuild():Void {
+#(letterText == null ? return : null)
+ letterText.text = text;
+}
 
-    // Shadow Rendering
+ // Shadow Rendering
 
-    inline function drawShadow():Void
-    {
-        if (shadowMode == NONE) return;
+ inline function drawShadow():Void {
+#(shadowMode == NONE ? return : null)
 
-        var ox = letterText.x;
-        var oy = letterText.y;
+ var ox = letterText.x;
+ var oy = letterText.y;
 
-        letterText.setPosition(ox + dropShadowOffset.x, oy + dropShadowOffset.y);
-        letterText.color = dropShadowColor;
-        letterText.alpha = this.alpha * 0.7;
-        letterText.draw();
+ letterText.setPosition(ox + dropShadowOffset.x, oy + dropShadowOffset.y);
+ letterText.color = dropShadowColor;
+ letterText.alpha = this.alpha * 0.7;
+ letterText.draw();
 
-        letterText.setPosition(ox, oy);
-        letterText.color = textColor;
-        letterText.alpha = this.alpha;
-    }
+ letterText.setPosition(ox, oy);
+ letterText.color = textColor;
+ letterText.alpha = this.alpha;
+}
 
+ public function menuTween(targetY:Float):Void {
+var targetPos = (targetY * 70) + 30;
 
-    public function menuTween(targetY:Float):Void
-    {
-        var targetPos = (targetY * 70) + 30;
+ FlxTween.tween(this, {
+y: targetPos
+}, 0.25, {
+ease: flixel.tweens.FlxEase.quadOut
+});
+}
 
-        FlxTween.tween(this, { y: targetPos }, 0.25, { ease: flixel.tweens.FlxEase.quadOut });
-    }
+ // Update
 
-    // Update
+ override public function update(elapsed:Float) {
+super.update(elapsed);
 
-    override public function update(elapsed:Float)
-    {
-        super.update(elapsed);
+ if (wobble) {
+scrollOffset += elapsed * scrollSpeed;
+ letterText.y = Math.sin(scrollOffset) * wobbleIntensity;
+}
 
-        if (wobble)
-        {
-            scrollOffset += elapsed * scrollSpeed;
-            letterText.y = Math.sin(scrollOffset) * wobbleIntensity;
-        }
+ if (Math.abs(alpha - alphaTarget) > 0.01)
+ alpha += (alphaTarget - alpha) * elapsed * alphaLerpSpeed;
 
-        if (Math.abs(alpha - alphaTarget) > 0.01)
-            alpha += (alphaTarget - alpha) * elapsed * alphaLerpSpeed;
+ letterText.alpha = this.alpha;
+}
 
-        letterText.alpha = this.alpha;
-    }
+ // Draw
 
-    // Draw
-
-    override public function draw()
-    {
-        if (shadowMode != NONE)
-            
+ override public function draw() {
+if (shadowMode != NONE);
+ 
 drawShadow();
 
-        letterText.color = textColor;
-        letterText.alpha = this.alpha;
-        letterText.draw();
-    }
+ letterText.color = textColor;
+ letterText.alpha = this.alpha;
+ letterText.draw();
+}
 
-    // Cleanup
+ // Cleanup
 
-    override public function destroy()
-    {
-        letterText.destroy();
-        super.destroy();
-    }
+ override public function destroy() {
+letterText.destroy();
+ super.destroy();
+}
 }

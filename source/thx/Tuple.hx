@@ -6,7 +6,7 @@ typedef Tuple<T0, T1> = Tuple2<T0, T1>;
 	`Tuple0` is a tuple with no values. It maps directly to `Nil.nil`.
 **/
 abstract Tuple0(Nil) {
-	/**
+/**
 		Constructs an instance of `Tuple0`.
 	**/
 	inline public function new()
@@ -42,7 +42,7 @@ abstract Tuple0(Nil) {
 	`Tuple1` is a tuple with one value. It maps directly to its own T0 types.
 **/
 abstract Tuple1<T0>(T0) from T0 to T0 {
-	/**
+/**
 		Constructs an instance of `Tuple1` passing a value T as an argument.
 	**/
 	inline public function new(_0:T0)
@@ -75,7 +75,7 @@ abstract Tuple1<T0>(T0) from T0 to T0 {
 **/
 @:forward(_0, _1)
 abstract Tuple2<T0, T1>({_0:T0, _1:T1}) from {_0:T0, _1:T1} to {_0:T0, _1:T1} {
-	/**
+/**
 		Constructs an instance of `Tuple2` the 2 required value. This is required
 		because Tuple2.new.bind(...) crashes the compiler.
 	**/
@@ -141,10 +141,10 @@ abstract Tuple2<T0, T1>({_0:T0, _1:T1}) from {_0:T0, _1:T1} to {_0:T0, _1:T1} {
 		return new Tuple2(this._0, f(this._1));
 
 	static public function squeeze<T1, T2, R>(f:T1->T2->R):Tuple2<T1, T2>->R {
-		return function(tp) {
-			return f(tp._0, tp._1);
-		}
-	}
+return function(tp) {
+return f(tp._0, tp._1);
+}
+}
 
 	@:from inline static public function arrayToTuple2<T>(v:Array<T>):Tuple2<T, T>
 		return new Tuple2(v[0], v[1]);
@@ -155,7 +155,7 @@ abstract Tuple2<T0, T1>({_0:T0, _1:T1}) from {_0:T0, _1:T1} to {_0:T0, _1:T1} {
 **/
 @:forward(_0, _1, _2)
 abstract Tuple3<T0, T1, T2>({_0:T0, _1:T1, _2:T2}) from {_0:T0, _1:T1, _2:T2} to {_0:T0, _1:T1, _2:T2} {
-	/**
+/**
 		Static constructor, required to work around Haxe compiler bug.
 	**/
 	inline public static function of<T0, T1, T2>(_0:T0, _1:T1, _2:T2):Tuple3<T0, T1, T2>
@@ -212,22 +212,22 @@ abstract Tuple3<T0, T1, T2>({_0:T0, _1:T1, _2:T2}) from {_0:T0, _1:T1, _2:T2} to
 **/
 @:forward(_0, _1, _2, _3)
 abstract Tuple4<T0, T1, T2, T3>({
-	_0:T0,
+_0:T0,
 	_1:T1,
 	_2:T2,
 	_3:T3
 }) from {
-	_0:T0,
+_0:T0,
 	_1:T1,
 	_2:T2,
 	_3:T3
 } to {
-	_0:T0,
+_0:T0,
 	_1:T1,
 	_2:T2,
 	_3:T3
 } {
-	/**
+/**
 		Static constructor, required to work around Haxe compiler bug.
 	**/
 	inline public static function of<T0, T1, T2, T3>(_0:T0, _1:T1, _2:T2, _3:T3):Tuple4<T0, T1, T2, T3>
@@ -238,22 +238,22 @@ abstract Tuple4<T0, T1, T2, T3>({
 	**/
 	inline public function new(_0:T0, _1:T1, _2:T2, _3:T3)
 		this = {
-			_0: _0,
+_0: _0,
 			_1: _1,
 			_2: _2,
 			_3: _3
-		};
+};
 
 	/**
 		`flip` returns a new Tuple with the values in reverse order.
 	**/
 	inline public function flip():Tuple4<T3, T2, T1, T0>
 		return {
-			_0: this._3,
+_0: this._3,
 			_1: this._2,
 			_2: this._1,
 			_3: this._0
-		};
+};
 
 	/**
 		`dropLeft` returns a new Tuple with one less element by dropping the first
@@ -291,25 +291,25 @@ abstract Tuple4<T0, T1, T2, T3>({
 **/
 @:forward(_0, _1, _2, _3, _4)
 abstract Tuple5<T0, T1, T2, T3, T4>({
-	_0:T0,
+_0:T0,
 	_1:T1,
 	_2:T2,
 	_3:T3,
 	_4:T4
 }) from {
-	_0:T0,
+_0:T0,
 	_1:T1,
 	_2:T2,
 	_3:T3,
 	_4:T4
 } to {
-	_0:T0,
+_0:T0,
 	_1:T1,
 	_2:T2,
 	_3:T3,
 	_4:T4
 } {
-	/**
+/**
 		Static constructor, required to work around Haxe compiler bug.
 	**/
 	inline public static function of<T0, T1, T2, T3, T4>(_0:T0, _1:T1, _2:T2, _3:T3, _4:T4):Tuple5<T0, T1, T2, T3, T4>
@@ -320,24 +320,24 @@ abstract Tuple5<T0, T1, T2, T3, T4>({
 	**/
 	inline public function new(_0:T0, _1:T1, _2:T2, _3:T3, _4:T4)
 		this = {
-			_0: _0,
+_0: _0,
 			_1: _1,
 			_2: _2,
 			_3: _3,
 			_4: _4
-		};
+};
 
 	/**
 		`flip` returns a new Tuple with the values in reverse order.
 	**/
 	inline public function flip():Tuple5<T4, T3, T2, T1, T0>
 		return {
-			_0: this._4,
+_0: this._4,
 			_1: this._3,
 			_2: this._2,
 			_3: this._1,
 			_4: this._0
-		};
+};
 
 	/**
 		`dropLeft` returns a new Tuple with one less element by dropping the first
@@ -375,28 +375,28 @@ abstract Tuple5<T0, T1, T2, T3, T4>({
 **/
 @:forward(_0, _1, _2, _3, _4, _5)
 abstract Tuple6<T0, T1, T2, T3, T4, T5>({
-	_0:T0,
+_0:T0,
 	_1:T1,
 	_2:T2,
 	_3:T3,
 	_4:T4,
 	_5:T5
 }) from {
-	_0:T0,
+_0:T0,
 	_1:T1,
 	_2:T2,
 	_3:T3,
 	_4:T4,
 	_5:T5
 } to {
-	_0:T0,
+_0:T0,
 	_1:T1,
 	_2:T2,
 	_3:T3,
 	_4:T4,
 	_5:T5
 } {
-	/**
+/**
 		Static constructor, required to work around Haxe compiler bug.
 	**/
 	inline public static function of<T0, T1, T2, T3, T4, T5>(_0:T0, _1:T1, _2:T2, _3:T3, _4:T4, _5:T5):Tuple6<T0, T1, T2, T3, T4, T5>
@@ -407,26 +407,26 @@ abstract Tuple6<T0, T1, T2, T3, T4, T5>({
 	**/
 	inline public function new(_0:T0, _1:T1, _2:T2, _3:T3, _4:T4, _5:T5)
 		this = {
-			_0: _0,
+_0: _0,
 			_1: _1,
 			_2: _2,
 			_3: _3,
 			_4: _4,
 			_5: _5
-		};
+};
 
 	/**
 		`flip` returns a new Tuple with the values in reverse order.
 	**/
 	inline public function flip():Tuple6<T5, T4, T3, T2, T1, T0>
 		return {
-			_0: this._5,
+_0: this._5,
 			_1: this._4,
 			_2: this._3,
 			_3: this._2,
 			_4: this._1,
 			_5: this._0
-		};
+};
 
 	/**
 		`dropLeft` returns a new Tuple with one less element by dropping the first
@@ -451,3 +451,4 @@ abstract Tuple6<T0, T1, T2, T3, T4, T5>({
 	@:from inline static public function arrayToTuple6<T>(v:Array<T>):Tuple6<T, T, T, T, T, T>
 		return new Tuple6(v[0], v[1], v[2], v[3], v[4], v[5]);
 }
+}}

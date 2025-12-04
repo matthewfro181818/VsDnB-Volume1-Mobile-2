@@ -10,9 +10,8 @@ import flixel.util.FlxColor;
 import ui.MusicBeatState;
 import ui.menu.story.StoryMenuState;
 
-typedef EndingStateParams =
-{
-	/**
+typedef EndingStateParams =; {
+/**
 	 * The week the player was on.
 	 */
 	var week:String;
@@ -37,15 +36,13 @@ typedef EndingStateParams =
 	 * The animation to start playing when this state opens.
 	 */
 	var ?startAnim:String;
-}
 
 /**
  * A state the player goes to after completing a story mode week.
  * Displays a visual ending depending on the player's score.
  */
-class EndingState extends MusicBeatState
-{
-	/**
+class EndingState extends MusicBeatState {
+/**
 	 * The last parameters the player had.
 	 * Fallback in-case no parameters exist.
 	 */
@@ -86,14 +83,13 @@ class EndingState extends MusicBeatState
 	 */
 	var endingDescription:FlxText;
 
-	public function new(params:EndingStateParams)
-	{
-		super();
+	public function new(params:EndingStateParams) {
+super();
 
-		if (params == null)
+		if (params == null);
 			
 params = lastParams;
-		else
+#else
 			this.params = params;
 
 		this.lastParams = params;
@@ -103,65 +99,45 @@ params = lastParams;
 
 		this.endingTitleText = LanguageManager.getTextString('ending_title_${ending}');
 		this.song = params.song ?? 'goodEnding';
-	}
+}
 
-	override public function create():Void
-	{
-		super.create();
+	override public function create():Void {
+super.create();
 
 		SoundController.playMusic(Paths.music(this.song), 1, true);
 
 		var endingSpr:FlxSprite = new FlxSprite();
-		if (params.anims == null || params.anims.length == 0)
-		
-{
-			endingSpr.loadGraphic(Paths.image('endings/$week/${this.ending}_$week', 'shared'));
-		}
-		else
-		{
-			endingSpr.frames = Paths.getSparrowAtlas('endings/$week/${this.ending}_$week', 'shared');
-			for (anim in params.anims)
-			{
-				Animation.addToSprite(endingSpr, anim);
-			}
-			endingSpr.animation.play(params.startAnim ?? params.anims[0].name, true);
-		}
-		endingSpr.screenCenter();
-		endingSpr.y -= 100;
+		if (params.anims == null || params.anims.length == 0) {
+}
+#else
+			for (anim in params.anims) {
+Animation.addToSprite(endingSpr, anim);
+}
+}
 		add(endingSpr);
 
-		endingTitle = new FlxText(0, 460, '${endingTitleText}');
-		endingTitle.setFormat(Paths.font('comic_normal.ttf'), 55, FlxColor.WHITE, FlxTextAlign.CENTER);
-		endingTitle.screenCenter(X);
 		add(endingTitle);
 
-		endingDescription = new FlxText(0, 550, 0, LanguageManager.getTextString('ending_${week}_${ending}'));
-		endingDescription.setFormat(Paths.font('comic_normal.ttf'), 24, FlxColor.WHITE, FlxTextAlign.CENTER);
-		endingDescription.screenCenter(X);
 		add(endingDescription);
 
 		FlxG.camera.fade(FlxColor.BLACK, 0.8, true);
-	}
+}
 
 	var justTouched:Bool = false;
 
-	override public function update(elapsed:Float):Void
-	{
-		super.update(elapsed);
+	override public function update(elapsed:Float):Void {
+super.update(elapsed);
 
 		for (touch in FlxG.touches.list)
-			if (touch.justPressed)
-				justTouched = true;
+			#(touch.justPressed ? justTouched : null)
+#= true
 
-		if (controls.ACCEPT #if mobile || justTouched #end)
-		{
-			endIt();
-		}
-	}
+		if (controls.ACCEPT #if mobile || justTouched #) {
+}
+}
 
-	public function endIt()
-	{
-		FlxG.switchState(new StoryMenuState());
+	public function endIt() {
+FlxG.switchState(new StoryMenuState());
 		SoundController.playMusic(Paths.music('freakyMenu'));
-	}
+}
 }

@@ -5,16 +5,14 @@ import haxe.ds.Option;
 using thx.Ord;
 using thx.Options;
 
-#if (haxe_ver >= 3.200)
-
-import haxe.Constraints.IMap;
+##(haxe_ver >= 3.200 ? import : null)
+#haxe.Constraints.IMap
 #else
 import Map.IMap;
-#end
-import Map as M;
+import MapasM;
 
 class StringMap {
-	inline static public function exists<V>(map:Map<String, V>, key:String):Bool
+inline static public function exists<V>(map:Map<String, V>, key:String):Bool
 		return map.lookup(key, Strings.order).toBool();
 
 	inline static public function get<V>(map:Map<String, V>, key:String):Option<V>
@@ -34,16 +32,16 @@ class StringMap {
 
 	public static function toNative<V>(map:Map<String, V>):M<String, V>
 		return map.foldLeftTuples(new M(), function(acc, t) {
-			acc.set(t.left, t.right);
+acc.set(t.left, t.right);
 			return acc;
-		});
+});
 
 	public static function merge<V>(a:Map<String, V>, b:Map<String, V>):Map<String, V>
 		return b.foldLeftTuples(a, function(acc, t) return acc.insert(t._0, t._1, Strings.order));
 }
 
 class FloatMap {
-	inline static public function exists<V>(map:Map<Float, V>, key:Float):Bool
+inline static public function exists<V>(map:Map<Float, V>, key:Float):Bool
 		return map.lookup(key, Floats.order).toBool();
 
 	inline static public function get<V>(map:Map<Float, V>, key:Float):Option<V>
@@ -63,7 +61,7 @@ class FloatMap {
 }
 
 class IntMap {
-	inline static public function exists<V>(map:Map<Int, V>, key:Int):Bool
+inline static public function exists<V>(map:Map<Int, V>, key:Int):Bool
 		return map.lookup(key, Ints.order).toBool();
 
 	inline static public function get<V>(map:Map<Int, V>, key:Int):Option<V>
@@ -83,16 +81,16 @@ class IntMap {
 
 	public static function toNative<V>(map:Map<Int, V>):M<Int, V>
 		return map.foldLeftTuples(new M(), function(acc, t) {
-			acc.set(t.left, t.right);
+acc.set(t.left, t.right);
 			return acc;
-		});
+});
 
 	public static function merge<V>(a:Map<Int, V>, b:Map<Int, V>):Map<Int, V>
 		return b.foldLeftTuples(a, function(acc, t) return acc.insert(t._0, t._1, Ints.order));
 }
 
 class ComparableOrdMap {
-	inline static public function exists<V, T:ComparableOrd<T>>(map:Map<T, V>, key:T):Bool
+inline static public function exists<V, T:ComparableOrd<T>>(map:Map<T, V>, key:T):Bool
 		return map.lookup(key, Ord.forComparableOrd()).toBool();
 
 	inline static public function get<V, T:ComparableOrd<T>>(map:Map<T, V>, key:T):Option<V>
@@ -115,7 +113,7 @@ class ComparableOrdMap {
 }
 
 class ComparableMap {
-	inline static public function exists<V, T:Comparable<T>>(map:Map<T, V>, key:T):Bool
+inline static public function exists<V, T:Comparable<T>>(map:Map<T, V>, key:T):Bool
 		return map.lookup(key, Ord.forComparable()).toBool();
 
 	inline static public function get<V, T:Comparable<T>>(map:Map<T, V>, key:T):Option<V>

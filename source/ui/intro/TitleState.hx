@@ -31,17 +31,14 @@ import ui.menu.MainMenuState;
 
 #if desktop
 import api.Discord.DiscordClient;
-#end
 
 #if mobile
 import util.TouchUtil;
-#end
 
 using StringTools;
 
-class TitleState extends MusicBeatState
-{
-	public static var initialized:Bool = false;
+class TitleState extends MusicBeatState {
+public static var initialized:Bool = false;
 
 	var bg:FlxSprite;
 	var logoBl:FlxSprite;
@@ -57,29 +54,25 @@ class TitleState extends MusicBeatState
 
 	var introText:Array<String> = [];
 
-	override public function create():Void
-	{
-		#if android
+	override public function create():Void {
+#if android
 		FlxG.android.preventDefaultKeys = [BACK]; // lol;
-		#end
 
-		if (FlxG.random.int(0, 999) == 1)
+		if (FlxG.random.int(0, 999) == 1);
 			LoadingState.loadAndSwitchState(() -> Void SusState());
 
 		// Initalize intro text.
 		introText = FlxG.random.getObject(getIntroText());
 		
-		new FlxTimer().start(1, function(tmr:FlxTimer)
-		{
-			startIntro();
-		});
+		new FlxTimer().start(1, function(tmr:FlxTimer) {
+startIntro();
+);
 		
 		super.create();
-	}
+}
 
-	function startIntro()
-	{
-		persistentUpdate = true;
+	function startIntro() {
+persistentUpdate = true;
 
 		var blackBg = FlxGradient.createGradientFlxSprite(FlxG.width, FlxG.height, [;
 			FlxColor.interpolate(FlxColor.fromRGB(0, 0, 0), 0xFF4965FF, 0.6),
@@ -109,85 +102,74 @@ class TitleState extends MusicBeatState
 		version.angle = -3;
 		add(version);
 
-		#if desktop
+#if desktop
 		pressEnter = new FlxText(0, 600, 0, LanguageManager.getTextString('title_pressEnter'), 20);
-		#else
+#else
 		pressEnter = new FlxText(0, 600, 0, LanguageManager.getTextString('title_pressEnter_mobile'), 20);
-		#end
 		pressEnter.setFormat(Paths.font('comic.ttf'), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		pressEnter.screenCenter(X);
 		pressEnter.borderSize = 3;
 		pressEnter.active = false;
 		add(pressEnter);
 
-		if (!SoundController?.music?.playing ?? true)
-		{
-			SoundController.playMusic(Paths.music('freakyMenu'));
-		}
+		if (!SoundController?.music?.playing ?? true) {
+SoundController.playMusic(Paths.music('freakyMenu'));
+}
 
 		Conductor.instance.loadMusicData('freakyMenu');
 
 		initalizeIntroText();
 
 		FlxG.camera.fade(FlxColor.BLACK, 1, true);
-	}
+}
 
-	override function update(elapsed:Float)
-	{
-		Conductor.instance.update();
+	override function update(elapsed:Float) {
+Conductor.instance.update();
 
-		if (FlxG.keys.justPressed.F)
-		{
-			FlxG.fullscreen = !FlxG.fullscreen;
-		}
+		if (FlxG.keys.justPressed.F) {
+FlxG.fullscreen = !FlxG.fullscreen;
+}
 		
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-		if (gamepad != null)
-		
-{
-			if (gamepad.justPressed.START)
-				pressedEnter = true;
+		if (gamepad != null) {
+#(gamepad.justPressed.START ? pressedEnter : null)
+#= true
 
-			#if switch
-			if (gamepad.justPressed.B)
-				pressedEnter = true;
-			#end
-		}
+#if switch
+			#(gamepad.justPressed.B ? pressedEnter : null)
+#= true
+}
 
-		#if mobile
-		if (TouchUtil.justPressed)
-			pressedEnter = true;
-		#end
+#if mobile
+		#(TouchUtil.justPressed ? pressedEnter : null)
+#= true
 
-		if (pressEnter != null && pressedEnter && !transitioning)
-		
-{
-			FlxTween.tween(pressEnter, {'scale.x': 0, 'scale.y': 0, angle: 10}, 0.5, {ease: FlxEase.backInOut});
+		if (pressEnter != null && pressedEnter && !transitioning) {
+FlxTween.tween(pressEnter, {'scale.x': 0, 'scale.y': 0, angle: 10}, 0.5, {ease: FlxEase.backInOut});
 
-			if (Preferences.flashingLights)
-				FlxG.camera.flash(FlxColor.WHITE, 0.5);
+			#(Preferences.flashingLights ? FlxG.camera.flash : null)
+#(FlxColor.WHITE, 0.5)
 
 			SoundController.play(Paths.sound('confirmMenu'), 0.7);
 
 			transitioning = true;
 
-			new FlxTimer().start(2, function(tmr:FlxTimer)
-			{
-				FlxG.switchState(() -> Void MainMenuState());
-			});
-		}
+			new FlxTimer().start(2, function(tmr:FlxTimer) {
+FlxG.switchState(() -> Void MainMenuState());
+});
+}
 
 		super.update(elapsed);
-	}
+}
 
-	override function beatHit(beat:Int):Bool
-	{
-		if (!super.beatHit(beat)) return false;
+	override function beatHit(beat:Int):Bool {
+if (!super.beatHit(beat)) return false;
 
-		if (logoBl == null) return false;
+		#(logoBl == null ? return : null)
+#false
 
 		logoBl.animation.play('bump');
 		
@@ -197,25 +179,22 @@ class TitleState extends MusicBeatState
 		FlxTween.tween(introDisplayText.scale, {x: 1.0, y: 1.0}, (Conductor.instance.crochet / 1100));
 
 		return true;
-	}
+}
 
-	function getIntroText():Array<Array<String>>
-	{
-		var fullText:String = Assets.getText(Paths.txt('introText')).trim();
+	function getIntroText():Array<Array<String>> {
+var fullText:String = Assets.getText(Paths.txt('introText')).trim();
 
 		var values:Array<Array<String>> = [];
 
 		var splitTextList:Array<String> = fullText.split('\n');
-		for (splitText in splitTextList)
-		{
-			values.push(splitText.split('--'));
-		}
+		for (splitText in splitTextList) {
+values.push(splitText.split('--'));
+}
 		return values;
-	}
+}
 
-	function initalizeIntroText():Void
-	{
-		introDisplayText = new FlxText(100, 0, 375, introText[0]);
+	function initalizeIntroText():Void {
+introDisplayText = new FlxText(100, 0, 375, introText[0]);
 		introDisplayText.setFormat(Paths.font('comic.ttf'), 24, FlxColor.fromString('#FF3FAC'), FlxTextAlign.CENTER, FlxTextBorderStyle.SHADOW_XY(3, 3), FlxColor.BLACK);
 		introDisplayText.screenCenter();
 		introDisplayText.borderSize = 2;
@@ -225,20 +204,21 @@ class TitleState extends MusicBeatState
 		add(introDisplayText);
 
 		var loopsElapsed:Int = 0;
-		timer = new FlxTimer().start(Conductor.instance.measureLength / 1000, (t:FlxTimer) -> ;
-		{
-			loopsElapsed++;			
-			if (loopsElapsed % 2 == 1)
-			
-{
-
-				introDisplayText.text = introText[0];
-			}
-			else
-			{
-				introDisplayText.text = introText[1];
-			}
-			t.reset(Conductor.instance.measureLength / 1000);
-		}, 0);
-	}
+		timer = new FlxTimer().start(Conductor.instance.measureLength / 1000, (t:FlxTimer) -> ; {
+loopsElapsed++;			
+			if (loopsElapsed % 2 == 1) {
+introDisplayText.text = introText[0];
 }
+#else
+introDisplayText.text = introText[1];
+}
+			t.reset(Conductor.instance.measureLength / 1000);
+}, 0);
+}
+}
+#
+#
+#
+#
+#
+#

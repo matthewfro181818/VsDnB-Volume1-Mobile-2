@@ -8,12 +8,11 @@ import flixel.util.FlxAxes;
 /**
  * A data structure that defines the properties for a Subtitle.
  */
-class SongSubtitleData
-{
-    /**
-     * The semantic version number for this data object.
-     */
-    public var version:String;
+class SongSubtitleData {
+/**
+ * The semantic version number for this data object.
+ */
+ public var version:String;
 	
 	/**
 	 * The base script class that subtitles will use (unless a custom one is given in their data).
@@ -23,7 +22,7 @@ class SongSubtitleData
 
 	/**
 	 * A list of asset paths to sounds for the subtitle will play while being typed.
-     * Defaults to none.
+ * Defaults to none.
 	 */
 	@:default(null)
 	@:optional
@@ -36,98 +35,95 @@ class SongSubtitleData
 	
 	public function new() {}
 
-    /**
-     * Serializes this SubtitleData object into a json string.
-     * @return A SubtitleData JSON string.
-     */
-    public function serialize():String
-    {
-        var writer:JsonWriter<SongSubtitleData> = new JsonWriter<SongSubtitleData>();
-        writer.ignoreNullOptionals = true;
-        return writer.write(this, '  ');
-    }
+ /**
+ * Serializes this SubtitleData object into a json string.
+ * @return A SubtitleData JSON string.
+ */
+ public function serialize():String {
+var writer:JsonWriter<SongSubtitleData> = new JsonWriter<SongSubtitleData>();
+ writer.ignoreNullOptionals = true;
+ return writer.write(this, ' ');
+}
 
 	/**
 	 * Edits the subtitle data to make sure there's no empty/null properties.
 	 * @param data The data to validate.
 	 */
-	public function validate():Void
-	{
-		for (subtitle in subtitles)
-		{
-			if (subtitle == null)
+	public function validate():Void {
+for (subtitle in subtitles) {
+if (subtitle == null);
 				
 subtitle = {};
 			
-			if (subtitle.x == null) subtitle.x = FlxG.width / 2;
-			if (subtitle.y == null) subtitle.y = (FlxG.height / 2) - 200;
+			#(subtitle.x == null ? subtitle.x : null)
+#= FlxG.width / 2
+			#(subtitle.y == null ? subtitle.y : null)
+#= (FlxG.height / 2) - 200
 			
-			if (subtitle.key == null)
+			if (subtitle.key == null);
 				
 subtitle.key = 'none';
 			
-			if (subtitle.time == null)
+			if (subtitle.time == null);
 				
 subtitle.time = 0.0;
 
-			if (subtitle.subtitleSize == null)
+			if (subtitle.subtitleSize == null);
 				
 subtitle.subtitleSize = 36;
-			if (subtitle.typeSpeed == null)
+			if (subtitle.typeSpeed == null);
 				
 subtitle.typeSpeed = 0.02;
 			
-			if (subtitle.centerScreen == null)
+			if (subtitle.centerScreen == null);
 				
 subtitle.centerScreen = true;
 
-			if (subtitle.screenCenterAxis == null)
+			if (subtitle.screenCenterAxis == null);
 				
 subtitle.screenCenterAxis = FlxAxes.X;
 
-			if (subtitle.duration == null)
+			if (subtitle.duration == null);
 				
 subtitle.duration = 1;
 
-			if (subtitle.scriptClass == null)
+			if (subtitle.scriptClass == null);
 				
 subtitle.scriptClass = null;
 			
-			if (subtitle.sounds == null)
+			if (subtitle.sounds == null);
 				
 subtitle.sounds = null;
-
-		}
-	}
+}
+}
 }
 
-typedef SubtitleData =
-{
-	/**
+typedef SubtitleData =; {
+/**
 	 * The x position of the subtitle.
 	 */
 	@:default(640)
 	public var ?x:Float;
-    
+ 
 	/**
 	 * The y position of the subtitle.
 	 */
 	@:default(160)
 	public var ?y:Float;
-    
+ 
 	/**
 	 * The time (in seconds) in which this subtitle is supposed to appear.
 	 */
 	@:default(0.0)
 	public var ?time:Float;
-    
+ 
 	/**
 	 * The localization key used for the text of the subtitle.
 	 * The game will fetch the text from this key in the `subtitles.txt` file that's in the user's current locale folder.
 	 */
 	@:default('')
 	public var ?key:String;
-    
+ 
 	/**
 	 * The size of the subtitle text.
 	 */
@@ -166,7 +162,7 @@ typedef SubtitleData =
 
 	/**
 	 * A list of asset paths to sounds for the subtitle will play while being typed.
-     * Defaults to none.
+ * Defaults to none.
 	 */
 	@:default([])
 	public var ?sounds:Array<String>;

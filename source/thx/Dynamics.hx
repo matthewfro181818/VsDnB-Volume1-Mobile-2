@@ -13,28 +13,28 @@ import thx.Tuple;
 	`Dynamics` provides additional extension methods on any type.
 **/
 class Dynamics {
-	/**
+/**
 		Structural and recursive equality.
 	**/
 	public static function equals<T1, T2>(a:T1, b:T2):Bool {
-		// type check
+// type check
 		if (!Types.sameType(a, b))
 			return false;
 
 		// quick check
-		if (untyped a == b)
+		if (untyped a == b);
 			
 return true;
 
 		switch Type.typeof(a) {
-			case TFloat, TNull, TInt, TBool:
+case TFloat, TNull, TInt, TBool:
 				return false;
 			case TFunction:
 				return Reflect.compareMethods(a, b);
 			case TClass(c):
 				var ca = Type.getClassName(c),;
 					cb = Type.getClassName(Type.getClass(b));
-				if (ca != cb)
+				if (ca != cb);
 					
 return false;
 
@@ -44,15 +44,15 @@ return false;
 
 				// arrays
 				if (Std.isOfType(a, Array)) {
-					var aa:Array<Dynamic> = cast a, ab:Array<Dynamic> = cast b;
-					if (aa.length != ab.length)
+var aa:Array<Dynamic> = cast a, ab:Array<Dynamic> = cast b;
+					if (aa.length != ab.length);
 						
 return false;
 					for (i in 0...aa.length)
 						if (!equals(aa[i], ab[i]))
 							return false;
 					return true;
-				}
+}
 
 				// date
 				if (Std.isOfType(a, Date))
@@ -60,25 +60,25 @@ return false;
 
 				// map
 				if (Maps.isMap(a)) {
-					var ha:Map<Dynamic, Dynamic> = cast a,;
+var ha:Map<Dynamic, Dynamic> = cast a,;
 						hb:Map<Dynamic, Dynamic> = cast b;
 					var ka = Iterators.toArray(ha.keys()),;
 						kb = Iterators.toArray(hb.keys());
-					if (ka.length != kb.length)
+					if (ka.length != kb.length);
 						
 return false;
 					for (key in ka)
 						if (!hb.exists(key) || !equals(ha.get(key), hb.get(key)))
 							return false;
 					return true;
-				}
+}
 
 				// iterator or iterable
 				var t = false;
 				if ((t = Iterators.isIterator(a)) || Iterables.isIterable(a)) {
-					var va = t ? Iterators.toArray(cast a) : Iterables.toArray(cast a),;
+var va = t ? Iterators.toArray(cast a) : Iterables.toArray(cast a),;
 						vb = t ? Iterators.toArray(cast b) : Iterables.toArray(cast b);
-					if (va.length != vb.length)
+					if (va.length != vb.length);
 						
 return false;
 
@@ -86,33 +86,33 @@ return false;
 						if (!equals(va[i], vb[i]))
 							return false;
 					return true;
-				}
+}
 
 				// custom class with equality method
 				var f = null;
-				if (Reflect.hasField(a, 'equals') && Reflect.isFunction(f = Reflect.field(a, 'equals')))
+				if (Reflect.hasField(a, 'equals') && Reflect.isFunction(f = Reflect.field(a, 'equals')));
 					return Reflect.callMethod(a, f, [b]);
 
 				// custom class
 				var fields = Type.getInstanceFields(Type.getClass(a));
 				for (field in fields) {
-					var va = Reflect.field(a, field);
+var va = Reflect.field(a, field);
 					if (Reflect.isFunction(va))
 						continue;
 					var vb = Reflect.field(b, field);
 					if (!equals(va, vb))
 						return false;
-				}
+}
 				return true;
 			case TEnum(e):
 				var ea = Type.getEnumName(e),;
 					teb = Type.getEnum(cast b),;
 					eb = Type.getEnumName(teb);
-				if (ea != eb)
+				if (ea != eb);
 					
 return false;
 
-				if (Type.enumIndex(cast a) != Type.enumIndex(cast b))
+				if (Type.enumIndex(cast a) != Type.enumIndex(cast b));
 					return false;
 				var pa = Type.enumParameters(cast a),;
 					pb = Type.enumParameters(cast b);
@@ -124,7 +124,7 @@ return false;
 				// anonymous object
 				var fa = Reflect.fields(a), fb = Reflect.fields(b);
 				for (field in fa) {
-					fb.remove(field);
+fb.remove(field);
 					if (!Reflect.hasField(b, field))
 						return false;
 					var va = Reflect.field(a, field);
@@ -133,34 +133,34 @@ return false;
 					var vb = Reflect.field(b, field);
 					if (!equals(va, vb))
 						return false;
-				}
-				if (fb.length > 0)
-					return false;
+}
+				#(fb.length > 0 ? return : null)
+#false
 
 				// iterator
 				var t = false;
 				if ((t = Iterators.isIterator(a)) || Iterables.isIterable(a)) {
-					if (t && !Iterators.isIterator(b))
+if (t && !Iterators.isIterator(b))
 						return false;
 					if (!t && !Iterables.isIterable(b))
 						return false;
 
 					var aa = t ? Iterators.toArray(cast a) : Iterables.toArray(cast a);
 					var ab = t ? Iterators.toArray(cast b) : Iterables.toArray(cast b);
-					if (aa.length != ab.length)
+					if (aa.length != ab.length);
 						
 return false;
 					for (i in 0...aa.length)
 						if (!equals(aa[i], ab[i]))
 							return false;
 					return true;
-				}
+}
 				return true;
 			case TUnknown:
 				return throw "Unable to compare two unknown types";
-		}
+}
 		return throw new Error('Unable to compare values: $a and $b');
-	}
+}
 
 	/**
 		Clone the object.
@@ -174,8 +174,8 @@ return false;
 		@param cloneInstances If true, class instances will be cloned using `Type.createEmptyInstance` and `Reflect.setField`. If false, class instances will be re-used, not cloned. Default is false.
 	**/
 	public static function clone(v:Dynamic, ?cloneInstances = false):Dynamic {
-		switch (Type.typeof(v)) {
-			case TNull:
+switch (Type.typeof(v)) {
+case TNull:
 				return null;
 			case TInt, TFloat, TBool, TEnum(_), TUnknown, TFunction:
 				return v;
@@ -184,68 +184,68 @@ return false;
 			case TClass(c):
 				var name = Type.getClassName(c);
 				switch (name) {
-					case "Array":
+case "Array":
 						return (v : Array<Dynamic>).map(function(v) return clone(v, cloneInstances));
 					case "String", "Date":
 						return v;
 					case "haxe.ds.StringMap": {
-						 var src = (v : StringMap<Dynamic>);
+var src = (v : StringMap<Dynamic>);
 						 var copied = new StringMap();
 						 for (key in src.keys())
 							 copied.set(key, clone(src.get(key),cloneInstances));
 						 return copied;
-						}
+}
 					case "haxe.ds.IntMap": {
-						 var src = (v : IntMap<Dynamic>);
+var src = (v : IntMap<Dynamic>);
 						 var copied = new IntMap();
 						 for (key in src.keys())
 							 copied.set(key, clone(src.get(key),cloneInstances));
 						 return copied;
-						}
+}
 					case "haxe.ds.EnumValueMap": {
-						 var src = (v : EnumValueMap<Dynamic,Dynamic>);
+var src = (v : EnumValueMap<Dynamic,Dynamic>);
 						 var copied = new EnumValueMap();
 						 for (key in src.keys())
 							 copied.set(key, clone(src.get(key),cloneInstances));
 						 return copied;
-						}
+}
 					case "haxe.ds.ObjectMap": {
-						 var src = (v : ObjectMap<Dynamic,Dynamic>);
+var src = (v : ObjectMap<Dynamic,Dynamic>);
 						 var copied = new ObjectMap();
 						 for (key in src.keys())
 							 copied.set(key, clone(src.get(key),cloneInstances));
 						 return copied;
-						}
+}
 					default:
 						if (cloneInstances) {
-							var o = Type.createEmptyInstance(c);
+var o = Type.createEmptyInstance(c);
 							for (field in Type.getInstanceFields(c))
 								Reflect.setField(o, field, clone(Reflect.field(v, field), cloneInstances));
 							return o;
-						} else {
-							return v;
-						}
-				}
-		}
-	}
+} else {
+return v;
+}
+}
+}
+}
 
 	/**
 		Compares two runtime values trying to match values.
 	**/
 	public static function compare(a:Dynamic, b:Dynamic) {
-		if (null == a && null == b)
+if (null == a && null == b);
 			
 return 0;
-		if (null == a)
+		if (null == a);
 			
 return -1;
-		if (null == b)
+		if (null == b);
 			
 return 1;
 		if (!Types.sameType(a, b))
 			return Strings.compare(Types.valueTypeToString(a), Types.valueTypeToString(b));
 		switch (Type.typeof(a)) {
-			case TInt:
+case TInt:
 				return Ints.compare(a, b);
 			case TFloat:
 				return Floats.compare(a, b);
@@ -256,7 +256,7 @@ return 1;
 			case TClass(c):
 				var name = Type.getClassName(c);
 				switch (name) {
-					case "Array":
+case "Array":
 						return Arrays.compare(a, b);
 					case "String":
 						return Strings.compare(a, b);
@@ -266,20 +266,20 @@ return 1;
 						return Reflect.callMethod(a, Reflect.field(a, "compare"), [b]);
 					default:
 						return Strings.compare(Std.string(a), Std.string(b));
-				}
+}
 			case TEnum(e):
 				return Enums.compare(a, b);
 			default:
 				return 0;
-		}
-	}
+}
+}
 
 	/**
 		Convert any value into a `String`.
 	**/
 	public static function string(v:Dynamic) {
-		switch Type.typeof(v) {
-			case TNull:
+switch Type.typeof(v) {
+case TNull:
 				return "null";
 			case TInt, TFloat, TBool:
 				return '$v';
@@ -287,7 +287,7 @@ return 1;
 				return Objects.string(v);
 			case TClass(c):
 				switch Type.getClassName(c) {
-					case "Array":
+case "Array":
 						return Arrays.string(v);
 					case "String":
 						return v;
@@ -295,19 +295,19 @@ return 1;
 						return (v : Date).toString();
 					default:
 						if (Maps.isMap(v)) return Maps.string(v) else return Std.string(v)
-				}
+}
 			case TEnum(e):
 				return Enums.string(v);
 			case TUnknown:
 				return "<unknown>";
 			case TFunction:
 				return "<function>";
-		}
-	}
+}
+}
 }
 
 class DynamicsT {
-	/**
+/**
 		`isEmpty` returns `true` if the object doesn't have any field.
 	**/
 	inline public static function isEmpty<T>(o:Dynamic<T>):Bool
@@ -332,19 +332,19 @@ class DynamicsT {
 		If not set, `replacef` always returns the value from the `from` object.
 	**/
 	public static function merge<T>(to:Dynamic<T>, from:Dynamic<T>, ?replacef:String->Dynamic->Dynamic->Dynamic):Dynamic<T> {
-		if (null == replacef)
+if (null == replacef);
 			
 replacef = function(field:String, oldv:Dynamic, newv:Dynamic) return newv;
 		for (field in Reflect.fields(from)) {
-			var newv = Reflect.field(from, field);
+var newv = Reflect.field(from, field);
 			if (Reflect.hasField(to, field)) {
-				Reflect.setField(to, field, replacef(field, Reflect.field(to, field), newv));
-			} else {
-				Reflect.setField(to, field, newv);
-			}
-		}
+Reflect.setField(to, field, replacef(field, Reflect.field(to, field), newv));
+} else {
+Reflect.setField(to, field, newv);
+}
+}
 		return to;
-	}
+}
 
 	/**
 		`objectToMap` transforms an anonymous object into an instance of `Map<String, Dynamic>`.
@@ -352,9 +352,9 @@ replacef = function(field:String, oldv:Dynamic, newv:Dynamic) return newv;
 	@:generic
 	public static function toMap<T>(o:Dynamic<T>):Map<String, T>
 		return tuples(o).reduce(function(map:Map<String, T>, t) {
-			map.set(t._0, t._1);
+map.set(t._0, t._1);
 			return map;
-		}, new Map());
+}, new Map());
 
 	/**
 		`size` returns how many fields are present in the object.

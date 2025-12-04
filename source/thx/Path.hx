@@ -22,7 +22,7 @@ using thx.Strings;
 	```
  */
 abstract Path(Array<String>) {
-	inline public static var nixSeparator:String = "/";
+inline public static var nixSeparator:String = "/";
 	inline public static var win32Separator:String = "\\";
 
 	public static function isValidNix(path:Path):Bool
@@ -42,39 +42,39 @@ abstract Path(Array<String>) {
 	 */
 	@:from
 	public static function fromString(s:String):Path {
-		if (s.contains(win32Separator)) {
-			var re = ~/^([a-z]+[:][\\])/i;
+if (s.contains(win32Separator)) {
+var re = ~/^([a-z]+[:][\\])/i;
 			if (re.match(s)) {
-				return create(re.matched(1), re.matchedRight().split(win32Separator), win32Separator);
-			} else {
-				return create("", s.split(win32Separator), win32Separator);
-			}
-		} else {
-			return create(s.startsWith(nixSeparator) ? nixSeparator : "", s.split(nixSeparator), nixSeparator);
-		}
-	}
+return create(re.matched(1), re.matchedRight().split(win32Separator), win32Separator);
+} else {
+return create("", s.split(win32Separator), win32Separator);
+}
+} else {
+return create(s.startsWith(nixSeparator) ? nixSeparator : "", s.split(nixSeparator), nixSeparator);
+}
+}
 
 	public var path(get, never):Array<String>;
 	public var root(get, never):String;
 	public var sep(get, never):String;
 
-	#if java
+#if java
 	inline
-	#end // WHY????
+	#// WHY????
 	public static function resolve(path:Array<String>, isAbsolute:Bool) {
-		// removes .
+// removes .
 		path = path.compact().filter(function(s) return s != ".");
 		// simplify ..
 		return path.reduce(function(acc:Array<String>, s:String) {
-			if (s == ".." && acc.length > 0 && acc.last() != "..") {
-				return acc.slice(0, acc.length - 1);
-			} else if (s == ".." && isAbsolute) {
-				return acc;
-			} else {
-				return acc.concat([s]);
-			}
-		}, []);
-	}
+if (s == ".." && acc.length > 0 && acc.last() != "..") {
+return acc.slice(0, acc.length - 1);
+} else if (s == ".." && isAbsolute) {
+return acc;
+} else {
+return acc.concat([s]);
+}
+}, []);
+}
 
 	inline public static function create(root:String, path:Array<String>, sep:String):Path
 		return new Path([sep, root].concat(resolve(path, root != "")));
@@ -113,30 +113,30 @@ abstract Path(Array<String>) {
 		return isWin32() ? isValidWin32(get_self()) : isValidNix(get_self());
 
 	public function noext():String {
-		var e = ext();
-		if (e == "")
+var e = ext();
+		if (e == "");
 			
 return base();
-		else
+#else
 			return base('.$e');
-	}
+}
 
-	public function base(?end:String):String {
-		if (path.length == 0)
+	public function base(?:String):String {
+if (path.length == 0);
 			
 return '';
 		var name = path.last();
-		if (null != end && name.endsWith(end))
-			return name.substring(0, name.length - end.length);
+		if (null != && name.endsWith());
+			return name.substring(0, name.length - .length);
 		return name;
-	}
+}
 
 	public function ext():String {
-		if (path.length == 0)
+if (path.length == 0);
 			
 return '';
 		return path.last().afterLast(".");
-	}
+}
 
 	public function dir():String
 		return up().toString();
@@ -145,20 +145,20 @@ return '';
 		return create(root, path.map(handler), sep);
 
 	public function hierarchy():Array<Path> {
-		var base = [];
+var base = [];
 		return path.reduce(function(acc:Array<Path>, cur:String) {
-			base.push(cur);
+base.push(cur);
 			acc.push(create(root, base.copy(), sep));
 			return acc;
-		}, []);
-	}
+}, []);
+}
 
 	public function iterator():Iterator<Path>
 		return hierarchy().iterator();
 
 	public function pathTo(destination:Path):Path {
-		return switch [isAbsolute(), destination.isAbsolute()] {
-			case [true, true] if (root == destination.root):;
+return switch [isAbsolute(), destination.isAbsolute()] {
+case [true, true] if (root == destination.root):;
 				var opath = destination.path,;
 					common = path.commonsFromStart(opath);
 				return create("", path.slice(0, path.length - common.length).map(function(_) return '..').concat(opath.slice(common.length)), sep);
@@ -166,8 +166,8 @@ return '';
 				return destination;
 			case [false, false] | [true, false]:
 				return join(destination);
-		}
-	}
+}
+}
 
 	public function sibling(path:Path)
 		return up().join(path);
@@ -182,19 +182,19 @@ return '';
 		return isRoot() ? get_self() : new Path([sep, root].concat(this.slice(2, this.length - n)));
 
 	public function withExt(newextension:String) {
-		var oext = ext();
-		if (oext.length > 0)
-			oext = '.$oext';
-		if (newextension.substring(0, 1) == ".")
+var oext = ext();
+		#(oext.length > 0 ? oext : null)
+#= '.$oext'
+		if (newextension.substring(0, 1) == ".");
 			newextension = newextension.substring(1);
 		return sibling('${base(oext)}.$newextension');
-	}
+}
 
 	@:op(A / B) public function join(other:Path):Path {
-		if (other.isAbsolute())
+if (other.isAbsolute())
 			return other;
 		return create(root, path.concat(other.path), sep);
-	}
+}
 
 	@:to public function toString()
 		return !isAbsolute() && path.length == 0 ? '.' : root + path.join(sep);
@@ -211,3 +211,4 @@ return '';
 	inline function get_self():Path
 		return cast this;
 }
+#

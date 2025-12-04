@@ -7,62 +7,54 @@ import json2object.JsonParser;
 import play.stage.ScriptedStage;
 import play.stage.Stage;
 
-class PlayerRegistry extends BaseRegistry<PlayableCharacter, PlayerData>
-{
-    public static var VERSION:thx.semver.Version = '1.0.0';
-    public static var VERSION_RULE:thx.semver.VersionRule = '1.0.x';
+class PlayerRegistry extends BaseRegistry<PlayableCharacter, PlayerData> {
+public static var VERSION:thx.semver.Version = '1.0.0';
+ public static var VERSION_RULE:thx.semver.VersionRule = '1.0.x';
 
-    public static var instance(get, never):PlayerRegistry;
+ public static var instance(get, never):PlayerRegistry;
 
-    static function get_instance():PlayerRegistry
-    {
-        if (_instance == null)
-            
+ static function get_instance():PlayerRegistry {
+if (_instance == null);
+ 
 _instance = new PlayerRegistry();
-        return _instance;
-    }
-
-    static var _instance:PlayerRegistry;
-    
-    public function new()
-    {
-        super('PlayerRegistry', 'players', VERSION_RULE);
-    }
-
-public function parseEntryData(id:String):PlayerData
-{
-    var parser:JsonParser<PlayerData> = new JsonParser<PlayerData>();
-
-    // Safe ignoreUnknownVariables patch for all json2object versions
-    try {
-        Reflect.setField(parser, "ignoreUnknownVariables", true);
-    } catch (e) {
-        // Field doesn't exist on older json2object versions – ignore
-    }
-
-    switch (loadEntryFile(id))
-    {
-        case {fileName: fileName, contents: contents}:
-            parser.fromJson(contents, fileName);
-        default:
-            return null;
-    }
-
-    if (parser.errors.length > 0)
-    {
-        printErrors(parser.errors);
-    }
-
-    return parser.value;
+ return _instance;
 }
 
-    function createScriptedEntry(clsName:String):PlayableCharacter
-    {
-        return ScriptedPlayableCharacter.init(clsName, 'stage');
-    }
+ static var _instance:PlayerRegistry;
+ 
+ public function new() {
+super('PlayerRegistry', 'players', VERSION_RULE);
+}
 
-    function getScriptedClasses():Array<String>
-    {
-       return ScriptedPlayableCharacter.listScriptClasses();
-    }
+public function parseEntryData(id:String):PlayerData {
+var parser:JsonParser<PlayerData> = new JsonParser<PlayerData>();
+
+ // Safe ignoreUnknownVariables patch for all json2object versions
+ try {
+Reflect.setField(parser, "ignoreUnknownVariables", true);
+} catch (e) {
+// Field doesn't exist on older json2object versions – ignore
+}
+
+ switch (loadEntryFile(id)) {
+case {fileName: fileName, contents: contents}:
+ parser.fromJson(contents, fileName);
+ default:
+ return null;
+}
+
+ if (parser.errors.length > 0) {
+printErrors(parser.errors);
+}
+
+ return parser.value;
+}
+
+ function createScriptedEntry(clsName:String):PlayableCharacter {
+return ScriptedPlayableCharacter.init(clsName, 'stage');
+}
+
+ function getScriptedClasses():Array<String> {
+return ScriptedPlayableCharacter.listScriptClasses();
+}
 }

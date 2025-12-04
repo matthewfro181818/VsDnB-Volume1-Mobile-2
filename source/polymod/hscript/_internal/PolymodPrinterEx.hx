@@ -2,13 +2,10 @@ package polymod.hscript._internal;
 
 import hscript.Printer;
 
-class PolymodPrinterEx extends Printer
-{
-	public static function errorExToString(e:PolymodExprEx.ErrorEx)
-	{
-		var message = switch (#if hscriptPos e.e #else e #end);
-		{
-			case EInvalidChar(c): "Invalid character: '" + (StringTools.isEof(c) ? "EOF" : String.fromCharCode(c)) + "' (" + c + ")";
+class PolymodPrinterEx extends Printer {
+public static function errorExToString(e:PolymodExprEx.ErrorEx) {
+var message = switch (#if hscriptPos e.e #else e #); {
+case EInvalidChar(c): "Invalid character: '" + (StringTools.isEof(c) ? "EOF" : String.fromCharCode(c)) + "' (" + c + ")";
 			case EUnexpected(s): "Unexpected token: \"" + s + "\"";
 			case EUnterminatedString: "Unterminated string";
 			case EUnterminatedComment: "Unterminated comment";
@@ -28,11 +25,11 @@ class PolymodPrinterEx extends Printer
 			case EScriptCallThrow(v): "Script threw an exception: \n" + v;
 			case EScriptThrow(v): "Script threw an exception: \n" + v;
 			case ECustom(msg): msg;
-		};
-		#if hscriptPos
+};
+#if hscriptPos
 		return e.origin + ":" + e.line + ": " + message;
-		#else
+#else
 		return message;
-		#end
-	}
 }
+}
+#

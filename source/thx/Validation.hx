@@ -14,7 +14,7 @@ typedef VNel<E, A> = Validation<Nel<E>, A>;
  * on the left type. This is useful for composing validation functions.
  */
 abstract Validation<E, A>(Either<E, A>) from Either<E, A> {
-	public var either(get, never):Either<E, A>;
+public var either(get, never):Either<E, A>;
 
 	inline public function get_either():Either<E, A>
 		return this;
@@ -47,17 +47,17 @@ abstract Validation<E, A>(Either<E, A>) from Either<E, A> {
 
 	public function ap<B>(v:Validation<E, A->B>, s:Semigroup<E>):Validation<E, B>
 		return switch this {
-			case Left(e0):
+case Left(e0):
 				switch v.either {
-					case Left(e1): Left(s.append(e0, e1));
+case Left(e1): Left(s.append(e0, e1));
 					case Right(b): Left(e0);
-				}
+}
 			case Right(a):
 				switch v.either {
-					case Left(e): Left(e);
+case Left(e): Left(e);
 					case Right(f): Right(f(a));
-				}
-		};
+}
+};
 
 	/**
 	 * This is not simply flatMap because it is not consistent with ap,
@@ -66,9 +66,9 @@ abstract Validation<E, A>(Either<E, A>) from Either<E, A> {
 	 */
 	inline public function flatMapV<B>(f:A->Validation<E, B>):Validation<E, B>
 		return switch this {
-			case Left(a): Left(a);
+case Left(a): Left(a);
 			case Right(b): f(b);
-		};
+};
 
 	/**
 	 * If `this` validation is a Right, keep it. Otherwise, try `other` as an
@@ -76,10 +76,10 @@ abstract Validation<E, A>(Either<E, A>) from Either<E, A> {
 	**/
 	public function orElseV(other:Validation<E, A>, s:Semigroup<E>):Validation<E, A>
 		return switch [this, other.either] {
-			case [Right(_), _]: this;
+case [Right(_), _]: this;
 			case [_, Right(_)]: other;
 			case [Left(e1), Left(e2)]: Left(s.append(e1, e2));
-		}
+}
 
 	inline public function foldLeft<B>(b:B, f:B->A->B):B
 		return Eithers.foldLeft(this, b, f);
@@ -202,33 +202,33 @@ abstract Validation<E, A>(Either<E, A>) from Either<E, A> {
 }
 
 class ValidationExtensions {
-	public static inline function leftMapNel<E, E0, A>(n:VNel<E, A>, f:E->E0):VNel<E0, A>
+public static inline function leftMapNel<E, E0, A>(n:VNel<E, A>, f:E->E0):VNel<E0, A>
 		return n.leftMap(function(n) return n.map(f));
 
 	public static function ensureNel<E, A>(v:VNel<E, A>, p:A->Bool, error:E):VNel<E, A>
 		return switch v {
-			case Right(a): if (p(a)) v else Validation.failureNel(error);
+case Right(a): if (p(a)) v else Validation.failureNel(error);
 			case left: left;
-		};
+};
 
 	public static function appendVNel<E, A>(target:VNel<E, Array<A>>, item:VNel<E, A>):VNel<E, Array<A>> {
-		return switch [target, item] {
-			case [Right(values), Right(value)]: Right(values.append(value));
+return switch [target, item] {
+case [Right(values), Right(value)]: Right(values.append(value));
 			case [Right(values), Left(errors)]: Left(errors);
 			case [Left(errors), Right(value)]: Left(errors);
 			case [Left(errors1), Left(errors2)]: Left(errors1.append(errors2));
-		};
-	}
+};
+}
 
 	public static function appendValidation<E, A>(target:VNel<E, Array<A>>, item:Validation<E, A>):VNel<E, Array<A>> {
-		return appendVNel(target, Eithers.toVNel(item.either));
-	}
+return appendVNel(target, Eithers.toVNel(item.either));
+}
 
 	public static function appendVNels<E, A>(target:VNel<E, Array<A>>, items:Array<VNel<E, A>>):VNel<E, Array<A>> {
-		return items.reduce(appendVNel, target);
-	}
+return items.reduce(appendVNel, target);
+}
 
 	public static function appendValidations<E, A>(target:VNel<E, Array<A>>, items:Array<Validation<E, A>>):VNel<E, Array<A>> {
-		return items.reduce(appendValidation, target);
-	}
+return items.reduce(appendValidation, target);
+}
 }

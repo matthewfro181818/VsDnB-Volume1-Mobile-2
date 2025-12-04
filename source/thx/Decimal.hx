@@ -1,9 +1,8 @@
 package thx;
 
-
 @:forward(scale)
 abstract Decimal(DecimalImpl) from DecimalImpl to DecimalImpl {
-	public static var divisionScale(get, set):Int;
+public static var divisionScale(get, set):Int;
 	public static var zero(default, null) = DecimalImpl.zero;
 	public static var one(default, null) = DecimalImpl.one;
 
@@ -154,10 +153,10 @@ abstract Decimal(DecimalImpl) from DecimalImpl to DecimalImpl {
 
 	@:op(A++)
 	inline public function postIncrement():Decimal {
-		var v = this;
+var v = this;
 		this = add(Decimal.one);
 		return v;
-	}
+}
 
 	@:op(--A)
 	inline public function preDecrement():Decimal
@@ -165,10 +164,10 @@ abstract Decimal(DecimalImpl) from DecimalImpl to DecimalImpl {
 
 	@:op(A--)
 	inline public function postDecrement():Decimal {
-		var v = this;
+var v = this;
 		this = subtract(Decimal.one);
 		return v;
-	}
+}
 
 	@:op(A * B) @:commutative
 	inline public function multiply(that:Decimal):Decimal

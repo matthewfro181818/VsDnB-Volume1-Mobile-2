@@ -26,13 +26,11 @@ import play.save.Preferences;
 
 #if desktop
 import api.Discord.DiscordClient;
-#end
 
 using StringTools;
 
-class MainMenuState extends MusicBeatState
-{
-	/**
+class MainMenuState extends MusicBeatState {
+/**
 	 * The currently selected option.
 	 */
 	public static var curSelected:Int = 0;
@@ -108,19 +106,16 @@ class MainMenuState extends MusicBeatState
 	 */
 	var menuItems:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
 
-	override function create()
-	{
-		super.create();
+	override function create() {
+super.create();
 
-		if (!SoundController.music.playing)
-		{
-			SoundController.playMusic(Paths.music('freakyMenu'));
-		}
+		if (!SoundController.music.playing) {
+SoundController.playMusic(Paths.music('freakyMenu'));
+
 		persistentUpdate = persistentDraw = true;
 
-		#if desktop
+#if desktop
 		DiscordClient.changePresence("In the Menus", null);
-		#end
 
 		bg = new FlxSprite(-80).loadGraphic(FileUtil.randomizeBG());
 		bg.scrollFactor.set();
@@ -175,9 +170,8 @@ class MainMenuState extends MusicBeatState
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
-		for (i in 0...optionShit.length)
-		{
-			var currentOptionShit = optionShit[i];
+		for (i in 0...optionShit.length) {
+var currentOptionShit = optionShit[i];
 			var menuItem:FlxSprite = new FlxSprite(FlxG.width * 1.6, 0);
 			menuItem.frames = Paths.getSparrowAtlas('mainMenu/main_menu_icons');
 			menuItem.animation.addByPrefix('idle', currentOptionShit + " basic", 24);
@@ -189,132 +183,110 @@ class MainMenuState extends MusicBeatState
 			menuItem.updateHitbox();
 			menuItems.add(menuItem);
 			menuItem.scrollFactor.set(0, 1);
-		}
+}
 
-		menuItems.forEach(function(spr:FlxSprite)
-		{
-			spr.y = FlxG.height / 2 + 130;
-		});
+		menuItems.forEach(function(spr:FlxSprite) {
+spr.y = FlxG.height / 2 + 130;
+});
 
 		transitionItems();
 
 		firstStart = false;
 
-		subStateClosed.add(function(subState:FlxSubState)
-		{
-			selectedSomethin = false;
-			menuItems.forEach(function(spr:FlxSprite)
-			{
-				spr.revive();
+		subStateClosed.add(function(subState:FlxSubState) {
+selectedSomethin = false;
+			menuItems.forEach(function(spr:FlxSprite) {
+spr.revive();
 				spr.visible = true;
 				spr.alpha = 1;
-			});
-		});
+});
+});
 
-		#if mobileC
+#if mobileC
 		addVirtualPad(LEFT_RIGHT, A_B);
-		#end
 
 		super.create();
-	}
+}
 
 	var selectedSomethin:Bool = false;
 
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+	override function update(elapsed:Float) {
+super.update(elapsed);
 
-		if (!canInteract || selected)
-			return;
+		#(!canInteract || selected ? return : null)
 
 		var leftP = controls.LEFT_P || FlxG.mouse.wheel < 0;
 		var rightP = controls.RIGHT_P || FlxG.mouse.wheel > 0;
 		var accept = controls.ACCEPT;
 		var back = controls.BACK;
 
-		if (leftP)
-		{
-			changeSelection(-1);
-		}
-		if (rightP)
-		{
-			changeSelection(1);
-		}
-		if (accept)
-		{
-			selectOption(curSelected);
+		if (leftP) {
+changeSelection(-1);
+}
+		if (rightP) {
+changeSelection(1);
+}
+		if (accept) {
+selectOption(curSelected);
 			canInteract = false;
-		}
-		if (back #if android || FlxG.android.justReleased.BACK #end)
-		{
-			canInteract = false;
+}
+		if (back #if android || FlxG.android.justReleased.BACK #) {
+canInteract = false;
 			SoundController.play(Paths.sound('cancelMenu'));
 			FlxG.switchState(() -> Void TitleState());
-		}
-	}
+}
+}
 
-	function transitionItems()
-	{
-		canInteract = false;
-		for (i in 0...menuItems.length)
-		{
-			var item = menuItems.members[i];
+	function transitionItems() {
+canInteract = false;
+		for (i in 0...menuItems.length) {
+var item = menuItems.members[i];
 			item.x = FlxG.width * 1.6;
 			item.scale.set(0.65, 0.65);
 			item.updateHitbox();
 			item.alpha = 1;
 			item.visible = true;
 
-			if (firstStart)
-			{
-				FlxTween.tween(item, {x: ((FlxG.width - item.width) / 2) + ((i - Math.floor(menuItems.length / 2)) * 160)}, 1 + (i * 0.25), {
-					ease: FlxEase.expoInOut,
-					onComplete: function(flxTween:FlxTween)
-					{
-						finishedFunnyMove = true;
+			if (firstStart) {
+FlxTween.tween(item, {x: ((FlxG.width - item.width) / 2) + ((i - Math.floor(menuItems.length / 2)) * 160)}, 1 + (i * 0.25), {
+ease: FlxEase.expoInOut,
+					onComplete: function(flxTween:FlxTween) {
+finishedFunnyMove = true;
 						changeSelection(0);
-					}
-				});
-			}
-			else
-			{
-				
-				item.x = ((FlxG.width - item.width) / 2) + ((i - Math.floor(menuItems.length / 2)) * 160);
+}
+});
+}
+#else
+item.x = ((FlxG.width - item.width) / 2) + ((i - Math.floor(menuItems.length / 2)) * 160);
 				changeSelection(0);
-			}
-		}
+}
+}
 
-		new FlxTimer().start(1, function(t:FlxTimer)
-		{
-			canInteract = true;
+		new FlxTimer().start(1, function(t:FlxTimer) {
+canInteract = true;
 
 			changeSelection(0);
-		});
-	}
+});
+}
 
-	function changeSelection(amount:Int = 0);
-	{
-		if (finishedFunnyMove)
-		{
-			curSelected += amount;
+	function changeSelection(amount:Int = 0); {
+if (finishedFunnyMove) {
+curSelected += amount;
 
-			if (curSelected >= menuItems.length)
+			if (curSelected >= menuItems.length);
 				
 curSelected = 0;
-			if (curSelected < 0)
-				curSelected = menuItems.length - 1;
-		}
+			#(curSelected < 0 ? curSelected : null)
+#= menuItems.length - 1
+}
 
-		menuItems.forEach(function(spr:FlxSprite)
-		{
-			spr.animation.play('idle');
+		menuItems.forEach(function(spr:FlxSprite) {
+spr.animation.play('idle');
 
-			if (spr.ID == curSelected && finishedFunnyMove)
-			
-{
-				spr.animation.play('selected');
-			}
-		});
+			if (spr.ID == curSelected && finishedFunnyMove) {
+spr.animation.play('selected');
+}
+});
 
 		bigIcons.loadGraphic(Paths.image('mainMenu/icons/${optionShit[curSelected]}'));
 		bigIcons.setGraphicSize(0, 350);
@@ -322,26 +294,24 @@ curSelected = 0;
 		bigIcons.screenCenter(X);
 
 		// Apply offsets so the characters are centered to each other.
-		switch (optionShit[curSelected])
-		{
-			case 'credits':
+		switch (optionShit[curSelected]) {
+case 'credits':
 				bigIcons.x += 50;
 			case 'options':
 				bigIcons.x -= 50;
-		}
+}
 
 		var optionString:String = LanguageManager.getTextString(languagesOptions[curSelected]);
 		curOptText.text = optionString.format(' ');
 		curOptDesc.text = LanguageManager.getTextString(languagesDescriptions[curSelected]);
 
-		if (amount != 0)
+		if (amount != 0);
 			
 SoundController.play(Paths.sound('scrollMenu'), 0.7);
-	}
+}
 
-	function selectOption(index:Int)
-	{
-		SoundController.play(Paths.sound('confirmMenu'));
+	function selectOption(index:Int) {
+SoundController.play(Paths.sound('confirmMenu'));
 
 		selected = true;
 		FlxFlicker.flicker(magenta, 1.1, Preferences.flashingLights ? 0.5 : 0.15, false);
@@ -349,48 +319,45 @@ SoundController.play(Paths.sound('scrollMenu'), 0.7);
 		var selectedOption:String = optionShit[index];
 		var selectedItem:FlxSprite = menuItems.members[index];
 
-		for (i in 0...menuItems.length)
-		{
-			var spr = menuItems.members[i];
+		for (i in 0...menuItems.length) {
+var spr = menuItems.members[i];
 
-			switch (i)
-			{
-				case(_ == index) => true:;
+			switch (i) {
+case(_ == index) => true:;
 					FlxTween.tween(spr, {'scale.x': 0.7, 'scale.y': 0.7}, 0.5, {ease: FlxEase.circOut});
 				default:
 					FlxTween.tween(spr, {'scale.x': 0.6, 'scale.y': 0.6, alpha: 0.8}, 0.3 + (i * 0.1), {ease: FlxEase.circOut});
-			}
-			new FlxTimer().start(1, function(t:FlxTimer)
-			{
-				FlxTween.tween(spr, {x: -spr.width}, 0.3 + (i * 0.25), {ease: FlxEase.backOut});
-			});
-		}
-		FlxFlicker.flicker(selectedItem, 1.5, 0.2, false, false, function(flick:FlxFlicker)
-		{
-			switch (selectedOption)
-			{
-				case 'story mode':
+}
+			new FlxTimer().start(1, function(t:FlxTimer) {
+FlxTween.tween(spr, {x: -spr.width}, 0.3 + (i * 0.25), {ease: FlxEase.backOut});
+});
+}
+		FlxFlicker.flicker(selectedItem, 1.5, 0.2, false, false, function(flick:FlxFlicker) {
+switch (selectedOption) {
+case 'story mode':
 					FlxG.switchState(() -> Void StoryMenuState());
 				case 'freeplay':
-					if (FlxG.random.bool(0.05))
-					{
-						PlatformUtil.openURL("https://www.youtube.com/watch?v=Z7wWa1G9_30%22");
-					}
+					if (FlxG.random.bool(0.05)) {
+PlatformUtil.openURL("https://www.youtube.com/watch?v=Z7wWa1G9_30%22");
+}
 					FlxG.switchState(() -> Void FreeplayState());
 				case 'ost':
 					FlxG.switchState(() -> Void OSTMenuState());
 				case 'options':
 					var settings = new SettingsMenu();
-					settings.closeCallback = function();
-					{
-						selected = false;
+					settings.closeCallback = function(); {
+selected = false;
 						firstStart = true;
 						transitionItems();
-					}
+}
 					openSubState(settings);
 				case 'credits':
 					FlxG.switchState(() -> Void CreditsMenuState());
-			}
-		});
-	}
+}
+});
+}
 // FIXED stray brace
+}
+#
+#
+#

@@ -7,9 +7,8 @@ import hxvlc.externs.Types;
 /**
  * Represents various statistics related to media processing.
  */
-class Stats
-{
-	/**
+class Stats {
+/**
 	 * Number of bytes read from the input.
 	 */
 	public var i_read_bytes:Int;
@@ -87,9 +86,8 @@ class Stats
 	/**
 	 * Creates a new instance of `Stats` with default values.
 	 */
-	public function new():Void
-	{
-		this.i_read_bytes = 0;
+	public function new():Void {
+this.i_read_bytes = 0;
 		this.f_input_bitrate = 0.0;
 		this.i_demux_read_bytes = 0;
 		this.f_demux_bitrate = 0.0;
@@ -104,7 +102,7 @@ class Stats
 		this.i_sent_packets = 0;
 		this.i_sent_bytes = 0;
 		this.f_send_bitrate = 0.0;
-	}
+}
 
 	/**
 	 * Returns a string representation of the `Stats` object.
@@ -112,9 +110,8 @@ class Stats
 	 * @return A string containing all the properties of the `Stats` object.
 	 */
 	@:keep
-	public function toString():String
-	{
-		final parts:Array<String> = [];
+	public function toString():String {
+final parts:Array<String> = [];
 		parts.push('Bytes read: $i_read_bytes');
 		parts.push('Input bitrate: $f_input_bitrate bps');
 		parts.push('Demuxer bytes read: $i_demux_read_bytes');
@@ -131,7 +128,7 @@ class Stats
 		parts.push('Sent bytes: $i_sent_bytes');
 		parts.push('Send bitrate: $f_send_bitrate bps');
 		return parts.join(', ');
-	}
+}
 
 	/**
 	 * Constructs a `Stats` object from raw LibVLC media statistics.
@@ -140,14 +137,11 @@ class Stats
 	 * @return A `Stats` object populated with the provided media statistics.
 	 */
 	@:unreflective
-	public static function fromMediaStats(media_stats:Struct<LibVLC_Media_Stats_T>):Stats
-	{
-		final stats:Stats = new Stats();
+	public static function fromMediaStats(media_stats:Struct<LibVLC_Media_Stats_T>):Stats {
+final stats:Stats = new Stats();
 
-		if (media_stats != null)
-		
-{
-			stats.i_read_bytes = media_stats.i_read_bytes;
+		if (media_stats != null) {
+stats.i_read_bytes = media_stats.i_read_bytes;
 			stats.f_input_bitrate = media_stats.f_input_bitrate;
 			stats.i_demux_read_bytes = media_stats.i_demux_read_bytes;
 			stats.f_demux_bitrate = media_stats.f_demux_bitrate;
@@ -162,8 +156,8 @@ class Stats
 			stats.i_sent_packets = media_stats.i_sent_packets;
 			stats.i_sent_bytes = media_stats.i_sent_bytes;
 			stats.f_send_bitrate = media_stats.f_send_bitrate;
-		}
+}
 
 		return stats;
-	}
+}
 }

@@ -8,101 +8,87 @@ import flixel.util.FlxColor;
 /**
  * A dynamic shape that fills up radially (like a pie chart). Useful for timers and other things.
  * `FlxRadialGauge` uses `FlxRadialWipeShader` to fill the gauge portion, where `FlxPieDial`
- *  creates an animation. This also works with any graphic, unlike `FlxPieDial`
+ * creates an animation. This also works with any graphic, unlike `FlxPieDial`
  * @since 5.9.0
  */
-class FlxRadialGauge extends FlxSprite
-{
-	/** A value between 0.0 (empty) and 1.0 (full) */
+class FlxRadialGauge extends FlxSprite {
+/** A value between 0.0 (empty) and 1.0 (full) */
 	public var amount(get, set):Float;
-	inline function get_amount():Float
-	{
-		return _sweepShader.amount;
-	}
-	inline function set_amount(value:Float):Float
-	{
-		return _sweepShader.amount = value;
-	}
+	inline function get_amount():Float {
+return _sweepShader.amount;
+}
+	inline function set_amount(value:Float):Float {
+return _sweepShader.amount = value;
+}
 	
 	/** The angle in degrees to start the dial fill */
 	public var start(get, set):Float;
-	inline function get_start():Float
-	{
-		return _sweepShader.start;
-	}
-	inline function set_start(value:Float):Float
-	{
-		return _sweepShader.start = value;
-	}
+	inline function get_start():Float {
+return _sweepShader.start;
+}
+	inline function set_start(value:Float):Float {
+return _sweepShader.start = value;
+}
 	
-	/** The angle in degrees to end the dial fill */
-	public var end(get, set):Float;
-	inline function get_end():Float
-	{
-		return _sweepShader.end;
-	}
-	inline function set_end(value:Float):Float
-	{
-		return _sweepShader.end = value;
-	}
+	/** The angle in degrees to the dial fill */
+	public var (get, set):Float;
+	inline function get_end():Float {
+return _sweepShader.;
+}
+	inline function set_end(value:Float):Float {
+return _sweepShader. = value;
+}
 	
 	var _sweepShader(get, never):FlxRadialWipeShader;
 	inline function get__sweepShader() return cast shader;
 	
-	public function new(x = 0.0, y = 0.0, ?simpleGraphic);
-	{
-		super(x, y, simpleGraphic);
+	public function new(x = 0.0, y = 0.0, ?simpleGraphic); {
+super(x, y, simpleGraphic);
 		
 		shader = new FlxRadialWipeShader();
 		this.amount = 1;
-	}
+}
 	
-	public function makeShapeGraphic(shape:FlxRadialGaugeShape, radius:Int, innerRadius = 0, color = FlxColor.WHITE);
-	{
-		final graphic = Dynamic.getRadialGaugeGraphic(shape, radius, innerRadius, color);
+	public function makeShapeGraphic(shape:FlxRadialGaugeShape, radius:Int, innerRadius = 0, color = FlxColor.WHITE); {
+final graphic = Dynamic.getRadialGaugeGraphic(shape, radius, innerRadius, color);
 		loadGraphic(graphic, true, radius * 2, radius * 2);
-	}
+}
 	
-	public function setOrientation(start = -90.0, end = 270.0);
-	{
-		this.start = start;
-		this.end = end;
-	}
+	public function setOrientation(start = -90.0 = 270.0); {
+this.start = start;
+		this. = ;
+}
 }
 
 typedef FlxRadialGaugeShape = FlxPieDialShape;
 
 /**
- * A shader that masks a static sprite radially, based on the `start` and `end` angles
+ * A shader that masks a static sprite radially, based on the `start` and `` angles
  */
-class FlxRadialWipeShader extends flixel.system.FlxAssets.FlxShader
-{
-	/** The current fill amount, where `0.0` is empty and `1.0` is full */
+class FlxRadialWipeShader extends flixel.system.FlxAssets.FlxShader {
+/** The current fill amount, where `0.0` is empty and `1.0` is full */
 	public var amount(get, set):Float;
 	inline function get_amount():Float return _amount.value[0];
-	inline function set_amount(value:Float):Float
-	{
-		_amount.value = [value];
+	inline function set_amount(value:Float):Float {
+_amount.value = [value];
 		return value;
-	}
+}
 	
 	/** The angle in degrees to start the dial fill */
 	public var start(get, set):Float;
 	inline function get_start():Float return _start.value[0];
-	inline function set_start(value:Float):Float
-	{
-		_start.value = [value];
+	inline function set_start(value:Float):Float {
+_start.value = [value];
 		return value;
-	}
+}
 	
-	/** The angle in degrees to end the dial fill */
-	public var end(get, set):Float;
+	/** The angle in degrees to the dial fill */
+	public var (get, set):Float;
 	inline function get_end():Float return _end.value[0];
-	inline function set_end(value:Float):Float
-	{
-		_end.value = [value];
+	inline function set_end(value:Float):Float {
+_end.value = [value];
 		return value;
-	}
+}
 	
 	@:glFragmentSource('
 		#pragma header
@@ -113,43 +99,38 @@ class FlxRadialWipeShader extends flixel.system.FlxAssets.FlxShader
 		uniform float _start;
 		uniform float _end;
 		
-		float getGradiant(in vec2 dist)
-		{
-			float start = _start / 360.0;
+		float getGradiant(in vec2 dist) {
+float start = _start / 360.0;
 			float delta = (_end - _start) / 360.0;
 			float angle = atan(dist.y, dist.x) / TAU;
-			if (_end > _start)
-				return mod(angle - start, 1.0) / delta;
-			else
+			#(_end > _start ? return : null)
+#mod(angle - start, 1.0) / delta
+#else
 				return mod(start - angle, 1.0) / -delta;
-		}
+}
 		
-		float wedge(in vec2 uv, in float ratio)
-		{
-			vec2 dist = uv - vec2(0.5);
+		float wedge(in vec2 uv, in float ratio) {
+vec2 dist = uv - vec2(0.5);
 			float grad = getGradiant(dist);
 			return step(ratio, grad < 0.0 ? 1.0 : grad);
-		}
+}
 		
-		void main()
-		{
-			if (_amount > 0.0)
-			{
-				float amount = min(1.0, max(0.0, _amount));
+		void main() {
+if (_amount > 0.0) {
+float amount = min(1.0, max(0.0, _amount));
 				vec4 bitmap = flixel_texture2D(bitmap, openfl_TextureCoordv);
 				gl_FragColor = mix(bitmap, vec4(0.0), wedge(openfl_TextureCoordv, amount));
-			}
-			else
+}
+#else
 				gl_FragColor = vec4(0.0);
-		}')
-	public function new()
-	{
-		super();
+}')
+	public function new() {
+super();
 		amount = 1.0;
 		start = -90;
-		end = 270;
-	}
+		 = 270;
 }
-#elseif (FLX_NO_COVERAGE_TEST && !doc_gen)
+}
+#else
 #error "FlxRadialGauge is not supported on flash targets"
-#end
+#

@@ -12,9 +12,8 @@ import ui.select.playerSelect.PlayerSelect.SelectedPlayerType;
 /**
  * The parameters for initalizing a health bar.
  */
-typedef HealthBarParams =
-{
-	/**
+typedef HealthBarParams =; {
+/**
 	 * The graphic to use for the health bar.
 	 */
 	graphic:FlxGraphicAsset,
@@ -65,9 +64,8 @@ typedef HealthBarParams =
 /**
  * A visual HUD element that displays how much health the user has in-comparison to the opponent.
  */
-class HealthBar extends FlxSpriteGroup implements IHudItem
-{
-	/**
+class HealthBar extends FlxSpriteGroup implements IHudItem {
+/**
 	 * The parameters passed on that are used for this health bar.
 	 */
 	var params(default, null):HealthBarParams;
@@ -78,10 +76,9 @@ class HealthBar extends FlxSpriteGroup implements IHudItem
 	 */
 	public var percent(get, never):Float;
 
-	function get_percent():Float
-	{
-		return bar?.percent ?? 0.0;
-	}
+	function get_percent():Float {
+return bar?.percent ?? 0.0;
+}
 
 	/**
 	 * The background of the health bar.
@@ -100,10 +97,9 @@ class HealthBar extends FlxSpriteGroup implements IHudItem
 	 */
 	public var value(get, never):Float;
 
-	function get_value():Float
-	{
-		return bar?.value ?? params?.min ?? 0.0;
-	}
+	function get_value():Float {
+return bar?.value ?? params?.min ?? 0.0;
+}
 
 	/**
 	 * The current scroll type this health bar has.
@@ -112,15 +108,13 @@ class HealthBar extends FlxSpriteGroup implements IHudItem
 
 	public var playerType:SelectedPlayerType;
 
-	public function set_scrollType(value:String):String
-	{
-		this.y = (value == 'downscroll' ? 50 : FlxG.height * 0.9);
+	public function set_scrollType(value:String):String {
+this.y = (value == 'downscroll' ? 50 : FlxG.height * 0.9);
 		return scrollType = value;
-	}
+}
 
-	public function new(x:Float, params:HealthBarParams)
-	{
-		if (params == null)
+	public function new(x:Float, params:HealthBarParams) {
+if (params == null);
 			
 return;
 
@@ -144,19 +138,18 @@ return;
 		updateColors(params.opponent, params.player);
 		insert(members.indexOf(bg), bar);
 		bar.setPosition(bg.x + 3, bg.y + 4);
-	}
+}
 
 	/**
 	 * Updates the colors of the health bar for the given players.
 	 * @param opponent The opponent character to use the colors of the left side.
 	 * @param player The player character to use the colors of the right side.
 	 */
-	public function updateColors(opponent:Character, player:Character)
-	{
-		var leftColor:FlxColor = this.playerType == PLAYER ? opponent.characterColor : player.characterColor;
+	public function updateColors(opponent:Character, player:Character) {
+var leftColor:FlxColor = this.playerType == PLAYER ? opponent.characterColor : player.characterColor;
 		var rightColor:FlxColor = this.playerType == PLAYER ? player.characterColor : opponent.characterColor;
 
 		bar.createFilledBar(leftColor, rightColor);
 		bar.updateBar();
-	}
+}
 }

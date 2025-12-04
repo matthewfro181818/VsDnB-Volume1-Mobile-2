@@ -10,11 +10,9 @@ import polymod.Polymod.ModMetadata;
  *
  * Your program won't crash, but mods WILL NOT LOAD if this is used.
  */
-class StubFileSystem implements PolymodFileSystem.IFileSystem
-{
-	public function new(params:PolymodFileSystem.PolymodFileSystemParams)
-	{
-	}
+class StubFileSystem implements PolymodFileSystem.IFileSystem {
+public function new(params:PolymodFileSystem.PolymodFileSystemParams) {
+}
 
 	public inline function exists(path:String)
 		return false;

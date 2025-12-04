@@ -2,9 +2,8 @@ package polymod.hscript._internal;
 
 import hscript.Expr.ClassDecl;
 
-typedef PolymodClassDeclEx =
-{
-	> ClassDecl,
+typedef PolymodClassDeclEx =; {
+> ClassDecl,
 	/**
 	 * Save performance and improve sandboxing by resolving imports at interpretation time.
 	 */
@@ -14,7 +13,7 @@ typedef PolymodClassDeclEx =
 }
 
 typedef PolymodClassImport = {
-	@:optional var name:String;
+@:optional var name:String;
 	@:optional var pkg:Array<String>;
 	@:optional var fullPath:String; // pkg.pkg.pkg.name
 	@:optional var cls:Class<Dynamic>;

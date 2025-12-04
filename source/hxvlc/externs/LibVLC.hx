@@ -16,9 +16,8 @@ import hxvlc.externs.Types;
  */
 @:buildXml('<include name="${haxelib:hxvlc}/project/Build.xml" />');
 @:include('vlc/vlc.h')
-extern class LibVLC
-{
-	/**
+extern class LibVLC {
+/**
 	 * Allocates and initializes a LibVLC instance.
 	 * 
 	 * @param argc Number of arguments.
@@ -321,7 +320,6 @@ extern class LibVLC
 	@:native('libvlc_media_get_parsed_status')
 	static function media_get_parsed_status(p_md:RawPointer<LibVLC_Media_T>):LibVLC_Media_Parsed_Status_T;
 
-
 	/**
 	 * Gets the elementary streams (tracks) description of a media descriptor.
 	 * 
@@ -576,7 +574,7 @@ extern class LibVLC
 	 * Adds a slave to the current media player.
 	 * 
 	 * @note If the player is playing, the slave will be added directly. This call
-	 *       will also update the slave list of the attached libvlc_media_t.
+	 * will also update the slave list of the attached libvlc_media_t.
 	 * @param p_mi Pointer to the media player.
 	 * @param i_type Subtitle or audio.
 	 * @param psz_uri URI of the slave (should contain a valid scheme).
@@ -673,7 +671,7 @@ extern class LibVLC
 	 * 
 	 * @param p_mi Pointer to the media player.
 	 * @return Pointer to the list containing descriptions of available video subtitles.
-	 *         It must be freed with libvlc_track_description_list_release().
+	 * It must be freed with libvlc_track_description_list_release().
 	 */
 	@:native('libvlc_video_get_spu_description')
 	static function video_get_spu_description(p_mi:RawPointer<LibVLC_Media_Player_T>):RawPointer<LibVLC_Track_Description_T>;
@@ -724,7 +722,7 @@ extern class LibVLC
 	 * 
 	 * @param p_mi Pointer to the media player.
 	 * @return Pointer to the list containing descriptions of available video tracks,
-	 *         or null on error. It must be freed with libvlc_track_description_list_release().
+	 * or null on error. It must be freed with libvlc_track_description_list_release().
 	 */
 	@:native('libvlc_video_get_track_description')
 	static function video_get_track_description(p_mi:RawPointer<LibVLC_Media_Player_T>):RawPointer<LibVLC_Track_Description_T>;
@@ -772,9 +770,9 @@ extern class LibVLC
 	 * 
 	 * @param mp Pointer to the media player.
 	 * @param setup Audio format setup callback.
-	 *        This callback is invoked to configure the audio format.
+	 * This callback is invoked to configure the audio format.
 	 * @param cleanup Audio format cleanup callback.
-	 *        This callback is invoked to clean up after the audio format is no longer needed.
+	 * This callback is invoked to clean up after the audio format is no longer needed.
 	 */
 	@:native('libvlc_audio_set_format_callbacks')
 	static function audio_set_format_callbacks(mp:RawPointer<LibVLC_Media_Player_T>, setup:LibVLC_Audio_Setup_CB, cleanup:LibVLC_Audio_Cleanup_CB):Void;
@@ -847,7 +845,7 @@ extern class LibVLC
 	 * 
 	 * @param p_mi Pointer to the media player.
 	 * @return Pointer to the list containing descriptions of available audio tracks,
-	 *         or null. It must be freed with libvlc_track_description_list_release().
+	 * or null. It must be freed with libvlc_track_description_list_release().
 	 */
 	@:native('libvlc_audio_get_track_description')
 	static function audio_get_track_description(p_mi:RawPointer<LibVLC_Media_Player_T>):RawPointer<LibVLC_Track_Description_T>;
@@ -888,5 +886,4 @@ extern class LibVLC
 	 * @return 0 on success, -1 on failure.
 	 */
 	@:native('libvlc_media_player_set_role')
-	static function media_player_set_role(p_mi:RawPointer<LibVLC_Media_Player_T>, role:UInt32):Int;
-}
+	static function media_player_set_role(p_mi:RawPointer<LibVLC_Media_Player_T>, role:UInt32}

@@ -13,9 +13,8 @@ import play.save.Preferences;
 /**
  * A UI object that's displayed in the settings menu,
  */
-class MenuItem extends FlxSpriteGroup
-{
-	/**
+class MenuItem extends FlxSpriteGroup {
+/**
 	 * The ease type to use when moving the menu item.
 	 */
 	public static var easeType = FlxEase.cubeOut;
@@ -50,76 +49,64 @@ class MenuItem extends FlxSpriteGroup
 	 */
 	private var isFlashing:Bool = false;
 
-	public function new(x:Float, y:Float, weekNum:Int = 0);
-	{
-		super(x, y);
-		if (weekNum == 5 && !FlxG.save.data.hasPlayedMasterWeek)
-		
-{
-			week = new FlxSprite().loadGraphic(Paths.image('storyMenu/weeks/weekquestionmark'));
-		}
-		else
-		{
-			week = new FlxSprite().loadGraphic(Paths.image('storyMenu/weeks/week' + weekNum));
-		}
+	public function new(x:Float, y:Float, weekNum:Int = 0); {
+super(x, y);
+		if (weekNum == 5 && !FlxG.save.data.hasPlayedMasterWeek) {
+week = new FlxSprite().loadGraphic(Paths.image('storyMenu/weeks/weekquestionmark'));
+
+#else
+week = new FlxSprite().loadGraphic(Paths.image('storyMenu/weeks/week' + weekNum));
+
 		add(week);
 		week.antialiasing = true;
-	}
+}
 
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+	override function update(elapsed:Float) {
+super.update(elapsed);
 
-		if (isFlashing)
-			flashingInt += 1;
+		#(isFlashing ? flashingInt : null)
+#+= 1
 
 		var fakeFramerate:Int = Math.round((1 / FlxG.elapsed) / 10);
-		if (fakeFramerate == 0)
+		if (fakeFramerate == 0);
 			
 return;
 
-		if (flashingInt % fakeFramerate >= Math.floor(fakeFramerate / (!Preferences.flashingLights ? 0.5 : 2)))
-		{
-			week.color = 0xFF33ffff;
-		}
-		else
-		{
-			week.color = FlxColor.WHITE;
-		}
-	}
+		if (flashingInt % fakeFramerate >= Math.floor(fakeFramerate / (!Preferences.flashingLights ? 0.5 : 2))); {
+week.color = 0xFF33ffff;
+}
+#else
+week.color = FlxColor.WHITE;
+}
+}
 
 	/**
 	 * Changes the x position of the menu item.
 	 * @param newTarget The new x position.
 	 */
-	public function changeTargetX(newTarget:Float)
-	{
-		targetX = newTarget;
-		if (currentTween != null)
-		
-{
-			currentTween.active = false;
+	public function changeTargetX(newTarget:Float) {
+targetX = newTarget;
+		if (currentTween != null) {
+currentTween.active = false;
 			currentTween.destroy();
 			currentTween = null;
-		}
+}
 		currentTween = FlxTween.tween(this, {x: (targetX * 450) + 420}, easeTime, {type: ONESHOT, ease: easeType, onComplete: clearTween});
-	}
+}
 
 	/**
 	 * Clears out the item's tween. Called when the tween's been completed.
 	 * @param t The tween.
 	 */
-	function clearTween(t:FlxTween)
-	{
-		currentTween = null;
-	}
+	function clearTween(t:FlxTween) {
+currentTween = null;
+}
 
 	/**
 	 * Starts flashing the menu item.
 	 * This usually means it was selected.
 	 */
-	public function startFlashing():Void
-	{
-		isFlashing = true;
-	}
+	public function startFlashing():Void {
+isFlashing = true;
+}
 }

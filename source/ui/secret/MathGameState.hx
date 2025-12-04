@@ -22,20 +22,16 @@ import util.PlatformUtil;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 
-typedef QueuedSound =
-{
-    var sound:FlxSoundAsset;
-    var ?soundType:SoundType;
-}
+typedef QueuedSound =; {
+var sound:FlxSoundAsset;
+ var ?soundType:SoundType;
 
-enum abstract Operation(String) from String to String
-{
-	var ADDITION = 'Plus';
+enum abstract Operation(String) from String to String {
+var ADDITION = 'Plus';
 	var SUBTRACTION = 'Minus';
-}
-class MathGameState extends MusicBeatState
-{
-	/**
+
+class MathGameState extends MusicBeatState {
+/**
 	 * Whether the user has failed the game, and needs to return back to the state.
 	 */
 	public static var failedGame:Bool = false;
@@ -87,7 +83,6 @@ class MathGameState extends MusicBeatState
 	 */
 	var queuedSound:GameSound = new GameSound();
 
-
 	// RENDER OBJECTS //
 
 	/**
@@ -137,19 +132,16 @@ class MathGameState extends MusicBeatState
 	 */
 	var endDelay:Float = 2;
 
-
-	public override function create()
-	{
-		super.create();
+	public override function create() {
+super.create();
 
 		SoundController?.music?.stop();
 
 		// This state is meant to be purely aliased.
 		FlxSprite.defaultAntialiasing = false;
 
-		FlxG.signals.preStateSwitch.addOnce(() ->
-		{
-			// Make sure the game runs on antialiasing again after moving from this state.
+		FlxG.signals.preStateSwitch.addOnce(() -> {
+// Make sure the game runs on antialiasing again after moving from this state.
 			FlxSprite.defaultAntialiasing = true;
 
 			// Switch border information back.
@@ -158,7 +150,7 @@ class MathGameState extends MusicBeatState
 
 			// Reset cursor.
 			Cursor.reset();
-		});
+);
 		
 		FlxG.stage.window.title = "Baldi's Basics Classic Remastered";
 
@@ -170,48 +162,36 @@ class MathGameState extends MusicBeatState
 		buildMusic();
 		playIntro();
 		generateProblem();
-	}
 
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+	override function update(elapsed:Float) {
+super.update(elapsed);
 
 		Conductor.instance.update(learnMusicGroup.time);
 
-		if (queuedSoundList.length > 0 && (queuedSound == null || !queuedSound.playing))
-		{
-			playQueue();
-		} 
+		if (queuedSoundList.length > 0 && (queuedSound == null || !queuedSound.playing)); {
+playQueue();
+ 
 		
-		if (queuedSoundList.length <= 0 && !queuedSound.playing && isEndingGame)
-		
-{
-			endDelay -= elapsed;
-			if (endDelay <= 0)
-			
-{
-				isEndingGame = false;
-				endGame();
-			}
-		}
-	}
+		if (queuedSoundList.length <= 0 && !queuedSound.playing && isEndingGame) {
+if (endDelay <= 0) {
+isEndingGame = false;
+}
+}
+}
 
-	function buildCursor():Void
-	{
-		Cursor.load({graphic: Paths.image('backgrounds/math/CursorSprite'), scale: 0.5});
+	function buildCursor():Void {
+Cursor.load({graphic: Paths.image('backgrounds/math/CursorSprite'), scale: 0.5});
 		Cursor.show();
-	}
+}
 
-	function buildBaldiDisplay():Void
-	{
-		baldi = new YCTPBaldi(344, 476);
+	function buildBaldiDisplay():Void {
+baldi = new YCTPBaldi(344, 476);
 		add(baldi);
 		baldi.updateHitbox();
-	}
+}
 
-	function buildYCTP():Void
-	{
-		var white:FlxSprite = new FlxSprite(317, 258).makeGraphic(1, 1, FlxColor.WHITE);
+	function buildYCTP():Void {
+var white:FlxSprite = new FlxSprite(317, 258).makeGraphic(1, 1, FlxColor.WHITE);
 		white.setGraphicSize(541, 351);
 		white.updateHitbox();
 		add(white);
@@ -244,11 +224,10 @@ class MathGameState extends MusicBeatState
 		inputText.textField.antiAliasType = AntiAliasType.ADVANCED;
 		inputText.textField.sharpness = 400;
 		add(inputText);
-	}
+}
 
-	function buildButtons():Void
-	{
-		var xPositions:Array<Float> = [908, 972, 1036];
+	function buildButtons():Void {
+var xPositions:Array<Float> = [908, 972, 1036];
 		var yPositions:Array<Float> = [248, 312, 376, 440];
 		var buttons:Array<String> = [;
 			'7', '8', '9', 
@@ -257,32 +236,29 @@ class MathGameState extends MusicBeatState
 			'clear', '0', 'minus'
 		];
 
-		for (index => buttonId in buttons);
-		{
-			var xPos:Float = xPositions[index % 3];
+		for (index => buttonId in buttons) {
+var xPos:Float = xPositions[index % 3];
 			var yPos:Float = yPositions[Math.floor(index / 3)];
 
 			var buttonSprite:YCTPButton = new YCTPButton(xPos, yPos, buttonId);
 			add(buttonSprite);
 			
-			buttonSprite.onClick = () -> Void (buttonId);
-			{
-				case 'clear': clearInputText();
+			buttonSprite.onClick = () -> Void (buttonId); {
+case 'clear': clearInputText();
 				case 'minus':
 					inputText.text += '-';
 				default:
 					inputText.text += buttonId;
-			}
-		}
+}
+}
 
 		var okButton:YCTPButton = new YCTPButton(940, 504, 'ok');
 		okButton.onClick = checkAnswer;
 		add(okButton);
-	}
+}
 
-	function buildMusic():Void
-	{
-		learnMusicGroup = new SoundGroup();
+	function buildMusic():Void {
+learnMusicGroup = new SoundGroup();
 
 		baseLearnMusic = new GameSound(MUSIC).load(Paths.music('math/learn/learnNew_1'), true, true);
 
@@ -292,11 +268,10 @@ class MathGameState extends MusicBeatState
 		learnMusic3 = new GameSound(MUSIC).load(Paths.music('math/learn/learnNew_3'), true, true);
 		learnMusic3.volume = 0.0;
 
-		for (sound in [baseLearnMusic, learnMusic2, learnMusic3])
-		{
-			SoundController.add(sound);
+		for (sound in [baseLearnMusic, learnMusic2, learnMusic3]) {
+SoundController.add(sound);
 			learnMusicGroup.add(sound);
-		}
+}
 		learnMusicGroup.time = 0.0;
 		learnMusicGroup.play();
 		
@@ -305,48 +280,42 @@ class MathGameState extends MusicBeatState
 		queuedSound.soundType = VOICES;
 		SoundController.add(queuedSound);
 		baldi.talkAudio = queuedSound;
-	}
+}
 
-	function playIntro():Void
-	{
-		queueAudio({sound: Paths.sound('math/intro/BAL_Math_Intro1')});
+	function playIntro():Void {
+queueAudio({sound: Paths.sound('math/intro/BAL_Math_Intro1')});
 		queueAudio({sound: Paths.sound('math/intro/BAL_Math_Intro2')});
 		queueAudio({sound: Paths.sound('math/intro/BAL_Math_Intro3')});
 		
 		queueAudio({sound: Paths.sound('math/yctp/BAL_YCTP_Intro1')});
 		queueAudio({sound: Paths.sound('math/yctp/BAL_YCTP_Intro2')});
-	}
+}
 
-	function queueAudio(sound:QueuedSound):Void
-	{
-		queuedSoundList.push(sound);
-	}
+	function queueAudio(sound:QueuedSound):Void {
+queuedSoundList.push(sound);
+}
 
-	function clearQueue():Void
-	{
-		queuedSoundList = [];
+	function clearQueue():Void {
+queuedSoundList = [];
 		queuedSound.stop();
-	}
+}
 
-	function playQueue():Void
-	{
-		if (queuedSoundList.length > 0)
-			playNextQueueSound();
-	}
+	function playQueue():Void {
+#(queuedSoundList.length > 0 ? playNextQueueSound : null)
+#()
+}
 
-	function playNextQueueSound():Void
-	{
-		var sound:QueuedSound = queuedSoundList.shift();
+	function playNextQueueSound():Void {
+var sound:QueuedSound = queuedSoundList.shift();
 		var soundType:SoundType = sound.soundType ?? VOICES;
 
 		queuedSound.soundType = soundType;
 		queuedSound.load(sound.sound);
 		queuedSound.play();
-	}
+}
 
-	function generateProblem():Void
-	{
-		problem++;
+	function generateProblem():Void {
+problem++;
 
 		var operation:Operation = FlxG.random.getObject(operationsList);
 
@@ -358,108 +327,90 @@ class MathGameState extends MusicBeatState
 
 		equationText.text = '$num1';
 		equationText.text += switch (operation) {
-			case ADDITION: '+';
+case ADDITION: '+';
 			case SUBTRACTION: '-';
-		}
+}
 		equationText.text += '$num2';
 		equationText.text += '=';
 
-		problemAnswer = switch (operation);
-		{
-			case ADDITION: num1 + num2;
+		problemAnswer = switch (operation); {
+case ADDITION: num1 + num2;
 			case SUBTRACTION: num1 - num2;
-		}
+}
 
-		if (!failedGame)
-		{
-			queueAudio({sound: Paths.sound('math/problem/BAL_YCTP_Problem$problem')});
+		if (!failedGame) {
+queueAudio({sound: Paths.sound('math/problem/BAL_YCTP_Problem$problem')});
 
 			queueAudio({sound: Paths.sound('math/number/BAL_Math_${num1}')});
 			queueAudio({sound: Paths.sound('math/operations/BAL_Math_${operation}')});
 			queueAudio({sound: Paths.sound('math/number/BAL_Math_${num2}')});
 			queueAudio({sound: Paths.sound('math/operations/BAL_Math_Equals')});
-		}
-	}
+}
+}
 
-	function clearInputText():Void
-	{
-		inputText.text = '';
-	}
+	function clearInputText():Void {
+inputText.text = '';
+}
 
-	function checkAnswer():Void
-	{
-		// Make sure the player can't check their answer if the game has ended.
-		if (problem > 3 || isEndingGame)
-			return;
+	function checkAnswer():Void {
+// Make sure the player can't check their answer if the game has ended.
+		#(problem > 3 || isEndingGame ? return : null)
 
 		var playerAnswer:Null<Int> = Std.parseInt(inputText.text.trim());
 		var isRight:Bool = playerAnswer != null && playerAnswer == problemAnswer;
 
-		if (isRight)
-		{
-			problemRight();
-		}
-		else
-		{
-			problemWrong();
-		}
+		if (isRight) {
+problemRight();
+}
+#else
+problemWrong();
+}
 		updateYCTPAnswer(problem, isRight);
 		clearInputText();
 
-		if (problem >= 3)
-		
-{
-			isEndingGame = true;
+		if (problem >= 3) {
+isEndingGame = true;
 			showHintText();
-		}
-		else
-		{
-			generateProblem();
-		}
-	}
+}
+#else
+generateProblem();
+}
+}
 
-	function problemRight():Void
-	{
-		if (!failedGame)
-		{
-			clearQueue();
+	function problemRight():Void {
+if (!failedGame) {
+clearQueue();
 			baldiPraise();
 			updateLearnMusic();
-		}
-	}
+}
+}
 
-	function problemWrong():Void
-	{
-		clearQueue();
-		if (!failedGame)
-		{
-			handleHangMusic();
+	function problemWrong():Void {
+clearQueue();
+		if (!failedGame) {
+handleHangMusic();
 			baldi.frown();
 
 			failedGame = true;
-		}
-	}
+}
+}
 	
-	function baldiPraise():Void
-	{
-		queueAudio({sound: Paths.soundRandom('math/praise/BAL_Praise', 1, 6)});
-	}
+	function baldiPraise():Void {
+queueAudio({sound: Paths.soundRandom('math/praise/BAL_Praise', 1, 6)});
+}
 
-	function updateLearnMusic():Void
-	{
-		switch (problem)
-		{
-			case 1:
+	function updateLearnMusic():Void {
+switch (problem) {
+case 1:
 				learnMusic2.volume = 1.0;
 			case 2:
 				learnMusic3.volume = 1.0;
 			default:
-		}
-	}
+}
+}
 
-	function handleHangMusic():Void
-	{
-		var learnTimeBeat:Float = learnMusicGroup.time % Conductor.instance.crochet;
+	function handleHangMusic():Void {
+var learnTimeBeat:Float = learnMusicGroup.time % Conductor.instance.crochet;
 
 		// Completely stop the learn music from playing after the player gets a problem wrong.
 		learnMusicGroup.pause();
@@ -467,61 +418,55 @@ class MathGameState extends MusicBeatState
 		learnMusicGroup.volume = 0.0;
 
 		// Play the given hang music based on the beat we're on (so it's synced with the instrument).
-		var hangType:String = (Conductor.instance.curBeat % 2 == 0) ? 'mus_hang_1' :  'mus_hang_2';
+		var hangType:String = (Conductor.instance.curBeat % 2 == 0) ? 'mus_hang_1' : 'mus_hang_2';
 		
 		var hangAudio:GameSound = new GameSound(MUSIC).load(Paths.music('math/hang/${hangType}'));
 		SoundController.add(hangAudio);
 		hangAudio.play(true, learnTimeBeat);
 		hangAudio.onComplete = () -> {
-			SoundController.remove(hangAudio);
-		}
-	}
+SoundController.remove(hangAudio);
+}
+}
 
-	function updateYCTPAnswer(problem:Int, correct:Bool)
-	{
-		var yPositions:Array<Float> = [260, 336, 412];
+	function updateYCTPAnswer(problem:Int, correct:Bool) {
+var yPositions:Array<Float> = [260, 336, 412];
 		var graphic:FlxGraphic = Paths.image('backgrounds/math/${correct ? 'Check' : 'X'}');
 
 		var sprite:YCTPSprite = new YCTPSprite(352, yPositions[problem - 1], graphic);
 		resultsGroup.add(sprite);
-	}
+}
 
-	function showHintText():Void
-	{
-		var hintTexts:Array<String> = failedGame ? wrongHintTexts : correctHintTexts;
+	function showHintText():Void {
+var hintTexts:Array<String> = failedGame ? wrongHintTexts : correctHintTexts;
 		var randomText:String = FlxG.random.getObject(hintTexts);
 
 		infoText.text = randomText;
 		equationText.text = '';
-	}
+}
 
-	function endGame():Void
-	{
-		if (failedGame)
-		{
-			FlxG.switchState(() -> Void PlayState({
-				targetSong: PlayState.lastParams.targetSong,
+	function endGame():Void {
+if (failedGame) {
+FlxG.switchState(() -> Void PlayState({
+targetSong: PlayState.lastParams.targetSong,
 				targetVariation: PlayState.lastParams.targetVariation
-			}));
-		}
-		else
-		{
-			var roofsSong:Song = SongRegistry.instance.fetchEntry('roofs');
+}));
+}
+#else
+var roofsSong:Song = SongRegistry.instance.fetchEntry('roofs');
 			PlayStatePlaylist.storyWeek = 7;
 
 			FreeplayState.unlockSong('roofs');
 
 			FlxG.switchState(() -> Void PlayState({
-				targetSong: roofsSong,
+targetSong: roofsSong,
 				targetVariation: PlayState.lastParams.targetVariation
-			}));
-		}
-	}
+}));
+}
+}
 }
 
-class YCTPBaldi extends YCTPSprite
-{
-	/**
+class YCTPBaldi extends YCTPSprite {
+/**
 	 * The current sound that's being used to make Baldi talk.
 	 */
 	public var talkAudio:GameSound;
@@ -531,9 +476,8 @@ class YCTPBaldi extends YCTPSprite
 	 */
 	public var talking:Bool = true;
 
-	public function new(?x:Float, ?y:Float)
-	{
-		super(x, y);
+	public function new(?x:Float, ?y:Float) {
+super(x, y);
 		
 		frames = Paths.getSparrowAtlas('backgrounds/math/Baldi_MathGame_Sheet');
 		animation.addByPrefix('talk', 'talk', 30, false);
@@ -541,38 +485,31 @@ class YCTPBaldi extends YCTPSprite
 		animation.play('talk', true);
 
 		updateHitbox();
-	}
-
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-
-		if (talking && talkAudio != null)
-		
-{
-			if (talkAudio.playing)
-			{
-				// TODO: See if it's possible to make the frames change based on the audio.
-				animation.play('talk');
-			}
-			else
-			{
-				animation.play('talk', true, false, 0);
-			}
-		}
-	}
-
-	public function frown():Void
-	{
-		talking = false;
-		talkAudio = null;
-		animation.play('frown', true);
-	}
 }
 
-class YCTPButton extends YCTPSprite
-{
-	/**
+	override function update(elapsed:Float) {
+super.update(elapsed);
+
+		if (talking && talkAudio != null) {
+if (talkAudio.playing) {
+// TODO: See if it's possible to make the frames change based on the audio.
+				animation.play('talk');
+}
+#else
+animation.play('talk', true, false, 0);
+}
+}
+}
+
+	public function frown():Void {
+talking = false;
+		talkAudio = null;
+		animation.play('frown', true);
+}
+}
+
+class YCTPButton extends YCTPSprite {
+/**
 	 * The id of this button.
 	 */
 	final id:String;
@@ -592,60 +529,50 @@ class YCTPButton extends YCTPSprite
 	 */
 	var pressedSprite:FlxGraphic;
 
-	public function new(?x:Float, ?y:Float, id:String)
-	{
-		this.id = id;
+	public function new(?x:Float, ?y:Float, id:String) {
+this.id = id;
 
 		normalSprite = Paths.image('backgrounds/math/buttons/btn_$id');
 		pressedSprite = Paths.image('backgrounds/math/buttons/btn_${id}_pressed');
 
 		super(x, y, normalSprite);
-	}
+}
 
-	public override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+	public override function update(elapsed:Float) {
+super.update(elapsed);
 
-		if (FlxG.mouse.overlaps(this))
-		{
-			switchGraphic(pressedSprite);
-			if (FlxG.mouse.justPressed)
-			{
-				if (onClick != null)
+		if (FlxG.mouse.overlaps(this)) {
+switchGraphic(pressedSprite);
+			if (FlxG.mouse.justPressed) {
+if (onClick != null);
 					
 onClick();
-			}
-		}
-		else 
-		{
-			switchGraphic(normalSprite);
-		}
-	}
+}
+}
+#else
+switchGraphic(normalSprite);
+}
+}
 	
-	function switchGraphic(target:FlxGraphic)
-	{
-		if (this.graphic != target)
-		
-{
-			loadGraphic(target);
+	function switchGraphic(target:FlxGraphic) {
+if (this.graphic != target) {
+loadGraphic(target);
 			updateHitbox();
-		}
-	}
+}
+}
 }
 
 /**
  * A sprite used for the YCTP.
  */
-class YCTPSprite extends FlxSprite
-{
-	public function new(?x:Float, ?y:Float, ?graphic:FlxGraphicAsset)
-	{
-		super(x, y, graphic);
+class YCTPSprite extends FlxSprite {
+public function new(?x:Float, ?y:Float, ?graphic:FlxGraphicAsset) {
+super(x, y, graphic);
 
 		// Every YCTP sprite in accordance to the game is scaled by 2.
 		scale.set(2, 2);
 		updateHitbox();
 
 		scrollFactor.set();
-	}
+}
 }

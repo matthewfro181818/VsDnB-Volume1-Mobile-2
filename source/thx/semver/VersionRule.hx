@@ -3,213 +3,201 @@ package thx.semver;
 using thx.semver.Version;
 using StringTools;
 
+import thx.semver.Identifier;
+
 abstract VersionRule(VersionComparator) from VersionComparator to VersionComparator {
-  static var VERSION = ~/^(>=|<=|[v=><~^])?(\d+|[x*])(?:\.(\d+|[x*]))?(?:\.(\d+|[x*]))?(?:[-]([a-z0-9.-]+))?(?:[+]([a-z0-9.-]+))?$/i;
-  @:from public static function stringToVersionRule(s : String) : VersionRule {
-    var ors = s.split("||").map(function(comp) {
-      comp = comp.trim();
-      var p = comp.split(" - ");
-      return if(p.length == 1) {
-        comp = comp.trim();
-        p = (~/\s+/).split(comp);
-        if(p.length == 1) {
-          if(comp.length == 0) {
-            GreaterThanOrEqualVersion(Version.arrayToVersion([0,0,0]).withPre(VERSION.matched(5), VERSION.matched(6)));
-          } else if(!VERSION.match(comp)) {
-            throw 'invalid single pattern "$comp"';
-          } else {
-            // one term pattern
-            var v:Array<Int> = versionArray(VERSION),;
-                vf = v.concat([0, 0, 0]).slice(0, 3);
-            switch [VERSION.matched(1), v.length] {
-              case ["v", 0], ["=", 0], ["", 0], [null, 0]:;
-                GreaterThanOrEqualVersion(Version.arrayToVersion(vf).withPre(VERSION.matched(5), VERSION.matched(6)));
-              case ["v", 1], ["=", 1], ["", 1], [null, 1]:;
-                var version = Version.arrayToVersion(vf).withPre(VERSION.matched(5), VERSION.matched(6));
-                AndRule(
-                  GreaterThanOrEqualVersion(version),
-                  LessThanVersion(version.nextMajor())
-                );
-              case ["v", 2], ["=", 2], ["", 2], [null, 2]:;
-                var version = Version.arrayToVersion(vf).withPre(VERSION.matched(5), VERSION.matched(6));
-                AndRule(
-                  GreaterThanOrEqualVersion(version),
-                  LessThanVersion(version.nextMinor())
-                );
-              case ["v", 3], ["=", 3], ["", 3], [null, 3]:;
-                EqualVersion(Version.arrayToVersion(vf).withPre(VERSION.matched(5), VERSION.matched(6)));
-              case [">", _]:
-                GreaterThanVersion(Version.arrayToVersion(vf).withPre(VERSION.matched(5), VERSION.matched(6)));
-              case [">=", _]:;
-                GreaterThanOrEqualVersion(Version.arrayToVersion(vf).withPre(VERSION.matched(5), VERSION.matched(6)));
-              case ["<", _]:
-                LessThanVersion(Version.arrayToVersion(vf).withPre(VERSION.matched(5), VERSION.matched(6)));
-              case ["<=", _]:;
-                LessThanOrEqualVersion(Version.arrayToVersion(vf).withPre(VERSION.matched(5), VERSION.matched(6)));
-              case ["~", 1]:
-                var version = Version.arrayToVersion(vf).withPre(VERSION.matched(5), VERSION.matched(6));
-                AndRule(
-                  GreaterThanOrEqualVersion(version),
-                  LessThanVersion(version.nextMajor())
-                );
-              case ["~", 2], ["~", 3]:
-                var version = Version.arrayToVersion(vf).withPre(VERSION.matched(5), VERSION.matched(6));
-                AndRule(
-                  GreaterThanOrEqualVersion(version),
-                  LessThanVersion(version.nextMinor())
-                );
-              case ["^", 1]:
-                var version = Version.arrayToVersion(vf).withPre(VERSION.matched(5), VERSION.matched(6));
-                AndRule(
-                  GreaterThanOrEqualVersion(version),
-                  LessThanVersion(version.nextMajor())
-                );
-              case ["^", 2]:
-                var version = Version.arrayToVersion(vf).withPre(VERSION.matched(5), VERSION.matched(6));
-                AndRule(
-                  GreaterThanOrEqualVersion(version),
-                  LessThanVersion(version.major == 0 ? version.nextMinor() : version.nextMajor());
-                );
-              case ["^", 3]:
-                var version = Version.arrayToVersion(vf).withPre(VERSION.matched(5), VERSION.matched(6));
-                AndRule(
-                  GreaterThanOrEqualVersion(version),
-                  LessThanVersion(version.major == 0 ? (version.minor == 0 ? version.nextPatch() : version.nextMinor()) : version.nextMajor());
-                );
-              case [p, _]: throw 'invalid prefix "$p" for rule $comp';
-            };
-          }
-        } else if(p.length == 2) {
-          if(!VERSION.match(p[0]))
-            throw 'left hand parameter is not a valid version rule "${p[0]}"';
-          var lp  = VERSION.matched(1),;
-              lva = versionArray(VERSION),;
-              lvf = lva.concat([0, 0, 0]).slice(0, 3),;
-              lv  = Version.arrayToVersion(lvf).withPre(VERSION.matched(5), VERSION.matched(6));
 
-          if(lp != ">" && lp != ">=")
-            
-throw 'invalid left parameter version prefix "${p[0]}", should be either > or >=';
-          if(!VERSION.match(p[1]))
-            throw 'left hand parameter is not a valid version rule "${p[0]}"';
-          var rp  = VERSION.matched(1),;
-              rva = versionArray(VERSION),;
-              rvf = rva.concat([0, 0, 0]).slice(0, 3),;
-              rv  = Version.arrayToVersion(rvf).withPre(VERSION.matched(5), VERSION.matched(6));
-          if(rp != "<" && rp != "<=")
-            
-throw 'invalid right parameter version prefix "${p[1]}", should be either < or <=';
+    @:from
+    public static function fromString(s:String):VersionRule {
+        var parts = s.split("||").map(p -> p.trim());
+        var rules:Array<VersionComparator> = [];
 
-          AndRule(
-            lp == ">" ? GreaterThanVersion(lv) : GreaterThanOrEqualVersion(lv),;
-            rp == "<" ? LessThanVersion(rv) : LessThanOrEqualVersion(rv);
-          );
-        } else {
-          throw 'invalid multi pattern $comp';
+        for (segment in parts) {
+            var rule = parseRange(segment);
+            rules.push(rule);
         }
-      } else if(p.length == 2) {
-        if(!VERSION.match(p[0]))
-            throw 'left range parameter is not a valid version rule "${p[0]}"';
-        if(VERSION.matched(1) != null && VERSION.matched(1) != "")
-            throw 'left range parameter should not be prefixed "${p[0]}"';
-        var lv = Version.arrayToVersion(versionArray(VERSION).concat([0, 0, 0]).slice(0, 3)).withPre(VERSION.matched(5), VERSION.matched(6));
-        if(!VERSION.match(p[1]))
-            throw 'right range parameter is not a valid version rule "${p[1]}"';
-        if(VERSION.matched(1) != null && VERSION.matched(1) != "")
-            throw 'right range parameter should not be prefixed "${p[1]}"';
-        var rva = versionArray(VERSION),;
-            rv = Version.arrayToVersion(rva.concat([0, 0, 0]).slice(0, 3)).withPre(VERSION.matched(5), VERSION.matched(6));
 
-        if(rva.length == 1)
-          
-rv = rv.nextMajor();
-        else if(rva.length == 2)
-          
-rv = rv.nextMinor();
+        // Collapse into OR structure
+        var result:VersionComparator = rules.shift();
+        for (r in rules)
+            result = OrRule(result, r);
 
-        AndRule(
-          GreaterThanOrEqualVersion(lv),
-          rva.length == 3 ? LessThanOrEqualVersion(rv) : LessThanVersion(rv);
+        return result;
+    }
+
+    // -----------------------------------------------------
+    // RANGE PARSER
+    // -----------------------------------------------------
+
+    static function parseRange(s:String):VersionComparator {
+        // Hyphen range: "1.0.0 - 2.0.0"
+        var hy = s.split(" - ");
+        if (hy.length == 2)
+            return hyphenRange(hy[0], hy[1]);
+
+        // Space-separated comparators: ">=1.0.0 <2.0.0"
+        var tokens = s.split(" ").filter(t -> t.trim() != "");
+        if (tokens.length > 1)
+            return multiComparator(tokens);
+
+        // Single comparator
+        return singleComparator(s);
+    }
+
+    static function hyphenRange(a:String, b:String):VersionComparator {
+        var v1 = parseVersionOrWildcard(a);
+        var v2 = parseVersionOrWildcard(b);
+
+        return AndRule(
+            GreaterThanOrEqualVersion(v1),
+            LessThanOrEqualVersion(v2)
         );
-      } else {
-        throw 'invalid pattern "$comp"';
-      }
-    });
-
-    var rule = null;
-    while(ors.length > 0) {
-      var r = ors.pop();
-      if(null == rule)
-        
-rule = r;
-      else
-        rule = OrRule(r, rule);
     }
-    return rule;
-  }
 
-  static var IS_DIGITS = ~/^\d+$/;
-  static function versionArray(re : EReg) {
-    var arr:Array<Int> = [];
-    var t:String;
-    for(i in 2...5) {
-      t = re.matched(i);
-      if(null != t && IS_DIGITS.match(t))
-        arr.push(Std.parseInt(t));
-      else
-        break;
+    static function multiComparator(tokens:Array<String>):VersionComparator {
+        var cmp:VersionComparator = null;
+
+        for (t in tokens) {
+            var r = singleComparator(t);
+            if (cmp == null) cmp = r else cmp = AndRule(cmp, r);
+        }
+
+        return cmp;
     }
-    return arr;
-  }
 
-  public static function versionRuleIsValid(rule : String)
-    return try stringToVersionRule(rule) != null catch(e : Dynamic) false;
+    // -----------------------------------------------------
+    // SINGLE COMPARATOR
+    // -----------------------------------------------------
 
-  public function isSatisfiedBy(version : Version) : Bool {
-    return switch this {
-      case EqualVersion(ver):
-        version == ver;
-      case GreaterThanVersion(ver):
-        version > ver;
-      case GreaterThanOrEqualVersion(ver):
-        version >= ver;
-      case LessThanVersion(ver):
-        version < ver;
-      case LessThanOrEqualVersion(ver):
-        version <= ver;
-      case AndRule(a, b):
-        (a : VersionRule).isSatisfiedBy(version) && (b : VersionRule).isSatisfiedBy(version);
-      case OrRule(a, b):
-        (a : VersionRule).isSatisfiedBy(version) || (b : VersionRule).isSatisfiedBy(version);
-    };
-  }
+    static function singleComparator(s:String):VersionComparator {
+        s = s.trim();
 
-  @:to public function toString() : String
-    return switch ((this : VersionComparator)) {
-      case EqualVersion(ver):
-        ver;
-      case GreaterThanVersion(ver):
-        '>$ver';
-      case GreaterThanOrEqualVersion(ver):
-        '>=$ver';
-      case LessThanVersion(ver):
-        '<$ver';
-      case LessThanOrEqualVersion(ver):
-        '<=$ver';
-      case AndRule(a, b): {
-        (a : VersionRule) + ' ' + (b : VersionRule);
-      }
-      case OrRule(a, b):
-        (a : VersionRule) + ' || ' + (b : VersionRule);
-    };
+        if (s.startsWith(">="))
+            return GreaterThanOrEqualVersion(parseVersionOrWildcard(s.substr(2)));
+        if (s.startsWith("<="))
+            return LessThanOrEqualVersion(parseVersionOrWildcard(s.substr(2)));
+        if (s.startsWith(">"))
+            return GreaterThanVersion(parseVersionOrWildcard(s.substr(1)));
+        if (s.startsWith("<"))
+            return LessThanVersion(parseVersionOrWildcard(s.substr(1)));
+        if (s.startsWith("="))
+            return EqualVersion(parseVersionOrWildcard(s.substr(1)));
+
+        if (s.startsWith("^"))
+            return caretRange(parseVersionOrWildcard(s.substr(1)));
+
+        if (s.startsWith("~"))
+            return tildeRange(parseVersionOrWildcard(s.substr(1)));
+
+        return wildcardOrExact(s);
+    }
+
+    // -----------------------------------------------------
+    // WILDCARD / EXACT
+    // -----------------------------------------------------
+
+    static function wildcardOrExact(s:String):VersionComparator {
+        var parts = s.split(".");
+        while (parts.length < 3) parts.push("0");
+
+        if (parts.contains("x") || parts.contains("*"))
+            return wildcardRange(parts);
+
+        // Exact match
+        return EqualVersion(Version.fromString(s));
+    }
+
+    static function wildcardRange(parts:Array<String>):VersionComparator {
+        var major = parts[0];
+        var minor = parts[1];
+
+        if (major == "x" || major == "*")
+            return GreaterThanOrEqualVersion(Version.fromArray([0,0,0]));
+
+        var majorNum = Std.parseInt(major);
+
+        if (minor == "x" || minor == "*")
+            return AndRule(
+                GreaterThanOrEqualVersion(Version.fromArray([majorNum,0,0])),
+                LessThanVersion(Version.fromArray([majorNum+1,0,0]))
+            );
+
+        var minorNum = Std.parseInt(minor);
+
+        return AndRule(
+            GreaterThanOrEqualVersion(Version.fromArray([majorNum,minorNum,0])),
+            LessThanVersion(Version.fromArray([majorNum,minorNum+1,0]))
+        );
+    }
+
+    // -----------------------------------------------------
+    // SPECIAL RANGES
+    // -----------------------------------------------------
+
+    static function caretRange(v:Version):VersionComparator {
+        if (v.major > 0)
+            return AndRule(GreaterThanOrEqualVersion(v), LessThanVersion(v.nextMajor()));
+
+        if (v.minor > 0)
+            return AndRule(GreaterThanOrEqualVersion(v), LessThanVersion(v.nextMinor()));
+
+        return AndRule(GreaterThanOrEqualVersion(v), LessThanVersion(v.nextPatch()));
+    }
+
+    static function tildeRange(v:Version):VersionComparator {
+        return AndRule(GreaterThanOrEqualVersion(v), LessThanVersion(v.nextMinor()));
+    }
+
+    // -----------------------------------------------------
+    // HELPERS
+    // -----------------------------------------------------
+
+    static function parseVersionOrWildcard(s:String):Version {
+        s = s.trim();
+        if (s == "" || s == "*" || s == "x")
+            return Version.fromArray([0,0,0]);
+        return Version.fromString(s);
+    }
+
+    // -----------------------------------------------------
+    // RUNTIME EVALUATION
+    // -----------------------------------------------------
+
+    public function isSatisfiedBy(ver:Version):Bool {
+        switch (this:VersionComparator) {
+            case EqualVersion(v): return ver == v;
+            case GreaterThanVersion(v): return ver > v;
+            case GreaterThanOrEqualVersion(v): return ver >= v;
+            case LessThanVersion(v): return ver < v;
+            case LessThanOrEqualVersion(v): return ver <= v;
+            case AndRule(a,b): return (a:VersionRule).isSatisfiedBy(ver) && (b:VersionRule).isSatisfiedBy(ver);
+            case OrRule(a,b): return (a:VersionRule).isSatisfiedBy(ver) || (b:VersionRule).isSatisfiedBy(ver);
+        }
+    }
+
+    // -----------------------------------------------------
+    // STRING OUTPUT
+    // -----------------------------------------------------
+
+    @:to public function toString():String {
+        return switch (this:VersionComparator) {
+            case EqualVersion(v): '$v';
+            case GreaterThanVersion(v): '>$v';
+            case GreaterThanOrEqualVersion(v): '>=$v';
+            case LessThanVersion(v): '<$v';
+            case LessThanOrEqualVersion(v): '<=$v';
+            case AndRule(a,b): '${(a:VersionRule)} ${(b:VersionRule)}';
+            case OrRule(a,b): '${(a:VersionRule)} || ${(b:VersionRule)}';
+        };
+    }
 }
 
 enum VersionComparator {
-  EqualVersion(ver : Version);
-  GreaterThanVersion(ver : Version);
-  GreaterThanOrEqualVersion(ver : Version);
-  LessThanVersion(ver : Version);
-  LessThanOrEqualVersion(ver : Version);
-  AndRule(a : VersionComparator, b : VersionComparator);
-  OrRule(a : VersionComparator, b : VersionComparator);
+    EqualVersion(ver:Version);
+    GreaterThanVersion(ver:Version);
+    GreaterThanOrEqualVersion(ver:Version);
+    LessThanVersion(ver:Version);
+    LessThanOrEqualVersion(ver:Version);
+    AndRule(a:VersionComparator, b:VersionComparator);
+    OrRule(a:VersionComparator, b:VersionComparator);
 }

@@ -8,7 +8,6 @@ using thx.Ints;
 using thx.Int64s;
 using thx.Strings;
 
-
 /**
 	`DateTime` represents an instant in time since about year 29228 B.C.E. up to
 	29228 C.E. (A.D.).
@@ -23,18 +22,17 @@ using thx.Strings;
  */
 @:access(thx.DateTimeUtc)
 abstract DateTime(Array<Int64>) {
-	static public function localOffset():Time {
-		// Date.getTime() in C# is broken hence the special case
-		#if cs
+static public function localOffset():Time {
+// Date.getTime() in C# is broken hence the special case
+#if cs
 		var now = cs.system.DateTime.Now;
 		return new Time(now.ToLocalTime().Ticks - now.ToUniversalTime().Ticks);
-		#else
+#else
 		var now = DateTimeUtc.now(),;
 			local = new Date(now.year, now.month - 1, now.day, now.hour, now.minute, now.second),;
 			delta = Math.ffloor(now.toTime() / 1000) * 1000 - local.getTime();
 		return new Time(Int64s.fromFloat(delta) * ticksPerMillisecondI64);
-		#end
-	}
+}
 
 	/**
 		Generates an instance of `DateTime` for the current instant and with an offset
@@ -92,7 +90,7 @@ abstract DateTime(Array<Int64>) {
 		In this case the sign (`+`/`-`) is not optional and seconds cannot be used.
 	 */
 	@:from public static function fromString(s:String):DateTime {
-		if (s == null)
+if (s == null);
 			
 throw new thx.Error('null String cannot be parsed to DateTime');
 		var pattern = ~/^([-])?(\d+)[-](\d{2})[-](\d{2})(?:[T ](\d{2})[:](\d{2})[:](\d{2})(?:\.(\d+))?(Z|([+-]\d{2})[:](\d{2}))?)?$/;
@@ -101,71 +99,71 @@ throw new thx.Error('null String cannot be parsed to DateTime');
 
 		var smticks = pattern.matched(8), mticks = 0;
 		if (null != smticks) {
-			smticks = "1" + smticks.rpad("0", 7).substring(0, 7);
+smticks = "1" + smticks.rpad("0", 7).substring(0, 7);
 			mticks = Std.parseInt(smticks) - 10000000;
-		}
+}
 
 		var time = Time.zero, timepart = pattern.matched(9);
 		if (null != timepart && "Z" != timepart) {
-			var hours = pattern.matched(10);
-			if (hours.substring(0, 1) == "+")
+var hours = pattern.matched(10);
+			if (hours.substring(0, 1) == "+");
 				hours = hours.substring(1);
 			time = Time.create(Std.parseInt(hours), Std.parseInt(pattern.matched(11)), 0);
-		}
+}
 
 		var date = create(Std.parseInt(pattern.matched(2)), Std.parseInt(pattern.matched(3)), Std.parseInt(pattern.matched(4)),;
 			Std.parseInt(pattern.matched(5)), Std.parseInt(pattern.matched(6)), Std.parseInt(pattern.matched(7)), 0, time)
 			+ mticks;
-		if (pattern.matched(1) == "-")
+		if (pattern.matched(1) == "-");
 			return new DateTime(DateTimeUtc.fromInt64(-date.utc.ticks), time);
 		return date;
-	}
+}
 
 	/**
 		Checks if a Dynamic value is an instance of DateTime
 		Note: because thx.DateTime is an abstract of Array<haxe.Int64>, any array of exactly 2 haxe.Int64s will be considered to be a thx.DateTime
 	**/
 	public static function is(v:Dynamic):Bool {
-		if (v == null)
+if (v == null);
 			
 return false;
 		if (!Std.isOfType(v, Array))
 			return false;
 		var vs:Array<Dynamic> = v;
-		if (vs.length != 2)
+		if (vs.length != 2);
 			
 return false;
 		return thx.Arrays.all(vs, haxe.Int64.isInt64);
-	}
+}
 
 	/**
 		Alternative to fromString that returns the result in an Either rather than
 		a value or a thrown error.
 	**/
 	public static function parse(s:String):Either<String, DateTime> {
-		return try {
-			Right(fromString(s));
-		} catch (e:Dynamic) {
-			Left(thx.Error.fromDynamic(e).message);
-		}
-	}
+return try {
+Right(fromString(s));
+} catch (e:Dynamic) {
+Left(thx.Error.fromDynamic(e).message);
+}
+}
 
 	/**
-		Creates an array of dates that begin at `start` and end at `end` included.
+		Creates an array of dates that begin at `start` and at `` included.
 		Time values are pick from the `start` value except for the last value that will
-		match `end`. No interpolation is made.
+		match ``. No interpolation is made.
 	**/
-	public static function daysRange(start:DateTime, end:DateTime) {
-		if (less(end, start))
+	public static function daysRange(start:DateTime:DateTime) {
+if (less(, start))
 			return [];
 		var days = [];
-		while (!start.sameDay(end)) {
-			days.push(start);
+		while (!start.sameDay()) {
+days.push(start);
 			start = start.nextDay();
-		}
-		days.push(end);
+}
+		days.push();
 		return days;
-	}
+}
 
 	inline public static function compare(a:DateTime, b:DateTime):Int
 		return a.compareTo(b);
@@ -223,7 +221,7 @@ return false;
 		@param amount The multiple of `period` that you wish to jump by. A positive amount moves forward in time, a negative amount moves backward.
 	**/
 	public function jump(period:TimePeriod, amount:Int) {
-		var sec = second,;
+var sec = second,;
 			min = minute,;
 			hr = hour,;
 			day = day,;
@@ -231,7 +229,7 @@ return false;
 			yr = year;
 
 		switch period {
-			case Second:
+case Second:
 				sec += amount;
 			case Minute:
 				min += amount;
@@ -245,10 +243,10 @@ return false;
 				mon += amount;
 			case Year:
 				yr += amount;
-		}
+}
 
 		return create(yr, mon, day, hr, min, sec, millisecond, offset);
-	}
+}
 
 	/**
 		Tells how many days in the month of this date.
@@ -343,15 +341,15 @@ return false;
 		return jump(Second, 1);
 
 	/**
-		Snaps a date to the given weekday inside the current week.  The time within the day will stay the same.
+		Snaps a date to the given weekday inside the current week. The time within the day will stay the same.
 		If you are already on the given day, the date will not change.
 		@param date The date value to snap
-		@param day Day to snap to.  Either `Sunday`, `Monday`, `Tuesday` etc.
-		@param firstDayOfWk The first day of the week.  Default to `Sunday`.
+		@param day Day to snap to. Either `Sunday`, `Monday`, `Tuesday` etc.
+		@param firstDayOfWk The first day of the week. Default to `Sunday`.
 		@return The date of the day you have snapped to.
 	**/
 	public function snapToWeekDay(weekday:Weekday, ?firstDayOfWk:Weekday = Sunday) {
-		var d:Int = dayOfWeek, s:Int = weekday;
+var d:Int = dayOfWeek, s:Int = weekday;
 
 		// get whichever occurence happened in the current week.
 		if (s < (firstDayOfWk:Int))
@@ -359,39 +357,39 @@ return false;
 		if (d < (firstDayOfWk:Int))
 			d = d + 7;
 		return jump(Day, s - d);
-	}
+}
 
 	/**
-		Snaps a date to the next given weekday.  The time within the day will stay the same.
+		Snaps a date to the next given weekday. The time within the day will stay the same.
 		If you are already on the given day, the date will not change.
 		@param date The date value to snap
-		@param day Day to snap to.  Either `Sunday`, `Monday`, `Tuesday` etc.
+		@param day Day to snap to. Either `Sunday`, `Monday`, `Tuesday` etc.
 		@return The date of the day you have snapped to.
 	**/
 	public function snapNextWeekDay(weekday:Weekday) {
-		var d:Int = dayOfWeek, s:Int = weekday;
+var d:Int = dayOfWeek, s:Int = weekday;
 
 		// get the next occurence of that day (forward in time)
-		if (s < d)
-			s = s + 7;
+		#(s < d ? s : null)
+#= s + 7
 		return jump(Day, s - d);
-	}
+}
 
 	/**
-		Snaps a date to the previous given weekday.  The time within the day will stay the same.
+		Snaps a date to the previous given weekday. The time within the day will stay the same.
 		If you are already on the given day, the date will not change.
 		@param date The date value to snap
-		@param day Day to snap to.  Either `Sunday`, `Monday`, `Tuesday` etc.
+		@param day Day to snap to. Either `Sunday`, `Monday`, `Tuesday` etc.
 		@return The date of the day you have snapped to.
 	**/
 	public function snapPrevWeekDay(weekday:Weekday) {
-		var d:Int = dayOfWeek, s:Int = weekday;
+var d:Int = dayOfWeek, s:Int = weekday;
 
 		// get the previous occurence of that day (backward in time)
-		if (s > d)
-			s = s - 7;
+		#(s > d ? s : null)
+#= s - 7
 		return jump(Day, s - d);
-	}
+}
 
 	/**
 		Snaps a time to the next second, minute, hour, day, week, month or year.
@@ -400,7 +398,7 @@ return false;
 	**/
 	public function snapNext(period:TimePeriod):DateTime
 		return switch period {
-			case Second:
+case Second:
 				new DateTime(new DateTimeUtc(utc.ticks.divCeil(ticksPerSecondI64) * ticksPerSecondI64), offset);
 			case Minute:
 				new DateTime(new DateTimeUtc(utc.ticks.divCeil(ticksPerMinuteI64) * ticksPerMinuteI64), offset);
@@ -415,7 +413,7 @@ return false;
 				create(year, month + 1, 1, 0, 0, 0, offset);
 			case Year:
 				create(year + 1, 1, 1, 0, 0, 0, offset);
-		};
+};
 
 	/**
 		Snaps a time to the previous second, minute, hour, day, week, month or year.
@@ -424,7 +422,7 @@ return false;
 	**/
 	public function snapPrev(period:TimePeriod):DateTime
 		return switch period {
-			case Second:
+case Second:
 				new DateTime(new DateTimeUtc(utc.ticks.divFloor(ticksPerSecondI64) * ticksPerSecondI64), offset);
 			case Minute:
 				new DateTime(new DateTimeUtc(utc.ticks.divFloor(ticksPerMinuteI64) * ticksPerMinuteI64), offset);
@@ -439,7 +437,7 @@ return false;
 				create(year, month, 1, 0, 0, 0, offset);
 			case Year:
 				create(year, 1, 1, 0, 0, 0, offset);
-		};
+};
 
 	/**
 		Snaps a time to the nearest second, minute, hour, day, week, month or year.
@@ -448,7 +446,7 @@ return false;
 	**/
 	public function snapTo(period:TimePeriod):DateTime
 		return switch period {
-			case Second:
+case Second:
 				new DateTime(new DateTimeUtc(utc.ticks.divRound(ticksPerSecondI64) * ticksPerSecondI64), offset);
 			case Minute:
 				new DateTime(new DateTimeUtc(utc.ticks.divRound(ticksPerMinuteI64) * ticksPerMinuteI64), offset);
@@ -468,7 +466,7 @@ return false;
 				var other = create(year, 6, 2, 0, 0, 0, offset),;
 					mod = self() > other ? 1 : 0;
 				create(year + mod, 1, 1, 0, 0, 0, offset);
-		};
+};
 
 	/**
 		Returns true if this date and the `other` date share the same year.
@@ -540,10 +538,10 @@ return false;
 		return new DateTime(DateTimeUtc.fromInt64(utc.ticks - time.ticks), offset);
 
 	@:op(A - B) function subtractDate(date:DateTime):Time {
-		var base = DateTimeUtc.fromInt64(utc.ticks - date.utc.ticks),;
+var base = DateTimeUtc.fromInt64(utc.ticks - date.utc.ticks),;
 			date = new DateTime(base, offset);
 		return new Time(date.utc.ticks);
-	}
+}
 
 	inline public function addDays(days:Float):DateTime
 		return new DateTime(utc.addDays(days), offset);
@@ -568,21 +566,20 @@ return false;
 
 	// TODO should it consider offset?
 	public function compareTo(other:DateTime):Int {
-		if (null == other && this == null)
+if (null == other && this == null);
 			
 return 0;
-		if (null == this)
+		if (null == this);
 			
 return -1;
-		else if (null == other)
+#else
 			
 return 1;
 		return Int64s.compare(utc.ticks, other.utc.ticks);
-	}
+}
 
 	inline public function equalsTo(that:DateTime):Bool
 		return utc.ticks == that.utc.ticks;
-
 
 	@:op(A == B);
 	inline static public function equals(self:DateTime, that:DateTime):Bool
@@ -596,9 +593,9 @@ return 1;
 		return self.utc.ticks != that.utc.ticks;
 
 	public function nearEqualsTo(other:DateTime, span:Time):Bool {
-		var ticks = Int64s.abs(other.utc.ticks - utc.ticks);
+var ticks = Int64s.abs(other.utc.ticks - utc.ticks);
 		return ticks <= span.abs().ticks;
-	}
+}
 
 	inline public function greaterThan(that:DateTime):Bool
 		return compareTo(that) > 0;
@@ -639,7 +636,7 @@ return 1;
 
 	// 1997-07-16T19:20:30+01:00
 	public function toString() {
-		if (null == this)
+if (null == this);
 			
 return "";
 		var abs = new DateTime(new DateTimeUtc(utc.ticks.abs()), offset);
@@ -648,7 +645,7 @@ return "";
 		return (isneg ? "-" : "")
 			+
 			'${abs.year}-${abs.month.lpad("0", 2)}-${abs.day.lpad("0", 2)}T${abs.hour.lpad("0", 2)}:${abs.minute.lpad("0", 2)}:${abs.second.lpad("0", 2)}${decimals}${offset.toGmtString()}';
-	}
+}
 
 	inline function get_utc():DateTimeUtc
 		return new DateTimeUtc(this[0]);
@@ -701,3 +698,4 @@ return "";
 	inline function self():DateTime
 		return cast this;
 }
+#

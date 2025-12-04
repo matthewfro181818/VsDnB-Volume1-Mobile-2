@@ -11,104 +11,75 @@ import openfl.display.BitmapData;
 import openfl.media.Sound;
 import openfl.utils.AssetType;
 import openfl.system.System;
+
 import play.notes.NoteStyle;
 import play.PlayState;
 import play.character.Character;
+
 import ui.menu.ost.OSTMenuState;
 import ui.select.charSelect.CharacterSelect;
 import ui.select.playerSelect.PlayerSelect;
+
 #if cpp
 import cpp.vm.Gc;
 #end
+
 #if sys
 import sys.FileSystem;
+import Paths;
 #end
 
 /**
- * Utility for providing, and management cache for assets.
- * Keeps tracks of the previous cached assets from states, cache purging, and more to prevent memory stacking, and more. 
+ * Utility for providing and managing asset cache.
  */
 class Preloader
 {
-	/**
-	 * A list of directories, and asset keys that should NOT be cleared from the cache no matter what.
-	 * These are usually assets that are used frequently in-game, and have no reason to be consistently cleared and re-cached.
-	 */
-	public static final noClear:Array<String> = [;
-		// These are used in a lot of menus, and are big.
-		'assets/images/backgrounds',
+	// ------------------------------------------------------------
+	// STATIC VARIABLES
+	// ------------------------------------------------------------
 
-		// This is VERY frequently used.
-		'assets/images/alphabet.png',
+	public static final noClear:Array<String> = [
+		"assets/images/backgrounds",
+		"assets/images/alphabet.png",
+		"shared:assets/shared/images/checkeredBG.png",
 
-		// This checkered bg is always used when paused.
-		'shared:assets/shared/images/checkeredBG.png',
+		"shared:assets/shared/images/ui/notes",
+		"shared:assets/shared/images/ui/combo",
+		"shared:assets/shared/images/ui/countdown/normal",
 
-		// Cache default notestyle related directories.
-		'shared:assets/shared/images/ui/notes',
-		'shared:assets/shared/images/ui/combo',
-		'shared:assets/shared/images/ui/countdown/normal',
-		
-		// Cache UI elements.
-		'shared:assets/shared/images/ui/accuracy.png',
-		'shared:assets/shared/images/ui/misses.png',
-		'shared:assets/shared/images/ui/score.png',
-		'shared:assets/shared/images/ui/timer.png',
-		'shared:assets/shared/images/ui/timer-3d.png',
-		
-		'assets/music/freakyMenu.ogg',
+		"shared:assets/shared/images/ui/accuracy.png",
+		"shared:assets/shared/images/ui/misses.png",
+		"shared:assets/shared/images/ui/score.png",
+		"shared:assets/shared/images/ui/timer.png",
+		"shared:assets/shared/images/ui/timer-3d.png",
+
+		"assets/music/freakyMenu.ogg"
 	];
 
-	/**
-	 * Tracks a list of the last cached graphics.
-	 * If a graphic is requested, and is from this list, it'll fetch the entry from here.
-	 */
 	public static var previousTrackedGraphics:Map<String, FlxGraphic> = [];
-	
-	/**
-	 * Tracks a list of the last cached sound.
-	 * If a sound is requested, and is from this list, it'll fetch the entry from here.
-	 */
 	public static var previousTrackedSounds:Map<String, Sound> = [];
 
-	/**
-	 * Tracks a list of all of the currently cached characters.
-	 * Used for preloading characters, so when a character is requested its entry is simply fetched from here to prevent lag.
-	 */
 	public static var trackedCharacters:Map<String, Character> = [];
-
-	/**
-	 * The currently tracked graphics that are cached.
-	 */
 	public static var trackedGraphics:Map<String, FlxGraphic> = [];
-	
-	/**
-	 * The currently tracked sounds that are cached.
-	 */
 	public static var trackedSounds:Map<String, Sound> = [];
 
-	/**
-	 * These states will clear the cache list upon exiting them.
-	 * These happen to use up a ton of memory where it would be good to just immediately clear the cache upon exit.
-	 */
-	public static var clearOnExit:Array<Class<FlxState>> = [;
+	public static var clearOnExit:Array<Class<FlxState>> = [
 		CharacterSelect,
 		PlayerSelect,
 		PlayState,
-		OSTMenuState,
+		OSTMenuState
 	];
 
-	/**
-	 * Initalizes the Preloader. 
-	 * Calls, and initalizes any functions needed for the preloader to work.
-	 */
+	// ------------------------------------------------------------
+	// INITIALIZATION
+	// ------------------------------------------------------------
+
 	public static function initalize():Void
 	{
-		FlxG.signals.preStateSwitch.add(() -> 
-		{
-			// If we're exiting out of any state from this list, we don't want to keep the song assets in the cache, and any additional ones from the state.
-			// We purge the cache entirely to completely free up memory.
-			if (clearOnExit.contains(Type.getClass(FlxG.state)))
+		FlxG.signals.preStateSwitch.add(() -> {
+			var currentClass = Type.getClass(FlxG.state);
+
+			if (clearOnExit.contains(currentClass))
 			{
 				clearTrackedCache();
 				runGc();
@@ -121,7 +92,6 @@ class Preloader
 			}
 			else
 			{
-				// Move the cache to the previous
 				moveCacheToPrevious();
 				clearTrackedCache();
 				runGc();
@@ -129,353 +99,298 @@ class Preloader
 		});
 	}
 
-	/**
-	 * Recursively checks through a directory to see if a given key can be removed from the cache.
-	 * 
-	 * @param keyToCheck The key to check if it can be removed from the cache.
-	 * @param absolutePath The path without the library, the directory that's read.
-	 * @param library The library this directory is in.
-	 * @return Whether the key exists within any directory, and thus shouldn't be removed.
-	 */
+	// ------------------------------------------------------------
+	// DIRECTORY CHECKING
+	// ------------------------------------------------------------
+
+	#if sys
 	static function readDirectory(keyToCheck:String, absolutePath:String, library:String):Bool
 	{
-		var directoryFiles:Array<String> = FileSystem.readDirectory(absolutePath);
-		for (file in directoryFiles)
-		{
-			var fullPath:String = absolutePath + '/' + file;
-			var fullLibraryPath:String = '$library:$fullPath';
+		var files = FileSystem.readDirectory(absolutePath);
 
-			// Use the non-library asset path to check if the current iterated item is a directory.
+		for (file in files)
+		{
+			var fullPath = absolutePath + '/' + file;
+			var fullLib = library + ":" + fullPath;
+
 			if (FileSystem.isDirectory(fullPath))
 			{
-				var value:Bool = readDirectory(keyToCheck, fullPath, library);
-				if (!value)
-				{
+				if (!readDirectory(keyToCheck, fullPath, library))
 					return false;
-				}
 			}
 			else
 			{
-				// If the asset path is a file, and is a key from the list.
-				// This shouldn't be removed.
-				if (fullLibraryPath == keyToCheck)
-				
-{
+				if (fullLib == keyToCheck)
 					return false;
-				}
 			}
 		}
 		return true;
 	}
 
-	/**
-	 * Checks whether a key is able to be removed from the cache.
-	 * If the key is in a directory, or an entry from the `noClear` list, it can't be removed.
-	 * @param key The key to check.
-	 * @return Whether it's able to be removed from the cache, or not.
-	 */
 	static function canKeyBeRemoved(key:String):Bool
 	{
-		var keyLibrary:String = Paths.stripLibrary(key);
+		var keyLibrary = Paths.stripLibrary(key);
 
-		// To prevent some unnecessary iterations of directories that don't need to be checked
-		// Filter out any entries from the list that aren't from the same library.
-		var noClearFilter:Array<String> = noClear.filter((path:String) ->;
-		{
-			path.startsWith(keyLibrary);
-		});
+		var noClearFiltered = noClear.filter(p ->
+			p.startsWith(keyLibrary)
+		);
 
-		for (assetPath in noClearFilter)
+		for (assetPath in noClearFiltered)
 		{
-			var library:String = Paths.stripLibrary(assetPath);
-			var path:String = Paths.absolutePath(assetPath);
+			var library = Paths.stripLibrary(assetPath);
+			var path = Paths.absolutePath(assetPath);
 
 			if (FileSystem.isDirectory(path))
 			{
-				// The requested path is a directory.
-				// We need to recursively check each of the file (and directories if needed)
-				// To see if any of the asset paths are the requested key. If so, it shouldn't be removed.
-				var value:Bool = readDirectory(key, path, library);
-				if (!value)
-				{
+				if (!readDirectory(key, path, library))
 					return false;
-				}
 			}
 			else
-			{	
-				// The requested key is from the list, this shouldn't be removed.
+			{
 				if (assetPath == key)
-				
-{
 					return false;
-				}
 			}
 		}
 		return true;
 	}
+	#else
+	static function canKeyBeRemoved(key:String):Bool return true;
+	#end
 
-	/**
-	 * Moves the cache list to the previous cache to be stored for later.
-	 */
+	// ------------------------------------------------------------
+	// CACHE TRANSFER
+	// ------------------------------------------------------------
+
 	public static function moveCacheToPrevious():Void
 	{
-		// Move the currently tracked graphics to the previous graphics
 		previousTrackedGraphics = trackedGraphics;
-		previousTrackedSounds = trackedSounds;
+		previousTrackedSounds    = trackedSounds;
 
 		trackedGraphics = [];
-		trackedSounds = [];
+		trackedSounds  = [];
 	}
 
-	/**
-	 * Loads, and caches an image graphic to add it into cache list.
-	 * Useful for easy preloading, and reusability.
-	 * @param key The asset key of the image to cache.
-	 * @return The cached graphic.
-	 */
+	// ------------------------------------------------------------
+	// IMAGE CACHING
+	// ------------------------------------------------------------
+
 	public static function cacheImage(key:FlxGraphicAsset):FlxGraphic
 	{
-		var graphic:FlxGraphic = null;
+		var g:FlxGraphic = null;
 
 		if (key is FlxGraphic)
 		{
-			var keyGraphic:FlxGraphic = cast key;
-			
-			graphic = keyGraphic;
-			trackedGraphics.set(keyGraphic.assetsKey, graphic);
+			g = cast key;
+			trackedGraphics.set(g.assetsKey, g);
 		}
-		else if (key is String)
+		else
 		{
-			if (Assets.exists(key, IMAGE) && !trackedGraphics.exists(key))
+			if (Assets.exists(key, AssetType.IMAGE) && !trackedGraphics.exists(key))
 			{
-				var image:BitmapData = Assets.getBitmapData(key);
-
-				graphic = FlxGraphic.fromBitmapData(image, false, cast key);
-				trackedGraphics.set(key, graphic);
+				var bmp = Assets.getBitmapData(key);
+				g = FlxGraphic.fromBitmapData(bmp, false, key);
+				trackedGraphics.set(key, g);
 			}
 		}
-		if (graphic != null)
-		
-{
-			graphic.persist = true;
-			graphic.destroyOnNoUse = false;
+
+		if (g != null)
+		{
+			g.persist = true;
+			g.destroyOnNoUse = false;
 		}
-		return graphic;
+
+		return g;
 	}
 
-	/**
-	 * Loads, and caches a sound asset to add it to it's cache list.
-	 * Useful for easy preloading, and reusability.
-	 * @param key The asset key of the sound to cache.
-	 */
+	// ------------------------------------------------------------
+	// SOUND CACHING
+	// ------------------------------------------------------------
+
 	public static function cacheSound(key:FlxSoundAsset):Sound
 	{
-		if (!trackedSounds.exists(key) && Assets.exists(key, SOUND) || Assets.exists(key, MUSIC))
+		if (!trackedSounds.exists(key) &&
+			(Assets.exists(key, AssetType.SOUND) || Assets.exists(key, AssetType.MUSIC)))
 		{
-			var sound:Sound = Assets.getSound(key);
-			trackedSounds.set(key, sound);
-			
-			return sound;
+			var s = Assets.getSound(key);
+			trackedSounds.set(key, s);
+			return s;
 		}
-		return null;
+		return trackedSounds.get(key);
 	}
 
-	/**
-	 * Loads, and caches a character, and adds it to it's cache list.
-	 * Useful to prevent lag when loading in, or switching a character.
-	 * @param charKey The id of the character to cache. 
-	 */
+	// ------------------------------------------------------------
+	// CHARACTER CACHING
+	// ------------------------------------------------------------
+
 	public static function cacheCharacter(charKey:String, type:CharacterType)
 	{
 		if (trackedCharacters.exists(charKey))
 			return;
 
-		var char:Character = Character.create(0, 0, charKey, type);
-		trackedCharacters.set(charKey, char);
+		var c = Character.create(0, 0, charKey, type);
+		trackedCharacters.set(charKey, c);
 	}
 
-	/**
-	 * Preloads a cache so it doesn't lag when first initalized.
-	 * TODO: This doesn't work. Is this able to be done some way else?
-	 * @param shader The `FlxShader` asset to cache.
-	 */
+	// ------------------------------------------------------------
+	// SHADER CACHE INIT
+	// ------------------------------------------------------------
+
 	public static function cacheShader(shader:FlxShader)
 	{
-		@:privateAccess {
-			shader.__initGL();
-		}
+		@:privateAccess shader.__initGL();
 	}
 
-	/**
-	 * Caches the graphics for the given note style.
-	 * @param noteStyle The note style to cache.
-	 */
-	public static function cacheNoteStyle(noteStyle:NoteStyle)
-	{		
-		// Cache the NoteStyle graphics so they're easier to load.
-		Preloader.cacheImage(noteStyle.path);
-		Preloader.cacheImage(noteStyle.strumlinePath);
-		Preloader.cacheImage(noteStyle.sustainPath);
+	// ------------------------------------------------------------
+	// NOTE STYLE CACHE
+	// ------------------------------------------------------------
+
+	public static function cacheNoteStyle(style:NoteStyle)
+	{
+		cacheImage(style.path);
+		cacheImage(style.strumlinePath);
+		cacheImage(style.sustainPath);
 	}
 
-	/**
-	 * Retrieves a previous asset for it to be re-cached, and used. 
-	 * @param key The key of the asset.
-	 * @param type The type of the asset.
-	 */
+	// ------------------------------------------------------------
+	// PREVIOUS CACHE RETRIEVAL
+	// ------------------------------------------------------------
+
 	public static function fetchFromPreviousCache(key:String, type:AssetType):Any
 	{
 		switch (type)
 		{
-			case IMAGE:
-				var graphic:FlxGraphic = previousTrackedGraphics.get(key);
-
-				if (graphic != null)
-				
-{
+			case AssetType.IMAGE:
+				var g = previousTrackedGraphics.get(key);
+				if (g != null)
+				{
 					previousTrackedGraphics.remove(key);
-					trackedGraphics.set(key, graphic);
-
-					return graphic;
+					trackedGraphics.set(key, g);
+					return g;
 				}
-			case SOUND, MUSIC:
-				var sound:Sound = previousTrackedSounds.get(key);
 
-				if (sound != null)
-				
-{
+			case AssetType.SOUND, AssetType.MUSIC:
+				var s = previousTrackedSounds.get(key);
+				if (s != null)
+				{
 					previousTrackedSounds.remove(key);
-					trackedSounds.set(key, sound);
-
-					return sound;
+					trackedSounds.set(key, s);
+					return s;
 				}
+
 			default:
-				return null;
 		}
 		return null;
 	}
 
-	/**
-	 * Removes a cached graphic from it's list.
-	 * @param key The asset key of the sound to remove.
-	 */
+	// ------------------------------------------------------------
+	// REMOVE GRAPHIC
+	// ------------------------------------------------------------
+
 	public static function removeCachedGraphic(key:String):Void
 	{
-		var graphic = trackedGraphics.get(key);
+		var g = trackedGraphics.get(key);
 
-		if (graphic != null && canKeyBeRemoved(key))
+		if (g != null && canKeyBeRemoved(key))
 		{
 			Assets.cache.removeBitmapData(key);
-			FlxG.bitmap.remove(graphic);
+			FlxG.bitmap.remove(g);
 
-			graphic.persist = false;
-			graphic.destroyOnNoUse = true;
+			g.persist = false;
+			g.destroyOnNoUse = true;
 
 			trackedGraphics.remove(key);
 		}
 	}
 
-	/**
-	 * Removes a cached sound from it's list.
-	 * @param key The asset key of the sound to remove.
-	 */
+	// ------------------------------------------------------------
+	// REMOVE SOUND
+	// ------------------------------------------------------------
+
 	public static function removeCachedSound(key:String):Void
 	{
 		if (trackedSounds.exists(key) && canKeyBeRemoved(key))
 		{
-			var sound = trackedSounds.get(key);
-			sound.close();
-			
-			Assets.cache.removeSound(key);
-			Assets.cache.clear(key);
+			var s = trackedSounds.get(key);
+			if (s != null)
+			{
+				s.close();
+
+				Assets.cache.removeSound(key);
+				Assets.cache.clear(key);
+			}
 
 			trackedSounds.remove(key);
 		}
 	}
 
-	/**
-	 * Completely removes, and destroys a cached character from it's list.
-	 * @param charKey The id of the character to remove.
-	 */
+	// ------------------------------------------------------------
+	// REMOVE CHARACTER
+	// ------------------------------------------------------------
+
 	public static function removeCachedCharacter(charKey:String):Void
 	{
-		var char:Character = trackedCharacters.get(charKey);
+		var c = trackedCharacters.get(charKey);
 
-		char.destroy();
-		char = null;
-		trackedCharacters.remove(charKey);
+		if (c != null)
+		{
+			c.destroy();
+			trackedCharacters.remove(charKey);
+		}
 	}
 
-	/**
-	 * Completely clears the internal cache list, and runs the garbage collector.
-	 * Useful for freeing up memory, and preventing memory stacking.
-	 */
+	// ------------------------------------------------------------
+	// CLEAR ALL CACHE
+	// ------------------------------------------------------------
+
 	public static function clearTrackedCache():Void
 	{
-		// CLEAR GRAPHICS //
-		for (key in trackedGraphics.keys())
-		{
-			removeCachedGraphic(key);
-		}
+		// GRAPHICS
+		for (k in trackedGraphics.keys())
+			removeCachedGraphic(k);
+
 		FlxG.bitmap.clearCache();
 		FlxG.bitmap.clearUnused();
 
 		trackedGraphics = [];
 
-		
-		// CLEAR SOUNDS //
-
+		// SOUNDS
 		var soundsPlaying:Array<Sound> = [];
-		
+
 		@:privateAccess
-		for (s in FlxG.sound.list.members.concat([SoundController.music]))
+		for (snd in FlxG.sound.list.members.concat([SoundController.music]))
 		{
-			if (s == null)
-				
-continue;
-			
-			if (s.persist && s.playing)
-			{
-				soundsPlaying.push(s._sound);
-			}
-			else
-			{
-				s?.cleanup(false);
-				s?.reset();
-			}
+			if (snd != null && snd.persist && snd.playing)
+				soundsPlaying.push(snd._sound);
 		}
-		for (key in trackedSounds.keys())
+
+		for (k in trackedSounds.keys())
 		{
-			var sound:Sound = trackedSounds.get(key);
-			
-			if (!soundsPlaying.contains(sound))
-			{
-				removeCachedSound(key);
-			}
+			var s = trackedSounds.get(k);
+			if (!soundsPlaying.contains(s))
+				removeCachedSound(k);
 		}
+
 		trackedSounds = [];
 
+		// CHARACTERS
+		for (k in trackedCharacters.keys())
+			removeCachedCharacter(k);
 
-		// CLEAR CHARACTERS //
-
-		for (key in trackedCharacters.keys())
-		{
-			removeCachedCharacter(key);
-		}
 		runGc();
 	}
 
-	/**
-	 * Runs the c++ garbage collector.
-	 * Useful for freeing up memory.
-	 */
-	public static function runGc()
+	// ------------------------------------------------------------
+	// GC
+	// ------------------------------------------------------------
+
+	public static function runGc():Void
 	{
 		#if cpp
 		Gc.run(true);
 		Gc.compact();
 		Gc.run(false);
 		#end
+
 		System.gc();
 	}
 }

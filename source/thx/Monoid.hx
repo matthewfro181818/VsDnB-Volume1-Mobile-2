@@ -3,12 +3,12 @@ package thx;
 import thx.Semigroup;
 
 typedef MonoidImpl<A> = {
-	zero:A,
+zero:A,
 	append:A->A->A
 };
 
 abstract Monoid<A>(MonoidImpl<A>) from MonoidImpl<A> {
-	public var semigroup(get, never):Semigroup<A>;
+public var semigroup(get, never):Semigroup<A>;
 
 	function get_semigroup():Semigroup<A>
 		return this.append;

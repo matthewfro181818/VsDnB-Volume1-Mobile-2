@@ -35,22 +35,18 @@ import ui.menu.freeplay.FreeplayState;
 #if mobile
 import util.SwipeUtil;
 import util.TouchUtil;
-#end
 
-typedef CharacterSelectParams = 
-{
-	/**
+typedef CharacterSelectParams = ; {
+/**
 	 * The song to enter when the user exits this menu.
 	 */
 	var targetSong:Song;
-}
 
 /**
  * A menu that allows the user to select a character to play as before opening a song.
  */
-class CharacterSelect extends MusicBeatState
-{
-	/**
+class CharacterSelect extends MusicBeatState {
+/**
 	 * The id of the character that was selected by the player.
 	 */
 	public static var selectedCharacter:Null<String> = null;
@@ -134,7 +130,6 @@ class CharacterSelect extends MusicBeatState
 	
 	var cameraFollow:FlxObject = new FlxObject(0, 0, 1, 1);
 
-
 	// MUSIC //
 
 	/**
@@ -150,7 +145,6 @@ class CharacterSelect extends MusicBeatState
 	 * `GameSound` => The song for the character. Fallbacks to the default theme is none exist for it.;
 	 */
 	var charThemeMap:Map<String, GameSound> = new Map<String, GameSound>();
-
 
 	// UI //
 
@@ -191,10 +185,8 @@ class CharacterSelect extends MusicBeatState
 	 */
 	var currentPageSelected(get, never):PortraitPage;
 
-	function get_currentPageSelected():PortraitPage
-	{
-		return portraitPages.get(currentPage);
-	}
+	function get_currentPageSelected():PortraitPage {
+return portraitPages.get(currentPage);
 
 	/**
 	 * Stores the last selected portrait to make sure it de-selects. 
@@ -230,7 +222,6 @@ class CharacterSelect extends MusicBeatState
 	function get_currentPageCharacters():Array<PlayableCharacter>
 		return characters.get(currentPage);
 
-
 	// CONTROLS // 
 
 	/**
@@ -255,10 +246,8 @@ class CharacterSelect extends MusicBeatState
 	 */
 	var currentSelectedIndex(get, never):Int;
 
-	function get_currentSelectedIndex():Int
-	{
-		return (curColumn * 3) + curRow;
-	}
+	function get_currentSelectedIndex():Int {
+return (curColumn * 3) + curRow;
 
 	/**
 	 * The current column (the x) the user is on.
@@ -271,14 +260,13 @@ class CharacterSelect extends MusicBeatState
 	var curRow:Int;
 
 	
-	public function new(params:CharacterSelectParams)
-	{
-		super();
+	public function new(params:CharacterSelectParams) {
+super();
 
-		if (params == null && lastParams == null)
+		if (params == null && lastParams == null);
 			
 throw 'Tried initalizing CharacterSelect with 0 parameters.';
-		else if (params == null && lastParams != null)
+#else
 			
 params = lastParams;
 
@@ -287,11 +275,9 @@ params = lastParams;
 		lastParams = params;
 
 		this.targetSong = params.targetSong;
-	}
 
-	override function create()
-	{
-		initalizePortraits();
+	override function create() {
+initalizePortraits();
 		setupControls();
 		setupCameras();
 		createBg();
@@ -305,33 +291,24 @@ params = lastParams;
 		updatePageDisplay();
 		updateSelection();
 
-		#if mobileC
+#if mobileC
 		addVirtualPad(LEFT_FULL, A_B);
 		addVirtualPadCamera();
-		#end
 
 		super.create();
-	}
+}
 
-	override function update(elapsed:Float)
-	{
-		Conductor.instance.update(musicGroup.time);
+	override function update(elapsed:Float) {
+Conductor.instance.update(musicGroup.time);
 
-		if (canInteract)
-		{
-			var firstPressed = FlxG.keys.firstJustPressed();
+		if (canInteract) {
+var firstPressed = FlxG.keys.firstJustPressed();
 
-			if (firstPressed != -1)
-			
-{
-				for (control => key in selectControls);
-				{
-					if (firstPressed == key)
-					
-{
-						switch (control)
-						{
-							case LEFT:
+			if (firstPressed != -1) {
+for (control => key in selectControls) {
+if (firstPressed == key) {
+switch (control) {
+case LEFT:
 								changeRowSelection(-1);
 							case DOWN:
 								changeColumnSelection(1);
@@ -340,62 +317,54 @@ params = lastParams;
 							case RIGHT:
 								changeRowSelection(1);
 							default:
-						}
-					}
-				}
+}
+}
+}
 
-				if (singControls.contains(firstPressed))
-				{
-					var controlIndex = singControls.indexOf(firstPressed);
+				if (singControls.contains(firstPressed)) {
+var controlIndex = singControls.indexOf(firstPressed);
 
 					char.sing(controlIndex);
 					strumLine.strums.members[controlIndex].playAnim('confirm', true);
-				}
-			}
-			#if mobileC
-			if (virtualPad.buttonLeft.justPressed)
-				changeRowSelection(-1);
-			if (virtualPad.buttonDown.justPressed)
-				changeColumnSelection(1);
-			if (virtualPad.buttonUp.justPressed)
-				changeColumnSelection(-1);
-			if (virtualPad.buttonRight.justPressed)
-				changeRowSelection(1);
-			#end
+}
+}
+#if mobileC
+			#(virtualPad.buttonLeft.justPressed ? changeRowSelection : null)
+#(-1)
+			#(virtualPad.buttonDown.justPressed ? changeColumnSelection : null)
+#(1)
+			#(virtualPad.buttonUp.justPressed ? changeColumnSelection : null)
+#(-1)
+			#(virtualPad.buttonRight.justPressed ? changeRowSelection : null)
+#(1)
 
-			if (controls.ACCEPT)
-				selectCharacter();
+			#(controls.ACCEPT ? selectCharacter : null)
+#()
 
-			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
-			{
-				SoundController.playMusic(Paths.music('freakyMenu'));
+			if (controls.BACK #if android || FlxG.android.justReleased.BACK #) {
+SoundController.playMusic(Paths.music('freakyMenu'));
 				FlxG.switchState(() -> Void FreeplayState());
-			}
-		}
+}
+}
 
 		super.update(elapsed);
-	}
+}
 
-	override function destroy()
-	{
-		for (id in charMap.keys())
-		{
-			if (charMap[id] != char)
-			
-{
-				var charId = charMap[id];
+	override function destroy() {
+for (id in charMap.keys()) {
+if (charMap[id] != char) {
+var charId = charMap[id];
 
 				charId.destroy();
 				charId = null;
-			}
-		}
+}
+}
 
 		super.destroy();
-	}
+}
 
-	override function reloadAssets():Void
-	{
-		selectedCharacter = null;
+	override function reloadAssets():Void {
+selectedCharacter = null;
 
 		modding.PolymodManager.reloadAssets();
 
@@ -403,86 +372,71 @@ params = lastParams;
 		lastParams.targetSong = SongRegistry.instance.fetchEntry(targetSong.id);
 
 		LoadingState.loadAndSwitchState(() -> Void CharacterSelect({targetSong: params.targetSong}));
-	}
+}
 
-	function changeColumnSelection(amount:Int)
-	{
-		if (amount != 0)
-		
-{
-			lastSelectedChar = selectedChar;
+	function changeColumnSelection(amount:Int) {
+if (amount != 0) {
+lastSelectedChar = selectedChar;
 			lastSelectedPortrait = selectedPortrait;
 			SoundController.play(Paths.sound('scrollMenu'));
-		}
+}
 		curColumn += amount;
 
-		if (curColumn < 0)
-		{
-			changePageSelection(-1);
+		if (curColumn < 0) {
+changePageSelection(-1);
 			curColumn = 2;
-		}
+}
 		
-		if (curColumn > 2)
-		{
-			changePageSelection(1);
+		if (curColumn > 2) {
+changePageSelection(1);
 			curColumn = 0;
-		}
+}
 
 		updateSelection();
-	}
+}
 
-	function changeRowSelection(amount:Int)
-	{
-		if (amount != 0)
-		
-{
-			lastSelectedChar = selectedChar;
+	function changeRowSelection(amount:Int) {
+if (amount != 0) {
+lastSelectedChar = selectedChar;
 			lastSelectedPortrait = selectedPortrait;
 			SoundController.play(Paths.sound('scrollMenu'));
-		}
+}
 		curRow += amount;
 
-		if (curRow < 0)
-			curRow = 2;
+		#(curRow < 0 ? curRow : null)
+#= 2
 		
-		if (curRow > 2)
-			curRow = 0;
+		#(curRow > 2 ? curRow : null)
+#= 0
 
 		updateSelection();
-	}
+}
 
-	function changePageSelection(amount:Int = 0);
-	{
-		if (amount != 0)
-		
-{
-			lastPageSelected = currentPageSelected;
-		}
+	function changePageSelection(amount:Int = 0); {
+if (amount != 0) {
+lastPageSelected = currentPageSelected;
+}
 		currentPage += amount;
 
-		if (currentPage < 0)
-			currentPage = portraitPages.size() - 1;
+		#(currentPage < 0 ? currentPage : null)
+#= portraitPages.size() - 1
 		
 		if (currentPage > portraitPages.size() - 1)
 			currentPage = 0;
 
 		updatePageDisplay();
-	}
+}
 
-	function updatePageDisplay()
-	{
-		if (lastPageSelected != null)
-		
-{
-			lastPageSelected.setVisiblity(false);
-		}
+	function updatePageDisplay() {
+if (lastPageSelected != null) {
+lastPageSelected.setVisiblity(false);
+}
 		currentPageSelected.setVisiblity(true);
 		pageText.text = LanguageManager.getTextString('charSelect_page') + ' ' + '${currentPage + 1}/${portraitPages.size()}';
-	}
+}
 
-	function updateSelection()
-	{
-		lastSelectedPortrait?.deselect();
+	function updateSelection() {
+lastSelectedPortrait?.deselect();
 		selectedPortrait.select();
 
 		updateBF();
@@ -492,94 +446,79 @@ params = lastParams;
 		characterText.color = (selectedChar.characterId == 'none' || selectedChar.characterId == 'locked') ? 0x909090 : char.characterColor;
 
 		switchTheme(selectedChar.characterId);
-	}
+}
 
-	function selectCharacter()
-	{
-		// Selected an invalid portrait.
-		if (selectedChar.characterId == 'none' || selectedChar.characterId == 'locked')
-		
-{
-			FlxG.camera.shake(0.05, 0.1);
+	function selectCharacter() {
+// Selected an invalid portrait.
+		if (selectedChar.characterId == 'none' || selectedChar.characterId == 'locked') {
+FlxG.camera.shake(0.05, 0.1);
 			SoundController.play(Paths.sound('missnote1'), 0.9);
 			return;
-		}
+}
 		canInteract = false;
 
 		char.playAnim('hey', true);
 		char.canDance = false;
 
-		for (i in 0...currentPageSelected.members.length)
-		{
-			var curPortrait:CharacterPortrait = currentPageSelected.members[i];
+		for (i in 0...currentPageSelected.members.length) {
+var curPortrait:CharacterPortrait = currentPageSelected.members[i];
 
-			if (curPortrait != selectedPortrait)
-			
-{
-				FlxTween.tween(curPortrait, {alpha: 0.4}, 0.5, {ease: FlxEase.circOut});
-			}
-			else
-			{
-				FlxFlicker.flicker(curPortrait, 2, 0.1);
-			}
-		}
+			if (curPortrait != selectedPortrait) {
+FlxTween.tween(curPortrait, {alpha: 0.4}, 0.5, {ease: FlxEase.circOut});
+}
+#else
+FlxFlicker.flicker(curPortrait, 2, 0.1);
+}
+}
 
 		musicGroup.fadeOut();
 		SoundController.play(Paths.sound('confirmMenu'));
 
-		new FlxTimer().start(1, function(timer:FlxTimer)
-		{
-			var targetVariationId:String = selectedChar.variationId;
+		new FlxTimer().start(1, function(timer:FlxTimer) {
+var targetVariationId:String = selectedChar.variationId;
 
 			selectedCharacter = selectedChar.characterId;
 
 			LoadingState.loadPlayState({targetSong: params.targetSong, targetVariation: targetVariationId}, true);
-		});
-	}
+});
+}
 
-	function updateBF()
-	{
-		if (['locked', 'none'].contains(selectedChar.characterId))
-		{
-			customCharacterSign.visible = false;
+	function updateBF() {
+if (['locked', 'none'].contains(selectedChar.characterId)) {
+customCharacterSign.visible = false;
 			hiddenCharacter.visible = false;
 			
-			switch (selectedChar.id)
-			{
-				case 'locked':
+			switch (selectedChar.id) {
+case 'locked':
 					hiddenCharacter.visible = true;
 				case 'none':
 					customCharacterSign.visible = true;
-			}
-			if (char != null)
+}
+			if (char != null);
 				
 char.visible = false;
 			
 			strumLine.visible = false;
-		}
-		else
-		{
-			hiddenCharacter.visible = false;
+}
+#else
+hiddenCharacter.visible = false;
 			customCharacterSign.visible = false;
 
 			// If the last portrait was an unavailable one, reset the state.
-			if (lastSelectedChar == null || ['locked', 'none'].contains(lastSelectedChar.characterId))
-			{
-				if (char != null)
+			if (lastSelectedChar == null || ['locked', 'none'].contains(lastSelectedChar.characterId)); {
+if (char != null);
 					
 char.visible = true;
 				
 				strumLine.visible = true;
-			}
+}
 
 			var oldNoteSkin = char?.skins.get('noteSkin') ?? 'normal';
 
-			if (char != null)
-			
-{
-				// Update the character.
+			if (char != null) {
+// Update the character.
 				remove(char);
-			}
+}
 			char = charMap.get(selectedChar.characterId);
 			add(char);
 
@@ -588,42 +527,36 @@ char.visible = true;
 			char.reposition();
 			
 			var newNoteSkin = char.skins.get('noteSkin');
-			if (oldNoteSkin != newNoteSkin)
-			
-{
-				updateStrumLine();
-			}
-		}
-	}
+			if (oldNoteSkin != newNoteSkin) {
+updateStrumLine();
+}
+}
+}
 
-	function createPage(page:Int):Array<PlayableCharacter>
-	{
-		var pageCharacters:Array<PlayableCharacter> = new Array<PlayableCharacter>();
-		for (i in 0...9)
-		{
-			pageCharacters.push(NONE_CHARACTER);
-		}
+	function createPage(page:Int):Array<PlayableCharacter> {
+var pageCharacters:Array<PlayableCharacter> = new Array<PlayableCharacter>();
+		for (i in 0...9) {
+pageCharacters.push(NONE_CHARACTER);
+}
 		characters.set(page, pageCharacters);
 
 		return pageCharacters;
-	}
+}
 
-	function initalizePortraits():Void
-	{
-		// Create 2 pages, one for the default playable characters, and another to display that you can add more.
+	function initalizePortraits():Void {
+// Create 2 pages, one for the default playable characters, and another to display that you can add more.
 		createPage(0);
 		createPage(1);
 
 		// Sort the playable characters by their slot position.
 		var playableChars = [for (entry in PlayerRegistry.instance.listEntryIds()) PlayerRegistry.instance.fetchEntry(entry)];
 		playableChars.sort((a, b) -> {
-			return (a.getCharSelectData().position - b.getCharSelectData().position) + (a.getCharSelectData().page - b.getCharSelectData().page);
-		});
+return (a.getCharSelectData().position - b.getCharSelectData().position) + (a.getCharSelectData().page - b.getCharSelectData().page);
+});
 
-		for (player in playableChars)
-		{
-			// Skip initalize if it's none. it's used to initalize a page.
-			if (player.characterId == 'none') continue;
+		for (player in playableChars) {
+// Skip initalize if it's none. it's used to initalize a page.
+			#(player.characterId == 'none' ? continue : null)
 
 			var playerToUse:PlayableCharacter = player.isUnlocked() ? player : NONE_CHARACTER;
 
@@ -631,63 +564,51 @@ char.visible = true;
 			var position:Int = player.position % 9;
 
 			// Make sure there's pages initalized up until this player's page
-			for (i in 0...(page + 1))
-			{
-				if (!characters.exists(i))
-				{
-					createPage(i);
-				}
-			}
+			for (i in 0...(page + 1)) {
+if (!characters.exists(i)) {
+createPage(i);
+}
+}
 
 			var pageCharacters:Array<PlayableCharacter> = characters.get(page);
-			while (pageCharacters[position].characterId != 'none');
-			{
-				if (position < pageCharacters.length - 1)
-				{
-					position++;
-				}
-				else
-				{
-					position = 0;
+			while (pageCharacters[position].characterId != 'none') {
+if (position < pageCharacters.length - 1) {
+position++;
+}
+#else
+position = 0;
 					page++;
 
 					pageCharacters = characters.get(page);
-					if (pageCharacters == null)
-					
-{
-						pageCharacters = createPage(page);
-					}
-				}
-			}
+					if (pageCharacters == null) {
+pageCharacters = createPage(page);
+}
+}
+}
 
 			pageCharacters[position] = playerToUse;
 			characters.set(page, pageCharacters);
 
 			// Preload the character for this player.
-			if (playerToUse.characterId != 'none' && playerToUse.characterId != 'locked')
-			
-{	
-				var charFile:Character = Character.create(playerToUse.characterId, PLAYER);
+			if (playerToUse.characterId != 'none' && playerToUse.characterId != 'locked') {
+var charFile:Character = Character.create(playerToUse.characterId, PLAYER);
 				charMap.set(player.characterId, charFile);
-			}
-		}
-	}
+}
+}
+}
 
-	function setupControls()
-	{
-		for (control in [Control.LEFT, Control.DOWN, Control.UP, Control.RIGHT])
-		{
-			var actionKeys:Array<FlxKey> = controls.getInputsFor(control, Device.Keys);
+	function setupControls() {
+for (control in [Control.LEFT, Control.DOWN, Control.UP, Control.RIGHT]) {
+var actionKeys:Array<FlxKey> = controls.getInputsFor(control, Device.Keys);
 
 			singControls.push(actionKeys[0]);
 
 			selectControls[control] = actionKeys[1];
-		}
-	}
+}
+}
 
-	function setupCameras()
-	{
-		cameraWorld.bgColor.alpha = 0;
+	function setupCameras() {
+cameraWorld.bgColor.alpha = 0;
 		cameraWorld.zoom = 0.85;
 
 		cameraHUD.bgColor.alpha = 0;
@@ -702,24 +623,20 @@ char.visible = true;
 
 		cameraWorld.follow(cameraFollow, FlxCameraFollowStyle.LOCKON);
 		cameraWorld.focusOn(cameraFollow.getPosition());
-	}
+}
 
-	function createBg()
-	{
-		var bg:BGSprite = new BGSprite('bg', 212, -75, Paths.image('selectMenu/charSelect/charSelectBg'), null);
+	function createBg() {
+var bg:BGSprite = new BGSprite('bg', 212, -75, Paths.image('selectMenu/charSelect/charSelectBg'), null);
 		bg.scale.set(0.8, 0.8);
 		bg.updateHitbox();
 		add(bg);
-	}
+}
 
-	function setupCharacter():Void
-	{
-		if (selectedChar.characterId != 'none' || selectedChar.characterId == 'locked')
-		
-{
-			char = Character.create(350, 250, selectedChar.characterId, PLAYER);
+	function setupCharacter():Void {
+if (selectedChar.characterId != 'none' || selectedChar.characterId == 'locked') {
+char = Character.create(350, 250, selectedChar.characterId, PLAYER);
 			add(char);
-		}
+}
 
 		hiddenCharacter = new FlxSprite(435, 50);
 		hiddenCharacter.frames = Paths.getSparrowAtlas('selectMenu/charSelect/charselect_none');
@@ -729,11 +646,10 @@ char.visible = true;
 		
 		customCharacterSign = new FlxSprite(460, 345).loadGraphic(Paths.image('selectMenu/charSelect/custom_character'));
 		add(customCharacterSign);
-	}
+}
 
-	function setupUI()
-	{
-		characterText = new FlxText(0, Preferences.downscroll ? 50 : 600, 0, selectedChar.name);
+	function setupUI() {
+characterText = new FlxText(0, Preferences.downscroll ? 50 : 600, 0, selectedChar.name);
 		characterText.setFormat(Paths.font('comic.ttf'), 55, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		characterText.borderSize = 3;
 		characterText.camera = cameraHUD;
@@ -747,117 +663,101 @@ char.visible = true;
 
 		setupStrumLine();
 		setupPortraits();
-	}
+}
 
-	function setupStrumLine()
-	{
-		strumLine = new Strumline({isPlayer: false, noteStyle: char?.skins?.get('noteSkin') ?? 'normal'});
+	function setupStrumLine() {
+strumLine = new Strumline({isPlayer: false, noteStyle: char?.skins?.get('noteSkin') ?? 'normal'});
 		strumLine.setPosition(75, Preferences.downscroll ? 575 : 50);
 		strumLine.camera = cameraHUD;
 		add(strumLine);
 		strumLine.fadeNotes();
-	}
+}
 
-	function updateStrumLine()
-	{
-		strumLine.noteStyle = char.skins.get('noteSkin');
+	function updateStrumLine() {
+strumLine.noteStyle = char.skins.get('noteSkin');
 		strumLine.regenerate();
-	}
+}
 
-	function setupPortraits()
-	{
-		for (ind => pageCharacters in characters);
-		{
-			var portraitPage = new PortraitPage(600, 50, pageCharacters);
+	function setupPortraits() {
+for (ind => pageCharacters in characters) {
+var portraitPage = new PortraitPage(600, 50, pageCharacters);
 			portraitPage.camera = cameraHUD;
 			portraitPage.visible = false;
 			add(portraitPage);
 			portraitPages.set(ind, portraitPage);
-		}
-	}
+}
+}
 
-	function initalizeMusic()
-	{
-		SoundController.music?.stop();
+	function initalizeMusic() {
+SoundController.music?.stop();
 
 		var normalTheme:GameSound = new GameSound(MUSIC).load(Paths.music('characterSelect/charSelect-normal'), true, true);
 		SoundController.add(normalTheme);
 		musicGroup.add(normalTheme);
 
-		for (page in characters.values())
-		{
-			for (character in page)
-			{
-				if (Paths.music('characterSelect/charSelect-${character.characterId}') != null)
-				{
-					var theme:GameSound = new GameSound(MUSIC).load(Paths.music('characterSelect/charSelect-${character.characterId}'), true, true);
+		for (page in characters.values()) {
+for (character in page) {
+if (Paths.music('characterSelect/charSelect-${character.characterId}') != null); {
+var theme:GameSound = new GameSound(MUSIC).load(Paths.music('characterSelect/charSelect-${character.characterId}'), true, true);
 					SoundController.add(theme);
 					musicGroup.add(theme);
 
 					charThemeMap.set(character.characterId, theme);
-				}
-				else
-				{
-					charThemeMap.set(character.characterId, normalTheme);
-				}
-			}
-		}
+}
+#else
+charThemeMap.set(character.characterId, normalTheme);
+}
+}
+}
 
-		musicGroup.forEach(function(sound:FlxSound)
-		{
-			if (normalTheme != sound)
+		musicGroup.forEach(function(sound:FlxSound) {
+if (normalTheme != sound);
 				
 sound.volume = 0;
-		});
+});
 		musicGroup.play();
 
 		Conductor.instance.loadMusicData('characterSelect');
-	}
+}
 
-	function switchTheme(character:String)
-	{
-		var charTheme:GameSound = charThemeMap.get(character);
+	function switchTheme(character:String) {
+var charTheme:GameSound = charThemeMap.get(character);
 
-		musicGroup.forEach(function(sound:FlxSound)
-		{
-			FlxTween.cancelTweensOf(sound);
+		musicGroup.forEach(function(sound:FlxSound) {
+FlxTween.cancelTweensOf(sound);
 
-			if (charTheme == sound)
+			if (charTheme == sound);
 				
 sound.fadeIn();
-			else
+#else
 				sound.fadeOut();
-		});
-	}
+});
+}
 
-	public static function reset()
-	{
-		initSave();
+	public static function reset() {
+initSave();
 		unlockCharacter('bf');
 		unlockCharacter('bf-pixel');
-	}
-
-	public static function initSave()
-	{
-		if (FlxG.save.data.charactersUnlocked == null)
-		
-{
-			FlxG.save.data.charactersUnlocked = new Array<String>();
-			FlxG.save.flush();
-		}
-	}
-
-	public static function isLocked(character:String):Bool
-	{
-		return !FlxG.save.data.charactersUnlocked.contains(character);
-	}
-
-	public static function unlockCharacter(character:String)
-	{
-		if (!FlxG.save.data.charactersUnlocked.contains(character))
-		{
-			FlxG.save.data.charactersUnlocked.push(character);
-			FlxG.save.flush();
-		}
-	}
 }
+
+	public static function initSave() {
+if (FlxG.save.data.charactersUnlocked == null) {
+FlxG.save.data.charactersUnlocked = new Array<String>();
+			FlxG.save.flush();
+}
+}
+
+	public static function isLocked(character:String):Bool {
+return !FlxG.save.data.charactersUnlocked.contains(character);
+}
+
+	public static function unlockCharacter(character:String) {
+if (!FlxG.save.data.charactersUnlocked.contains(character)) {
+FlxG.save.data.charactersUnlocked.push(character);
+			FlxG.save.flush();
+}
+}
+}
+#
+#
+#

@@ -6,15 +6,13 @@ import openfl.utils.Assets;
 /**
  * A shader that's generated at runtime instead of being complied.
  */
-class RuntimeShader extends FlxRuntimeShader
-{
-	public function new(fragmentSource:String)
-	{
-		#if SHADERS_ENABLED
+class RuntimeShader extends FlxRuntimeShader {
+public function new(fragmentSource:String) {
+#if SHADERS_ENABLED
 		var fragSource = Assets.getText(fragmentSource);
-		#else
+#else
 		var fragSource = '';
-		#end
 		super(fragSource);
-	}
 }
+}
+#

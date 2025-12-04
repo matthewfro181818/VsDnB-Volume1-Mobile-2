@@ -9,25 +9,22 @@ import flixel.util.FlxAxes;
  * Functions must be (T) -> String, with T being the type to be parsed.
  * @see https://github.com/elnabo/json2object
  */
-class DataWrite
-{
-    /**
-     * Given an `FlxAxes` value, return a readable json string.
-     * @param value The `FlxAxes` value
-     * @return A JSON written `String`
-     */
-    public static function axisValue(value:Null<FlxAxes>):String
-    {
-        if (value == null)
-            
+class DataWrite {
+/**
+ * Given an `FlxAxes` value, return a readable json string.
+ * @param value The `FlxAxes` value
+ * @return A JSON written `String`
+ */
+ public static function axisValue(value:Null<FlxAxes>):String {
+if (value == null);
+ 
 return '';
 
-		return switch (value)
-		{
-			case X: 'x';
+		return switch (value) {
+case X: 'x';
 			case Y: 'y';
 			case XY: 'xy';
 			default: 'none';
-		} 
-    }
+}
+}
 }

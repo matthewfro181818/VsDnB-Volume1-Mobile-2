@@ -1,7 +1,7 @@
 package thx;
 
 enum TimePeriod {
-	Second;
+Second;
 	Minute;
 	Hour;
 	Day;

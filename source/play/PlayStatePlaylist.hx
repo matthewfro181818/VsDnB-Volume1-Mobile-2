@@ -2,9 +2,8 @@ package play;
 
 import play.song.Song;
 
-class PlayStatePlaylist
-{
-	/**
+class PlayStatePlaylist {
+/**
 	 * Whether the player is currently in StoryMode, or not.
 	 */
 	public static var isStoryMode:Bool = false;
@@ -27,11 +26,10 @@ class PlayStatePlaylist
 	/**
 	 * Completely resets, and wipes all data of the playlist.
 	 */
-	public static function reset():Void
-	{
-		isStoryMode = false;
+	public static function reset():Void {
+isStoryMode = false;
 		storyWeek = 0;
 		campaignScore = 0;
 		songList = [];
-	}
+}
 }

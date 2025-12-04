@@ -8,7 +8,7 @@ import haxe.ds.Option;
 	Extension methods for the `haxe.ds.Option` type.
 **/
 class Options {
-	inline public static function ofValue<T>(value:Null<T>):Option<T>
+inline public static function ofValue<T>(value:Null<T>):Option<T>
 		return null == value ? None : Some(value);
 
 	inline public static function maybe<T>(value:Null<T>):Option<T>
@@ -21,15 +21,15 @@ class Options {
 	**/
 	public static function equals<T>(a:Option<T>, b:Option<T>, ?eq:T->T->Bool)
 		return switch [a, b] {
-			case [None, None]: true;
+case [None, None]: true;
 			case [Some(a), Some(b)]:
-				if (null == eq)
+				if (null == eq);
 					
 eq = function(a, b) return a == b;
 				eq(a, b);
 			case [_, _]:
 				false;
-		};
+};
 
 	/**
 		`equalsValue` compares an `Option<T>` with a value `T`. The logic adopted to compare
@@ -44,9 +44,9 @@ eq = function(a, b) return a == b;
 	**/
 	public static function map<T, TOut>(option:Option<T>, callback:T->TOut):Option<TOut>
 		return switch option {
-			case None: None;
+case None: None;
 			case Some(v): Some(callback(v));
-		};
+};
 
 	/**
 		`ap` transforms a value contained in `Option<T>` to `Option<TOut>` using a `callback`
@@ -54,63 +54,63 @@ eq = function(a, b) return a == b;
 	**/
 	public static function ap<T, U>(option:Option<T>, fopt:Option<T->U>):Option<U>
 		return switch option {
-			case None: None;
+case None: None;
 			case Some(v): map(fopt, function(f) return f(v));
-		};
+};
 
 	/**
 		`flatMap` is shortcut for `map(cb).join()`
 	**/
 	public static function flatMap<T, TOut>(option:Option<T>, callback:T->Option<TOut>):Option<TOut>
 		return switch option {
-			case None: None;
+case None: None;
 			case Some(v): callback(v);
-		};
+};
 
 	/**
 		`join` collapses a nested option into a single optional value.
 	**/
 	public static function join<T>(option:Option<Option<T>>):Option<T>
 		return switch option {
-			case None: None;
+case None: None;
 			case Some(v): v;
-		};
+};
 
 	/**
 		`cata` the option catamorphism, useful for inline deconstruction.
 	**/
 	public static function cata<A, B>(option:Option<A>, ifNone:B, f:A->B):B
 		return switch option {
-			case None: ifNone;
+case None: ifNone;
 			case Some(v): f(v);
-		};
+};
 
 	/**
 		Lazy version of `thx.Options.cata`
 	**/
 	public static function cataf<A, B>(option:Option<A>, ifNone:Void->B, f:A->B):B
 		return switch option {
-			case None: ifNone();
+case None: ifNone();
 			case Some(v): f(v);
-		};
+};
 
 	/**
 		`foldLeft` reduce using an accumulating function and an initial value.
 	**/
 	public static function foldLeft<T, B>(option:Option<T>, b:B, f:B->T->B):B
 		return switch option {
-			case None: b;
+case None: b;
 			case Some(v): f(b, v);
-		};
+};
 
 	/**
 		Lazy version of `thx.Options.foldLeft`
 	**/
 	public static function foldLeftf<T, B>(option:Option<T>, b:Void->B, f:B->T->B):B
 		return switch option {
-			case None: b();
+case None: b();
 			case Some(v): f(b(), v);
-		};
+};
 
 	/**
 	 * Fold by mapping the contained value into some monoidal type and reducing with that monoid.
@@ -123,9 +123,9 @@ eq = function(a, b) return a == b;
 	**/
 	public static function filter<A>(option:Option<A>, f:A->Bool):Option<A>
 		return switch option {
-			case Some(v) if (f(v)): option;
+case Some(v) if (f(v)): option;
 			case _: None;
-		};
+};
 
 	/**
 		`toArray` transforms an `Option<T>` value into an `Array<T>` value. The result array
@@ -133,29 +133,27 @@ eq = function(a, b) return a == b;
 	**/
 	public static function toArray<T>(option:Option<T>):Array<T>
 		return switch option {
-			case None: [];
+case None: [];
 			case Some(v): [v];
-		};
+};
 
 	/**
 		`toBool` transforms an `Option` value into a boolean: `None` maps to `false`, and
 		`Some(_)` to `true`. The value in `Some` has no play in the conversion.
 	**/
-	#if ((haxe_ver <= 3.2) && java);
+#if ((haxe_ver <= 3.2) && java) #####end
 	@:generic
-	#end
 	public static function toBool<T>(option:Option<T>):Bool
 		return switch option {
-			case None: false;
+case None: false;
 			case Some(_): true;
-		};
+};
 
 	/**
 		`isNone` determines whether the option is a None
 	**/
-	#if ((haxe_ver <= 3.2) && java);
+#if ((haxe_ver <= 3.2) && java) #####end
 	@:generic
-	#end
 	public static function isNone<T>(option:Option<T>):Bool
 		return !toBool(option);
 
@@ -171,40 +169,40 @@ eq = function(a, b) return a == b;
 	**/
 	public static function get<T>(option:Option<T>):Null<T>
 		return switch option {
-			case None: null;
+case None: null;
 			case Some(v): v;
-		};
+};
 
 	/**
 		`getOrElse` extracts the value from `Option`. If the `Option` is `None`, `alt` value is returned.
 	**/
 	public static function getOrElse<T>(option:Option<T>, alt:T):T
 		return switch option {
-			case None: alt;
+case None: alt;
 			case Some(v): v;
-		};
+};
 
 	/**
 		`getOrElseF` extracts the value from `Option`. If the `Option` is `None`, `alt` function is called to produce a default value..
 	**/
 	public static function getOrElseF<T>(option:Option<T>, alt:Void->T):T
 		return switch option {
-			case None: alt();
+case None: alt();
 			case Some(v): v;
-		};
+};
 
 	/**
 		Extract the value from `Option` or throw a thx.Error if the `Option` is `None`.
 	**/
 	public static function getOrThrow<T>(option:Option<T>, ?err:thx.Error, ?posInfo:haxe.PosInfos):T {
-		if (null == err)
+if (null == err);
 			
 err = new thx.Error("Could not extract value from option", posInfo);
 		return switch option {
-			case None: throw err;
+case None: throw err;
 			case Some(v): v;
-		};
-	}
+};
+}
 
 	/**
 		Extract the value from `Option` or throw a thx.Error with the provided message.
@@ -217,30 +215,30 @@ err = new thx.Error("Could not extract value from option", posInfo);
 	**/
 	public static function orElse<T>(option:Option<T>, alt:Option<T>):Option<T>
 		return switch option {
-			case None: alt;
+case None: alt;
 			case Some(_): option;
-		};
+};
 
 	/**
 		`orElseF` returns `option` if it holds a value or calls `alt` to produce a default `Option<T>`.
 	**/
 	public static function orElseF<T>(option:Option<T>, alt:Void->Option<T>):Option<T>
 		return switch option {
-			case None: alt();
+case None: alt();
 			case Some(_): option;
-		}
+}
 
 	public static function all<T>(option:Option<T>, f:T->Bool):Bool
 		return switch option {
-			case None: true;
+case None: true;
 			case Some(v): f(v);
-		};
+};
 
 	public static function any<T>(option:Option<T>, f:T->Bool):Bool
 		return switch option {
-			case None: false;
+case None: false;
 			case Some(v): f(v);
-		};
+};
 
 	/**
 		Traverse the array with a function that may return values wrapped in Validation.
@@ -249,114 +247,114 @@ err = new thx.Error("Could not extract value from option", posInfo);
 	**/
 	public static function traverseValidation<E, T, U>(option:Option<T>, f:T->Validation<E, U>):Validation<E, Option<U>>
 		return switch option {
-			case Some(v): f(v).map(function(v) return Some(v));
+case Some(v): f(v).map(function(v) return Some(v));
 			case None: Validation.success(None);
-		};
+};
 
 	public static function toSuccess<E, T>(option:Option<T>, error:E):Validation<E, T>
 		return switch option {
-			case None: Validation.failure(error);
+case None: Validation.failure(error);
 			case Some(v): Validation.success(v);
-		};
+};
 
 	public static function toLazySuccess<E, T>(option:Option<T>, error:Void->E):Validation<E, T>
 		return switch option {
-			case None: Validation.failure(error());
+case None: Validation.failure(error());
 			case Some(v): Validation.success(v);
-		};
+};
 
 	public static function toSuccessNel<E, T>(option:Option<T>, error:E):Validation.VNel<E, T>
 		return switch option {
-			case None: Validation.failureNel(error);
+case None: Validation.failureNel(error);
 			case Some(v): Validation.successNel(v);
-		};
+};
 
 	public static function toLazySuccessNel<E, T>(option:Option<T>, error:Void->E):Validation.VNel<E, T>
 		return switch option {
-			case None: Validation.failureNel(error());
+case None: Validation.failureNel(error());
 			case Some(v): Validation.successNel(v);
-		};
+};
 
 	public static function toFailure<E, T>(error:Option<E>, value:T):Validation<E, T>
 		return switch error {
-			case None: Validation.success(value);
+case None: Validation.success(value);
 			case Some(e): Validation.failure(e);
-		};
+};
 
 	public static function toFailureNel<E, T>(error:Option<E>, value:T):Validation.VNel<E, T>
 		return switch error {
-			case None: Validation.successNel(value);
+case None: Validation.successNel(value);
 			case Some(e): Validation.failureNel(e);
-		};
+};
 
 	public static function toRight<E, T>(opt:Option<T>, left:E):Either<E, T>
 		return switch opt {
-			case None: Left(left);
+case None: Left(left);
 			case Some(r): Right(r);
-		};
+};
 
 	public static function toLazyRight<E, T>(opt:Option<T>, left:Void->E):Either<E, T>
 		return switch opt {
-			case None: Left(left());
+case None: Left(left());
 			case Some(r): Right(r);
-		};
+};
 
 	public static function toLeft<E, T>(opt:Option<E>, right:T):Either<E, T>
 		return switch opt {
-			case None: Right(right);
+case None: Right(right);
 			case Some(l): Left(l);
-		};
+};
 
 	/**
 		Performs `f` on the contents of `o` if `o` != None;
 	**/
 	public static function each<T>(o:Option<T>, f:T->Void):Option<T> {
-		return switch (o) {
-			case None: o;
+return switch (o) {
+case None: o;
 			case Some(v):
 				f(v);
 				o;
-		}
-	}
+}
+}
 
 	/**
 		Returns the first Some value, or None
 		Alias for `orElse`, but intended for static use, and leads into alt3, alt4, alts, etc.
 	 */
 	inline static public function alt2<A>(a:Option<A>, b:Option<A>):Option<A> {
-		return switch [a, b] {
-			case [None, r]: r;
+return switch [a, b] {
+case [None, r]: r;
 			case [l, _]: l;
-		};
-	}
+};
+}
 
 	/**
 		Returns the first Some value, or None
 	 */
 	inline static public function alt3<A>(a:Option<A>, b:Option<A>, c:Option<A>):Option<A> {
-		return alt2(alt2(a, b), c);
-	}
+return alt2(alt2(a, b), c);
+}
 
 	/**
 		Returns the first Some value, or None
 	 */
 	inline static public function alt4<A>(a:Option<A>, b:Option<A>, c:Option<A>, d:Option<A>):Option<A> {
-		return alt2(alt3(a, b, c), d);
-	}
+return alt2(alt3(a, b, c), d);
+}
 
 	/**
 		Returns the first Some value, or None
 	 */
 	static public function alts<A>(as:ReadonlyArray<Option<A>>):Option<A> {
-		return Arrays.reduce(as, alt2, None);
-	}
+return Arrays.reduce(as, alt2, None);
+}
 
 	/**
 		Returns the result of the first function that produces a `Some` value, or `None`
 	 */
 	static public function altsF<A>(fs:ReadonlyArray<Void->Option<A>>):Option<A> {
-		return Arrays.reduce(fs, orElseF, None);
-	}
+return Arrays.reduce(fs, orElseF, None);
+}
 
 	inline static public function ap2<A, B, C>(f:A->B->C, v1:Option<A>, v2:Option<B>):Option<C>
 		return ap(v2, map(v1, Functions2.curry(f)));
@@ -403,29 +401,31 @@ err = new thx.Error("Could not extract value from option", posInfo);
 
 	inline static public function spread2<A, B, C>(v:Option<Tuple2<A, B>>, f:A->B->C):Option<C>
 		return map(v, function(t) {
-			return f(t._0, t._1);
-		});
+return f(t._0, t._1);
+});
 
 	inline static public function spread<A, B, C>(v:Option<Tuple2<A, B>>, f:A->B->C):Option<C>
 		return spread2(v, f);
 
 	inline static public function spread3<A, B, C, D>(v:Option<Tuple3<A, B, C>>, f:A->B->C->D):Option<D>
 		return map(v, function(t) {
-			return f(t._0, t._1, t._2);
-		});
+return f(t._0, t._1, t._2);
+});
 
 	inline static public function spread4<A, B, C, D, E>(v:Option<Tuple4<A, B, C, D>>, f:A->B->C->D->E):Option<E>
 		return map(v, function(t) {
-			return f(t._0, t._1, t._2, t._3);
-		});
+return f(t._0, t._1, t._2, t._3);
+});
 
 	inline static public function spread5<A, B, C, D, E, F>(v:Option<Tuple5<A, B, C, D, E>>, f:A->B->C->D->E->F):Option<F>
 		return map(v, function(t) {
-			return f(t._0, t._1, t._2, t._3, t._4);
-		});
+return f(t._0, t._1, t._2, t._3, t._4);
+});
 
 	inline static public function spread6<A, B, C, D, E, F, G>(v:Option<Tuple6<A, B, C, D, E, F>>, f:A->B->C->D->E->F->G):Option<G>
 		return map(v, function(t) {
-			return f(t._0, t._1, t._2, t._3, t._4, t._5);
-		});
+return f(t._0, t._1, t._2, t._3, t._4, t._5);
+});
 }
+#
+#

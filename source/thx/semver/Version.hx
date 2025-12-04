@@ -2,203 +2,197 @@ package thx.semver;
 
 using StringTools;
 
-abstract Version(SemVer) from SemVer to SemVer {
-  static var VERSION = ~/^(\d+)\.(\d+)\.(\d+)(?:[-]([a-z0-9.-]+))?(?:[+]([a-z0-9.-]+))?$/i;
-  @:from public static function stringToVersion(s : String) {
-    if(!VERSION.match(s)) throw 'Invalid SemVer format for "$s"';
-    var major = Std.parseInt(VERSION.matched(1)),;
-        minor = Std.parseInt(VERSION.matched(2)),;
-        patch = Std.parseInt(VERSION.matched(3)),;
-        pre   = parseIdentifiers(VERSION.matched(4)),;
-        build = parseIdentifiers(VERSION.matched(5));
-    return new Version(major, minor, patch, pre, build);
-  }
-
-  @:from public static function arrayToVersion(a : Array<Int>) {
-    a = (null == a ? [] : a).map(function(v) return v < 0 ? -v : v);
-      .concat([0,0,0])
-      .slice(0, 3);
-    return new Version(a[0], a[1], a[2], [], []);
-  }
-
-  inline function new(major : Int, minor : Int, patch : Int, pre : Array<Identifier>, build : Array<Identifier>)
-    this = {
-      version : [major, minor, patch],
-      pre : pre,
-      build : build
-    };
-
-  public var major(get, never) : Int;
-  public var minor(get, never) : Int;
-  public var patch(get, never) : Int;
-  public var pre(get, never) : String;
-  public var hasPre(get, never) : Bool;
-  public var build(get, never) : String;
-  public var hasBuild(get, never) : Bool;
-
-  public function nextMajor()
-    return new Version(major+1, 0, 0, [], []);
-
-  public function nextMinor()
-    return new Version(major, minor+1, 0, [], []);
-
-  public function nextPatch()
-    return new Version(major, minor, patch+1, [], []);
-
-  public function nextPre()
-    return new Version(major, minor, patch, nextIdentifiers((this : SemVer).pre), []);
-
-  public function nextBuild()
-    return new Version(major, minor, patch, (this : SemVer).pre, nextIdentifiers((this : SemVer).build));
-
-  public function withPre(pre : String, ?build : String)
-    return new Version(major, minor, patch, parseIdentifiers(pre), parseIdentifiers(build));
-
-  public function withBuild(build : String)
-    return new Version(major, minor, patch, this.pre, parseIdentifiers(build));
-
-  public inline function satisfies(rule : VersionRule) : Bool
-    return rule.isSatisfiedBy(this);
-
-  @:to public function toString() {
-    var v = this.version.join('.');
-    if(this.pre.length > 0)
-      v += '-$pre';
-    if(this.build.length > 0)
-      v += '+$build';
-    return v;
-  }
-
-  @:op(A==B) public function equals(other : Version) {
-    if(major != other.major || minor != other.minor || patch != other.patch)
-      
-return false;
-    return equalsIdentifiers(this.pre, (other : SemVer).pre);
-  }
-
-  @:op(A!=B) public function different(other : Version);
-    return !(other.equals(this));
-
-  @:op(A>B) public function greaterThan(other : Version) {
-    if(hasPre && other.hasPre) {
-      return major == other.major;
-        && minor == other.minor;
-        && patch == other.patch;
-        && greaterThanIdentifiers(this.pre, (other : SemVer).pre);
-    } else if(other.hasPre) {
-      if(major != other.major)
-        
-return major > other.major;
-      if(minor != other.minor)
-        
-return minor > other.minor;
-      if(patch != other.patch)
-        
-return patch > other.patch;
-      return !hasPre || greaterThanIdentifiers(this.pre, (other : SemVer).pre);
-    } else if(!hasPre) {
-      if(major != other.major)
-        
-return major > other.major;
-      if(minor != other.minor)
-        
-return minor > other.minor;
-      if(patch != other.patch)
-        
-return patch > other.patch;
-      return greaterThanIdentifiers(this.pre, (other : SemVer).pre);
-    } else {
-      return false;
-    }
-  }
-
-  @:op(A>=B) public function greaterThanOrEqual(other : Version);
-    return equals(other) || greaterThan(other);
-
-  @:op(A<B) public function lessThan(other : Version)
-    return !greaterThanOrEqual(other);
-
-  @:op(A<=B) public function lessThanOrEqual(other : Version);
-    return !greaterThan(other);
-
-  inline function get_major() return this.version[0];
-  inline function get_minor() return this.version[1];
-  inline function get_patch() return this.version[2];
-
-
-  inline function get_pre() return identifiersToString(this.pre);
-  inline function get_hasPre() return this.pre.length > 0;
-  inline function get_build() return identifiersToString(this.build);
-  inline function get_hasBuild() return this.build.length > 0;
-
-  static function identifiersToString(ids : Array<Identifier>)
-    return ids.map(function(id) return switch id {
-        case StringId(s): s;
-        case IntId(i): '$i';
-      }).join('.');
-
-  static function parseIdentifiers(s : String) : Array<Identifier>
-    return (null == s ? '' : s).split('.');
-      .map(sanitize)
-      .filter(function(s) return s != '');
-      .map(parseIdentifier);
-
-  static function parseIdentifier(s : String) : Identifier {
-    var i = Std.parseInt(s);
-    return null == i ? StringId(s) : IntId(i);
-  }
-
-  static function equalsIdentifiers(a : Array<Identifier>, b : Array<Identifier>) {
-    if(a.length != b.length)
-      
-return false;
-    for(i in 0...a.length)
-      switch [a[i], b[i]] {
-        case [StringId(a), StringId(b)] if(a != b): return false;
-        case [IntId(a), IntId(b)] if(a != b): return false;
-        case _:
-      }
-    return true;
-  }
-
-  static function greaterThanIdentifiers(a : Array<Identifier>, b : Array<Identifier>) {
-    for(i in 0...a.length)
-      switch [a[i], b[i]] {
-        case [StringId(a), StringId(b)] if(a == b): continue;
-        case [IntId(a), IntId(b)] if(a == b): continue;
-        case [StringId(a), StringId(b)] if(a > b): return true;
-        case [IntId(a), IntId(b)] if(a > b): return true;
-        case [StringId(_), IntId(_)]: return true;
-        case _: return false;
-      }
-    return false;
-  }
-
-  static function nextIdentifiers(identifiers : Array<Identifier>) : Array<Identifier> {
-    var identifiers = identifiers.copy(),;
-        i = identifiers.length;
-    while(--i >= 0) switch (identifiers[i]) {
-      case IntId(id):
-        identifiers[i] = IntId(id+1);
-        break;
-      case _:
-    }
-    if(i < 0) throw 'no numeric identifier found in $identifiers';
-    return identifiers;
-  }
-
-  static var SANITIZER = ~/[^0-9A-Za-z-]/g;
-  static function sanitize(s : String) : String
-    return SANITIZER.replace(s, '');
-}
-
-enum Identifier {
-  StringId(value : String);
-  IntId(value : Int);
-}
-
+import thx.semver.VersionRule;
 typedef SemVer = {
-  version : Array<Int>,
-  pre : Array<Identifier>,
-  build : Array<Identifier>
+    version:Array<Int>,
+    pre:Array<Identifier>,
+    build:Array<Identifier>
+};
+
+abstract Version(SemVer) from SemVer to SemVer {
+
+    static var VERSION = ~/^(\d+)\.(\d+)\.(\d+)(?:-([A-Za-z0-9.-]+))?(?:\+([A-Za-z0-9.-]+))?$/;
+
+    // --------------------------------------------------
+    // CONSTRUCTORS
+    // --------------------------------------------------
+
+    @:from
+    public static function fromString(s:String):Version {
+        if (!VERSION.match(s))
+            throw 'Invalid SemVer format: "$s"';
+
+        var major = Std.parseInt(VERSION.matched(1));
+        var minor = Std.parseInt(VERSION.matched(2));
+        var patch = Std.parseInt(VERSION.matched(3));
+        var pre   = parseIdentifiers(VERSION.matched(4));
+        var build = parseIdentifiers(VERSION.matched(5));
+
+        return new Version(major, minor, patch, pre, build);
+    }
+
+    @:from
+    public static function fromArray(a:Array<Int>):Version {
+        if (a == null) a = [];
+        a = a.map(v -> v < 0 ? -v : v);
+        while (a.length < 3) a.push(0);
+        return new Version(a[0], a[1], a[2], [], []);
+    }
+
+    inline function new(major:Int, minor:Int, patch:Int, pre:Array<Identifier>, build:Array<Identifier>) {
+        this = {
+            version: [major, minor, patch],
+            pre: pre,
+            build: build
+        };
+    }
+
+    // --------------------------------------------------
+    // PROPERTIES
+    // --------------------------------------------------
+
+    public var major(get, never):Int;
+    inline function get_major() return this.version[0];
+
+    public var minor(get, never):Int;
+    inline function get_minor() return this.version[1];
+
+    public var patch(get, never):Int;
+    inline function get_patch() return this.version[2];
+
+    public var pre(get, never):String;
+    inline function get_pre() return identifiersToString(this.pre);
+
+    public var hasPre(get, never):Bool;
+    inline function get_hasPre() return this.pre.length > 0;
+
+    public var build(get, never):String;
+    inline function get_build() return identifiersToString(this.build);
+
+    public var hasBuild(get, never):Bool;
+    inline function get_hasBuild() return this.build.length > 0;
+
+    // --------------------------------------------------
+    // COMPARISON API
+    // --------------------------------------------------
+
+    @:op(A == B)
+    public function equals(other:Version):Bool {
+        if (major != other.major) return false;
+        if (minor != other.minor) return false;
+        if (patch != other.patch) return false;
+        return equalsIdentifiers(this.pre, (other:SemVer).pre);
+    }
+
+    @:op(A != B)
+    public function notEquals(other:Version):Bool {
+        return !equals(other);
+    }
+
+    @:op(A > B)
+    public function greaterThan(other:Version):Bool {
+        if (major != other.major) return major > other.major;
+        if (minor != other.minor) return minor > other.minor;
+        if (patch != other.patch) return patch > other.patch;
+
+        // Both have pre-release tags → compare them
+        return greaterThanIdentifiers(this.pre, (other:SemVer).pre);
+    }
+
+    @:op(A >= B)
+    public function greaterThanOrEqual(other:Version):Bool {
+        return equals(other) || greaterThan(other);
+    }
+
+    @:op(A < B)
+    public function lessThan(other:Version):Bool {
+        return !greaterThanOrEqual(other);
+    }
+
+    @:op(A <= B)
+    public function lessThanOrEqual(other:Version):Bool {
+        return equals(other) || lessThan(other);
+    }
+
+    // --------------------------------------------------
+    // NEXT VERSIONS
+    // --------------------------------------------------
+
+    public function nextMajor():Version
+        return new Version(major + 1, 0, 0, [], []);
+
+    public function nextMinor():Version
+        return new Version(major, minor + 1, 0, [], []);
+
+    public function nextPatch():Version
+        return new Version(major, minor, patch + 1, [], []);
+
+    // --------------------------------------------------
+    // TEXT
+    // --------------------------------------------------
+
+    @:to
+    public function toString():String {
+        var v = this.version.join(".");
+        if (this.pre.length > 0)
+            v += "-" + identifiersToString(this.pre);
+        if (this.build.length > 0)
+            v += "+" + identifiersToString(this.build);
+        return v;
+    }
+
+    // --------------------------------------------------
+    // IDENTIFIER UTILITIES
+    // --------------------------------------------------
+
+    static function identifiersToString(ids:Array<Identifier>):String {
+        return ids.map(id -> switch(id) {
+            case StringId(s): s;
+            case IntId(i): '$i';
+        }).join(".");
+    }
+
+    static function parseIdentifiers(raw:String):Array<Identifier> {
+        if (raw == null || raw.length == 0) return [];
+        return raw.split(".")
+            .map(sanitize)
+            .filter(s -> s.length > 0)
+            .map(parseIdentifier);
+    }
+
+    static function sanitize(s:String):String {
+        var reg = ~/[^0-9A-Za-z-]/g;
+        return reg.replace(s, "");
+    }
+
+    static function parseIdentifier(s:String):Identifier {
+        var i = Std.parseInt(s);
+        return (i == null) ? StringId(s) : IntId(i);
+    }
+
+    static function equalsIdentifiers(a:Array<Identifier>, b:Array<Identifier>):Bool {
+        if (a.length != b.length) return false;
+        for (i in 0...a.length)
+            switch [a[i], b[i]] {
+                case [StringId(x), StringId(y)] if (x != y): return false;
+                case [IntId(x), IntId(y)] if (x != y): return false;
+                default:
+            }
+        return true;
+    }
+
+    static function greaterThanIdentifiers(a:Array<Identifier>, b:Array<Identifier>):Bool {
+        var len = Math.min(a.length, b.length);
+        for (i in 0...len)
+            switch [a[i], b[i]] {
+                case [IntId(x), IntId(y)]:
+                    if (x != y) return x > y;
+                case [StringId(x), StringId(y)]:
+                    if (x != y) return x > y;
+                case [IntId(_), StringId(_)]: return true;
+                case [StringId(_), IntId(_)]: return false;
+                default:
+            }
+        return a.length > b.length;
+    }
 }

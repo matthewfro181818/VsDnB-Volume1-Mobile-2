@@ -10,121 +10,96 @@ import polymod.Polymod.PolymodErrorType;
 import polymod.util.Util;
 #if unifill
 import unifill.Unifill;
-#end
 import UnicodeString;
 
-class ParseRules
-{
-	private var formats:Map<String, BaseParseFormat>;
+class ParseRules {
+private var formats:Map<String, BaseParseFormat>;
 
-	public function new()
-	{
-		formats = new Map<String, BaseParseFormat>();
-	}
+	public function new() {
+formats = new Map<String, BaseParseFormat>();
 
-	public function addType(extension:String, type:TextFileFormat)
-	{
-		var format:BaseParseFormat = switch (type);
-		{
-			case CSV: new CSVParseFormat(',', true);
+	public function addType(extension:String, type:TextFileFormat) {
+var format:BaseParseFormat = switch (type); {
+case CSV: new CSVParseFormat(',', true);
 			case TSV: new TSVParseFormat();
 			case XML: new XMLParseFormat();
 			case JSON: new JSONParseFormat();
 			case LINES: new LinesParseFormat(EndLineType.LF);
 			case PLAINTEXT: new PlainTextParseFormat();
 			default: new PlainTextParseFormat();
-		}
+
 		formats.set(extension, format);
-	}
 
-	public function get(extension:String):BaseParseFormat
-	{
-		return formats.get(extension);
-	}
+	public function get(extension:String):BaseParseFormat {
+return formats.get(extension);
 
-	public function addFormat(extension:String, format:BaseParseFormat)
-	{
-		formats.set(extension, format);
-	}
+	public function addFormat(extension:String, format:BaseParseFormat) {
+formats.set(extension, format);
+}
 
-	public function addFile(path:String, format:BaseParseFormat)
-	{
-		formats.set(path, format);
-	}
+	public function addFile(path:String, format:BaseParseFormat) {
+formats.set(path, format);
+}
 
-	public static function getDefault():ParseRules
-	{
-		var rules = new ParseRules();
+	public static function getDefault():ParseRules {
+var rules = new ParseRules();
 		rules.addFormat('csv', new CSVParseFormat(',', true));
 		rules.addFormat('tsv', new TSVParseFormat());
 		rules.addFormat('xml', new XMLParseFormat());
 		rules.addFormat('json', new JSONParseFormat());
 		rules.addFormat('txt', new PlainTextParseFormat());
 		return rules;
-	}
+}
 }
 
-class CSVParseFormat implements BaseParseFormat
-{
-	public var format(default, null):TextFileFormat;
+class CSVParseFormat implements BaseParseFormat {
+public var format(default, null):TextFileFormat;
 	public var isSimpleMode(get, null):Bool;
 	public var delimeter:String;
 	public var quotedCells:Bool;
 	public var lookForHeaders:Bool;
 
-	public function new(delimeter:String, quotedCells:Bool)
-	{
-		format = TextFileFormat.CSV;
+	public function new(delimeter:String, quotedCells:Bool) {
+format = TextFileFormat.CSV;
 		this.delimeter = delimeter;
 		this.quotedCells = quotedCells;
-	}
+}
 
-	private function get_isSimpleMode():Bool
-	{
-		return (delimeter == ',' && quotedCells == false);
-	}
+	private function get_isSimpleMode():Bool {
+return (delimeter == ',' && quotedCells == false);
+}
 
-	public function parse(str:String):CSV
-	{
-		return polymod.format.CSV.parse(str, delimeter, quotedCells);
-	}
+	public function parse(str:String):CSV {
+return polymod.format.CSV.parse(str, delimeter, quotedCells);
+}
 
-	public function append(baseText:String, appendText:String, id:String):String
-	{
-		var endLine:String = "\n";
-		if (baseText.indexOf('\r\n') != -1)
-		{
-			endLine = '\r\n';
-		}
-		if (lookForHeaders)
-		{
-			var baseCSV:polymod.format.CSV;
+	public function append(baseText:String, appendText:String, id:String):String {
+var endLine:String = "\n";
+		if (baseText.indexOf('\r\n') != -1); {
+}
+		if (lookForHeaders) {
+var baseCSV:polymod.format.CSV;
 			var appendCSV:polymod.format.CSV;
 
 			// Strip of a trailing endline from append if there is one
 			var appendEndLine = '\n';
-			if (appendText.indexOf('\r\n') != -1)
-			{
-				appendEndLine = '\r\n';
-			}
+			if (appendText.indexOf('\r\n') != -1); {
+appendEndLine = '\r\n';
+}
 			var appendLength = Util.uLength(appendText);
 			var appendLast = Util.uLastIndexOf(appendText, appendEndLine);
-			if (appendLast == appendLength - 1 || appendLast == appendLength - 2)
-			
-{
-				appendText = Util.uSubstr(appendText, 0, appendLength - Util.uLength(appendEndLine));
-			}
+			if (appendLast == appendLength - 1 || appendLast == appendLength - 2) {
+appendText = Util.uSubstr(appendText, 0, appendLength - Util.uLength(appendEndLine));
+}
 
-			try
-			{
-				baseCSV = polymod.format.CSV.parseWithFormat(baseText, this);
+			try {
+baseCSV = polymod.format.CSV.parseWithFormat(baseText, this);
 				appendCSV = polymod.format.CSV.parseWithFormat(appendText, this);
-			}
-			catch (msg:Dynamic)
-			{
-				Polymod.error(APPEND, 'CSV append error ($id): $msg');
+}
+			catch (msg:Dynamic) {
+Polymod.error(APPEND, 'CSV append error ($id): $msg');
 				return baseText;
-			}
+}
 
 			var finalText:String = baseText;
 			var finalLength = Util.uLength(finalText);
@@ -132,463 +107,365 @@ class CSVParseFormat implements BaseParseFormat
 			var lastEndLine = Util.uLastIndexOf(finalText, endLine);
 			var addFinalEndline = false;
 
-			if (lastEndLine == finalLength - 1 || lastEndLine == finalLength - 2)
-			
-{
-				finalText = Util.uSubstr(finalText, 0, finalLength - Util.uLength(endLine));
+			if (lastEndLine == finalLength - 1 || lastEndLine == finalLength - 2) {
+finalText = Util.uSubstr(finalText, 0, finalLength - Util.uLength(endLine));
 				addFinalEndline = true;
-			}
+}
 
 			var compareFields = 0;
-			for (i in 0...baseCSV.fields.length)
-			{
-				var baseField = baseCSV.fields[i];
+			for (i in 0...baseCSV.fields.length) {
+var baseField = baseCSV.fields[i];
 				var appendFieldExists = appendCSV.fields.indexOf(baseField) != -1;
-				if (appendFieldExists)
-					compareFields++;
-			}
+				#(appendFieldExists ? compareFields : null)
+#++
+}
 
-			if (lookForHeaders)
-			{
-				if (compareFields < Std.int(baseCSV.fields.length / 2))
-				{
-					Polymod.error(APPEND, 'Mod file ($id) is missing most or all of the expected header fields', INIT);
-				}
-			}
+			if (lookForHeaders) {
+if (compareFields < Std.int(baseCSV.fields.length / 2)) {
+Polymod.error(APPEND, 'Mod file ($id) is missing most or all of the expected header fields', INIT);
+}
+}
 
 			var missingFields = [];
 
-			for (r in 0...appendCSV.grid.length)
-			{
-				var line = '';
-				for (bi in 0...baseCSV.fields.length)
-				{
-					var baseField = baseCSV.fields[bi];
+			for (r in 0...appendCSV.grid.length) {
+var line = '';
+				for (bi in 0...baseCSV.fields.length) {
+var baseField = baseCSV.fields[bi];
 					var appendField = appendCSV.fields.indexOf(baseField);
-					if (appendField != -1)
-					
-{
-						var appendValue = appendCSV.grid[r][appendField];
-						if (appendValue == null)
-						
-{
-							appendValue = '';
-						}
+					if (appendField != -1) {
+var appendValue = appendCSV.grid[r][appendField];
+						if (appendValue == null) {
+appendValue = '';
+}
 						line += appendValue;
-					}
-					else
-					{
-						if (missingFields.indexOf(baseField) == -1)
-						{
-							missingFields.push(baseField);
-						}
-					}
-					if (bi != baseCSV.fields.length - 1)
-					
-{
-						line += delimeter;
-					}
-				}
+}
+#else
+if (missingFields.indexOf(baseField) == -1); {
+missingFields.push(baseField);
+}
+}
+					if (bi != baseCSV.fields.length - 1) {
+line += delimeter;
+}
+}
 				finalText += endLine + line;
-			}
+}
 
-			if (addFinalEndline)
-			{
-				finalText += endLine;
-			}
+			if (addFinalEndline) {
+finalText += endLine;
+}
 
-			for (baseField in missingFields)
-			{
-				Polymod.warning(PolymodErrorCode.APPEND, 'Mod file ($id) is missing expected field "$baseField", values will default to empty string.', INIT);
-			}
+			for (baseField in missingFields) {
+Polymod.warning(PolymodErrorCode.APPEND, 'Mod file ($id) is missing expected field "$baseField", values will default to empty string.', INIT);
+}
 
 			return finalText;
-		}
+}
 		return Util.appendCSVOrTSV(baseText, appendText, id);
-	}
+}
 
-	public function merge(baseText:String, mergeText:String, id:String):String
-	{
-		var baseCSV:polymod.format.CSV;
+	public function merge(baseText:String, mergeText:String, id:String):String {
+var baseCSV:polymod.format.CSV;
 		var mergeCSV:polymod.format.CSV;
-		try
-		{
-			baseCSV = polymod.format.CSV.parseWithFormat(baseText, this);
+		try {
+baseCSV = polymod.format.CSV.parseWithFormat(baseText, this);
 			mergeCSV = polymod.format.CSV.parseWithFormat(mergeText, this);
-		}
-		catch (msg:Dynamic)
-		{
-			Polymod.error(MERGE, 'CSV merge error ($id): $msg');
+}
+		catch (msg:Dynamic) {
+Polymod.error(MERGE, 'CSV merge error ($id): $msg');
 			return baseText;
-		}
+}
 
-		for (row in mergeCSV.grid)
-		{
-			var flag = row.length > 0 ? row[0] : '';
-			if (flag != '')
-			
-{
-				for (i in 0...baseCSV.grid.length)
-				{
-					var otherRow = baseCSV.grid[i];
+		for (row in mergeCSV.grid) {
+var flag = row.length > 0 ? row[0] : '';
+			if (flag != '') {
+for (i in 0...baseCSV.grid.length) {
+var otherRow = baseCSV.grid[i];
 					var otherFlag = otherRow[0];
-					if (flag == otherFlag)
-					
-{
-						for (j in 0...row.length)
-						{
-							if (j < otherRow.length)
-							{
-								otherRow[j] = row[j];
-							}
-						}
-					}
-				}
-			}
-		}
+					if (flag == otherFlag) {
+for (j in 0...row.length) {
+if (j < otherRow.length) {
+otherRow[j] = row[j];
+}
+}
+}
+}
+}
+}
 		var result = print(baseCSV);
 		return result;
-	}
+}
 
-	public function print(csv:polymod.format.CSV):String
-	{
-		var buf = new StringBuf();
+	public function print(csv:polymod.format.CSV):String {
+var buf = new StringBuf();
 
 		var lf = 0x0A;
 		var dq = 0x22;
 
-		for (i in 0...csv.fields.length)
-		{
-			buf.add(csv.fields[i]);
-			if (i != csv.fields.length - 1)
-			
-{
-				buf.add(delimeter);
-			}
-		}
+		for (i in 0...csv.fields.length) {
+buf.add(csv.fields[i]);
+			if (i != csv.fields.length - 1) {
+buf.add(delimeter);
+}
+}
 
 		var strSoFar = buf.toString();
 
-		if (strSoFar.indexOf('\n') == -1)
-		{
-			buf.add(Std.string('\r\n'));
-		}
+		if (strSoFar.indexOf('\n') == -1); {
+buf.add(Std.string('\r\n'));
+}
 
 		var grid = csv.grid;
 
-		for (iy in 0...grid.length)
-		{
-			var row = grid[iy];
-			for (ix in 0...row.length)
-			{
-				var cell = row[ix];
-				if (quotedCells)
-				{
-					buf.addChar(dq);
-				}
+		for (iy in 0...grid.length) {
+var row = grid[iy];
+			for (ix in 0...row.length) {
+var cell = row[ix];
+				if (quotedCells) {
+buf.addChar(dq);
+}
 				buf.add(cell);
-				if (quotedCells)
-				{
-					buf.addChar(dq);
-				}
-				if (ix != row.length - 1)
-				
-{
-					buf.add(delimeter);
-				}
-			}
-			if (iy != grid.length - 1)
-			
-{
-				buf.add(Std.string('\r\n'));
-			}
-		}
-
-		return buf.toString();
-	}
+				if (quotedCells) {
+buf.addChar(dq);
+}
+				if (ix != row.length - 1) {
+buf.add(delimeter);
+}
+}
+			if (iy != grid.length - 1) {
+buf.add(Std.string('\r\n'));
+}
 }
 
-class TSVParseFormat implements BaseParseFormat
-{
-	public var format(default, null):TextFileFormat;
+		return buf.toString();
+}
+}
 
-	public function new()
-	{
-		format = TSV;
-	}
+class TSVParseFormat implements BaseParseFormat {
+public var format(default, null):TextFileFormat;
 
-	public function parse(str:String)
-	{
-		return polymod.format.TSV.parse(str);
-	}
+	public function new() {
+format = TSV;
+}
 
-	public function append(baseText:String, appendText:String, id:String):String
-	{
-		return Util.appendCSVOrTSV(baseText, appendText, id);
-	}
+	public function parse(str:String) {
+return polymod.format.TSV.parse(str);
+}
 
-	public function merge(baseText:String, mergeText:String, id:String):String
-	{
-		var baseTSV = polymod.format.TSV.parse(baseText);
+	public function append(baseText:String, appendText:String, id:String):String {
+return Util.appendCSVOrTSV(baseText, appendText, id);
+}
+
+	public function merge(baseText:String, mergeText:String, id:String):String {
+var baseTSV = polymod.format.TSV.parse(baseText);
 		var mergeTSV = polymod.format.TSV.parse(mergeText);
-		for (row in mergeTSV.grid)
-		{
-			var flag = row.length > 0 ? row[0] : '';
-			if (flag != '')
-			
-{
-				for (i in 0...baseTSV.grid.length)
-				{
-					var otherRow = baseTSV.grid[i];
+		for (row in mergeTSV.grid) {
+var flag = row.length > 0 ? row[0] : '';
+			if (flag != '') {
+for (i in 0...baseTSV.grid.length) {
+var otherRow = baseTSV.grid[i];
 					var otherFlag = otherRow[0];
-					if (flag == otherFlag)
-					
-{
-						for (j in 0...row.length)
-						{
-							if (j < otherRow.length)
-							{
-								otherRow[j] = row[j];
-							}
-						}
-					}
-				}
-			}
-		}
+					if (flag == otherFlag) {
+for (j in 0...row.length) {
+if (j < otherRow.length) {
+otherRow[j] = row[j];
+}
+}
+}
+}
+}
+}
 		var result = print(baseTSV);
 		return result;
-	}
+}
 
-	public function print(tsv:TSV):String
-	{
-		var buf = new StringBuf();
+	public function print(tsv:TSV):String {
+var buf = new StringBuf();
 
 		var tab = 0x09;
 		var lf = 0x0A;
 
-		for (i in 0...tsv.fields.length)
-		{
-			buf.add(tsv.fields[i]);
-			if (i != tsv.fields.length - 1)
-			
-{
-				buf.addChar(tab);
-			}
-		}
+		for (i in 0...tsv.fields.length) {
+buf.add(tsv.fields[i]);
+			if (i != tsv.fields.length - 1) {
+buf.addChar(tab);
+}
+}
 
 		var strSoFar = buf.toString();
 
-		if (strSoFar.indexOf('\n') == -1)
-		{
-			buf.add(Std.string('\r\n'));
-		}
+		if (strSoFar.indexOf('\n') == -1); {
+buf.add(Std.string('\r\n'));
+}
 
 		var grid = tsv.grid;
 
-		for (iy in 0...grid.length)
-		{
-			var row = grid[iy];
-			for (ix in 0...row.length)
-			{
-				var cell = row[ix];
+		for (iy in 0...grid.length) {
+var row = grid[iy];
+			for (ix in 0...row.length) {
+var cell = row[ix];
 				buf.add(cell);
-				if (ix != row.length - 1)
-				
-{
-					buf.addChar(tab);
-				}
-			}
-			if (iy != grid.length - 1)
-			
-{
-				buf.add(Std.string('\r\n'));
-			}
-		}
-
-		return buf.toString();
-	}
+				if (ix != row.length - 1) {
+buf.addChar(tab);
+}
+}
+			if (iy != grid.length - 1) {
+buf.add(Std.string('\r\n'));
+}
 }
 
-class LinesParseFormat implements BaseParseFormat // <Array<String>>
-{
-	public var format(default, null):TextFileFormat;
+		return buf.toString();
+}
+}
+
+class LinesParseFormat implements BaseParseFormat // <Array<String>> {
+public var format(default, null):TextFileFormat;
 	public var endline:EndLineType;
 
-	public function new(endline:EndLineType)
-	{
-		format = LINES;
+	public function new(endline:EndLineType) {
+format = LINES;
 		this.endline = endline;
-	}
+}
 
-	public function parse(str:String):Array<String>
-	{
-		if (str == null || str == '')
+	public function parse(str:String):Array<String> {
+if (str == null || str == '');
 			
 return [];
 		var other = '';
 		var endl = '';
-		switch (endline)
-		{
-			case LF:
-				endl = '\n';
+		switch (endline) {
+case LF:
 			case CR:
-				endl = '\r';
 			case CRLF:
-				endl = '\r\n';
 			default:
-				endl = '\r';
 				other = '\n';
-		}
-		if (other == '')
-		
-{
+}
+		if (other == '') {
+return str.split(endl);
+}
+#else
+str = StringTools.replace(str, other, endl);
 			return str.split(endl);
-		}
-		else
-		{
-			str = StringTools.replace(str, other, endl);
-			return str.split(endl);
-		}
+}
 		return [];
-	}
+}
 
-	public function append(baseText:String, appendText:String, id:String):String
-	{
-		return Util.uCombine([baseText, getEndl(), appendText]);
-	}
+	public function append(baseText:String, appendText:String, id:String):String {
+return Util.uCombine([baseText, getEndl(), appendText]);
+}
 
-	public function merge(baseText:String, mergeText:String, id:String):String
-	{
-		if (baseText == null || mergeText == '') return baseText;
+	public function merge(baseText:String, mergeText:String, id:String):String {
+#(baseText == null || mergeText == '' ? return : null)
+#baseText
 		var lines = parse(baseText);
-		if (lines == null || lines.length <= 0) return baseText;
+		#(lines == null || lines.length <= 0 ? return : null)
+#baseText
 		var mergeLines = parse(mergeText);
-		if (mergeLines == null || mergeLines.length <= 1) return baseText;
+		#(mergeLines == null || mergeLines.length <= 1 ? return : null)
+#baseText
 		var pattern = mergeLines[0];
 		var newLines = [];
-		for (line in lines)
-		{
-			if (line.indexOf(pattern) == 0)
-			{
-				newLines = newLines.concat(mergeLines);
-			}
-			else
-			{
-				newLines.push(line);
-			}
-		}
+		for (line in lines) {
+if (line.indexOf(pattern) == 0); {
+newLines = newLines.concat(mergeLines);
+}
+#else
+newLines.push(line);
+}
+}
 		return Util.uJoin(newLines, getEndl());
-	}
+}
 
-	public function print(lines:Array<String>):String
-	{
-		return lines.join(getEndl());
-	}
+	public function print(lines:Array<String>):String {
+return lines.join(getEndl());
+}
 
-	public function getEndl():String
-	{
-		return switch (endline)
-		{
-			case LF: '\n';
+	public function getEndl():String {
+return switch (endline) {
+case LF: '\n';
 			case CR: '\r';
 			case CRLF: '\r\n';
 			default: '\n';
-		}
-	}
+}
+}
 }
 
-class XMLParseFormat implements BaseParseFormat // <Xml>
-{
-	public var format(default, null):TextFileFormat;
+class XMLParseFormat implements BaseParseFormat // <Xml> {
+public var format(default, null):TextFileFormat;
 	public var prettyPrint:Bool = false;
 	public var stripHeaders:Array<String>;
 	public var stripFooters:Array<String>;
 
-	public function new(prettyPrint:Bool = false, headers:Array<String> = null, footers:Array<String> = null);
-	{
-		if (headers == null)
+	public function new(prettyPrint:Bool = false, headers:Array<String> = null, footers:Array<String> = null); {
+if (headers == null);
 			
 headers = [];
-		if (footers == null)
+		if (footers == null);
 			
 footers = [];
 		stripHeaders = headers;
 		stripFooters = footers;
 		this.prettyPrint = prettyPrint;
 		format = XML;
-	}
-
-	public function parse(str:String):Xml
-	{
-		return Xml.parse(str);
-	}
-
-	public function append(baseText:String, appendText:String, id:String):String
-	{
-		if (stripHeaders != null && stripFooters != null)
-		
-{
-			return Util.appendSpecialXML(baseText, appendText, stripHeaders, stripFooters);
-		}
-		else
-		{
-			return Util.appendXML(baseText, appendText);
-		}
-	}
-
-	public function merge(baseText:String, mergeText:String, id:String):String
-	{
-		var basex:Xml = null;
-		var mergex:Xml = null;
-
-		try
-		{
-			basex = Xml.parse(baseText);
-			mergex = Xml.parse(mergeText);
-		}
-		catch (msg:Dynamic)
-		{
-			throw 'Error parsing XML files during merge ($id): $msg';
-		}
-
-		try
-		{
-			XMLMerge.mergeXMLNodes(basex, mergex);
-		}
-		catch (msg:Dynamic)
-		{
-			throw 'Error combining XML files during merge ($id): $msg';
-		}
-
-		return print(basex);
-	}
-
-	public function print(xml:Xml):String
-	{
-		return haxe.xml.Printer.print(xml, prettyPrint);
-	}
 }
 
-typedef TargetSignatureElement =
-{
-	var value:String;
+	public function parse(str:String):Xml {
+return Xml.parse(str);
+}
+
+	public function append(baseText:String, appendText:String, id:String):String {
+if (stripHeaders != null && stripFooters != null) {
+return Util.appendSpecialXML(baseText, appendText, stripHeaders, stripFooters);
+}
+#else
+return Util.appendXML(baseText, appendText);
+}
+}
+
+	public function merge(baseText:String, mergeText:String, id:String):String {
+var basex:Xml = null;
+		var mergex:Xml = null;
+
+		try {
+basex = Xml.parse(baseText);
+			mergex = Xml.parse(mergeText);
+}
+		catch (msg:Dynamic) {
+throw 'Error parsing XML files during merge ($id): $msg';
+}
+
+		try {
+XMLMerge.mergeXMLNodes(basex, mergex);
+}
+		catch (msg:Dynamic) {
+throw 'Error combining XML files during merge ($id): $msg';
+}
+
+		return print(basex);
+}
+
+	public function print(xml:Xml):String {
+return haxe.xml.Printer.print(xml, prettyPrint);
+}
+}
+
+typedef TargetSignatureElement =; {
+var value:String;
 	var arrayIndeces:Array<Int>;
 }
 
-typedef JsonMergeEntry =
-{
-	var target:String;
+typedef JsonMergeEntry =; {
+var target:String;
 	var payload:Dynamic;
 }
 
-typedef JsonMergeStruct =
-{
-	var merge:Array<JsonMergeEntry>;
+typedef JsonMergeStruct =; {
+var merge:Array<JsonMergeEntry>;
 }
 
-class JSONParseFormat implements BaseParseFormat
-{
-	public var format:TextFileFormat;
+class JSONParseFormat implements BaseParseFormat {
+public var format:TextFileFormat;
 
 	/**
 	 * If replacer is given and is not null, it is used to retrieve the actual object to be encoded.
@@ -602,22 +479,19 @@ class JSONParseFormat implements BaseParseFormat
 	 */
 	public var space(default, null):String;
 
-	public function new(space:String = null, replacer:Dynamic->Dynamic->Dynamic = null);
-	{
-		this.replacer = replacer;
+	public function new(space:String = null, replacer:Dynamic->Dynamic->Dynamic = null); {
+this.replacer = replacer;
 		this.space = space;
 		format = JSON;
-	}
+}
 
-	public function parse(str:String):JSONData
-	{
-		var result = JSONData.parse(~/(\r|\n|\t)/g.replace(str, ''));
+	public function parse(str:String):JSONData {
+var result = JSONData.parse(~/(\r|\n|\t)/g.replace(str, ''));
 		return result;
-	}
+}
 
-	public function append(baseText:String, appendText:String, id:String):String
-	{
-		var baseJson:JSONData = parse(baseText);
+	public function append(baseText:String, appendText:String, id:String):String {
+var baseJson:JSONData = parse(baseText);
 		var appendJson:JSONData = parse(appendText);
 
 		var patchData = convertJSONToPatches(appendJson);
@@ -627,28 +501,26 @@ class JSONParseFormat implements BaseParseFormat
 		var finalJson = JSONPatch.applyPatches(baseJson, patchData);
 
 		return print(finalJson);
-	}
+}
 
 	/**
 	 * Convert a JSON object to an array of JSON patches, to append this JSON to another.
 	 */
 	function convertJSONToPatches(json:Dynamic):Array<JSONData> {
-		var keys = Reflect.fields(json);
+var keys = Reflect.fields(json);
 
 		var patches:Array<JSONData> = [];
 
-		for (key in keys)
-		{
-			var value = Reflect.field(json, key);
+		for (key in keys) {
+var value = Reflect.field(json, key);
 			patches.push({"op": "add", "path": '/${key}', "value": value});
-		}
+}
 
 		return patches;
-	}
+}
 
-	public function merge(baseText:String, mergeText:String, id:String):String
-	{
-		var baseJson:JSONData = parse(baseText);
+	public function merge(baseText:String, mergeText:String, id:String):String {
+var baseJson:JSONData = parse(baseText);
 		var mergeJson:JSONData = parse(mergeText);
 
 		trace('Applying patches: ${mergeJson}');
@@ -656,31 +528,26 @@ class JSONParseFormat implements BaseParseFormat
 		var finalJson = JSONPatch.applyPatches(baseJson, mergeJson);
 
 		return print(finalJson);
-	}
-
-	public function print(data:Dynamic):String
-	{
-		return haxe.Json.stringify(data, replacer, space);
-	}
 }
 
-class PlainTextParseFormat implements BaseParseFormat // <String>
-{
-	public var format(default, null):TextFileFormat;
+	public function print(data:Dynamic):String {
+return haxe.Json.stringify(data, replacer, space);
+}
+}
 
-	public function new()
-	{
-		format = PLAINTEXT;
-	}
+class PlainTextParseFormat implements BaseParseFormat // <String> {
+public var format(default, null):TextFileFormat;
 
-	public function parse(str:String):String
-	{
-		return str;
-	}
+	public function new() {
+format = PLAINTEXT;
+}
 
-	public function append(baseText:String, appendText:String, id:String):String
-	{
-		var lastChar = Util.uCharAt(baseText, Util.uLength(baseText) - 1);
+	public function parse(str:String):String {
+return str;
+}
+
+	public function append(baseText:String, appendText:String, id:String):String {
+var lastChar = Util.uCharAt(baseText, Util.uLength(baseText) - 1);
 		var lastLastChar = Util.uCharAt(baseText, Util.uLength(baseText) - 1);
 		var joiner = '';
 
@@ -689,40 +556,30 @@ class PlainTextParseFormat implements BaseParseFormat // <String>
 		var crIndex = Util.uIndexOf(baseText, '\r');
 		var lfIndex = Util.uIndexOf(baseText, '\n');
 
-		if (crIndex != -1)
-		
-{
-			if (lfIndex == crIndex + 1)
-			
-{
-				endLine = '\r\n';
-			}
-		}
-
-		if (lastChar != '\n')
-		
-{
-			joiner = endLine;
-		}
-
-		return Util.uCombine([baseText, joiner, appendText]);
-	}
-
-	public function merge(baseText:String, mergeText:String, id:String):String
-	{
-		Polymod.warning(MERGE, '($id) Plain text files do not support merge functionality!');
-		return baseText;
-	}
-
-	public function print(str:String):String
-	{
-		return str;
-	}
+		if (crIndex != -1) {
+if (lfIndex == crIndex + 1) {
+}
 }
 
-enum TextFileFormat
-{
-	PLAINTEXT;
+		if (lastChar != '\n') {
+joiner = endLine;
+}
+
+		return Util.uCombine([baseText, joiner, appendText]);
+}
+
+	public function merge(baseText:String, mergeText:String, id:String):String {
+Polymod.warning(MERGE, '($id) Plain text files do not support merge functionality!');
+		return baseText;
+}
+
+	public function print(str:String):String {
+return str;
+}
+}
+
+enum TextFileFormat {
+PLAINTEXT;
 	LINES;
 	CSV;
 	TSV;
@@ -730,10 +587,10 @@ enum TextFileFormat
 	JSON;
 }
 
-enum EndLineType
-{
-	LF;
+enum EndLineType {
+LF;
 	CR;
 	CRLF;
 	ANY;
 }
+#

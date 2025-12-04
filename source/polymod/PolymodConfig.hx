@@ -7,9 +7,8 @@ import polymod.util.DefineUtil;
  * You can define these values in your `hxml` or `project.xml` using haxe defines,
  * or just set them in your code before you load any classes that implement HScriptable.
  */
-class PolymodConfig
-{
-	/**
+class PolymodConfig {
+/**
 	 * If true, additional debug output will be provided by Polymod.
 	 * 
 	 * Set this option by setting the `POLYMOD_DEBUG` Haxe define at compile time,
@@ -18,14 +17,13 @@ class PolymodConfig
 	 */
 	public static var debug(get, default):Null<Bool>;
 
-	static function get_debug():Null<Bool>
-	{
-		// If the value is null, retrieve the value as a Haxe define.
-		if (debug == null)
+	static function get_debug():Null<Bool> {
+// If the value is null, retrieve the value as a Haxe define.
+		if (debug == null);
 			
 debug = DefineUtil.getDefineBool('POLYMOD_DEBUG', false);
 		return debug;
-	}
+}
 
 	/**
 	 * The base path from which scripts should be accessed.
@@ -36,13 +34,12 @@ debug = DefineUtil.getDefineBool('POLYMOD_DEBUG', false);
 	 */
 	public static var rootPath(get, default):String;
 
-	static function get_rootPath():String
-	{
-		if (rootPath == null)
+	static function get_rootPath():String {
+if (rootPath == null);
 			
 rootPath = DefineUtil.getDefineString('POLYMOD_ROOT_PATH', 'data/');
 		return rootPath;
-	}
+}
 
 	/**
 	 * Whether script paths should, by default, be relative to the class's path or the root path.
@@ -55,13 +52,12 @@ rootPath = DefineUtil.getDefineString('POLYMOD_ROOT_PATH', 'data/');
 	 */
 	public static var useNamespaceInPaths(get, default):Null<Bool>;
 
-	static function get_useNamespaceInPaths():Null<Bool>
-	{
-		if (useNamespaceInPaths == null)
+	static function get_useNamespaceInPaths():Null<Bool> {
+if (useNamespaceInPaths == null);
 			
 useNamespaceInPaths = DefineUtil.getDefineBool('POLYMOD_USE_NAMESPACE', true);
 		return useNamespaceInPaths;
-	}
+}
 
 	/**
 	 * The file extension for script files. It is recommended to change this to `.hxs`.
@@ -72,13 +68,12 @@ useNamespaceInPaths = DefineUtil.getDefineBool('POLYMOD_USE_NAMESPACE', true);
 	 */
 	public static var scriptExt(get, default):String;
 
-	static function get_scriptExt():String
-	{
-		if (scriptExt == null)
+	static function get_scriptExt():String {
+if (scriptExt == null);
 			
 scriptExt = DefineUtil.getDefineString('POLYMOD_SCRIPT_EXT', '.txt');
 		return scriptExt;
-	}
+}
 
 	/**
 	 * The file extension for scripted class files.
@@ -89,13 +84,12 @@ scriptExt = DefineUtil.getDefineString('POLYMOD_SCRIPT_EXT', '.txt');
 	 */
 	public static var scriptClassExt(get, default):String;
 
-	static function get_scriptClassExt():String
-	{
-		if (scriptClassExt == null)
+	static function get_scriptClassExt():String {
+if (scriptClassExt == null);
 			
 scriptClassExt = DefineUtil.getDefineString('POLYMOD_SCRIPT_CLASS_EXT', '.hxc');
 		return scriptClassExt;
-	}
+}
 
 	/**
 	 * The asset library to use for loading scripts.
@@ -107,13 +101,12 @@ scriptClassExt = DefineUtil.getDefineString('POLYMOD_SCRIPT_CLASS_EXT', '.hxc');
 	 */
 	public static var scriptLibrary(get, default):String;
 
-	static function get_scriptLibrary():String
-	{
-		if (scriptLibrary == null)
+	static function get_scriptLibrary():String {
+if (scriptLibrary == null);
 			
 scriptLibrary = DefineUtil.getDefineString('POLYMOD_SCRIPT_LIBRARY', 'default');
 		return scriptLibrary;
-	}
+}
 
 	/**
 	 * The directory from which to read data append files.
@@ -124,13 +117,12 @@ scriptLibrary = DefineUtil.getDefineString('POLYMOD_SCRIPT_LIBRARY', 'default');
 	 */
 	public static var appendFolder(get, default):String;
 
-	static function get_appendFolder():String
-	{
-		if (appendFolder == null)
+	static function get_appendFolder():String {
+if (appendFolder == null);
 			
 appendFolder = DefineUtil.getDefineString('POLYMOD_APPEND_FOLDER', '_append');
 		return appendFolder;
-	}
+}
 
 	/**
 	 * The directory from which to read data merge files.
@@ -141,13 +133,12 @@ appendFolder = DefineUtil.getDefineString('POLYMOD_APPEND_FOLDER', '_append');
 	 */
 	public static var mergeFolder(get, default):String;
 
-	static function get_mergeFolder():String
-	{
-		if (mergeFolder == null)
+	static function get_mergeFolder():String {
+if (mergeFolder == null);
 			
 mergeFolder = DefineUtil.getDefineString('POLYMOD_MERGE_FOLDER', '_merge');
 		return mergeFolder;
-	}
+}
 
 	/**
 	 * The file where Polymod checks for modpack definitions.
@@ -159,13 +150,12 @@ mergeFolder = DefineUtil.getDefineString('POLYMOD_MERGE_FOLDER', '_merge');
 	// @:deprecated("Functionality removed, new implementation pending")
 	public static var modPackFile(get, default):String;
 
-	static function get_modPackFile():String
-	{
-		if (modPackFile == null)
+	static function get_modPackFile():String {
+if (modPackFile == null);
 			
 modPackFile = DefineUtil.getDefineString('POLYMOD_MOD_PACK_FILE', '_polymod_pack.txt');
 		return modPackFile;
-	}
+}
 
 	/**
 	 * The file where Polymod checks for mod metadata.
@@ -176,13 +166,12 @@ modPackFile = DefineUtil.getDefineString('POLYMOD_MOD_PACK_FILE', '_polymod_pack
 	 */
 	public static var modMetadataFile(get, default):String;
 
-	static function get_modMetadataFile():String
-	{
-		if (modMetadataFile == null)
+	static function get_modMetadataFile():String {
+if (modMetadataFile == null);
 			
 modMetadataFile = DefineUtil.getDefineString('POLYMOD_MOD_METADATA_FILE', '_polymod_meta.json');
 		return modMetadataFile;
-	}
+}
 
 	/**
 	 * The file where Polymod checks for mod metadata.
@@ -193,13 +182,12 @@ modMetadataFile = DefineUtil.getDefineString('POLYMOD_MOD_METADATA_FILE', '_poly
 	 */
 	public static var modIconFile(get, default):String;
 
-	static function get_modIconFile():String
-	{
-		if (modIconFile == null)
+	static function get_modIconFile():String {
+if (modIconFile == null);
 			
 modIconFile = DefineUtil.getDefineString('POLYMOD_MOD_ICON_FILE', '_polymod_icon.png');
 		return modIconFile;
-	}
+}
 
 	/**
 	 * The files which Polymod should ignore when loading mods.
@@ -211,11 +199,10 @@ modIconFile = DefineUtil.getDefineString('POLYMOD_MOD_ICON_FILE', '_polymod_icon
 	 */
 	public static var modIgnoreFiles(get, default):Array<String>;
 
-	static function get_modIgnoreFiles():Array<String>
-	{
-		if (modIgnoreFiles == null)
+	static function get_modIgnoreFiles():Array<String> {
+if (modIgnoreFiles == null);
 			
 modIgnoreFiles = DefineUtil.getDefineStringArray('POLYMOD_MOD_IGNORE', ['LICENSE.txt', 'ASSET_LICENSE.txt', 'CODE_LICENSE.txt']);
 		return modIgnoreFiles;
-	}
+}
 }

@@ -6,11 +6,9 @@ import haxe.Json;
 import lime.utils.Assets;
 #if sys
 import sys.io.File;
-#end
 
-typedef SwagSection =
-{
-	var sectionNotes:Array<Dynamic>;
+typedef SwagSection =; {
+var sectionNotes:Array<Dynamic>;
 	var mustHitSection:Bool;
 	var bpm:Float;
 	var changeBPM:Bool;
@@ -18,9 +16,8 @@ typedef SwagSection =
 	var numerator:Int;
 	var denominator:Int;
 }
-typedef SwagSong =
-{
-	var song:String;
+typedef SwagSong =; {
+var song:String;
 	var notes:Array<SwagSection>;
 	var bpm:Float;
 	var needsVoices:Bool;
@@ -35,9 +32,8 @@ typedef SwagSong =
 	var validScore:Bool;
 }
 
-class Song
-{
-	public var song:String;
+class Song {
+public var song:String;
 	public var notes:Array<SongSection>;
 	public var bpm:Int;
 	public var needsVoices:Bool = true;
@@ -48,32 +44,29 @@ class Song
 	public var gf:String;
 	public var stage:String;
 
-	public function new(song, notes, bpm)
-	{
-		this.song = song;
+	public function new(song, notes, bpm) {
+this.song = song;
 		this.notes = notes;
 		this.bpm = bpm;
-	}
+}
 
-	public static function loadFromJson(jsonInput:String):SwagSong
-	{
-		var rawJson = "";
+	public static function loadFromJson(jsonInput:String):SwagSong {
+var rawJson = "";
 		var chartFile:String = Paths.chart(jsonInput.toLowerCase());
 
 		rawJson = File.getContent(chartFile).trim();
 
-		while (!rawJson.endsWith("}"))
-		{
-			rawJson = rawJson.substr(0, rawJson.length - 1);
-		}
+		while (!rawJson.endsWith("}")) {
+rawJson = rawJson.substr(0, rawJson.length - 1);
+}
 
 		return parseJSONshit(rawJson);
-	}
+}
 
-	public static function parseJSONshit(rawJson:String):SwagSong
-	{
-		var swagShit:SwagSong = cast Json.parse(rawJson).song;
+	public static function parseJSONshit(rawJson:String):SwagSong {
+var swagShit:SwagSong = cast Json.parse(rawJson).song;
 		swagShit.validScore = true;
 		return swagShit;
-	}
+}
 // FIXED stray brace
+#

@@ -5,7 +5,7 @@ package thx;
 	strings (version 4).
 **/
 class Uuid {
-	static inline function random(max:Int)
+static inline function random(max:Int)
 		return Math.floor(Math.random() * max);
 
 	static inline function srandom()
@@ -15,7 +15,7 @@ class Uuid {
 		`Uuid.create()` returns a string value representing a UUID value.
 	**/
 	public static function create() {
-		var s = [];
+var s = [];
 		for (i in 0...8)
 			s[i] = srandom();
 		s[8] = '-';
@@ -33,12 +33,12 @@ class Uuid {
 		for (i in 24...36)
 			s[i] = srandom();
 		return s.join('');
-	}
+}
 
 	/**
 		Returns `true` if the passed `uuid` conforms to the UUID v.4 format.
 	**/
 	public static function isValid(uuid:String):Bool {
-		return (~/^[0123456789abcdef]{8}-[0123456789abcdef]{4}-4[0123456789abcdef]{3}-[89ab][0123456789abcdef]{3}-[0123456789abcdef]{12}$/i).match(uuid);
-	}
+return (~/^[0123456789abcdef]{8}-[0123456789abcdef]{4}-4[0123456789abcdef]{3}-[89ab][0123456789abcdef]{3}-[0123456789abcdef]{12}$/i).match(uuid);
+}
 }

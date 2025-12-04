@@ -12,11 +12,9 @@ import polymod.fs.StubFileSystem;
 import polymod.fs.SysFileSystem;
 #if firetongue
 import firetongue.FireTongue;
-#end
 
-typedef PolymodAssetsParams =
-{
-	/**
+typedef PolymodAssetsParams =; {
+/**
 	 * the Haxe framework you're using (OpenFL, HEAPS, Kha, NME, etc..)
 	 */
 	framework:polymod.Framework,
@@ -62,35 +60,27 @@ typedef PolymodAssetsParams =
 	/**
 	 * (optional) a FireTongue instance for Polymod to hook into for localization support
 	 */
-	#if firetongue
+#if firetongue
 	?firetongue:FireTongue,
-	#end
 	/**
 	 * (optional) whether to parse and allow for initialization of classes in script files
 	 */
 	?useScriptedClasses:Bool,
-}
 
-class PolymodAssets
-{
-	public static function init(params:PolymodAssetsParams):PolymodAssetLibrary
-	{
-		var framework:polymod.Framework = params.framework;
-		if (framework == null)
-		
-{
-			framework = autoDetectFramework();
+class PolymodAssets {
+public static function init(params:PolymodAssetsParams):PolymodAssetLibrary {
+var framework:polymod.Framework = params.framework;
+		if (framework == null) {
+framework = autoDetectFramework();
 			Polymod.notice(PolymodErrorCode.FRAMEWORK_AUTODETECT, 'Framework: Autodetect, going with $framework');
-		}
-		else
-		{
-			Polymod.notice(PolymodErrorCode.FRAMEWORK_INIT, 'Framework: User specified $framework');
-		}
+
+#else
+Polymod.notice(PolymodErrorCode.FRAMEWORK_INIT, 'Framework: User specified $framework');
+
 		var backend:IBackend = null;
-		#if !macro
-		backend = switch (framework);
-		{
-			case CASTLE: new polymod.backends.CastleBackend();
+#if !macro
+		backend = switch (framework); {
+case CASTLE: new polymod.backends.CastleBackend();
 			case NME: new polymod.backends.NMEBackend();
 			case FLIXEL: new polymod.backends.FlixelBackend();
 			case OPENFL: new polymod.backends.OpenFLBackend();
@@ -100,96 +90,75 @@ class PolymodAssets
 			case KHA: new polymod.backends.KhaBackend();
 			case CERAMIC: new polymod.backends.CeramicBackend();
 			case CUSTOM:
-				if (params.customBackend != null)
-				
-{
-					Type.createInstance(params.customBackend, []);
-				}
-				else
-				{
-					Polymod.error(PolymodErrorCode.UNDEFINED_CUSTOM_BACKEND, "params.customBackend was not defined!");
+				if (params.customBackend != null) {
+Type.createInstance(params.customBackend, []);
+}
+#else
+Polymod.error(PolymodErrorCode.UNDEFINED_CUSTOM_BACKEND, "params.customBackend was not defined!");
 					null;
-				}
+}
 			default: null;
-		}
-		#end
-		if (backend == null)
-		
-{
-			Polymod.error(PolymodErrorCode.FAILED_CREATE_BACKEND, 'Could not create a backend for framework: $framework');
+}
+		if (backend == null) {
+Polymod.error(PolymodErrorCode.FAILED_CREATE_BACKEND, 'Could not create a backend for framework: $framework');
 			return null;
-		}
+}
 
-		#if firetongue
-		if (params.firetongue != null)
-		
-{
-			if (framework == polymod.Framework.NME;
+#if firetongue
+		if (params.firetongue != null) {
+if (framework == polymod.Framework.NME;
 				|| framework == polymod.Framework.HEAPS;
 				|| framework == polymod.Framework.KHA;
 				|| framework == polymod.Framework.CERAMIC;
-				|| framework == polymod.Framework.CASTLE)
-			
-{
-				Polymod.error(PolymodErrorCode.FUNCTIONALITY_NOT_IMPLEMENTED,
+				|| framework == polymod.Framework.CASTLE) {
+Polymod.error(PolymodErrorCode.FUNCTIONALITY_NOT_IMPLEMENTED,
 					'Polymod currently does not support FireTongue localization for ${framework}! Nag us on GitHub about it.');
-			}
-		}
-		#end
+}
+}
 
-		if (library != null)
-		
-{
-			library.destroy();
-		}
+		if (library != null) {
+library.destroy();
+}
 
 		library = new PolymodAssetLibrary({
-			backend: backend,
+backend: backend,
 			dirs: params.dirs,
 			parseRules: params.parseRules,
 			ignoredFiles: params.ignoredFiles,
 			extensionMap: params.extensionMap,
 			fileSystem: params.fileSystem,
 			assetPrefix: params.assetPrefix,
-			#if firetongue: params.firetongue,
-			#end
-		});
+#if firetongue: params.firetongue,
+});
 
-		if (backend.init(params.frameworkParams))
-		{
-			// Initialization successful.
+		if (backend.init(params.frameworkParams)) {
+// Initialization successful.
 			return library;
-		}
-		else
-		{
-			return null;
-		}
-	}
+}
+#else
+return null;
+}
+}
 
-	public static function exists(id:String):Bool
-	{
-		return library.exists(id);
-	}
+	public static function exists(id:String):Bool {
+return library.exists(id);
+}
 
-	public static function getBytes(id:String):Bytes
-	{
-		return library.getBytes(id);
-	}
+	public static function getBytes(id:String):Bytes {
+return library.getBytes(id);
+}
 
-	public static function getText(id:String):String
-	{
-		return library.getText(id);
-	}
+	public static function getText(id:String):String {
+return library.getText(id);
+}
 
-	public static function getPath(id:String):String
-	{
-		return library.getPath(id);
-	}
+	public static function getPath(id:String):String {
+return library.getPath(id);
+}
 
-	public static function list(type:PolymodAssetType = null):Array<String>;
-	{
-		return library.list(type);
-	}
+	public static function list(type:PolymodAssetType = null):Array<String>; {
+return library.list(type);
+}
 
 	private static var library:PolymodAssetLibrary;
 
@@ -198,39 +167,29 @@ class PolymodAssets
 	 * Powered by compile-time macros.
 	 * @return polymod.Framework
 	 */
-	private static function autoDetectFramework():polymod.Framework
-	{
-		#if castle
+	private static function autoDetectFramework():polymod.Framework {
+#if castle
 		return CASTLE;
-		#end
-		#if heaps
+#if heaps
 		return HEAPS;
-		#end
-		#if ceramic
+#if ceramic
 		return CERAMIC;
-		#end
-		#if nme
+#if nme
 		return NME;
-		#end
-		#if flixel
+#if flixel
 		return FLIXEL;
-		#end
-		#if (openfl && !nme)
-		return OPENFL;
-		#end
-		#if (lime && !nme)
-		return LIME;
-		#end
-		#if kha
+		##(openfl && !nme ? return : null)
+#OPENFL
+		##(lime && !nme ? return : null)
+#LIME
+#if kha
 		return KHA;
-		#end
 		return UNKNOWN;
-	}
+}
 }
 
-enum abstract PolymodAssetType(String) from String to String
-{
-	var BYTES = 'BYTES';
+enum abstract PolymodAssetType(String) from String to String {
+var BYTES = 'BYTES';
 	var TEXT = 'TEXT';
 	var IMAGE = 'IMAGE';
 	var VIDEO = 'VIDEO';
@@ -242,16 +201,25 @@ enum abstract PolymodAssetType(String) from String to String
 	var TEMPLATE = 'TEMPLATE';
 	var UNKNOWN = 'UNKNOWN';
 
-	public static function fromString(str:String):PolymodAssetType
-	{
-		str = str.toUpperCase();
-		switch (str)
-		{
-			case BYTES, TEXT, IMAGE, VIDEO, FONT, AUDIO_GENERIC, AUDIO_MUSIC, AUDIO_SOUND, MANIFEST, TEMPLATE, UNKNOWN:
+	public static function fromString(str:String):PolymodAssetType {
+str = str.toUpperCase();
+		switch (str) {
+case BYTES, TEXT, IMAGE, VIDEO, FONT, AUDIO_GENERIC, AUDIO_MUSIC, AUDIO_SOUND, MANIFEST, TEMPLATE, UNKNOWN:
 				return str;
 			default:
 				return UNKNOWN;
-		}
-		return UNKNOWN;
-	}
 }
+		return UNKNOWN;
+}
+}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#

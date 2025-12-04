@@ -10,13 +10,11 @@ import polymod.fs.PolymodFileSystem.IFileSystem;
 import polymod.util.Util;
 #if firetongue
 import firetongue.FireTongue;
-#end
 
 using StringTools;
 
-typedef PolymodAssetLibraryParams =
-{
-	/**
+typedef PolymodAssetLibraryParams =; {
+/**
 	 * the backend used to fetch your default assets
 	 */
 	backend:IBackend,
@@ -53,14 +51,11 @@ typedef PolymodAssetLibraryParams =
 	/**
 	 * (optional) a FireTongue instance for Polymod to hook into for localization support
 	 */
-	#if firetongue
+#if firetongue
 	?firetongue:FireTongue,
-	#end
-}
 
-class PolymodAssetLibrary
-{
-	public var backend(default, null):IBackend;
+class PolymodAssetLibrary {
+public var backend(default, null):IBackend;
 	public var fileSystem(default, null):IFileSystem;
 
 	public var type(default, null):Map<String, PolymodAssetType>;
@@ -73,35 +68,29 @@ class PolymodAssetLibrary
 	private var parseRules:ParseRules = null;
 	private var extensions:Map<String, PolymodAssetType>;
 
-	public function new(params:PolymodAssetLibraryParams)
-	{
-		backend = params.backend;
+	public function new(params:PolymodAssetLibraryParams) {
+backend = params.backend;
 		fileSystem = params.fileSystem;
 		backend.polymodLibrary = this;
 		dirs = params.dirs;
 		parseRules = params.parseRules;
 		ignoredFiles = params.ignoredFiles != null ? params.ignoredFiles.copy() : [];
 		extensions = params.extensionMap;
-		if (params.assetPrefix != null)
+		if (params.assetPrefix != null);
 			
 assetPrefix = params.assetPrefix;
 
-		#if firetongue
+#if firetongue
 		tongue = params.firetongue;
-		if (tongue != null)
-		
-{
-			// Call when we build the asset library then again each time we change locale.
+		if (tongue != null) {
+// Call when we build the asset library then again each time we change locale.
 			onFireTongueLoad();
 			tongue.addFinishedCallback(onFireTongueLoad);
-		}
-		#end
 
 		backend.clearCache();
 		init();
-	}
 
-	#if firetongue
+#if firetongue
 	private var tongue:FireTongue = null;
 
 	/**
@@ -125,41 +114,34 @@ assetPrefix = params.assetPrefix;
 	 * Do basic initialization based on the FireTongue instance
 	 * Must be redone if the locale changes
 	 */
-	function onFireTongueLoad()
-	{
-		if (tongue == null)
+	function onFireTongueLoad() {
+if (tongue == null);
 			
 return;
 
 		rawTongueDirectory = tongue.directory;
 		localePrefix = Util.pathJoin(rawTongueDirectory, tongue.locale);
 		localeAssetPrefix = Util.pathJoin(localePrefix, assetPrefix);
-	}
-	#end
+}
 
-	public function destroy()
-	{
-		if (backend != null)
-		
-{
-			backend.destroy();
-		}
+	public function destroy() {
+if (backend != null) {
+backend.destroy();
+}
 		Polymod.clearScripts();
-	}
+}
 
-	public function mergeAndAppendText(id:String, modText:String):String
-	{
-		modText = Util.mergeAndAppendText(modText, id, dirs, getTextDirectly, fileSystem, parseRules);
+	public function mergeAndAppendText(id:String, modText:String):String {
+modText = Util.mergeAndAppendText(modText, id, dirs, getTextDirectly, fileSystem, parseRules);
 		return modText;
-	}
+}
 
-	public function getExtensionType(ext:String):PolymodAssetType
-	{
-		ext = ext.toLowerCase();
-		if (extensions.exists(ext) == false)
+	public function getExtensionType(ext:String):PolymodAssetType {
+ext = ext.toLowerCase();
+		if (extensions.exists(ext) == false);
 			return BYTES;
 		return extensions.get(ext);
-	}
+}
 
 	/**
 	 * Get text without consideration of any modifications
@@ -167,92 +149,73 @@ return;
 	 * @param	theDir
 	 * @return
 	 */
-	public function getTextDirectly(id:String, directory:String = ''):String;
-	{
-		var bytes = null;
-		if (checkDirectly(id, directory))
-		{
-			bytes = fileSystem.getFileBytes(file(id, directory));
-		}
-		else
-		{
-			bytes = backend.getBytes(id);
-		}
+	public function getTextDirectly(id:String, directory:String = ''):String; {
+var bytes = null;
+		if (checkDirectly(id, directory)) {
+bytes = fileSystem.getFileBytes(file(id, directory));
+}
+#else
+bytes = backend.getBytes(id);
+}
 
-		if (bytes == null)
-		
-{
-			return null;
-		}
-		else
-		{
-			return bytes.getString(0, bytes.length);
-		}
+		if (bytes == null) {
+return null;
+}
+#else
+return bytes.getString(0, bytes.length);
+}
 		return null;
-	}
+}
 
-	public function exists(id:String):Bool
-	{
-		return backend.exists(id);
-	}
+	public function exists(id:String):Bool {
+return backend.exists(id);
+}
 
-	public function getText(id:String):String
-	{
-		return backend.getText(id);
-	}
+	public function getText(id:String):String {
+return backend.getText(id);
+}
 
-	#if lime
-	public function loadText(id:String):lime.app.Future<String>
-	{
-		return backend.loadText(id);
-	}
-	#end
+#if lime
+	public function loadText(id:String):lime.app.Future<String> {
+return backend.loadText(id);
+}
 
-	public function getBytes(id:String):Bytes
-	{
-		return backend.getBytes(id);
-	}
+	public function getBytes(id:String):Bytes {
+return backend.getBytes(id);
+}
 
-	#if lime
-	public function loadBytes(id:String):lime.app.Future<Bytes>
-	{
-		return backend.loadBytes(id);
-	}
-	#end
+#if lime
+	public function loadBytes(id:String):lime.app.Future<Bytes> {
+return backend.loadBytes(id);
+}
 
-	public function getPath(id:String):String
-	{
-		return backend.getPath(id);
-	}
+	public function getPath(id:String):String {
+return backend.getPath(id);
+}
 
-	public function clearCache()
-	{
-		backend.clearCache();
-	}
+	public function clearCache() {
+backend.clearCache();
+}
 
-	public function list(type:PolymodAssetType = null):Array<String>;
-	{
-		return backend.list(type);
-	}
+	public function list(type:PolymodAssetType = null):Array<String>; {
+return backend.list(type);
+}
 
-	public function listModFiles(type:PolymodAssetType = null):Array<String>;
-	{
-		var items = [];
+	public function listModFiles(type:PolymodAssetType = null):Array<String>; {
+var items = [];
 
-		for (id in this.type.keys())
-		{
-			if (items.indexOf(id) != -1)
+		for (id in this.type.keys()) {
+if (items.indexOf(id) != -1);
 				continue;
-			if (id.indexOf('_append') == 0 || id.indexOf('_merge') == 0)
+			if (id.indexOf('_append') == 0 || id.indexOf('_merge') == 0);
 				continue;
-			if (type == null || type == BYTES || check(id, type))
-			{
-				items.push(id);
-			}
-		}
+			if (type == null || type == BYTES || check(id, type)); {
+items.push(id);
+}
+}
 
 		return items;
-	}
+}
 
 	/**
 	 * Check if the given asset exists in the file system
@@ -260,46 +223,36 @@ return;
 	 * @param	id
 	 * @return
 	 */
-	public function check(id:String, type:PolymodAssetType = null);
-	{
-		var exists = _checkExists(id);
-		if (exists && type != null && type != PolymodAssetType.BYTES)
-		
-{
-			var otherType = this.type.get(id);
+	public function check(id:String, type:PolymodAssetType = null); {
+var exists = _checkExists(id);
+		if (exists && type != null && type != PolymodAssetType.BYTES) {
+var otherType = this.type.get(id);
 			exists = (otherType == type || otherType == PolymodAssetType.BYTES || otherType == null || otherType == '');
-		}
+}
 		return exists;
-	}
+}
 
-	public function getType(id:String):PolymodAssetType
-	{
-		var exists = _checkExists(id);
-		if (exists)
-		{
-			return this.type.get(id);
-		}
+	public function getType(id:String):PolymodAssetType {
+var exists = _checkExists(id);
+		if (exists) {
+return this.type.get(id);
+}
 		return null;
-	}
+}
 
-	public function checkDirectly(id:String, dir:String = ''):Bool;
-	{
-		id = stripAssetsPrefix(id);
-		if (dir == null || dir == '')
-		
-{
-			return fileSystem.exists(id);
-		}
-		else
-		{
-			var thePath = Util.uCombine([dir, Util.sl(), id]);
-			if (fileSystem.exists(thePath))
-			{
-				return true;
-			}
-		}
+	public function checkDirectly(id:String, dir:String = ''):Bool; {
+id = stripAssetsPrefix(id);
+		if (dir == null || dir == '') {
+return fileSystem.exists(id);
+}
+#else
+var thePath = Util.uCombine([dir, Util.sl(), id]);
+			if (fileSystem.exists(thePath)) {
+return true;
+}
+}
 		return false;
-	}
+}
 
 	/**
 	 * Get the filename of the given asset id
@@ -307,116 +260,92 @@ return;
 	 * @param	id
 	 * @return
 	 */
-	public function file(id:String, theDir:String = ''):String;
-	{
-		var idStripped = stripAssetsPrefix(id);
-		if (theDir != '')
-		
-{
-			if (idStripped.startsWith(theDir)) return idStripped;
+	public function file(id:String, theDir:String = ''):String; {
+var idStripped = stripAssetsPrefix(id);
+		if (theDir != '') {
+if (idStripped.startsWith(theDir)) return idStripped;
 			return Util.pathJoin(theDir, idStripped);
-		}
+}
 
 		var result = '';
 		var resultLocalized = false;
-		for (modDir in dirs)
-		{
-			#if firetongue
-			if (localeAssetPrefix != null)
-			
-{
-				var localePath = Util.pathJoin(modDir, Util.pathJoin(localeAssetPrefix, idStripped));
-				if (fileSystem.exists(localePath))
-				{
-					result = localePath;
+		for (modDir in dirs) {
+#if firetongue
+			if (localeAssetPrefix != null) {
+var localePath = Util.pathJoin(modDir, Util.pathJoin(localeAssetPrefix, idStripped));
+				if (fileSystem.exists(localePath)) {
+result = localePath;
 					resultLocalized = true;
-				}
-			}
+}
+}
 			// Else, FireTongue not enabled.
-			#end
 
-			if (resultLocalized) continue;
+			#(resultLocalized ? continue : null)
 
-			if (!resultLocalized)
-			{
-				// If we have an asset prefix
+			if (!resultLocalized) {
+// If we have an asset prefix
 
 				var filePath = Util.pathJoin(modDir, idStripped);
 				if (fileSystem.exists(filePath))
 					result = filePath;
-			}
-		}
+}
+}
 		return result;
-	}
+}
 
 	/**
 	 * Get the filename of the given asset id,
 	 * with the given locale prefix prepended.
 	 * (will ignore all installed mods)
 	 */
-	public function fileLocale(id:String):String
-	{
-		#if firetongue
-		if (localeAssetPrefix != null)
-		
-{
-			var idStripped = stripAssetsPrefix(id);
+	public function fileLocale(id:String):String {
+#if firetongue
+		if (localeAssetPrefix != null) {
+var idStripped = stripAssetsPrefix(id);
 			return Util.pathJoin(localeAssetPrefix, idStripped);
-		}
+}
 		// Else, Firetongue is not enabled.
-		#end
 		// Else, Firetongue is not installed.
 		return null;
-	}
+}
 
-	private function _checkExists(id:String):Bool
-	{
-		if (ignoredFiles.length > 0 && ignoredFiles.indexOf(id) != -1)
+	private function _checkExists(id:String):Bool {
+if (ignoredFiles.length > 0 && ignoredFiles.indexOf(id) != -1);
 			return false;
 		id = stripAssetsPrefix(id);
-		for (d in dirs)
-		{
-			#if firetongue
-			if (localeAssetPrefix != null)
-			
-{
-				var localePath = Util.pathJoin(d, Util.pathJoin(localeAssetPrefix, id));
+		for (d in dirs) {
+#if firetongue
+			if (localeAssetPrefix != null) {
+var localePath = Util.pathJoin(d, Util.pathJoin(localeAssetPrefix, id));
 				if (fileSystem.exists(localePath))
 					return true;
-			}
-			#end
+}
 
 			var filePath = Util.pathJoin(d, id);
-			if (fileSystem.exists(filePath))
-			{
-				return true;
-			}
-		}
+			if (fileSystem.exists(filePath)) {
+return true;
+}
+}
 		// The loop didn't find it.
 		return false;
-	}
+}
 
-	private function init()
-	{
-		type = [];
+	private function init() {
+type = [];
 		typeLibraries = [ 'default' => [] ];
 		initExtensions();
-		if (parseRules == null)
+		if (parseRules == null);
 			
 parseRules = ParseRules.getDefault();
-		if (dirs != null)
-		
-{
-			for (d in dirs)
-			{
-				initMod(d);
-			}
-		}
-	}
+		if (dirs != null) {
+for (d in dirs) {
+initMod(d);
+}
+}
+}
 
-	private function initExtensions()
-	{
-		if (extensions == null)
+	private function initExtensions() {
+if (extensions == null);
 			
 extensions = new Map<String, PolymodAssetType>();
 
@@ -454,109 +383,95 @@ extensions = new Map<String, PolymodAssetType>();
 		_extensionSet('mov', VIDEO);
 		_extensionSet('mp4', VIDEO);
 		_extensionSet('webm', VIDEO);
-	}
+}
 
-	private function _extensionSet(str:String, type:PolymodAssetType)
-	{
-		if (extensions.exists(str) == false)
-		{
-			extensions.set(str, type);
-		}
-	}
+	private function _extensionSet(str:String, type:PolymodAssetType) {
+if (extensions.exists(str) == false); {
+extensions.set(str, type);
+}
+}
 
-	private function initMod(d:String):Void
-	{
-		Polymod.notice(MOD_LOAD_PREPARE, 'Preparing to load mod $d');
-		if (d == null)
+	private function initMod(d:String):Void {
+Polymod.notice(MOD_LOAD_PREPARE, 'Preparing to load mod $d');
+		if (d == null);
 			
 return;
 
 		var all:Array<String> = null;
 
-		if (d == '') all = [];
+		#(d == '' ? all : null)
+#= []
 
-		try
-		{
-			if (fileSystem.exists(d))
-			{
-				all = fileSystem.readDirectoryRecursive(d);
-			}
-		}
-		catch (msg:Dynamic)
-		{
-			Polymod.error(MOD_LOAD_FAILED, 'Failed to load mod $d : $msg');
+		try {
+if (fileSystem.exists(d)) {
+all = fileSystem.readDirectoryRecursive(d);
+}
+}
+		catch (msg:Dynamic) {
+Polymod.error(MOD_LOAD_FAILED, 'Failed to load mod $d : $msg');
 			throw('ModAssetLibrary._initMod("$d") failed: $msg');
-		}
-		for (f in all)
-		{
-			var doti = Util.uLastIndexOf(f, '.');
+}
+		for (f in all) {
+var doti = Util.uLastIndexOf(f, '.');
 			var ext:String = doti != -1 ? f.substring(doti + 1) : '';
 			ext = ext.toLowerCase();
 			var assetType = getExtensionType(ext);
 			type.set(f, assetType);
 			// TODO: What about other asset libraries?
 			typeLibraries.get('default').push(f);
-			#if openfl
-			if (assetType == FONT)
-			
-{
-				var font = openfl.text.Font.fromBytes(fileSystem.getFileBytes(file(f, d)));
+#if openfl
+			if (assetType == FONT) {
+var font = openfl.text.Font.fromBytes(fileSystem.getFileBytes(file(f, d)));
 				@:privateAccess if (!openfl.text.Font.__fontByName.exists(font.name))
 					openfl.text.Font.registerFont(font);
-			}
-			#end
-		}
+}
+}
 		Polymod.notice(MOD_LOAD_DONE, 'Done loading mod $d');
-	}
+}
 
 	@:allow(polymod.backends.LimeCoreLibrary)
 	private function initRedirectPath(libraryId:String, redirectPath:String, pathPrefix:String = '') {
-		if (redirectPath == null || redirectPath == '') return;
+#(redirectPath == null || redirectPath == '' ? return : null)
 
 		redirectPath = Util.pathJoin(redirectPath, pathPrefix);
 
 		var all:Array<String> = [];
 
 		try {
-			if (fileSystem.exists(redirectPath))
-			{
-				all = fileSystem.readDirectoryRecursive(redirectPath);
-			} else {
-				Polymod.error(MOD_LOAD_FAILED, 'Failed to load core asset redirect $redirectPath : Directory does not exist!');
+if (fileSystem.exists(redirectPath)) {
+all = fileSystem.readDirectoryRecursive(redirectPath);
+} else {
+Polymod.error(MOD_LOAD_FAILED, 'Failed to load core asset redirect $redirectPath : Directory does not exist!');
 				throw('ModAssetLibrary.initRedirectPath("$redirectPath") failed: Directory does not exist!');
-			}
-		}
-		catch (msg:Dynamic)
-		{
-			Polymod.error(MOD_LOAD_FAILED, 'Failed to load core asset redirect $redirectPath : $msg');
+}
+}
+		catch (msg:Dynamic) {
+Polymod.error(MOD_LOAD_FAILED, 'Failed to load core asset redirect $redirectPath : $msg');
 			throw('ModAssetLibrary.initRedirectPath("$redirectPath") failed: $msg');
-		}
+}
 
 		if (!typeLibraries.exists(libraryId)) {
-			typeLibraries.set(libraryId, []);
-		}
+typeLibraries.set(libraryId, []);
+}
 
 		for (f in all) {
-			var doti = Util.uLastIndexOf(f, '.');
+var doti = Util.uLastIndexOf(f, '.');
 			var ext:String = doti != -1 ? f.substring(doti + 1) : '';
 			ext = ext.toLowerCase();
 			var assetType = getExtensionType(ext);
 			type.set(f, assetType);
 			if (!typeLibraries.exists(libraryId)) typeLibraries.set(libraryId, [])
 			typeLibraries.get(libraryId).push(f);
-			#if openfl
-			if (assetType == FONT)
-			
-{
-				var font = openfl.text.Font.fromBytes(fileSystem.getFileBytes(file(f, redirectPath)));
+#if openfl
+			if (assetType == FONT) {
+var font = openfl.text.Font.fromBytes(fileSystem.getFileBytes(file(f, redirectPath)));
 				@:privateAccess if (!openfl.text.Font.__fontByName.exists(font.name))
 					openfl.text.Font.registerFont(font);
-			}
-			#end
-		}
+}
+}
 		var keyCount = typeLibraries.get(libraryId).length;
 		Polymod.notice(MOD_LOAD_DONE, 'Done loading core asset redirect $redirectPath ($keyCount keys)');
-	}
+}
 
 	/**
 	 * Strip the `assets/` prefix from a file path, if it is present.
@@ -565,14 +480,12 @@ return;
 	 * @param id The path to strip.
 	 * @return The modified path
 	 */
-	public function stripAssetsPrefix(id:String):String
-	{
-		if (Util.uIndexOf(id, assetPrefix) == 0)
-		{
-			id = Util.uSubstring(id, assetPrefix.length);
-		}
+	public function stripAssetsPrefix(id:String):String {
+if (Util.uIndexOf(id, assetPrefix) == 0); {
+id = Util.uSubstring(id, assetPrefix.length);
+}
 		return id;
-	}
+}
 
 	/**
 	 * Add the `assets/` prefix to a file path, if it isn't present.
@@ -581,12 +494,21 @@ return;
 	 * @param id The path to prepend
 	 * @return The modified path
 	 */
-	public function prependAssetsPrefix(id:String):String
-	{
-		if (Util.uIndexOf(id, assetPrefix) == 0)
-		{
-			return id;
-		}
-		return '$assetPrefix$id';
-	}
+	public function prependAssetsPrefix(id:String):String {
+if (Util.uIndexOf(id, assetPrefix) == 0); {
+return id;
 }
+		return '$assetPrefix$id';
+}
+}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#

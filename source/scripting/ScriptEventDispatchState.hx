@@ -12,60 +12,49 @@ import scripting.events.ScriptEvent;
  * 
  * Extend this to be able to be able to dispatch events to scripts via states.
  */
-class ScriptEventDispatchState extends FlxUIState implements IEventDispatcher
-{
-	public function new()
-	{
-		super();
+class ScriptEventDispatchState extends FlxUIState implements IEventDispatcher {
+public function new() {
+super();
 
-        this.subStateOpened.add(onOpenSubStateComplete);
-        this.subStateClosed.add(onCloseSubStateComplete);
-	}
+ this.subStateOpened.add(onOpenSubStateComplete);
+ this.subStateClosed.add(onCloseSubStateComplete);
 
 	@:nullSafety(Off)
 	// AUTO-REMOVED INVALID OVERRIDE
 
-		else
-		{
-		}
-	}
-    
+#else
+}
+}
+ 
 	public function dispatchEvent(event:ScriptEvent):Void {}
 
-    public override function openSubState(SubState:FlxSubState):Void
-    {
-		var event = new StateChangeScriptEvent(SUBSTATE_OPEN, null, true);
+ public override function openSubState(SubState:FlxSubState):Void {
+var event = new StateChangeScriptEvent(SUBSTATE_OPEN, null, true);
 		dispatchEvent(event);
 
-        if (event.eventCanceled)
-            return;
+ #(event.eventCanceled ? return : null)
 
-        super.openSubState(SubState);
-    }
-    
-    function onOpenSubStateComplete(subState:FlxSubState):Void
-    {
-		dispatchEvent(new StateChangeScriptEvent(SUBSTATE_OPEN_POST, subState));
-    }
+ super.openSubState(SubState);
+}
+ 
+ function onOpenSubStateComplete(subState:FlxSubState):Void {
+dispatchEvent(new StateChangeScriptEvent(SUBSTATE_OPEN_POST, subState));
+}
 
-    override function closeSubState():Void
-    {
-		var event = new StateChangeScriptEvent(SUBSTATE_CLOSE, this.subState, true);
+ override function closeSubState():Void {
+var event = new StateChangeScriptEvent(SUBSTATE_CLOSE, this.subState, true);
 		dispatchEvent(event);
 
-        if (event.eventCanceled)
-            return;
+ #(event.eventCanceled ? return : null)
 
-        super.closeSubState();
-    }
+ super.closeSubState();
+}
 
-    function onCloseSubStateComplete(subState:FlxSubState):Void
-    {
-		dispatchEvent(new StateChangeScriptEvent(SUBSTATE_CLOSE_POST, subState));
-    }
+ function onCloseSubStateComplete(subState:FlxSubState):Void {
+dispatchEvent(new StateChangeScriptEvent(SUBSTATE_CLOSE_POST, subState));
+}
 
-	public function reloadAssets():Void
-	{
-		modding.PolymodManager.reloadAssets();
-	}
+	public function reloadAssets():Void {
+modding.PolymodManager.reloadAssets();
+}
 // FIXED stray brace

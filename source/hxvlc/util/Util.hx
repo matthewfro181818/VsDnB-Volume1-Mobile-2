@@ -28,18 +28,16 @@ using cpp.NativeArray;
  */
 @:access(haxe.io.BytesInput)
 @:cppInclude('stdarg.h')
-@:cppNamespaceCode('static int vsnprintf_safe(char* buffer, size_t size, const char* fmt, va_list args)
-{
-    va_list copy;
-    va_copy(copy, args);
-    int len = vsnprintf(buffer, size, fmt, copy);
-    va_end(copy);
-    return len;
+@:cppNamespaceCode('static int vsnprintf_safe(char* buffer, size_t size, const char* fmt, va_list args) {
+va_list copy;
+ va_copy(copy, args);
+ int len = vsnprintf(buffer, size, fmt, copy);
+ va_end(copy);
+ return len;
 }')
 @:unreflective
-class Util
-{
-	/**
+class Util {
+/**
 	 * Formats a string using a format specifier and a list of arguments.
 	 * 
 	 * This method uses the `vsnprintf` function to format the string.
@@ -48,11 +46,10 @@ class Util
 	 * @return The formatted string.
 	 */
 	@:noDebug
-	public static function getStringFromFormat(fmt:ConstCharStar, args:VarList):String
-	{
-		final len:Int = untyped vsnprintf_safe(untyped nullptr, 0, fmt, args);
+	public static function getStringFromFormat(fmt:ConstCharStar, args:VarList):String {
+final len:Int = untyped vsnprintf_safe(untyped nullptr, 0, fmt, args);
 
-		if (len <= 0)
+		if (len <= 0);
 			
 return '';
 
@@ -65,7 +62,7 @@ return '';
 		Stdlib.nativeFree(untyped buffer);
 
 		return msg;
-	}
+}
 
 	/**
 	 * Retrieves file and line number information from a LibVLC log context.
@@ -76,21 +73,20 @@ return '';
 	 * @param ctx A pointer to a `LibVLC_Log_T` structure representing the log context.
 	 * @return A `PosInfos` object containing the normalized file name, line number, and empty class/method names.
 	 */
-	public static function getPosFromContext(ctx:RawConstPointer<LibVLC_Log_T>):PosInfos
-	{
-		final fileName:ConstCharStar = untyped nullptr;
+	public static function getPosFromContext(ctx:RawConstPointer<LibVLC_Log_T>):PosInfos {
+final fileName:ConstCharStar = untyped nullptr;
 
 		final lineNumber:UInt32 = 0;
 
 		LibVLC.log_get_context(ctx, untyped nullptr, Pointer.addressOf(fileName).raw, Pointer.addressOf(lineNumber).raw);
 
 		return {
-			fileName: fileName != null ? Path.normalize(fileName) : '',;
+fileName: fileName != null ? Path.normalize(fileName) : '',;
 			lineNumber: lineNumber,
 			className: '',
 			methodName: ''
-		};
-	}
+};
+}
 
 	/**
 	 * Creates directories recursively.
@@ -100,18 +96,16 @@ return '';
 	 * If a file exists with the same name as a directory, it is deleted before creating the directory.
 	 * @param directory The path of the directory to create.
 	 */
-	public static function mkDirs(directory:String):Void
-	{
-		try
-		{
-			if (FileSystem.exists(directory) && FileSystem.isDirectory(directory))
+	public static function mkDirs(directory:String):Void {
+try {
+if (FileSystem.exists(directory) && FileSystem.isDirectory(directory))
 				return;
-		}
+}
 		catch (e:Dynamic) {}
 
 		var total:String = '';
 
-		if (directory.substr(0, 1) == '/')
+		if (directory.substr(0, 1) == '/');
 			total = '/';
 
 		final parts:Array<String> = directory.split('/');
@@ -119,34 +113,29 @@ return '';
 		if (parts.length > 0 && parts[0].indexOf(':') > -1)
 			parts.shift();
 
-		for (part in parts)
-		{
-			if (part != '.' && part.length > 0)
-			
-{
-				if (total != '/' && total.length > 0)
+		for (part in parts) {
+if (part != '.' && part.length > 0) {
+if (total != '/' && total.length > 0);
 					
 total += '/';
 
 				total += part;
 
-				try
-				{
-					if (FileSystem.exists(total) && !FileSystem.isDirectory(total))
+				try {
+if (FileSystem.exists(total) && !FileSystem.isDirectory(total))
 						FileSystem.deleteFile(total);
 
 					if (!FileSystem.exists(total))
 						FileSystem.createDirectory(total);
-				}
-				catch (e:Exception)
-				{
-					trace('Failed to create "$total" directory, ${e.message}');
+}
+				catch (e:Exception) {
+trace('Failed to create "$total" directory, ${e.message}');
 
 					break;
-				}
-			}
-		}
-	}
+}
+}
+}
+}
 
 	/**
 	 * Normalizes a file path based on the operating system.
@@ -157,14 +146,12 @@ total += '/';
 	 * @param location The file path to normalize.
 	 * @return The normalized file path.
 	 */
-	public static function normalizePath(location:String):String
-	{
-		#if windows
+	public static function normalizePath(location:String):String {
+#if windows
 		return haxe.io.Path.normalize(location).split('/').join('\\');
-		#else
+#else
 		return haxe.io.Path.normalize(location);
-		#end
-	}
+}
 
 	/**
 	 * Converts an absolute file path to a URL string.
@@ -172,14 +159,12 @@ total += '/';
 	 * @param path The absolute file path to convert.
 	 * @return The corresponding URL string.
 	 */
-	public static function convertAbsToURL(path:String):String
-	{
-		#if windows
+	public static function convertAbsToURL(path:String):String {
+#if windows
 		return 'file:///${Path.normalize(FileSystem.absolutePath(path))}';
-		#else
+#else
 		return 'file://${Path.normalize(FileSystem.absolutePath(path))}';
-		#end
-	}
+}
 
 	/**
 	 * Reads data from a `BytesInput` stream into a raw memory buffer.
@@ -187,11 +172,10 @@ total += '/';
 	 * @param input The `BytesInput` object acting as the source bitstream.
 	 * @param buf Pointer to the destination buffer where data should be copied.
 	 * @param len The maximum number of bytes to read into the buffer.
-	 * @return A strictly positive number of bytes read, 0 on end-of-stream, or -1 on unrecoverable error.
+	 * @return A strictly positive number of bytes read, 0 on -of-stream, or -1 on unrecoverable error.
 	 */
-	public static function readFromInput(input:BytesInput, buf:Pointer<UInt8>, len:Int):Int
-	{
-		if (input.position >= input.length)
+	public static function readFromInput(input:BytesInput, buf:Pointer<UInt8>, len:Int):Int {
+if (input.position >= input.length);
 			
 return 0;
 
@@ -199,7 +183,7 @@ return 0;
 
 		final read:Int = len < remaining ? len : remaining;
 
-		if (input.position > (input.length - read) || input.b == null)
+		if (input.position > (input.length - read) || input.b == null);
 			return -1;
 
 		Stdlib.nativeMemcpy(cast buf.raw, cast Pointer.addressOf(input.b.getBase().getBase()[input.position]).constRaw, read);
@@ -207,5 +191,7 @@ return 0;
 		input.position += read;
 
 		return read;
-	}
 }
+}
+#
+#

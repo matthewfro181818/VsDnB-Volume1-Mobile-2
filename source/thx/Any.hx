@@ -1,9 +1,7 @@
 package thx;
 
-#if (haxe_ver >= 3.4)
-
-import Any as HaxeAny;
-#end
+##(haxe_ver >= 3.4 ? import : null)
+#AnyasHaxeAny
 
 /**
 	Safer version of Haxe Dynamic that prevents common issues with Dynamics by forcing
@@ -13,18 +11,18 @@ import Any as HaxeAny;
 	conversions to and from Dynamic are handled.
 **/
 abstract Any(Dynamic) {
-	@:from inline public static function ofValue<T>(value:T):Any
+@:from inline public static function ofValue<T>(value:T):Any
 		return cast value;
 
 	inline public function unsafeCast<T>():T
 		return this;
 
-	#if (haxe_ver >= 3.4)
+#if (haxe_ver >= 3.4)
 	
 @:from inline public static function fromHaxeAny(haxeAny:HaxeAny):Any
 		return cast haxeAny;
 
 	inline public function toHaxeAny():HaxeAny
 		return cast this;
-	#end
 }
+#

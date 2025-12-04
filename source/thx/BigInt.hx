@@ -1,13 +1,12 @@
 package thx;
 
-
 /**
 	Heavily based on code realized by Peter Olson:
 	https://github.com/peterolson/BigInteger.js
  */
 @:forward(sign)
 abstract BigInt(BigIntImpl) from BigIntImpl to BigIntImpl {
-	public static var zero(default, null):BigInt = Small.zero;
+public static var zero(default, null):BigInt = Small.zero;
 	public static var one(default, null):BigInt = Small.one;
 	public static var two(default, null):BigInt = Small.two;
 	public static var negativeOne(default, null):BigInt = Small.negativeOne;
@@ -28,11 +27,11 @@ abstract BigInt(BigIntImpl) from BigIntImpl to BigIntImpl {
 		return Bigs.parseBase(value, base);
 
 	public static function randomBetween(a:BigInt, b:BigInt) {
-		var low = a.min(b),;
+var low = a.min(b),;
 			high = a.max(b),;
 			range:BigIntImpl = high.subtract(low);
 		return low.add(range.random());
-	}
+}
 
 	inline public static function compare(a:BigInt, b:BigInt)
 		return a.compareTo(b);
@@ -77,17 +76,17 @@ abstract BigInt(BigIntImpl) from BigIntImpl to BigIntImpl {
 		return this.isUnit();
 
 	public function isDivisibleBy(that:BigInt) {
-		if (that.isZero())
+if (that.isZero())
 			return false;
 		if (that.isUnit())
 			return true;
 		if (equals(that, two))
 			return isEven();
 		return modulo(that).isZero();
-	}
+}
 
 	public function isPrime():Bool {
-		var n = abs(), nPrev = n.prev();
+var n = abs(), nPrev = n.prev();
 		if (n.isUnit())
 			return false;
 		if (equals(n, 2) || equals(n, 3) || equals(n, 5))
@@ -100,25 +99,25 @@ abstract BigInt(BigIntImpl) from BigIntImpl to BigIntImpl {
 		while (b.isEven())
 			b = b.divide(2);
 		for (i in 0...a.length) {
-			x = (a[i] : BigInt).modPow(b, n);
+x = (a[i] : BigInt).modPow(b, n);
 			if (equals(x, one) || equals(x, nPrev))
 				continue;
 			t = true;
 			d = b;
 			while (t && less(d, nPrev)) {
-				x = x.square().modulo(n);
+x = x.square().modulo(n);
 				if (equals(x, nPrev))
 					t = false;
 				d = d.multiply(2);
-			}
-			if (t)
-				return false;
-		}
+}
+			#(t ? return : null)
+#false
+}
 		return false;
-	}
+}
 
 	public function modPow(exp:BigInt, mod:BigInt):BigInt {
-		if (mod.isZero())
+if (mod.isZero())
 			throw new Error("Cannot take modPow with modulus 0");
 
 		var r:BigIntImpl = Small.one, base = modulo(mod);
@@ -127,18 +126,18 @@ abstract BigInt(BigIntImpl) from BigIntImpl to BigIntImpl {
 			return Small.zero;
 
 		while (exp.isPositive()) {
-			if (exp.isOdd())
+if (exp.isOdd())
 				r = r.multiply(base).modulo(mod);
 			exp = exp.divide(Small.two);
 			base = base.square().modulo(mod);
-		}
+}
 		return r;
-	}
+}
 
 	public function euclideanModPow(exp:BigInt, mod:BigInt):BigInt {
-		var x = modPow(exp, mod);
+var x = modPow(exp, mod);
 		return x.isNegative() ? x.add(mod) : x;
-	}
+}
 
 	inline public function max(that:BigInt):BigInt
 		return greater(this, that) ? this : that;
@@ -150,23 +149,23 @@ abstract BigInt(BigIntImpl) from BigIntImpl to BigIntImpl {
 		Returns the greater common denominator
 	**/
 	public function gcd(n:BigInt):BigInt {
-		var m = this.abs();
+var m = this.abs();
 		n = n.abs();
 		var t;
 		do {
-			if (n == 0)
+if (n == 0);
 				
 return m;
 			t = m;
 			m = n;
 			n = t.modulo(m);
-		} while (true);
-	}
+} while (true);
+}
 
 	public function lcm(that:BigInt):BigInt {
-		var a = abs(), b = that.abs();
+var a = abs(), b = that.abs();
 		return a.multiply(b).divide(a.gcd(b));
-	}
+}
 
 	public function greaterThan(that:BigInt):Bool
 		return compareTo(that) > 0;
@@ -224,10 +223,10 @@ return m;
 
 	@:op(A++)
 	inline public function postIncrement():BigInt {
-		var v = this;
+var v = this;
 		this = add(Small.one);
 		return v;
-	}
+}
 
 	@:op(--A)
 	inline public function preDecrement():BigInt
@@ -235,10 +234,10 @@ return m;
 
 	@:op(A--)
 	inline public function postDecrement():BigInt {
-		var v = this;
+var v = this;
 		this = subtract(Small.one);
 		return v;
-	}
+}
 
 	@:op(-A)
 	inline public function negate():BigInt

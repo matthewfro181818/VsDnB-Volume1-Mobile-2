@@ -14,11 +14,9 @@ import play.save.Preferences;
 /**
  * An internal object used to change the game's master volume.
  */
-class GameSoundTray extends FlxSoundTray
-{
-	public function new()
-	{
-		super();
+class GameSoundTray extends FlxSoundTray {
+public function new() {
+super();
 
 		removeChildren();
 
@@ -49,45 +47,38 @@ class GameSoundTray extends FlxSoundTray
 		_bars = new Array();
 
 		var tmp:Bitmap;
-		for (i in 0...10)
-		{
-			tmp = new Bitmap(new BitmapData(4, i + 1, false, FlxColor.WHITE));
+		for (i in 0...10) {
+tmp = new Bitmap(new BitmapData(4, i + 1, false, FlxColor.WHITE));
 			addChild(tmp);
 			_bars.push(tmp);
-		}
+
 		updateSize();
 
 		y = -height;
 		visible = false;
-	}
+}
 
-	public override function update(MS:Float):Void
-	{
-		// Animate stupid sound tray thing
-		if (_timer > 0)
-		{
-			_timer -= MS / 1000;
-		}
-		else if (y > -height)
-		{
-			y -= (MS / 1000) * FlxG.height * 2;
-			if (y <= -height)
-			
-{
-				visible = false;
+	public override function update(MS:Float):Void {
+// Animate stupid sound tray thing
+		if (_timer > 0) {
+_timer -= MS / 1000;
+}
+#else
+y -= (MS / 1000) * FlxG.height * 2;
+			if (y <= -height) {
+visible = false;
 				active = false;
 
 				// Save sound preferences
 				Preferences.masterVolume = FlxG.sound.volume;
 				FlxG.save.flush();
-			}
-		}
-	}
+}
+}
+}
 
-	public override function showAnim(volume:Float, ?sound:FlxSoundAsset, duration = 1.0, label = "VOLUME");
-	{
-		var labelText:String = "Volume - " + ((Math.round(FlxG.sound.volume * 100) <= 0 || FlxG.sound.muted) ? "MUTED" : (Math.round(FlxG.sound.volume * 100)) + "%");
+	public override function showAnim(volume:Float, ?sound:FlxSoundAsset, duration = 1.0, label = "VOLUME"); {
+var labelText:String = "Volume - " + ((Math.round(FlxG.sound.volume * 100) <= 0 || FlxG.sound.muted) ? "MUTED" : (Math.round(FlxG.sound.volume * 100)) + "%");
 		
 		super/*/*.showAnim*/*/(volume, sound, duration, labelText);
-	}
+}
 }

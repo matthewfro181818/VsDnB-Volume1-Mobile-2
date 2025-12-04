@@ -11,9 +11,8 @@ import mobile.controls.flixel.FlxButton;
 import openfl.display.BitmapData;
 import openfl.utils.Assets;
 
-enum FlxDPadMode
-{
-	UP_DOWN;
+enum FlxDPadMode {
+UP_DOWN;
 	LEFT_RIGHT;
 	UP_LEFT_RIGHT;
 	LEFT_FULL;
@@ -22,9 +21,8 @@ enum FlxDPadMode
 	NONE;
 }
 
-enum FlxActionMode
-{
-	A;
+enum FlxActionMode {
+A;
 	B;
 	P;
 	A_B;
@@ -44,9 +42,8 @@ enum FlxActionMode
  * @author Ka Wing Chin
  * @author Mihai Alexandru (M.A. Jigsaw)
  */
-class FlxVirtualPad extends FlxSpriteGroup
-{
-	public var buttonLeft:FlxButton = new FlxButton(0, 0);
+class FlxVirtualPad extends FlxSpriteGroup {
+public var buttonLeft:FlxButton = new FlxButton(0, 0);
 	public var buttonUp:FlxButton = new FlxButton(0, 0);
 	public var buttonRight:FlxButton = new FlxButton(0, 0);
 	public var buttonDown:FlxButton = new FlxButton(0, 0);
@@ -70,16 +67,14 @@ class FlxVirtualPad extends FlxSpriteGroup
 	/**
 	 * Create a gamepad.
 	 *
-	 * @param   DPadMode     The D-Pad mode. `LEFT_FULL` for example.
-	 * @param   ActionMode   The action buttons mode. `A_B_C` for example.
+	 * @param DPadMode The D-Pad mode. `LEFT_FULL` for example.
+	 * @param ActionMode The action buttons mode. `A_B_C` for example.
 	 */
-	public function new(DPad:FlxDPadMode, Action:FlxActionMode):Void
-	{
-		super();
+	public function new(DPad:FlxDPadMode, Action:FlxActionMode):Void {
+super();
 
-		switch (DPad)
-		{
-			case UP_DOWN:
+		switch (DPad) {
+case UP_DOWN:
 				add(buttonUp = createButton(0, FlxG.height - 255, 'up', 0x00FF00));
 				add(buttonDown = createButton(0, FlxG.height - 135, 'down', 0x00FFFF));
 			case LEFT_RIGHT:
@@ -109,11 +104,10 @@ class FlxVirtualPad extends FlxSpriteGroup
 				add(buttonRight2 = createButton(FlxG.width - 132, FlxG.height - 309, 'right', 0xFF0000));
 				add(buttonDown2 = createButton(FlxG.width - 258, FlxG.height - 201, 'down', 0x00FFFF));
 			case NONE: // do nothing
-		}
+}
 
-		switch (Action)
-		{
-			case A:
+		switch (Action) {
+case A:
 				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
 			case B:
 				add(buttonB = createButton(FlxG.width - 132, FlxG.height - 135, 'b', 0xFFCB00));
@@ -158,17 +152,16 @@ class FlxVirtualPad extends FlxSpriteGroup
 				add(buttonZ = createButton(FlxG.width - 132, FlxG.height - 255, 'z', 0xCCB98E));
 				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
 			case NONE: // do nothing
-		}
+}
 
 		scrollFactor.set();
-	}
+}
 
 	/**
 	 * Clean up memory.
 	 */
-	override public function destroy():Void
-	{
-		super.destroy();
+	override public function destroy():Void {
+super.destroy();
 		buttonLeft = FlxDestroyUtil.destroy(buttonLeft);
 		buttonUp = FlxDestroyUtil.destroy(buttonUp);
 		buttonDown = FlxDestroyUtil.destroy(buttonDown);
@@ -189,33 +182,32 @@ class FlxVirtualPad extends FlxSpriteGroup
 		buttonX = FlxDestroyUtil.destroy(buttonX);
 		buttonY = FlxDestroyUtil.destroy(buttonY);
 		buttonZ = FlxDestroyUtil.destroy(buttonZ);
-	}
+}
 
-	private function createButton(X:Float, Y:Float, Graphic:String, Color:Int = 0xFFFFFF):FlxButton;
-	{
-		var graphic:FlxGraphic;
+	private function createButton(X:Float, Y:Float, Graphic:String, Color:Int = 0xFFFFFF):FlxButton; {
+var graphic:FlxGraphic;
 
 		if (Assets.exists('assets/mobile/virtualpad/${Graphic}.png'))
 			graphic = FlxG.bitmap.add('assets/mobile/virtualpad/${Graphic}.png');
-		else
+#else
 			graphic = FlxG.bitmap.add('assets/mobile/virtualpad/default.png');
 
 		var button:FlxButton = new FlxButton(X, Y);
 		try {
-			button.frames = FlxTileFrames.fromGraphic(graphic, FlxPoint.get(Std.int(graphic.width / 3), graphic.height));
-		}
+button.frames = FlxTileFrames.fromGraphic(graphic, FlxPoint.get(Std.int(graphic.width / 3), graphic.height));
+}
 		catch (e){
-			trace("Failed to create button(s) " + e.message);
+trace("Failed to create button(s) " + e.message);
 			return null;
-		}
+}
 		button.solid = false;
 		button.immovable = true;
 		button.scrollFactor.set();
 		button.color = Color;
 		button.alpha = 0.5;
-		#if FLX_DEBUG
+#if FLX_DEBUG
 		button.ignoreDrawDebug = true;
-		#end
 		return button;
-	}
 }
+}
+#

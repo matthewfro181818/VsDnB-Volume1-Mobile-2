@@ -8,7 +8,7 @@ using thx.Functions;
 
 @:callable
 abstract State<S, A>(S->Tuple<S, A>) from S->Tuple<S, A> {
-	public static function void<S>():State<S, Unit>
+public static function void<S>():State<S, Unit>
 		return pure(null);
 
 	public static function pure<S, A>(a:A):State<S, A>
@@ -20,7 +20,7 @@ abstract State<S, A>(S->Tuple<S, A>) from S->Tuple<S, A> {
 	public static function putState<S>(s:S):State<S, Unit>
 		return (function(_:S) return new Tuple2(s, null));
 
-	public #if !php inline #end function map<B>(f:A->B):State<S, B>
+	public #if !php inline # function map<B>(f:A->B):State<S, B>
 		return (function(s:S) return this(s).map(f));
 
 	public function ap<B>(s2:State<S, A->B>):State<S, B>
@@ -29,9 +29,9 @@ abstract State<S, A>(S->Tuple<S, A>) from S->Tuple<S, A> {
 	@:op(S1 * F)
 	public function flatMap<B>(f:A->State<S, B>):State<S, B>
 		return function(s:S) {
-			var res0 = this(s);
+var res0 = this(s);
 			return f(res0._1)(res0._0);
-		};
+};
 
 	public function voided():State<S, Unit>
 		return map(const(null));
@@ -42,9 +42,9 @@ abstract State<S, A>(S->Tuple<S, A>) from S->Tuple<S, A> {
 
 	public function foreachM<B>(f:A->State<S, B>):State<S, A>
 		return function(s:S) {
-			var res0 = this(s);
+var res0 = this(s);
 			return f(res0._1)(res0._0).map(const(res0._1));
-		};
+};
 
 	public function modify(f:S->S):State<S, A>
 		return function(s:S)(return this(f(s)));

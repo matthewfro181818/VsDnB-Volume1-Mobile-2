@@ -33,16 +33,13 @@ import util.tools.CrashHandler;
 
 #if desktop
 import api.Discord.DiscordClient;
-#end
 
 /**
  * A state used to initalize and prepare the game to start, as well as load any game data such as the user's save data, controls, highscores, etc.
  */
-class InitState extends FlxUIState
-{
-	public override function create()
-	{
-		// Bind the save data to the correct path.
+class InitState extends FlxUIState {
+public override function create() {
+// Bind the save data to the correct path.
 		FlxG.save.bind('funkin', 'dnbteam');
 
 		// Sets sprites to be automatically antialiased when created.
@@ -74,9 +71,8 @@ class InitState extends FlxUIState
 		FreeplayState.initSave();
 
 		// Initalize Discord RPC.
-		#if desktop
+#if desktop
 		DiscordClient.prepare();
-		#end
 		
 		intializeRegistries();
 		initalizePlugins();
@@ -85,30 +81,24 @@ class InitState extends FlxUIState
 		Preloader.initalize();
 		CrashHandler.initalize();
 		
-		#if debug
-		if (FlxG.save.data.hasSeenOptionsReminder == null || !FlxG.save.data.hasSeenOptionsReminder)
-		
-{
-			FlxG.switchState(() -> Void OptionsReminderState());
-		}
-		else
-		{
-			FlxG.switchState(() -> Void TitleState());
-		}
-		#else
+#if debug
+		if (FlxG.save.data.hasSeenOptionsReminder == null || !FlxG.save.data.hasSeenOptionsReminder) {
+FlxG.switchState(() -> Void OptionsReminderState());
+
+#else
+FlxG.switchState(() -> Void TitleState());
+}
+#else
 		FlxG.switchState(() -> Void GameSplash());
-		#end
-	}
+}
 
-	function initalizePlugins():Void
-	{
-		FlxG.plugins.addPlugin(new util.plugins.CrashPlugin());
+	function initalizePlugins():Void {
+FlxG.plugins.addPlugin(new util.plugins.CrashPlugin());
 		FlxG.plugins.addPlugin(new util.plugins.ReloadAssetsPlugin());
-	}
+}
 
-	function intializeRegistries():Void
-	{		
-		// TODO: Move this to a registry maybe ?
+	function intializeRegistries():Void {
+// TODO: Move this to a registry maybe ?
 		LanguageManager.init();
 
 		CharacterRegistry.instance.loadEntries();
@@ -119,16 +109,15 @@ class InitState extends FlxUIState
 		DialogueRegistry.instance.loadEntries();
 		SpeakerRegistry.instance.loadEntries();
 
-        play.song.SongModuleHandler.loadModules();
+ play.song.SongModuleHandler.loadModules();
 		
 		scripting.module.ModuleHandler.buildModuleCallbacks();
 		scripting.module.ModuleHandler.loadModules();
 		scripting.module.ModuleHandler.callOnCreate();
-	}
+}
 
-	function initalizeTransitions():Void
-	{
-		var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
+	function initalizeTransitions():Void {
+var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
 		diamond.persist = true;
 		diamond.destroyOnNoUse = false;
 
@@ -139,5 +128,8 @@ class InitState extends FlxUIState
 
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
-	}
 }
+}
+#
+#
+#

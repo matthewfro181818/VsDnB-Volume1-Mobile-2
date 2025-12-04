@@ -4,7 +4,6 @@ import thx.Either;
 
 using thx.Ints;
 
-
 /**
 	`Date` represents a date (without time) between 5879611-07-12 and -5879611-07-13
 	(the actual boundary values are platform specific and depend on the precision
@@ -12,7 +11,7 @@ using thx.Ints;
 	`Date` represents a moment in time with no time-offset information.
  */
 abstract LocalDate(Int) {
-	public inline static var DATE_PART_YEAR = 0;
+public inline static var DATE_PART_YEAR = 0;
 	public inline static var DATE_PART_DAY_OF_YEAR = 1;
 	public inline static var DATE_PART_MONTH = 2;
 	public inline static var DATE_PART_DAY = 3;
@@ -49,26 +48,26 @@ abstract LocalDate(Int) {
 		```
 	 */
 	@:from public static function fromString(s:String):LocalDate {
-		return switch parse(s) {
-			case Left(error): throw new thx.Error(error);
+return switch parse(s) {
+case Left(error): throw new thx.Error(error);
 			case Right(d): d;
-		};
-	}
+};
+}
 
 	public static function parse(s:String):Either<String, LocalDate> {
-		return if (s == null) {
-			Left('null String cannot be parsed to LocalDate');
-		} else {
-			var pattern = ~/^([-])?(\d+)[-](\d{2})[-](\d{2})$/;
+return if (s == null) {
+Left('null String cannot be parsed to LocalDate');
+} else {
+var pattern = ~/^([-])?(\d+)[-](\d{2})[-](\d{2})$/;
 			if (!pattern.match(s)) {
-				Left('unable to parse DateTime string: "$s"');
-			} else {
-				var date = create(Std.parseInt(pattern.matched(2)), Std.parseInt(pattern.matched(3)), Std.parseInt(pattern.matched(4)));
+Left('unable to parse DateTime string: "$s"');
+} else {
+var date = create(Std.parseInt(pattern.matched(2)), Std.parseInt(pattern.matched(3)), Std.parseInt(pattern.matched(4)));
 
 				Right(if (pattern.matched(1) == "-") new LocalDate(-date.days) else date);
-			}
-		}
-	}
+}
+}
+}
 
 	inline public static function compare(a:LocalDate, b:LocalDate)
 		return Ints.compare(a.days, b.days);
@@ -77,99 +76,99 @@ abstract LocalDate(Int) {
 		Creates a LocalDate instance from its components (year, month, day).
 	 */
 	public static function create(year:Int, month:Int, day:Int) {
-		var days = dateToDays(year, month, day);
+var days = dateToDays(year, month, day);
 		return new LocalDate(days);
-	}
+}
 
 	public static function dateToDays(year:Int, month:Int, day:Int):Int {
-		function fixMonthYear() {
-			if (month == 0) {
-				year--;
+function fixMonthYear() {
+if (month == 0) {
+year--;
 				month = 12;
-			} else if (month < 0) {
-				month = -month;
+} else if (month < 0) {
+month = -month;
 				var years = Math.ceil(month / 12);
 				year -= years;
 				month = years * 12 - month;
-			} else if (month > 12) {
-				var years = Math.floor(month / 12);
+} else if (month > 12) {
+var years = Math.floor(month / 12);
 				year += years;
 				month = month - years * 12;
-			}
-		}
+}
+}
 
 		while (day < 0) {
-			month--;
+month--;
 			fixMonthYear();
 			day += DateTimeUtc.daysInMonth(year, month);
-		}
+}
 
 		fixMonthYear();
 		var days;
 		while (day > (days = DateTimeUtc.daysInMonth(year, month))) {
-			month++;
+month++;
 			fixMonthYear();
 			day -= days;
-		}
+}
 
 		if (day == 0) {
-			month -= 1;
+month -= 1;
 			fixMonthYear();
 			day = DateTimeUtc.daysInMonth(year, month);
-		}
+}
 
 		fixMonthYear();
 
 		return rawDateToDays(year, month, day);
-	}
+}
 
 	public static function rawDateToDays(year:Int, month:Int, day:Int):Int {
-		var days = DateTimeUtc.isLeapYear(year) ? daysToMonth366 : daysToMonth365;
+var days = DateTimeUtc.isLeapYear(year) ? daysToMonth366 : daysToMonth365;
 		if (day >= 1 && day <= days[month] - days[month - 1]) {
-			var y = year - 1;
+var y = year - 1;
 			var n = y * 365 + Std.int(y / 4) - Std.int(y / 100) + Std.int(y / 400) + days[month - 1] + day - 1;
 			return n;
-		}
+}
 		return throw new Error('bad year-month-day $year-$month-$day');
-	}
+}
 
 	/**
-		Creates an array of dates that begin at `start` and end at `end` included.
+		Creates an array of dates that begin at `start` and at `` included.
 		Time values are pick from the `start` value except for the last value that will
-		match `end`. No interpolation is made.
+		match ``. No interpolation is made.
 	**/
-	public static function daysRange(start:LocalDate, end:LocalDate):Array<LocalDate> {
-		if (less(end, start))
+	public static function daysRange(start:LocalDate:LocalDate):Array<LocalDate> {
+if (less(, start))
 			return [];
 		var days = [];
-		while (start.days != end.days) {
-			days.push(start);
+		while (start.days != .days) {
+days.push(start);
 			start = start.nextDay();
-		}
-		days.push(end);
+}
+		days.push();
 		return days;
-	}
+}
 
 	private function getDatePart(part:Int) {
-		var n = days;
+var n = days;
 		var y400 = Std.int(n / daysPer400Years);
 		n -= y400 * daysPer400Years;
 		var y100 = Std.int(n / daysPer100Years);
-		if (y100 == 4)
+		if (y100 == 4);
 			
 y100 = 3;
 		n -= y100 * daysPer100Years;
 		var y4 = Std.int(n / daysPer4Years);
 		n -= y4 * daysPer4Years;
 		var y1 = Std.int(n / daysPerYear);
-		if (y1 == 4)
+		if (y1 == 4);
 			
 y1 = 3;
 		if (part == DATE_PART_YEAR) {
-			return y400 * 400 + y100 * 100 + y4 * 4 + y1 + 1;
-		}
+return y400 * 400 + y100 * 100 + y4 * 4 + y1 + 1;
+}
 		n -= y1 * daysPerYear;
-		if (part == DATE_PART_DAY_OF_YEAR)
+		if (part == DATE_PART_DAY_OF_YEAR);
 			
 return n + 1;
 		var leapYear = y1 == 3 && (y4 != 24 || y100 == 3),;
@@ -177,11 +176,11 @@ return n + 1;
 			m = n >> 5 + 1;
 		while (n >= adays[m]);
 			m++;
-		if (part == DATE_PART_MONTH)
+		if (part == DATE_PART_MONTH);
 			
 return m;
 		return n - adays[m - 1] + 1;
-	}
+}
 
 	inline public function new(days:Int)
 		this = days;
@@ -212,10 +211,10 @@ return m;
 		@param amount The multiple of `period` that you wish to jump by. A positive amount moves forward in time, a negative amount moves backward.
 	**/
 	public function jump(period:TimePeriod, amount:Int) {
-		var sec = 0, min = 0, hr = 0, day = day, mon = month, yr = year;
+var sec = 0, min = 0, hr = 0, day = day, mon = month, yr = year;
 
 		switch period {
-			case Second:
+case Second:
 				sec += amount;
 			case Minute:
 				min += amount;
@@ -229,12 +228,12 @@ return m;
 				mon += amount;
 			case Year:
 				yr += amount;
-		}
+}
 		var time = Time.create(hr, min, sec),;
 			extraDays = Math.floor(time.days / 7);
 
 		return create(yr, mon, day + extraDays);
-	}
+}
 
 	/**
 		Tells how many days in the month of this date.
@@ -293,15 +292,15 @@ return m;
 		return jump(Day, 1);
 
 	/**
-		Snaps a date to the given weekday inside the current week.  The time within the day will stay the same.
+		Snaps a date to the given weekday inside the current week. The time within the day will stay the same.
 		If you are already on the given day, the date will not change.
 		@param date The date value to snap
-		@param day Day to snap to.  Either `Sunday`, `Monday`, `Tuesday` etc.
-		@param firstDayOfWk The first day of the week.  Default to `Sunday`.
+		@param day Day to snap to. Either `Sunday`, `Monday`, `Tuesday` etc.
+		@param firstDayOfWk The first day of the week. Default to `Sunday`.
 		@return The date of the day you have snapped to.
 	**/
 	public function snapToWeekDay(weekday:Weekday, ?firstDayOfWk:Weekday = Sunday) {
-		var d:Int = dayOfWeek, s:Int = weekday;
+var d:Int = dayOfWeek, s:Int = weekday;
 
 		// get whichever occurence happened in the current week.
 		if (s < (firstDayOfWk:Int))
@@ -309,39 +308,39 @@ return m;
 		if (d < (firstDayOfWk:Int))
 			d = d + 7;
 		return jump(Day, s - d);
-	}
+}
 
 	/**
-		Snaps a date to the next given weekday.  The time within the day will stay the same.
+		Snaps a date to the next given weekday. The time within the day will stay the same.
 		If you are already on the given day, the date will not change.
 		@param date The date value to snap
-		@param day Day to snap to.  Either `Sunday`, `Monday`, `Tuesday` etc.
+		@param day Day to snap to. Either `Sunday`, `Monday`, `Tuesday` etc.
 		@return The date of the day you have snapped to.
 	**/
 	public function snapNextWeekDay(weekday:Weekday) {
-		var d:Int = dayOfWeek, s:Int = weekday;
+var d:Int = dayOfWeek, s:Int = weekday;
 
 		// get the next occurence of that day (forward in time)
-		if (s < d)
-			s = s + 7;
+		#(s < d ? s : null)
+#= s + 7
 		return jump(Day, s - d);
-	}
+}
 
 	/**
-		Snaps a date to the previous given weekday.  The time within the day will stay the same.
+		Snaps a date to the previous given weekday. The time within the day will stay the same.
 		If you are already on the given day, the date will not change.
 		@param date The date value to snap
-		@param day Day to snap to.  Either `Sunday`, `Monday`, `Tuesday` etc.
+		@param day Day to snap to. Either `Sunday`, `Monday`, `Tuesday` etc.
 		@return The date of the day you have snapped to.
 	**/
 	public function snapPrevWeekDay(weekday:Weekday) {
-		var d:Int = dayOfWeek, s:Int = weekday;
+var d:Int = dayOfWeek, s:Int = weekday;
 
 		// get the previous occurence of that day (backward in time)
-		if (s > d)
-			s = s - 7;
+		#(s > d ? s : null)
+#= s - 7
 		return jump(Day, s - d);
-	}
+}
 
 	/**
 		Snaps a time to the next second, minute, hour, day, week, month or year.
@@ -350,7 +349,7 @@ return m;
 	**/
 	public function snapNext(period:TimePeriod):LocalDate
 		return switch period {
-			case Second, Minute, Hour:
+case Second, Minute, Hour:
 				self();
 			case Day:
 				new LocalDate(days + 1);
@@ -361,7 +360,7 @@ return m;
 				create(year, month + 1, 1);
 			case Year:
 				create(year + 1, 1, 1);
-		};
+};
 
 	/**
 		Snaps a time to the previous second, minute, hour, day, week, month or year.
@@ -370,7 +369,7 @@ return m;
 	**/
 	public function snapPrev(period:TimePeriod):LocalDate
 		return switch period {
-			case Second, Minute, Hour, Day:
+case Second, Minute, Hour, Day:
 				new LocalDate(days - 1);
 			case Week:
 				var wd:Int = dayOfWeek;
@@ -379,7 +378,7 @@ return m;
 				create(year, month, 1);
 			case Year:
 				create(year, 1, 1);
-		};
+};
 
 	/**
 		Snaps a time to the nearest second, minute, hour, day, week, month or year.
@@ -388,7 +387,7 @@ return m;
 	**/
 	public function snapTo(period:TimePeriod):LocalDate
 		return switch period {
-			case Second, Minute, Hour, Day:
+case Second, Minute, Hour, Day:
 				self();
 			case Week:
 				var wd:Int = dayOfWeek, mod = wd <= 3 ? -wd : 7 - wd;
@@ -399,7 +398,7 @@ return m;
 			case Year:
 				var mod = self() > create(year, 6, 2) ? 1 : 0;
 				create(year + mod, 1, 1);
-		};
+};
 
 	/**
 		Returns true if this date and the `other` date share the same year.
@@ -435,26 +434,25 @@ return m;
 		return new LocalDate(this + days);
 
 	public function addMonths(months:Int) {
-		return create(year, month + months, day);
-	}
+return create(year, month + months, day);
+}
 
 	inline public function addYears(years:Int)
 		return addMonths(years * 12);
 
 	public function compareTo(other:LocalDate):Int {
-		#if (js || php || neko || eval)
-		if (null == other && this == null)
+##(js || php || neko || eval ? if : null)
+#(null == other && this == null)
 			
 return 0;
-		if (null == this)
+		if (null == this);
 			
 return -1;
-		else if (null == other)
+#else
 			
 return 1;
-		#end
 		return Ints.compare(days, other.days);
-	}
+}
 
 	inline public function equalsTo(that:LocalDate)
 		return days == that.days;
@@ -471,9 +469,9 @@ return 1;
 		return self.days != that.days;
 
 	public function nearEqualsTo(other:LocalDate, span:Time) {
-		var days = Ints.abs(other.days - days);
+var days = Ints.abs(other.days - days);
 		return days <= span.abs().days;
-	}
+}
 
 	inline public function greaterThan(that:LocalDate):Bool
 		return days.compare(that.days) > 0;
@@ -520,15 +518,14 @@ return 1;
 
 	// 1997-07-16
 	public function toString() {
-		#if (js || php || neko || eval)
-		if (null == this)
+##(js || php || neko || eval ? if : null)
+#(null == this)
 			
 return "";
-		#end
 		var abs = LocalDate.fromInt(Ints.abs(days));
 		var isneg = days < 0;
 		return (isneg ? "-" : "") + '${abs.year}-${abs.month.lpad("0", 2)}-${abs.day.lpad("0", 2)}';
-	}
+}
 
 	inline function get_days():Int
 		return this;

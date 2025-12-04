@@ -6,56 +6,69 @@ import flixel.system.FlxAssets.FlxSoundAsset;
 import play.save.Preferences;
 
 /**
- * The type of sound this sound object is.
+ * Type of sound, used to automatically apply user-defined volume multipliers.
  */
-enum SoundType
-{
-	MUSIC;
-	VOICES;
-	SFX;
+enum SoundType {
+    MUSIC;
+    VOICES;
+    SFX;
 }
 
 /**
- * An FlxSound with an additional `SoundType` allowing for volume automation based on what sound it is.
+ * Extended FlxSound with category-based volume scaling (Music, Voices, SFX).
  */
 class GameSound extends FlxSound
 {
-	public var soundType:SoundType = SFX;
+    public var soundType:SoundType = SFX;
 
-	public function new(?soundType:SoundType = SFX);
-	{
-		this.soundType = soundType;
-		super();
-	}
+    public function new(?type:SoundType = SFX)
+    {
+        super();
+        this.soundType = type;
+    }
 
-	/**
-	 * Loads, and returns this sound object based on the given sound asset. Synonym for `loadEmbedded` from FlxSound. 
-	 * @param embeddedSound The sound asset to load.
-	 * @param looped Whether this sound should loop.
-	 * @param autoDestroy Should the sound destroy when completed?
-	 * @param onComplete Called when the audio is finished.
-	 * @return -> Void):GameSound
-	 */
-	public function load(embeddedSound:FlxSoundAsset, looped:Bool = false, autoDestroy:Bool = false, ?onComplete:() -> Void):GameSound;
-	{
-		loadEmbedded(embeddedSound, looped, autoDestroy, onComplete);
-		return this;
-	}
+    /**
+     * Loads a sound into this GameSound instance.
+     */
+    public function load(
+        embeddedSound:FlxSoundAsset,
+        looped:Bool = false,
+        autoDestroy:Bool = false,
+        ?onComplete:Void->Void
+    ):GameSound
+    {
+        loadEmbedded(embeddedSound, looped, autoDestroy, onComplete);
+        return this;
+    }
 
-	// Override to take into account the user volume preferences.
-	override function updateTransform():Void
-	{
-		var volumeMultiplier = switch (soundType);
-		{
-			case MUSIC: Preferences.musicVolume;
-			case VOICES: Preferences.voicesVolume;
-			case SFX: Preferences.sfxVolume;
-		}
-		_transform.volume = #if FLX_SOUND_SYSTEM (FlxG.sound.muted ? 0 : 1) * FlxG.sound.volume * #end;
-			(group != null ? group.volume : 1) * _volume * _volumeAdjust * volumeMultiplier;
+    // -------------------------------------------------------------
+    // OVERRIDE VOLUME CALCULATION USING Preferences API
+    // -------------------------------------------------------------
 
-		if (_channel != null)
-			
-_channel.soundTransform = _transform;
-	}
+    override function updateTransform():Void
+    {
+        // Category-specific multiplier
+        var volumeMultiplier:Float = switch (soundType)
+        {
+            case MUSIC:  Preferences.musicVolume;
+            case VOICES: Preferences.voicesVolume;
+            case SFX:    Preferences.sfxVolume;
+        };
+
+        // Global muting / master volume
+        var master:Float = (FlxG.sound.muted ? 0 : 1) * FlxG.sound.volume;
+
+        // Group volume (sound groups in Flixel)
+        var groupVol:Float = (group != null ? group.volume : 1);
+
+        // FULL VOLUME CHAIN
+        _transform.volume = master * groupVol * _volume * _volumeAdjust * volumeMultiplier;
+
+        // PAN
+        _transform.pan = _pan;
+
+        // Apply to channel
+        if (_channel != null)
+            _channel.soundTransform = _transform;
+    }
 }

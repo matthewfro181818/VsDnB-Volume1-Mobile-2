@@ -1,57 +1,90 @@
 package openfl.media;
 
-@:access(openfl.media.SoundChannel)
-final class SoundMixer {
-	private static inline var MAX_ACTIVE_CHANNELS = 32;
+import openfl.media.SoundChannel;
+import openfl.media.SoundTransform;
 
-	public static var bufferTime:Int;
+/**
+ * OpenFL-compatible SoundMixer replacement for projects using
+ * Lime AudioSource backend.
+ */
+@:access(openfl.media.SoundChannel)
+final class SoundMixer
+{
+	/** Maximum simultaneous sounds */
+	public static inline var MAX_ACTIVE_CHANNELS:Int = 32;
+
+	/** Buffering time (not used in Lime backend but kept for compatibility) */
+	public static var bufferTime:Int = 0;
+
+	/** Global sound transform */
 	public static var soundTransform(get, set):SoundTransform;
 
-	private static var __soundChannels = new Array<SoundChannel>();
-	private static var __soundTransform = #if mute_sound new SoundTransform(0) #else new SoundTransform() #end;
+	/** Internal list of active sound channels */
+	private static var __soundChannels:Array<SoundChannel> = [];
 
-	public static function areSoundsInaccessible():Bool {
+	/** Global mixer transform */
+	private static var __soundTransform:SoundTransform =
+		#if mute_sound
+			new SoundTransform(0)
+		#else
+			new SoundTransform()
+		#end;
+
+	// ----------------------------------------------------------------------
+	// Public API
+	// ----------------------------------------------------------------------
+
+	/** Always false; kept for Flash compatibility */
+	public static function areSoundsInaccessible():Bool
+	{
 		return false;
 	}
 
-	public static function stopAll():Void {
-		for (channel in __soundChannels) {
+	/** Stop ALL currently playing SoundChannels */
+	public static function stopAll():Void
+	{
+		for (channel in __soundChannels)
+		{
 			channel.stop();
 		}
 	}
 
-	private static function __registerSoundChannel(soundChannel:SoundChannel):Void {
-		__soundChannels.push(soundChannel);
+	/** Register a new sound channel */
+	public static function __registerSoundChannel(channel:SoundChannel):Void
+	{
+		if (channel != null)
+			__soundChannels.push(channel);
 	}
 
-	private static function __unregisterSoundChannel(soundChannel:SoundChannel):Void {
-		__soundChannels.remove(soundChannel);
+	/** Unregister a sound channel */
+	public static function __unregisterSoundChannel(channel:SoundChannel):Void
+	{
+		if (channel != null)
+			__soundChannels.remove(channel);
 	}
 
-	// Get & Set Methods
+	// ----------------------------------------------------------------------
+	// Get / Set
+	// ----------------------------------------------------------------------
 
-	private static function get_soundTransform():SoundTransform {
+	private static function get_soundTransform():SoundTransform
+	{
 		return __soundTransform;
 	}
 
-	private static function set_soundTransform(value:SoundTransform):SoundTransform {
-		__soundTransform = value.clone();
+	private static function set_soundTransform(value:SoundTransform):SoundTransform
+	{
+		if (value != null)
+			__soundTransform = value.clone();
+		else
+			__soundTransform = new SoundTransform();
 
-		for (channel in __soundChannels) {
+		// Apply new transform to all active channels
+		for (channel in __soundChannels)
+		{
 			channel.__updateTransform();
 		}
 
 		return value;
-	}
-
-	// -----------------------------------------------------
-	// Compatibility: required by SoundMixer
-	@:noCompletion private function __updateTransform():Void {
-		#if lime
-		if (__valid && __source != null) {
-			// Combined volume = global * channel * local
-			__source.gain = SoundMixer.__soundTransform.volume * __soundTransform.volume;
-		}
-		#end
 	}
 }

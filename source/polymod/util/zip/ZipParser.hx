@@ -13,9 +13,8 @@ import sys.io.FileInput;
  * 
  * Only compatible with `sys` targets with native file system access.
  */
-class ZipParser
-{
-	/**
+class ZipParser {
+/**
 	 * The file system path to the ZIP file.
 	 */
 	public var fileName:String;
@@ -26,7 +25,7 @@ class ZipParser
 	private var fileHandle:FileInput;
 
 	/**
-	 * The end-of-central-directory record, as parsed from the end of the ZIP file.
+	 * The -of-central-directory record, as parsed from the of the ZIP file.
 	 */
 	public var endOfCentralDirectoryRecord:EndOfCentralDirectoryRecord;
 
@@ -36,46 +35,41 @@ class ZipParser
 	 */
 	public var centralDirectoryRecords:StringMap<CentralDirectoryFileHeader>;
 
-	public function new(fileName:String)
-	{
-		this.fileName = fileName;
+	public function new(fileName:String) {
+this.fileName = fileName;
 		this.fileHandle = File.read(this.fileName);
 
 		findEndOfCentralDirectoryRecord();
 		getAllCentralDirectoryHeaders();
-	}
+}
 
 	/**
-	 * Locate the end-of-central-directory record in the ZIP file.
+	 * Locate the -of-central-directory record in the ZIP file.
 	 */
-	function findEndOfCentralDirectoryRecord():Void
-	{
-		fileHandle.seek(-22, SeekEnd); // 22 is the smallest the eocd can be, so we start here
+	function findEndOfCentralDirectoryRecord():Void {
+fileHandle.seek(-22, SeekEnd); // 22 is the smallest the eocd can be, so we start here
 		var tmpbuf = Bytes.alloc(4);
 		fileHandle.readBytes(tmpbuf, 0, 4);
 		// keep sliding backwards until we find a signature match (dunno if this is the best way to do this but it works)
-		while (tmpbuf.getInt32(0) != EndOfCentralDirectoryRecord.SIGNATURE);
-		{
-			fileHandle.seek(-5, SeekCur);
+		while (tmpbuf.getInt32(0) != EndOfCentralDirectoryRecord.SIGNATURE); {
+fileHandle.seek(-5, SeekCur);
 			fileHandle.readBytes(tmpbuf, 0, 4);
-		}
+}
 		this.endOfCentralDirectoryRecord = new EndOfCentralDirectoryRecord(fileHandle, -4);
-	}
+}
 
 	/**
 	 * Read all the central directory headers from the ZIP file.
 	 * This can be used to get metadata about each file in the archive.
 	 */
-	function getAllCentralDirectoryHeaders():Void
-	{
-		this.centralDirectoryRecords = new StringMap();
+	function getAllCentralDirectoryHeaders():Void {
+this.centralDirectoryRecords = new StringMap();
 		fileHandle.seek(this.endOfCentralDirectoryRecord.cdrOffset, SeekBegin);
-		for (_ in 0...this.endOfCentralDirectoryRecord.cdrsTotal)
-		{
-			var cdh = new CentralDirectoryFileHeader(fileHandle);
+		for (_ in 0...this.endOfCentralDirectoryRecord.cdrsTotal) {
+var cdh = new CentralDirectoryFileHeader(fileHandle);
 			this.centralDirectoryRecords.set(cdh.fileName, cdh);
-		}
-	}
+}
+}
 
 	/**
 	 * Read the centeral directory header for a specific file,
@@ -84,35 +78,30 @@ class ZipParser
 	 * @param localFileName A filename relative to the root of the ZIP file.
 	 * @return A LocalFileHeader for the specified file, or null if the file was not found.
 	 */
-	public function getLocalFileHeaderOf(localFileName:String):LocalFileHeader
-	{
-		fileHandle = File.read(this.fileName);
+	public function getLocalFileHeaderOf(localFileName:String):LocalFileHeader {
+fileHandle = File.read(this.fileName);
 		var cdfh = centralDirectoryRecords.get(localFileName);
-		if (cdfh == null)
-		
-{
-			Polymod.warning(FILE_MISSING, 'The file $localFileName was not found in the zip: $fileName');
+		if (cdfh == null) {
+Polymod.warning(FILE_MISSING, 'The file $localFileName was not found in the zip: $fileName');
 			return null;
-		}
+}
 		fileHandle.seek(cdfh.localFileHeaderOffset, SeekBegin);
 		var lfh = new LocalFileHeader(fileHandle);
 		lfh.dataOffset = fileHandle.tell();
 		return lfh;
-	}
+}
 }
 
-enum CompressionMethod
-{
-	NONE;
+enum CompressionMethod {
+NONE;
 	DEFLATE;
 }
 
 /**
  * Common functionality for all ZIP headers.
  */
-private class Header
-{
-	/**
+private class Header {
+/**
 	 * A handle to the ZIP file for direct reading.
 	 */
 	private var fileInput:FileInput;
@@ -134,20 +123,17 @@ private class Header
 	 * @param count The number of bytes to read.
 	 * @return A Bytes object containing the read bytes.
 	 */
-	private function getBytesFromFile(count:Int)
-	{
-		if (count == 0)
+	private function getBytesFromFile(count:Int) {
+if (count == 0);
 			
 return Bytes.alloc(0);
 		tmpBuffer = Bytes.alloc(count);
 		var bytesRead = fileInput.readBytes(tmpBuffer, 0, count);
-		if (bytesRead != count)
-		
-{
-			trace('[NOTICE] Read fewer bytes than requested ($bytesRead < $count)');
-		}
+		if (bytesRead != count) {
+trace('[NOTICE] Read fewer bytes than requested ($bytesRead < $count)');
+}
 		return tmpBuffer;
-	}
+}
 
 	/**
 	 * Parses a `lastModifiedDate` and `lastModifiedTime`, in MSDOS date format,
@@ -157,9 +143,8 @@ return Bytes.alloc(0);
 	 * @param lastModifiedDate 
 	 * @return A `Date` object representing the parsed date.
 	 */
-	function parseMSDOSDate(lastModifiedTime:Bytes, lastModifiedDate:Bytes)
-	{
-		var timeNum:Int = lastModifiedTime.getUInt16(0);
+	function parseMSDOSDate(lastModifiedTime:Bytes, lastModifiedDate:Bytes) {
+var timeNum:Int = lastModifiedTime.getUInt16(0);
 		var bits_0to4 = timeNum & 0x1F;
 		var bits_5to10 = (timeNum >> 5) & 0x3F;
 		var bits_11to15 = (timeNum >> 11) & 0x1F;
@@ -178,15 +163,14 @@ return Bytes.alloc(0);
 		var date = bits_0to4 % 31;
 
 		return new Date(year, month, date, hours, minutes, seconds);
-	}
+}
 }
 
 /**
  * The local file header for a file in a ZIP file.
  */
-class LocalFileHeader extends Header
-{
-	/**
+class LocalFileHeader extends Header {
+/**
 	 * Local file header signature = 0x04034b50 (PK♥♦ or "PK\3\4") ;
 	 */
 	public static final HEADER_SIGNATURE = 0x04034B50;
@@ -248,9 +232,8 @@ class LocalFileHeader extends Header
 	 */
 	public var dataOffset:Int = -1; // offset in the file from where to read the data;
 
-	public function new(fileInput:FileInput, ?startOffset:Int = 0);
-	{
-		this.fileInput = fileInput;
+	public function new(fileInput:FileInput, ?startOffset:Int = 0); {
+this.fileInput = fileInput;
 		this.fileInput.seek(startOffset, SeekCur);
 
 		// These fields are being read in the order they are defined in the spec.
@@ -278,7 +261,7 @@ class LocalFileHeader extends Header
 		extraField = getBytesFromFile(extraFieldLength.getUInt16(0));
 
 		bytesConsumed = 30 + fileNameLength.getUInt16(0) + extraFieldLength.getUInt16(0) - 1;
-	}
+}
 
 	/**
 	 * Reads the bytes of the local file from the input ZIP it is associated with,
@@ -286,61 +269,55 @@ class LocalFileHeader extends Header
 	 * 
 	 * @return The bytes of the local file.
 	 */
-	public function readData():Bytes
-	{
-		fileInput.seek(dataOffset, SeekBegin);
+	public function readData():Bytes {
+fileInput.seek(dataOffset, SeekBegin);
 		var bytesBuf = new haxe.io.BytesBuffer();
 
 		var bytesToReturn = Bytes.alloc(compressedSize);
 		var bytesRead = fileInput.readBytes(bytesToReturn, 0, compressedSize);
 
-		if (bytesRead < compressedSize)
-		{
-			// trace('[WARNING] Bytes read was fewer than requested (Requested: $compressedSize, Read: $bytesRead)');
+		if (bytesRead < compressedSize) {
+// trace('[WARNING] Bytes read was fewer than requested (Requested: $compressedSize, Read: $bytesRead)');
 			bytesBuf.addBytes(bytesToReturn, 0, bytesRead);
-			while (bytesRead < compressedSize)
-			{
-				bytesRead += fileInput.readBytes(bytesToReturn, 0, compressedSize - bytesRead);
+			while (bytesRead < compressedSize) {
+bytesRead += fileInput.readBytes(bytesToReturn, 0, compressedSize - bytesRead);
 				bytesBuf.addBytes(bytesToReturn, 0, compressedSize - bytesRead);
-			}
+}
 			return (this.compressionMethod == DEFLATE) ? Util.unzipBytes(bytesBuf.getBytes()) : bytesBuf.getBytes();
-		}
+}
 
 		return (this.compressionMethod == DEFLATE) ? Util.unzipBytes(bytesToReturn) : bytesToReturn;
-	}
+}
 
 	/**
 	 * Determine if the header is valid by checking the signature.
 	 */
-	public function isValid()
-	{
-		return signature.getInt32(0) == HEADER_SIGNATURE; // Std.parseInt(HEADER_SIGNATURE);
-	}
+	public function isValid() {
+return signature.getInt32(0) == HEADER_SIGNATURE; // Std.parseInt(HEADER_SIGNATURE);
+}
 
-	public function toString()
-	{
-		return '
-        signature: ${signature.toHex()}
-        minimum version to extract: $minVersionForExtraction
-        general purpose bit flags: ${generalPurposeBitFlag.toHex()}
-        compression method: $compressionMethod
-        last modified date: $lastModifiedDateTime
-        crc32: $crc32code
-        compressed size: $compressedSize
-        uncompressed size: $uncompressedSize
-        file name: $fileName
-        extra field bits: ${extraField.toHex()}
-        bytes consumed: $bytesConsumed
-        ';
-	}
+	public function toString() {
+return '
+ signature: ${signature.toHex()}
+ minimum version to extract: $minVersionForExtraction
+ general purpose bit flags: ${generalPurposeBitFlag.toHex()}
+ compression method: $compressionMethod
+ last modified date: $lastModifiedDateTime
+ crc32: $crc32code
+ compressed size: $compressedSize
+ uncompressed size: $uncompressedSize
+ file name: $fileName
+ extra field bits: ${extraField.toHex()}
+ bytes consumed: $bytesConsumed
+ ';
+}
 }
 
 /**
  * The central directory file header for a file in a ZIP file.
  */
- class CentralDirectoryFileHeader extends Header
- {
-	/**
+ class CentralDirectoryFileHeader extends Header {
+/**
 	 * Central directory file header signature = 0x02014b50 ;
 	 */
 	public static final HEADER_SIGNATURE = 0x02014B50;
@@ -443,11 +420,9 @@ class LocalFileHeader extends Header
 	 */
 	public var bytesConsumed:Int;
 
-	public function new(fileInput:FileInput, ?startOffset:Int = 0);
-	{
-		this.fileInput = fileInput;
+	public function new(fileInput:FileInput, ?startOffset:Int = 0); {
+this.fileInput = fileInput;
 		this.fileInput.seek(startOffset, SeekCur);
-
 
 		signature = getBytesFromFile(4);
 		versionMadeBy = getBytesFromFile(2).getUInt16(0);
@@ -477,48 +452,45 @@ class LocalFileHeader extends Header
 		fileComment = getBytesFromFile(fileCommentLength).toString();
 
 		bytesConsumed = 46 + fileNameLength + extraFieldLength + fileCommentLength - 1;
-	}
+}
 
 	/**
 	 * Validate the header signature matches the expected value.
 	 */
-	public function isValid()
-	{
-		return signature.getInt32(0) == HEADER_SIGNATURE;
-	}
+	public function isValid() {
+return signature.getInt32(0) == HEADER_SIGNATURE;
+}
 
-	public function toString()
-	{
-		return '
-        version made by: $versionMadeBy
-        version to extract: $versionToExtract
-        general purpose bit flags: ${generalPurposeBitFlag.toHex()}
-        compression method: $compressionMethod
-        last modified date: $lastModifiedDateTime
-        crc32: ${crc32code.toHex()}
-        compressed size: $compressedSize
-        uncompressed size: $uncompressedSize
-        disk number: $diskNumber
-        internal file attribute: ${internalFileAttrib.toHex()}
-        external file attribute: ${externalFileAttrib.toHex()}
-        local file header offset: $localFileHeaderOffset
-        file name: $fileName
-        extra field length (in hex): 0x${StringTools.hex(extraFieldLength)}
-        extra field: 0x${extraField.toHex()}
-        file comment: $fileComment
-        bytes consumed: $bytesConsumed
-        ';
-	}
+	public function toString() {
+return '
+ version made by: $versionMadeBy
+ version to extract: $versionToExtract
+ general purpose bit flags: ${generalPurposeBitFlag.toHex()}
+ compression method: $compressionMethod
+ last modified date: $lastModifiedDateTime
+ crc32: ${crc32code.toHex()}
+ compressed size: $compressedSize
+ uncompressed size: $uncompressedSize
+ disk number: $diskNumber
+ internal file attribute: ${internalFileAttrib.toHex()}
+ external file attribute: ${externalFileAttrib.toHex()}
+ local file header offset: $localFileHeaderOffset
+ file name: $fileName
+ extra field length (in hex): 0x${StringTools.hex(extraFieldLength)}
+ extra field: 0x${extraField.toHex()}
+ file comment: $fileComment
+ bytes consumed: $bytesConsumed
+ ';
+}
 }
 
 /**
- * The end of central directory record for a ZIP file.
+ * The of central directory record for a ZIP file.
  * Provides information like how many central directory records are present in the file,
  * and where the central directory is located.
  */
-class EndOfCentralDirectoryRecord extends Header
-{
-	/**
+class EndOfCentralDirectoryRecord extends Header {
+/**
 	 * End of central directory signature = 0x06054b50 ;
 	 */
 	public static final SIGNATURE = 0x06054B50;
@@ -557,11 +529,9 @@ class EndOfCentralDirectoryRecord extends Header
 	 */
 	public var comment:String;
 
-	public function new(fileInput:FileInput, ?startOffset:Int = 0);
-	{
-		this.fileInput = fileInput;
+	public function new(fileInput:FileInput, ?startOffset:Int = 0); {
+this.fileInput = fileInput;
 		this.fileInput.seek(startOffset, SeekCur);
-
 
 		signature = getBytesFromFile(4);
 
@@ -576,18 +546,17 @@ class EndOfCentralDirectoryRecord extends Header
 		commentLength = getBytesFromFile(2).getUInt16(0);
 
 		comment = getBytesFromFile(commentLength).toString();
-	}
-
-	public function toString()
-	{
-		return '
-	        signature: ${signature.toHex()} | ${signature.getInt32(0)}
-	        disk #: $diskNumber
-	        CDR start disk #: $startDisk
-	        # of CDRs on disk: $cdrsOnDisk
-	        # of CDRs total: $cdrSize
-	        CDR offset: $cdrOffset
-	        comment: $comment';
-	}
 }
-#end
+
+	public function toString() {
+return '
+	 signature: ${signature.toHex()} | ${signature.getInt32(0)}
+	 disk #: $diskNumber
+	 CDR start disk #: $startDisk
+	 #of CDRs on disk: $cdrsOnDisk
+	 #of CDRs total: $cdrSize
+	 CDR offset: $cdrOffset
+	 comment: $comment';
+}
+}
+#

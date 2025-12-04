@@ -1,7 +1,7 @@
 package thx;
 
 class DateConst {
-	public inline static var millisPerSecond:Float = 1000;
+public inline static var millisPerSecond:Float = 1000;
 	public inline static var millisPerMinute:Float = millisPerSecond * 60;
 	public inline static var millisPerHour:Float = millisPerMinute * 60;
 	public inline static var millisPerDay:Float = millisPerHour * 24;

@@ -8,7 +8,7 @@ import haxe.Utf8;
 @:forward(concat, copy, indexOf, insert, iterator, join, lastIndexOf, length, map, pop, push, remove, reverse, shift, slice, sort, splice, unshift)
 @:arrayAccess
 abstract Chars(Array<Char>) {
-	/**
+/**
 		Converts a `String` into `Chars`.
 	 */
 	@:from public static function fromString(s:String):Chars

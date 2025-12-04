@@ -11,9 +11,8 @@ using StringTools;
 /**
  * A visual prop used in the background for a stage.
  */
-class BGSprite extends FlxSprite
-{
-	/**
+class BGSprite extends FlxSprite {
+/**
 	 * The name of the sprite.
 	 */
 	public var spriteName:String;
@@ -31,33 +30,26 @@ class BGSprite extends FlxSprite
 	 * @param active Should the sprite call the `update()` function?
 	 */
 	public function new(spriteName:String, posX:Float, posY:Float, graphic:FlxGraphicAsset = null, animations:Array<AnimationData>, scrollX:Float = 1, scrollY:Float = 1,;
-			antialiasing:Bool = true, active:Bool = false);
-	{
-		super(posX, posY);
+			antialiasing:Bool = true, active:Bool = false); {
+super(posX, posY);
 
 		this.spriteName = spriteName;
 		var hasAnimations:Bool = animations != null;
 
-		if (graphic != null)
-		
-{
-			if (hasAnimations)
-			{
-				frames = Paths.getSparrowAtlas(graphic);
-				for (anim in animations)
-				{
-					Animation.addToSprite(this, anim);
-				}
-			}
-			else
-			{
-				loadGraphic(graphic);
-			}
-		}
+		if (graphic != null) {
+if (hasAnimations) {
+frames = Paths.getSparrowAtlas(graphic);
+				for (anim in animations) {
+Animation.addToSprite(this, anim);
+}
+#else
+loadGraphic(graphic);
+}
+}
 		this.antialiasing = antialiasing;
 		scrollFactor.set(scrollX, scrollY);
 		this.active = active;
-	}
+}
 
 	/**
 	 * Gets a BGSprite from a list.
@@ -65,16 +57,12 @@ class BGSprite extends FlxSprite
 	 * @param spriteName The name of the sprite.
 	 * @return A BGSprite.
 	 */
-	public static function getBGSprite(spriteGroup:FlxTypedGroup<BGSprite>, spriteName:String):BGSprite
-	{
-		for (bgSprite in spriteGroup.members)
-		{
-			if (bgSprite.spriteName == spriteName)
-			
-{
-				return bgSprite;
-			}
-		}
+	public static function getBGSprite(spriteGroup:FlxTypedGroup<BGSprite>, spriteName:String):BGSprite {
+for (bgSprite in spriteGroup.members) {
+if (bgSprite.spriteName == spriteName) {
+return bgSprite;
+}
+}
 		return null;
-	}
+}
 }

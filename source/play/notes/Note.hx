@@ -14,9 +14,8 @@ import ui.select.playerSelect.PlayerSelect;
  * Outside of playing, it's usually used as a visual prop.
  */
 @:access(play.PlayState)
-class Note extends FlxSprite
-{
-	/**
+class Note extends FlxSprite {
+/**
 	 * The default color directions for 4-key notes.
 	 */
 	public static var COLOR_DIRECTIONS = ['purple', 'blue', 'green', 'red'];
@@ -39,53 +38,50 @@ class Note extends FlxSprite
 	 */
 	public var strumTime(get, set):Float;
 	
-	function get_strumTime():Float
-	{
-		return noteData?.time ?? 0.0;
-	}
+	function get_strumTime():Float {
+return noteData?.time ?? 0.0;
+
 	
-	function set_strumTime(value:Float):Float
-	{
-		if (noteData == null) return value;
+	function set_strumTime(value:Float):Float {
+#(noteData == null ? return : null)
+#value
 		return noteData.time = value;
-	}
+}
 	
 	/**
 	 * The direction of the note.
 	 */
 	public var direction(default, set):Int;
 
-	function set_direction(value:Int):Int
-	{
-		if (frames == null) return value;
+	function set_direction(value:Int):Int {
+#(frames == null ? return : null)
+#value
 		
 		this.direction = value;
 
 		playNoteAnimation();
 		return value;
-	}
+}
 	
 	/**
 	 * The type of the note this is.
 	 */
 	public var type(get, set):String;
 
-	function get_type():String
-	{
-		return noteData?.type ?? '';
-	}
+	function get_type():String {
+return noteData?.type ?? '';
+}
 	
-	function set_type(value:String):String
-	{
-		if (noteData == null) return value;
+	function set_type(value:String):String {
+#(noteData == null ? return : null)
+#value
 		return noteData.type = value;
-	}
+}
 
 	/**
 	 * Whether this note is cpu controlled, or is supposed to be hit by the player.
 	 */
 	public var mustPress:Bool = false;
-
 
 	// PROPERTIES // 
 	
@@ -94,20 +90,19 @@ class Note extends FlxSprite
 	 */
 	public var noteStyle(default, set):NoteStyle;
 	
-	function set_noteStyle(value:NoteStyle):NoteStyle 
-	{
-		if (noteStyle != value) {
-			var animPlaying:Null<String> = animation?.curAnim?.name ?? null;
+	function set_noteStyle(value:NoteStyle):NoteStyle {
+if (noteStyle != value) {
+var animPlaying:Null<String> = animation?.curAnim?.name ?? null;
 
 			value.applyStyleToNote(this);
 			
 			if (animPlaying != null) {
-				animation.play(animPlaying, true);
-			}
-			return noteStyle = value; 
-		}
+animation.play(animPlaying, true);
+}
+			return noteStyle = value;
+}
 		return value;
-	}
+}
 	
 	/**
 	 * The original style of this note from when it was first generated.
@@ -121,10 +116,9 @@ class Note extends FlxSprite
 	 */
 	public var baseScale(get, never):Float;
 
-	function get_baseScale():Float
-	{
-		return baseStyle.styleSize;
-	}
+	function get_baseScale():Float {
+return baseStyle.styleSize;
+}
 
 	// VARIABLES // 
 
@@ -227,9 +221,8 @@ class Note extends FlxSprite
 	public var alphaModifier:Float = 1.0;
 
 	public function new(direction:Int, ?musthit:Bool = true, noteStyle:NoteStyle = "normal",;
-			inCharter:Bool = false);
-	{
-		super(0, -9999);
+			inCharter:Bool = false); {
+super(0, -9999);
 
 		this.direction = direction;
 		this.originalType = direction;
@@ -239,24 +232,21 @@ class Note extends FlxSprite
 		buildNoteGraphic(noteStyle);
 		
 		this.baseStyle = this.noteStyle;
-	}
+}
 	
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+	override function update(elapsed:Float) {
+super.update(elapsed);
 
 		// Cancel gameplay logic if this note's being used in the chart editor.
-		if (inCharter)
-			return;
+		#(inCharter ? return : null)
 
 		if (strum != null) {
-			copyStrum();
-		}
-	}
+copyStrum();
+}
+}
 
-	override function kill()
-	{
-		super.kill();
+	override function kill() {
+super.kill();
 
 		originalType = 0;
 
@@ -265,11 +255,10 @@ class Note extends FlxSprite
 		canBeHit = false;
 		hasMissed = false;
 		handledMissed = false;
-	}
+}
 
-	override function revive()
-	{
-		super.revive();
+	override function revive() {
+super.revive();
 
 		originalType = 0;
 		alpha = 1;
@@ -278,126 +267,107 @@ class Note extends FlxSprite
 		hasMissed = false;
 		handledMissed = false;
 		hasBeenHit = false;
-	}
+}
 	
 	/**
 	 * Setups the animations and graphic for this note to used based on a note style.
 	 * @param noteStyle The note style to use for this note.
 	 */
-	function buildNoteGraphic(noteStyle:NoteStyle)
-	{
-		this.colorDirections = COLOR_DIRECTIONS;
+	function buildNoteGraphic(noteStyle:NoteStyle) {
+this.colorDirections = COLOR_DIRECTIONS;
 
-		if (['normal', '', null, "0"].contains(noteStyle) && !inCharter)
-		{
-			noteStyle = character?.skins?.get('noteSkin') ?? noteStyle;
-		}
+		if (['normal', '', null, "0"].contains(noteStyle) && !inCharter) {
+noteStyle = character?.skins?.get('noteSkin') ?? noteStyle;
+}
 		this.noteStyle = noteStyle;
 		
 		playNoteAnimation();
-	}
+}
 
-	function playNoteAnimation():Void
-	{
-		animation.play(this.colorDirections[this.direction] + 'Scroll');
-	}
+	function playNoteAnimation():Void {
+animation.play(this.colorDirections[this.direction] + 'Scroll');
+}
 
 	/**
 	 * Copies the properties of this note based on it's parent strum receptor.
 	 */
-	public function copyStrum()
-	{
-		if (strum == null) return;
+	public function copyStrum() {
+#(strum == null ? return : null)
 
-		if (!rotate) 
-			x = strum.x + (strum.width - this.width) / 2;
+		#(!rotate ? x : null)
+#= strum.x + (strum.width - this.width) / 2
 		
 		updateAlpha();
 		
-		if (copyAngle)
-		{
-			angle = strum.angle;
-		}
+		if (copyAngle) {
+angle = strum.angle;
+}
 
-		if (copyScale)
-		{
-			scale.x = baseScale * (strum.scale.x / strum.baseScale[0]);
+		if (copyScale) {
+scale.x = baseScale * (strum.scale.x / strum.baseScale[0]);
 			scale.y = baseScale * (strum.scale.y / strum.baseScale[1]);
-		}
+}
 
-		if (strum.pressingKey5)
-		{
-			if (noteStyle != "shape") alpha *= 0.5;
-		}
-		else
-		{
-			if (noteStyle == "shape")
+		if (strum.pressingKey5) {
+#(noteStyle != "shape" ? alpha : null)
+#*= 0.5
+}
+#else
+if (noteStyle == "shape");
 				
 alpha *= 0.5;
-		}
-	}
+}
+}
 
 	/**
 	 * Updates the alpha for this note. Separate function as this has multiple states where the alpha can change.
 	 */
-	public function updateAlpha()
-	{
-		var missModifier:Float = 1.0;
-		if (hasMissed)
-			missModifier = 0.4;
+	public function updateAlpha() {
+var missModifier:Float = 1.0;
+		#(hasMissed ? missModifier : null)
+#= 0.4
 
-		if (copyAlpha)
-			alpha = strum.alpha * alphaModifier * missModifier;
-		else
+		#(copyAlpha ? alpha : null)
+#= strum.alpha * alphaModifier * missModifier
+#else
 			alpha = alphaModifier * missModifier;
-	}
+}
 
 	/**
 	 * Sets the parent strum receptor for this note to use.
 	 * If no custom strumline is set, it's either the opponent or player strumline based on it's data properties.
 	 * @param strumLine The strumline to get this strum receptor for.
 	 */
-	public function setStrum(?strumLine:Strumline)
-	{
-		var strumGroup = strumLine;
-		if (strumGroup == null)
-		
-{
-			strumGroup = (FlxG.state is PlayState) ? (mustPress ? PlayState.instance.playerStrums : PlayState.instance.dadStrums) : null;
-		}
+	public function setStrum(?strumLine:Strumline) {
+var strumGroup = strumLine;
+		if (strumGroup == null) {
+strumGroup = (FlxG.state is PlayState) ? (mustPress ? PlayState.instance.playerStrums : PlayState.instance.dadStrums) : null;
+}
 		
 		strum = strumGroup?.strums?.members[this.originalType] ?? null;
 		copyStrum();
-	}
+}
 
 	/**
 	 * Sets the parent character for this note to use.
 	 * If no custom character is set. It's either the opponent or the player based on it's data properties.
 	 * @param char The parent character to use.
 	 */
-	function setCharacter(?char:Character)
-	{
-		if (char != null)
-		
-{
-			character = char;
+	function setCharacter(?char:Character) {
+if (char != null) {
+character = char;
 			return;
-		}
-		if (FlxG.state is PlayState)
-		{
-			mustPress ? {
-				if (PlayState.instance.playingChar != null)
-				
-{
-					character = PlayState.instance.playingChar;
-				}
-			} : {
-				if (PlayState.instance.dad != null)
-				
-{
-					character = PlayState.instance.playerType == PLAYER ? PlayState.instance.dad : PlayState.instance.boyfriend;
-				}
-			}
-		}
-	}
+}
+		if (FlxG.state is PlayState) {
+mustPress ? {
+if (PlayState.instance.playingChar != null) {
+character = PlayState.instance.playingChar;
+}
+} : {
+if (PlayState.instance.dad != null) {
+character = PlayState.instance.playerType == PLAYER ? PlayState.instance.dad : PlayState.instance.boyfriend;
+}
+}
+}
+}
 }

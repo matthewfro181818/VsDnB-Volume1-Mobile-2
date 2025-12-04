@@ -11,11 +11,11 @@ import haxe.PosInfos;
 
 	```haxe
 	function abstractMethod() {
-	throw new AbstractMethod();
-	}
+throw new AbstractMethod();
+}
 	```
  */
 class AbstractMethod extends thx.Error {
-	public function new(?posInfo:PosInfos)
+public function new(?posInfo:PosInfos)
 		super('method ${posInfo.className}.${posInfo.methodName}() is abstract', posInfo);
 }

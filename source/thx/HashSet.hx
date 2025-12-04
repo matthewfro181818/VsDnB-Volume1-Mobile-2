@@ -3,11 +3,11 @@ package thx;
 import haxe.ds.HashMap;
 
 /**
-	A set is a list of unique, hashable values.  Equality of items is determined using
+	A set is a list of unique, hashable values. Equality of items is determined using
 	a required `function hashCode():Int` on the item instances.
 **/
-abstract HashSet<T:{function hashCode():Int;}>(HashMap<T, Bool>) {
-	/**
+abstract HashSet<T:{function hashCode(}>(HashMap<T, Bool>) {
+/**
 		Gives the number of items in the HashSet
 	**/
 	public var length(get, never):Int;
@@ -21,10 +21,10 @@ abstract HashSet<T:{function hashCode():Int;}>(HashMap<T, Bool>) {
 	/**
 		Creates a new HashSet with optional intial values.
 	**/
-	public static function create<T:{function hashCode():Int;}>(?arr:Iterable<T>):HashSet<T> {
-		var map:HashMap<T, Bool> = new HashMap();
+	public static function create<T:{function hashCode(}>(?arr:Iterable<T>):HashSet<T> {
+var map:HashMap<T, Bool> = new HashMap();
 		var hashSet:HashSet<T> = new HashSet(map);
-		if (null != arr)
+		if (null != arr);
 			
 hashSet.pushMany(arr);
 		return hashSet;
@@ -37,38 +37,38 @@ hashSet.pushMany(arr);
 	**/
 	public function add(v:T):Bool
 		return if (this.exists(v)) false; else {
-			this.set(v, true);
+this.set(v, true);
 			true;
-		}
+}
 
 	/**
 		`copy` creates a new `HashSet` with copied elements.
 	**/
 	public function copy():HashSet<T> {
-		var inst = empty();
+var inst = empty();
 		for (k in this.keys())
 			inst.push(k);
 		return inst;
-	}
+}
 
 	/**
 		`empty` creates an empty copy of the current HashSet.
 	**/
 	public function empty():HashSet<T> {
-		var map:HashMap<T, Bool> = Type.createInstance(Type.getClass(this), []);
+var map:HashMap<T, Bool> = Type.createInstance(Type.getClass(this), []);
 		return new HashSet(map);
-	}
+}
 
 	/**
 		`difference` creates a new `HashSet` with elements from the first set excluding the elements
 		from the second.
 	**/
 	@:op(A - B) inline public function difference(set:HashSet<T>):HashSet<T> {
-		var result = copy();
+var result = copy();
 		for (item in set)
 			result.remove(item);
 		return result;
-	}
+}
 
 	/**
 		`symmetricDifference` creates a new `HashSet` with elements that appear in either of the sets, but not in both.
@@ -76,9 +76,9 @@ hashSet.pushMany(arr);
 		Equivalent to: `s1.union(s2) - s1.intersection(s2)`
 	**/
 	@:op(A - B) inline public function symmetricDifference(set:HashSet<T>):HashSet<T> {
-		var self = copy();
+var self = copy();
 		return self.union(set) - self.intersection(set);
-	}
+}
 
 	/**
 		`exists` returns `true` if it contains an element that is equals to `v`.
@@ -96,12 +96,12 @@ hashSet.pushMany(arr);
 		`intersection` returns a HashSet with elements that are presents in both sets
 	**/
 	inline public function intersection(set:HashSet<T>):HashSet<T> {
-		var result = empty();
+var result = empty();
 		for (item in iterator())
 			if (set.exists(item))
 				result.push(item);
 		return result;
-	}
+}
 
 	/**
 		Like `add` but doesn't notify if the addition was successful or not.
@@ -126,11 +126,11 @@ hashSet.pushMany(arr);
 		Union creates a new HashSet with elements from both sets.
 	**/
 	@:op(A + B) inline public function union(set:HashSet<T>):HashSet<T> {
-		var newset = copy();
+var newset = copy();
 		for (k in set.iterator())
 			newset.push(k);
 		return newset;
-	}
+}
 
 	/**
 		Converts a `HashSet<T>` into `Array<T>`. The returned array is a copy of the internal
@@ -138,11 +138,11 @@ hashSet.pushMany(arr);
 		that might happen on the returned array.
 	**/
 	@:to public function toArray():Array<T> {
-		var arr:Array<T> = [];
+var arr:Array<T> = [];
 		for (k in this.keys())
 			arr.push(k);
 		return arr;
-	}
+}
 
 	/**
 		Converts `HashSet` to `String`. To differentiate from normal `Array`s the output string
@@ -152,9 +152,10 @@ hashSet.pushMany(arr);
 		return "{" + toArray().join(", ") + "}";
 
 	function get_length() {
-		var l = 0;
+var l = 0;
 		for (i in this)
 			++l;
 		return l;
-	}
+}
 // FIXED stray brace
+}}

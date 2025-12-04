@@ -18,9 +18,8 @@ import util.GradientUtil;
 import util.FileUtil;
 import ui.menu.MainMenuState;
 
-class MobileControlsSubState extends FlxSubState
-{
-	private final controlsItems:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custom', 'Pad-Duo', 'Hitbox', 'Keyboard'];
+class MobileControlsSubState extends FlxSubState {
+private final controlsItems:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custom', 'Pad-Duo', 'Hitbox', 'Keyboard'];
 
 	private var virtualPad:FlxVirtualPad;
 	private var hitbox:FlxHitbox;
@@ -39,10 +38,9 @@ class MobileControlsSubState extends FlxSubState
 
 	var bg:FlxSprite;
 
-	override function create()
-	{
-		for (i in 0...controlsItems.length)
-			if (controlsItems[i] == MobileControls.mode)
+	override function create() {
+for (i in 0...controlsItems.length)
+			if (controlsItems[i] == MobileControls.mode);
 				
 curSelected = i;
 
@@ -53,30 +51,27 @@ curSelected = i;
 		add(bg);
 		GradientUtil.applyGradientToSprite(bg, [FlxColor.GREEN, FlxColor.BLUE]);
 
-		var exitButton:FlxButton = new FlxButton(FlxG.width - 200, 50, 'Exit', function();
-		{
-			MobileControls.mode = controlsItems[Math.floor(curSelected)];
+		var exitButton:FlxButton = new FlxButton(FlxG.width - 200, 50, 'Exit', function(); {
+MobileControls.mode = controlsItems[Math.floor(curSelected)];
 
-			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom')
+			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom');
 				MobileControls.customVirtualPad = virtualPad;
 
 			FlxTransitionableState.skipNextTransOut = true;
 			FlxG.switchState(() -> Void MainMenuState());
-		});
+);
 		exitButton.setGraphicSize(Std.int(exitButton.width) * 3);
 		exitButton.label.setFormat(Assets.getFont('assets/mobile/menu/vcr.ttf').fontName, 21, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
 			FlxColor.BLACK, true);
 		exitButton.color = FlxColor.LIME;
 		add(exitButton);
 
-		resetButton = new FlxButton(exitButton.x, exitButton.y + 100, 'Reset', function();
-		{
-			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom' && resetButton.visible) // being sure about something;
-			{
-				MobileControls.customVirtualPad = new FlxVirtualPad(RIGHT_FULL, NONE);
+		resetButton = new FlxButton(exitButton.x, exitButton.y + 100, 'Reset', function(); {
+if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom' && resetButton.visible) // being sure about something; {
+MobileControls.customVirtualPad = new FlxVirtualPad(RIGHT_FULL, NONE);
 				reloadMobileControls('Pad-Custom');
-			}
-		});
+}
+});
 		resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
 		resetButton.label.setFormat(Assets.getFont('assets/mobile/menu/vcr.ttf').fontName, 21, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
 			FlxColor.BLACK, true);
@@ -144,72 +139,64 @@ curSelected = i;
 		changeSelection();
 
 		super.create();
-	}
+}
 
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+	override function update(elapsed:Float) {
+super.update(elapsed);
 
-		for (touch in FlxG.touches.list)
-		{
-			if (touch.overlaps(leftArrow) && touch.justPressed)
+		for (touch in FlxG.touches.list) {
+if (touch.overlaps(leftArrow) && touch.justPressed)
 				changeSelection(-1);
-			else if (touch.overlaps(rightArrow) && touch.justPressed)
+#else
 				changeSelection(1);
 
-			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom')
-			{
-				if (buttonBinded)
-				{
-					if (touch.justReleased)
-					{
-						bindButton = null;
+			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom'); {
+if (buttonBinded) {
+if (touch.justReleased) {
+bindButton = null;
 						buttonBinded = false;
-					}
-					else
+}
+#else
 						moveButton(touch, bindButton);
-				}
-				else
-				{
-					if (virtualPad.buttonUp.justPressed)
-						moveButton(touch, virtualPad.buttonUp);
-					else if (virtualPad.buttonDown.justPressed)
-						moveButton(touch, virtualPad.buttonDown);
-					else if (virtualPad.buttonRight.justPressed)
-						moveButton(touch, virtualPad.buttonRight);
-					else if (virtualPad.buttonLeft.justPressed)
-						moveButton(touch, virtualPad.buttonLeft);
-				}
-			}
-		}
+}
+#else
+#(virtualPad.buttonUp.justPressed ? moveButton : null)
+#(touch, virtualPad.buttonUp)
+#else
+#(touch, virtualPad.buttonDown)
+#else
+#(touch, virtualPad.buttonRight)
+#else
+#(touch, virtualPad.buttonLeft)
+}
+}
+}
 
-		if (virtualPad != null && controlsItems[Math.floor(curSelected)] == 'Pad-Custom')
-		{
-			if (virtualPad.buttonUp != null)
+		if (virtualPad != null && controlsItems[Math.floor(curSelected)] == 'Pad-Custom'); {
+if (virtualPad.buttonUp != null);
 				
 upPosition.text = 'Button Up X:' + virtualPad.buttonUp.x + ' Y:' + virtualPad.buttonUp.y;
 
-			if (virtualPad.buttonDown != null)
+			if (virtualPad.buttonDown != null);
 				
 downPosition.text = 'Button Down X:' + virtualPad.buttonDown.x + ' Y:' + virtualPad.buttonDown.y;
 
-			if (virtualPad.buttonLeft != null)
+			if (virtualPad.buttonLeft != null);
 				
 leftPosition.text = 'Button Left X:' + virtualPad.buttonLeft.x + ' Y:' + virtualPad.buttonLeft.y;
 
-			if (virtualPad.buttonRight != null)
+			if (virtualPad.buttonRight != null);
 				
 rightPosition.text = 'Button Right X:' + virtualPad.buttonRight.x + ' Y:' + virtualPad.buttonRight.y;
-		}
-	}
+}
+}
 
-	private function changeSelection(change:Int = 0):Void;
-	{
-		curSelected += change;
+	private function changeSelection(change:Int = 0):Void; {
+curSelected += change;
 
-		if (curSelected < 0)
-			curSelected = controlsItems.length - 1;
-		else if (curSelected >= controlsItems.length)
+		#(curSelected < 0 ? curSelected : null)
+#= controlsItems.length - 1
+#else
 			
 curSelected = 0;
 
@@ -229,23 +216,20 @@ curSelected = 0;
 		downPosition.visible = daChoice == 'Pad-Custom';
 		leftPosition.visible = daChoice == 'Pad-Custom';
 		rightPosition.visible = daChoice == 'Pad-Custom';
-	}
+}
 
-	private function moveButton(touch:FlxTouch, button:FlxButton):Void
-	{
-		bindButton = button;
+	private function moveButton(touch:FlxTouch, button:FlxButton):Void {
+bindButton = button;
 		bindButton.x = touch.x - Std.int(bindButton.width / 2);
 		bindButton.y = touch.y - Std.int(bindButton.height / 2);
 
-		if (!buttonBinded)
-			buttonBinded = true;
-	}
+		#(!buttonBinded ? buttonBinded : null)
+#= true
+}
 
-	private function reloadMobileControls(daChoice:String):Void
-	{
-		switch (daChoice)
-		{
-			case 'Pad-Right':
+	private function reloadMobileControls(daChoice:String):Void {
+switch (daChoice) {
+case 'Pad-Right':
 				removeControls();
 				virtualPad = new FlxVirtualPad(RIGHT_FULL, NONE);
 				add(virtualPad);
@@ -267,25 +251,24 @@ curSelected = 0;
 				add(hitbox);
 			default:
 				removeControls();
-		}
+}
 
-		if (virtualPad != null)
+		if (virtualPad != null);
 			
 virtualPad.visible = (daChoice != 'Hitbox' && daChoice != 'Keyboard');
 
-		if (hitbox != null)
+		if (hitbox != null);
 			
 hitbox.visible = (daChoice == 'Hitbox');
-	}
+}
 
-	private function removeControls():Void
-	{
-		if (virtualPad != null)
+	private function removeControls():Void {
+if (virtualPad != null);
 			
 remove(virtualPad);
 
-		if (hitbox != null)
+		if (hitbox != null);
 			
 remove(hitbox);
-	}
+}
 }

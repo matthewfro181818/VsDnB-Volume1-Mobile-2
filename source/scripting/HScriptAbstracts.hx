@@ -6,13 +6,11 @@ import flixel.util.FlxAxes;
 /**
  * Class for putting Abstract enums into Classes
  */
-class HScriptAbstracts
-{
+class HScriptAbstracts {
 }
 
-class ClassBlendMode
-{
-	public static var ADD(default, null):Int = cast BlendMode.ADD;
+class ClassBlendMode {
+public static var ADD(default, null):Int = cast BlendMode.ADD;
 	public static var ALPHA(default, null):Int = cast BlendMode.ALPHA;
 	public static var DARKEN(default, null):Int = cast BlendMode.DARKEN;
 	public static var DIFFERENCE(default, null):Int = cast BlendMode.DIFFERENCE;
@@ -28,11 +26,9 @@ class ClassBlendMode
 	public static var SHADER(default, null):Int = cast BlendMode.SHADER;
 	public static var SUBTRACT(default, null):Int = cast BlendMode.SUBTRACT;
 
-	@:from private static function fromString(value:String):Null<Int>
-	{
-		return switch (value)
-		{
-			case "add": ADD;
+	@:from private static function fromString(value:String):Null<Int> {
+return switch (value) {
+case "add": ADD;
 			case "alpha": ALPHA;
 			case "darken": DARKEN;
 			case "difference": DIFFERENCE;
@@ -48,26 +44,23 @@ class ClassBlendMode
 			case "shader": SHADER;
 			case "subtract": SUBTRACT;
 			default: null;
-		}
-	}
+}
+}
 }
 
-class ClassFlxAxes
-{	
-	public static var X    = cast FlxAxes.X;
-	public static var Y    = cast FlxAxes.Y;
-	public static var XY   = cast FlxAxes.XY;
+class ClassFlxAxes {
+public static var X = cast FlxAxes.X;
+	public static var Y = cast FlxAxes.Y;
+	public static var XY = cast FlxAxes.XY;
 	public static var NONE = cast FlxAxes.NONE;
 	
-	public static function fromString(axes:String):FlxAxes
-	{
-		return switch axes.toLowerCase()
-		{
-			case "x": X;
+	public static function fromString(axes:String):FlxAxes {
+return switch axes.toLowerCase() {
+case "x": X;
 			case "y": Y;
 			case "xy" | "yx" | "both": XY;
 			case "none" | "" | null : NONE;
 			default : throw "Invalid axes value: " + axes;
-		}
-	}
+}
+}
 }

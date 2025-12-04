@@ -7,21 +7,16 @@ import openfl.utils.ByteArray;
 import openfl.display.BitmapData;
 import openfl.geom.Rectangle;
 
-abstract class TerminalDisplay
-{
-	public var myScreen:TerminalScreen;
+abstract class TerminalDisplay {
+public var myScreen:TerminalScreen;
 
-	public function new(screen:TerminalScreen)
-	{
-		this.myScreen = screen;
-	}
+	public function new(screen:TerminalScreen) {
+this.myScreen = screen;
 
-	public abstract function update(elapsed:Float):Void;
-}
+	public abstract function update(elapsed:Float}
 
-class TerminalScreen extends FlxSprite
-{
-	public static inline var characterWidth:Int = 9;
+class TerminalScreen extends FlxSprite {
+public static inline var characterWidth:Int = 9;
 	public static inline var characterHeight:Int = 16;
 	public static inline var sheetWidth:Int = 32;
 	public static inline var sheetHeight:Int = 8;
@@ -162,63 +157,53 @@ class TerminalScreen extends FlxSprite
 	public var screenHeight:Int = 0;
 
 	public function SetCharacter(x:Int, y:Int, character:Int, textColor:TerminalColor = TerminalColor.DARK_WHITE,;
-			bgColor:TerminalColor = TerminalColor.BLACK):Void;
-	{
-		var characterInd:Int = this.IndexFromPosition(x, y);
+			bgColor:TerminalColor = TerminalColor.BLACK):Void; {
+var characterInd:Int = this.IndexFromPosition(x, y);
 		this.characters[characterInd].index = character;
 		this.characters[characterInd].foregroundColor = textColor;
 		this.characters[characterInd].backgroundColor = bgColor;
-	}
+}
 
-	public function RenderCharacter(x:Int, y:Int)
-	{
-		var characterInd:Int = this.IndexFromPosition(x, y);
+	public function RenderCharacter(x:Int, y:Int) {
+var characterInd:Int = this.IndexFromPosition(x, y);
 		var character:TerminalCharacter = this.characters[characterInd];
 		var ind:Int = character.index;
-		if (character.index == -1)
-		
-{
-			ind = FlxG.random.int(0, 255);
-		}
+		if (character.index == -1) {
+ind = FlxG.random.int(0, 255);
+}
 		var charX:Int = (ind % sheetWidth) * characterWidth;
 		var charY:Int = (Std.int(ind / sheetWidth)) * characterHeight;
 
 		var targetPixels:ByteArray = characterSet.getPixels(new Rectangle(charX, charY, characterWidth, characterHeight));
 		var foregroundColor:FlxColor = colorMap[character.foregroundColor];
 		var backgroundColor:FlxColor = colorMap[character.backgroundColor];
-		for (i in 0...Std.int(targetPixels.length / 4))
-		{
-			var beginIndex:Int = i * 4;
-			if (targetPixels[beginIndex] > 0)
-			{
-				targetPixels[beginIndex] = foregroundColor.alpha;
+		for (i in 0...Std.int(targetPixels.length / 4)) {
+var beginIndex:Int = i * 4;
+			if (targetPixels[beginIndex] > 0) {
+targetPixels[beginIndex] = foregroundColor.alpha;
 				targetPixels[beginIndex + 1] = foregroundColor.red;
 				targetPixels[beginIndex + 2] = foregroundColor.green;
 				targetPixels[beginIndex + 3] = foregroundColor.blue;
-			}
-			else
-			{
-				targetPixels[beginIndex] = backgroundColor.alpha;
+}
+#else
+targetPixels[beginIndex] = backgroundColor.alpha;
 				targetPixels[beginIndex + 1] = backgroundColor.red;
 				targetPixels[beginIndex + 2] = backgroundColor.green;
 				targetPixels[beginIndex + 3] = backgroundColor.blue;
-			}
-		}
+}
+}
 		this.graphic.bitmap.setPixels(new Rectangle(x * characterWidth, y * characterHeight, characterWidth, characterHeight), targetPixels);
-	}
+}
 
-	public function SetLetter(x:Int, y:Int, letter:String, textColor:TerminalColor = TerminalColor.DARK_WHITE, bgColor:TerminalColor = TerminalColor.BLACK):Void;
-	{
-		SetCharacter(x, y, codePoints[letter], textColor, bgColor);
-	}
+	public function SetLetter(x:Int, y:Int, letter:String, textColor:TerminalColor = TerminalColor.DARK_WHITE, bgColor:TerminalColor = TerminalColor.BLACK):Void; {
+SetCharacter(x, y, codePoints[letter], textColor, bgColor);
+}
 
-	public function WriteString(x:Int, y:Int, text:String, textColor:TerminalColor = TerminalColor.DARK_WHITE, bgColor:TerminalColor = TerminalColor.BLACK);
-	{
-		for (i in 0...text.length)
-		{
-			SetLetter(x + i, y, text.charAt(i), textColor, bgColor);
-		}
-	}
+	public function WriteString(x:Int, y:Int, text:String, textColor:TerminalColor = TerminalColor.DARK_WHITE, bgColor:TerminalColor = TerminalColor.BLACK); {
+for (i in 0...text.length) {
+SetLetter(x + i, y, text.charAt(i), textColor, bgColor);
+}
+}
 
 	public var rngColors:Array<TerminalColor> = [;
 		TerminalColor.WHITE,
@@ -239,123 +224,101 @@ class TerminalScreen extends FlxSprite
 		TerminalColor.CYAN,
 	];
 
-	public function SetGarbageCharacter(x:Int, y:Int)
-	{
-		SetCharacter(x, y, FlxG.random.int(0, 255), rngColors[FlxG.random.int(0, rngColors.length - 1)], rngColors[FlxG.random.int(0, rngColors.length - 1)]);
-	}
+	public function SetGarbageCharacter(x:Int, y:Int) {
+SetCharacter(x, y, FlxG.random.int(0, 255), rngColors[FlxG.random.int(0, rngColors.length - 1)], rngColors[FlxG.random.int(0, rngColors.length - 1)]);
+}
 
-	public function RandomGarbage()
-	{
-		SetGarbageCharacter(FlxG.random.int(0, screenWidth - 1), FlxG.random.int(0, screenHeight - 1));
-	}
+	public function RandomGarbage() {
+SetGarbageCharacter(FlxG.random.int(0, screenWidth - 1), FlxG.random.int(0, screenHeight - 1));
+}
 
 	public var characters:Array<TerminalCharacter> = new Array<TerminalCharacter>();
 
 	var charactersLastFrame:Array<TerminalCharacter> = new Array<TerminalCharacter>();
 
-	public function IndexFromPosition(x:Int, y:Int):Int
-	{
-		return (y * screenWidth) + x;
-	}
+	public function IndexFromPosition(x:Int, y:Int):Int {
+return (y * screenWidth) + x;
+}
 
-	public function new(scWidth:Int, scHeight:Int)
-	{
-		super();
+	public function new(scWidth:Int, scHeight:Int) {
+super();
 		screenWidth = scWidth;
 		screenHeight = scHeight;
 		this.makeGraphic(scWidth * characterWidth, scHeight * characterHeight, FlxColor.TRANSPARENT, true);
 		this.antialiasing = false;
 		characterSet = BitmapData.fromFile("assets/images/IBMCharacters.png");
-		for (x in 0...scWidth)
-		{
-			for (y in 0...scHeight)
-			{
-				var index = this.IndexFromPosition(x, y);
+		for (x in 0...scWidth) {
+for (y in 0...scHeight) {
+var index = this.IndexFromPosition(x, y);
 				characters[index] = new TerminalCharacter();
 				charactersLastFrame[index] = new TerminalCharacter();
 				this.SetCharacter(x, y, 0, TerminalColor.DARK_WHITE, TerminalColor.BLACK);
-			}
-		}
-		#if !mobile
+}
+}
+#if !mobile
 		Main.fps.visible = false; // todo: ask how to set this back lol;
-		#end
-	}
-
-	public function Clear()
-	{
-		for (x in 0...screenWidth)
-		{
-			for (y in 0...screenHeight)
-			{
-				this.SetCharacter(x, y, 0, TerminalColor.DARK_WHITE, TerminalColor.BLACK);
-			}
-		}
-	}
-
-	public function updateDisplays(elapsed:Float)
-	{
-		for (i in 0...displays.length)
-		{
-			displays[i].update(elapsed);
-		}
-	}
-
-	public override function update(elapsed:Float)
-	{
-		updateDisplays(elapsed);
-		for (x in 0...screenWidth)
-		{
-			for (y in 0...screenHeight)
-			{
-				var index:Int = this.IndexFromPosition(x, y);
-				// if not equal, queue an update
-				if (!charactersLastFrame[index].Equals(characters[index]))
-				{
-					this.RenderCharacter(x, y);
-					charactersLastFrame[index].CopyFrom(characters[index]);
-				}
-			}
-		}
-		super.update(elapsed);
-	}
 }
 
-class TerminalCharacter
-{
-	public var index:Int = 0;
+	public function Clear() {
+for (x in 0...screenWidth) {
+for (y in 0...screenHeight) {
+this.SetCharacter(x, y, 0, TerminalColor.DARK_WHITE, TerminalColor.BLACK);
+}
+}
+}
+
+	public function updateDisplays(elapsed:Float) {
+for (i in 0...displays.length) {
+displays[i].update(elapsed);
+}
+}
+
+	public override function update(elapsed:Float) {
+updateDisplays(elapsed);
+		for (x in 0...screenWidth) {
+for (y in 0...screenHeight) {
+var index:Int = this.IndexFromPosition(x, y);
+				// if not equal, queue an update
+				if (!charactersLastFrame[index].Equals(characters[index])) {
+this.RenderCharacter(x, y);
+					charactersLastFrame[index].CopyFrom(characters[index]);
+}
+}
+}
+		super.update(elapsed);
+}
+}
+
+class TerminalCharacter {
+public var index:Int = 0;
 	public var foregroundColor:TerminalColor = TerminalColor.DARK_WHITE;
 	public var backgroundColor:TerminalColor = TerminalColor.BLACK;
 
-	public function new(chr:Int = 0, fg:TerminalColor = TerminalColor.DARK_WHITE, bg:TerminalColor = TerminalColor.BLACK);
-	{
-		this.index = chr;
+	public function new(chr:Int = 0, fg:TerminalColor = TerminalColor.DARK_WHITE, bg:TerminalColor = TerminalColor.BLACK); {
+this.index = chr;
 		this.foregroundColor = fg;
 		this.backgroundColor = bg;
-	}
-
-	public static function copy(chr:TerminalCharacter):TerminalCharacter
-	{
-		var newChr:TerminalCharacter = new TerminalCharacter();
-		newChr.CopyFrom(chr);
-		return newChr;
-	}
-
-	public function CopyFrom(chr:TerminalCharacter)
-	{
-		this.index = chr.index;
-		this.foregroundColor = chr.foregroundColor;
-		this.backgroundColor = chr.backgroundColor;
-	}
-
-	public function Equals(chr:TerminalCharacter)
-	{
-		return (chr.index == this.index && chr.foregroundColor == this.foregroundColor && chr.backgroundColor == this.backgroundColor);
-	}
 }
 
-enum TerminalColor
-{
-	BLACK;
+	public static function copy(chr:TerminalCharacter):TerminalCharacter {
+var newChr:TerminalCharacter = new TerminalCharacter();
+		newChr.CopyFrom(chr);
+		return newChr;
+}
+
+	public function CopyFrom(chr:TerminalCharacter) {
+this.index = chr.index;
+		this.foregroundColor = chr.foregroundColor;
+		this.backgroundColor = chr.backgroundColor;
+}
+
+	public function Equals(chr:TerminalCharacter) {
+return (chr.index == this.index && chr.foregroundColor == this.foregroundColor && chr.backgroundColor == this.backgroundColor);
+}
+}
+
+enum TerminalColor {
+BLACK;
 	DARK_RED;
 	DARK_GREEN;
 	DARK_YELLOW;
@@ -373,3 +336,4 @@ enum TerminalColor
 	WHITE;
 	TRANSPARENT; // USE MINIMALLY
 }
+#

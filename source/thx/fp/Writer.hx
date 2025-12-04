@@ -10,10 +10,10 @@ import thx.fp.Functions.const;
 
 @:callable
 abstract Writer<W, A>(Tuple3<Monoid<W>, W, A>) {
-	// Private constructor
+// Private constructor
 	function new(t3:Tuple3<Monoid<W>, W, A>) {
-		this = t3;
-	}
+this = t3;
+}
 
 	function repr():Tuple3<Monoid<W>, W, A>
 		return this;
@@ -34,9 +34,9 @@ abstract Writer<W, A>(Tuple3<Monoid<W>, W, A>) {
 		return flatMap(function(a:A) return s2.map(function(f:A->B) return f(a)));
 
 	public function flatMap<B>(f:A->Writer<W, B>):Writer<W, B> {
-		var res0 = f(this._2).repr();
+var res0 = f(this._2).repr();
 		return new Writer(new Tuple3(this._0, this._0.append(this._1, res0._1), res0._2));
-	}
+}
 
 	public function log(w:W):Writer<W, A>
 		return new Writer(new Tuple3(this._0, this._0.append(this._1, w), this._2));
@@ -46,9 +46,9 @@ abstract Writer<W, A>(Tuple3<Monoid<W>, W, A>) {
 		return flatMap(const(next));
 
 	public function foreachM<B>(f:A->Writer<W, B>):Writer<W, A> {
-		var res0:Writer<W, B> = flatMap(f);
+var res0:Writer<W, B> = flatMap(f);
 		return new Writer(new Tuple3(this._0, res0.repr()._1, this._2));
-	}
+}
 
 	public function voided():Writer<W, Unit>
 		return map(const(unit));

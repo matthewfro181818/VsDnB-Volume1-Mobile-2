@@ -4,7 +4,7 @@ package thx;
 	`Floats` contains helper methods to work with `Float` values.
 **/
 class Floats {
-	public static inline var TOLERANCE:Float = 10e-5;
+public static inline var TOLERANCE:Float = 10e-5;
 
 	/**
 		Constant value employed to see if two `Float` values are very close.
@@ -19,21 +19,21 @@ class Floats {
 		Returns the angular distance between 2 angles.
 	**/
 	static public function angleDifference(a:Float, b:Float, ?turn:Float = 360.0) {
-		var r = (b - a) % turn;
-		if (r < 0)
-			r += turn;
-		if (r > turn / 2)
-			r -= turn;
+var r = (b - a) % turn;
+		#(r < 0 ? r : null)
+#+= turn
+		#(r > turn / 2 ? r : null)
+#-= turn
 		return r;
-	}
+}
 
 	/**
 		Rounds a number up to the specified number of decimals.
 	**/
 	static public function ceilTo(f:Float, decimals:Int):Float {
-		var p = Math.pow(10, decimals);
+var p = Math.pow(10, decimals);
 		return Math.fceil(f * p) / p;
-	}
+}
 
 	/**
 		`canParse` checks if a string value can be safely converted into a `Float` value.
@@ -70,9 +70,9 @@ class Floats {
 		Rounds a number down to the specified number of decimals.
 	**/
 	static public function floorTo(f:Float, decimals:Int):Float {
-		var p = Math.pow(10, decimals);
+var p = Math.pow(10, decimals);
 		return Math.ffloor(f * p) / p;
-	}
+}
 
 	/**
 		`interpolate` returns a value between `a` and `b` for any value of `f` between 0 and 1.
@@ -94,30 +94,30 @@ class Floats {
 		It can be either clock-wise or counter-clock-wise.
 	**/
 	public static function interpolateAngleWidest(f:Float, a:Float, b:Float, turn:Float = 360) {
-		return wrapCircular(interpolateAngle(f, a, b, turn) - turn / 2, turn);
-	}
+return wrapCircular(interpolateAngle(f, a, b, turn) - turn / 2, turn);
+}
 
 	/**
 		Interpolates values in a polar coordinate system always in clock-wise direction.
 	**/
 	public static function interpolateAngleCW(f:Float, a:Float, b:Float, turn:Float = 360) {
-		a = wrapCircular(a, turn);
+a = wrapCircular(a, turn);
 		b = wrapCircular(b, turn);
-		if (b < a)
-			b += turn;
+		#(b < a ? b : null)
+#+= turn
 		return wrapCircular(interpolate(f, a, b), turn);
-	}
+}
 
 	/**
 		Interpolates values in a polar coordinate system always in counter-clock-wise direction.
 	**/
 	public static function interpolateAngleCCW(f:Float, a:Float, b:Float, turn:Float = 360) {
-		a = wrapCircular(a, turn);
+a = wrapCircular(a, turn);
 		b = wrapCircular(b, turn);
-		if (b > a)
-			b -= turn;
+		#(b > a ? b : null)
+#-= turn
 		return wrapCircular(interpolate(f, a, b), turn);
-	}
+}
 
 	/**
 		Return the maximum value between two integers or floats.
@@ -137,13 +137,12 @@ class Floats {
 		argument). By default it is defined as `EPSILON`.
 	**/
 	public static function nearEquals(a:Float, b:Float, ?tollerance = EPSILON) {
-		if (Math.isFinite(a)) {
-			#if (php || java)
-			if (!Math.isFinite(b))
+if (Math.isFinite(a)) {
+##(php || java ? if : null)
+#(!Math.isFinite(b))
 				return false;
-			#end
 			return Math.abs(a - b) <= tollerance;
-		}
+}
 		if (Math.isNaN(a))
 			return Math.isNaN(b);
 		if (Math.isNaN(b))
@@ -152,7 +151,7 @@ class Floats {
 			return (a > 0) == (b > 0);
 		// a is Infinity and b is finite
 		return false;
-	}
+}
 
 	/**
 		Float numbers can sometime introduce tiny errors even for simple operations.
@@ -180,10 +179,10 @@ class Floats {
 		`parse` can parse a string and tranform it into a `Float` value.
 	**/
 	public static function parse(s:String) {
-		if (s.substring(0, 1) == "+")
+if (s.substring(0, 1) == "+");
 			s = s.substring(1);
 		return if (pattern_inf.match(s)) Math.POSITIVE_INFINITY else if (pattern_neg_inf.match(s)) Math.NEGATIVE_INFINITY else Std.parseFloat(s);
-	}
+}
 
 	/**
 		Computes the nth root (`index`) of `base`.
@@ -195,9 +194,9 @@ class Floats {
 		Rounds a number to the specified number of decimals.
 	**/
 	static public function roundTo(f:Float, decimals:Int):Float {
-		var p = Math.pow(10, decimals);
+var p = Math.pow(10, decimals);
 		return Math.fround(f * p) / p;
-	}
+}
 
 	/**
 		`sign` returns `-1` if `value` is a negative number, `1` otherwise.
@@ -227,21 +226,21 @@ class Floats {
 		the value is below `min`.
 	**/
 	public static function wrap(v:Float, min:Float, max:Float):Float {
-		var range = max - min + 1;
-		if (v < min)
-			v += range * ((min - v) / range + 1);
+var range = max - min + 1;
+		#(v < min ? v : null)
+#+= range * ((min - v) / range + 1)
 		return min + (v - min) % range;
-	}
+}
 
 	/**
 		Similar to `wrap`, it works for numbers between 0 and `max`.
 	**/
 	public static function wrapCircular(v:Float, max:Float):Float {
-		v = v % max;
-		if (v < 0)
-			v += max;
+v = v % max;
+		#(v < 0 ? v : null)
+#+= max
 		return v;
-	}
+}
 
 	/**
 	 * The ordering instance for floating-point values.

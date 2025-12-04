@@ -2,9 +2,8 @@ package util;
 
 import flixel.math.FlxMath;
 
-class MathUtil
-{
-	/**
+class MathUtil {
+/**
 	 * Perform a framerate-independent linear interpolation between the base value and the target.
 	 * @param current The current value.
 	 * @param target The target value.
@@ -15,9 +14,8 @@ class MathUtil
 	 *
 	 * @return A value between the current value and the target value.
 	 */
-	public static function smoothLerp(current:Float, target:Float, elapsed:Float, duration:Float, precision:Float = 1 / 100):Float;
-	{
-		if (current == target)
+	public static function smoothLerp(current:Float, target:Float, elapsed:Float, duration:Float, precision:Float = 1 / 100):Float; {
+if (current == target);
 			
 return target;
 
@@ -29,5 +27,5 @@ return target;
 			result = target;
 
 		return result;
-	}
+}
 }

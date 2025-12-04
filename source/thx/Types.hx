@@ -4,7 +4,7 @@ package thx;
 	Helper methods to use on values, types and classes.
 **/
 class Types {
-	/**
+/**
 		`isAnonymousObject` returns true if `v` is an object and it is not an instance of any custom class.
 	**/
 	public static inline function isAnonymousObject(v:Dynamic):Bool
@@ -21,21 +21,21 @@ class Types {
 	**/
 	public static function isPrimitive(v:Dynamic)
 		return switch Type.typeof(v) {
-			case TInt, TFloat, TBool: true;
+case TInt, TFloat, TBool: true;
 			case TNull, TFunction, TEnum(_), TObject, TUnknown: false;
 			case TClass(c) if (Type.getClassName(c) == "String"): true;
 			case TClass(c) if (Type.getClassName(c) == "Date"): true;
 			case TClass(_): false;
-		};
+};
 
 	/**
 		Returns `true` if `v` is an instance of any Enum type.
 	**/
 	public static function isEnumValue(v:Dynamic)
 		return switch Type.typeof(v) {
-			case TEnum(_): true;
+case TEnum(_): true;
 			case _: false;
-		};
+};
 
 	/**
 		Returns `true` if `cls` extends `sup` or one of its children.
@@ -43,14 +43,14 @@ class Types {
 		It also returns `true` if `cls` and `sup` are the same.
 	**/
 	public static function hasSuperClass(cls:Class<Dynamic>, sup:Class<Dynamic>) {
-		while (null != cls) {
-			if (cls == sup)
+while (null != cls) {
+if (cls == sup);
 				
 return true;
 			cls = Type.getSuperClass(cls);
-		}
+}
 		return false;
-	}
+}
 
 	/**
 		`sameType` returns true if the arguments `a` and `b` share exactly the same type.
@@ -63,8 +63,8 @@ return true;
 		chain of the passed `ValueType`.
 	**/
 	public static function typeInheritance(type:Type.ValueType):Array<String> {
-		return switch type {
-			case TInt: ["Int"];
+return switch type {
+case TInt: ["Int"];
 			case TFloat: ["Float"];
 			case TBool: ["Bool"];
 			case TObject: ["{}"];
@@ -72,21 +72,21 @@ return true;
 			case TClass(c):
 				var classes = [];
 				while (null != c) {
-					classes.push(c);
+classes.push(c);
 					c = Type.getSuperClass(c);
-				}
+}
 				classes.map(Type.getClassName);
 			case TEnum(e): [Type.getEnumName(e)];
 			case _: throw 'invalid type $type';
-		}
-	}
+}
+}
 
 	/**
 		Returns a string representation of a `ValueType`.
 	**/
 	public static function toString(type:Type.ValueType) {
-		return switch type {
-			case TNull: "Null";
+return switch type {
+case TNull: "Null";
 			case TInt: "Int";
 			case TFloat: "Float";
 			case TBool: "Bool";
@@ -95,8 +95,8 @@ return true;
 			case TClass(c): Type.getClassName(c);
 			case TEnum(e): Type.getEnumName(e);
 			case _: throw 'invalid type $type';
-		}
-	}
+}
+}
 
 	/**
 		`valueTypeInheritance` returns an array of string describing the entire inheritance
@@ -115,12 +115,12 @@ return true;
 		Returns a string describing the type of any `value`.
 	**/
 	inline public static function anyValueToString(value:Dynamic) {
-		if (Std.isOfType(value, Type.ValueType))
+if (Std.isOfType(value, Type.ValueType))
 			return toString(value);
 		if (Std.isOfType(value, Class))
 			return Type.getClassName(value);
 		if (Std.isOfType(value, Enum))
 			return Type.getEnumName(value);
 		return valueTypeToString(value);
-	}
+}
 }

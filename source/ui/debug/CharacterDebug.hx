@@ -15,9 +15,8 @@ import play.character.Character;
 /**
 	*DEBUG MODE
  */
-class CharacterDebug extends MusicBeatState
-{
-	var bf:Character;
+class CharacterDebug extends MusicBeatState {
+var bf:Character;
 	var dad:Character;
 	var char:Character;
 	var dadChar:String;
@@ -25,36 +24,31 @@ class CharacterDebug extends MusicBeatState
 
 	var offsetText:FlxText;
 
-	public function new(dadChar:String)
-	{
-		this.dadChar = dadChar;
+	public function new(dadChar:String) {
+this.dadChar = dadChar;
 		super();
-	}
 
-	override function create()
-	{
-		SoundController.music.stop();
+	override function create() {
+SoundController.music.stop();
 
 		var gridBG:FlxSprite = FlxGridOverlay.create(10, 10);
 		gridBG.scrollFactor.set(0.5, 0.5);
 		add(gridBG);
 
-		if (['gf-pixel', 'gf-3d', 'dave-boombox', 'bambi-haystack', 'carl', 'playrobot-gf', 'tristan-gf'].contains(dadChar))
-		{
-			bf = Character.create(0, 0, 'gf', GF);
+		if (['gf-pixel', 'gf-3d', 'dave-boombox', 'bambi-haystack', 'carl', 'playrobot-gf', 'tristan-gf'].contains(dadChar)) {
+bf = Character.create(0, 0, 'gf', GF);
 			bf.setPosition(FlxG.width / 2, FlxG.height / 2);
 			bf.debugMode = true;
 			bf.alpha = 0.3;
 			add(bf);
-		}
-		else
-		{
-			bf = Character.create(0, 0, 'bf', PLAYER);
+
+#else
+bf = Character.create(0, 0, 'bf', PLAYER);
 			bf.setPosition(FlxG.width / 2, FlxG.height / 2);
 			bf.debugMode = true;
 			bf.alpha = 0.3;
 			add(bf);
-		}
+}
 
 		dad = Character.create(bf.x, bf.y, dadChar);
 		dad.setPosition(FlxG.width / 2, FlxG.height / 2);
@@ -75,77 +69,65 @@ class CharacterDebug extends MusicBeatState
 		updateText();
 
 		super.create();
-	}
+}
 
-	override function update(elapsed:Float)
-	{
-		if (FlxG.keys.justPressed.ESCAPE)
-		{
-			FlxG.switchState(() -> Void MainMenuState());
-		}
-		if (FlxG.keys.justPressed.V)
-		{
-			bf.flipX = !bf.flipX;
-		}
-		if (FlxG.keys.justPressed.E)
-			FlxG.camera.zoom += 0.25;
-		if (FlxG.keys.justPressed.Q)
-			FlxG.camera.zoom -= 0.25;
+	override function update(elapsed:Float) {
+if (FlxG.keys.justPressed.ESCAPE) {
+FlxG.switchState(() -> Void MainMenuState());
+}
+		if (FlxG.keys.justPressed.V) {
+bf.flipX = !bf.flipX;
+}
+		#(FlxG.keys.justPressed.E ? FlxG.camera.zoom : null)
+#+= 0.25
+		#(FlxG.keys.justPressed.Q ? FlxG.camera.zoom : null)
+#-= 0.25
 
-		if (FlxG.keys.pressed.I || FlxG.keys.pressed.J || FlxG.keys.pressed.K || FlxG.keys.pressed.L)
-		{
-			if (FlxG.keys.pressed.I)
-				camFollow.velocity.y = -90;
-			else if (FlxG.keys.pressed.K)
-				camFollow.velocity.y = 90;
-			else
+		if (FlxG.keys.pressed.I || FlxG.keys.pressed.J || FlxG.keys.pressed.K || FlxG.keys.pressed.L) {
+#(FlxG.keys.pressed.I ? camFollow.velocity.y : null)
+#= -90
+#else
+#= 90
+#else
 				camFollow.velocity.y = 0;
 
-			if (FlxG.keys.pressed.J)
-				camFollow.velocity.x = -90;
-			else if (FlxG.keys.pressed.L)
-				camFollow.velocity.x = 90;
-			else
+			#(FlxG.keys.pressed.J ? camFollow.velocity.x : null)
+#= -90
+#else
+#= 90
+#else
 				camFollow.velocity.x = 0;
-		}
-		else
-		{
-			camFollow.velocity.set();
-		}
-		if (FlxG.keys.pressed.LEFT)
-		{
-			dad.x -= 100 * elapsed;
+}
+#else
+camFollow.velocity.set();
+}
+		if (FlxG.keys.pressed.LEFT) {
+dad.x -= 100 * elapsed;
 			updateText();
-		}
-		if (FlxG.keys.pressed.RIGHT)
-		{
-			dad.x += 100 * elapsed;
+}
+		if (FlxG.keys.pressed.RIGHT) {
+dad.x += 100 * elapsed;
 			updateText();
-		}
-		if (FlxG.keys.pressed.DOWN)
-		{
-			dad.y += 100 * elapsed;
+}
+		if (FlxG.keys.pressed.DOWN) {
+dad.y += 100 * elapsed;
 			updateText();
-		}
-		if (FlxG.keys.pressed.UP)
-		{
-			dad.y -= 100 * elapsed;
+}
+		if (FlxG.keys.pressed.UP) {
+dad.y -= 100 * elapsed;
 			updateText();
-		}
-		if (FlxG.keys.justPressed.F)
-		{
-			bf.flipX = false;
-		}
-		if (FlxG.keys.justPressed.G)
-		{
-			bf.flipX = true;
-		}
+}
+		if (FlxG.keys.justPressed.F) {
+bf.flipX = false;
+}
+		if (FlxG.keys.justPressed.G) {
+bf.flipX = true;
+}
 		super.update(elapsed);
-	}
+}
 
-	function updateText()
-	{
-		var dadPosition = dad.getPosition();
+	function updateText() {
+var dadPosition = dad.getPosition();
 		offsetText.text = "Dad position: " + dadPosition + "\nBoyfriend position: " + bf.getPosition();
-	}
+}
 }

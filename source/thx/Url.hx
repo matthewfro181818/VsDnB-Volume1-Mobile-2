@@ -8,7 +8,7 @@ using thx.Strings;
 	It's a type that represents a URL.
  */
 abstract Url(UrlType) from UrlType to UrlType {
-	static var pattern = ~/^((((?:([^:\/#\?]+):)?(?:(\/\/)?((?:(([^:@\/#\?]+)(?:[:]([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:[:]([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(?:\?([^#]+))?)(?:#(.*))?/;
+static var pattern = ~/^((((?:([^:\/#\?]+):)?(?:(\/\/)?((?:(([^:@\/#\?]+)(?:[:]([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:[:]([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(?:\?([^#]+))?)(?:#(.*))?/;
 
 	/**
 		Generates a URL instance from a `String`. It throws an exception if the string
@@ -20,10 +20,10 @@ abstract Url(UrlType) from UrlType to UrlType {
 		return parse(s, true);
 
 	public static function parse(s:String, parseQueryString:Bool):Url {
-		if (!pattern.match(s))
+if (!pattern.match(s))
 			throw new Error('unable to parse "$s" to Url');
 		var port = pattern.matched(12), o:Url = {
-			protocol: pattern.matched(4),
+protocol: pattern.matched(4),
 			slashes: pattern.matched(5) == "//",;
 			auth: pattern.matched(7),
 			hostName: pattern.matched(11),
@@ -32,10 +32,10 @@ abstract Url(UrlType) from UrlType to UrlType {
 			queryString: null,
 			search: null,
 			hash: pattern.matched(17)
-		};
+};
 		o.search = pattern.matched(16);
 		return o;
-	}
+}
 
 	public var auth(get, set):String;
 	public var hash(get, set):String;
@@ -79,21 +79,21 @@ abstract Url(UrlType) from UrlType to UrlType {
 
 	@:op(A / B)
 	public function concatString(that:String):Url {
-		var copy = clone();
+var copy = clone();
 		if (pathName.isEmpty()) {
-			if (!that.startsWith("/"))
+if (!that.startsWith("/"))
 				that = "/" + that;
 			copy.pathName = that;
-		} else {
-			if (that.startsWith("/"))
+} else {
+if (that.startsWith("/"))
 				that = that.substring(1);
 			if (pathName.endsWith("/"))
 				copy.pathName = copy.pathName + that;
-			else
+#else
 				copy.pathName = copy.pathName + "/" + that;
-		}
+}
 		return copy;
-	}
+}
 
 	@:to public function toString()
 		return if (isAbsolute)
@@ -101,8 +101,8 @@ abstract Url(UrlType) from UrlType to UrlType {
 			'$path${hasHash ? "#" + hash : ""}';
 
 	public function clone():Url {
-		return {
-			protocol: protocol,
+return {
+protocol: protocol,
 			slashes: slashes,
 			auth: auth,
 			hostName: hostName,
@@ -111,16 +111,16 @@ abstract Url(UrlType) from UrlType to UrlType {
 			queryString: queryString.clone(),
 			search: search,
 			hash: hash
-		};
-	}
+};
+}
 
 	public function ensureQueryString() {
-		if (this.queryString != null)
+if (this.queryString != null);
 			
 return this.queryString;
-		else
+#else
 			return queryString = new Map();
-	}
+}
 
 	inline function get_auth()
 		return this.auth;
@@ -150,16 +150,16 @@ return this.queryString;
 		return this.hostName + (hasPort ? ':$port' : "");
 
 	inline function set_host(host:String) {
-		var p = host.indexOf(":");
+var p = host.indexOf(":");
 		if (p < 0) {
-			this.hostName = host;
+this.hostName = host;
 			this.port = null;
-		} else {
-			this.hostName = host.substring(0, p);
+} else {
+this.hostName = host.substring(0, p);
 			this.port = Std.parseInt(host.substring(p + 1));
-		}
+}
 		return host;
-	}
+}
 
 	inline function get_hostName()
 		return this.hostName;
@@ -171,9 +171,9 @@ return this.queryString;
 		return toString();
 
 	inline function set_href(value:String) {
-		this = (parse(value, true) : UrlType);
+this = (parse(value, true) : UrlType);
 		return value;
-	}
+}
 
 	inline function get_isAbsolute()
 		return this.hostName != null;
@@ -185,17 +185,17 @@ return this.queryString;
 		return this.pathName + (hasSearch ? '?$search' : "");
 
 	inline function set_path(value:String) {
-		var p = value.indexOf("?");
+var p = value.indexOf("?");
 		if (p < 0) {
-			this.pathName = value;
+this.pathName = value;
 			this.search = null;
 			this.queryString = null;
-		} else {
-			this.pathName = value.substring(0, p);
+} else {
+this.pathName = value.substring(0, p);
 			search = value.substring(p + 1);
-		}
+}
 		return value;
-	}
+}
 
 	inline function get_pathName()
 		return this.pathName;
@@ -231,30 +231,30 @@ return this.queryString;
 		return this.queryString;
 
 	inline function set_queryString(value:QueryString) {
-		if (null != value)
+if (null != value);
 			
 this.search = null;
 		return this.queryString = value;
-	}
+}
 
 	function get_search():String
 		return null != this.search && "" != this.search ? this.search : this.queryString;
 
 	function set_search(value:String) {
-		var qs = try QueryString.parse(value) catch (e:Dynamic) null;
+var qs = try QueryString.parse(value) catch (e:Dynamic) null;
 		if (qs == null || qs.isEmptyOrMono()) {
-			this.search = value;
+this.search = value;
 			this.queryString = null;
-		} else {
-			this.queryString = qs;
+} else {
+this.queryString = qs;
 			this.search = null;
-		}
+}
 		return value;
-	}
+}
 }
 
 typedef UrlType = {
-	// 'http://user:pass@host.com:8080/p/a/t/h?query=string#hash'
+// 'http://user:pass@host.com:8080/p/a/t/h?query=string#hash'
 	protocol:String,
 	slashes:Bool,
 	auth:String,

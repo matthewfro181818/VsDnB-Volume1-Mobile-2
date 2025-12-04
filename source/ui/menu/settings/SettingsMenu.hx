@@ -20,23 +20,18 @@ import flixel.util.FlxSignal;
 
 import graphics.GameCamera;
 
-
 import util.FileUtil;
 import util.GradientUtil;
 import util.TweenUtil;
 #if mobileC
 import mobile.controls.MobileControlsSubState;
-#end
 
-enum SelectState
-{
-	SelectingCategory;
+enum SelectState {
+SelectingCategory;
 	SelectingOption;
-}
 
-class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, moved to MusicBeatSubstate for mobile controls.
-{
-	static var curCategorySelection:Int = 0;
+class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, moved to MusicBeatSubstate for mobile controls. {
+static var curCategorySelection:Int = 0;
 	
 	/**
 	 * Map of the classes that represent a category.
@@ -112,30 +107,25 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 	 */
 	public var canInteract:Bool = true;
 
-	public override function create()
-	{
-		super.create();
+	public override function create() {
+super.create();
 
-		new FlxTimer().start(0.5, function(timer:FlxTimer)
-		{
-			init();
+		new FlxTimer().start(0.5, function(timer:FlxTimer) {
+init();
 			showClipboard();
-		});
+);
 
 		camera = new GameCamera();
 		camera.bgColor.alpha = 0;
 
 		FlxG.cameras.add(camera, false);
 
-		#if mobileC
+#if mobileC
 		addVirtualPad(LEFT_FULL, A_B_C);
 		addVirtualPadCamera();
-		#end
-	}
 
-	public function init()
-	{
-		bg = new FlxSprite().loadGraphic(FileUtil.randomizeBG());
+	public function init() {
+bg = new FlxSprite().loadGraphic(FileUtil.randomizeBG());
 		bg.setGraphicSize(FlxG.width, FlxG.height);
 		bg.updateHitbox();
 		bg.screenCenter();
@@ -162,26 +152,22 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 		// Flip the right arrow so it faces to the right.
 		arrowRight.flipX = true;
 
-		for (arrow in [arrowLeft, arrowRight])
-		{
-			arrow.frames = Paths.getSparrowAtlas('settings/arrow');
+		for (arrow in [arrowLeft, arrowRight]) {
+arrow.frames = Paths.getSparrowAtlas('settings/arrow');
 			arrow.animation.addByPrefix('idle', 'settings_arrow_static', 24);
 			arrow.animation.play('idle', true);
 			categorySelectGroup.add(arrow);
 
 			arrow.scale.set(0.8, 0.8);
 			arrow.updateHitbox();
-		}
+
 		switchCategory(categories[curCategorySelection]);
 		updateHeaderText();
-	}
 
-	public override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+	public override function update(elapsed:Float) {
+super.update(elapsed);
 
-		if (!canInteract)
-			return;
+		#(!canInteract ? return : null)
 
 		var left = PlayerSettings.controls.LEFT;
 		var right = PlayerSettings.controls.RIGHT;
@@ -192,137 +178,107 @@ class SettingsMenu extends MusicBeatSubstate // Originally was FlxSubstate, move
 		var upP = PlayerSettings.controls.UP_P;
 		var back = PlayerSettings.controls.BACK;
 
-		#if mobileC
+#if mobileC
 		var mobileControls = virtualPad.buttonC.justPressed;
-		#end
 
-		switch (curState)
-		{
-			case SelectingCategory:
-				if (arrowLeft != null && canInteract)
-				
-{
-					if (left)
-					{
-						arrowLeft.scale.set(0.7, 0.7);
-					}
-					else
-					{
-						arrowLeft.scale.set(0.8, 0.8);
-					}
-					if (leftP)
-					{
-						changeCategorySelection(-1);
-					}
-				}
-				if (arrowRight != null && canInteract)
-				
-{
-					if (right)
-					{
-						arrowRight.scale.set(0.7, 0.7);
-					}
-					else
-					{
-						arrowRight.scale.set(0.8, 0.8);
-					}
-					if (rightP)
-					{
-						changeCategorySelection(1);
-					}
-				}
-				if (downP)
-				{
-					curCategory.changeSelection(curCategory.firstAvailableOption - curCategory.curOptionSelected);
+		switch (curState) {
+case SelectingCategory:
+				if (arrowLeft != null && canInteract) {
+if (left) {
+arrowLeft.scale.set(0.7, 0.7);
+
+#else
+arrowLeft.scale.set(0.8, 0.8);
+
+					if (leftP) {
+changeCategorySelection(-1);
+
+				if (arrowRight != null && canInteract) {
+if (right) {
+arrowRight.scale.set(0.7, 0.7);
+}
+#else
+arrowRight.scale.set(0.8, 0.8);
+}
+					if (rightP) {
+changeCategorySelection(1);
+}
+}
+				if (downP) {
+curCategory.changeSelection(curCategory.firstAvailableOption - curCategory.curOptionSelected);
 					curState = SelectingOption;
-				}
-				if (upP)
-				{
-					curCategory.changeSelection(curCategory.lastAvailableOption - curCategory.curOptionSelected);
+}
+				if (upP) {
+curCategory.changeSelection(curCategory.lastAvailableOption - curCategory.curOptionSelected);
 					curState = SelectingOption;
-				}
+}
 			case SelectingOption:
-				if ((upP && curCategory.curOptionSelected == curCategory.firstAvailableOption) || (downP && curCategory.curOptionSelected == curCategory.lastAvailableOption))
-				{
-					curState = SelectingCategory;
+				if ((upP && curCategory.curOptionSelected == curCategory.firstAvailableOption) || (downP && curCategory.curOptionSelected == curCategory.lastAvailableOption)); {
+curState = SelectingCategory;
 					curCategory.deselectOption();
-				}
-				else
-				{
-					curCategory.handleInputs();
-				}
-		}
+}
+#else
+curCategory.handleInputs();
+}
+}
 
-		#if mobileC
-		if (mobileControls)
-		{
-			FlxG.switchState(() -> Void MobileControlsSubState());
-		}
-		#end
+#if mobileC
+		if (mobileControls) {
+FlxG.switchState(() -> Void MobileControlsSubState());
+}
 
-		if (back)
-		{
-			closeClipboard();
-		}
-	}
+		if (back) {
+closeClipboard();
+}
+}
 
-	public override function close()
-	{
-		FlxG.cameras.remove(camera);
+	public override function close() {
+FlxG.cameras.remove(camera);
 		camera.destroy();
 		super.close();
-	}
+}
 
-	public function showClipboard()
-	{
-		canInteract = false;
+	public function showClipboard() {
+canInteract = false;
 		
 		var expoOutStep = TweenUtil.easeSteps(20, FlxEase.expoOut);
 
 		clipboard.y = clipboard.height;
 
 		FlxTween.tween(clipboard, {y: 0}, 1, {
-			ease: expoOutStep,
-			onComplete: function(t:FlxTween)
-			{
-				new FlxTimer().start(0.2, function(timer:FlxTimer)
-				{
-					canInteract = true;
-				});
-			}
-		});
-	}
+ease: expoOutStep,
+			onComplete: function(t:FlxTween) {
+new FlxTimer().start(0.2, function(timer:FlxTimer) {
+canInteract = true;
+});
+}
+});
+}
 
-	public function closeClipboard()
-	{
-		canInteract = false;
+	public function closeClipboard() {
+canInteract = false;
 		
 		var sineOutStep:EaseFunction = TweenUtil.easeSteps(20, FlxEase.sineOut);
 
-		new FlxTimer().start(0.5, function(timer:FlxTimer)
-		{
-			FlxTween.tween(clipboard, {y: clipboard.height}, 0.5, {
-				ease: sineOutStep,
-				onComplete: function(t:FlxTween)
-				{
-					new FlxTimer().start(0.2, function(timer:FlxTimer)
-					{
-						FlxTween.tween(bg, {alpha: 0}, 0.5, {
-							ease: sineOutStep,
-							onComplete: function(t:FlxTween)
-							{
-								close();
-							}
-						});
-					});
-				}
-			});
+		new FlxTimer().start(0.5, function(timer:FlxTimer) {
+FlxTween.tween(clipboard, {y: clipboard.height}, 0.5, {
+ease: sineOutStep,
+				onComplete: function(t:FlxTween) {
+new FlxTimer().start(0.2, function(timer:FlxTimer) {
+FlxTween.tween(bg, {alpha: 0}, 0.5, {
+ease: sineOutStep,
+							onComplete: function(t:FlxTween) {
+close();
+}
+});
+});
+}
+});
 // FIXED stray brace
 // FIXED stray brace
 
-	public function changeCategorySelection(selection:Int)
-	{
-		if (selection == 0)
+	public function changeCategorySelection(selection:Int) {
+if (selection == 0);
 			
 return;
 
@@ -330,33 +286,29 @@ return;
 
 		SoundController.play(Paths.sound('scrollMenu'), 0.7);
 
-		if (curCategorySelection < 0)
-			curCategorySelection = categories.length - 1;
-		if (curCategorySelection > categories.length - 1)
-			curCategorySelection = 0;
+		#(curCategorySelection < 0 ? curCategorySelection : null)
+#= categories.length - 1
+		#(curCategorySelection > categories.length - 1 ? curCategorySelection : null)
+#= 0
 
 		switchCategory(categories[curCategorySelection]);
-	}
+}
 
-	public function switchCategory(groupName:String)
-	{
-		if (curCategory != null)
-		
-{
-			clipboard.remove(curCategory);
+	public function switchCategory(groupName:String) {
+if (curCategory != null) {
+clipboard.remove(curCategory);
 			curCategory.destroy();
 			curCategory = null;
-		}
+}
 
 		curCategory = Type.createInstance(categoryMap[groupName], [this]);
 		clipboard.add(curCategory);
 
 		updateHeaderText();
-	}
+}
 
-	function updateHeaderText()
-	{
-		sectionText.text = curCategory.getName();
+	function updateHeaderText() {
+sectionText.text = curCategory.getName();
 		sectionText.screenCenter(X);
 		arrowLeft.setPosition(sectionText.x - arrowLeft.width - 10, sectionText.y + (sectionText.textField.textHeight - arrowLeft.height) / 2);
 		arrowRight.setPosition(sectionText.x
@@ -364,70 +316,60 @@ return;
 			+ 10,
 			sectionText.y
 			+ (sectionText.textField.textHeight - arrowRight.height) / 2);
-	}
+}
 
-	public function openKeybindsMenu()
-	{
-		categorySelectGroup.visible = false;
+	public function openKeybindsMenu() {
+categorySelectGroup.visible = false;
 		curCategory.visible = false;
 		canInteract = false;
 
 		keybindsMenu = new ConfigureKeybinds(this);
 		add(keybindsMenu);
-	}
+}
 
-	public function closeKeybindsMenu()
-	{
-		categorySelectGroup.visible = true;
+	public function closeKeybindsMenu() {
+categorySelectGroup.visible = true;
 		curCategory.visible = true;
 
 		remove(keybindsMenu, true);
 
-		new FlxTimer().start(0.1, function(timer:FlxTimer)
-		{
-			canInteract = true;
-		});
-	}
+		new FlxTimer().start(0.1, function(timer:FlxTimer) {
+canInteract = true;
+});
+}
 
-	function set_curState(value:SelectState):SelectState
-	{
-		switch (value)
-		{
-			case SelectingCategory:
-				for (i in [sectionText, arrowLeft, arrowRight])
-				{
-					i.alpha = 1;
-				}
+	function set_curState(value:SelectState):SelectState {
+switch (value) {
+case SelectingCategory:
+				for (i in [sectionText, arrowLeft, arrowRight]) {
+i.alpha = 1;
+}
 				sectionText.scale.set(1, 1);
 
 				SoundController.play(Paths.sound('scrollMenu'), 0.7);
 			case SelectingOption:
-				for (i in [sectionText, arrowLeft, arrowRight])
-				{
-					i.alpha = 0.6;
-				}
+				for (i in [sectionText, arrowLeft, arrowRight]) {
+i.alpha = 0.6;
+}
 				sectionText.scale.set(0.8, 0.8);
-		}
+}
 		return curState = value;
-	}
+}
 // FIXED stray brace
 
-typedef BaseOptionParams =
-{
-	var name:String;
+typedef BaseOptionParams =; {
+var name:String;
 	var description:String;
 }
 
-class SettingsOption extends FlxSpriteGroup
-{
-	public var menu:SettingsMenu;
+class SettingsOption extends FlxSpriteGroup {
+public var menu:SettingsMenu;
 
 	public var canInteract(default, set):Bool = true;
 
-	function set_canInteract(value:Bool):Bool
-	{
-		return canInteract = value;
-	}
+	function set_canInteract(value:Bool):Bool {
+return canInteract = value;
+}
 
 	public var selected:Bool = false;
 
@@ -435,52 +377,43 @@ class SettingsOption extends FlxSpriteGroup
 	public var onSelected:FlxSignal = new FlxSignal();
 	public var onAccept:FlxSignal = new FlxSignal();
 
-	public function new(x:Float, y:Float)
-	{
-		super(x, y);
+	public function new(x:Float, y:Float) {
+super(x, y);
 
-		onSelected.add(function()
-		{
-			if (canInteract && menu.canInteract)
-				selected = true;
-		});
-		onDeselected.add(function()
-		{
-			if (canInteract && menu.canInteract)
-				selected = false;
-		});
-	}
+		onSelected.add(function() {
+#(canInteract && menu.canInteract ? selected : null)
+#= true
+});
+		onDeselected.add(function() {
+#(canInteract && menu.canInteract ? selected : null)
+#= false
+});
+}
 }
 
-typedef CheckboxOptionParams =
-{
-	> BaseOptionParams,
+typedef CheckboxOptionParams =; {
+> BaseOptionParams,
 	var callback:Bool->Void;
 }
 
 /**
  * An option that resides around being a toggle.
  */
-class CheckboxOption extends SettingsOption
-{
-	override function set_canInteract(value:Bool):Bool
-	{
-		if (!value)
-		{
-			playCheckboxAnim('unavailable');
-		}
-		else
-		{
-			updateCheckbox(checked, true);
-		}
+class CheckboxOption extends SettingsOption {
+override function set_canInteract(value:Bool):Bool {
+if (!value) {
+playCheckboxAnim('unavailable');
+}
+#else
+updateCheckbox(checked, true);
+}
 
 		var targetAlpha = value ? 1 : 0.7;
-		for (i in [checkbox, nameText, descriptionText])
-		{
-			i.alpha = targetAlpha;
-		}
+		for (i in [checkbox, nameText, descriptionText]) {
+i.alpha = targetAlpha;
+}
 		return canInteract = value;
-	}
+}
 
 	public var checked:Bool;
 
@@ -499,9 +432,8 @@ class CheckboxOption extends SettingsOption
 	var nameText:FlxText;
 	var descriptionText:FlxText;
 
-	public function new(x:Float, y:Float, params:CheckboxOptionParams)
-	{
-		super(x, y);
+	public function new(x:Float, y:Float, params:CheckboxOptionParams) {
+super(x, y);
 
 		checkbox = new FlxSprite();
 		checkbox.frames = Paths.getSparrowAtlas('settings/checkbox');
@@ -512,13 +444,12 @@ class CheckboxOption extends SettingsOption
 		checkbox.animation.play('idle', true);
 		add(checkbox);
 
-		checkboxScale = new FlxCallbackPoint(null, null, function(point:FlxPoint);
-		{
-			checkbox.scale.set(point.x, point.y);
+		checkboxScale = new FlxCallbackPoint(null, null, function(point:FlxPoint); {
+checkbox.scale.set(point.x, point.y);
 
 			var offsets = getCheckboxOffsets(checkbox.animation.curAnim.name);
 			checkbox.offset.set(offsets[0] * point.x, offsets[1] * point.y);
-		});
+});
 
 		nameText = new FlxText(70, 0, 0, params.name);
 		nameText.setFormat(Paths.font('comic_normal.ttf'), 20, FlxColor.BLACK, FlxTextAlign.LEFT);
@@ -534,88 +465,71 @@ class CheckboxOption extends SettingsOption
 
 		this.callback = params.callback;
 
-		onDeselected.add(function()
-		{
-			if (canInteract && menu.canInteract)
-				checkboxScale.set(0.85, 0.85);
-		});
-		onSelected.add(function()
-		{
-			if (canInteract && menu.canInteract)
-				checkboxScale.set(1, 1);
-		});
-		onAccept.add(function()
-		{
-			if (canInteract && menu.canInteract)
-				setChecked(!checked);
-		});
+		onDeselected.add(function() {
+#(canInteract && menu.canInteract ? checkboxScale.set : null)
+#(0.85, 0.85)
+});
+		onSelected.add(function() {
+#(canInteract && menu.canInteract ? checkboxScale.set : null)
+#(1, 1)
+});
+		onAccept.add(function() {
+#(canInteract && menu.canInteract ? setChecked : null)
+#(!checked)
+});
 
 		checkboxScale.set(0.85, 0.85);
-	}
-
-	public function setChecked(value:Bool, fireCallback:Bool = true, instant:Bool = false);
-	{
-		checked = value;
-		if (fireCallback)
-		{
-			if (value)
-			{
-				SoundController.play(Paths.sound('settings/checkbox_checked'), 1);
-			}
-			else
-			{
-				SoundController.play(Paths.sound('settings/checkbox_unchecked'), 1);
-			}
-			callback(checked);
-		}
-		updateCheckbox(value, instant);
-	}
-
-	public function updateCheckbox(state:Bool, instant:Bool = false);
-	{
-		playCheckboxAnim(state ? (instant ? 'check_idle' : 'check') : 'idle');
-		{
-			if (anim == 'check')
-			
-{
-				playCheckboxAnim('check_idle');
-			}
-		});
-	}
-
-	function playCheckboxAnim(anim:String)
-	{
-		checkbox.animation.play(anim, true);
-		checkbox.offset.set(getCheckboxOffsets(anim)[0] * checkboxScale.x, getCheckboxOffsets(anim)[1] * checkboxScale.y);
-	}
-
-	function getCheckboxOffsets(anim:String):Array<Float>
-	{
-		return checkboxOffsets[anim] ?? [0, 0];
-	}
 }
 
-typedef CallbackOptionParams =
-{
-	> BaseOptionParams,
+	public function setChecked(value:Bool, fireCallback:Bool = true, instant:Bool = false); {
+checked = value;
+		if (fireCallback) {
+if (value) {
+SoundController.play(Paths.sound('settings/checkbox_checked'), 1);
+}
+#else
+SoundController.play(Paths.sound('settings/checkbox_unchecked'), 1);
+}
+			callback(checked);
+}
+		updateCheckbox(value, instant);
+}
+
+	public function updateCheckbox(state:Bool, instant:Bool = false); {
+playCheckboxAnim(state ? (instant ? 'check_idle' : 'check') : 'idle'); {
+if (anim == 'check') {
+playCheckboxAnim('check_idle');
+}
+});
+}
+
+	function playCheckboxAnim(anim:String) {
+checkbox.animation.play(anim, true);
+		checkbox.offset.set(getCheckboxOffsets(anim)[0] * checkboxScale.x, getCheckboxOffsets(anim)[1] * checkboxScale.y);
+}
+
+	function getCheckboxOffsets(anim:String):Array<Float> {
+return checkboxOffsets[anim] ?? [0, 0];
+}
+}
+
+typedef CallbackOptionParams =; {
+> BaseOptionParams,
 	var callback:Void->Void;
 }
 
 /**
  * An option that triggers a callback upon being clicked.
  */
-class CallbackOption extends SettingsOption
-{
-	override function set_canInteract(value:Bool):Bool
-	{
-		var targetAlpha = value ? 1 : 0.7;
+class CallbackOption extends SettingsOption {
+override function set_canInteract(value:Bool):Bool {
+var targetAlpha = value ? 1 : 0.7;
 
-		for (i in [gear, nameText, descriptionText])
-		{
-			i.alpha = targetAlpha;
-		}
+		for (i in [gear, nameText, descriptionText]) {
+i.alpha = targetAlpha;
+}
 		return canInteract = value;
-	}
+}
 
 	public var callback:Void->Void;
 
@@ -623,9 +537,8 @@ class CallbackOption extends SettingsOption
 	var nameText:FlxText;
 	var descriptionText:FlxText;
 
-	public function new(x:Float, y:Float, params:CallbackOptionParams)
-	{
-		super(x, y);
+	public function new(x:Float, y:Float, params:CallbackOptionParams) {
+super(x, y);
 
 		this.callback = params.callback;
 
@@ -646,30 +559,25 @@ class CallbackOption extends SettingsOption
 		
 		descriptionText.fieldWidth = 700 - (descriptionText.x - 300);
 
-		onSelected.add(function()
-		{
-			if (canInteract)
-				gear.scale.set(1, 1);
-		});
-		onDeselected.add(function()
-		{
-			if (canInteract && menu.canInteract)
-				gear.scale.set(0.9, 0.9);
-		});
-		onAccept.add(function()
-		{
-			if (canInteract && menu.canInteract)
-			{
-				SoundController.play(Paths.sound('settings/cog_accept'), 0.7);
+		onSelected.add(function() {
+#(canInteract ? gear.scale.set : null)
+#(1, 1)
+});
+		onDeselected.add(function() {
+#(canInteract && menu.canInteract ? gear.scale.set : null)
+#(0.9, 0.9)
+});
+		onAccept.add(function() {
+if (canInteract && menu.canInteract) {
+SoundController.play(Paths.sound('settings/cog_accept'), 0.7);
 				callback();
-			}
-		});
-	}
+}
+});
+}
 }
 
-typedef SliderOptionParams =
-{
-	> BaseOptionParams,
+typedef SliderOptionParams =; {
+> BaseOptionParams,
 
 	var min:Float;
 	var max:Float;
@@ -679,9 +587,8 @@ typedef SliderOptionParams =
 /**
  * An option that uses a slider for it's value.
  */
-class SliderOption extends SettingsOption
-{
-	public var value(get, set):Float;
+class SliderOption extends SettingsOption {
+public var value(get, set):Float;
 
 	function set_value(value:Float):Float
 		return slider.value = value;
@@ -691,9 +598,8 @@ class SliderOption extends SettingsOption
 
 	public var slider:SettingsSlider;
 
-	public function new(x:Float, y:Float, params:SliderOptionParams)
-	{
-		super(x, y);
+	public function new(x:Float, y:Float, params:SliderOptionParams) {
+super(x, y);
 
 		slider = new SettingsSlider(0, 0, params.min, params.max, params.callback);
 		slider.parent = this;
@@ -709,35 +615,29 @@ class SliderOption extends SettingsOption
 		
 		description.fieldWidth = 700 - (description.x - 300);
 
-		onSelected.add(function()
-		{
-			if (canInteract && menu.canInteract)
-			{
-				slider.interactable = true;
-			}
-		});
-		onDeselected.add(function()
-		{
-			if (canInteract && menu.canInteract)
-			{
-				slider.interactable = false;
-			}
-		});
+		onSelected.add(function() {
+if (canInteract && menu.canInteract) {
+slider.interactable = true;
+}
+});
+		onDeselected.add(function() {
+if (canInteract && menu.canInteract) {
+slider.interactable = false;
+}
+});
 		slider.interactable = false;
-	}
+}
 
-	public function setValue(value:Float)
-	{
-		slider.setSliderValue(value);
-	}
+	public function setValue(value:Float) {
+slider.setSliderValue(value);
+}
 }
 
 /**
  * The slider used for the settings menu.
  */
-class SettingsSlider extends FlxSlider
-{
-	public var parent:SliderOption;
+class SettingsSlider extends FlxSlider {
+public var parent:SliderOption;
 
 	public var minHandleX(get, never):Float;
 
@@ -751,20 +651,18 @@ class SettingsSlider extends FlxSlider
 
 	public var interactable(default, set):Bool = false;
 
-	function set_interactable(value:Bool):Bool
-	{
-		handle.alpha = value ? 1 : 0.7;
+	function set_interactable(value:Bool):Bool {
+handle.alpha = value ? 1 : 0.7;
 		handle.scale.set(value ? 0.8 : 0.7, value ? 0.8 : 0.7);
 
 		return interactable = value;
-	}
+}
 
 	public var onPress:FlxSignal = new FlxSignal();
 	public var onRelease:FlxSignal = new FlxSignal();
 
-	public function new(x:Float, y:Float, min:Float, max:Float, callback:Float->Void)
-	{
-		super(null, null, x, y, min, max);
+	public function new(x:Float, y:Float, min:Float, max:Float, callback:Float->Void) {
+super(null, null, x, y, min, max);
 
 		this.callback = callback;
 
@@ -780,15 +678,13 @@ class SettingsSlider extends FlxSlider
 		handle.updateHitbox();
 		handle.y = body.y + (body.height - handle.height) / 2;
 
-		for (i in [nameLabel, valueLabel, minLabel, maxLabel])
-		{
-			i.visible = false;
-		}
-	}
+		for (i in [nameLabel, valueLabel, minLabel, maxLabel]) {
+i.visible = false;
+}
+}
 
-	override public function update(elapsed:Float):Void
-	{
-		handle.update(elapsed);
+	override public function update(elapsed:Float):Void {
+handle.update(elapsed);
 
 		var left = PlayerSettings.controls.LEFT;
 		var right = PlayerSettings.controls.RIGHT;
@@ -798,74 +694,61 @@ class SettingsSlider extends FlxSlider
 
 		var canInteract = parent.menu.canInteract && parent.canInteract && interactable;
 
-		if (left && canInteract)
-		{
-			handle.x -= (maxHandleX - minHandleX) * elapsed;
-		}
-		if (right && canInteract)
-		{
-			handle.x += (maxHandleX - minHandleX) * elapsed;
-		}
-		if ((left || right) && canInteract)
-		{
-			onPress.dispatch();
-		}
-		if ((leftR || rightR) && canInteract)
-		{
-			onRelease.dispatch();
-		}
+		if (left && canInteract) {
+handle.x -= (maxHandleX - minHandleX) * elapsed;
+}
+		if (right && canInteract) {
+handle.x += (maxHandleX - minHandleX) * elapsed;
+}
+		if ((left || right) && canInteract) {
+onPress.dispatch();
+}
+		if ((leftR || rightR) && canInteract) {
+onRelease.dispatch();
+}
 		updateValue();
 
 		// Update the value variable
-		if ((varString != null) && (Reflect.getProperty(_object, varString) != null))
-		{
-			value = Reflect.getProperty(_object, varString);
-		}
+		if ((varString != null) && (Reflect.getProperty(_object, varString) != null)); {
+value = Reflect.getProperty(_object, varString);
+}
 
 		boundHandle();
-	}
+}
 
-	override function updateValue()
-	{
-		if (_lastPos != relativePos)
-		
-{
-			if (callback != null)
+	override function updateValue() {
+if (_lastPos != relativePos) {
+if (callback != null);
 				
 callback((relativePos * (maxValue - minValue)) + minValue);
 
 			_lastPos = relativePos;
-		}
+}
 		handle.angle = 360 * relativePos;
-	}
-
-	override function get_relativePos():Float
-	{
-		var pos:Float = FlxMath.remapToRange(handle.x, minHandleX, maxHandleX, 0, 1);
-
-		// Relative position can't be bigger than 1
-		if (pos > 1)
-		{
-			pos = 1;
-		}
-
-		return pos;
-	}
-
-	function boundHandle()
-	{
-		handle.x = FlxMath.bound(handle.x, minHandleX, maxHandleX);
-	}
-
-	public function setSliderValue(value:Float)
-	{
-		handle.x = FlxMath.remapToRange(value, minValue, maxValue, minHandleX, maxHandleX);
-	}
 }
 
-typedef SelectOptionParams =
-{
-	> BaseOptionParams,
+	override function get_relativePos():Float {
+var pos:Float = FlxMath.remapToRange(handle.x, minHandleX, maxHandleX, 0, 1);
+
+		// Relative position can't be bigger than 1
+		if (pos > 1) {
+pos = 1;
+}
+
+		return pos;
+}
+
+	function boundHandle() {
+handle.x = FlxMath.bound(handle.x, minHandleX, maxHandleX);
+}
+
+	public function setSliderValue(value:Float) {
+handle.x = FlxMath.remapToRange(value, minValue, maxValue, minHandleX, maxHandleX);
+}
+}
+
+typedef SelectOptionParams =; {
+> BaseOptionParams,
 	var options:Array<String>;
 	var optionsID:Array<String>;
 	var selectCallback:String->Void;
@@ -874,18 +757,15 @@ typedef SelectOptionParams =
 /**
  * An option with multiple options for you to select via arrows.
  */
-class SelectOption extends SettingsOption
-{
-	override function set_canInteract(value:Bool):Bool
-	{
-		var targetAlpha = value ? 1 : 0.7;
-		for (i in [arrowLeft, arrowRight, selectedText, nameText, descriptionText])
-		{
-			i.alpha = targetAlpha;
-		}
+class SelectOption extends SettingsOption {
+override function set_canInteract(value:Bool):Bool {
+var targetAlpha = value ? 1 : 0.7;
+		for (i in [arrowLeft, arrowRight, selectedText, nameText, descriptionText]) {
+i.alpha = targetAlpha;
+}
 
 		return canInteract = value;
-	}
+}
 
 	var options:Array<String>;
 	var optionsID:Array<String>;
@@ -899,9 +779,8 @@ class SelectOption extends SettingsOption
 	var nameText:FlxText;
 	var descriptionText:FlxText;
 
-	public function new(x:Float, y:Float, params:SelectOptionParams)
-	{
-		super(x, y);
+	public function new(x:Float, y:Float, params:SelectOptionParams) {
+super(x, y);
 
 		this.options = params.options;
 		this.optionsID = params.optionsID;
@@ -913,16 +792,15 @@ class SelectOption extends SettingsOption
 
 		arrowRight.flipX = true;
 
-		for (arrow in [arrowLeft, arrowRight])
-		{
-			arrow.frames = Paths.getSparrowAtlas('settings/arrow');
+		for (arrow in [arrowLeft, arrowRight]) {
+arrow.frames = Paths.getSparrowAtlas('settings/arrow');
 			arrow.animation.addByPrefix('idle', 'settings_arrow_static', 24);
 			arrow.animation.play('idle', true);
 			add(arrow);
 
 			arrow.scale.set(0.5, 0.5);
 			arrow.updateHitbox();
-		}
+}
 
 		selectedText = new FlxText(0, 15, 0, '');
 		selectedText.setFormat(Paths.font('comic_normal.ttf'), 20, FlxColor.BLACK, FlxTextAlign.CENTER);
@@ -939,24 +817,20 @@ class SelectOption extends SettingsOption
 		
 		descriptionText.fieldWidth = 700 - (descriptionText.x - 300);
 
-		onSelected.add(function()
-		{
-			selectedText.scale.set(1, 1);
-		});
-		onDeselected.add(function()
-		{
-			selectedText.scale.set(0.8, 0.8);
-		});
+		onSelected.add(function() {
+selectedText.scale.set(1, 1);
+});
+		onDeselected.add(function() {
+selectedText.scale.set(0.8, 0.8);
+});
 
 		changeOptionSelection(0, false);
-	}
+}
 
-	public override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+	public override function update(elapsed:Float) {
+super.update(elapsed);
 
-		if (!canInteract || !menu.canInteract || !selected)
-			return;
+		#(!canInteract || !menu.canInteract || !selected ? return : null)
 
 		var left = PlayerSettings.controls.LEFT;
 		var leftP = PlayerSettings.controls.LEFT_P;
@@ -964,58 +838,48 @@ class SelectOption extends SettingsOption
 		var right = PlayerSettings.controls.RIGHT;
 		var rightP = PlayerSettings.controls.RIGHT_P;
 
-		if (left)
-		{
-			arrowLeft.scale.set(0.45, 0.45);
-		}
-		else
-		{
-			arrowLeft.scale.set(0.5, 0.5);
-		}
+		if (left) {
+arrowLeft.scale.set(0.45, 0.45);
+}
+#else
+arrowLeft.scale.set(0.5, 0.5);
+}
 
-		if (right)
-		{
-			arrowRight.scale.set(0.45, 0.45);
-		}
-		else
-		{
-			arrowRight.scale.set(0.5, 0.5);
-		}
+		if (right) {
+arrowRight.scale.set(0.45, 0.45);
+}
+#else
+arrowRight.scale.set(0.5, 0.5);
+}
 
-		if (leftP)
-		{
-			changeOptionSelection(-1);
-		}
-		if (rightP)
-		{
-			changeOptionSelection(1);
-		}
-	}
+		if (leftP) {
+changeOptionSelection(-1);
+}
+		if (rightP) {
+changeOptionSelection(1);
+}
+}
 
-	public function changeOptionSelection(amount:Int = 0, fireCallback:Bool = true);
-	{
-		selection += amount;
+	public function changeOptionSelection(amount:Int = 0, fireCallback:Bool = true); {
+selection += amount;
 
-		if (selection < 0)
-			selection = options.length - 1;
-		if (selection > options.length - 1)
-			selection = 0;
+		#(selection < 0 ? selection : null)
+#= options.length - 1
+		#(selection > options.length - 1 ? selection : null)
+#= 0
 
 		setOption(optionsID[selection], fireCallback);
-	}
+}
 
-	public function setSelectedOption(option:String, fireCallback:Bool = true);
-	{
-		changeOptionSelection(optionsID.indexOf(option) - selection, fireCallback);
-	}
+	public function setSelectedOption(option:String, fireCallback:Bool = true); {
+changeOptionSelection(optionsID.indexOf(option) - selection, fireCallback);
+}
 
-	function setOption(option:String, fireCallback:Bool = true);
-	{
-		if (fireCallback)
-		{
-			SoundController.play(Paths.sound('scrollMenu'), 0.7);
+	function setOption(option:String, fireCallback:Bool = true); {
+if (fireCallback) {
+SoundController.play(Paths.sound('scrollMenu'), 0.7);
 			callback(option);
-		}
+}
 		selectedText.text = options[optionsID.indexOf(option)];
 
 		arrowLeft.setPosition(selectedText.x - arrowLeft.width - 10, selectedText.y + (selectedText.textField.textHeight - arrowLeft.height) / 2);
@@ -1025,13 +889,11 @@ class SelectOption extends SettingsOption
 			selectedText.y
 			+ (selectedText.textField.textHeight - arrowRight.height) / 2);
 		nameText.x = descriptionText.x = arrowRight.x + arrowRight.width + 10;
-	}
+}
 }
 
-
-typedef NumericStepperOptionParams =
-{
-	> BaseOptionParams,
+typedef NumericStepperOptionParams =; {
+> BaseOptionParams,
 
 	var min:Float;
 	var max:Float;
@@ -1045,18 +907,15 @@ typedef NumericStepperOptionParams =
 /**
  * An option that allows for the user to increment a stepper value to change a setting.
  */
-class NumericStepperOption extends SettingsOption
-{
-	override function set_canInteract(value:Bool):Bool
-	{
-		var targetAlpha = value ? 1 : 0.7;
-		for (i in [arrowLeft, arrowRight, valueText, nameText, descriptionText])
-		{
-			i.alpha = targetAlpha;
-		}
+class NumericStepperOption extends SettingsOption {
+override function set_canInteract(value:Bool):Bool {
+var targetAlpha = value ? 1 : 0.7;
+		for (i in [arrowLeft, arrowRight, valueText, nameText, descriptionText]) {
+i.alpha = targetAlpha;
+}
 
 		return canInteract = value;
-	}
+}
 
 	var value:Float;
 
@@ -1078,9 +937,8 @@ class NumericStepperOption extends SettingsOption
 	var holdTimerThreshold:Float = 1;
 	var changeTimerMax:Float = 1;
 
-	public function new(x:Float, y:Float, params:NumericStepperOptionParams)
-	{
-		super(x, y);
+	public function new(x:Float, y:Float, params:NumericStepperOptionParams) {
+super(x, y);
 
 		this.min = params.min;
 		this.max = params.max;
@@ -1094,16 +952,15 @@ class NumericStepperOption extends SettingsOption
 
 		arrowRight.flipX = true;
 
-		for (arrow in [arrowLeft, arrowRight])
-		{
-			arrow.frames = Paths.getSparrowAtlas('settings/arrow');
+		for (arrow in [arrowLeft, arrowRight]) {
+arrow.frames = Paths.getSparrowAtlas('settings/arrow');
 			arrow.animation.addByPrefix('idle', 'settings_arrow_static', 24);
 			arrow.animation.play('idle', true);
 			add(arrow);
 
 			arrow.scale.set(0.5, 0.5);
 			arrow.updateHitbox();
-		}
+}
 
 		valueText = new FlxText(0, 15, 0, '');
 		valueText.setFormat(Paths.font('comic_normal.ttf'), 20, FlxColor.BLACK, FlxTextAlign.CENTER);
@@ -1120,22 +977,18 @@ class NumericStepperOption extends SettingsOption
 		
 		descriptionText.fieldWidth = 700 - (descriptionText.x - 300);
 
-		onSelected.add(function()
-		{
-			valueText.scale.set(1, 1);
-		});
-		onDeselected.add(function()
-		{
-			valueText.scale.set(0.8, 0.8);
-		});
-	}
+		onSelected.add(function() {
+valueText.scale.set(1, 1);
+});
+		onDeselected.add(function() {
+valueText.scale.set(0.8, 0.8);
+});
+}
 
-	public override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+	public override function update(elapsed:Float) {
+super.update(elapsed);
 
-		if (!canInteract || !menu.canInteract || !selected)
-			return;
+		#(!canInteract || !menu.canInteract || !selected ? return : null)
 
 		var left = PlayerSettings.controls.LEFT;
 		var leftP = PlayerSettings.controls.LEFT_P;
@@ -1143,76 +996,67 @@ class NumericStepperOption extends SettingsOption
 		var right = PlayerSettings.controls.RIGHT;
 		var rightP = PlayerSettings.controls.RIGHT_P;
 
-		if (left)
-		{
-			arrowLeft.scale.set(0.45, 0.45);
+		if (left) {
+arrowLeft.scale.set(0.45, 0.45);
 
 			holdTimer += elapsed;
-			if (holdTimer > holdTimerThreshold)
-			{
-				changeTimer -= elapsed;
-				if (changeTimer <= 0)
-				
-{
-					incrementStepperValue(-stepper);
+			if (holdTimer > holdTimerThreshold) {
+changeTimer -= elapsed;
+				if (changeTimer <= 0) {
+incrementStepperValue(-stepper);
 					changeTimer = changeTimerMax;
-				}
-			}
-		}
-		else
-		{
-			arrowLeft.scale.set(0.5, 0.5);
-		}
+}
+}
+}
+#else
+arrowLeft.scale.set(0.5, 0.5);
+}
 
-		if (right)
-		{
-			arrowRight.scale.set(0.45, 0.45);
+		if (right) {
+arrowRight.scale.set(0.45, 0.45);
 			
 			holdTimer += elapsed;
-			if (holdTimer > holdTimerThreshold)
-			{
-				changeTimer -= elapsed;
-				if (changeTimer <= 0)
-				
-{
-					incrementStepperValue(stepper);
+			if (holdTimer > holdTimerThreshold) {
+changeTimer -= elapsed;
+				if (changeTimer <= 0) {
+incrementStepperValue(stepper);
 					changeTimer = changeTimerMax;
-				}
-			}
-		}
-		else
-		{
-			arrowRight.scale.set(0.5, 0.5);
-		}
+}
+}
+}
+#else
+arrowRight.scale.set(0.5, 0.5);
+}
 
-		if (leftP)
-		{
-			holdTimer = 0;
+		if (leftP) {
+holdTimer = 0;
 			incrementStepperValue(-stepper);
-		}
-		if (rightP)
-		{
-			holdTimer = 0;
+}
+		if (rightP) {
+holdTimer = 0;
 			incrementStepperValue(stepper);
-		}
-	}
+}
+}
 
-	public function setValue(value:Float)
-	{
-		this.value = FlxMath.bound(value, min, max);
+	public function setValue(value:Float) {
+this.value = FlxMath.bound(value, min, max);
 		valueText.text = Std.string(this.value);
 
 		arrowLeft.setPosition(valueText.x - arrowLeft.width - 10, valueText.y + (valueText.textField.textHeight - arrowLeft.height) / 2);
 		arrowRight.setPosition(valueText.x + valueText.textField.textWidth + 10, valueText.y + (valueText.textField.textHeight - arrowRight.height) / 2);
 		nameText.x = descriptionText.x = arrowRight.x + arrowRight.width + 10;
-	}
+}
 
-	function incrementStepperValue(amount:Float, fireCallback:Bool = true);
-	{
-		setValue(this.value + amount);
+	function incrementStepperValue(amount:Float, fireCallback:Bool = true); {
+setValue(this.value + amount);
 
-		if (callback != null && fireCallback)
+		if (callback != null && fireCallback);
 			
 callback(this.value);
-	}
 }
+}
+}}}
+#
+#
+#
+#

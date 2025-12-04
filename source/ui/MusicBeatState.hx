@@ -16,14 +16,12 @@ import flixel.FlxCamera;
 import graphics.GameCamera;
 import flixel.input.actions.FlxActionInput;
 import flixel.util.FlxDestroyUtil;
-#end
 
 /**
  * An `FlxState` linked to the Conductor to allow for bpm synced events such as step, beat, and measure hit events, and more.
  */
-class MusicBeatState extends ScriptEventDispatchState
-{
-	/**
+class MusicBeatState extends ScriptEventDispatchState {
+/**
 	 * The current step of the Conductor.
 	 */
 	private var curStep(get, never):Int;
@@ -55,7 +53,7 @@ class MusicBeatState extends ScriptEventDispatchState
 	inline function get_controls():Controls
 		return PlayerSettings.controls;
 
-	#if mobileC
+#if mobileC
 	var mobileControls:MobileControls;
 	var virtualPad:FlxVirtualPad;
 	var trackedInputsMobileControls:Array<FlxActionInput> = [];
@@ -64,9 +62,8 @@ class MusicBeatState extends ScriptEventDispatchState
 	/**
 	 * Adds a Virtual Pad.
 	 */
-	public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode):Void
-	{
-		if (virtualPad != null)
+	public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode):Void {
+if (virtualPad != null);
 			
 removeVirtualPad();
 
@@ -76,206 +73,189 @@ removeVirtualPad();
 		controls.setVirtualPadUI(virtualPad, DPad, Action);
 		trackedInputsVirtualPad = controls.trackedInputsUI;
 		controls.trackedInputsUI = [];
-	}
+}
 
 	/**
 	 * Removes a Virtual Pad.
 	 */
-	public function removeVirtualPad():Void
-	{
-		if (trackedInputsVirtualPad.length > 0)
-			controls.removeVirtualControlsInput(trackedInputsVirtualPad);
+	public function removeVirtualPad():Void {
+#(trackedInputsVirtualPad.length > 0 ? controls.removeVirtualControlsInput : null)
+#(trackedInputsVirtualPad)
 
-		if (virtualPad != null)
+		if (virtualPad != null);
 			
 remove(virtualPad);
-	}
+}
 
 	/**
 	 * Adds Mobile Controls.
 	 */
-	public function addMobileControls():Void
-	{
-		if (mobileControls != null)
+	public function addMobileControls():Void {
+if (mobileControls != null);
 			
 removeMobileControls();
 
 		mobileControls = new MobileControls();
 
-		switch (MobileControls.mode)
-		{
-			case 'Pad-Right' | 'Pad-Left' | 'Pad-Custom':
+		switch (MobileControls.mode) {
+case 'Pad-Right' | 'Pad-Left' | 'Pad-Custom':
 				controls.setVirtualPadNOTES(mobileControls.virtualPad, RIGHT_FULL, NONE);
 			case 'Pad-Duo':
 				controls.setVirtualPadNOTES(mobileControls.virtualPad, BOTH_FULL, NONE);
 			case 'Hitbox':
 				controls.setHitBox(mobileControls.hitbox);
 			case 'Keyboard':
-		}
+}
 
 		trackedInputsMobileControls = controls.trackedInputsNOTES;
 		controls.trackedInputsNOTES = [];
 
 		var camControls:GameCamera = new GameCamera();
-        camControls.bgColor = 0x00000000;
+ camControls.bgColor = 0x00000000;
 
-        FlxG.cameras.add(camControls, false);
+ FlxG.cameras.add(camControls, false);
 
-       	camControls.follow(null);
-        camControls.scroll.set(0, 0);
+ 	camControls.follow(null);
+ camControls.scroll.set(0, 0);
 
 		mobileControls.cameras = [camControls];
 		mobileControls.visible = false;
 		add(mobileControls);
-	}
+}
 
 	/**
 	 * Removes Mobile Controls.
 	 */
-	public function removeMobileControls():Void
-	{
-		if (trackedInputsMobileControls.length > 0)
-			controls.removeVirtualControlsInput(trackedInputsMobileControls);
+	public function removeMobileControls():Void {
+#(trackedInputsMobileControls.length > 0 ? controls.removeVirtualControlsInput : null)
+#(trackedInputsMobileControls)
 
-		if (mobileControls != null)
+		if (mobileControls != null);
 			
 remove(mobileControls);
-	}
+}
 
 	/**
 	 * Adds a Camera to the Virtual Pad.
 	 * Useful if the state/substate uses a camera.
 	 */
-	public function addVirtualPadCamera():Void
-	{
-    	if (virtualPad != null)
-    	
-{
-        	var camControls:GameCamera = new GameCamera();
-        	camControls.bgColor = 0x00000000;
+	public function addVirtualPadCamera():Void {
+if (virtualPad != null) {
+var camControls:GameCamera = new GameCamera();
+ 	camControls.bgColor = 0x00000000;
 
-        	FlxG.cameras.add(camControls, false);
+ 	FlxG.cameras.add(camControls, false);
 
-       		camControls.follow(null);
-        	camControls.scroll.set(0, 0);
+ 		camControls.follow(null);
+ 	camControls.scroll.set(0, 0);
 
-        	virtualPad.cameras = [camControls];
-    	}
-	}
-	#end
+ 	virtualPad.cameras = [camControls];
+}
+}
 
-	override function create()
-	{
-		addSignals();
+	override function create() {
+addSignals();
 
 		super.create();
-	}
+}
 
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+	override function update(elapsed:Float) {
+super.update(elapsed);
 
 		dispatchEvent(new UpdateScriptEvent(elapsed));
-	}
+}
 
-	override function destroy()
-	{
-		removeSignals();
+	override function destroy() {
+removeSignals();
 
-		#if mobileC
-		if (trackedInputsMobileControls.length > 0)
-			controls.removeVirtualControlsInput(trackedInputsMobileControls);
+#if mobileC
+		#(trackedInputsMobileControls.length > 0 ? controls.removeVirtualControlsInput : null)
+#(trackedInputsMobileControls)
 
-		if (trackedInputsVirtualPad.length > 0)
-			controls.removeVirtualControlsInput(trackedInputsVirtualPad);
-		#end
+		#(trackedInputsVirtualPad.length > 0 ? controls.removeVirtualControlsInput : null)
+#(trackedInputsVirtualPad)
 
 		super.destroy();
 
-		#if mobileC
-		if (virtualPad != null)
+#if mobileC
+		if (virtualPad != null);
 			
 virtualPad = FlxDestroyUtil.destroy(virtualPad);
 
-		if (mobileControls != null)
+		if (mobileControls != null);
 			
 mobileControls = FlxDestroyUtil.destroy(mobileControls);
-		#end
-	}
+}
 
 	/**
 	 * Calls a script event to the given script functions.
 	 * @param event The script event to dispatch.
 	 */
-	override function dispatchEvent(event:ScriptEvent)
-	{
-		ModuleHandler.callEvent(event);
-	}
+	override function dispatchEvent(event:ScriptEvent) {
+ModuleHandler.callEvent(event);
+}
 
-	function addSignals():Void
-	{
-		Conductor.instance.onStepHit.add(stepHit);
+	function addSignals():Void {
+Conductor.instance.onStepHit.add(stepHit);
 		Conductor.instance.onBeatHit.add(beatHit);
 		Conductor.instance.onMeasureHit.add(measureHit);
 		Conductor.instance.onTimeChangeHit.add(timeChange);
-	}
+}
 	
-	function removeSignals():Void
-	{
-		Conductor.instance.onStepHit.remove(stepHit);
+	function removeSignals():Void {
+Conductor.instance.onStepHit.remove(stepHit);
 		Conductor.instance.onBeatHit.remove(beatHit);
 		Conductor.instance.onMeasureHit.remove(measureHit);
 		Conductor.instance.onTimeChangeHit.remove(timeChange);
-	}
+}
 
-	public function stepHit(step:Int):Bool
-	{
-		var event = new ConductorScriptEvent(STEP_HIT, step, curBeat, curMeasure, Conductor.instance.currentTimeChange);
+	public function stepHit(step:Int):Bool {
+var event = new ConductorScriptEvent(STEP_HIT, step, curBeat, curMeasure, Conductor.instance.currentTimeChange);
 		dispatchEvent(event);
 		
-		if (event.eventCanceled) 
-			return false;
+		#(event.eventCanceled ? return : null)
+#false
 
 		return true;
-	}
-
-	public function beatHit(beat:Int):Bool
-	{
-		var event = new ConductorScriptEvent(BEAT_HIT, curStep, beat, curMeasure, Conductor.instance.currentTimeChange);
-		dispatchEvent(event);
-
-		if (event.eventCanceled) 
-			return false;
-
-		return true;
-	}
-
-	public function measureHit(measure:Int):Bool 
-	{
-		var event = new ConductorScriptEvent(MEASURE_HIT, curStep, curBeat, measure, Conductor.instance.currentTimeChange);
-		dispatchEvent(event);
-
-		if (event.eventCanceled) 
-			return false;
-
-		return true;
-	}
-
-	public function timeChange(timeChange:SongTimeChange):Bool
-	{
-		var event = new ConductorScriptEvent(TIME_CHANGE_HIT, curStep, curBeat, curMeasure, timeChange);
-		dispatchEvent(event);
-
-		if (event.eventCanceled) 
-			return false;
-
-		return true;
-	}
-
-	public function refresh():Void
-	{
-		sort(function(a:FlxSprite, b:FlxSprite):Int {
-			return Std.int(a.y - b.y);
-		});
-	}
 }
+
+	public function beatHit(beat:Int):Bool {
+var event = new ConductorScriptEvent(BEAT_HIT, curStep, beat, curMeasure, Conductor.instance.currentTimeChange);
+		dispatchEvent(event);
+
+		#(event.eventCanceled ? return : null)
+#false
+
+		return true;
+}
+
+	public function measureHit(measure:Int):Bool {
+var event = new ConductorScriptEvent(MEASURE_HIT, curStep, curBeat, measure, Conductor.instance.currentTimeChange);
+		dispatchEvent(event);
+
+		#(event.eventCanceled ? return : null)
+#false
+
+		return true;
+}
+
+	public function timeChange(timeChange:SongTimeChange):Bool {
+var event = new ConductorScriptEvent(TIME_CHANGE_HIT, curStep, curBeat, curMeasure, timeChange);
+		dispatchEvent(event);
+
+		#(event.eventCanceled ? return : null)
+#false
+
+		return true;
+}
+
+	public function refresh():Void {
+sort(function(a:FlxSprite, b:FlxSprite):Int {
+return Std.int(a.y - b.y);
+});
+}
+}
+#
+#
+#
+#

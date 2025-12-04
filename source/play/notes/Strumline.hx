@@ -23,9 +23,8 @@ import play.notes.StrumNote;
 
 import util.TweenUtil;
 
-typedef StrumlineParams = 
-{
-	/**
+typedef StrumlineParams = ; {
+/**
 	 * Whether this strumline should be cpu controlled, or controlled by the player.
 	 */
 	var isPlayer:Bool;
@@ -44,15 +43,13 @@ typedef StrumlineParams =
 	 * Whether the strums should appear immediately on creation of the strumline, or remain invisible until they're faded.
 	 */
 	@:optional var showStrums:Bool;
-}
 
 /**
  * A group of group of sprites that handles logic behind with the strum receptors, rendering, positioning notes, and more.
  */
 @:access(play.notes)
-class Strumline extends FlxSpriteGroup
-{
-	// STATIC VARIABLES // 
+class Strumline extends FlxSpriteGroup {
+// STATIC VARIABLES // 
 
 	/**
 	 * The normal width of a strum receptor.
@@ -60,21 +57,21 @@ class Strumline extends FlxSpriteGroup
 	 */
 	public static var NOTE_WIDTH:Float = 160 * 0.7;
 
-    /**
-     * The Base Y position of the strumline on downscroll.
-     */
-    public static final DOWNSCROLL_Y:Float = 555;
+ /**
+ * The Base Y position of the strumline on downscroll.
+ */
+ public static final DOWNSCROLL_Y:Float = 555;
 
-    /**
-     * The Base Y position of the strumline on upscroll.
-     */
-    public static final UPSCROLL_Y:Float = 50;
+ /**
+ * The Base Y position of the strumline on upscroll.
+ */
+ public static final UPSCROLL_Y:Float = 50;
 
-    /**
-     * A magic number used to control the general speed rate, in pixels, at which notes go.
-     */
-    public final pixelsPerMs:Float = 0.45;
-    
+ /**
+ * A magic number used to control the general speed rate, in pixels, at which notes go.
+ */
+ public final pixelsPerMs:Float = 0.45;
+ 
 
 	// PROPERTIES // 
 
@@ -87,70 +84,59 @@ class Strumline extends FlxSpriteGroup
 	@:isVar
 	public var scrollSpeed(get, set):Null<Float> = null;
 
-    function set_scrollSpeed(value:Null<Float>):Null<Float> {
-        return this.scrollSpeed = value;
-    }
+ function set_scrollSpeed(value:Null<Float>):Null<Float> {
+return this.scrollSpeed = value;
 
 	function get_scrollSpeed():Null<Float> {
-        return scrollSpeed != null ? scrollSpeed : PlayState.instance.songSpeed;
-	}
+return scrollSpeed != null ? scrollSpeed : PlayState.instance.songSpeed;
+
 	
 	/**
 	 * The current base y position on the strumline depending on if the strumline's on downscroll or upscroll.
 	 */
 	public var scrollY(get, null):Float = 0;
 	
-	function get_scrollY():Float
-	{
-        return (scrollType == 'downscroll') ? DOWNSCROLL_Y : UPSCROLL_Y;
-	}
+	function get_scrollY():Float {
+return (scrollType == 'downscroll') ? DOWNSCROLL_Y : UPSCROLL_Y;
 
-    /**
-     * The current scrolling type of the strumline.
+ /**
+ * The current scrolling type of the strumline.
 	 * Can either be 'downscroll' or 'upscroll'.
 	 * Updating this will update the strum and sustain notes to their appropriate positions.
-     */
-    public var scrollType(default, set):String;
+ */
+ public var scrollType(default, set):String;
 	
-	function set_scrollType(value:String):String
-	{
-		this.scrollType = value;
+	function set_scrollType(value:String):String {
+this.scrollType = value;
 
-		forEachStrum(function(strum:StrumNote)
-		{
-			// TODO: This can easily cause issues relating to tweened modcharts.
+		forEachStrum(function(strum:StrumNote) {
+// TODO: This can easily cause issues relating to tweened modcharts.
 			// The best possible solution would probably be to make a separate
 			// StrumCamera that flips instead of the strums itself (This would make it easier to do modcharts also).
 
 			TweenUtil.completeTweensOf(strum, true);
 
-			switch (value)
-			{
-				case 'downscroll':
+			switch (value) {
+case 'downscroll':
 					strum.y = DOWNSCROLL_Y;
 				case 'upscroll':
 					strum.y = UPSCROLL_Y;
-			}
-		});
 
-		sustains.forEach(function(note:SustainNote)
-		{
-			if (note != null)
-			
-{
-				note.flipY = (value == 'downscroll');
-			}
-		});
-		for (holdNote in recyclableHoldNotes.members)
-		{
-			if (holdNote == null) continue;
+);
+
+		sustains.forEach(function(note:SustainNote) {
+if (note != null) {
+note.flipY = (value == 'downscroll');
+
+);
+		for (holdNote in recyclableHoldNotes.members) {
+#(holdNote == null ? continue : null)
 			
 			holdNote.flipY = (value == 'downscroll');
-		}
+
 		updateNotes();
 
 		return value;
-	}
 
 	// GROUPS // 
 
@@ -194,13 +180,12 @@ class Strumline extends FlxSpriteGroup
 	 */
 	private var recyclableHoldCovers(default, null):FlxTypedGroup<HoldCover> = new FlxTypedGroup<HoldCover>();
 
-
 	// SIGNALS // 
 
-    /**
-     * A signal that dispatches for when a note spawns.
-     */
-    public var onNoteSpawn(default, null):FlxTypedSignal<Note->Void> = new FlxTypedSignal<Note->Void>();
+ /**
+ * A signal that dispatches for when a note spawns.
+ */
+ public var onNoteSpawn(default, null):FlxTypedSignal<Note->Void> = new FlxTypedSignal<Note->Void>();
 
 	/**
 	 * A signal that dispatches for when this strumline misses a note.
@@ -227,16 +212,13 @@ class Strumline extends FlxSpriteGroup
 	 */
 	public var conductor(get, set):Conductor;
 
-	function get_conductor():Conductor
-	{
-		if (_conductor == null) return Conductor.instance;
+	function get_conductor():Conductor {
+#(_conductor == null ? return : null)
+#Conductor.instance
 		return _conductor;
-	}
 
-	function set_conductor(value:Conductor):Conductor
-	{
-		return _conductor = value;
-	}
+	function set_conductor(value:Conductor):Conductor {
+return _conductor = value;
 
 	var _conductor:Conductor;
 
@@ -250,19 +232,16 @@ class Strumline extends FlxSpriteGroup
 	 */
 	public var noteSpawnTime:Float = 1500;
 
-    /**
-     * Whether this strumline is cpu controlled, or is meant to be played.
-     */
-    public var isPlayer(default, set):Bool;
+ /**
+ * Whether this strumline is cpu controlled, or is meant to be played.
+ */
+ public var isPlayer(default, set):Bool;
 
-	function set_isPlayer(value:Bool)
-	{
-		forEachStrum((strum:StrumNote) -> 
-		{
-			strum.playerStrum = value;
-		});
+	function set_isPlayer(value:Bool) {
+forEachStrum((strum:StrumNote) -> {
+strum.playerStrum = value;
+);
 		return isPlayer = value;
-	}
 
 	/**
 	 * The current note style of this strumline group.
@@ -286,9 +265,8 @@ class Strumline extends FlxSpriteGroup
 	 */
 	private var nextNoteIndex:Int = 0;
 
-    public function new(params:StrumlineParams)
-    {
-		super();
+ public function new(params:StrumlineParams) {
+super();
 		
 		noteYFunction = yFromStrumTime;
 
@@ -310,134 +288,119 @@ class Strumline extends FlxSpriteGroup
 		this.generateStaticArrows(false);
 		
 		this.active = true;
-	}
+}
 	
-    override function update(elapsed:Float)
-	{
-		if (!canUpdate) return;
+ override function update(elapsed:Float) {
+#(!canUpdate ? return : null)
 
 		super.update(elapsed);
 		
 		handleNoteSpawning();
 		updateNotes();
-    }
+}
 
 	/**
 	 * Generates a list of notes from a given chart data.
 	 * @param data The chart data to be used for generating the notes.
 	 */
-	public function generateNotes(data:Array<SongSection>)
-	{
-		nextNoteIndex = 0;
+	public function generateNotes(data:Array<SongSection>) {
+nextNoteIndex = 0;
 
 		var chartData:Array<SongSection> = data.copy();
 		
-		for (section in chartData)
-		{
-			for (note in section.notes)
-			{
-				var gottaHitNote:Bool = section.mustHitSection;
+		for (section in chartData) {
+for (note in section.notes) {
+var gottaHitNote:Bool = section.mustHitSection;
 
-				if (note.direction > 3)
-					gottaHitNote = !section.mustHitSection;
+				#(note.direction > 3 ? gottaHitNote : null)
+#= !section.mustHitSection
 				
-				if (gottaHitNote != isPlayer)
+				if (gottaHitNote != isPlayer);
 					
 continue;
 				
 				unspawnNotes.push(note);
-			}
-		}
+}
+}
 		unspawnNotes.sort(sortByDataStrumTime);
-	}
+}
 
 	/**
 	 * Generates a group of strum receptors for this strumline to use.
 	 * @param fadeIn Whether there should be a fade-in effect when the strums are created.
 	 */
-	public function generateStaticArrows(fadeIn:Bool):Void
-	{
-		for (i in 0...strumAmount)
-		{
-			var babyArrow:StrumNote = new StrumNote(0.0, 0.0, noteStyle, i, isPlayer);
+	public function generateStaticArrows(fadeIn:Bool):Void {
+for (i in 0...strumAmount) {
+var babyArrow:StrumNote = new StrumNote(0.0, 0.0, noteStyle, i, isPlayer);
 
 			babyArrow.x += NOTE_WIDTH * Math.abs(i);
 			strums.add(babyArrow);
 			
 			babyArrow.baseX = babyArrow.x - strums.x;
-			if (!params.showStrums)
-				babyArrow.alpha = 0.0;
-		}
-        if (fadeIn)
-            fadeNotes();
-	}
+			#(!params.showStrums ? babyArrow.alpha : null)
+#= 0.0
+}
+ #(fadeIn ? fadeNotes : null)
+#()
+}
 	
 	/**
 	 * Re-generates the strums receptors of this strumline.
 	 * @param fadeIn Whether there should be a fade-in effect when the strums are created.
 	 */
-	public function regenerate(fadeIn:Bool = true);
-	{
-		forEachStrum(function(spr:StrumNote)
-		{
-			strums.remove(spr);
+	public function regenerate(fadeIn:Bool = true); {
+forEachStrum(function(spr:StrumNote) {
+strums.remove(spr);
 			spr.destroy();
-		});
+});
 		generateStaticArrows(fadeIn);
-	}
+}
 
 	/**
 	 * Does a small fade-in transition for the strum receptors.
 	 */
-	public function fadeNotes()
-	{
-		for (i in 0...strums.length)
-		{
-			var babyArrow:StrumNote = strums.members[i];
+	public function fadeNotes() {
+for (i in 0...strums.length) {
+var babyArrow:StrumNote = strums.members[i];
 
 			babyArrow.y -= 10;
 			babyArrow.alpha = 0;
 
 			FlxTween.tween(babyArrow, {y: babyArrow.y + 10, alpha: 1}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
-        }
-    }
+}
+}
 
 	/**
 	 * Controls logic behind when notes spawn and how many.
 	 */
-	function handleNoteSpawning()
-	{
-		var startRenderTime:Float = conductor.songPosition + noteSpawnTime;
+	function handleNoteSpawning() {
+var startRenderTime:Float = conductor.songPosition + noteSpawnTime;
 		var hitWindowStart:Float = conductor.songPosition - conductor.safeZoneOffset;
 
-		for (noteIndex in nextNoteIndex...unspawnNotes.length)
-		{
-			var noteData:SongNoteData = unspawnNotes[noteIndex];
+		for (noteIndex in nextNoteIndex...unspawnNotes.length) {
+var noteData:SongNoteData = unspawnNotes[noteIndex];
 
 			// Note's blank.
-			if (noteData == null)
+			if (noteData == null);
 				
 return;
 
 			// If the note's below the start of the song, or it's below the hit window.
-			if (noteData.time < 0.0 || noteData.time < hitWindowStart)
-			{
-				nextNoteIndex = noteIndex + 1; 
+			if (noteData.time < 0.0 || noteData.time < hitWindowStart) {
+nextNoteIndex = noteIndex + 1; 
 				continue;
-			}
+}
 
 			// Note's too far ahead to render.
-			if (noteData.time > startRenderTime)
-				break;
+			#(noteData.time > startRenderTime ? break : null)
 
 			var note:Note = buildNote(noteData);
 			this.notes.add(note);
 
-			if (noteData.length > 0)
-			{
-				note.sustainNote = buildHoldNote(noteData, note);
+			if (noteData.length > 0) {
+note.sustainNote = buildHoldNote(noteData, note);
 				this.sustains.add(note.sustainNote);
-			}
+}
 
 			// Increment the note index.
 			nextNoteIndex = noteIndex + 1;
@@ -446,293 +409,229 @@ return;
 
 			notes.sort(compareNotes);
 			sustains.sort(compareHoldNotes);
-		}
-	}
+}
+}
 
 	/**
 	 * Updates the logic, and positioning of each note being rendered.
 	 */
-	function updateNotes()
-	{
-		forEachNote(function(note:Note)
-		{
-			// Update the state of the note before rendering.
+	function updateNotes() {
+forEachNote(function(note:Note) {
+// Update the state of the note before rendering.
 			// This also updates the state of any rendering sustain notes.
 			updateNoteState(note);
 
 			var noteSpeed:Float = scrollSpeed * note.LocalScrollSpeed;
-			if (note.strum != null)
-			
-{
-				if (Note.rotate)
-				{
-					var dist:Float = (conductor.songPosition - note.strumTime) * (pixelsPerMs * noteSpeed);
+			if (note.strum != null) {
+if (Note.rotate) {
+var dist:Float = (conductor.songPosition - note.strumTime) * (pixelsPerMs * noteSpeed);
 					var rotateBase:FlxPoint = rotatePosition(dist, note.strum.rotation + 90, ((scrollType == 'downscroll') ? 1 : -1));
 
 					note.x = note.strum.x + rotateBase.x;
 					note.y = note.strum.y + rotateBase.y;
-				}
-				else
-				{
-					note.y = noteYFunction(note.strumTime, note.strum, noteSpeed, scrollType == 'downscroll');
-				}
-			}
+}
+#else
+note.y = noteYFunction(note.strumTime, note.strum, noteSpeed, scrollType == 'downscroll');
+}
+}
 
 			// Note is outside, destroy it.
-			if (conductor.songPosition >= note.strumTime + (350 / (pixelsPerMs * noteSpeed)))
-			{
-				if (isPlayer && note.handledMissed)
-					onNoteMiss.dispatch(note);
+			if (conductor.songPosition >= note.strumTime + (350 / (pixelsPerMs * noteSpeed))); {
+#(isPlayer && note.handledMissed ? onNoteMiss.dispatch : null)
+#(note)
 
 				killNote(note);
-			}
-		});
+}
+});
 		
-		forEachHoldNote(function(holdNote:SustainNote)
-		{
-			if (holdNote.sustainLength < holdNote.fullSustainLength)
-			{
-				// Hold note was dropped as it was being held, it's been missed.
-				if (isPlayer && (!isKeyHeld(holdNote.direction) || (!isKeyHeld(holdNote.direction) && holdNote.noteStyle == 'shape' && !PlayerSettings.controls.KEY5)))
-				{
-
-					holdNote.hasMissed = true;
-				}
-			}
+		forEachHoldNote(function(holdNote:SustainNote) {
+if (holdNote.sustainLength < holdNote.fullSustainLength) {
+// Hold note was dropped as it was being held, it's been missed.
+				if (isPlayer && (!isKeyHeld(holdNote.direction) || (!isKeyHeld(holdNote.direction) && holdNote.noteStyle == 'shape' && !PlayerSettings.controls.KEY5))); {
+holdNote.hasMissed = true;
+}
+}
 
 			// Calculate the these values of this hold note, as they gets used in each of the hold note's states.
 			var holdNoteSpeed:Float = scrollSpeed * holdNote.localScrollSpeed;
 			var yPosition:Float = noteYFunction(holdNote.strumTime, holdNote.strum, holdNoteSpeed, scrollType == 'downscroll');
 			
-			if (conductor.songPosition >= holdNote.strumTime + holdNote.fullSustainLength + (350 / (pixelsPerMs * holdNoteSpeed)))
-			{
-				// Hold note is offscreen, kill it.
+			if (conductor.songPosition >= holdNote.strumTime + holdNote.fullSustainLength + (350 / (pixelsPerMs * holdNoteSpeed))); {
+// Hold note is offscreen, kill it.
 				killSustain(holdNote);
-			}
-			else if (holdNote.hasMissed && (holdNote.fullSustainLength > holdNote.sustainLength)) 
-			{
-				// Hold note was dropped as it was held, keep in it's clipped state.
+}
+#else
+// Hold note was dropped as it was held, keep in it's clipped state.
 				var yOffset:Float = SustainNote.sustainHeight(holdNote.fullSustainLength - holdNote.sustainLength, holdNoteSpeed);
 
-				holdNote.y = if (scrollType == 'downscroll')
-				
-{
-					yPosition + holdNote.strum.height / 2 - holdNote.height - yOffset;
-				}
-				else
-				{
-					yPosition + holdNote.strum.height / 2 + yOffset;
-				}
+				holdNote.y = if (scrollType == 'downscroll') {
+yPosition + holdNote.strum.height / 2 - holdNote.height - yOffset;
+}
+#else
+yPosition + holdNote.strum.height / 2 + yOffset;
+}
 
-				if (holdNote.cover != null)
-				
-{
-				}
-			}
-			else if (conductor.songPosition >= holdNote.strumTime && holdNote.hasBeenHit && !holdNote.hasMissed) // Hold note's currently being hit, clip it, and position it.;
-			{
-
-				holdNote.sustainLength = (holdNote.strumTime + holdNote.fullSustainLength) - conductor.songPosition;
+				if (holdNote.cover != null) {
+}
+}
+#else
+holdNote.sustainLength = (holdNote.strumTime + holdNote.fullSustainLength) - conductor.songPosition;
 				
 				var character:Character = holdNote.character;
 				
 				// Reset the character hold timer to make sure they keep singing.
-				if (character != null && character.holdTimer > 0)
-				
-{
-					character.holdTimer = 0;
-				}
+				if (character != null && character.holdTimer > 0) {
+character.holdTimer = 0;
+}
 
 				// Hold note's been complete, kill it.
-				if (holdNote.sustainLength <= 0)
-				
-{
-
-					if (holdNote.cover != null && isPlayer)
-					
-{
-						holdNote.cover.playEnd();
-					}
-					else 
-					{
-					}
+				if (holdNote.sustainLength <= 0) {
+if (holdNote.cover != null && isPlayer) {
+holdNote.cover.playEnd();
+}
+#else
+}
 					killSustain(holdNote);
 					return;
-				}
+}
 				
-				holdNote.y = if (scrollType == 'downscroll')
-				
-{
-					holdNote.strum.y + holdNote.strum.height / 2 - holdNote.height;
-				}
-				else
-				{
-					holdNote.strum.y + holdNote.strum.height / 2;
-				}
-			}
-			else
-			{
-				// Hold note is new, position it normally.
-				holdNote.y = if (scrollType == 'downscroll')
-				
-{
-					yPosition + holdNote.strum.height / 2 - holdNote.height;
-				}
-				else
-				{
-					yPosition + holdNote.strum.height / 2;
-				}
-			}
-		});
+				holdNote.y = if (scrollType == 'downscroll') {
+holdNote.strum.y + holdNote.strum.height / 2 - holdNote.height;
+}
+#else
+holdNote.strum.y + holdNote.strum.height / 2;
+}
+}
+#else
+// Hold note is new, position it normally.
+				holdNote.y = if (scrollType == 'downscroll') {
+yPosition + holdNote.strum.height / 2 - holdNote.height;
+}
+#else
+yPosition + holdNote.strum.height / 2;
+}
+}
+});
 
-		for (ind => strum in strums.members);
-		{
-			if (isKeyHeld(ind) && strum.animation.curAnim.name == 'static')
-			{
-				strum/*.playPress*/();
-			}
-		}
+		for (ind => strum in strums.members) {
+if (isKeyHeld(ind) && strum.animation.curAnim.name == 'static'); {
+strum/*.playPress*/();
+}
+}
 
-		for (holdCover in holdCovers)
-		{
-			if (holdCover == null)
+		for (holdCover in holdCovers) {
+if (holdCover == null);
 				
 return;
 
 			// If the sustain note for the hold cover doesn't exist anymore
 			// Clear the hold cover so it doesn't persistent.
-			if (holdCover.holdNote == null || holdCover.holdNote.sustainLength <= 0 && holdCover.animation.curAnim.name.startsWith('loop'))
-			{
-			}
-		}
-	}
+			if (holdCover.holdNote == null || holdCover.holdNote.sustainLength <= 0 && holdCover.animation.curAnim.name.startsWith('loop')); {
+}
+}
+}
 
 	/**
 	 * Updates a note's logic checking if it's able to be hit, if it's too late, or early, etc.
 	 * @param note The note to update. 
 	 */
-	function updateNoteState(note:Note)
-	{
-		var hitWindowStart:Float = note.strumTime - (conductor.safeZoneOffset * 0.5);
+	function updateNoteState(note:Note) {
+var hitWindowStart:Float = note.strumTime - (conductor.safeZoneOffset * 0.5);
 		var hitWindowCenter:Float = note.strumTime;
 		var hitWindowEnd:Float = note.strumTime + conductor.safeZoneOffset;
 
-		if (!isPlayer)
-		{
-			note.canBeHit = false;
-		}
+		if (!isPlayer) {
+note.canBeHit = false;
+}
 		
-		if (note.hasBeenHit)
-		{
-			note.tooEarly = false;
+		if (note.hasBeenHit) {
+note.tooEarly = false;
 			note.canBeHit = false;
 			note.hasMissed = false;
-			if (note.sustainNote != null)
-			
-{
-				note.sustainNote.hasMissed = false;
-			}
+			if (note.sustainNote != null) {
+note.sustainNote.hasMissed = false;
+}
 			return;
-		}
+}
 
-		if (conductor.songPosition > hitWindowEnd)
-		{
-			if (note.hasMissed || note.hasBeenHit)
-				return;
+		if (conductor.songPosition > hitWindowEnd) {
+#(note.hasMissed || note.hasBeenHit ? return : null)
 			
 			note.tooLate = true;
 			note.canBeHit = false;
 			note.hasMissed = true;
-			if (note.sustainNote != null)
-			
-{
-				note.sustainNote.hasMissed = true;
-			}
-		}
-		else if (conductor.songPosition > hitWindowCenter)
-		{
-			if (note.hasBeenHit)
-				return;
+			if (note.sustainNote != null) {
+note.sustainNote.hasMissed = true;
+}
+}
+#else
+#(note.hasBeenHit ? return : null)
 
-			if (!isPlayer)
-			{
-				hitNote(note);
-			}
-		}
-		else if (conductor.songPosition > hitWindowStart)
-		{
-			note.canBeHit = true;
+			if (!isPlayer) {
+hitNote(note);
+}
+}
+#else
+note.canBeHit = true;
 			note.tooEarly = false;
-		}
-		else
-		{
-			note.canBeHit = false;
+}
+#else
+note.canBeHit = false;
 			note.tooEarly = true;
-		}
-	}
+}
+}
 
 	/**
 	 * Cleans up the strumline by removing every rendering note, and resetting any needed properties.
 	 * Used for when time in a song has been skipped.
 	 */
-	public function clean():Void
-	{
-		forEachNote(function(note:Note)
-		{
-			killNote(note);
-		});
+	public function clean():Void {
+forEachNote(function(note:Note) {
+killNote(note);
+});
 
-		forEachHoldNote(function(sustain:SustainNote)
-		{
-			killSustain(sustain);
-		});
+		forEachHoldNote(function(sustain:SustainNote) {
+killSustain(sustain);
+});
 		
-		for (cover in holdCovers)
-		{
-		}
+		for (cover in holdCovers) {
+}
 
-		for (i in 0...heldKeys.length)
-		{
-			heldKeys[i] = false;
-		}
+		for (i in 0...heldKeys.length) {
+heldKeys[i] = false;
+}
 
-		forEachStrum((strum:StrumNote) ->
-		{
-		});
+		forEachStrum((strum:StrumNote) -> {
+});
 		nextNoteIndex = 0;
-	}
+}
 
 	/**
 	 * Creates, or recycles a note to be reused.
 	 * @return A newly created, or previously used note.
 	 */
-	function constructNote():Note
-	{
-		var note:Note = null;
+	function constructNote():Note {
+var note:Note = null;
 
 		note = recyclableNotes.getFirstAvailable();
 
-		if (note != null)
-		
-{
-			note.revive();
+		if (note != null) {
+note.revive();
 			recyclableNotes.remove(note);
-		}
-		else
-		{
-			note = new Note(0, false);
-		}
+}
+#else
+note = new Note(0, false);
+}
 		return note;
-	}
+}
 
 	/**
 	 * Builds a note sprite from the specified data.
 	 * @param data The data to build the note off of.
 	 * @return A note sprite that's ready to be used.
 	 */
-	function buildNote(data:SongNoteData):Note
-	{
-		var note:Note = constructNote();
+	function buildNote(data:SongNoteData):Note {
+var note:Note = constructNote();
 		note.inCharter = false;
 		note.noteData = data;
 		note.direction = data.getDirection();
@@ -753,40 +652,35 @@ return;
 		note.visible = true;
 		note.scrollFactor.set();
 		return note;
-	}
+}
 
 	/**
 	 * Creates, or recycles a hold note to be reused.
 	 * @return A newly created, or previously used note.
 	 */
-	function constructHoldNote():SustainNote
-	{
-		var note:SustainNote = null;
+	function constructHoldNote():SustainNote {
+var note:SustainNote = null;
 
 		note = recyclableHoldNotes.getFirstAvailable();
 
-		if (note != null)
-		
-{
-			// Revive the previously used hold note.revive();
+		if (note != null) {
+// Revive the previously used hold note.revive();
 			this.recyclableHoldNotes.remove(note);
-		}
-		else
-		{
-			// Create a new one to be built later on.
+}
+#else
+// Create a new one to be built later on.
 			note = new SustainNote(0, 0, false, 0);
-		}
+}
 		return note;
-	}
+}
 	
 	/**
 	 * Builds a hold note sprite from the specified data.
 	 * @param data The data to build the note off of.
 	 * @return A hold note sprite that's ready to be used.
 	 */
-	function buildHoldNote(data:SongNoteData, parentNote:Note):SustainNote
-	{
-		// Setup graphic.
+	function buildHoldNote(data:SongNoteData, parentNote:Note):SustainNote {
+// Setup graphic.
 		var holdNote:SustainNote = constructHoldNote();
 		
 		// Copy properties from parent note.
@@ -821,50 +715,43 @@ return;
 		holdNote.visible = true;
 
 		return holdNote;
-	}
+}
 
 	/**
 	 * Creates, or recycles a new hold cover to be built onto a hold note.
 	 * @return A new hold cover.
 	 */
-	function constructHoldCover():HoldCover
-	{
-		var holdCover:HoldCover = recyclableHoldCovers.getFirstAvailable();
+	function constructHoldCover():HoldCover {
+var holdCover:HoldCover = recyclableHoldCovers.getFirstAvailable();
 
-		if (holdCover != null)
-		
-{
-			// Revive a new hold cover to re-use.
+		if (holdCover != null) {
+// Revive a new hold cover to re-use.
 			holdCover.revive();
 			recyclableHoldCovers.remove(holdCover);
-		}
-		else
-		{
-			// Create a new hold cover.
-			holdCover = new HoldCover(0, 'normal');	
-		}
+}
+#else
+// Create a new hold cover.
+			holdCover = new HoldCover(0, 'normal');
+}
 		holdCover.alpha = this.alpha;
 		this.holdCovers.add(holdCover);
 		return holdCover;
-	}
+}
 
 	/**
 	 * Sets up a new hold cover to use for a hold note.
 	 * @param holdNote The hold note to build the hold cover off of.
 	 * @return A new hold cover ready to be used.
 	 */
-	function startHoldCover(holdNote:SustainNote):HoldCover
-	{
-		var noteStyle:NoteStyle = holdNote.noteStyle;
+	function startHoldCover(holdNote:SustainNote):HoldCover {
+var noteStyle:NoteStyle = holdNote.noteStyle;
 
-		if (!noteStyle.hasHoldCovers)
-			return null;
+		#(!noteStyle.hasHoldCovers ? return : null)
+#null
 
 		var holdCover:HoldCover = constructHoldCover();
-		if (holdCover != null)
-		
-{
-			holdCover.direction = holdNote.direction;
+		if (holdCover != null) {
+holdCover.direction = holdNote.direction;
 			holdCover.noteStyle = noteStyle;
 			holdCover.strum = strums.members[holdNote.direction];
 			holdNote.cover = holdCover;
@@ -877,41 +764,36 @@ return;
 			holdCover.visible = true;
 
 			holdCover.onKill.add(killHoldCover);
-		}
+}
 		return holdCover;
-	}
+}
 
 	/**
 	 * Registers a note from this strumline as hit.
 	 * @param note The note to hit.
 	 */
-	public function hitNote(note:Note)
-	{
-
-		note.hasBeenHit = true;
-		if (note.sustainNote != null)
-		
-{
-			note.sustainNote.hasBeenHit = true;
+	public function hitNote(note:Note) {
+note.hasBeenHit = true;
+		if (note.sustainNote != null) {
+note.sustainNote.hasBeenHit = true;
 			note.sustainNote.hasMissed = false;
 			note.sustainNote.handledMiss = false;
 			
 			note.sustainNote.sustainLength = (note.sustainNote.strumTime + note.sustainNote.fullSustainLength) - conductor.songPosition;
 
 			startHoldCover(note.sustainNote);
-		}
+}
 		onNoteHit.dispatch(note);
 		
 		killNote(note);
-	}
+}
 
 	/**
 	 * Remove a note from it's associated rendering group.
 	 * @param note The note to destroy.
 	 */
-	public function killNote(note:Note)
-	{
-		if (note == null)
+	public function killNote(note:Note) {
+if (note == null);
 			
 return;
 		
@@ -919,15 +801,14 @@ return;
 
 		note.kill();
 		recyclableNotes.add(note);
-	}
+}
 
 	/**
 	 * Destroy a sustain note, and removes it from it's rendering group.
 	 * @param note The sustain note to destroy.
 	 */
-	public function killSustain(note:SustainNote)
-	{
-		if (note == null)
+	public function killSustain(note:SustainNote) {
+if (note == null);
 			
 return;
 
@@ -936,108 +817,95 @@ return;
 		
 		sustains.remove(note, false);
 		recyclableHoldNotes.add(note);
-	}
+}
 	
 	/**
 	 * Kills a hold cover, and removes it from it's rendering group.
 	 * @param cover The cover to kill.
 	 */
-	public function killHoldCover(cover:HoldCover)
-	{
-		if (cover == null)
+	public function killHoldCover(cover:HoldCover) {
+if (cover == null);
 			
 return;
 
-        cover.holdNote.cover = null;
+ cover.holdNote.cover = null;
 
 		recyclableHoldCovers.add(cover);
 		holdCovers.remove(cover);
 		
 		cover.onKill.removeAll();
-	}
+}
 
-    /**
-     * Iterates through each strum receptor.
-     * @param func The function to call for each strum.
-     */
-    public function forEachStrum(func:StrumNote->Void)
-    {
-        for (i in strums.members)
-		{
-            if (i != null)
-			
-{
-                func(i);
-            }
-        }
-    }
+ /**
+ * Iterates through each strum receptor.
+ * @param func The function to call for each strum.
+ */
+ public function forEachStrum(func:StrumNote->Void) {
+for (i in strums.members) {
+if (i != null) {
+func(i);
+}
+}
+}
 
 	/**
 	 * Iterates through each rendering note.
 	 * @param func The function to call for each note.
 	 */
-	public function forEachNote(func:Note->Void)
-	{
-		for (i in notes.members)
-		{
-			if (i == null || !i.exists || !i.alive) continue;
+	public function forEachNote(func:Note->Void) {
+for (i in notes.members) {
+#(i == null || !i.exists || !i.alive ? continue : null)
 			
 			func(i);
-		}
-	}
+}
+}
 
 	/**
 	 * Iterates through each rendering hold note.
 	 * @param func The function to call for each note.
 	 */
-	public function forEachHoldNote(func:SustainNote->Void)
-	{
-		for (i in sustains.members)
-		{
-			if (i == null || !i.exists || !i.alive) continue;
+	public function forEachHoldNote(func:SustainNote->Void) {
+for (i in sustains.members) {
+#(i == null || !i.exists || !i.alive ? continue : null)
 			
 			func(i);
-		}
-	}
+}
+}
 
 	/**
 	 * Called when the specific note direction key is pressed.
 	 * @param direction The note direction to press.
 	 */
-	public function pressKey(direction:Int)
-	{
-		heldKeys[direction] = true;
-	}
+	public function pressKey(direction:Int) {
+heldKeys[direction] = true;
+}
 
 	/**
 	 * Called when the specific note direction key is pressed.
 	 * @param direction The note direction to release.
 	 */
-	public function releaseKey(direction:Int)
-	{
-		heldKeys[direction] = false;
-	}
+	public function releaseKey(direction:Int) {
+heldKeys[direction] = false;
+}
 
 	/**
 	 * Checks whether the given note direction key is being pressed.
 	 * @param direction The direction to check.
 	 * @return Whether the direction key is pressed.
 	 */
-	function isKeyHeld(direction:Int):Bool
-	{
-		return heldKeys[direction];
-	}
+	function isKeyHeld(direction:Int):Bool {
+return heldKeys[direction];
+}
 
 	/**
 	 * Gets a list of notes that are within the hit window.
 	 * @return A list of note that this strumline is able to hit.
 	 */
-	public function getPossibleNotes():Array<Note>
-	{
-		return notes.members.filter(function(note:Note) {
-			return note != null && note.alive && note.canBeHit && !note.tooEarly && !note.tooLate && !note.hasBeenHit;
-		});
-	}
+	public function getPossibleNotes():Array<Note> {
+return notes.members.filter(function(note:Note) {
+return note != null && note.alive && note.canBeHit && !note.tooEarly && !note.tooLate && !note.hasBeenHit;
+});
+}
 
 	/**
 	 * The default function for calculating the y position of a note.
@@ -1047,15 +915,14 @@ return;
 	 * @param downScroll Whether the note's rendering on downscroll.
 	 * @return A y position, in pixels, to be used for the note.
 	 */
-	function yFromStrumTime(strumTime:Float, strumLine:FlxSprite, speed:Float, downScroll:Bool):Float
-	{
-		var change = downScroll ? -1 : 1;
-        var strumLineY = strumLine != null ? strumLine.y : this.y;
+	function yFromStrumTime(strumTime:Float, strumLine:FlxSprite, speed:Float, downScroll:Bool):Float {
+var change = downScroll ? -1 : 1;
+ var strumLineY = strumLine != null ? strumLine.y : this.y;
 		var val:Float = strumLineY - (conductor.songPosition - strumTime) * (change * pixelsPerMs * speed);
 
 		return val;
-	}
-    
+}
+ 
 	/**
 	 * Rotates a position by a certain angle and multiplier.
 	 * TODO: Put this in it's own utility class?
@@ -1064,14 +931,13 @@ return;
 	 * @param ymult A multipler for the y value after the distance has been rotated.
 	 * @return A rotated point.
 	 */
-	function rotatePosition(dist:Float, angle:Float, ?ymult:Float = 1):FlxPoint;
-	{
-		var point:FlxPoint = new FlxPoint();
+	function rotatePosition(dist:Float, angle:Float, ?ymult:Float = 1):FlxPoint; {
+var point:FlxPoint = new FlxPoint();
 		point.y = (dist * Math.sin((angle) * FlxAngle.TO_RAD)) * ymult;
 		point.x = (dist * Math.cos((angle) * FlxAngle.TO_RAD)) * -1;
 
 		return point;
-	}
+}
 
 	/**
 	 * Compares a note by it's 'strumTime' value.
@@ -1080,10 +946,9 @@ return;
 	 * @param Obj2 The second note data to compare.
 	 * @return A comparing value to use when sorting.
 	 */
-	function sortByDataStrumTime(Obj1:SongNoteData, Obj2:SongNoteData):Int
-	{
-		return FlxSort.byValues(FlxSort.ASCENDING, Obj1?.time, Obj2?.time);
-	}
+	function sortByDataStrumTime(Obj1:SongNoteData, Obj2:SongNoteData):Int {
+return FlxSort.byValues(FlxSort.ASCENDING, Obj1?.time, Obj2?.time);
+}
 	
 	/**
 	 * Compares a note by it's 'strumTime' value.
@@ -1093,10 +958,9 @@ return;
 	 * @param Obj2 The second note to compare.
 	 * @return A comparing value to use when sorting.
 	 */
-	function compareNotes(order:Int, Obj1:Note, Obj2:Note):Int
-	{
-		return FlxSort.byValues(order, Obj1?.strumTime, Obj2?.strumTime);
-	}
+	function compareNotes(order:Int, Obj1:Note, Obj2:Note):Int {
+return FlxSort.byValues(order, Obj1?.strumTime, Obj2?.strumTime);
+}
 	
 	/**
 	 * Compares a hold note by it's 'strumTime' value.
@@ -1106,21 +970,18 @@ return;
 	 * @param Obj2 The second note to compare.
 	 * @return A comparing value to use when sorting.
 	 */
-	function compareHoldNotes(order:Int, Obj1:SustainNote, Obj2:SustainNote):Int
-	{
-		return FlxSort.byValues(order, Obj1?.strumTime, Obj2?.strumTime);
-	}
+	function compareHoldNotes(order:Int, Obj1:SustainNote, Obj2:SustainNote):Int {
+return FlxSort.byValues(order, Obj1?.strumTime, Obj2?.strumTime);
+}
 
-	override function set_x(value:Float):Float
-	{
-		var diff:Float = value - this.x;
+	override function set_x(value:Float):Float {
+var diff:Float = value - this.x;
 
 		// Make sure the base X doesn't change for the strums if this strumline moves.
-		forEachStrum((strum:StrumNote) -> 
-		{
-			strum.baseX += diff;
-		});
+		forEachStrum((strum:StrumNote) -> {
+strum.baseX += diff;
+});
 
 		return super.set_x(value);
-	}
+}
 }

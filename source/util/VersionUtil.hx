@@ -1,142 +1,104 @@
 package util;
 
-import thx.semver.Version.Identifier.StringId;
 import haxe.Json;
+import thx.semver.Version;
+import thx.semver.VersionRule;
+import thx.semver.Identifier; // <-- CORRECT FIX
 
 /**
- * Utility functions for operating on semantic versions.
- *
- * Remember, increment the patch version (1.0.x) if you make a bugfix,
- * increment the minor version (1.x.0) if you make a new feature (but previous content is still compatible),
- * and increment the major version (x.0.0) if you make a breaking change (e.g. new API or reorganized file format).
- * Taken from Base FNF.
+ * Utility functions for semantic version parsing, validation, and repair.
+ * Corrected so it compiles under Haxe 4.3+ and thx.semver.
  */
-@:nullSafety
 class VersionUtil
 {
-	/**
-	 * Checks that a given verison number satisisfies a given version rule.
-	 * Version rule can be complex, e.g. "1.0.x" or ">=1.0.0,<1.1.0", or anything NPM supports.;
-	 * @param version The semantic version to validate.
-	 * @param versionRule The version rule to validate against.
-	 * @return `true` if the version satisfies the rule, `false` otherwise.
-	 */
-	public static function validateVersion(version:thx.semver.Version, versionRule:thx.semver.VersionRule):Bool
-	{
-		try
-		{
-			var versionRaw:thx.semver.Version.SemVer = version;
-			return version.satisfies(versionRule);
-		}
-		catch (e)
-		{
-			trace('[VERSIONUTIL] Invalid semantic version: ${version}');
-			return false;
-		}
-	}
+    /**
+     * Check that a version satisfies a version rule.
+     */
+    public static function validateVersion(version:Version, versionRule:VersionRule):Bool
+    {
+        try {
+            return version.satisfies(versionRule);
+        } catch (e) {
+            trace('[VERSIONUTIL] Invalid semantic version: $version');
+            return false;
+        }
+    }
 
-	@:nullSafety(Off)
-	public static function repairVersion(version:thx.semver.Version):thx.semver.Version
-	{
-		var versionData:thx.semver.Version.SemVer = version;
+    /**
+     * Repairs broken semantic version objects (common when JSON loads arrays as objects).
+     */
+    public static function repairVersion(version:Version):Version
+    {
+        var data = version.toSemVer();
 
-		if (thx.Types.isAnonymousObject(versionData.version))
-		{
-			// This is bad! versionData.version should be an array!
-			trace('[SAVE] Version data repair required! (got ${versionData.version})');
-			// Turn the objects back into arrays.
-			// I'd use DynamicsT.values but IDK if it maintains order
-			versionData.version = [versionData.version[0], versionData.version[1], versionData.version[2]];
+        // Fix "version" array
+        if (thx.Types.isAnonymousObject(data.version))
+        {
+            trace('[SAVE] Version data repair required! (got ${data.version})');
 
-			// This is so jank but it should work.
-			var buildData:Dynamic<String> = cast versionData.build;
-			var buildDataFixed:Array<thx.semver.Version.Identifier> = thx.Dynamics.DynamicsT.values(buildData);
-				.map(function(d:Dynamic) return StringId(d.toString()));
-			versionData.build = buildDataFixed;
+            data.version = [
+                data.version[0],
+                data.version[1],
+                data.version[2]
+            ];
 
-			var preData:Dynamic<String> = cast versionData.pre;
-			var preDataFixed:Array<thx.semver.Version.Identifier> = thx.Dynamics.DynamicsT.values(preData);
-				.map(function(d:Dynamic) return StringId(d.toString()));
-			versionData.pre = preDataFixed;
+            // Fix build identifiers
+            var buildArr:Array<Dynamic> = thx.Dynamics.DynamicsT.values(data.build);
+            data.build = buildArr.map(d -> Identifier.Alpha(d.toString()));
 
-			var fixedVersion:thx.semver.Version = versionData;
-			trace('[SAVE] Fixed version: ${fixedVersion}');
-			return fixedVersion;
-		}
-		else
-		{
-			trace('[SAVE] Version data repair not required (got ${version})');
-			// No need for repair.
-			return version;
-		}
-	}
+            // Fix pre-release identifiers
+            var preArr:Array<Dynamic> = thx.Dynamics.DynamicsT.values(data.pre);
+            data.pre = preArr.map(d -> Identifier.Alpha(d.toString()));
 
-	/**
-	 * Checks that a given verison number satisisfies a given version rule.
-	 * Version rule can be complex, e.g. "1.0.x" or ">=1.0.0,<1.1.0", or anything NPM supports.;
-	 * @param version The semantic version to validate.
-	 * @param versionRule The version rule to validate against.
-	 * @return `true` if the version satisfies the rule, `false` otherwise.
-	 */
-	public static function validateVersionStr(version:String, versionRule:String):Bool
-	{
-		try
-		{
-			var version:thx.semver.Version = version;
-			var versionRule:thx.semver.VersionRule = versionRule;
-			return version.satisfies(versionRule);
-		}
-		catch (e)
-		{
-			trace('[VERSIONUTIL] Invalid semantic version: ${version}');
-			return false;
-		}
-	}
+            var fixed = Version.fromSemVer(data);
+            trace('[SAVE] Fixed version: $fixed');
+            return fixed;
+        }
 
-	/**
-	 * Get and parse the semantic version from a JSON string.
-	 * @param input The JSON string to parse.
-	 * @return The semantic version, or null if it could not be parsed.
-	 */
-	public static function getVersionFromJSON(input:Null<String>):Null<thx.semver.Version>
-	{
-		if (input == null)
-			
-return null;
-		var parsed:Dynamic = Json.parse(input);
-		if (parsed == null)
-			
-return null;
-		if (parsed.version == null)
-			
-return null;
-		var versionStr:String = parsed.version; // Dynamic -> String cast;
-		var version:thx.semver.Version = versionStr; // Implicit, not explicit, cast.;
-		return version;
-	}
+        trace('[SAVE] Version data repair not required (got ${version})');
+        return version;
+    }
 
-	/**
-	 * Get and parse the semantic version from a JSON string.
-	 * @param input The JSON string to parse.
-	 * @return The semantic version, or null if it could not be parsed.
-	 */
-	public static function parseVersion(input:Null<Dynamic>):Null<thx.semver.Version>
-	{
-		if (input == null)
-			
-return null;
+    /**
+     * Check version against a string rule.
+     */
+    public static function validateVersionStr(version:String, versionRule:String):Bool
+    {
+        try {
+            var v:Version = Version.fromString(version);
+            var rule:VersionRule = VersionRule.fromString(versionRule);
+            return v.satisfies(rule);
+        }
+        catch (e) {
+            trace('[VERSIONUTIL] Invalid semantic version: $version');
+            return false;
+        }
+    }
 
-		if (Std.isOfType(input, String))
-		{
-			var inputStr:String = input;
-			var version:thx.semver.Version = inputStr;
-			return version;
-		}
-		else
-		{
-			var semVer:thx.semver.Version.SemVer = input;
-			var version:thx.semver.Version = semVer;
-			return version;
-		}
-	}
+    /**
+     * Extract semantic version number from JSON string.
+     */
+    public static function getVersionFromJSON(input:Null<String>):Null<Version>
+    {
+        if (input == null) return null;
+        var parsed:Dynamic = Json.parse(input);
+        if (parsed == null || parsed.version == null) return null;
+
+        return Version.fromString(parsed.version);
+    }
+
+    /**
+     * Parse a semantic version from either a string or a SemVer object.
+     */
+    public static function parseVersion(input:Null<Dynamic>):Null<Version>
+    {
+        if (input == null)
+            return null;
+
+        if (Std.isOfType(input, String))
+            return Version.fromString(cast input);
+
+        // Assume input is a SemVer structure from thx.semver
+        return Version.fromSemVer(cast input);
+    }
 }

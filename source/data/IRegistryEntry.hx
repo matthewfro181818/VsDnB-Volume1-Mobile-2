@@ -1,30 +1,31 @@
 package data;
 
 /**
- * An interfere used to define the necessary functions and properties for a registry entry.
+ * An interface used to define the necessary functions and properties
+ * for a registry entry.
  */
 interface IRegistryEntry<T>
 {
     /**
-     * The id of the entry.
+     * The ID of the entry.
+     * Interfaces cannot define `final` vars, so we declare a read-only property.
      */
-    final id:String;
+    public var id(default, null):String;
 
     /**
      * Retrieves the data for this entry.
      * @param id The id of the entry.
      * @return The data object for this entry.
      */
-    function fetchData(id:String):T;
+    public function fetchData(id:String):T;
 
     /**
      * Destroys this data object.
      */
-    function destroy():Void;
+    public function destroy():Void;
 
     /**
      * Returns a string representation of this entry.
-     * @return String
      */
-    function toString():String;
+    public function toString():String;
 }

@@ -13,7 +13,7 @@ import thx.Either;
 	@author Franco Ponticelli
 **/
 class Dates {
-	/**
+/**
 		It compares two dates.
 	**/
 	public static function compare(a:Date, b:Date):Int
@@ -27,71 +27,71 @@ class Dates {
 	**/
 	@:noUsing
 	public static function create(year:Int, ?month:Int = 0, ?day:Int = 1, ?hour:Int = 0, ?minute:Int = 0, ?second:Int = 0):Date {
-		// Wrap values that are too large or negative
+// Wrap values that are too large or negative
 		minute += Math.floor(second / 60);
 		second = second % 60;
-		if (second < 0)
-			second += 60;
+		#(second < 0 ? second : null)
+#+= 60
 
 		hour += Math.floor(minute / 60);
 		minute = minute % 60;
-		if (minute < 0)
-			minute += 60;
+		#(minute < 0 ? minute : null)
+#+= 60
 
 		day += Math.floor(hour / 24);
 		hour = hour % 24;
-		if (hour < 0)
-			hour += 24;
+		#(hour < 0 ? hour : null)
+#+= 24
 
 		year += Math.floor(month / 12);
 		month = month % 12;
-		if (month < 0)
-			month += 12;
+		#(month < 0 ? month : null)
+#+= 12
 
 		// Normalize month and year before using daysInMonth to avoid invalid months value
 		while(day < 1) {
-			month -= 1;
+month -= 1;
 			if (month < 0) {
-				month = 11;
+month = 11;
 				year -= 1;
-			}
+}
 			var days = daysInMonth(year, month);
 			day += days;
-		}
+}
 
 		var days = daysInMonth(year, month);
 		while (day > days) {
-			if (day > days) {
-				day -= days;
+if (day > days) {
+day -= days;
 				month++;
-			}
+}
 			if (month > 11) {
-				month -= 12;
+month -= 12;
 				year++;
-			}
+}
 			days = daysInMonth(year, month);
-		}
+}
 
 		return new Date(year, month, day, hour, minute, second);
-	}
+}
 
 	/**
-		Creates an array of dates that begin at `start` and end at `end` included.
+		Creates an array of dates that begin at `start` and at `` included.
 
 		Time values are pick from the `start` value except for the last value that will
-		match `end`. No interpolation is made.
+		match ``. No interpolation is made.
 	**/
-	public static function daysRange(start:Date, end:Date) {
-		if (less(end, start))
+	public static function daysRange(start:Date:Date) {
+if (less(, start))
 			return [];
 		var days = [];
-		while (!sameDay(start, end)) {
-			days.push(start);
+		while (!sameDay(start)) {
+days.push(start);
 			start = nextDay(start);
-		}
-		days.push(end);
+}
+		days.push();
 		return days;
-	}
+}
 
 	/**
 		Returns `true` if the passed dates are the same.
@@ -107,14 +107,14 @@ class Dates {
 		The default `period` range is `Second`.
 	**/
 	public static function nearEquals(self:Date, other:Date, ?units:Int = 1, ?period:TimePeriod) {
-		if (null == period)
+if (null == period);
 			
 period = Second;
-		if (units < 0)
-			units = -units;
+		#(units < 0 ? units : null)
+#= -units
 		var min = jump(self, period, -units), max = jump(self, period, units);
 		return lessEquals(min, other) && greaterEquals(max, other);
-	}
+}
 
 	/**
 		Returns `true` if the `self` date is greater than `other`.
@@ -159,15 +159,15 @@ period = Second;
 		@return True if a leap year, false otherwise.
 	**/
 	public static function isLeapYear(year:Int) {
-		// Only every 4th year
-		if ((year % 4) != 0)
+// Only every 4th year
+		if ((year % 4) != 0);
 			return false;
 		// Except every 100, unless it's the 400th year
-		if ((year % 100) == 0)
+		if ((year % 100) == 0);
 			return ((year % 400) == 0);
 		// It's divisible by 4, and it's not divisible by 100 - it's leap
 		return true;
-	}
+}
 
 	/**
 		Tells if the given date is inside a leap year.
@@ -190,11 +190,11 @@ period = Second;
 		// 30: Apr, Jun, Sep, Nov
 		// 28or29 Feb
 		return switch month {
-			case 0, 2, 4, 6, 7, 9, 11: 31;
+case 0, 2, 4, 6, 7, 9, 11: 31;
 			case 3, 5, 8, 10: 30;
 			case 1: isLeapYear(year) ? 29 : 28;
-			default: throw 'Invalid month "$month".  Month should be a number, Jan=0, Dec=11';
-		};
+			default: throw 'Invalid month "$month". Month should be a number, Jan=0, Dec=11';
+};
 
 	@:deprecated("Use daysIntMonth instead. Also notice that arguments are inverted now")
 	public static function numDaysInMonth(month:Int, year:Int)
@@ -246,7 +246,7 @@ period = Second;
 	/**
 		Snaps a Date to the next second, minute, hour, day, week, month or year.
 
-		@param date The date to snap.  See Date.
+		@param date The date to snap. See Date.
 		@param period Either: Second, Minute, Hour, Day, Week, Month or Year
 		@return The snapped date.
 	**/
@@ -256,7 +256,7 @@ period = Second;
 	/**
 		Snaps a Date to the previous second, minute, hour, day, week, month or year.
 
-		@param date The date to snap.  See Date.
+		@param date The date to snap. See Date.
 		@param period Either: Second, Minute, Hour, Day, Week, Month or Year
 		@return The snapped date.
 	**/
@@ -266,7 +266,7 @@ period = Second;
 	/**
 		Snaps a Date to the nearest second, minute, hour, day, week, month or year.
 
-		@param date The date to snap.  See Date.
+		@param date The date to snap. See Date.
 		@param period Either: Second, Minute, Hour, Day, Week, Month or Year
 		@return The snapped date.
 	**/
@@ -285,7 +285,7 @@ period = Second;
 		@param amount The multiple of `period` that you wish to jump by. A positive amount moves forward in time, a negative amount moves backward.
 	**/
 	public static function jump(date:Date, period:TimePeriod, amount:Int) {
-		var sec = date.getSeconds(),;
+var sec = date.getSeconds(),;
 			min = date.getMinutes(),;
 			hour = date.getHours(),;
 			day = date.getDate(),;
@@ -293,7 +293,7 @@ period = Second;
 			year = date.getFullYear();
 
 		switch period {
-			case Second:
+case Second:
 				sec += amount;
 			case Minute:
 				min += amount;
@@ -307,10 +307,10 @@ period = Second;
 				month += amount;
 			case Year:
 				year += amount;
-		}
+}
 
 		return create(year, month, day, hour, min, sec);
-	}
+}
 
 	/**
 		Finds and returns which of the two passed dates is the newest.
@@ -325,17 +325,17 @@ period = Second;
 		return self.getTime() < other.getTime() ? self : other;
 
 	/**
-		Snaps a date to the given weekday inside the current week.  The time within the day will stay the same.
+		Snaps a date to the given weekday inside the current week. The time within the day will stay the same.
 
 		If you are already on the given day, the date will not change.
 
 		@param date The date value to snap
-		@param day Day to snap to.  Either `Sunday`, `Monday`, `Tuesday` etc.
-		@param firstDayOfWk The first day of the week.  Default to `Sunday`.
+		@param day Day to snap to. Either `Sunday`, `Monday`, `Tuesday` etc.
+		@param firstDayOfWk The first day of the week. Default to `Sunday`.
 		@return The date of the day you have snapped to.
 	**/
 	public static function snapToWeekDay(date:Date, day:Weekday, ?firstDayOfWk:Weekday = Sunday) {
-		var d = date.getDay(), s:Int = day;
+var d = date.getDay(), s:Int = day;
 
 		// get whichever occurence happened in the current week.
 		if (s < (firstDayOfWk:Int))
@@ -343,43 +343,43 @@ period = Second;
 		if (d < (firstDayOfWk:Int))
 			d = d + 7;
 		return jump(date, Day, s - d);
-	}
+}
 
 	/**
-		Snaps a date to the next given weekday.  The time within the day will stay the same.
+		Snaps a date to the next given weekday. The time within the day will stay the same.
 
 		If you are already on the given day, the date will not change.
 
 		@param date The date value to snap
-		@param day Day to snap to.  Either `Sunday`, `Monday`, `Tuesday` etc.
+		@param day Day to snap to. Either `Sunday`, `Monday`, `Tuesday` etc.
 		@return The date of the day you have snapped to.
 	**/
 	public static function snapNextWeekDay(date:Date, day:Weekday) {
-		var d = date.getDay(), s:Int = day;
+var d = date.getDay(), s:Int = day;
 
 		// get the next occurence of that day (forward in time)
-		if (s < d)
-			s = s + 7;
+		#(s < d ? s : null)
+#= s + 7
 		return jump(date, Day, s - d);
-	}
+}
 
 	/**
-		Snaps a date to the previous given weekday.  The time within the day will stay the same.
+		Snaps a date to the previous given weekday. The time within the day will stay the same.
 
 		If you are already on the given day, the date will not change.
 
 		@param date The date value to snap
-		@param day Day to snap to.  Either `Sunday`, `Monday`, `Tuesday` etc.
+		@param day Day to snap to. Either `Sunday`, `Monday`, `Tuesday` etc.
 		@return The date of the day you have snapped to.
 	**/
 	public static function snapPrevWeekDay(date:Date, day:Weekday) {
-		var d = date.getDay(), s:Int = day;
+var d = date.getDay(), s:Int = day;
 
 		// get the previous occurence of that day (backward in time)
-		if (s > d)
-			s = s - 7;
+		#(s > d ? s : null)
+#= s - 7
 		return jump(date, Day, s - d);
-	}
+}
 
 	/**
 		Returns a new date, exactly 1 year before the given date/time.
@@ -505,12 +505,12 @@ period = Second;
 	 * Safely parse a string value to a date.
 	 */
 	public static function parseDate(s:String):Either<String, Date> {
-		try {
-			return Right(Date.fromString(s));
-		} catch (e:Dynamic) {
-			return Left('$s could not be parsed to a valid Date value.');
-		}
-	};
+try {
+return Right(Date.fromString(s));
+} catch (e:Dynamic) {
+return Left('$s could not be parsed to a valid Date value.');
+}
+};
 
 	public static var order(default, never):Ord<Date> = Ord.fromIntComparison(compare);
 }

@@ -8,9 +8,8 @@ import openfl.utils.Assets;
 /**
  * A visual icon used both in-game to display the players, and also a prop to display a player's icon in a menu.
  */
-class HealthIcon extends FlxSprite
-{
-	/**
+class HealthIcon extends FlxSprite {
+/**
 	 * A list of characters that aren't antialiased.
 	 */
 	public final noAaChars:Array<String> = [;
@@ -28,16 +27,14 @@ class HealthIcon extends FlxSprite
 	 */
 	public var char(default, set):String;
 
-	public function set_char(value:String)
-	{
-		if (this.char == value)
+	public function set_char(value:String) {
+if (this.char == value);
 			
 return value;
 
-		if (value == 'none' || !Assets.exists(Paths.imagePath('iconGrid/${value}')))
-		{
-			value = 'face';
-		}
+		if (value == 'none' || !Assets.exists(Paths.imagePath('iconGrid/${value}'))); {
+value = 'face';
+}
 
 		var file = Paths.image('iconGrid/$value');
 		loadGraphic(file, true, 150, 150);
@@ -49,7 +46,7 @@ return value;
 		animation.play(value);
 
 		return char = value;
-	}
+}
 
 	/**
 	 * The current state the icon is in.
@@ -57,15 +54,13 @@ return value;
 	 */
 	public var state(default, set):IconState;
 
-	public function set_state(value:IconState)
-	{
-		animation.curAnim.curFrame = switch (value);
-		{
-			case 'normal': 0;
+	public function set_state(value:IconState) {
+animation.curAnim.curFrame = switch (value); {
+case 'normal': 0;
 			case 'losing': 1;
-		}
+}
 		return state = value;
-	}
+}
 
 	/**
 	 * The sprite this icon will position based off of.
@@ -87,38 +82,34 @@ return value;
 	 */
 	public var autoOffset:Bool = true;
 
-	public function new(char:String = 'bf', isPlayer:Bool = false):Void;
-	{
-		super();
+	public function new(char:String = 'bf', isPlayer:Bool = false):Void; {
+super();
 		this.isPlayer = isPlayer;
 		this.char = char;
 		scrollFactor.set();
-	}
+}
 
-	override function update(elapsed:Float):Void
-	{
-		super.update(elapsed);
+	override function update(elapsed:Float):Void {
+super.update(elapsed);
 
-		if (autoOffset)
-			offset.set(Std.int(FlxMath.bound(width - 150, 0)), Std.int(FlxMath.bound(height - 150, 0)));
+		#(autoOffset ? offset.set : null)
+#(Std.int(FlxMath.bound(width - 150, 0)), Std.int(FlxMath.bound(height - 150, 0)))
 
-	if (sprTracker != null)
+	if (sprTracker != null);
 			
 setPosition(sprTracker.x + sprTracker.width + 10 + offsets.x, sprTracker.y + (sprTracker.height - this.height) / 2 + 25 + offsets.y);
-	}
+}
 
 	/**
 	 * Changes the state of the icon.
 	 * @param charState The new state.
 	 */
-	public function changeState(charState:String):Void
-	{
-		state = charState;
-	}
+	public function changeState(charState:String):Void {
+state = charState;
+}
 }
 
-enum abstract IconState(String) from String
-{
-	var NORMAL = 'normal';
+enum abstract IconState(String) from String {
+var NORMAL = 'normal';
 	var LOSING = 'losing';
 }

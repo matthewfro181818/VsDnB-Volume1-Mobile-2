@@ -5,79 +5,72 @@ import play.save.Preferences;
 import ui.menu.settings.SettingsMenu.CheckboxOption;
 import ui.menu.settings.SettingsMenu.NumericStepperOption;
 
-class Options_Window extends SettingsCategory
-{
-	var checkbox_darkMode:CheckboxOption;
+class Options_Window extends SettingsCategory {
+var checkbox_darkMode:CheckboxOption;
 	var stepper_fps:NumericStepperOption;
 
-	public override function init()
-	{
-		#if desktop
+	public override function init() {
+#if desktop
 		checkbox_darkMode = new CheckboxOption(400, 600, {
-			name: LanguageManager.getTextString('settings_window_darkMode'),
+name: LanguageManager.getTextString('settings_window_darkMode'),
 			description: LanguageManager.getTextString('settings_window_darkMode_description'),
-			callback: function(value:Bool)
-			{
-				Preferences.darkMode = value;
-			}
-		});
+			callback: function(value:Bool) {
+Preferences.darkMode = value;
+}
+});
 		checkbox_darkMode.setChecked(Preferences.darkMode, false, true);
 		checkbox_darkMode.canInteract = !Preferences.borderless;
-		#end
 
 		stepper_fps = new NumericStepperOption(375, 300, {
-			name: LanguageManager.getTextString('settings_window_fps'),
+name: LanguageManager.getTextString('settings_window_fps'),
 			description: LanguageManager.getTextString('settings_window_fps_description'),
 			min: 10,
 			max: 240,
 			stepper: 1,
 			changeTimer: 0.02,
-			callback: function(value:Float)
-			{
-				Preferences.fps = Std.int(value);
-			}
-		});
+			callback: function(value:Float) {
+Preferences.fps = Std.int(value);
+}
+});
 		stepper_fps.setValue(Preferences.fps);
 		stepper_fps.canInteract = !Preferences.vsync;
 		list.push(stepper_fps);
 		add(stepper_fps);
 
 		var checkbox_borderless = new CheckboxOption(400, 400, {
-			name: LanguageManager.getTextString('settings_window_borderless'),
+name: LanguageManager.getTextString('settings_window_borderless'),
 			description: LanguageManager.getTextString('settings_window_borderless_description'),
-			callback: function(value:Bool)
-			{
-				Preferences.borderless = value;
+			callback: function(value:Bool) {
+Preferences.borderless = value;
 
 				checkbox_darkMode.canInteract = !value;
-			}
-		});
+}
+});
 		checkbox_borderless.setChecked(Preferences.borderless, false, true);
 		list.push(checkbox_borderless);
 		add(checkbox_borderless);
 
 		var checkbox_vsync = new CheckboxOption(400, 500, {
-			name: LanguageManager.getTextString('settings_window_VSync'),
+name: LanguageManager.getTextString('settings_window_VSync'),
 			description: LanguageManager.getTextString('settings_window_VSync_description'),
-			callback: function(value:Bool)
-			{
-				Preferences.vsync = value;
+			callback: function(value:Bool) {
+Preferences.vsync = value;
 				stepper_fps.canInteract = !value;
-			}
-		});
+}
+});
 		checkbox_vsync.setChecked(Preferences.vsync, false, true);
 		list.push(checkbox_vsync);
 		add(checkbox_vsync);
 
-		#if desktop
+#if desktop
 		// Make sure this gets added last so it fits last in the group.
 		list.push(checkbox_darkMode);
 		add(checkbox_darkMode);
-		#end
-	}
-	
-	override function getName():String
-	{
-		return LanguageManager.getTextString('settings_category_window');
-	}
 }
+	
+	override function getName():String {
+return LanguageManager.getTextString('settings_category_window');
+}
+}
+#
+#

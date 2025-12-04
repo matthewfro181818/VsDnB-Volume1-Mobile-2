@@ -14,9 +14,8 @@ import flixel.addons.display.FlxRadialGauge;
 import play.character.Character;
 import play.save.Preferences;
 
-typedef TimerType =
-{
-	/**
+typedef TimerType =; {
+/**
 	 * The graphic of this style.
 	 */
 	var graphic:FlxGraphicAsset;
@@ -40,9 +39,8 @@ typedef TimerType =
 /**
  * A UI graphic that displays the current time of a song.
  */
-class HudTimer extends FlxSpriteGroup implements IHudItem
-{
-	/**
+class HudTimer extends FlxSpriteGroup implements IHudItem {
+/**
 	 * The constant size of the pie graphics.
 	 */
 	final PIE_SIZE = (120 * 0.7) / 2;
@@ -54,11 +52,11 @@ class HudTimer extends FlxSpriteGroup implements IHudItem
 	final types:Map<String, TimerType> = [;
 		'normal' => {graphic: Paths.image('ui/timer'), offsets: FlxPoint.get(0, 0), antialiasing: true},;
 		'3d' => {
-			graphic: Paths.image('ui/timer-3d'),
+graphic: Paths.image('ui/timer-3d'),
 			scale: FlxPoint.get(0.9, 0.9),
 			offsets: FlxPoint.get(-5, -4),
 			antialiasing: false
-		}
+}
 	];
 
 	/**
@@ -71,11 +69,10 @@ class HudTimer extends FlxSpriteGroup implements IHudItem
 	 */
 	public var scrollType(default, set):String;
 
-	function set_scrollType(value:String):String
-	{
-		this.y = (value == 'downscroll' ? 560 : 10);
+	function set_scrollType(value:String):String {
+this.y = (value == 'downscroll' ? 560 : 10);
 		return scrollType = value;
-	}
+}
 
 	var playerType:SelectedPlayerType;
 
@@ -101,9 +98,8 @@ class HudTimer extends FlxSpriteGroup implements IHudItem
 	var timerText:FlxText;
 
 	
-	public function new(x:Float = 0, y:Float = 0, opponent:Character, scrollType:String, type:String);
-	{
-		super(x, y);
+	public function new(x:Float = 0, y:Float = 0, opponent:Character, scrollType:String, type:String); {
+super(x, y);
 
 		this.scrollType = scrollType;
 
@@ -141,48 +137,40 @@ class HudTimer extends FlxSpriteGroup implements IHudItem
 		timerText.x = timerGraphic.x + (timerGraphic.width - timerText.textField.textWidth) / 2;
 
 		Preferences.onPreferenceChanged.add(onPreferenceChange);
-	}
+}
 
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+	override function update(elapsed:Float) {
+super.update(elapsed);
 
-		if (!canUpdate)
-			return;
+		#(!canUpdate ? return : null)
 
 		pieTimer.amount = Math.max(0, SoundController.music.time / SoundController.music.length);
 
-		if (FlxG?.sound?.music != null && FlxG?.sound?.music?.playing ?? false)
-		
-{
-			updateText();
-		}
-	}
+		if (FlxG?.sound?.music != null && FlxG?.sound?.music?.playing ?? false) {
+updateText();
+}
+}
 
-	override function destroy()
-	{
-		Preferences.onPreferenceChanged.remove(onPreferenceChange);
+	override function destroy() {
+Preferences.onPreferenceChanged.remove(onPreferenceChange);
 		super.destroy();
-	}
+}
 	
-	override function draw()
-	{
-		// If we're in minimal mode, we DON'T want to draw this.
-		if (Preferences.minimalUI)
-			return;
+	override function draw() {
+// If we're in minimal mode, we DON'T want to draw this.
+		#(Preferences.minimalUI ? return : null)
 		
 		super.draw();
-	}
+}
 
 	/**
 	 * Updates the timer's graphic to represent specified type.
 	 * @param type The type to change the timer to.
 	 */
-	public function switchType(type:String)
-	{
-		var timerType:TimerType = getType(type);
+	public function switchType(type:String) {
+var timerType:TimerType = getType(type);
 
-		if (timerType == null)
+		if (timerType == null);
 			
 return;
 
@@ -198,39 +186,32 @@ return;
 		
 		timerText.x = timerGraphic.x + (timerGraphic.width - timerText.textField.textWidth) / 2;
 		timerText.y = (timerGraphic.y - this.y) + timerGraphic.height - 5 + this.y;
-	}
+}
 
-	public function updateText()
-	{
-		var time = Math.min(SoundController.music.time, SoundController.music.length);
+	public function updateText() {
+var time = Math.min(SoundController.music.time, SoundController.music.length);
 		var length = SoundController.music.length;
 
-		timerText.text = switch (Preferences.timerType);
-		{
-			case 'timeLeft': FlxStringUtil.formatTime((length - time) / 1000);
+		timerText.text = switch (Preferences.timerType); {
+case 'timeLeft': FlxStringUtil.formatTime((length - time) / 1000);
 			case 'timeElapsed': FlxStringUtil.formatTime(time / 1000);
 			case 'elapsedAndLeft': '${FlxStringUtil.formatTime(time / 1000)} / ${FlxStringUtil.formatTime(length / 1000)}';
 			default: '';
-		}
+}
 		timerText.x = timerGraphic.x + (timerGraphic.width - timerText.textField.textWidth) / 2;
-	}
+}
 
-	function getType(name:String):Null<TimerType>
-	{
-		return types[name] ?? null;
-	}
+	function getType(name:String):Null<TimerType> {
+return types[name] ?? null;
+}
 
-	public function updatePieColor(color:FlxColor)
-	{
-		pieTimer.color = color;
-	}
+	public function updatePieColor(color:FlxColor) {
+pieTimer.color = color;
+}
 
-	public function onPreferenceChange(preference:String, value:Any)
-	{
-		if (preference == 'timerType')
-		
-{
-			updateText();
-		}
-	}
+	public function onPreferenceChange(preference:String, value:Any) {
+if (preference == 'timerType') {
+updateText();
+}
+}
 }

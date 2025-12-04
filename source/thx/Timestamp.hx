@@ -14,7 +14,7 @@ import thx.Dates;
 	@author Franco Ponticelli
 **/
 abstract Timestamp(Float) from Float to Float {
-	/**
+/**
 		Creates a timestamp by using the passed year, month, day, hour, minute, second.
 
 		Note that each argument can overflow its normal boundaries (e.g. a month value of `-33` is perfectly valid)
@@ -41,13 +41,13 @@ abstract Timestamp(Float) from Float to Float {
 	/**
 		Snaps a time to the next second, minute, hour, day, week, month or year.
 
-		@param time The unix time in milliseconds.  See date.getTime()
+		@param time The unix time in milliseconds. See date.getTime()
 		@param period Either: Second, Minute, Hour, Day, Week, Month or Year
 		@return The unix time of the snapped date (In milliseconds).
 	**/
 	public function snapNext(period:TimePeriod):Timestamp
 		return switch period {
-			case Second:
+case Second:
 				c(this, 1000.0);
 			case Minute:
 				c(this, 60000.0);
@@ -65,18 +65,18 @@ abstract Timestamp(Float) from Float to Float {
 			case Year:
 				var d = toDate();
 				create(d.getFullYear() + 1, 0, 1, 0, 0, 0);
-		};
+};
 
 	/**
 		Snaps a time to the previous second, minute, hour, day, week, month or year.
 
-		@param time The unix time in milliseconds.  See date.getTime()
+		@param time The unix time in milliseconds. See date.getTime()
 		@param period Either: Second, Minute, Hour, Day, Week, Month or Year
 		@return The unix time of the snapped date (In milliseconds).
 	**/
 	public function snapPrev(period:TimePeriod):Timestamp
 		return switch period {
-			case Second:
+case Second:
 				f(this, 1000.0);
 			case Minute:
 				f(this, 60000.0);
@@ -94,7 +94,7 @@ abstract Timestamp(Float) from Float to Float {
 			case Year:
 				var d = toDate();
 				create(d.getFullYear(), 0, 1, 0, 0, 0);
-		};
+};
 
 	/**
 		Snaps a time to the nearest second, minute, hour, day, week, month or year.
@@ -103,7 +103,7 @@ abstract Timestamp(Float) from Float to Float {
 	**/
 	public function snapTo(period:TimePeriod):Timestamp
 		return switch period {
-			case Second:
+case Second:
 				r(this, 1000.0);
 			case Minute:
 				r(this, 60000.0);
@@ -125,7 +125,7 @@ abstract Timestamp(Float) from Float to Float {
 				var d = toDate(),;
 					mod = this > new Date(d.getFullYear(), 6, 2, 0, 0, 0).getTime() ? 1 : 0;
 				create(d.getFullYear() + mod, 0, 1, 0, 0, 0);
-		};
+};
 
 	inline static function r(t:Float, v:Float)
 		return Math.fround(t / v) * v;

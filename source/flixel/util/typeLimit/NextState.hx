@@ -19,49 +19,44 @@ import flixel.FlxState;
  * var levelID = 1;
  * FlxG.switchState(() -> Void PlayState(levelID));
  * You can do things the long way, and use an anonymous function:
- * FlxG.switchState(function () { return new PlayState(); });
+ * FlxG.switchState(function () {
+return new PlayState();
+});
  * [Deprecated] Lastly, you can use the old way and pass in an instance (until it's removed):
  * FlxG.switchState(new PlayState());
  * @since 5.6.0
  * @see [HaxeFlixel issue #2541](https://github.com/HaxeFlixel/flixel/issues/2541)
  */
-abstract NextState(Dynamic)
-{
-	@:from
+abstract NextState(Dynamic) {
+@:from
 	@:deprecated("use `MyState.new` or `() -> Void MyState()` instead of `new MyState()`)")
-	public static function fromState(state:FlxState):NextState
-	{
-		return cast state;
-	}
+	public static function fromState(state:FlxState):NextState {
+return cast state;
+}
 	
 	@:from
-	public static function fromMaker(func:() -> Void):NextState
-	{
-		return cast func;
-	}
+	public static function fromMaker(func:() -> Void):NextState {
+return cast func;
+}
 	
-	public function createInstance():FlxState
-	{
-		if (this is FlxState)
-			return cast this;
-		else if (this is Class)
-			return Type.createInstance(this, []);
-		else
+	public function createInstance():FlxState {
+#(this is FlxState ? return : null)
+#cast this
+#else
+#Type.createInstance(this, [])
+#else
 			return cast this();
-	}
+}
 	
-	public function getConstructor():() -> Void
-	{
-		if (this is FlxState)
-		{
-			return function ():FlxState
-			{
-				return cast Type.createInstance(Type.getClass(this), []);
-			}
-		}
-		else
+	public function getConstructor():() -> Void {
+if (this is FlxState) {
+return function ():FlxState {
+return cast Type.createInstance(Type.getClass(this), []);
+}
+}
+#else
 			return cast this;
-	}
+}
 }
 
 /**
@@ -79,37 +74,33 @@ abstract NextState(Dynamic)
  * var levelID = 1;
  * FlxG.switchState(() -> Void PlayState(levelID));
  * You can do things the long way, and use an anonymous function:
- * FlxG.switchState(function () { return new PlayState(); });
+ * FlxG.switchState(function () {
+return new PlayState();
+});
  * [Deprecated] Lastly, you can use the old way and pass in a type (until it's removed):
  * FlxG.switchState(PlayState);
  * @since 5.6.0
  * @see [HaxeFlixel issue #2541](https://github.com/HaxeFlixel/flixel/issues/2541)
  */
-abstract InitialState(Dynamic) to NextState
-{
-	@:from
-	public static function fromType(state:Class<FlxState>):InitialState
-	{
-		return cast state;
-	}
+abstract InitialState(Dynamic) to NextState {
+@:from
+	public static function fromType(state:Class<FlxState>):InitialState {
+return cast state;
+}
 	
 	@:from
-	public static function fromMaker(func:() -> Void):InitialState
-	{
-		return cast func;
-	}
+	public static function fromMaker(func:() -> Void):InitialState {
+return cast func;
+}
 	
 	@:to
-	public function toNextState():NextState
-	{
-		if (this is Class)
-		{
-			return function ():FlxState
-			{
-				return cast Type.createInstance(this, []);
-			}
-		}
-		else
+	public function toNextState():NextState {
+if (this is Class) {
+return function ():FlxState {
+return cast Type.createInstance(this, []);
+}
+}
+#else
 			return cast this;
-	}
+}
 }

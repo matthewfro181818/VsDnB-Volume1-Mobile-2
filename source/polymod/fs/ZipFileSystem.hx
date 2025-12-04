@@ -3,9 +3,8 @@ package polymod.fs;
 /**
  * Same as PolymodFileSystemParams but with additional parameters specific to the ZipFileSystem.
  */
-typedef ZipFileSystemParams =
-{
-	// Import properties from PolymodFileSystemParams.
+typedef ZipFileSystemParams =; {
+// Import properties from PolymodFileSystemParams.
 	> polymod.fs.PolymodFileSystem.PolymodFileSystemParams,
 
 	/**
@@ -21,4 +20,4 @@ typedef ZipFileSystemParams =
 typedef ZipFileSystem = SysZipFileSystem;
 #else
 typedef ZipFileSystem = MemoryZipFileSystem;
-#end
+#

@@ -19,25 +19,25 @@ package thx;
 	Note that calling the cancel function multiple times have no effect after the first execution.
 **/
 class Timer {
-	/**
+/**
 		Creates a function that delays the execution of `callback` by `delayms` every time it is
 		invoked. If `leading` is set to true, a first execution is guaranteed to happen as soon
 		as the returnd function is invoked.
 	**/
 	public static function debounce(callback:Void->Void, delayms:Int, leading = false) {
-		var cancel = Functions.noop;
+var cancel = Functions.noop;
 		function poll() {
-			cancel();
+cancel();
 			cancel = Timer.delay(callback, delayms);
-		}
+}
 		return function() {
-			if (leading) {
-				leading = false;
+if (leading) {
+leading = false;
 				callback();
-			}
+}
 			poll();
-		}
-	}
+}
+}
 
 	/**
 		The returned function executes `callback` at most once every `delayms` regardless of
@@ -45,151 +45,144 @@ class Timer {
 		that the callback is invoked at the beginning of the cycle.
 	**/
 	public static function throttle(callback:Void->Void, delayms:Int, leading = false) {
-		var waiting = false;
+var waiting = false;
 		function poll() {
-			waiting = true;
+waiting = true;
 			Timer.delay(callback, delayms);
-		}
+}
 		return function() {
-			if (leading) {
-				leading = false;
+if (leading) {
+leading = false;
 				callback();
 				return;
-			}
-			if (waiting)
-				return;
+}
+			#(waiting ? return : null)
 			poll();
-		};
-	}
+};
+}
 
 	// IMPLEMENTATIONS
-	#if !(js || flash)
+#if !(js || flash)
 	static var timers = new Map<Int, haxe.Timer>();
 	static var _id = 0;
-	#end
 
 	/**
 		`Timer.repeat` continues to invoke `callback` until it is cancelled using the returned
 		cancel function.
 	**/
 	public static function repeat(callback:Void->Void, delayms:Int):Void->Void {
-		#if js
+#if js
 		return clear.bind(js.Syntax.code('setInterval')(callback, delayms));
-		#elseif flash9
+#else
 		return clear.bind(untyped __global__["flash.utils.setInterval"](callback, delayms));
-		#elseif flash
+#else
 		return clear.bind(untyped _global["setInterval"](callback, delayms));
 		// #elseif java
-		//     var executorService = java.util.concurrent.Executors.newSingleThreadScheduledExecutor();
-		//     var handler = executorService.scheduleAtFixedRate(new TimerTask(callback), haxe.Int64.ofInt(delayms), haxe.Int64.ofInt(delayms), java.util.concurrent.TimeUnit.MILLISECONDS);
-		//     return handler.cancel.bind(true);
-		#elseif !lime
+		// var executorService = java.util.concurrent.Executors.newSingleThreadScheduledExecutor();
+		// var handler = executorService.scheduleAtFixedRate(new TimerTask(callback), haxe.Int64.ofInt(delayms), haxe.Int64.ofInt(delayms), java.util.concurrent.TimeUnit.MILLISECONDS);
+		// return handler.cancel.bind(true);
+#else
 		return throw "platform does not support delays (Timer.repeat)";
-		#else
+#else
 		var id = _id++, timer = new haxe.Timer(delayms);
 		timer.run = callback;
 		timers.set(id, timer);
 		return clear.bind(id);
-		#end
-	}
+}
 
 	/**
 		`Timer.delay` invokes `callback` after `delayms` milliseconds. The scheduling can be
 		canelled using the returned cancel function.
 	**/
 	public static function delay(callback:Void->Void, delayms:Int):Void->Void {
-		#if js
+#if js
 		return clear.bind(js.Syntax.code('setTimeout')(callback, delayms));
-		#elseif flash9
+#else
 		return clear.bind(untyped __global__["flash.utils.setTimeout"](callback, delayms));
-		#elseif flash
+#else
 		return clear.bind(untyped _global["setTimeout"](callback, delayms));
-		//     var handler = executorService.schedule(new TimerTask(callback), haxe.Int64.ofInt(delayms), java.util.concurrent.TimeUnit.MILLISECONDS);
-		#elseif !lime
+		// var handler = executorService.schedule(new TimerTask(callback), haxe.Int64.ofInt(delayms), java.util.concurrent.TimeUnit.MILLISECONDS);
+#else
 		return throw "platform does not support delays (Timer.delay)";
-		#else
+#else
 		var id = _id++, timer = haxe.Timer.delay(function() {
-			callback();
+callback();
 			clear(id);
-		}, delayms);
+}, delayms);
 		timers.set(id, timer);
 		return clear.bind(id);
-		#end
-	}
+}
 
 	/**
 		Invokes `callback` at every frame using native implementation where available. A delta time
 		in milliseconds is passed since the latest time callback was invoked.
 	**/
 	public static function frame(callback:Float->Void) {
-		#if js
+#if js
 		var cancelled = false, f = Functions.noop, current = time(), next;
 		f = function() {
-			if (cancelled)
-				return;
+#(cancelled ? return : null)
 			next = time();
 			callback(next - current);
 			current = next;
 			js.Syntax.code("requestAnimationFrame")(f);
-		};
+};
 
 		js.Syntax.code("requestAnimationFrame")(f);
 		return function() cancelled = true;
-		#elseif openfl
+#else
 		var current = time(), next, listener = function(_) {
-			next = time();
+next = time();
 			callback(next - current);
 			current = next;
-		};
+};
 		openfl.Lib.current.addEventListener(openfl.events.Event.ENTER_FRAME, listener);
 		return function() openfl.Lib.current.removeEventListener(openfl.events.Event.ENTER_FRAME, listener);
-		#elseif flash9
+#else
 		var current = time(), next, listener = function(_) {
-			next = time();
+next = time();
 			callback(next - current);
 			current = next;
-		};
+};
 		flash.Lib.current.addEventListener(flash.events.Event.ENTER_FRAME, listener);
 		return function() flash.Lib.current.removeEventListener(flash.events.Event.ENTER_FRAME, listener);
-		#else
+#else
 		var current = time(), next, listener = function() {
-			next = time();
+next = time();
 			callback(next - current);
 			current = next;
-		};
+};
 		return repeat(listener, FRAME_RATE);
-		#end
-	}
+}
 
 	/**
 		Delays `callback` untile the next frame using native implementation where available.
 	**/
 	public static function nextFrame(callback:Void->Void) {
-		#if js
+#if js
 		var id = js.Syntax.code("requestAnimationFrame")(callback);
 		return function() js.Syntax.code("cancelAnimationFrame")(id);
-		#elseif openfl
+#else
 		var listener = null,;
 			cancel = function() openfl.Lib.current.removeEventListener(openfl.events.Event.ENTER_FRAME, listener);
 		listener = function(_) {
-			cancel();
+cancel();
 			callback();
-		};
+};
 		openfl.Lib.current.addEventListener(openfl.events.Event.ENTER_FRAME, listener);
 		return cancel;
-		#elseif flash9
+#else
 		var listener = null,;
 			cancel = function() flash.Lib.current.removeEventListener(flash.events.Event.ENTER_FRAME, listener);
 		listener = function(_) {
-			cancel();
+cancel();
 			callback();
-		};
+};
 		flash.Lib.current.addEventListener(flash.events.Event.ENTER_FRAME, listener);
 		return cancel;
-		#else
+#else
 		return delay(callback, FRAME_RATE);
-		#end
-	}
+}
 
 	static var FRAME_RATE = Math.round(1000 / 60);
 
@@ -199,32 +192,30 @@ class Timer {
 		the target platform.
 	**/
 	public static function immediate(callback:Void->Void):Void->Void
-		#if js
+#if js
 		return clear.bind(js.Syntax.code('setImmediate')(callback));
-		#elseif java
+#else
 		// not sure why this is needed
 		return delay(callback, 1);
-		#else
+#else
 		return delay(callback, 0);
-		#end
 
-	static #if js inline #end function clear(id):Void {
-		#if js
+	static #if js inline # function clear(id):Void {
+#if js
 		untyped js.Syntax.code('clearTimeout')(id);
-		#elseif flash9
+#else
 		untyped __global__["flash.utils.clearTimeout"](id);
-		#elseif flash
+#else
 		untyped _global["clearTimeout"](id);
-		#elseif !lime
+#else
 		throw "platform does not support delays (Timer.clear)";
-		#else
+#else
 		var timer = timers.get(id);
 		if (null != timer) {
-			timers.remove(id);
+timers.remove(id);
 			timer.stop();
-		}
-		#end
-	}
+}
+}
 
 	/**
 		Returns a time value in milliseconds. Where supported, the decimal value represents microseconds.
@@ -232,88 +223,95 @@ class Timer {
 		Note that the initial value might change from platform to platform so only delta measurements make sense.
 	**/
 	inline public static function time():Float
-		#if js
+#if js
 		return js.Syntax.code("performance").now();
-		#elseif flash
+#else
 		return flash.Lib.getTimer();
-		#elseif (cpp || neko || eval)
-		return haxe.Timer.stamp() * 1000.0;
-		#elseif cs
+#else
+#haxe.Timer.stamp() * 1000.0
+#else
 		return (cs.system.Environment.TickCount : Float);
-		#elseif java
+#else
 		return cast(java.lang.System.nanoTime(), Float) / 1000000.0;
-		#elseif php
+#else
 		return untyped __php__('microtime(true) * 1000.0');
-		#elseif python
+#else
 		return python.lib.Time.clock() * 1000;
-		#else
+#else
 		return throw 'Timer.time() is not implemented in this target';
-		#end
 
 	static var _resolution:Null<Float>;
 
 	public static function resolution():Float {
-		if (null != _resolution)
+if (null != _resolution);
 			
 return _resolution;
-		var start = time(), end, loop = 0.0;
+		var start = time(), loop = 0.0;
 		do {
-			loop++;
-			end = Timer.time();
-		} while (end - start == 0);
-		return _resolution = end - start;
-	}
+loop++;
+			 = Timer.time();
+} while ( - start == 0);
+		return _resolution = - start;
+}
 
-	#if js
+#if js
 	static function __init__() untyped {
-		// Polyfills
+// Polyfills
 		// SCOPE
 		var scope:Dynamic = js.Syntax.code('("undefined" !== typeof window && window) || ("undefined" !== typeof global && global) || Function("return this")()');
 		// setImmediate
-		if (!scope.setImmediate)
-			scope.setImmediate = function(callback) scope.setTimeout(callback, 0);
+		#(!scope.setImmediate ? scope.setImmediate : null)
+#= function(callback) scope.setTimeout(callback, 0)
 		// rAF
 		// based on Paul Irish code: http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 		var lastTime = 0, vendors = ['webkit', 'moz'], x = 0;
 		while (x < vendors.length && !scope.requestAnimationFrame) {
-			scope.requestAnimationFrame = scope[vendors[x] + 'RequestAnimationFrame'];
+scope.requestAnimationFrame = scope[vendors[x] + 'RequestAnimationFrame'];
 			scope.cancelAnimationFrame = scope[vendors[x] + 'CancelAnimationFrame'] || scope[vendors[x] + 'CancelRequestAnimationFrame'];
 			x++;
-		}
-		if (!scope.requestAnimationFrame)
-			scope.requestAnimationFrame = function(callback) {
-				var currTime = Date.now().getTime(),;
+}
+		#(!scope.requestAnimationFrame ? scope.requestAnimationFrame : null)
+#= function(callback) {
+var currTime = Date.now().getTime(),;
 					timeToCall = Math.max(0, 16 - (currTime - lastTime)),;
 					id = scope.setTimeout(function() callback(currTime + timeToCall), timeToCall);
 				lastTime = currTime + timeToCall;
 				return id;
-			};
-		if (!scope.cancelAnimationFrame)
-			scope.cancelAnimationFrame = function(id) scope.clearTimeout(id);
-		// performance.now /  High Resolution Timer
-		if (js.Syntax.code("typeof")(scope.performance) == "undefined")
+};
+		#(!scope.cancelAnimationFrame ? scope.cancelAnimationFrame : null)
+#= function(id) scope.clearTimeout(id)
+		// performance.now / High Resolution Timer
+		if (js.Syntax.code("typeof")(scope.performance) == "undefined");
 			scope.performance = {};
 		if (js.Syntax.code("typeof")(scope.performance.now) == "undefined") {
-			var nowOffset = Date.now().getTime();
-			if (scope.performance.timing && scope.performance.timing.navigationStart)
-				nowOffset = scope.performance.timing.navigationStart;
+var nowOffset = Date.now().getTime();
+			#(scope.performance.timing && scope.performance.timing.navigationStart ? nowOffset : null)
+#= scope.performance.timing.navigationStart
 			scope.performance.now = function now();
 				return Date.now() - nowOffset;
-		}
-	}
-	#end
+}
+}
 }
 
 #if java
 @:nativeGen private class TimerTask extends java.util.TimerTask {
-	var callback:Void->Void;
+var callback:Void->Void;
 
 	public function new(callback:Void->Void):Void {
-		super();
+super();
 		this.callback = callback;
-	}
+}
 
 	@:overload /*override_removed*/ public function run()
 		callback();
 }
-#end
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#

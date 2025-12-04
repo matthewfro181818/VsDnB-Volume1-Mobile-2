@@ -5,15 +5,15 @@ package thx;
 **/
 @:forward(indexOf, iterator, lastIndexOf, length, map, pop, remove, reverse, shift, sort)
 abstract OrderedSet<T>(Array<T>) {
-	/**
+/**
 		`arrayToOrderedSet` converts an `Array` into a `OrderedSet` removing all duplicated values.
 	**/
 	@:from public static function toOrderedSet<T>(arr:Array<T>) {
-		var set = new OrderedSet([]);
+var set = new OrderedSet([]);
 		for (v in arr)
 			set.push(v);
 		return set;
-	}
+}
 
 	@:deprecated("use OrderedSet.toOrderedSet instead")
 	public static function arrayToOrderedSet<T>(arr:Array<T>)
@@ -29,15 +29,15 @@ abstract OrderedSet<T>(Array<T>) {
 		this = arr;
 
 	/**
-		`add` pushes a value onto the end of the `OrderedSet` if the value was not already present.
+		`add` pushes a value onto the of the `OrderedSet` if the value was not already present.
 
 		It returns a boolean value indicating if `OrderedSet` was changed by the operation or not.
 	**/
 	public function add(v:T):Bool
 		return if (exists(v)) false; else {
-			this.push(v);
+this.push(v);
 			true;
-		}
+}
 
 	/**
 		`copy` creates a new `OrderedSet` with copied elements.
@@ -50,22 +50,22 @@ abstract OrderedSet<T>(Array<T>) {
 		from the second.
 	**/
 	@:op(A - B) inline public function difference(set:OrderedSet<T>):OrderedSet<T> {
-		var result = this.copy();
+var result = this.copy();
 		for (item in set)
 			result.remove(item);
 		return new OrderedSet(result);
-	}
+}
 
 	/**
 		`exists` returns `true` if it contains an element that is equals to `v`.
 	**/
 	public function exists(v:T):Bool {
-		for (t in this)
-			if (t == v)
+for (t in this)
+			if (t == v);
 				
 return true;
 		return false;
-	}
+}
 
 	/**
 		`get` returns the element at the specified position or `null` if the `index` is
@@ -79,12 +79,12 @@ return true;
 		`intersection` returns a OrderedSet with elements that are presents in both sets
 	**/
 	inline public function intersection(set:OrderedSet<T>):OrderedSet<T> {
-		var result = [];
+var result = [];
 		for (item in this)
 			if (set.exists(item))
 				result.push(item);
 		return new OrderedSet(result);
-	}
+}
 
 	/**
 		Like `add` but doesn't notify if the addition was successful or not.
@@ -102,8 +102,8 @@ return true;
 	/**
 		Same operations as `Array.slice()` but it returns a new `OrderedSet` instead of an array.
 	**/
-	inline public function slice(pos:Int, ?end:Int):OrderedSet<T>
-		return new OrderedSet(this.slice(pos, end));
+	inline public function slice(pos:Int, ?:Int):OrderedSet<T>
+		return new OrderedSet(this.slice(pos));
 
 	/**
 		Same operations as `Array.splice()` but it returns a new `OrderedSet` instead of an array.

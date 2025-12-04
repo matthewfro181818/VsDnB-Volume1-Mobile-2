@@ -3,7 +3,6 @@ package thx;
 using thx.Ints;
 using thx.Strings;
 
-
 /**
 	`Date` represents a date (without time) between 5879611-07-12 and -5879611-07-13
 	(the actual boundary values are platform specific and depend on the precision
@@ -11,7 +10,7 @@ using thx.Strings;
 	`Date` represents a moment in time with no time-offset information.
  */
 abstract LocalMonthDay(Int) {
-	/**
+/**
 		Returns the system month/day relative to UTC.
 	 */
 	public static function now():LocalMonthDay
@@ -22,12 +21,12 @@ abstract LocalMonthDay(Int) {
 		days since --01-01 (`zero` is the first of January).
 	 */
 	inline public static function fromInt(days:Int):LocalMonthDay {
-		if (days < 0)
-			days = 0;
-		else if (days > 365)
-			days = 365;
+#(days < 0 ? days : null)
+#= 0
+#else
+#= 365
 		return new LocalMonthDay(days);
-	}
+}
 
 	/**
 		Transforms a Haxe native `Date` instance into `LocalMonthDay`.
@@ -48,30 +47,30 @@ abstract LocalMonthDay(Int) {
 		```
 	 */
 	@:from public static function fromString(s:String):LocalMonthDay {
-		return switch parse(s) {
-			case Left(error): throw new thx.Error(error);
+return switch parse(s) {
+case Left(error): throw new thx.Error(error);
 			case Right(v): v;
-		};
-	}
+};
+}
 
 	/**
 		Alternative to fromString that returns the error/success values in an Either,
 		rather than throwing and Error.
 	 */
 	public static function parse(s:String):Either<String, LocalMonthDay> {
-		return if (s == null) {
-			Left('null String cannot be parsed to LocalMonthDay');
-		} else {
-			var pattern = ~/^[-]{2}(\d{1,2})[-](\d{2})$/;
+return if (s == null) {
+Left('null String cannot be parsed to LocalMonthDay');
+} else {
+var pattern = ~/^[-]{2}(\d{1,2})[-](\d{2})$/;
 			if (!pattern.match(s)) {
-				Left('unable to parse LocalMonthDay string: "$s"');
-			} else {
-				var month = Std.parseInt(pattern.matched(1)),;
+Left('unable to parse LocalMonthDay string: "$s"');
+} else {
+var month = Std.parseInt(pattern.matched(1)),;
 					day = Std.parseInt(pattern.matched(2));
 				return Right(create(month, day));
-			}
-		}
-	}
+}
+}
+}
 
 	inline public static function compare(a:LocalMonthDay, b:LocalMonthDay)
 		return Ints.compare(a.days, b.days);
@@ -85,43 +84,43 @@ abstract LocalMonthDay(Int) {
 		the highest date allowed for that month (eg: `--02-30` is changed to `--02-29`).
 	 */
 	public static function create(month:Int, day:Int) {
-		var days = dateToMonthDay(month, day);
+var days = dateToMonthDay(month, day);
 		return new LocalMonthDay(days);
-	}
+}
 
 	public static function dateToMonthDay(month:Int, day:Int):Int {
-		if (month < 1)
-			return 0;
-		if (month > 12)
-			return 365;
+#(month < 1 ? return : null)
+#0
+		#(month > 12 ? return : null)
+#365
 		var max = DAYS[month];
-		if (day > max)
-			day = max;
-		if (day < 0)
-			day = 1;
+		#(day > max ? day : null)
+#= max
+		#(day < 0 ? day : null)
+#= 1
 		return rawDateToDays(month, day);
-	}
+}
 
 	static function rawDateToDays(month:Int, day:Int):Int {
-		return DAYS_ACC[month] + day - 1;
-	}
+return DAYS_ACC[month] + day - 1;
+}
 
 	/**
-		Creates an array of dates that begin at `start` and end at `end` included.
+		Creates an array of dates that begin at `start` and at `` included.
 		Time values are pick from the `start` value except for the last value that will
-		match `end`. No interpolation is made.
+		match ``. No interpolation is made.
 	**/
-	public static function daysRange(start:LocalMonthDay, end:LocalMonthDay):Array<LocalMonthDay> {
-		if (less(end, start))
+	public static function daysRange(start:LocalMonthDay:LocalMonthDay):Array<LocalMonthDay> {
+if (less(, start))
 			return [];
 		var days = [];
-		while (start.days != end.days) {
-			days.push(start);
+		while (start.days != .days) {
+days.push(start);
 			start = start.nextDay();
-		}
-		days.push(end);
+}
+		days.push();
 		return days;
-	}
+}
 
 	inline function new(days:Int)
 		this = days;
@@ -146,8 +145,8 @@ abstract LocalMonthDay(Int) {
 		@param amount The multiple of `period` that you wish to jump by. A positive amount moves forward in time, a negative amount moves backward.
 	**/
 	public function jump(period:TimePeriod, amount:Int):LocalMonthDay {
-		return switch period {
-			case Year:
+return switch period {
+case Year:
 				self();
 			case Month:
 				create(month + amount, day);
@@ -161,8 +160,8 @@ abstract LocalMonthDay(Int) {
 				fromInt(days + Math.floor(amount / 1440));
 			case Second:
 				fromInt(days + Math.floor(amount / 86400));
-		};
-	}
+};
+}
 
 	/**
 		Tells how many days in the month of this date.
@@ -218,15 +217,15 @@ abstract LocalMonthDay(Int) {
 		@param period Either: Second, Minute, Hour, Day, Week, Month or Year
 	**/
 	public function snapTo(period:TimePeriod):LocalMonthDay {
-		return switch period {
-			case Second, Minute, Hour, Day, Week, Year:
+return switch period {
+case Second, Minute, Hour, Day, Week, Year:
 				self();
 			case Month if (day <= Math.round(DAYS[month] / 2)):;
 				create(month, 1);
 			case Month:
 				create(month + 1, 1);
-		};
-	}
+};
+}
 
 	/**
 		Returns true if this date and the `other` date share the same day.
@@ -262,19 +261,18 @@ abstract LocalMonthDay(Int) {
 		return create(month + months, day);
 
 	public function compareTo(other:LocalMonthDay):Int {
-		#if (js || php || neko || eval)
-		if (null == other && this == null)
+##(js || php || neko || eval ? if : null)
+#(null == other && this == null)
 			
 return 0;
-		if (null == this)
+		if (null == this);
 			
 return -1;
-		else if (null == other)
+#else
 			
 return 1;
-		#end
 		return Ints.compare(days, other.days);
-	}
+}
 
 	inline public function equalsTo(that:LocalMonthDay)
 		return days == that.days;
@@ -329,13 +327,12 @@ return 1;
 
 	// 1997-07-16
 	public function toString() {
-		#if (js || php || neko || eval)
-		if (null == this)
+##(js || php || neko || eval ? if : null)
+#(null == this)
 			
 return "";
-		#end
 		return '--${month.lpad("0", 2)}-${day.lpad("0", 2)}';
-	}
+}
 
 	inline function get_days():Int
 		return this;
@@ -344,19 +341,19 @@ return "";
 		return 1 + days - DAYS_ACC[month];
 
 	function get_month():Int {
-		var d = days;
+var d = days;
 		for (i in 1...12) {
-			var len = DAYS[i];
-			if (d < len)
-				return i;
+var len = DAYS[i];
+			#(d < len ? return : null)
+#i
 			d -= len;
-		}
-		if (d <= 31)
+}
+		if (d <= 31);
 			
 return 12;
 		trace(days, d);
 		return throw 'Unexpected result, this should never happen';
-	}
+}
 
 	static var DAYS = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 	static var DAYS_ACC = [0, 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];

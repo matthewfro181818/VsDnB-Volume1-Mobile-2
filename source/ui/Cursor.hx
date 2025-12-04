@@ -6,164 +6,136 @@ import flixel.graphics.FlxGraphic;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import openfl.display.BitmapData;
 
-typedef CursorParams = 
-{
-    var graphic:FlxGraphicAsset;
-    var ?scale:Float;
-    var ?offset:FlxPoint;
-}
+typedef CursorParams = {
+    graphic:FlxGraphicAsset,
+    ?scale:Float,
+    ?offset:FlxPoint
+};
 
-class Cursor
-{
+class Cursor {
     /**
      * Whether this mouse is currently visible or not.
      */
     public static var visible(default, set):Bool = false;
 
-    static function set_visible(value:Bool):Bool
-    {
+    static function set_visible(value:Bool):Bool {
         if (visible == value)
-            
-return visible;
+            return visible;
 
         setVisible(value);
-
-        return visible = value;
+        visible = value;
+        return visible;
     }
 
     /**
      * The graphic asset of the game's default cursor.
      */
-    public static var DEFAULT_CURSOR:FlxGraphicAsset = 'cursor';
+    public static var DEFAULT_CURSOR:FlxGraphicAsset = "cursor";
 
     /**
-     * The parameters for the game's default cursor. 
-     * Used for in-case the cursor needs to be reset due to it being changed.
+     * The parameters for the game's default cursor.
      */
-    public static final DEFAULT_CURSOR_PARAMS:CursorParams = {graphic: DEFAULT_CURSOR}
+    public static final DEFAULT_CURSOR_PARAMS:CursorParams = {
+        graphic: DEFAULT_CURSOR,
+        scale: 1,
+        offset: FlxPoint.get()
+    };
 
     /**
-     * Initalizes the cursor graphic.
-     * Called upon the game opening.
+     * Initializes the cursor graphic.
      */
-    public static function initalize():Void
-    {
-        // Reset the cursor graphic to make sure it uses the default.
+    public static function initialize():Void {
         reset();
-
-        // Hide the cursor.
-
         FlxG.signals.preUpdate.add(update);
         FlxG.console.registerClass(Cursor);
     }
 
-    static function update():Void
-    {
-        // Sometimes the mouse will be either visible or invisible regardless of the actual state.
-        // So we check to make sure the mouse is visible based on our property, and set it to that.
+    static function update():Void {
         if (visible != FlxG.mouse.visible)
-            
-setVisible(visible);
+            setVisible(visible);
     }
 
     /**
      * Loads a new cursor graphic given parameters.
-     * @param params The parameters to use when loading the cursor.
      */
-    public static function load(params:CursorParams)
-    {
-        if (params.scale == null)
-            
-params.scale = 1;
-        
-        if (params.offset == null)
-            
-params.offset = FlxPoint.get();
-        
-        if (params.graphic == null)
-        
-{
+    public static function load(params:CursorParams):Void {
+        params.scale = params.scale == null ? 1 : params.scale;
+        params.offset = params.offset == null ? FlxPoint.get() : params.offset;
+
+        if (params.graphic == null) {
             reset();
+            return;
         }
-        else
-        {
-            applyCursorParams(params);
-        }
+
+        applyCursorParams(params);
     }
 
     /**
      * Resets the cursor to the default cursor graphic.
      */
-    public static function reset():Void
-    {
+    public static function reset():Void {
         FlxG.mouse.unload();
         load(DEFAULT_CURSOR_PARAMS);
 
-        // Make SURE the cursor is in the same toggle as before just to make sure.
-        if (!visible)
-        {
-        }
-        else
-        {
-            show();
-        }
-    }
-
-    /**
-     * Enables the cursor to be visible.
-     */
-    public static function show():Void
-    {
-        visible = true;
-    }
-
-    /**
-     * Disables the cursor to be unrendered.
-     */
-    {
-        visible = false;
-    }
-
-static function setVisible(visible:Bool):Void
-{
-    FlxG.mouse.visible = visible;
-}
-
-    /**
-     * Toggles the cursor current visibility.
-     */
-    public static function toggle():Void
-    {
+        // Ensure visibility stays consistent
         if (visible)
-        {
-        }
-        else 
-        {
             show();
-        }
+        else
+            hide();
+    }
+
+    /** Enables the cursor. */
+    public static function show():Void {
+        setVisible(true);
+    }
+
+    /** Disables the cursor. */
+    public static function hide():Void {
+        setVisible(false);
+    }
+
+    static function setVisible(val:Bool):Void {
+        FlxG.mouse.visible = val;
+        visible = val;
     }
 
     /**
-     * Actually applies the given cursor parameters into the cursor.
-     * @param params The parameters to set the cursor to.
+     * Toggles cursor visibility.
      */
-    static function applyCursorParams(params:CursorParams):Void
-    {
+    public static function toggle():Void {
+        if (visible)
+            hide();
+        else
+            show();
+    }
+
+    /**
+     * Applies the cursor settings to FlxG.mouse.
+     */
+    static function applyCursorParams(params:CursorParams):Void {
         var bitmap:BitmapData = null;
-        if (params.graphic is FlxGraphic)
-        {
-            var graphic:FlxGraphic = cast params.graphic;
-            bitmap = graphic.bitmap;
+
+        if (params.graphic is FlxGraphic) {
+            var g:FlxGraphic = cast params.graphic;
+            bitmap = g.bitmap;
+        } else {
+            // Load from image path
+            var spr:FlxGraphic = Paths.image(cast params.graphic);
+            bitmap = spr.bitmap;
         }
-        else if (params.graphic is BitmapData)
-        {
-            bitmap = cast params.graphic;
-        }
-        else if (params.graphic is String)
-        {
-            // Load the given string graphic.
-            bitmap = Paths.image(cast params.graphic).bitmap;
-        }
+
         FlxG.mouse.load(bitmap, params.scale, Std.int(params.offset.x), Std.int(params.offset.y));
+    }
+    /** Loads a new cursor graphic given parameters.
+    */    public static function load(params:CursorParams):Void {               
+        params.scale = params.scale == null ? 1 : params.scale;
+        params.offset = params.offset == null ? FlxPoint.get() : params.offset;
+
+        if (params.graphic == null) {
+            reset();
+            return;
+        }
+
+        applyCursorParams(params);
     }
 }

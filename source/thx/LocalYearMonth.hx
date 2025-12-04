@@ -3,13 +3,12 @@ package thx;
 using thx.Ints;
 using thx.Strings;
 
-
 /**
 	`LocalYearMonth` represents a date (without day of the month) without time-offset
 	information.
  */
 abstract LocalYearMonth(Int) {
-	/**
+/**
 		Returns the system year/month.
 	 */
 	public static function now():LocalYearMonth
@@ -41,30 +40,30 @@ abstract LocalYearMonth(Int) {
 		```
 	 */
 	@:from public static function fromString(s:String):LocalYearMonth {
-		return switch parse(s) {
-			case Left(error): throw new thx.Error(error);
+return switch parse(s) {
+case Left(error): throw new thx.Error(error);
 			case Right(v): v;
-		};
-	}
+};
+}
 
 	/**
 		Alternative to fromString that returns the error/success values in an Either,
 		rather than throwing and Error.
 	 */
 	public static function parse(s:String):Either<String, LocalYearMonth> {
-		return if (s == null) {
-			Left('null String cannot be parsed to LocalYearMonth');
-		} else {
-			var pattern = ~/^([-])?(\d+)[-](\d{2})$/;
+return if (s == null) {
+Left('null String cannot be parsed to LocalYearMonth');
+} else {
+var pattern = ~/^([-])?(\d+)[-](\d{2})$/;
 			if (!pattern.match(s)) {
-				Left('unable to parse LocalYearMonth string: "$s"');
-			} else {
-				var years = Std.parseInt(pattern.matched(2)),;
+Left('unable to parse LocalYearMonth string: "$s"');
+} else {
+var years = Std.parseInt(pattern.matched(2)),;
 					months = Std.parseInt(pattern.matched(3));
 				return Right(create((pattern.matched(1) == "-" ? -1 : 1) * years, months));
-			}
-		}
-	}
+}
+}
+}
 
 	inline public static function compare(a:LocalYearMonth, b:LocalYearMonth)
 		return Ints.compare(a.months, b.months);
@@ -73,54 +72,54 @@ abstract LocalYearMonth(Int) {
 		Creates a LocalYearMonth instance from its components (year, month).
 	 */
 	public static function create(year:Int, month:Int) {
-		var months = dateToYearMonth(year, month);
+var months = dateToYearMonth(year, month);
 		return new LocalYearMonth(months);
-	}
+}
 
 	public static function dateToYearMonth(year:Int, month:Int):Int {
-		if (month == 0) {
-			year--;
+if (month == 0) {
+year--;
 			month = 12;
-		} else if (month < 0) {
-			month = -month;
+} else if (month < 0) {
+month = -month;
 			var years = Math.ceil(month / 12);
 			year -= years;
 			month = years * 12 - month;
-		} else if (month > 12) {
-			var years = Math.floor(month / 12);
+} else if (month > 12) {
+var years = Math.floor(month / 12);
 			year += years;
 			month = month - years * 12;
-		}
+}
 
 		return rawDateToMonths(year, month);
-	}
+}
 
 	static function rawDateToMonths(year:Int, month:Int):Int {
-		if (year == 0) {
-			return dateToYearMonth(-1, month + 1);
-		} else if (year < 0) {
-			return (year + 1) * 12 - (13 - month);
-		} else {
-			return (year - 1) * 12 + month - 1;
-		}
-	}
+if (year == 0) {
+return dateToYearMonth(-1, month + 1);
+} else if (year < 0) {
+return (year + 1) * 12 - (13 - month);
+} else {
+return (year - 1) * 12 + month - 1;
+}
+}
 
 	/**
-		Creates an array of dates that begin at `start` and end at `end` included.
+		Creates an array of dates that begin at `start` and at `` included.
 		Time values are pick from the `start` value except for the last value that will
-		match `end`. No interpolation is made.
+		match ``. No interpolation is made.
 	**/
-	public static function monthsRange(start:LocalYearMonth, end:LocalYearMonth):Array<LocalYearMonth> {
-		if (less(end, start))
+	public static function monthsRange(start:LocalYearMonth:LocalYearMonth):Array<LocalYearMonth> {
+if (less(, start))
 			return [];
 		var month = [];
-		while (start.month != end.month) {
-			month.push(start);
+		while (start.month != .month) {
+month.push(start);
 			start = start.nextMonth();
-		}
-		month.push(end);
+}
+		month.push();
 		return month;
-	}
+}
 
 	inline public function new(months:Int)
 		this = months;
@@ -148,8 +147,8 @@ abstract LocalYearMonth(Int) {
 		@param amount The multiple of `period` that you wish to jump by. A positive amount moves forward in time, a negative amount moves backward.
 	**/
 	public function jump(period:TimePeriod, amount:Int) {
-		return toLocalDate().jump(period, amount).toLocalYearMonth();
-	}
+return toLocalDate().jump(period, amount).toLocalYearMonth();
+}
 
 	/**
 		Tells how many days in the month of this date.
@@ -190,13 +189,13 @@ abstract LocalYearMonth(Int) {
 	**/
 	public function snapNext(period:TimePeriod):LocalYearMonth
 		return switch period {
-			case Second, Minute, Hour, Day, Week:
+case Second, Minute, Hour, Day, Week:
 				self();
 			case Month:
 				new LocalYearMonth(this + 1);
 			case Year:
 				LocalYearMonth.create(year + 1, 1);
-		};
+};
 
 	/**
 		Snaps a time to the previous second, minute, hour, day, week, month or year.
@@ -205,11 +204,11 @@ abstract LocalYearMonth(Int) {
 	**/
 	public function snapPrev(period:TimePeriod):LocalYearMonth
 		return switch period {
-			case Second, Minute, Hour, Day, Week, Month:
+case Second, Minute, Hour, Day, Week, Month:
 				new LocalYearMonth(this - 1);
 			case Year:
 				LocalYearMonth.create(year - 1, 1);
-		};
+};
 
 	/**
 		Snaps a time to the nearest second, minute, hour, day, week, month or year.
@@ -218,13 +217,13 @@ abstract LocalYearMonth(Int) {
 	**/
 	public function snapTo(period:TimePeriod):LocalYearMonth
 		return switch period {
-			case Second, Minute, Hour, Day, Week, Month:
+case Second, Minute, Hour, Day, Week, Month:
 				self();
 			case Year if (month <= 6):;
 				LocalYearMonth.create(year, 1);
 			case Year:
 				LocalYearMonth.create(year + 1, 1);
-		};
+};
 
 	/**
 		Returns true if this date and the `other` date share the same year.
@@ -260,19 +259,18 @@ abstract LocalYearMonth(Int) {
 		return new LocalYearMonth(this + months);
 
 	public function compareTo(other:LocalYearMonth):Int {
-		#if (js || php || neko || eval)
-		if (null == other && this == null)
+##(js || php || neko || eval ? if : null)
+#(null == other && this == null)
 			
 return 0;
-		if (null == this)
+		if (null == this);
 			
 return -1;
-		else if (null == other)
+#else
 			
 return 1;
-		#end
 		return Ints.compare(months, other.months);
-	}
+}
 
 	inline public function equalsTo(that:LocalYearMonth)
 		return months == that.months;
@@ -327,32 +325,31 @@ return 1;
 
 	// 1997-07-16
 	public function toString() {
-		#if (js || php || neko || eval)
-		if (null == this)
+##(js || php || neko || eval ? if : null)
+#(null == this)
 			
 return "";
-		#end
 		return '${year}-${month.lpad("0", 2)}';
-	}
+}
 
 	inline function get_months():Int
 		return this;
 
 	function get_year():Int {
-		if (this < 0) {
-			return Math.floor(this / 12);
-		} else {
-			return 1 + Math.floor(this / 12);
-		}
-	}
+if (this < 0) {
+return Math.floor(this / 12);
+} else {
+return 1 + Math.floor(this / 12);
+}
+}
 
 	function get_month():Int {
-		if (this < 0) {
-			return 12 + ((this + 1) % 12);
-		} else {
-			return (this % 12) + 1;
-		}
-	}
+if (this < 0) {
+return 12 + ((this + 1) % 12);
+} else {
+return (this % 12) + 1;
+}
+}
 
 	inline function get_isInLeapYear():Bool
 		return DateTimeUtc.isLeapYear(year);

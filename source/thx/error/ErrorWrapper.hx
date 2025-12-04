@@ -9,11 +9,11 @@ import haxe.CallStack;
 	The internal error is stored as Dynamic to keep its usage flexible.
  */
 class ErrorWrapper extends thx.Error {
-	public var innerError:Dynamic;
+public var innerError:Dynamic;
 
 	public function new(message:String, innerError:Dynamic, ?stack:Array<StackItem>, ?pos:PosInfos) {
-		super(message, stack, pos);
+super(message, stack, pos);
 
 		this.innerError = innerError;
-	}
+}
 }

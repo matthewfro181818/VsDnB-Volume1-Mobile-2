@@ -6,28 +6,24 @@ import flixel.FlxSprite;
 /**
  * A visual receptor used to help calculate note positions, and give visual feedback while playing.
  */
-class StrumNote extends FlxSprite
-{
-	/**
+class StrumNote extends FlxSprite {
+/**
 	 * The current note style being used for this strum.
 	 */
 	public var style(default, set):NoteStyle;
 	
-	function set_style(value:NoteStyle):NoteStyle 
-	{
-		if (style != value)
-		
-{
-			this.x -= style.noteStyleOffsets.x;
+	function set_style(value:NoteStyle):NoteStyle {
+if (style != value) {
+this.x -= style.noteStyleOffsets.x;
 			this.y -= style.noteStyleOffsets.y;
 
 			value.applyStyleToStrum(this);
 
 			baseScale = [value.styleSize, value.styleSize];
 			return style = value;
-		}
+}
 		return value;
-	}
+}
 
 	/**
 	 * The x position, in terms of the strumline position, in which the strum is centered.
@@ -79,10 +75,8 @@ class StrumNote extends FlxSprite
 	 */
 	public var animOffsets:Map<String, Array<Float>> = new Map<String, Array<Float>>();
 
-
-	public function new(x:Float, y:Float, type:NoteStyle, strumID:Int, playerStrum:Bool)
-	{
-		super(x, y);
+	public function new(x:Float, y:Float, type:NoteStyle, strumID:Int, playerStrum:Bool) {
+super(x, y);
 		
 		scrollFactor.set();
 
@@ -94,78 +88,67 @@ class StrumNote extends FlxSprite
 		style = type;
 		baseStyle = type;
 		
-		baseScale = [baseStyle.styleSize, baseStyle.styleSize];
-		
-		{
-			switch (name)
-			{
-				case 'confirm':
-					if (!this.playerStrum)
-					{
-						playAnim('static');
-					}
-			}
-		});
-	}
+		baseScale = [baseStyle.styleSize, baseStyle.styleSize]; {
+switch (name) {
+case 'confirm':
+					if (!this.playerStrum) {
+playAnim('static');
+}
+}
+});
+}
 
 	/**
 	 * Plays the strum's 'static' animation. 
 	 * @param force Whether to play the animation immediately.
-	 */
-	{
-		playAnim('static', force);
-	}
+	 */ {
+playAnim('static', force);
+}
 	
 	/**
 	 * Plays the strum's 'press' animation.
 	 * @param force Whether to play the animation immediately.
 	 */
-	public function playPress(force:Bool = true);
-	{
-		playAnim('pressed', force);
-	}
+	public function playPress(force:Bool = true); {
+playAnim('pressed', force);
+}
 
 	/**
 	 * Plays the strum's 'confirm' animation. 
 	 * @param force Whether to play the animation immediately.
-	 */
-	{
-		playAnim('confirm', force);
-	}
+	 */ {
+playAnim('confirm', force);
+}
 
 	/**
 	 * Plays the confirm animation for when a hold note is being held down.
 	 * Normally, this is the same as the regular confirm animation.
 	 * However, this is a separate animation to allow for customizability.
-	 */
-	{
-		if (animation.curAnim.name == 'confirm-hold')
-		
-{
-			return;
-		}
+	 */ {
+if (animation.curAnim.name == 'confirm-hold') {
+return;
+}
 		playAnim('confirm-hold', force);
-	}
+}
 
 	/**
 	 * Plays a strum animation. Takes into account any offsets that need to be done.
 	 * @param anim The animation to play.
 	 * @param force Whether the animation should immediately play, or wait until no other animation is playing.
 	 */
-	public function playAnim(anim:String, force:Bool = false);
-	{
-		animation.play(anim, force);
+	public function playAnim(anim:String, force:Bool = false); {
+animation.play(anim, force);
 		
 		centerOrigin();
 		centerOffsets();
 		
 		if (animOffsets.exists(anim)) {
-			var offsets = animOffsets.get(anim);
+var offsets = animOffsets.get(anim);
 			
 			offset.x += offsets[0];
 			offset.y += offsets[1];
-		}
-	}
+}
+}
 
 	public inline function resetX()
 		x = baseX;

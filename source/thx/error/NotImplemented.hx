@@ -8,11 +8,11 @@ import haxe.PosInfos;
 
 	```haxe
 	public function toBeDone() {
-	throw new NotImplemented();
-	}
+throw new NotImplemented();
+}
 	```
  */
 class NotImplemented extends thx.Error {
-	public function new(?posInfo:PosInfos)
+public function new(?posInfo:PosInfos)
 		super('method ${posInfo.className}.${posInfo.methodName}() needs to be implemented', posInfo);
 }

@@ -23,10 +23,8 @@ import util.tools.Preloader;
 /**
  * A sub-menu that's shown whenever the user gets a game over.
  */
-class GameOverSubstate extends MusicBeatSubstate
-{
-	
-	/**
+class GameOverSubstate extends MusicBeatSubstate {
+/**
 	 * A suffix used for to customize the song used that's used for the game over theme.
 	 */
 	public static var musicSuffix:String = '';
@@ -51,10 +49,8 @@ class GameOverSubstate extends MusicBeatSubstate
 	 */
 	var camFollow:FlxObject;
 
-
-	public function new(x:Float, y:Float, char:Character)
-	{
-		super();
+	public function new(x:Float, y:Float, char:Character) {
+super();
 
 		// Reset the parameters just in case.
 		// These get set in the death character's script file.
@@ -64,13 +60,12 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		bf = Character.create(x, y, deathChar, CharacterType.PLAYER);
 		
-		if (bf.animation.getByName('firstDeath') == null)
-		{
-			bf.destroy();
+		if (bf.animation.getByName('firstDeath') == null); {
+bf.destroy();
 			bf = null;
 
 			bf = Character.create(x, y, 'bf-dead', CharacterType.PLAYER);
-		}
+}
 		bf.isDead = true;
 		add(bf);
 
@@ -94,106 +89,92 @@ class GameOverSubstate extends MusicBeatSubstate
 		var gameOverMusic = Paths.music('gameOver/gameOver${Song.validateVariationPath(musicSuffix)}');
 		var deathSfx = Paths.sound('death/fnf_loss_sfx' + deathSuffix, 'shared');
 
-		Preloader.cacheSound(Paths.soundPath('gameOver/gameOver${Song.validateVariationPath(musicSuffix)}-end', 'music/', AssetType.MUSIC));
+		Preloader.cacheSound(Paths.soundPath('gameOver/gameOver${Song.validateVariationPath(musicSuffix)}-', 'music/', AssetType.MUSIC));
 		
 		SoundController.play(deathSfx);
 		
 		bf.playAnim('firstDeath', true);
-		bf.animation.finishCallback = function(anim:String);
-		{
-			if (anim == 'firstDeath')
-			
-{
-				bf.playAnim("deathLoop", true);
+		bf.animation.finishCallback = function(anim:String); {
+if (anim == 'firstDeath') {
+bf.playAnim("deathLoop", true);
 				SoundController.playMusic(gameOverMusic);
-			}
-		}
+}
+}
 		
 		FlxG.camera.follow(camFollow, LOCKON, 0.01);
-	}
-
-	override function create():Void
-	{
-		super.create();
-
-		#if mobileC
-		addVirtualPad(NONE, A_B);
-		addVirtualPadCamera();
-        #end
-	}
-
-override function update(elapsed:Float)
-{
-    super.update(elapsed);
-
-    if (controls.ACCEPT)
-        endBullshit();
-
-    if (controls.BACK)
-    {
-        SoundController.playMusic(Paths.music('freakyMenu'));
-        Conductor.instance.loadMusicData('freakyMenu');
-
-        Application.current.window.title = Main.applicationName;
-
-        if (PlayStatePlaylist.isStoryMode)
-            FlxG.switchState(new StoryMenuState());
-        else
-            FlxG.switchState(new FreeplayState());
-    }
-
-    if (FlxG.keys.justPressed.SEVEN)
-    {
-        FlxG.switchState(new AnimationDebug(bf));
-    }
-
-    Conductor.instance.update();
 }
 
-	override function destroy():Void
-	{
-		// Remove cached audio to save memory.
+	override function create():Void {
+super.create();
+
+#if mobileC
+		addVirtualPad(NONE, A_B);
+		addVirtualPadCamera();
+}
+
+override function update(elapsed:Float) {
+super.update(elapsed);
+
+ #(controls.ACCEPT ? endBullshit : null)
+#()
+
+ if (controls.BACK) {
+SoundController.playMusic(Paths.music('freakyMenu'));
+ Conductor.instance.loadMusicData('freakyMenu');
+
+ Application.current.window.title = Main.applicationName;
+
+ #(PlayStatePlaylist.isStoryMode ? FlxG.switchState : null)
+#(new StoryMenuState())
+#else
+ FlxG.switchState(new FreeplayState());
+}
+
+ if (FlxG.keys.justPressed.SEVEN) {
+FlxG.switchState(new AnimationDebug(bf));
+}
+
+ Conductor.instance.update();
+}
+
+	override function destroy():Void {
+// Remove cached audio to save memory.
 		Preloader.removeCachedSound(Paths.soundPath('gameOver/gameOver${Song.validateVariationPath(musicSuffix)}', 'music/', MUSIC));
-		Preloader.removeCachedSound(Paths.soundPath('gameOver/gameOver${Song.validateVariationPath(musicSuffix)}-end', 'music/', MUSIC));
+		Preloader.removeCachedSound(Paths.soundPath('gameOver/gameOver${Song.validateVariationPath(musicSuffix)}-', 'music/', MUSIC));
 		Preloader.removeCachedSound(Paths.soundPath('death/fnf_loss_sfx' + deathSuffix));
 		
 		// Reset GameOver substate properties after this state has been exited.
 		reset();
 
 		super.destroy();
-	}
+}
 
-	public override function dispatchEvent(event:ScriptEvent):Void
-	{
-		super.dispatchEvent(event);
+	public override function dispatchEvent(event:ScriptEvent):Void {
+super.dispatchEvent(event);
 
 		ScriptEventDispatcher.callEvent(bf, event);
-	}
+}
 
-	function endBullshit():Void
-	{
-		if (!isEnding)
-		{
-			isEnding = true;
+	function endBullshit():Void {
+if (!isEnding) {
+isEnding = true;
 			bf.playAnim('deathConfirm', true);
 			SoundController.music.stop();
-			SoundController.play(Paths.music('gameOver/gameOver${Song.validateVariationPath(musicSuffix)}-end'));
-			new FlxTimer().start(0.7, function(tmr:FlxTimer)
-			{
-				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
-				{
-					LoadingState.loadPlayState(PlayState.lastParams, true);
-				});
-			});
-		}
-	}
+			SoundController.play(Paths.music('gameOver/gameOver${Song.validateVariationPath(musicSuffix)}-'));
+			new FlxTimer().start(0.7, function(tmr:FlxTimer) {
+FlxG.camera.fade(FlxColor.BLACK, 2, false, function() {
+LoadingState.loadPlayState(PlayState.lastParams, true);
+});
+});
+}
+}
 	
 	/**
 	 * Reset the properties of the game over state.
 	 */
-	public static function reset():Void
-	{
-		musicSuffix = '';
+	public static function reset():Void {
+musicSuffix = '';
 		deathSuffix = '';
-	}
 }
+}
+#

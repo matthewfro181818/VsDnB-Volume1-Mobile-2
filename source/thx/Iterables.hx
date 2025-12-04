@@ -9,7 +9,6 @@ using thx.Options;
 
 #if macro
 import haxe.macro.Expr;
-#end
 
 /**
 	Helper class for `Iterable`. Implementations usually fallback on `thx.Iterators`.
@@ -17,7 +16,7 @@ import haxe.macro.Expr;
 	For documentation of specific methods refer to the equivalent methods in `thx.Arrays`;
 **/
 class Iterables {
-	/**
+/**
 		Checks if `predicate` returns true for all elements in the iterable.
 	**/
 	public static function all<T>(it:Iterable<T>, predicate:T->Bool)
@@ -110,11 +109,11 @@ class Iterables {
 		of its signature.
 	**/
 	public static function isIterable(v:Dynamic) {
-		var fields = Types.isAnonymousObject(v) ? Reflect.fields(v) : Type.getInstanceFields(Type.getClass(v));
+var fields = Types.isAnonymousObject(v) ? Reflect.fields(v) : Type.getInstanceFields(Type.getClass(v));
 		if (!Lambda.has(fields, "iterator"))
 			return false;
 		return Reflect.isFunction(Reflect.field(v, "iterator"));
-	}
+}
 
 	/**
 		Refer to `Array.map`.
@@ -135,7 +134,7 @@ class Iterables {
 		return Iterators.mapi(it.iterator(), f);
 
 	/**
-	 * A proper Functor-like mapi function that preverses iterable structure, with index information.
+	 * A proper Functor-like mapifunction that preverses iterable structure, with index information.
 	 */
 	inline public static function fmapi<T, S>(it:Iterable<T>, f:T->Int->S):Iterable<S>
 		return {iterator: function() return Iterators.fmapi(it.iterator(), f)};
@@ -169,14 +168,14 @@ class Iterables {
 		function of the values contained within the iterable.
 	**/
 	public static function minBy<A, B>(it:Iterable<A>, f:A->B, ord:Ord<B>):Option<A> {
-		var found:Option<A> = None;
+var found:Option<A> = None;
 		for (a in it) {
-			found = found.any(function(a0) {
-				return ord(f(a0), f(a)) == LT;
-			}) ? found : Some(a);
-		}
+found = found.any(function(a0) {
+return ord(f(a0), f(a)) == LT;
+}) ? found : Some(a);
+}
 		return found;
-	}
+}
 
 	/**
 		`maxBy` finds the maximum value included in the iterable, as compared by some
@@ -205,17 +204,17 @@ class Iterables {
 		the specified ordering.
 	**/
 	public static function extremaBy<A, B>(it:Iterable<A>, f:A->B, ord:Ord<B>):Option<Tuple<A, A>> {
-		var found:Option<Tuple2<A, A>> = None;
+var found:Option<Tuple2<A, A>> = None;
 		for (a in it) {
-			found = switch found {
-				case None: Some(new Tuple(a, a));
+found = switch found {
+case None: Some(new Tuple(a, a));
 				case Some(t) if (ord(f(a), f(t._0)) == LT): Some(new Tuple(a, t._1));
 				case Some(t) if (ord(f(a), f(t._1)) == GT): Some(new Tuple(t._0, a));
 				case _: found;
-			}
-		}
+}
+}
 		return found;
-	}
+}
 
 	/**
 		`extrema` finds both the minimum and maximum value included in the iterable,
@@ -228,65 +227,67 @@ class Iterables {
 		Take values until the first time `fn` produced false.
 	**/
 	public static function takeUntil<A>(it:Iterable<A>, fn:A->Bool):Array<A> {
-		return Iterators.takeUntil(it.iterator(), fn);
-	}
+return Iterators.takeUntil(it.iterator(), fn);
+}
 
 	/**
 		Produces an Array from `a[n]` to the last element of `a`.
 	**/
 	static public function dropLeft<A>(itr:Iterable<A>, n:Int):Iterable<A> {
-		return {
-			iterator: function() {
-				var itr = itr.iterator();
+return {
+iterator: function() {
+var itr = itr.iterator();
 				var count = n;
 				while (count > 0) {
-					if (itr.hasNext()) {
-						itr.next();
-					}
-				}
+if (itr.hasNext()) {
+itr.next();
+}
+}
 				return {
-					next: itr.next,
+next: itr.next,
 					hasNext: itr.hasNext
-				};
-			}
-		};
-	}
+};
+}
+};
+}
 
 	/**
 		Drop values until the first time `fn` produced false.
 	**/
 	public static function dropUntil<A>(it:Iterable<A>, fn:A->Bool):Array<A> {
-		return Iterators.dropUntil(it.iterator(), fn);
-	}
+return Iterators.dropUntil(it.iterator(), fn);
+}
 
 	/**
 		Returns an Array that contains all elements from `a` which are also elements of `b`.
 		If `a` contains duplicates, so will the result.
 	**/
 	public static function unionBy<T>(a:Iterable<T>, b:Iterable<T>, eq:T->T->Bool):Array<T> {
-		var res:Array<T> = [];
+var res:Array<T> = [];
 		for (e in a.iterator()) {
-			res.push(e);
-		}
+res.push(e);
+}
 		for (e in b.iterator()) {
-			if (!any(res, function(x:T) return (eq(x, e) : Bool)))
+#(!any(res, function(x:T ? return : null)
+#(eq(x, e) : Bool)))
 				res.push(e);
-		}
+}
 		return res;
-	}
+}
 
 	/**
 		Returns an Array that contains all elements from a which are not elements of b.
 		 If a contains duplicates, the resulting Array contains duplicates.
 	**/
 	public static function differenceBy<T>(a:Iterable<T>, b:Iterable<T>, eq:T->T->Bool):Array<T> {
-		var res:Array<T> = [];
+var res:Array<T> = [];
 		for (e in a.iterator()) {
-			if (!any(b, function(x:T) return (eq(x, e) : Bool)))
+#(!any(b, function(x:T ? return : null)
+#(eq(x, e) : Bool)))
 				res.push(e);
-		}
+}
 		return res;
-	}
+}
 
 	/**
 		Unzip an iterable of Tuple2<T1, T2> to a Tuple2<Array<T1>, Array<T2>>.
@@ -337,3 +338,4 @@ class Iterables {
 			it5:Iterable<T5>):Array<Tuple5<T1, T2, T3, T4, T5>>
 		return Iterators.zip5(it1.iterator(), it2.iterator(), it3.iterator(), it4.iterator(), it5.iterator());
 }
+#

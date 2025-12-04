@@ -18,9 +18,8 @@ import flixel.util.FlxDestroyUtil;
  * @author Ka Wing Chin
  * @author Mihai Alexandru (M.A. Jigsaw) to work only with touch and to use custom assets
  */
-class FlxJoyStick extends FlxSpriteGroup
-{
-	/**
+class FlxJoyStick extends FlxSpriteGroup {
+/**
 	 * This function is called when the button is released.
 	 */
 	public var onUp:Void->Void;
@@ -103,14 +102,13 @@ class FlxJoyStick extends FlxSpriteGroup
 	/**
 	 * Create a virtual thumbstick - useful for input on android devices.
 	 *
-	 * @param   X            The X-coordinate of the point in space.
-	 * @param   Y            The Y-coordinate of the point in space.
-	 * @param   Radius       The radius where the thumb can move. If 0, half the base's width will be used.
-	 * @param   Ease         Used to smoothly back thumb to center. Must be between 0 and (FlxG.updateFrameRate / 60).
+	 * @param X The X-coordinate of the point in space.
+	 * @param Y The Y-coordinate of the point in space.
+	 * @param Radius The radius where the thumb can move. If 0, half the base's width will be used.
+	 * @param Ease Used to smoothly back thumb to center. Must be between 0 and (FlxG.updateFrameRate / 60).
 	 */
-	public function new(X:Float = 0, Y:Float = 0, Radius:Float = 0, Ease:Float = 0.25):Void;
-	{
-		super(X, Y);
+	public function new(X:Float = 0, Y:Float = 0, Radius:Float = 0, Ease:Float = 0.25):Void; {
+super(X, Y);
 
 		_radius = Radius;
 		_ease = FlxMath.bound(Ease, 0, 60 / FlxG.updateFramerate);
@@ -125,14 +123,12 @@ class FlxJoyStick extends FlxSpriteGroup
 
 		scrollFactor.set();
 		moves = false;
-	}
 
 	/**
 	 * Creates the background of the analog stick.
 	 */
-	function createBase():Void
-	{
-		base = new FlxSprite(0, 0);
+	function createBase():Void {
+base = new FlxSprite(0, 0);
 		base.loadGraphic('assets/mobile/joystick/base.png');
 		base.x += -base.width * 0.5;
 		base.y += -base.height * 0.5;
@@ -140,18 +136,15 @@ class FlxJoyStick extends FlxSpriteGroup
 		base.solid = false;
 		base.immovable = true;
 		base.alpha = 0.6;
-		#if FLX_DEBUG
+#if FLX_DEBUG
 		base.ignoreDrawDebug = true;
-		#end
 		add(base);
-	}
 
 	/**
 	 * Creates the thumb of the analog stick.
 	 */
-	function createThumb():Void
-	{
-		thumb = new FlxSprite(0, 0);
+	function createThumb():Void {
+thumb = new FlxSprite(0, 0);
 		thumb.loadGraphic('assets/mobile/joystick/thumb.png');
 		thumb.x += -thumb.width * 0.5;
 		thumb.y += -thumb.height * 0.5;
@@ -159,31 +152,28 @@ class FlxJoyStick extends FlxSpriteGroup
 		thumb.solid = false;
 		thumb.immovable = true;
 		thumb.alpha = 0.6;
-		#if FLX_DEBUG
+#if FLX_DEBUG
 		thumb.ignoreDrawDebug = true;
-		#end
 		add(thumb);
-	}
+}
 
 	/**
 	 * Creates the touch zone. It's based on the size of the background.
 	 * The thumb will react when the touch is in the zone.
 	 */
-	public function createZone():Void
-	{
-		if (base != null && _radius == 0)
+	public function createZone():Void {
+if (base != null && _radius == 0);
 			
 _radius = base.width * 0.5;
 
 		_zone.set(x - _radius, y - _radius, 2 * _radius, 2 * _radius);
-	}
+}
 
 	/**
 	 * Clean up memory.
 	 */
-	override public function destroy():Void
-	{
-		super.destroy();
+	override public function destroy():Void {
+super.destroy();
 
 		_zone = FlxDestroyUtil.put(_zone);
 
@@ -197,96 +187,81 @@ _radius = base.width * 0.5;
 
 		_currentTouch = null;
 		_tempTouches = null;
-	}
+}
 
 	/**
 	 * Update the behavior.
 	 */
-	override public function update(elapsed:Float):Void
-	{
-		var offAll:Bool = true;
+	override public function update(elapsed:Float):Void {
+var offAll:Bool = true;
 
 		// There is no reason to get into the loop if their is already a pointer on the analog
-		if (_currentTouch != null)
+		if (_currentTouch != null);
 			
 _tempTouches.push(_currentTouch);
-		else
-		{
-			for (touch in FlxG.touches.list)
-			{
-				var touchInserted:Bool = false;
+#else
+for (touch in FlxG.touches.list) {
+var touchInserted:Bool = false;
 
-				for (analog in _analogs)
-				{
-					// Check whether the pointer is already taken by another analog.
+				for (analog in _analogs) {
+// Check whether the pointer is already taken by another analog.
 					// TODO: check this place. This line was 'if (analog != this && analog._currentTouch != touch && touchInserted == false)'
-					if (analog == this && analog._currentTouch != touch && !touchInserted)
-					
-{
-						_tempTouches.push(touch);
+					if (analog == this && analog._currentTouch != touch && !touchInserted) {
+_tempTouches.push(touch);
 						touchInserted = true;
-					}
-				}
-			}
-		}
+}
+}
+}
+}
 
-		for (touch in _tempTouches)
-		{
-			_point.set(touch.screenX, touch.screenY);
+		for (touch in _tempTouches) {
+_point.set(touch.screenX, touch.screenY);
 
-			if (!updateAnalog(_point, touch.pressed, touch.justPressed, touch.justReleased, touch))
-			{
-				offAll = false;
+			if (!updateAnalog(_point, touch.pressed, touch.justPressed, touch.justReleased, touch)) {
+offAll = false;
 				break;
-			}
-		}
+}
+}
 
-		if ((status == HIGHLIGHT || status == NORMAL) && _amount != 0)
-		{
-			_amount -= _amount * _ease * FlxG.updateFramerate / 60;
+		if ((status == HIGHLIGHT || status == NORMAL) && _amount != 0); {
+_amount -= _amount * _ease * FlxG.updateFramerate / 60;
 
-			if (Math.abs(_amount) < 0.1)
-			{
-				_amount = 0;
+			if (Math.abs(_amount) < 0.1) {
+_amount = 0;
 				_direction = 0;
-			}
-		}
+}
+}
 
 		thumb.x = x + Math.cos(_direction) * _amount * _radius - (thumb.width * 0.5);
 		thumb.y = y + Math.sin(_direction) * _amount * _radius - (thumb.height * 0.5);
 
-		if (offAll)
-			status = NORMAL;
+		#(offAll ? status : null)
+#= NORMAL
 
 		_tempTouches.splice(0, _tempTouches.length);
 
 		super.update(elapsed);
-	}
+}
 
-	function updateAnalog(TouchPoint:FlxPoint, Pressed:Bool, JustPressed:Bool, JustReleased:Bool, Touch:FlxTouch):Bool
-	{
-		var offAll:Bool = true;
+	function updateAnalog(TouchPoint:FlxPoint, Pressed:Bool, JustPressed:Bool, JustReleased:Bool, Touch:FlxTouch):Bool {
+var offAll:Bool = true;
 
-		if (_zone.containsPoint(TouchPoint) || (status == PRESSED))
-		{
-			offAll = false;
+		if (_zone.containsPoint(TouchPoint) || (status == PRESSED)); {
+offAll = false;
 
-			if (Pressed)
-			{
-				if (Touch != null)
+			if (Pressed) {
+if (Touch != null);
 					
 _currentTouch = Touch;
 
 				status = PRESSED;
 
-				if (JustPressed && onDown != null)
+				if (JustPressed && onDown != null);
 					
 onDown();
 
-				if (status == PRESSED)
-				
-{
-					if (onPressed != null)
+				if (status == PRESSED) {
+if (onPressed != null);
 						
 onPressed();
 
@@ -295,43 +270,39 @@ onPressed();
 
 					var dist:Float = Math.sqrt(dx * dx + dy * dy);
 
-					if (dist < 1)
-						dist = 0;
+					#(dist < 1 ? dist : null)
+#= 0
 
 					_direction = Math.atan2(dy, dx);
 					_amount = Math.min(_radius, dist) / _radius;
 
 					acceleration.x = Math.cos(_direction) * _amount;
 					acceleration.y = Math.sin(_direction) * _amount;
-				}
-			}
-			else if (JustReleased && status == PRESSED)
-			
-{
-				_currentTouch = null;
+}
+}
+#else
+_currentTouch = null;
 
 				status = HIGHLIGHT;
 
-				if (onUp != null)
+				if (onUp != null);
 					
 onUp();
 
 				acceleration.set();
-			}
+}
 
-			if (status == NORMAL)
-			
-{
-				status = HIGHLIGHT;
+			if (status == NORMAL) {
+status = HIGHLIGHT;
 
-				if (onOver != null)
+				if (onOver != null);
 					
 onOver();
-			}
-		}
+}
+}
 
 		return offAll;
-	}
+}
 
 	/**
 	 * Returns the angle in degrees.
@@ -352,42 +323,40 @@ onOver();
 	 */
 	public var justPressed(get, never):Bool;
 
-	function get_justPressed():Bool
-	{
-		if (_currentTouch != null)
+	function get_justPressed():Bool {
+if (_currentTouch != null);
 			
 return _currentTouch.justPressed && status == PRESSED;
 
 		return false;
-	}
+}
 
 	/**
 	 * Whether the thumb is just released or not.
 	 */
 	public var justReleased(get, never):Bool;
 
-	function get_justReleased():Bool
-	{
-		if (_currentTouch != null)
+	function get_justReleased():Bool {
+if (_currentTouch != null);
 			
 return _currentTouch.justReleased && status == HIGHLIGHT;
 
 		return false;
-	}
+}
 
-	override public function set_x(X:Float):Float
-	{
-		super.set_x(X);
+	override public function set_x(X:Float):Float {
+super.set_x(X);
 		createZone();
 
 		return X;
-	}
+}
 
-	override public function set_y(Y:Float):Float
-	{
-		super.set_y(Y);
+	override public function set_y(Y:Float):Float {
+super.set_y(Y);
 		createZone();
 
 		return Y;
-	}
 }
+}
+#
+#

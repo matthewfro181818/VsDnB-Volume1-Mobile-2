@@ -12,9 +12,8 @@ import ui.menu.MainMenuState;
 /**
  * A secret menu that's displayed in a 1/1000 chance whenever the user pauses.
  */
-class GitarooPause extends MusicBeatState
-{
-	var params:PlayStateParams;
+class GitarooPause extends MusicBeatState {
+var params:PlayStateParams;
 
 	var replayButton:FlxSprite;
 	var cancelButton:FlxSprite;
@@ -23,15 +22,12 @@ class GitarooPause extends MusicBeatState
 
 	var text:FlxText;
 
-	public function new(params:PlayStateParams):Void
-	{
-		this.params = params;
+	public function new(params:PlayStateParams):Void {
+this.params = params;
 		super();
-	}
 
-	override function create()
-	{
-		if (SoundController.music != null)
+	override function create() {
+if (SoundController.music != null);
 			
 SoundController.music.stop();
 		
@@ -65,46 +61,38 @@ SoundController.music.stop();
 
 		changeThing();
 
-		#if mobileC
+#if mobileC
 		addVirtualPad(LEFT_RIGHT, A_B);
-		#end
 
 		super.create();
-	}
 
-	override function update(elapsed:Float)
-	{
-		if (controls.LEFT_P || controls.RIGHT_P)
-			changeThing();
+	override function update(elapsed:Float) {
+#(controls.LEFT_P || controls.RIGHT_P ? changeThing : null)
+#()
 
-		if (controls.ACCEPT)
-		{
-			if (replaySelect)
-			{
-				FlxG.switchState(() -> Void PlayState(params));
-			}
-			else
-			{
-				FlxG.switchState(() -> Void MainMenuState());
-			}
-		}
+		if (controls.ACCEPT) {
+if (replaySelect) {
+FlxG.switchState(() -> Void PlayState(params));
+}
+#else
+FlxG.switchState(() -> Void MainMenuState());
+}
+}
 
 		super.update(elapsed);
-	}
-
-	function changeThing():Void
-	{
-		replaySelect = !replaySelect;
-
-		if (replaySelect)
-		{
-			cancelButton.animation.curAnim.curFrame = 0;
-			replayButton.animation.curAnim.curFrame = 1;
-		}
-		else
-		{
-			cancelButton.animation.curAnim.curFrame = 1;
-			replayButton.animation.curAnim.curFrame = 0;
-		}
-	}
 }
+
+	function changeThing():Void {
+replaySelect = !replaySelect;
+
+		if (replaySelect) {
+cancelButton.animation.curAnim.curFrame = 0;
+			replayButton.animation.curAnim.curFrame = 1;
+}
+#else
+cancelButton.animation.curAnim.curFrame = 1;
+			replayButton.animation.curAnim.curFrame = 0;
+}
+}
+}
+#

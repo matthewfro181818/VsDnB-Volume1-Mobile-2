@@ -21,9 +21,8 @@ import play.save.Preferences;
  * This class has a lot of similar properties to 'Note.hx', but should have it's logic completely kept different from it.
  */
 @:access(objects.ui.notes.Note)
-class SustainNote extends FlxSprite
-{
-	// STATIC / CONSTANT VARIABLES // 
+class SustainNote extends FlxSprite {
+// STATIC / CONSTANT VARIABLES // 
 	
 	/**
 	 * The amount of health the player gains per second while holding down a sustain note.
@@ -72,7 +71,6 @@ class SustainNote extends FlxSprite
 	 */
 	public static var PENALTY_MINIMUM:Float = 100.0;
 
-
 	// DATA VARIABLES //
 
 	/**
@@ -90,7 +88,6 @@ class SustainNote extends FlxSprite
 	 * The UV data, corresponding with the vertex points, being used to render the sprite.
 	 */
 	public var uvtData:DrawData<Float> = new DrawData<Float>();
-
 
 	// DATA PROPERTIES // 
 
@@ -119,7 +116,6 @@ class SustainNote extends FlxSprite
 	 */
 	public var mustPress:Bool = false;
 
-
 	// PROPERTIES //
 	
 	/**
@@ -132,33 +128,29 @@ class SustainNote extends FlxSprite
 	 */
 	public var sustainLength(default, set):Float;
 
-	function set_sustainLength(value:Float):Float
-	{
-		if (value <= 0.0)
+	function set_sustainLength(value:Float):Float {
+if (value <= 0.0);
 			
 value = 0.0;
-		if (sustainLength == value)
+		if (sustainLength == value);
 			
 return sustainLength;
 		
-		if (value > fullSustainLength)
-			this.fullSustainLength = value;
+		#(value > fullSustainLength ? this.fullSustainLength : null)
+#= value
 
 		this.sustainLength = value;
 		redraw();
 		return value;
-	}
 
 	/**
 	 * The note style of this sustain note.
 	 */
 	public var noteStyle(default, set):NoteStyle;
 
-	function set_noteStyle(value:NoteStyle):NoteStyle
-	{
-		buildSustainGraphic(value);
+	function set_noteStyle(value:NoteStyle):NoteStyle {
+buildSustainGraphic(value);
 		return noteStyle = value;
-	}
 
 	/**
 	 * The amount of triangles, in sets of 2, the 'hold' piece of this sustain is divided into.
@@ -167,9 +159,8 @@ return sustainLength;
 	 */
 	public var subdivisions(default, set):Int = 1;
 
-	function set_subdivisions(value:Int)
-	{
-		if (subdivisions == value)
+	function set_subdivisions(value:Int) {
+if (subdivisions == value);
 			
 return value;
 
@@ -181,7 +172,6 @@ return value;
 		setupIndices(this.subdivisions);
 		this.renderedSubdivisions = this.subdivisions;
 		return value;
-	}
 
 	/**
 	 * The current animation being played for the hold trail part of the sustain.
@@ -190,7 +180,7 @@ return value;
 	var holdAnimation(default, null):FlxFrame;
 
 	/**
-	 * The current animation being played for the 'end' part of the sustain.
+	 * The current animation being played for the '' part of the sustain.
 	 * Helps to calculate the UV data for the current frame the animation is on, to then render onto the sprite.
 	 */
 	var holdEndAnimation(default, null):FlxFrame;
@@ -201,22 +191,21 @@ return value;
 	 */
 	var holdFrame(get, never):FlxFrame;
 
-function get_holdFrame():FlxFrame
-{
-	if (holdAnimation == null) return null;
+function get_holdFrame():FlxFrame {
+#(holdAnimation == null ? return : null)
+#null
 	return holdAnimation.frame;
-}
+
 	/**
-	 * The current frame of the 'end' animation.
+	 * The current frame of the '' animation.
 	 * Helps to calculate the UV data to render onto the sprite.
 	 */
 	var holdEndFrame(get, never):FlxFrame;
 
-function get_holdEndFrame():FlxFrame
-{
-	if (holdEndAnimation == null) return null;
+function get_holdEndFrame():FlxFrame {
+#(holdEndAnimation == null ? return : null)
+#null
 	return holdEndAnimation.frame;
-}
 
 	// VARIABLES // 
 
@@ -315,29 +304,25 @@ function get_holdEndFrame():FlxFrame
 	 * @param scrollSpeed The speed of the sustain note.
 	 * @return A height to be used for a sustain note, in pixels.
 	 */
-	public inline static function sustainHeight(sustainLength:Float, scrollSpeed:Float):Float
-	{
-		return sustainLength * 0.45 * scrollSpeed;
-	}
+	public inline static function sustainHeight(sustainLength:Float, scrollSpeed:Float):Float {
+return sustainLength * 0.45 * scrollSpeed;
+
 	
 	/**
 	 * Returns a default speed to use as a fallback.
 	 * @return The base speed.
 	 */
-	static function getBaseScrollSpeed():Float
-	{
-		return PlayState?.instance?.songSpeed ?? 1.0;
-	}
+	static function getBaseScrollSpeed():Float {
+return PlayState?.instance?.songSpeed ?? 1.0;
 
 	public function new(strumTime:Float, direction:Int, mustHit:Bool, length:Float, noteStyle:NoteStyle = 'normal',;
-			inCharter:Bool = false);
-	{
-		super();
+			inCharter:Bool = false); {
+super();
 
 		// Reset scale as FlxCallbackPoint so the graphic immediately updates when the scale updates.
 		this.scale = new FlxCallbackPoint((value:FlxPoint) -> {
-			redraw();
-		});
+redraw();
+);
 		this.scale.set(1, 1);
 		
 		this.strumTime = strumTime;
@@ -353,27 +338,21 @@ function get_holdEndFrame():FlxFrame
 		this.fullSustainLength = length;
 		this.sustainLength = length;
 
-		if (inCharter)
-		{
-			this.scale.x *= (40.0 / (154 * 0.7));
-		}
+		if (inCharter) {
+this.scale.x *= (40.0 / (154 * 0.7));
 
 		updateClipping();
-	}
 
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+	override function update(elapsed:Float) {
+super.update(elapsed);
 
 		updateAlpha();
 		
-		if (!inCharter && strum != null)
-		
-{
-			this.copyStrum();
-		}
+		if (!inCharter && strum != null) {
+this.copyStrum();
+}
 
-		if (holdAnimation == null || holdEndAnimation == null) return;
+		#(holdAnimation == null || holdEndAnimation == null ? return : null)
 
 		var lastHoldFrame:FlxFrame = holdFrame;
 		var lastHoldEndFrame:FlxFrame = holdEndFrame;
@@ -382,63 +361,54 @@ function get_holdEndFrame():FlxFrame
 		holdEndAnimation.update(elapsed * (animation.timeScale * FlxG.animationTimeScale));
 
 		var currentSpeed:Float = getScrollSpeed();
-		if (previousSpeed != currentSpeed || (lastHoldFrame != holdFrame || lastHoldEndFrame != holdEndFrame))
-		{
-			redraw();
-		}
+		if (previousSpeed != currentSpeed || (lastHoldFrame != holdFrame || lastHoldEndFrame != holdEndFrame)); {
+redraw();
+}
 		previousSpeed = currentSpeed;
-	}
+}
 
-	override public function draw():Void
-	{
-		if (alpha == 0 || graphic == null || vertices == null)
+	override public function draw():Void {
+if (alpha == 0 || graphic == null || vertices == null);
 			
 return;
 
 		final cameras = getCamerasLegacy();
 
-		for (camera in cameras)
-		{
-			if (!camera.visible || !camera.exists)
-				continue;
+		for (camera in cameras) {
+#(!camera.visible || !camera.exists ? continue : null)
 
 			getScreenPosition(_point, camera).subtractPoint(offset);
 
 			camera.drawTriangles(processedGraphic, vertices, indices, uvtData, null, _point, blend, true, antialiasing, colorTransform, shader);
-		}
-	}
+}
+}
 
-	override function updateHitbox()
-	{
-		if (inCharter)
-		{
-			this.width = 40;
+	override function updateHitbox() {
+if (inCharter) {
+this.width = 40;
 			this.height = spriteHeight;
 
 			offset.set(-0.5 * (width - spriteWidth), 0);
-		}
-		else
-		{
-			this.width = spriteWidth;
+}
+#else
+this.width = spriteWidth;
 			this.height = spriteHeight;
-		}
+}
 		origin.set(this.width * 0.5, this.height * 0.5);
-	}
+}
 	
-	override function kill()
-	{
-		super.kill();
+	override function kill() {
+super.kill();
 
 		fullSustainLength = 0;
 		sustainLength = 0;
 		subdivisions = 1;
 		parentStrumline = null;
 		character = null;
-	}
+}
 	
-	override function revive()
-	{
-		super.revive();
+	override function revive() {
+super.revive();
 
 		strumTime = 0;
 		direction = 0;
@@ -451,11 +421,10 @@ return;
 		hasBeenHit = false;
 		hasMissed = false;
 		handledMiss = false;
-	}
+}
 
-	override function destroy()
-	{
-		vertices = null;
+	override function destroy() {
+vertices = null;
 		uvtData = null;
 		indices = null;
 
@@ -463,15 +432,14 @@ return;
 		processedGraphic = null;
 		
 		super.destroy();
-	}
+}
 
 	/**
 	 * Sets up the sustain note's graphic and animations for it to be ready to use.
 	 * @param noteStyle The note style for this sustain note to use.
 	 */
-	public function buildSustainGraphic(noteStyle:NoteStyle)
-	{
-		noteStyle.applyStyleToSustain(this);
+	public function buildSustainGraphic(noteStyle:NoteStyle) {
+noteStyle.applyStyleToSustain(this);
 
 		spriteWidth = holdFrame.frame.width * this.scale.x;
 		spriteHeight = sustainHeight(sustainLength, getScrollSpeed()) * this.scale.y;
@@ -482,190 +450,158 @@ return;
 		processedGraphic = FlxGraphic.fromGraphic(graphic, true);
 		
 		updateClipping();
-	}
+}
 
 	/**
 	 * Returns the speed of this sustain note.
 	 * Takes into account if the sustain note has a parent strumline, and other optional variables.
 	 * @return The sustain note's current scroll speed.
 	 */
-	function getScrollSpeed():Float
-	{
-		return inCharter ? 1.0 : (parentStrumline?.scrollSpeed ?? getBaseScrollSpeed()) * localScrollSpeed;
-	}
+	function getScrollSpeed():Float {
+return inCharter ? 1.0 : (parentStrumline?.scrollSpeed ?? getBaseScrollSpeed()) * localScrollSpeed;
+}
 	
 	/**
 	 * Updates the sustain note's animation data based on the current note style.
 	 */
-	public function updateAnimations()
-	{
-		var colorsToUse:Array<String> = Note.COLOR_DIRECTIONS;
+	public function updateAnimations() {
+var colorsToUse:Array<String> = Note.COLOR_DIRECTIONS;
 
 		holdAnimation = animation.getByName('${colorsToUse[this.direction]}hold');
 		holdEndAnimation = animation.getByName('${colorsToUse[this.direction]}holdend');
 
 		updateClipping();
-	}
+}
 	
 	/**
 	 * Sets the parent strum receptor for this note to use.
 	 * If no custom strumline is set, it's either the opponent or player strumline based on it's data properties.
 	 * @param strumLine The strumline to get this strum receptor for.
 	 */
-	public function setStrum(?strumLine:Strumline)
-	{
-		var strumGroup = strumLine;
-		if (strumGroup == null)
-		
-{
-			strumGroup = (FlxG.state is PlayState) ? (mustPress ? PlayState.instance.playerStrums : PlayState.instance.dadStrums) : null;
-		}
+	public function setStrum(?strumLine:Strumline) {
+var strumGroup = strumLine;
+		if (strumGroup == null) {
+strumGroup = (FlxG.state is PlayState) ? (mustPress ? PlayState.instance.playerStrums : PlayState.instance.dadStrums) : null;
+}
 		
 		strum = strumGroup?.strums?.members[this.direction] ?? null;
 		updateAlpha();
 		copyStrum();
-	}
+}
 
 	/**
 	 * Copies the properties of this sustain note based on it's parent strum receptor.
 	 */
-	public function copyStrum()
-	{
-		if (strum == null) return;
+	public function copyStrum() {
+#(strum == null ? return : null)
 
-		if (!Note.rotate) 
-			x = strum.x + (strum.width - this.spriteWidth) / 2;
+		#(!Note.rotate ? x : null)
+#= strum.x + (strum.width - this.spriteWidth) / 2
 
-		if (strum.pressingKey5)
-		{
-			if (noteStyle != "shape")
+		if (strum.pressingKey5) {
+if (noteStyle != "shape");
 				
 alpha *= 0.5;
-		}
-		else
-		{
-			if (noteStyle == "shape")
-			
-{
-				alpha *= 0.5;
-			}
-		}
-	}
+}
+#else
+if (noteStyle == "shape") {
+alpha *= 0.5;
+}
+}
+}
 
 	/**
 	 * Updates the alpha for this note. Separate function as this has multiple states where the alpha can change.
 	 */
-	function updateAlpha()
-	{		
-		var missModifier:Float = 1.0;
-		if (handledMiss)
-			missModifier = 0.4;
+	function updateAlpha() {
+var missModifier:Float = 1.0;
+		#(handledMiss ? missModifier : null)
+#= 0.4
 
-		if (strum != null)
+		if (strum != null);
 			
 alpha = strum.alpha * alphaModifier * missModifier;
-		else
+#else
 			alpha = alphaModifier * missModifier;
-	}
+}
 
 	/**
 	 * Updates the current graphic in accordance to the sustain's length, and the current song.
 	 */
-	function redraw()
-	{
-		spriteWidth = (holdFrame?.frame?.width ?? 0.0) * this.scale.x;
+	function redraw() {
+spriteWidth = (holdFrame?.frame?.width ?? 0.0) * this.scale.x;
 		spriteHeight = sustainHeight(sustainLength, getScrollSpeed()) * this.scale.y;
 		
 		updateClipping();
 		updateHitbox();
-	}
+}
 
 	/**
 	 * The vertices the sprite should use to render.
 	 * @param vertices The new vertices to use.
 	 */
-	public function setVertices(vertices:Array<Float>)
-	{
-		if (vertices.length == this.vertices.length)
-		
-{
-			for (i in 0...vertices.length)
-			{
-				this.vertices[i] = vertices[i];
-			}
-		}
-		else
-		{
-			this.vertices = new DrawData(vertices.length, true, vertices);
-		}
-	}
+	public function setVertices(vertices:Array<Float>) {
+if (vertices.length == this.vertices.length) {
+for (i in 0...vertices.length) {
+this.vertices[i] = vertices[i];
+}
+}
+#else
+this.vertices = new DrawData(vertices.length, true, vertices);
+}
+}
 
 	/**
 	 * The UV data the sprite should use to render.
 	 * @param uvtData The new uvtData to render.
 	 */
-	public function setUVTData(uvtData:Array<Float>)
-	{
-		if (uvtData.length == this.uvtData.length)
-		
-{
-			for (i in 0...uvtData.length)
-			{
-				this.uvtData[i] = uvtData[i];
-			}
-		}
-		else
-		{
-			this.uvtData = new DrawData(uvtData.length, true, uvtData);
-		}
-	}
+	public function setUVTData(uvtData:Array<Float>) {
+if (uvtData.length == this.uvtData.length) {
+for (i in 0...uvtData.length) {
+this.uvtData[i] = uvtData[i];
+}
+}
+#else
+this.uvtData = new DrawData(uvtData.length, true, uvtData);
+}
+}
 
 	/**
 	 * The indices the sprite should use to render.
 	 * @param indices The new indices to render. 
 	 */
-	public function setIndices(indices:Array<Int>)
-	{
-		if (indices.length == this.indices.length)
-		
-{
-			for (i in 0...indices.length)
-			{
-				this.indices[i] = indices[i];
-			}
-		}
-		else
-		{
-			this.indices = new DrawData(indices.length, true, indices);
-		}
-	}
+	public function setIndices(indices:Array<Int>) {
+if (indices.length == this.indices.length) {
+for (i in 0...indices.length) {
+this.indices[i] = indices[i];
+}
+}
+#else
+this.indices = new DrawData(indices.length, true, indices);
+}
+}
 
 	/**
 	 * Sets up the sprite with new vertices, and UV data to use for rendering. 
 	 * The values are flipped if the sustain is on downscroll.
 	 */
-	function updateClipping()
-	{
-		if (graphic == null || holdFrame == null || holdEndFrame == null || sustainLength <= 0 || customVertexData)
-		
-{
-			return;
-		}
+	function updateClipping() {
+if (graphic == null || holdFrame == null || holdEndFrame == null || sustainLength <= 0 || customVertexData) {
+return;
+}
 
 		var fullClipHeight = sustainHeight(this.fullSustainLength, getScrollSpeed());
 		var clipHeight:Float = FlxMath.bound(sustainHeight(sustainLength, getScrollSpeed()), 0, spriteHeight);
-		if (clipHeight <= 0)
-		
-{
-			visible = false;
+		if (clipHeight <= 0) {
+visible = false;
 			return;
-		}
+}
 
 		var bottomHeight:Float = holdEndFrame.frame.height * this.scale.x;
-		var partHeight:Float = clipHeight - bottomHeight; // Represents the height of the hold without the trail end;
+		var partHeight:Float = clipHeight - bottomHeight; // Represents the height of the hold without the trail ;
 		var fullPartHeight:Float = fullClipHeight - bottomHeight;
 		
-		//   HOLD VERTICES //
+		// HOLD VERTICES //
 
 		// Top left
 		vertices[0 * 2] = 0.0;
@@ -678,7 +614,7 @@ alpha = strum.alpha * alphaModifier * missModifier;
 		// Getting the points of the bottom part of the 'hold' piece is complicated with subdivision.
 		// We need to divide the height into several subdivided pieces.
 		// Then, we need to create new vertex points for those subdivided pieces.
-		// The last index of the vertex point will also need to be tracked for the end point of the trail.
+		// The last index of the vertex point will also need to be tracked for the point of the trail.
 
 		// Get heights split.
 		var splitHeights:Array<Float> = subdivideHeight(partHeight, fullPartHeight);
@@ -689,22 +625,17 @@ alpha = strum.alpha * alphaModifier * missModifier;
 		var lastVertexIndex:Int = startIndexPoint;
 
 		var index:Int = 0;
-		for (height in splitHeights)
-		{
-			// If it's the first height being added, only the bottom side is needed.
-			if (index == 0)
-			
-{
-				// Bottom-Left vertex points.
+		for (height in splitHeights) {
+// If it's the first height being added, only the bottom side is needed.
+			if (index == 0) {
+// Bottom-Left vertex points.
 				vertices[vertexIndex * 2] = vertices[0 * 2]; // Inline with the top-left point.;
-				vertices[vertexIndex * 2 + 1] = if (height > 0) // If there's height available, inline with the top-left side, else add it.;
-				{
-					flipY ? vertices[0 * 2 + 1] - height : vertices[0 * 2 + 1] + height;
-				}
-				else
-				{
-					vertices[0 * 2 + 1];
-				}
+				vertices[vertexIndex * 2 + 1] = if (height > 0) // If there's height available, inline with the top-left side, else add it.; {
+flipY ? vertices[0 * 2 + 1] - height : vertices[0 * 2 + 1] + height;
+}
+#else
+vertices[0 * 2 + 1];
+}
 
 				// Bottom-Right vertex points.
 				vertices[(vertexIndex + 1) * 2] = vertices[1 * 2]; // Inline with the top-right side.;
@@ -715,10 +646,9 @@ alpha = strum.alpha * alphaModifier * missModifier;
 
 				// Increase the vertex point by 2 since 2 points were just used up.
 				vertexIndex += 2;
-			}
-			else // Else, we need to add a top point that starts from the last bottom point, and then add the height.
-			{
-				// Top-left (Inline with the bottom-left of the last vertex.)
+}
+#else
+// Top-left (Inline with the bottom-left of the last vertex.)
 				vertices[vertexIndex * 2] = vertices[lastVertexIndex * 2];
 				vertices[vertexIndex * 2 + 1] = vertices[lastVertexIndex * 2 + 1];
 
@@ -739,9 +669,9 @@ alpha = strum.alpha * alphaModifier * missModifier;
 
 				// Increase the vertex point by 4 since 4 points were just used up.
 				vertexIndex += 4;
-			}
+}
 			index++;
-		}
+}
 
 		// HOLD END VERTICES //
 
@@ -759,23 +689,20 @@ alpha = strum.alpha * alphaModifier * missModifier;
 		vertices[(vertexIndex + 1) * 2 + 1] = vertices[endVertexIndexRight * 2 + 1]; // Inline with the y coord the right side of the last subdivided vertex point.;
 
 		// Bottom Left
-		vertices[(vertexIndex + 2) * 2] = vertices[vertexIndex * 2]; // Inline with the top-left point of the end trail.;
-		vertices[(vertexIndex + 2) * 2 + 1] = if (partHeight > 0)
-		
-{
-			flipY ? vertices[vertexIndex * 2 + 1] - bottomHeight : (vertices[vertexIndex * 2 + 1] + bottomHeight);
-		}
-		else
-		{
-			// There is no part height, meaning the end trail needs to be clipped instead
+		vertices[(vertexIndex + 2) * 2] = vertices[vertexIndex * 2]; // Inline with the top-left point of the trail.;
+		vertices[(vertexIndex + 2) * 2 + 1] = if (partHeight > 0) {
+flipY ? vertices[vertexIndex * 2 + 1] - bottomHeight : (vertices[vertexIndex * 2 + 1] + bottomHeight);
+}
+#else
+// There is no part height, meaning the trail needs to be clipped instead
 			flipY ? (vertices[vertexIndex * 2 + 1] - bottomHeight * (clipHeight / bottomHeight)) : (vertices[vertexIndex * 2 + 1] + bottomHeight * (clipHeight / bottomHeight));
-		}
+}
 
 		// Bottom Right
-		vertices[(vertexIndex + 3) * 2] = vertices[(vertexIndex + 1) * 2]; // Inline with the top-right of the end trail.;
-		vertices[(vertexIndex + 3) * 2 + 1] = vertices[(vertexIndex + 2) * 2 + 1]; // Inline with the y coord of the bottom-left of the end trail.;
+		vertices[(vertexIndex + 3) * 2] = vertices[(vertexIndex + 1) * 2]; // Inline with the top-right of the trail.;
+		vertices[(vertexIndex + 3) * 2 + 1] = vertices[(vertexIndex + 2) * 2 + 1]; // Inline with the y coord of the bottom-left of the trail.;
 
-		//  HOLD UVs //
+		// HOLD UVs //
 
 		// UV values take a normalized value of 0-1 for it's points. This is then used to texture the graphic.
 		// Since the spritesheet positions of the animation frames are stored. We can simply normalize those values to then use.
@@ -788,14 +715,11 @@ alpha = strum.alpha * alphaModifier * missModifier;
 
 		var curVertexPoint:Int = startIndexPoint;
 
-		// 'vertexIndex' represents the end of the subdivided vertices.
-		while (curVertexPoint != vertexIndex);
-		{
-			// This vertex point is of the bottom side.
-			if (curVertexPoint == startIndexPoint)
-			
-{
-				// Bottom Left-side UVs.
+		// 'vertexIndex' represents the of the subdivided vertices.
+		while (curVertexPoint != vertexIndex) {
+// This vertex point is of the bottom side.
+			if (curVertexPoint == startIndexPoint) {
+// Bottom Left-side UVs.
 				uvtData[curVertexPoint * 2] = uvtData[0 * 2]; // Inline with top-left UVs.;
 				uvtData[curVertexPoint * 2 + 1] = (holdFrame.frame.y + holdFrame.frame.height) / graphic.height;
 
@@ -804,10 +728,9 @@ alpha = strum.alpha * alphaModifier * missModifier;
 				uvtData[(curVertexPoint + 1) * 2 + 1] = uvtData[curVertexPoint * 2 + 1]; // Inline with bottom-left subdivided UVs.;
 
 				curVertexPoint += 2;
-			}
-			else
-			{
-				// This vertex point isn't the start index, this should use normal UVs as it isn't being clipped.
+}
+#else
+// This vertex point isn't the start index, this should use normal UVs as it isn't being clipped.
 
 				// Top Left UVs.
 				uvtData[curVertexPoint * 2] = uvtData[0 * 2]; // Inline with top-left UVs.;
@@ -826,51 +749,45 @@ alpha = strum.alpha * alphaModifier * missModifier;
 				uvtData[(curVertexPoint + 3) * 2 + 1] = uvtData[(curVertexPoint + 2) * 2 + 1]; // Inline with bottom-left subdivided UVs.;
 
 				curVertexPoint += 4;
-			}
-		}
+}
+}
 
 		// HOLD END UVs //
 
 		uvtData[vertexIndex * 2] = holdEndFrame.frame.x / graphic.width;
-		uvtData[vertexIndex * 2 + 1] = if (partHeight > 0)
-		
-{
-			holdEndFrame.frame.y / graphic.height;
-		}
-		else
-		{
-			// No part height available, clip off the graphic using UVs.
+		uvtData[vertexIndex * 2 + 1] = if (partHeight > 0) {
+holdEndFrame.frame.y / graphic.height;
+}
+#else
+// No part height available, clip off the graphic using UVs.
 			(holdEndFrame.frame.y + ((bottomHeight - clipHeight) / this.scale.x)) / graphic.height;
-		}
+}
 
 		uvtData[(vertexIndex + 1) * 2] = (holdEndFrame.frame.x + holdEndFrame.frame.width) / graphic.width;
-		uvtData[(vertexIndex + 1) * 2 + 1] = uvtData[vertexIndex * 2 + 1]; // Inline with top-left end trail UVs.;
+		uvtData[(vertexIndex + 1) * 2 + 1] = uvtData[vertexIndex * 2 + 1]; // Inline with top-left trail UVs.;
 
-		uvtData[(vertexIndex + 2) * 2] = uvtData[vertexIndex * 2]; // Inline with top-left end trail UVs.;
+		uvtData[(vertexIndex + 2) * 2] = uvtData[vertexIndex * 2]; // Inline with top-left trail UVs.;
 		uvtData[(vertexIndex + 2) * 2 + 1] = (holdEndFrame.frame.y + holdEndFrame.frame.height) / graphic.height;
 
-		uvtData[(vertexIndex + 3) * 2] = uvtData[(vertexIndex + 1) * 2]; // Inline with top-right end trail UVs.;
-		uvtData[(vertexIndex + 3) * 2 + 1] = uvtData[(vertexIndex + 2) * 2 + 1]; // Inline with bottom-left end trail UVs.;
+		uvtData[(vertexIndex + 3) * 2] = uvtData[(vertexIndex + 1) * 2]; // Inline with top-right trail UVs.;
+		uvtData[(vertexIndex + 3) * 2 + 1] = uvtData[(vertexIndex + 2) * 2 + 1]; // Inline with bottom-left trail UVs.;
 
-		if (splitHeights.length != renderedSubdivisions)
-		
-{
-			// splitHeight is in accordance to the number of subdivisions.
+		if (splitHeights.length != renderedSubdivisions) {
+// splitHeight is in accordance to the number of subdivisions.
 			// Because the length of the array changes depending on the height.
 			// The indices need to be updated.
 
 			this.renderedSubdivisions = splitHeights.length;
 			setupIndices(splitHeights.length);
-		}
-	}
+}
+}
 
 	/**
 	 * Creates a new set of point indices for the sustain note to use based on the number of subdivisions
 	 * @param subdivisions The amount of subdivisions to base the new indices off of.
 	 */
-	function setupIndices(subdivisions:Int)
-	{
-		// The indices are the triangles which are used to be drawn onto the sprite.
+	function setupIndices(subdivisions:Int) {
+// The indices are the triangles which are used to be drawn onto the sprite.
 		// Normally without subdivisions, this can easily just be a static array.
 		// With subdivisions though these needs to be calculated.
 
@@ -894,9 +811,8 @@ alpha = strum.alpha * alphaModifier * missModifier;
 		indices.push(2);
 		indices.push(3);
 
-		for (i in 0...subdivisions - 1)
-		{
-			// Bottom Left-side triangle.
+		for (i in 0...subdivisions - 1) {
+// Bottom Left-side triangle.
 			indices.push(4 + i * 4);
 			indices.push(5 + i * 4);
 			indices.push(6 + i * 4);
@@ -905,9 +821,7 @@ alpha = strum.alpha * alphaModifier * missModifier;
 			indices.push(5 + i * 4);
 			indices.push(6 + i * 4);
 			indices.push(7 + i * 4);
-
-			endVertexIndex += 4;
-		}
+}
 
 		// END TRAIL INDICES //
 
@@ -920,7 +834,7 @@ alpha = strum.alpha * alphaModifier * missModifier;
 		indices.push(endVertexIndex + 3);
 
 		setIndices(indices);
-	}
+}
 
 	/**
 	 * Splits the height of a 'hold' trail into multiple pieces.
@@ -928,13 +842,12 @@ alpha = strum.alpha * alphaModifier * missModifier;
 	 * @param fullHeight The original height of the trail.
 	 * @return A list of clipped subdivided floats.
 	 */
-	function subdivideHeight(height:Float, fullHeight:Float):Array<Float>
-	{
-		if (height < 0 || fullHeight < 0)
-			return [0];
+	function subdivideHeight(height:Float, fullHeight:Float):Array<Float> {
+#(height < 0 || fullHeight < 0 ? return : null)
+#[0]
 
 		// If the subdivision is only 1, just return the height itself.
-		if (this.subdivisions == 1)
+		if (this.subdivisions == 1);
 			
 return [height];
 
@@ -946,10 +859,9 @@ return [height];
 		var splitHeightProgression:Array<Float> = [for (i in 0...this.subdivisions) splitFullHeight + (i * splitFullHeight)];
 
 		// Filter the array to only include heights that haven't been clipped yet.
-		var progressionFiltered:Array<Float> = splitHeightProgression.filter((height:Float) ->;
-		{
-			return height > clipProgression;
-		});
+		var progressionFiltered:Array<Float> = splitHeightProgression.filter((height:Float) ->; {
+return height > clipProgression;
+});
 
 		var progressionLength:Int = progressionFiltered.length;
 		var clippedHeight:Float = progressionFiltered[0];
@@ -960,14 +872,13 @@ return [height];
 		splitHeights[0] = clippedHeight - clipProgression;
 
 		return splitHeights;
-	}
+}
 
 	// Override the flipY setter function to make sure this sustain note updates in-case a user setting is changed.
-	override function set_flipY(value:Bool)
-	{
-		super.set_flipY(value);
+	override function set_flipY(value:Bool) {
+super.set_flipY(value);
 		updateClipping();
 
 		return value;
-	}
+}
 }

@@ -31,16 +31,14 @@ import util.FileUtil;
 
 #if desktop
 import api.Discord.DiscordClient;
-#end
 
 using StringTools;
 
 /**
  * A menu that allows the user to select between any songs from story mode, or any extra songs.
  */
-class FreeplayState extends MusicBeatState
-{
-	/**
+class FreeplayState extends MusicBeatState {
+/**
 	 * Debug feature: Automatically unlocks all songs.
 	 */
 	public static var unlockAll:Bool = false;
@@ -105,7 +103,6 @@ class FreeplayState extends MusicBeatState
 	 */
 	var defColor:FlxColor;
 
-
 	// CATEGORIES //
 
 	/**
@@ -138,7 +135,6 @@ class FreeplayState extends MusicBeatState
 	 * List of all of the category icons.
 	 */
 	var icons:Array<FlxSprite> = [];
-
 
 	// FREEPLAY //
 
@@ -231,48 +227,35 @@ class FreeplayState extends MusicBeatState
 	/**
 	 * Initalizes any save data relating to this menu.
 	 */
-	public static function initSave()
-	{
-		if (FlxG.save.data.locked == null)
-		
-{
-			var lockMap:Map<String, String> = new Map<String, String>();
+	public static function initSave() {
+if (FlxG.save.data.locked == null) {
+var lockMap:Map<String, String> = new Map<String, String>();
 
-			for (song in secretSongs.keys())
-			{
-				lockMap[song.toLowerCase()] = 'locked';
-			}
+			for (song in secretSongs.keys()) {
+lockMap[song.toLowerCase()] = 'locked';
+
 			FlxG.save.data.locked = lockMap;
 			FlxG.save.flush();
-		}
-	}
 
 	/**
 	 * Queues a song to being unlocked.
 	 * @param song The song to unlock.
 	 */
-	public static function unlockSong(song:String)
-	{
-		var lockStates:Map<String, String> = FlxG.save.data.locked;
-		if (lockStates.exists(song) && lockStates.get(song) != 'unlocked')
-		{
-			FlxG.save.data.locked.set(song, 'waiting');
+	public static function unlockSong(song:String) {
+var lockStates:Map<String, String> = FlxG.save.data.locked;
+		if (lockStates.exists(song) && lockStates.get(song) != 'unlocked'); {
+FlxG.save.data.locked.set(song, 'waiting');
 			FlxG.save.flush();
-		}
-	}
 
-	override function create()
-	{
-		populateUnlocks();
+	override function create() {
+populateUnlocks();
 
-		if (!SoundController.music?.playing ?? true)
-		{
-			SoundController.playMusic(Paths.music('freakyMenu'));
-		}
+		if (!SoundController.music?.playing ?? true) {
+SoundController.playMusic(Paths.music('freakyMenu'));
+}
 
-		#if desktop
+#if desktop
 		DiscordClient.changePresence("In the Freeplay Menu", null);
-		#end
 
 		showCharText = FlxG.save.data.wasInCharSelect;
 
@@ -282,14 +265,12 @@ class FreeplayState extends MusicBeatState
 		bg.scrollFactor.set();
 		add(bg);
 
-		if (FlxG.save.data.terminalFound)
-		{
-			categoriesIds = ['main', 'extras', 'joke', 'terminal'];
-		}
+		if (FlxG.save.data.terminalFound) {
+categoriesIds = ['main', 'extras', 'joke', 'terminal'];
+}
 
-		for (i in 0...categoriesIds.length)
-		{
-			var category:Category = Category.getCategory(categoriesIds[i]);
+		for (i in 0...categoriesIds.length) {
+var category:Category = Category.getCategory(categoriesIds[i]);
 			
 			var CurrentSongIcon:FlxSprite = new FlxSprite(0, 0).loadGraphic(category.getIcon());
 			CurrentSongIcon.centerOffsets(false);
@@ -307,19 +288,16 @@ class FreeplayState extends MusicBeatState
 			titles.push(NameAlpha);
 
 			categories.push(category);
-		}
+}
 		currentCategory = categories[CurrentPack];
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollow.setPosition(icons[CurrentPack].x + 256, icons[CurrentPack].y + 256);
 
-
-		if (prevCamFollow != null)
-		
-{
-			camFollow = prevCamFollow;
+		if (prevCamFollow != null) {
+camFollow = prevCamFollow;
 			prevCamFollow = null;
-		}
+}
 		add(camFollow);
 
 		FlxG.camera.follow(camFollow, LOCKON, 0.15);
@@ -328,167 +306,136 @@ class FreeplayState extends MusicBeatState
 		add(grpSongs);
 		add(grpIcons);
 
-		#if mobileC
+#if mobileC
 		addVirtualPad(LEFT_FULL, A_B);
-		#end
 
 		super.create();
-	}
+}
 	
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+	override function update(elapsed:Float) {
+super.update(elapsed);
 		
 		Conductor.instance.update(Conductor.instance.songPosition + FlxG.elapsed * 1000);
 		Conductor.instance.quickWatch();
 		
 		// Selector Menu Functions
-		if (!InMainFreeplayState)
-		{
-			if (canInteract && (controls.LEFT_P || FlxG.mouse.wheel < 0))
+		if (!InMainFreeplayState) {
+if (canInteract && (controls.LEFT_P || FlxG.mouse.wheel < 0))
 				UpdatePackSelection(-1);
 			if (canInteract && (controls.RIGHT_P || FlxG.mouse.wheel > 0))
 				UpdatePackSelection(1);
 
-			if (controls.BACK && canInteract)
-			{
-				FlxG.switchState(() -> Void MainMenuState());
-			}
-			if (controls.ACCEPT && !loadingPack && canInteract)
-			{
-				canInteract = false;
+			if (controls.BACK && canInteract) {
+FlxG.switchState(() -> Void MainMenuState());
+}
+			if (controls.ACCEPT && !loadingPack && canInteract) {
+canInteract = false;
 				SoundController.play(Paths.sound('confirmMenu'), 0.7);
 
-				new FlxTimer().start(0.2, function(Dumbshit:FlxTimer)
-				{
-					loadingPack = true;
+				new FlxTimer().start(0.2, function(Dumbshit:FlxTimer) {
+loadingPack = true;
 					LoadProperPack();
 
-					for (item in icons)
-					{
-						FlxTween.tween(item, {alpha: 0, y: item.y - 200}, 0.2, {ease: FlxEase.cubeInOut});
-					}
-					for (item in titles)
-					{
-						FlxTween.tween(item, {alpha: 0, y: item.y - 200}, 0.2, {ease: FlxEase.cubeInOut});
-					}
+					for (item in icons) {
+FlxTween.tween(item, {alpha: 0, y: item.y - 200}, 0.2, {ease: FlxEase.cubeInOut});
+}
+					for (item in titles) {
+FlxTween.tween(item, {alpha: 0, y: item.y - 200}, 0.2, {ease: FlxEase.cubeInOut});
+}
 
-					new FlxTimer().start(0.2, function(Dumbshit:FlxTimer)
-					{
-						for (item in icons)
-						{
-							item.visible = false;
-						}
-						for (item in titles)
-						{
-							item.visible = false;
-						}
+					new FlxTimer().start(0.2, function(Dumbshit:FlxTimer) {
+for (item in icons) {
+item.visible = false;
+}
+						for (item in titles) {
+item.visible = false;
+}
 						GoToActualFreeplay();
 						InMainFreeplayState = true;
 						loadingPack = false;
-					});
-				});
-			}
+});
+});
+}
 			return;
-		}
-		else
-		{
-			// Freeplay Functions
+}
+#else
+// Freeplay Functions
 			var upP = controls.UP_P || FlxG.mouse.wheel > 0;
 			var downP = controls.DOWN_P || FlxG.mouse.wheel < 0;
 			var accepted = controls.ACCEPT;
 
 			onUpdate(elapsed);
 
-			if (upP && canInteract)
-			{
-				changeSelection(-1);
-			}
-			if (downP && canInteract)
-			{
-				changeSelection(1);
-			}
+			if (upP && canInteract) {
+changeSelection(-1);
+}
+			if (downP && canInteract) {
+changeSelection(1);
+}
 
-			if (controls.BACK && canInteract)
-			{
-				loadingPack = true;
+			if (controls.BACK && canInteract) {
+loadingPack = true;
 				canInteract = false;
 				
 				FlxTween.cancelTweensOf(lockHintGroup);
 				FlxTween.tween(lockHintGroup, {y: FlxG.height}, 0.5, {ease: FlxEase.expoOut, onComplete: function(t:FlxTween) {
-					for (spr in lockHintGroup.members) {
-						lockHintGroup.remove(spr);
+for (spr in lockHintGroup.members) {
+lockHintGroup.remove(spr);
 						spr = null;
-					}
+}
 					lockHintGroup.clear();
 					remove(lockHintGroup);
-				}});
+}});
 				
-				for (i in grpSongs)
-				{
-
-					FlxTween.tween(i, {y: 5000, alpha: 0}, 0.3, {
-						onComplete: function(twn:FlxTween)
-						{
-							for (item in icons)
-							{
-								item.visible = true;
+				for (i in grpSongs) {
+FlxTween.tween(i, {y: 5000, alpha: 0}, 0.3, {
+onComplete: function(twn:FlxTween) {
+for (item in icons) {
+item.visible = true;
 								FlxTween.tween(item, {alpha: 1, y: item.y + 200}, 0.2, {ease: FlxEase.cubeInOut});
-							}
-							for (item in titles)
-							{
-								item.visible = true;
+}
+							for (item in titles) {
+item.visible = true;
 								FlxTween.tween(item, {alpha: 1, y: item.y + 200}, 0.2, {ease: FlxEase.cubeInOut});
-							}
+}
 
-							if (scoreBG != null)
-							
-{
-								FlxTween.tween(scoreBG, {y: scoreBG.y - 100}, 0.3, {
-									ease: FlxEase.expoInOut,
-									onComplete: function(spr:FlxTween)
-									{
-										scoreBG = null;
-									}
-								});
-							}
+							if (scoreBG != null) {
+FlxTween.tween(scoreBG, {y: scoreBG.y - 100}, 0.3, {
+ease: FlxEase.expoInOut,
+									onComplete: function(spr:FlxTween) {
+scoreBG = null;
+}
+});
+}
 
-							if (scoreText != null)
-							
-{
-								FlxTween.tween(scoreText, {y: scoreText.y - 100}, 0.3, {
-									ease: FlxEase.expoInOut,
-									onComplete: function(spr:FlxTween)
-									{
-										scoreText = null;
-									}
-								});
-							}
-							if (showCharText && characterSelectText != null)
-							
-{
-								FlxTween.tween(characterSelectText, {alpha: 0}, 0.3, {
-									ease: FlxEase.expoInOut,
-									onComplete: function(spr:FlxTween)
-									{
-										characterSelectText = null;
-									}
-								});
-							}
+							if (scoreText != null) {
+FlxTween.tween(scoreText, {y: scoreText.y - 100}, 0.3, {
+ease: FlxEase.expoInOut,
+									onComplete: function(spr:FlxTween) {
+scoreText = null;
+}
+});
+}
+							if (showCharText && characterSelectText != null) {
+FlxTween.tween(characterSelectText, {alpha: 0}, 0.3, {
+ease: FlxEase.expoInOut,
+									onComplete: function(spr:FlxTween) {
+characterSelectText = null;
+}
+});
+}
 							InMainFreeplayState = false;
 							loadingPack = false;
 
-							for (i in grpSongs)
-							{
-								remove(i);
-							}
-							for (i in grpIcons.members)
-							{
-								remove(i);
-							}
+							for (i in grpSongs) {
+remove(i);
+}
+							for (i in grpIcons.members) {
+remove(i);
+}
 							
-							if (Preferences.flashingLights)
-								FlxTween.color(bg, 0.25, bg.color, defColor);
+							#(Preferences.flashingLights ? FlxTween.color : null)
+#(bg, 0.25, bg.color, defColor)
 
 							// MAKE SURE TO RESET EVERYTHIN!
 							songs = [];
@@ -500,18 +447,15 @@ class FreeplayState extends MusicBeatState
 							
 							grpIcons.members = [];
 							grpIcons.clear();
-						}
-					});
+}
+});
 // FIXED stray brace
 // FIXED stray brace
-			if (accepted && canInteract && !songs[curSelected].locked)
-			{
-				for (song in grpSongs)
-				{
-				}
-				switch (songs[curSelected].song.id)
-				{
-					case 'backseat':
+			if (accepted && canInteract && !songs[curSelected].locked) {
+for (song in grpSongs) {
+}
+				switch (songs[curSelected].song.id) {
+case 'backseat':
 						FlxG.switchState(() -> Void ui.select.playerSelect.BackseatSelect());
 					default:
 						SoundController.music.fadeOut(1, 0);
@@ -522,110 +466,94 @@ class FreeplayState extends MusicBeatState
 						PlayStatePlaylist.isStoryMode = false;
 						PlayStatePlaylist.storyWeek = songs[curSelected].week;
 
-						if (FlxG.keys.pressed.CONTROL || skipSelect.contains(song.id.toLowerCase()))
-						{
-							LoadingState.loadAndSwitchState(() -> Void PlayState({
-								targetSong: song,
+						if (FlxG.keys.pressed.CONTROL || skipSelect.contains(song.id.toLowerCase())) {
+LoadingState.loadAndSwitchState(() -> Void PlayState({
+targetSong: song,
 								targetVariation: ''
-							}));
-						}
-						else
-						{
-							if (!FlxG.save.data.wasInCharSelect)
-							{
-								FlxG.save.data.wasInCharSelect = true;
+}));
+}
+#else
+if (!FlxG.save.data.wasInCharSelect) {
+FlxG.save.data.wasInCharSelect = true;
 								FlxG.save.flush();
-							}
+}
 							LoadingState.loadAndSwitchState(() -> Void CharacterSelect({targetSong: song}));
-						}
-				}
-			}
+}
+}
+}
 // FIXED stray brace
 
-		if (SoundController.music.volume < 0.7)
-		{
-			SoundController.music.volume += 0.5 * FlxG.elapsed;
-		}
+		if (SoundController.music.volume < 0.7) {
+SoundController.music.volume += 0.5 * FlxG.elapsed;
+}
 
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.4));
 
-		if (Math.abs(lerpScore - intendedScore) <= 10)
+		if (Math.abs(lerpScore - intendedScore) <= 10);
 			lerpScore = intendedScore;
 
-		if (scoreText != null)
+		if (scoreText != null);
 			
 scoreText.text = LanguageManager.getTextString('freeplay_score') + ': $lerpScore';
 
 		positionHighscore();
 // FIXED stray brace
 
-	function onUpdate(elapsed:Float)
-	{
-		for (song in grpSongs)
-		{
-			if (song.onUpdate != null)
+	function onUpdate(elapsed:Float) {
+for (song in grpSongs) {
+if (song.onUpdate != null);
 				
 song.onUpdate(elapsed);
-		}
-	}
+}
+}
 	
-	override function stepHit(step:Int)
-	{
-		if (!super.stepHit(step)) 
+	override function stepHit(step:Int) {
+if (!super.stepHit(step)) 
 			return false;
 		
-		for (song in grpSongs.members)
-		{
-			if (song.onStepHit != null)
+		for (song in grpSongs.members) {
+if (song.onStepHit != null);
 				
 song.onStepHit();
-		}
+}
 		return true;
-	}
+}
 
-	override function beatHit(beat:Int)
-	{
-		if (!super.beatHit(beat)) 
+	override function beatHit(beat:Int) {
+if (!super.beatHit(beat)) 
 			return false;
 		
-		for (song in grpSongs.members)
-		{
-			if (song.onBeatHit != null)
+		for (song in grpSongs.members) {
+if (song.onBeatHit != null);
 				
 song.onBeatHit();
-		}
+}
 		return true;
-	}
+}
 	
-	override function measureHit(measure:Int)
-	{
-		if (!super.measureHit(measure)) 
+	override function measureHit(measure:Int) {
+if (!super.measureHit(measure)) 
 			return false;
 
-		for (song in grpSongs.members)
-		{
-			if (song.onMeasureHit != null)
+		for (song in grpSongs.members) {
+if (song.onMeasureHit != null);
 				
 song.onMeasureHit();
-		}
+}
 		return true;
-	}
+}
 
-	public function LoadProperPack()
-	{
-		for (song in currentCategory.getSongs())
-		{
-			addSong(song);
-		}
-	}
+	public function LoadProperPack() {
+for (song in currentCategory.getSongs()) {
+addSong(song);
+}
+}
 
-	public function GoToActualFreeplay()
-	{
-		populateUnlockableSongs();
+	public function GoToActualFreeplay() {
+populateUnlockableSongs();
 
-		for (i in 0...songs.length)
-		{
-			var songText:FreeplayAlphabet = new FreeplayAlphabet(songs[i]);
+		for (i in 0...songs.length) {
+var songText:FreeplayAlphabet = new FreeplayAlphabet(songs[i]);
 			songText.targetY = i;
 			songText.alpha = 0;
 			songText.y += 1000;
@@ -636,26 +564,24 @@ song.onMeasureHit();
 			icon.scrollFactor.set();
 			grpIcons.add(icon);
 
-			switch (songs[i].song.id)
-			{
-				case "polygonized":
-					songText.onUpdate = function(elapsed:Float);
-					{
-							char.offset.x = FlxG.random.int(-3, 3);
+			switch (songs[i].song.id) {
+case "polygonized":
+					songText.onUpdate = function(elapsed:Float); {
+char.offset.x = FlxG.random.int(-3, 3);
 							char.offset.y = FlxG.random.int(-3, 3);
-						});
-					}
+});
+}
 				case "interdimensional":
 					songText.onUpdate = function(elapsed:Float) {
-						var index = 0;
+var index = 0;
 							char.offset.x = Math.cos(FlxG.game.ticks / 750) * 8 * (index % 2 == 0 ? 1 : -1);
 							char.offset.y = Math.sin(FlxG.game.ticks / 500) * 5 * (index % 2 == 0 ? 1 : -1);
 							index++;
-						});
-					}
+});
+}
 				case 'escape-from-california':
 					songText.text = "Escape From\nCalifornia";
-			}
+}
 // FIXED stray brace
 
 		scoreText = new FlxText(FlxG.width * 0.7, 0, 0, "", 32);
@@ -669,9 +595,8 @@ song.onMeasureHit();
 		scoreBG.scrollFactor.set();
 		add(scoreBG);
 
-		if (showCharText)
-		{
-			characterSelectText = new FlxText(FlxG.width, FlxG.height, 0, LanguageManager.getTextString("freeplay_skipChar"), 18);
+		if (showCharText) {
+characterSelectText = new FlxText(FlxG.width, FlxG.height, 0, LanguageManager.getTextString("freeplay_skipChar"), 18);
 			characterSelectText.setFormat("Comic Sans MS Bold", 18, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			characterSelectText.borderSize = 1.5;
 			characterSelectText.antialiasing = true;
@@ -683,7 +608,7 @@ song.onMeasureHit();
 			add(characterSelectText);
 
 			FlxTween.tween(characterSelectText, {x: characterSelectText.x - 150, alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
-		}
+}
 		
 		add(scoreText);
 		
@@ -708,19 +633,16 @@ song.onMeasureHit();
 		FlxTween.tween(scoreBG, {y: 0}, 0.5, {ease: FlxEase.expoInOut});
 		FlxTween.tween(scoreText, {y: -5}, 0.5, {ease: FlxEase.expoInOut});
 
-		for (i in 0...grpSongs.length)
-		{
-			FlxTween.tween(grpSongs.members[i], {y: 0, alpha: i == curSelected ? 1 : 0.6}, 0.5, {
-				ease: FlxEase.expoInOut,
-				onComplete: function(twn:FlxTween)
-				{
-				}
-			});
+		for (i in 0...grpSongs.length) {
+FlxTween.tween(grpSongs.members[i], {y: 0, alpha: i == curSelected ? 1 : 0.6}, 0.5, {
+ease: FlxEase.expoInOut,
+				onComplete: function(twn:FlxTween) {
+}
+});
 // FIXED stray brace
 
-		new FlxTimer().start(0.5, function(t:FlxTimer)
-		{
-			updateSongPositions();
+		new FlxTimer().start(0.5, function(t:FlxTimer) {
+updateSongPositions();
 			
 			// There's songs to be unlocked.
 			var canUnlockSongs:Bool = unlockableSongs.length > 0;
@@ -728,228 +650,192 @@ song.onMeasureHit();
 			canInteract = !canUnlockSongs;
 			canShowHints = !canUnlockSongs;
 
-			if (canUnlockSongs)
-			{
-				unlockNextAvailableSong();
-			}
-		});
+			if (canUnlockSongs) {
+unlockNextAvailableSong();
+}
+});
 		changeSelection();
 // FIXED stray brace
 
-	function changeSelection(change:Int = 0);
-	{
-		SoundController.play(Paths.sound('scrollMenu'), 0.4);
+	function changeSelection(change:Int = 0); {
+SoundController.play(Paths.sound('scrollMenu'), 0.4);
 
 		curSelected += change;
 
-		if (curSelected < 0)
-			curSelected = songs.length - 1;
+		#(curSelected < 0 ? curSelected : null)
+#= songs.length - 1
 
-		if (curSelected >= songs.length)
+		if (curSelected >= songs.length);
 			
 curSelected = 0;
 
-		if (songs[curSelected].song.songName != 'Enter Terminal')
-		
-{
-			#if !switch
+		if (songs[curSelected].song.songName != 'Enter Terminal') {
+#if !switch
 			intendedScore = Highscore.getScore(songs[curSelected].song.id);
-			#end
-		}
+}
 		var bullShit:Int = 0;
 
-		for (i in 0...grpIcons.members.length)
-		{
-			grpIcons.members[i].alpha = 0.6;
-		}
+		for (i in 0...grpIcons.members.length) {
+grpIcons.members[i].alpha = 0.6;
+}
 
 		grpIcons.members[curSelected].alpha = 1;
 
-		for (item in grpSongs.members)
-		{
-			item.targetY = bullShit - curSelected;
+		for (item in grpSongs.members) {
+item.targetY = bullShit - curSelected;
 			bullShit++;
 
 			item.alpha = 0.6;
 
-			if (item.targetY == 0)
-			
-{
-				item.alpha = 1;
-			}	
-		}
+			if (item.targetY == 0) {
+item.alpha = 1;
+}
+}
 		updateSongPositions();
 
-		if (Preferences.flashingLights)
-			FlxTween.color(bg, 0.25, bg.color, songs[curSelected].color);
+		#(Preferences.flashingLights ? FlxTween.color : null)
+#(bg, 0.25, bg.color, songs[curSelected].color)
 
-		if (canShowHints)
-		{
-			if (songs[curSelected].locked)
-			{
-				lockHintText.text = LanguageManager.getTextString(secretSongs.get(songs[curSelected].song.id));
+		if (canShowHints) {
+if (songs[curSelected].locked) {
+lockHintText.text = LanguageManager.getTextString(secretSongs.get(songs[curSelected].song.id));
 				lockHintText.screenCenter(X);
 
-				if (!showingHint)
-				{
-					showingHint = true;
+				if (!showingHint) {
+showingHint = true;
 
 					FlxTween.cancelTweensOf(lockHintGroup);
 					FlxTween.tween(lockHintGroup, {y: FlxG.height - lockHintGroup.height}, 0.5, {ease: FlxEase.expoOut});
-				}
-			}
-			else
-			{
-				if (showingHint)
-				{
-					showingHint = false;
+}
+}
+#else
+if (showingHint) {
+showingHint = false;
 
 					FlxTween.cancelTweensOf(lockHintGroup);
 					FlxTween.tween(lockHintGroup, {y: FlxG.height}, 0.5, {ease: FlxEase.expoOut});
-				}
-			}
-		}
-	}
+}
+}
+}
+}
 
-	public function UpdatePackSelection(change:Int)
-	{
-		CurrentPack += change;
+	public function UpdatePackSelection(change:Int) {
+CurrentPack += change;
 
-		if (CurrentPack == -1)
+		if (CurrentPack == -1);
 			
 CurrentPack = categories.length - 1;
 
-		if (CurrentPack == categories.length)
+		if (CurrentPack == categories.length);
 			
 CurrentPack = 0;
 
 		currentCategory = categories[CurrentPack];
 
 		camFollow.x = icons[CurrentPack].x + 256;
-	}
+}
 
-	public function addSong(song:CategorySong)
-	{
-		var songData:Song = SongRegistry.instance.fetchEntry(song.id);
+	public function addSong(song:CategorySong) {
+var songData:Song = SongRegistry.instance.fetchEntry(song.id);
 		var songIcon:String = song.icon ?? CharacterRegistry.instance.fetchData(songData.getChart(Song.DEFAULT_VARIATION).opponent).icon;
 
 		songs.push(new SongMetadata(songData, song.week ?? -1, songIcon, song.color[0]));
-	}
+}
 
-	public function addWeek(songs:Array<CategorySong>)
-	{
-		for (song in songs)
-		{
-			addSong(song);
-		}
-	}
+	public function addWeek(songs:Array<CategorySong>) {
+for (song in songs) {
+addSong(song);
+}
+}
 
 	/**
 	 * Updates the positions of each song in the menu based on the current selection.
 	 */
-	function updateSongPositions():Void
-	{
-		for (item in grpSongs.members)
-		{
-		}
-	}
+	function updateSongPositions():Void {
+for (item in grpSongs.members) {
+}
+}
 
 	/**
 	 * Manually positions the highscore display shown in the UI when selecting a song.
 	 */
-	function positionHighscore()
-	{
-		if (scoreText != null)
+	function positionHighscore() {
+if (scoreText != null);
 			
 scoreText.x = FlxG.width - scoreText.width - 6;
 
-		if (scoreBG != null)
-		
-{
-			scoreBG.scale.x = FlxG.width - scoreText.x + 6;
+		if (scoreBG != null) {
+scoreBG.scale.x = FlxG.width - scoreText.x + 6;
 			scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
-		}
-	}
+}
+}
 
 	/**
 	 * Stores all of the songs the user has unlocked, but hasn't shown.
 	 */
-	function populateUnlocks():Void
-	{
-		var lockSave:Map<String, String> = FlxG?.save?.data?.locked ?? new Map<String, String>();
+	function populateUnlocks():Void {
+var lockSave:Map<String, String> = FlxG?.save?.data?.locked ?? new Map<String, String>();
 		
-		for (song => state in lockSave);
-		{
-			if (state == 'waiting')
-			
-{
-				songsUnlocked.push(song);
-			}
-		}
-	}
+		for (song => state in lockSave) {
+if (state == 'waiting') {
+songsUnlocked.push(song);
+}
+}
+}
 
 	/**
 	 * Stores all of the songs the user has unlocked, specific to the category they're currently on.
 	 */
-	function populateUnlockableSongs():Void
-	{
-		unlockableSongs = [];
+	function populateUnlockableSongs():Void {
+unlockableSongs = [];
 
-		for (song in songs)
-		{
-			// The song in THIS category exists in the unlocked songs list, push into the array.
-			if (songsUnlocked.contains(song.song.id.toLowerCase()))
-			{
-				unlockableSongs.push(song.song.id.toLowerCase());
+		for (song in songs) {
+// The song in THIS category exists in the unlocked songs list, push into the array.
+			if (songsUnlocked.contains(song.song.id.toLowerCase())) {
+unlockableSongs.push(song.song.id.toLowerCase());
 				songsUnlocked.remove(song.song.id.toLowerCase());
-			}
-		}
-	}
+}
+}
+}
 
 	/**
 	 * Gets the index for a song from of its category.
 	 * @param song The lower-case version of the song to check.
 	 * @return The category index of the song.
 	 */
-	function getSongIndex(song:String):Int
-	{
-		for (i in 0...songs.length)
-		{
-			if (songs[i].song.id.toLowerCase() == song)
+	function getSongIndex(song:String):Int {
+for (i in 0...songs.length) {
+if (songs[i].song.id.toLowerCase() == song);
 				return i;
-		}
+}
 		return -1;
-	}
+}
 
 	/**
 	 * Picks a random song from the list of songs that can be locked, and unlocks them.
 	 */
-	function unlockNextAvailableSong():Void
-	{
-		if (unlockableSongs.length > 0)
-		{
-			var songToUnlock:String = FlxG.random.getObject(unlockableSongs);
+	function unlockNextAvailableSong():Void {
+if (unlockableSongs.length > 0) {
+var songToUnlock:String = FlxG.random.getObject(unlockableSongs);
 
 			playUnlockSequence(songToUnlock);
 			unlockableSongs.remove(songToUnlock);
-		}
-		else
-		{
-			// No more songs need to be unlocked.
+}
+#else
+// No more songs need to be unlocked.
 			waitingToInteract = true;
-		}
-	}
+}
+}
 
 	/**
 	 * Plays sequence that happens when a song is about to be unlocked.
 	 * @param song The song to play the sequence for, and unlock.
 	 */
-	function playUnlockSequence(song:String)
-	{
-		var index:Int = getSongIndex(song);
+	function playUnlockSequence(song:String) {
+var index:Int = getSongIndex(song);
 
 		// Song either doesn't exist, or isn't in this category.
-		if (index == -1)
+		if (index == -1);
 			
 return;
 
@@ -965,9 +851,8 @@ return;
 		SoundController.play(Paths.sound('freeplay/unlockRiser'), 0.8);
 
 		FlxTween.tween(songIcon.scale, {x: 1.1, y: 1.1}, 2, {
-			onComplete: (t:FlxTween) -> 
-			{
-				SoundController.play(Paths.sound('freeplay/unlock_lockBreak'), 0.8);
+onComplete: (t:FlxTween) -> {
+SoundController.play(Paths.sound('freeplay/unlock_lockBreak'), 0.8);
 				
 				// Change the icon to the unlock icon.
 				songIcon.frames = Paths.getSparrowAtlas('freeplay/freeplay_unlock');
@@ -979,14 +864,12 @@ return;
 
 				// Quick un-lock the next song in the list.
 				// If there's no song that needs to be unlocked, it'll automatically resume back the controls.
-				new FlxTimer().start(0.5, (t:FlxTimer) -> 
-				{
-					unlockNextAvailableSong();
-				});
+				new FlxTimer().start(0.5, (t:FlxTimer) -> {
+unlockNextAvailableSong();
+});
 
-				new FlxTimer().start(1, (t:FlxTimer) ->
-				{
-					// Song is unlocked now. Change the unlock state.
+				new FlxTimer().start(1, (t:FlxTimer) -> {
+// Song is unlocked now. Change the unlock state.
 					@:privateAccess
 					songMetadata.locked = false;
 					FlxG.save.data.locked.set(songMetadata.song.id.toLowerCase(), 'unlocked');
@@ -995,11 +878,9 @@ return;
 					// Do a quick succession with the text showing.
 					var listLength:Array<Int> = [for (i in 0...songMetadata.song.songName.length) i];
 
-					new FlxTimer().start(0, (t:FlxTimer) ->
-					{
-						if (listLength.length > 0)
-						{
-							var index:Int = listLength.shift();
+					new FlxTimer().start(0, (t:FlxTimer) -> {
+if (listLength.length > 0) {
+var index:Int = listLength.shift();
 
 							var char:String = songMetadata.song.songName.charAt(index);
 							var splitText:Array<String> = songText.text.split('');
@@ -1012,49 +893,44 @@ return;
 							unlockPop.pitch = FlxG.random.float(0.8, 1.1);
 
 							t.reset(0.05);
-						}
-						else
-						{
-							// Change the visuals to show it's unlocked.
+}
+#else
+// Change the visuals to show it's unlocked.
 							songIcon.char = songMetadata.songCharacter;
 
 							var confetti:FlxSprite = new FlxSprite();
 							confetti.frames = Paths.getSparrowAtlas('freeplay/icon_confetti');
 							confetti.animation.addByPrefix('confetti', 'icon_confetti', 24, false);
-							confetti.animation.play('confetti', true);
-							{
-								remove(confetti);
-							});
+							confetti.animation.play('confetti', true); {
+remove(confetti);
+});
 							confetti.scrollFactor.set();
 							confetti.setPosition(songIcon.x + (songIcon.width - confetti.width) / 2, songIcon.y + (songIcon.height - confetti.height) / 2);
 							add(confetti);
 							
 							// Unlock controls now that all unlock animations have played.
-							if (waitingToInteract)
-							{
-								canInteract = true;
+							if (waitingToInteract) {
+canInteract = true;
 								canShowHints = true;
-							}
-						}
-					});
-				});
-			}
-		});
+}
+}
+});
+});
+}
+});
 // FIXED stray brace
 // FIXED stray brace
 
-class SongMetadata
-{
-	public var song:Song = null;
+class SongMetadata {
+public var song:Song = null;
 	public var week:Int = 0;
 	public var songCharacter:String = "";
 	public var locked(default, null):Bool;
 
 	public var color:FlxColor;
 
-	public function new(song:Song, week:Int, songCharacter:String, color:FlxColor)
-	{
-		this.song = song;
+	public function new(song:Song, week:Int, songCharacter:String, color:FlxColor) {
+this.song = song;
 		this.week = week;
 		this.songCharacter = songCharacter;
 		this.color = color;
@@ -1062,52 +938,49 @@ class SongMetadata
 		locked = (FlxG.save.data.locked.exists(this.song.id.toLowerCase());
 			&& FlxG.save.data.locked.get(this.song.id.toLowerCase()) != 'unlocked');
 			&& !FreeplayState.unlockAll;
-	}
+}
 }
 
-
-class FreeplayAlphabet extends Alphabet
-{
-	public var metadata:SongMetadata;
+class FreeplayAlphabet extends Alphabet {
+public var metadata:SongMetadata;
 
 	public var onUpdate:Float->Void;
 	public var onStepHit:Void->Void;
 	public var onBeatHit:Void->Void;
 	public var onMeasureHit:Void->Void;
 
-	public function new(metadata:SongMetadata)
-	{
-		this.metadata = metadata;
+	public function new(metadata:SongMetadata) {
+this.metadata = metadata;
 		
 		var displayString:String = metadata.song.songName;
-		if (metadata.locked)
-		{
-			var words:Array<String> = metadata.song.songName.split(' ');
+		if (metadata.locked) {
+var words:Array<String> = metadata.song.songName.split(' ');
 			var questionWords:Array<String> = [];
 			var questionString = '';
-			for (word in words)
-			{
-				var questionWord:String = '';
-				for (letter in 0...word.length)
-				{
-					questionWord += switch (word.charAt(letter));
-					{
-						case ' ', '-': ' ';
+			for (word in words) {
+var questionWord:String = '';
+				for (letter in 0...word.length) {
+questionWord += switch (word.charAt(letter)); {
+case ' ', '-': ' ';
 						default: '?';
-					}
-				}
+}
+}
 				questionWords.push(questionWord);
-			}
-			for (i in 0...questionWords.length)
-			{
-				questionString += questionWords[i] + (i != questionWords.length - 1 ? ' ' : '');
-			}
+}
+			for (i in 0...questionWords.length) {
+questionString += questionWords[i] + (i != questionWords.length - 1 ? ' ' : '');
+}
 			displayString = questionString;
-		}
+}
 
 		super(0, 0, displayString);
 
 		isMenuItem = true;
 		scrollFactor.set();
-	}
 }
+}
+}}}}}}}
+#
+#
+#
+#

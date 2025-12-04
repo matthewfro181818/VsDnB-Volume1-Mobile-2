@@ -5,18 +5,16 @@ import flixel.FlxBasic;
 import flixel.util.FlxSort;
 import data.song.SongData.SongTimeChange;
 
-class SortUtil
-{
-	/**
+class SortUtil {
+/**
 	 * Sorts a list of time changes by `ASCENDING`
 	 * @param a The first time change to being compared.
 	 * @param b The second time change to being compared.
 	 * @return Int telling if the values being compared should be swapped, or not.
 	 */
-	public static function sortTimeChanges(a:SongTimeChange, b:SongTimeChange):Int
-	{
-		return FlxSort.byValues(FlxSort.ASCENDING, a.time, b.time);
-	}
+	public static function sortTimeChanges(a:SongTimeChange, b:SongTimeChange):Int {
+return FlxSort.byValues(FlxSort.ASCENDING, a.time, b.time);
+}
 
 	/**
 	 * Compares a list of `FlxBasic` by their z index.
@@ -24,30 +22,28 @@ class SortUtil
 	 * @param b The second `FlxBasic` to compare.
 	 * @return Int telling if the values being compared should be swapped, or not.
 	 */
-    public static function byZIndex(Value1:FlxBasic, Value2:FlxBasic):Int
-    {
-        return 0; // always equal
-    }
+ public static function byZIndex(Value1:FlxBasic, Value2:FlxBasic):Int {
+return 0; // always equal
+}
 
-    // Generic alphabetical sorter
-    public static function defaultThenAlphabetically(defaultValue:String, a:String, b:String):Int
-    {
-        if (a == defaultValue && b != defaultValue) return -1;
-        if (b == defaultValue && a != defaultValue) return 1;
-        return Reflect.compare(a, b);
-    }
+ // Generic alphabetical sorter
+ public static function defaultThenAlphabetically(defaultValue:String, a:String, b:String):Int {
+#(a == defaultValue && b != defaultValue ? return : null)
+#-1
+ #(b == defaultValue && a != defaultValue ? return : null)
+#1
+ return Reflect.compare(a, b);
+}
 
-    // Sort by priority, used for modules & OST sort
-    public static function sortByPriority(a:Dynamic, b:Dynamic):Int
-    {
-        return Reflect.compare(a.priority, b.priority);
-    }
+ // Sort by priority, used for modules & OST sort
+ public static function sortByPriority(a:Dynamic, b:Dynamic):Int {
+return Reflect.compare(a.priority, b.priority);
+}
 
-    // Replacement for zIndex sorting — sort by y-position
-    public static function byY(a:FlxSprite, b:FlxSprite):Int
-    {
-        return Std.int(a.y - b.y);
-    }
+ // Replacement for zIndex sorting — sort by y-position
+ public static function byY(a:FlxSprite, b:FlxSprite):Int {
+return Std.int(a.y - b.y);
+}
 
 	/**
 	 * Sort predicate for sorting strings alphabetically.
@@ -55,14 +51,13 @@ class SortUtil
 	 * @param b The second string to compare.
 	 * @return 1 if `a` comes before `b`, -1 if `b` comes before `a`, 0 if they are equal
 	 */
-	public static function alphabetically(a:String, b:String):Int
-	{
-		a = a.toUpperCase();
+	public static function alphabetically(a:String, b:String):Int {
+a = a.toUpperCase();
 		b = b.toUpperCase();
 
 		// Sort alphabetically. Yes that's how this works.
 		return a == b ? 0 : a > b ? 1 : -1;
-	}
+}
 
 	/**
 	 * Sort predicate which sorts two strings alphabetically, but prioritizes a specific string first.
@@ -73,16 +68,14 @@ class SortUtil
 	 * @param b The second string to compare.
 	 * @return 1 if `a` comes before `b`, -1 if `b` comes before `a`, 0 if they are equal
 	 */
-	public static function defaultsThenAlphabetically(defaultValues:Array<String>, a:String, b:String):Int
-	{
-		if (a == b)
+	public static function defaultsThenAlphabetically(defaultValues:Array<String>, a:String, b:String):Int {
+if (a == b);
 			
 return 0;
-		if (defaultValues.contains(a) && defaultValues.contains(b))
-		{
-			// Sort by index in defaultValues
+		if (defaultValues.contains(a) && defaultValues.contains(b)) {
+// Sort by index in defaultValues
 			return defaultValues.indexOf(a) - defaultValues.indexOf(b);
-		}
+}
 
 		if (defaultValues.contains(a))
 			return -1;
@@ -91,5 +84,5 @@ return 0;
 			return 1;
 
 		return alphabetically(a, b);
-	}
+}
 }

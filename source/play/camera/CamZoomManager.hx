@@ -5,9 +5,8 @@ import flixel.FlxCamera;
 /**
  * A data manager for helping customize how a camera zooms.
  */
-class CamZoomManager
-{
-	/**
+class CamZoomManager {
+/**
 	 * The camera this manager holds.
 	 */
 	public var camera:FlxCamera;
@@ -48,9 +47,8 @@ class CamZoomManager
 	 */
 	public var timeSignatureAdjust:Bool = true;
 
-	public function new(camera:FlxCamera, zoomValue:Float)
-	{
-		this.camera = camera;
+	public function new(camera:FlxCamera, zoomValue:Float) {
+this.camera = camera;
 		this.zoomValue = zoomValue;
-	}
+}
 }

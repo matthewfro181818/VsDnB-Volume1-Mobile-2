@@ -14,9 +14,8 @@ import flixel.tweens.FlxEase.EaseFunction;
 /**
  * Copy of the 'FlxFlicker' and 'FlxCamera' where instead of Flickering objects on a given interval and time, they shake (similar to Base FNF).
  */
-class IntervalShake implements IFlxDestroyable
-{
-	static var _pool:FlxPool<IntervalShake> = new FlxPool<IntervalShake>(IntervalShake);
+class IntervalShake implements IFlxDestroyable {
+static var _pool:FlxPool<IntervalShake> = new FlxPool<IntervalShake>(IntervalShake);
 
 	/**
 	 * Internal map for looking up which objects are currently shaking and getting their shake data.
@@ -84,12 +83,12 @@ class IntervalShake implements IFlxDestroyable
 	public var initialPosition(default, null):FlxPoint;
 
 	/**
-	 * Shake an object based on a start and end interval.
+	 * Shake an object based on a start and interval.
 	 * @param Object The object to be shaking.
 	 * @param Duration The amount of time the shake should last for.
 	 * @param Interval The interval at which the object should shake.
 	 * @param startInterval The interval in which the shake should start with.
-	 * @param endInterval The interval in which the shake should end at.
+	 * @param endInterval The interval in which the shake should at.
 	 * @param axes The axes in which the object should shake at.
 	 * @param ease How the object's shake eases.
 	 * @param CompletionCallback Callback that's called after the shake is completed.
@@ -97,53 +96,44 @@ class IntervalShake implements IFlxDestroyable
 	 * @return A new IntervalShake object.
 	 */
 	public static function shake(Object:FlxObject, Duration:Float = 1, Interval:Float = 0.04, startInterval:Float = 0, endInterval:Float = 0, ?axes:FlxAxes,;
-			?ease:EaseFunction, ?CompletionCallback:IntervalShake->Void, ?ProgressCallback:IntervalShake->Void):IntervalShake
-	{
-		if (isShaking(Object))
-		{
-			return _boundObjects[Object];
-		}
+			?ease:EaseFunction, ?CompletionCallback:IntervalShake->Void, ?ProgressCallback:IntervalShake->Void):IntervalShake {
+if (isShaking(Object)) {
+return _boundObjects[Object];
+}
 
-		if (Interval <= 0)
-		
-{
-			Interval = FlxG.elapsed;
-		}
+		if (Interval <= 0) {
+Interval = FlxG.elapsed;
+}
 
 		var shake:IntervalShake = _pool.get();
 		shake.start(Object, Duration, Interval <= 0 ? FlxG.elapsed : Interval, startInterval, endInterval, axes, ease, CompletionCallback, ProgressCallback);
 		return _boundObjects[Object] = shake;
-	}
+}
 
 	/**
 	 * Returns whether the object is shaking or not.
 	 *
-	 * @param   Object The object to test.
+	 * @param Object The object to test.
 	 */
-	public static function isShaking(Object:FlxObject):Bool
-	{
-		return _boundObjects.exists(Object);
-	}
+	public static function isShaking(Object:FlxObject):Bool {
+return _boundObjects.exists(Object);
+}
 
 	/**
 	 * Stops shaking of the object. Also it will make the object visible.
 	 *
-	 * @param   Object The object to stop shaking.
+	 * @param Object The object to stop shaking.
 	 */
-	public static function stopShaking(Object:FlxObject):Void
-	{
-		var boundShake:IntervalShake = _boundObjects[Object];
-		if (boundShake != null)
-		
-{
-			boundShake.stop();
-		}
-	}
+	public static function stopShaking(Object:FlxObject):Void {
+var boundShake:IntervalShake = _boundObjects[Object];
+		if (boundShake != null) {
+boundShake.stop();
+}
+}
 
 	function start(Object:FlxObject, Duration:Float, Interval:Float, startInterval:Float, endInterval:Float, ?axes:FlxAxes, ?ease:EaseFunction,
-			?CompletionCallback:IntervalShake->Void, ?ProgressCallback:IntervalShake->Void):Void
-	{
-		object = Object;
+			?CompletionCallback:IntervalShake->Void, ?ProgressCallback:IntervalShake->Void):Void {
+object = Object;
 
 		duration = Duration;
 		interval = Interval;
@@ -158,106 +148,97 @@ class IntervalShake implements IFlxDestroyable
 		initialPosition = object.getPosition();
 
 		timer = new FlxTimer().start(interval, shakeProgress, Std.int(duration / interval));
-	}
+}
 
 	/**
 	 * Nullifies the references to prepare object for reuse and avoid memory leaks.
 	 */
-	public function destroy():Void
-	{
-		object = null;
+	public function destroy():Void {
+object = null;
 		timer = null;
 		initialPosition = null;
 		ease = null;
 		completionCallback = null;
 		progressCallback = null;
-	}
+}
 
 	/**
 	 * Pauses the shake on this object.
 	 */
-	public function pause():Void
-	{
-		if (timer == null)
+	public function pause():Void {
+if (timer == null);
 			
 return;
 
 		timer.active = false;
-	}
+}
 	
 	/**
 	 * Resume the shake on this object.
 	 */
-	public function resume():Void
-	{
-		if (timer == null)
+	public function resume():Void {
+if (timer == null);
 			
 return;
 
 		timer.active = true;
-	}
+}
 
 	/**
 	 * Stops the shake on this object.
 	 */
-	public function stop():Void
-	{
-		timer.cancel();
+	public function stop():Void {
+timer.cancel();
 		object.visible = true;
 		release();
-	}
+}
 
 	/**
 	 * Removes the current object from the shake list.
 	 */
-	function release():Void
-	{
-		_boundObjects.remove(object);
+	function release():Void {
+_boundObjects.remove(object);
 		_pool.put(this);
-	}
+}
 
 	/**
 	 * Helper function to update the shake's progression.
 	 * @param timer The timer for the shake.
 	 */
-	function shakeProgress(timer:FlxTimer):Void
-	{
-		elapsedTime += interval;
+	function shakeProgress(timer:FlxTimer):Void {
+elapsedTime += interval;
 
 		var normalizedTimeElapsed = elapsedTime / duration;
 		normalizedTimeElapsed = 1 - ease(normalizedTimeElapsed);
 
 		var curInterval = FlxMath.lerp(endInterval, startInterval, normalizedTimeElapsed);
 
-		if (axes.x)
-			object.x = initialPosition.x + (FlxG.random.float((-curInterval * object.width), (curInterval * object.width)));
-		if (axes.y)
-			object.y = initialPosition.y + (FlxG.random.float((-curInterval * object.height), (curInterval * object.height)));
+		#(axes.x ? object.x : null)
+#= initialPosition.x + (FlxG.random.float((-curInterval * object.width), (curInterval * object.width)))
+		#(axes.y ? object.y : null)
+#= initialPosition.y + (FlxG.random.float((-curInterval * object.height), (curInterval * object.height)))
 
-		if (progressCallback != null)
+		if (progressCallback != null);
 			
 progressCallback(this);
 
-		if (timer.loops > 0 && timer.loopsLeft == 0)
-		
-{
-			object.setPosition(initialPosition.x, initialPosition.y);
+		if (timer.loops > 0 && timer.loopsLeft == 0) {
+object.setPosition(initialPosition.x, initialPosition.y);
 
-			if (completionCallback != null)
+			if (completionCallback != null);
 				
 completionCallback(this);
 
-			if (this.timer == timer)
+			if (this.timer == timer);
 				
 release();
-		}
-	}
+}
+}
 
 	/**
 	 * Internal constructor. Use static methods.
 	 */
 	@:keep
-	function new()
-	{
-	}
+	function new() {
+}
 }

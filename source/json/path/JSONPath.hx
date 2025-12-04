@@ -14,23 +14,20 @@ using StringTools;
  * Each segment takes the result of the previous root identifier (or segment) and provides input to the next segment, in the form of a nodelist.
  * A valid query is executed against a value and produces a node list.
  */
-class JSONPath
-{
-	/**
+class JSONPath {
+/**
 	 * Performs the provided JSONPath query on the query argument,
 	 * and provides the query result as a list of JSON values that were located.
 	 * @param path 
 	 * @param value 
 	 * @return A list of JSON data values.
 	 */
-	public static function query(path:String, value:JSONData):Array<JSONData>
-	{
-		var element = new JSONPathParser().parse(path);
+	public static function query(path:String, value:JSONData):Array<JSONData> {
+var element = new JSONPathParser().parse(path);
 
 		var nodelist = queryPaths_Element(element, value, false);
 
 		return mapNodelistValues(nodelist);
-	}
 
 	/**
 	 * Performs the provided JSONPath query on the query argument,
@@ -38,119 +35,87 @@ class JSONPath
 	 * @param path The JSONPath query to perform
 	 * @param value The value to query
 	 * @param allowNewPaths Whether to create new paths for non-filter selectors
-	 *   For example, `$.a.b` will return `$['a']['b']` even if `a` or `b` do not exist.
+	 * For example, `$.a.b` will return `$['a']['b']` even if `a` or `b` do not exist.
 	 * @return A list of JSON normalized paths.
 	 */
-	public static function queryPaths(path:String, value:JSONData, allowNewPaths:Bool = false):Array<String>;
-	{
-		var element = new JSONPathParser().parse(path);
+	public static function queryPaths(path:String, value:JSONData, allowNewPaths:Bool = false):Array<String>; {
+var element = new JSONPathParser().parse(path);
 
-		switch (element)
-		{
-			case Element.JSONPathQuery(segments):
+		switch (element) {
+case Element.JSONPathQuery(segments):
 				var nodelist = queryPaths_Element(element, value, allowNewPaths);
 				return mapNodelistPaths(nodelist);
 			default:
 				throw pathError_noRootIdentifier(element);
-		}
-	}
 
-	static function mapNodelistPaths(nodelist:Array<JSONNode>):Array<String>
-	{
-		return nodelist.map(function(node:JSONNode):String
-		{
-			return node.path;
-		});
-	}
+	static function mapNodelistPaths(nodelist:Array<JSONNode>):Array<String> {
+return nodelist.map(function(node:JSONNode):String {
+return node.path;
+);
 
-	static function mapNodelistValues(nodelist:Array<JSONNode>):Array<JSONData>
-	{
-		return nodelist.map(function(node:JSONNode):JSONData
-		{
-			return node.value;
-		});
-	}
+	static function mapNodelistValues(nodelist:Array<JSONNode>):Array<JSONData> {
+return nodelist.map(function(node:JSONNode):JSONData {
+return node.value;
+);
 
-	static function queryPaths_Element(element:Element, rootValue:JSONData, allowNewPaths:Bool):Array<JSONNode>
-	{
-		switch (element)
-		{
-			case Element.JSONPathQuery(segments):
-				var nodeList:Array<JSONNode> = [;
-					{
-						path: '$',
+	static function queryPaths_Element(element:Element, rootValue:JSONData, allowNewPaths:Bool):Array<JSONNode> {
+switch (element) {
+case Element.JSONPathQuery(segments):
+				var nodeList:Array<JSONNode> = [; {
+path: '$',
 						value: rootValue
-					}
+
 				];
 
-				for (segment in segments)
-				{
-					switch (segment)
-					{
-						case ChildSegment(selectors):
+				for (segment in segments) {
+switch (segment) {
+case ChildSegment(selectors):
 							nodeList = queryPaths_ChildSegment(selectors, nodeList, rootValue, allowNewPaths);
 						case DescendantSegment(selectors):
 							nodeList = queryPaths_DescendantSegment(selectors, nodeList, rootValue, allowNewPaths);
 						default:
 							throw pathError_unexpectedElement(segment);
-					}
-				}
 
 				return nodeList;
 			case Element.RelativeQuery(segments):
-				var nodeList:Array<JSONNode> = [;
-					{
-						path: '@',
+				var nodeList:Array<JSONNode> = [; {
+path: '@',
 						value: rootValue
-					}
+
 				];
 
-				for (segment in segments)
-				{
-					switch (segment)
-					{
-						case ChildSegment(selectors):
+				for (segment in segments) {
+switch (segment) {
+case ChildSegment(selectors):
 							nodeList = queryPaths_ChildSegment(selectors, nodeList, rootValue, allowNewPaths);
 						case DescendantSegment(selectors):
 							nodeList = queryPaths_DescendantSegment(selectors, nodeList, rootValue, allowNewPaths);
 						default:
 							throw pathError_unexpectedElement(segment);
-					}
-				}
 
 				return nodeList;
 			default:
 				throw pathError_noRootIdentifier(element);
-		}
-	}
 
-	static function queryPaths_ElementQuery(element:Element, targetValue:JSONData, rootValue:JSONData, allowNewPaths:Bool):Array<JSONNode>
-	{
-		switch (element)
-		{
-			case Element.JSONPathQuery(_):
+	static function queryPaths_ElementQuery(element:Element, targetValue:JSONData, rootValue:JSONData, allowNewPaths:Bool):Array<JSONNode> {
+switch (element) {
+case Element.JSONPathQuery(_):
 				return queryPaths_Element(element, rootValue, allowNewPaths);
 			case Element.RelativeQuery(_):
 				return queryPaths_Element(element, targetValue, allowNewPaths);
 			default:
-				throw 'Expected relative or absolute query, got ${element}';
-		}
-	}
+				throw 'Expected relative or absolute query, got ${element';
 
-	static function queryPaths_ChildSegment(selectors:Array<Element>, nodeList:Array<JSONNode>, rootValue:JSONData, allowNewPaths:Bool):Array<JSONNode>
-	{
-		var result:Array<JSONNode> = [];
+	static function queryPaths_ChildSegment(selectors:Array<Element>, nodeList:Array<JSONNode>, rootValue:JSONData, allowNewPaths:Bool):Array<JSONNode> {
+var result:Array<JSONNode> = [];
 
-		for (selector in selectors)
-		{
-			switch (selector)
-			{
-				case NameSelector(name):
-					for (node in nodeList)
-					{
-						if (node.value.isArray())
+		for (selector in selectors) {
+switch (selector) {
+case NameSelector(name):
+					for (node in nodeList) {
+if (node.value.isArray())
 							continue;
-						if (!allowNewPaths && node.value == null)
+						if (!allowNewPaths && node.value == null);
 							
 continue;
 						if (!allowNewPaths && !node.value.exists(name))
@@ -158,142 +123,123 @@ continue;
 
 						var newPath = node.path + "['" + name + "']";
 						result.push({
-							path: newPath,
+path: newPath,
 							value: node.value.get(name)
-						});
-					}
+);
+
 				case IndexSelector(index):
-					for (node in nodeList)
-					{
-						if (!node.value.isArray())
+					for (node in nodeList) {
+if (!node.value.isArray())
 							continue;
 
-						if (index < 0)
-							index = node.value.length() + index;
+						#(index < 0 ? index : null)
+#= node.value.length() + index
 						// Index out of bounds, provide no result.
-						if (index < 0 || (index >= node.value.length() && !allowNewPaths))
+						if (index < 0 || (index >= node.value.length() && !allowNewPaths));
 							continue;
 
 						if (!allowNewPaths && !node.value.exists('$index'))
 							continue;
 						var newPath = node.path + "[" + index + "]";
 						result.push({
-							path: newPath,
+path: newPath,
 							value: node.value.get('$index')
-						});
-					}
+);
+
 				case WildcardSelector:
-					for (node in nodeList)
-					{
-						if (node.value.isPrimitive())
+					for (node in nodeList) {
+if (node.value.isPrimitive())
 							continue;
 
 						var isArray = node.value.isArray();
 						var keys = node.value.keys();
 
-						for (key in keys)
-						{
-							var newPath = node.path + (isArray ? "[" + key + "]" : "['" + key + "']");
+						for (key in keys) {
+var newPath = node.path + (isArray ? "[" + key + "]" : "['" + key + "']");
 							result.push({
-								path: newPath,
+path: newPath,
 								value: node.value.get(key)
-							});
-						}
-					}
-				case ArraySliceSelector(start, end, step):
-					for (node in nodeList)
-					{
-						if (!node.value.isArray())
+);
+
+				case ArraySliceSelector(start, step):
+					for (node in nodeList) {
+if (!node.value.isArray())
 							continue;
 
-						var indices = SliceUtil.getSliceIndices(node.value.length(), start, end, step);
+						var indices = SliceUtil.getSliceIndices(node.value.length(), start, step);
 
-						for (index in indices)
-						{
-							var newPath = node.path + "[" + index + "]";
+						for (index in indices) {
+var newPath = node.path + "[" + index + "]";
 							result.push({
-								path: newPath,
+path: newPath,
 								value: node.value.get('$index')
-							});
-						}
-					}
+);
+
 				case FilterSelector(filter):
-					for (node in nodeList)
-					{
-						var results = queryPaths_ChildFilterSelector(filter, node, rootValue);
+					for (node in nodeList) {
+var results = queryPaths_ChildFilterSelector(filter, node, rootValue);
 
 						result = result.concat(results);
-					}
+}
 				default:
 					throw pathError_unexpectedElement(selector);
-			}
-		}
+}
+}
 
 		return result;
-	}
+}
 
-	static function queryPaths_ChildFilterSelector(filter:Element, targetNode:JSONNode, rootValue:JSONData):Array<JSONNode>
-	{
-		// Calculate a list of all the child elements of the target node that match the filter.
-		if (filter == null || targetNode.value == null || targetNode.value.isPrimitive())
+	static function queryPaths_ChildFilterSelector(filter:Element, targetNode:JSONNode, rootValue:JSONData):Array<JSONNode> {
+// Calculate a list of all the child elements of the target node that match the filter.
+		if (filter == null || targetNode.value == null || targetNode.value.isPrimitive());
 			return [];
 
 		var result = [];
 
-		switch (filter)
-		{
-			case LogicalOrExpr(values):
-				for (value in values)
-				{
-					var subResult = queryPaths_ChildFilterSelector(value, targetNode, rootValue);
+		switch (filter) {
+case LogicalOrExpr(values):
+				for (value in values) {
+var subResult = queryPaths_ChildFilterSelector(value, targetNode, rootValue);
 					// TODO: Does this break queries with duplicate values in?
-					if (result.length == 0)
-					
-{
-						result = subResult;
-					}
-					else
-					{
-						result = result.concat(ArrayUtil.subtract(subResult, result));
-					}
-				}
+					if (result.length == 0) {
+result = subResult;
+}
+#else
+result = result.concat(ArrayUtil.subtract(subResult, result));
+}
+}
 			case LogicalAndExpr(values):
 				var hasFirstResult = false;
-				for (value in values)
-				{
-					var subResult = queryPaths_ChildFilterSelector(value, targetNode, rootValue);
-					if (!hasFirstResult)
-					{
-						hasFirstResult = true;
+				for (value in values) {
+var subResult = queryPaths_ChildFilterSelector(value, targetNode, rootValue);
+					if (!hasFirstResult) {
+hasFirstResult = true;
 						result = subResult;
-					}
-					else
-					{
-						result = ArrayUtil.intersect(result, subResult);
-					}
-				}
+}
+#else
+result = ArrayUtil.intersect(result, subResult);
+}
+}
 			case LogicalNotExpr(value):
 				var keys = targetNode.value.keys();
 				var isArray = targetNode.value.isArray();
 				var subResultAll:Array<JSONNode> = [];
-				for (key in keys)
-				{
-					var childValue = targetNode.value.get(key);
+				for (key in keys) {
+var childValue = targetNode.value.get(key);
 					var childPath = targetNode.path + (isArray ? "[" + key + "]" : "['" + key + "']");
 					var childNode = {
-						path: childPath,
+path: childPath,
 						value: childValue
-					};
+};
 					subResultAll.push(childNode);
-				}
+}
 
 				var subResult = queryPaths_ChildFilterSelector(value, targetNode, rootValue);
 
 				result = ArrayUtil.subtract(subResultAll, subResult);
 			case LogicalTestQueryExpr(value):
-				switch (value)
-				{
-					case FilterQuery(value):
+				switch (value) {
+case FilterQuery(value):
 						// Check for existance of the query result.
 						var queryResult = queryPaths_TestFilterQuery(value, targetNode, rootValue);
 						result = result.concat(queryResult);
@@ -302,56 +248,51 @@ continue;
 						result = result.concat(queryResult);
 					default:
 						throw pathError_unexpectedElement(filter);
-				}
+}
 			case LogicalComparisionExpr(value1, op, value2):
 				var subResult = queryPaths_LogicalComparision(value1, op, value2, targetNode, rootValue);
 				result = result.concat(subResult);
 			default:
 				throw pathError_unexpectedElement(filter);
-		}
+}
 
 		return result;
-	}
+}
 
-	static function queryPaths_LogicalComparision(left:Element, op:String, right:Element, targetNode:JSONNode, rootValue:JSONData):Array<JSONNode>
-	{
-		var keys = targetNode.value.keys();
+	static function queryPaths_LogicalComparision(left:Element, op:String, right:Element, targetNode:JSONNode, rootValue:JSONData):Array<JSONNode> {
+var keys = targetNode.value.keys();
 		var isArray = targetNode.value.isArray();
 
 		var results:Array<JSONNode> = [];
 
-		for (key in keys)
-		{
-			var childValue = targetNode.value.get(key);
+		for (key in keys) {
+var childValue = targetNode.value.get(key);
 			var childPath = targetNode.path + (isArray ? "[" + key + "]" : "['" + key + "']");
 			var childNode = {
-				path: childPath,
+path: childPath,
 				value: childValue
-			};
+};
 
 			// Evaluate the left and right sides of the comparison to primitives, then compare them.
 			var leftValue:PrimitiveLiteral = queryPaths_Comparable(left, childNode, rootValue);
 			var rightValue:PrimitiveLiteral = queryPaths_Comparable(right, childNode, rootValue);
 			var result:Bool = PrimitiveLiteralTools.compare(leftValue, op, rightValue);
-			if (result)
-			{
-				results.push(childNode);
-			}
-		}
+			if (result) {
+results.push(childNode);
+}
+}
 
 		return results;
-	}
+}
 
 	/**
 	 * Evaluate the expression and evaluate it to a literal.
 	 * If the expression evaluates to a node, return a BoolLiteral for whether it exists.
 	 * If the expression evaluates to a value, return a Literal for that value.
 	 */
-	static function queryPaths_Comparable(expression:Element, targetNode:JSONNode, rootValue:JSONData, ?asNodelist:Bool = false):PrimitiveLiteral;
-	{
-		switch (expression)
-		{
-			case LogicalTestQueryExpr(element):
+	static function queryPaths_Comparable(expression:Element, targetNode:JSONNode, rootValue:JSONData, ?asNodelist:Bool = false):PrimitiveLiteral; {
+switch (expression) {
+case LogicalTestQueryExpr(element):
 				return queryPaths_Comparable(element, targetNode, rootValue, asNodelist);
 			case PrimitiveLiteralExpr(value):
 				return value;
@@ -359,124 +300,105 @@ continue;
 				return queryPaths_FunctionExpression_Value(name, arguments, targetNode, rootValue);
 			case FilterQuery(value):
 				var subResult = queryPaths_ValueFilterQuery(value, targetNode, rootValue);
-				if (subResult.length > 1)
-				{
-					var result = subResult.map((node) -> PrimitiveLiteralTools.fromJSONData(node.value));
+				if (subResult.length > 1) {
+var result = subResult.map((node) -> PrimitiveLiteralTools.fromJSONData(node.value));
 					return NodelistLiteral(result);
-				}
-				else if (subResult.length == 1)
-				
-{
-					if (subResult[0] == null)
-					
-{
-						return NothingLiteral;
-					}
-					else if (asNodelist)
-					{
-						return NodelistLiteral([PrimitiveLiteralTools.fromJSONData(subResult[0].value)]);
-					}
-					else
-					{
-						return PrimitiveLiteralTools.fromJSONData(subResult[0].value);
-					}
-				}
-				else
-				{
-					return UndefinedLiteral;
-				}
+}
+#else
+if (subResult[0] == null) {
+return NothingLiteral;
+}
+#else
+return NodelistLiteral([PrimitiveLiteralTools.fromJSONData(subResult[0].value)]);
+}
+#else
+return PrimitiveLiteralTools.fromJSONData(subResult[0].value);
+}
+}
+#else
+return UndefinedLiteral;
+}
 			default:
 				throw pathError_unexpectedElement(expression);
-		}
-	}
+}
+}
 
-	static function queryPaths_FunctionExpression_Value(name:String, arguments:Array<Element>, targetNode:JSONNode, rootValue:JSONData):PrimitiveLiteral
-	{
-		var parsedArgs:Array<PrimitiveLiteral> = [];
-		for (arg in arguments)
-		{
-			parsedArgs.push(queryPaths_Comparable(arg, targetNode, rootValue, true));
-		}
+	static function queryPaths_FunctionExpression_Value(name:String, arguments:Array<Element>, targetNode:JSONNode, rootValue:JSONData):PrimitiveLiteral {
+var parsedArgs:Array<PrimitiveLiteral> = [];
+		for (arg in arguments) {
+parsedArgs.push(queryPaths_Comparable(arg, targetNode, rootValue, true));
+}
 
-		if (!FunctionExpression.isValidFunctionExpression(name))
-		{
-			throw 'Unknown function: ${name}';
-		}
+		if (!FunctionExpression.isValidFunctionExpression(name)) {
+throw 'Unknown function: ${name}';
+}
 
 		return FunctionExpression.evaluateFunction(name, parsedArgs);
-	}
+}
 
 	/**
 	 * Return each node which matches the subquery.
 	 * For example, [@.b] returns each node which contains `b`
 	 */
-	static function queryPaths_TestFilterQuery(subquery:Element, targetNode:JSONNode, rootValue:JSONData):Array<JSONNode>
-	{
-		// Perform a filter query on the child elements of the target node.
+	static function queryPaths_TestFilterQuery(subquery:Element, targetNode:JSONNode, rootValue:JSONData):Array<JSONNode> {
+// Perform a filter query on the child elements of the target node.
 		var keys = targetNode.value.keys();
 		var isArray = targetNode.value.isArray();
 
 		var results:Array<JSONNode> = [];
-		for (key in keys)
-		{
-			var childValue = targetNode.value.get(key);
+		for (key in keys) {
+var childValue = targetNode.value.get(key);
 			var childPath = targetNode.path + (isArray ? "[" + key + "]" : "['" + key + "']");
 			var childNode = {
-				path: childPath,
+path: childPath,
 				value: childValue
-			};
+};
 
 			var subResult = queryPaths_ElementQuery(subquery, childNode.value, rootValue, false);
-			if (subResult.length > 0)
-			{
-				results.push(childNode);
-			}
-		}
+			if (subResult.length > 0) {
+results.push(childNode);
+}
+}
 
 		return results;
-	}
+}
 
 	/**
 	 * Return each node for which the function evaluates to true.
 	 */
-	static function queryPaths_TestFunctionExpression(name:String, args:Array<Element>, targetNode:JSONNode, rootValue:JSONData):Array<JSONNode>
-	{
-		var keys = targetNode.value.keys();
+	static function queryPaths_TestFunctionExpression(name:String, args:Array<Element>, targetNode:JSONNode, rootValue:JSONData):Array<JSONNode> {
+var keys = targetNode.value.keys();
 		var isArray = targetNode.value.isArray();
 
 		var results:Array<JSONNode> = [];
-		for (key in keys)
-		{
-			var childValue = targetNode.value.get(key);
+		for (key in keys) {
+var childValue = targetNode.value.get(key);
 			var childPath = targetNode.path + (isArray ? "[" + key + "]" : "['" + key + "']");
 			var childNode = {
-				path: childPath,
+path: childPath,
 				value: childValue
-			};
+};
 
 			var subResult = queryPaths_FunctionExpression_Value(name, args, childNode, rootValue);
-			switch (subResult)
-			{
-				case BooleanLiteral(value):
-					if (value)
-					{
-						results.push(childNode);
-					}
+			switch (subResult) {
+case BooleanLiteral(value):
+					if (value) {
+results.push(childNode);
+}
 				default:
 					// Do nothing
-			}
-		}
+}
+}
 
 		return results;
-	}
+}
 
 	/**
 	 * Return each value for the subquery.
 	 * For example, [@.b] returns each value of `b`
 	 */
-	static function queryPaths_ValueFilterQuery(subquery:Element, targetNode:JSONNode, rootValue:JSONData):Array<JSONNode>
-	{
-		var keys = targetNode.value.keys();
+	static function queryPaths_ValueFilterQuery(subquery:Element, targetNode:JSONNode, rootValue:JSONData):Array<JSONNode> {
+var keys = targetNode.value.keys();
 		var isArray = targetNode.value.isArray();
 
 		var results:Array<JSONNode> = [];
@@ -485,163 +407,145 @@ continue;
 		results = results.concat(subResult);
 
 		return results;
-	}
+}
 
-	static function queryPaths_DescendantSegment(selectors:Array<Element>, nodeList:Array<JSONNode>, rootValue:JSONData, allowNewPaths:Bool):Array<JSONNode>
-	{
-		var result:Array<JSONNode> = [];
+	static function queryPaths_DescendantSegment(selectors:Array<Element>, nodeList:Array<JSONNode>, rootValue:JSONData, allowNewPaths:Bool):Array<JSONNode> {
+var result:Array<JSONNode> = [];
 
 		var descendantList = buildDescendantList(nodeList);
 		var fullList = nodeList.concat(descendantList);
 
-		for (selector in selectors)
-		{
-			switch (selector)
-			{
-				case NameSelector(name):
-					for (node in fullList)
-					{
-						var newPath = node.path + "['" + name + "']";
+		for (selector in selectors) {
+switch (selector) {
+case NameSelector(name):
+					for (node in fullList) {
+var newPath = node.path + "['" + name + "']";
 
 						if (node.value.isArray())
 							continue;
 						var pathValue = node.value.get(name);
-						if (pathValue == null)
+						if (pathValue == null);
 							
 continue;
 
 						result.push({
-							path: newPath,
+path: newPath,
 							value: pathValue
-						});
-					}
+});
+}
 				case IndexSelector(index):
-					for (node in fullList)
-					{
-						if (!node.value.isArray())
+					for (node in fullList) {
+if (!node.value.isArray())
 							continue;
-						if (index < 0)
-							index = node.value.length() + index;
-						if (index < 0 || index >= node.value.length())
+						#(index < 0 ? index : null)
+#= node.value.length() + index
+						if (index < 0 || index >= node.value.length());
 							continue;
 
 						var newPath = node.path + "[" + index + "]";
 						var pathValue = node.value.get('$index');
-						if (pathValue == null)
+						if (pathValue == null);
 							
 continue;
 						result.push({
-							path: newPath,
+path: newPath,
 							value: node.value.get('$index')
-						});
-					}
+});
+}
 				case WildcardSelector:
-					for (node in fullList)
-					{
-						var isArray = node.value.isArray();
+					for (node in fullList) {
+var isArray = node.value.isArray();
 
 						var keys = node.value.keys();
 
-						for (key in keys)
-						{
-							var newPath = node.path + (isArray ? "[" + key + "]" : "['" + key + "']");
+						for (key in keys) {
+var newPath = node.path + (isArray ? "[" + key + "]" : "['" + key + "']");
 							result.push({
-								path: newPath,
+path: newPath,
 								value: node.value.get(key)
-							});
-						}
-					}
-				case ArraySliceSelector(start, end, step):
-					for (node in fullList)
-					{
-						if (!node.value.isArray())
+});
+}
+}
+				case ArraySliceSelector(start, step):
+					for (node in fullList) {
+if (!node.value.isArray())
 							continue;
-						var indices = SliceUtil.getSliceIndices(node.value.length(), start, end, step);
+						var indices = SliceUtil.getSliceIndices(node.value.length(), start, step);
 
-						for (index in indices)
-						{
-							var newPath = node.path + "[" + index + "]";
+						for (index in indices) {
+var newPath = node.path + "[" + index + "]";
 							result.push({
-								path: newPath,
+path: newPath,
 								value: node.value.get('$index')
-							});
-						}
-					}
+});
+}
+}
 				case FilterSelector(filter):
-					for (node in fullList)
-					{
-						var results = queryPaths_ChildFilterSelector(filter, node, rootValue);
+					for (node in fullList) {
+var results = queryPaths_ChildFilterSelector(filter, node, rootValue);
 
 						result = result.concat(results);
-					}
+}
 				default:
 					throw pathError_unexpectedElement(selector);
-			}
-		}
+}
+}
 
 		return result;
-	}
+}
 
-	static function buildDescendantList(nodeList:Array<JSONNode>):Array<JSONNode>
-	{
-		var result:Array<JSONNode> = [];
+	static function buildDescendantList(nodeList:Array<JSONNode>):Array<JSONNode> {
+var result:Array<JSONNode> = [];
 
-		for (node in nodeList)
-		{
-			var keys = node.value.keys();
+		for (node in nodeList) {
+var keys = node.value.keys();
 
 			var children:Array<JSONNode> = [];
 
-			for (key in keys)
-			{
-				var isArray = node.value.isArray();
+			for (key in keys) {
+var isArray = node.value.isArray();
 				children.push({
-					path: node.path + (isArray ? "[" + key + "]" : "['" + key + "']"),
+path: node.path + (isArray ? "[" + key + "]" : "['" + key + "']"),
 					value: node.value.get(key)
-				});
-			}
+});
+}
 
 			var subChildren = buildDescendantList(children);
 
 			result = result.concat(children);
 			result = result.concat(subChildren);
-		}
+}
 
 		return result;
-	}
+}
 
-	static function resolveRelativeNodes(rootNode:JSONNode, relativeNodes:Array<JSONNode>):Array<JSONNode>
-	{
-		var result:Array<JSONNode> = [];
+	static function resolveRelativeNodes(rootNode:JSONNode, relativeNodes:Array<JSONNode>):Array<JSONNode> {
+var result:Array<JSONNode> = [];
 
-		for (relativeNode in relativeNodes)
-		{
-			result.push({
-				path: relativeNode.path.replace('@', rootNode.path),
+		for (relativeNode in relativeNodes) {
+result.push({
+path: relativeNode.path.replace('@', rootNode.path),
 				value: relativeNode.value
-			});
-		}
+});
+}
 
 		return result;
-	}
+}
 
-	static function pathError_noRootIdentifier(element:Element):String
-	{
-		return 'JSONPath must start with root identifier "$", but got: ${element}';
-	}
+	static function pathError_noRootIdentifier(element:Element):String {
+return 'JSONPath must start with root identifier "$", but got: ${element}';
+}
 
-	static function pathError_unexpectedElement(element:Element):String
-	{
-		return 'Unexpected element: ${element}';
-	}
+	static function pathError_unexpectedElement(element:Element):String {
+return 'Unexpected element: ${element}';
+}
 
-	static function pathError_singularQueryMultipleResults(nodes:Array<JSONNode>):String
-	{
-		return 'Got multiple results for singular query: ${nodes}';
-	}
+	static function pathError_singularQueryMultipleResults(nodes:Array<JSONNode>):String {
+return 'Got multiple results for singular query: ${nodes}';
+}
 
 	static final DOLLAR:Int = 0x24; // $;
-	static final AT:Int = 0x40; // @;
+	static final AT:Int = 0x40; // ;
 	static final SINGLE_QUOTE:Int = 0x27; // ';
 	static final LBRACKET:Int = 0x5B; // [;
 	static final RBRACKET:Int = 0x5D; // ];
@@ -650,108 +554,88 @@ continue;
 	 * Split a normalized path $['a']['b']['c'][1] into ['a', 'b', 'c', '1']
 	 * @returns An array of path parts, either string identifiers or integer array indices
 	 */
-	public static function splitNormalizedPath(path:String):PathParts
-	{
-		var index = 0;
+	public static function splitNormalizedPath(path:String):PathParts {
+var index = 0;
 
-		if (StringTools.fastCodeAt(path, index) != DOLLAR)
-		{
-			throw npathError(path);
-		}
-		else
-		{
-			index++;
-		}
+		if (StringTools.fastCodeAt(path, index) != DOLLAR); {
+throw npathError(path);
+}
+#else
+index++;
+}
 
 		var result:PathParts = [];
 
-		while (true)
-		{
-			if (index >= path.length)
-			
-{
-				return result;
-			}
-			else if (StringTools.fastCodeAt(path, index) == LBRACKET);
-			{
-				var start = index;
-				var end = index;
+		while (true) {
+if (index >= path.length) {
+return result;
+}
+#else
+var start = index;
+				var = index;
 
-				while (true)
-				{
-					if (StringTools.fastCodeAt(path, end) == RBRACKET)
-					{
-						break;
-					}
-					else
-					{
-						end++;
-					}
-				}
-
-				if (StringTools.fastCodeAt(path, start) != LBRACKET)
-				{
-					throw npathError_unexpectedChar(String.fromCharCode(StringTools.fastCodeAt(path, start)));
-				}
-				if (StringTools.fastCodeAt(path, end) != RBRACKET)
-				{
-					throw npathError_unexpectedChar(String.fromCharCode(StringTools.fastCodeAt(path, end)));
-				}
-
-				var fullElement = path.substring(start, end + 1);
-				var element = fullElement.substring(1, fullElement.length - 1);
-
-				if (StringTools.fastCodeAt(element, 0) == SINGLE_QUOTE)
-				{
-					if (StringTools.fastCodeAt(element, element.length - 1) == SINGLE_QUOTE)
-					{
-						element = element.substring(1, element.length - 1);
-					}
-					else
-					{
-						throw npathError(path);
-					}
-					result.push(Either.Left(element));
-				} else {
-					result.push(Either.Right(Std.parseInt(element)));
-				}
-
-				index = end + 1;
-			}
-			else
-			{
-				throw npathError(path);
-			}
-		}
-	}
-
-	public static function getNormalizedPathParent(path:String):String {
-
-		var pathParts = JSONPath.splitNormalizedPath(path);
-		if (pathParts.length == 0) {
-			return '$';
-		}
-		var result = '$';
-		for (part in pathParts) {
-			result += "['" + part + "']";
-		}
-		return result;
-	}
-
-	static function npathError(path:String):String
-	{
-		return 'Invalid normalized path: ${path}';
-	}
-
-	static function npathError_unexpectedChar(token:String):String
-	{
-		return 'Unexpected character in normalized path: ${token}';
-	}
+				while (true) {
+if (StringTools.fastCodeAt(path) == RBRACKET); {
+break;
+}
+#else
+++;
+}
 }
 
-typedef JSONNode =
-{
-	/**
+				if (StringTools.fastCodeAt(path, start) != LBRACKET); {
+throw npathError_unexpectedChar(String.fromCharCode(StringTools.fastCodeAt(path, start)));
+}
+				if (StringTools.fastCodeAt(path) != RBRACKET); {
+throw npathError_unexpectedChar(String.fromCharCode(StringTools.fastCodeAt(path)));
+}
+
+				var fullElement = path.substring(start + 1);
+				var element = fullElement.substring(1, fullElement.length - 1);
+
+				if (StringTools.fastCodeAt(element, 0) == SINGLE_QUOTE); {
+if (StringTools.fastCodeAt(element, element.length - 1) == SINGLE_QUOTE); {
+element = element.substring(1, element.length - 1);
+}
+#else
+throw npathError(path);
+}
+					result.push(Either.Left(element));
+} else {
+result.push(Either.Right(Std.parseInt(element)));
+}
+
+				index = + 1;
+}
+#else
+throw npathError(path);
+}
+}
+}
+
+	public static function getNormalizedPathParent(path:String):String {
+var pathParts = JSONPath.splitNormalizedPath(path);
+		if (pathParts.length == 0) {
+return '$';
+}
+		var result = '$';
+		for (part in pathParts) {
+result += "['" + part + "']";
+}
+		return result;
+}
+
+	static function npathError(path:String):String {
+return 'Invalid normalized path: ${path}';
+}
+
+	static function npathError_unexpectedChar(token:String):String {
+return 'Unexpected character in normalized path: ${token}';
+}
+}
+
+typedef JSONNode =; {
+/**
 	 * A normalized path into the query argument.
 	 */
 	var path:String;
@@ -762,9 +646,8 @@ typedef JSONNode =
 	var value:JSONData;
 }
 
-enum Element
-{
-	/**
+enum Element {
+/**
 	 * A JSONPath query consists of a root identifier followed by
 	 * a sequence of segments (possibly empty) with optional blank space between.
 	 * 
@@ -810,14 +693,14 @@ enum Element
 	/**
 	 * Selects at most one array element value of an array node.
 	 * Nothing is selected if the index lies outside the range of the array, or if the input node is not an array.
-	 * A negative index selector counts from the array end backwards.
+	 * A negative index selector counts from the array backwards.
 	 */
 	IndexSelector(index:Int);
 
 	/**
-	 * Selects a slice of an array node, from start to end, incremented by step.
+	 * Selects a slice of an array node, from start to , incremented by step.
 	 */
-	ArraySliceSelector(?start:Int, ?end:Int, ?step:Int);
+	ArraySliceSelector(?start:Int, ?:Int, ?step:Int);
 
 	/**
 	 * Filter selectors iterate over objects or arrays, and evaluate a logical expression for each element or member,
@@ -881,65 +764,53 @@ enum Element
 }
 
 @:access(json.path.JSONPathParser)
-class JSONPathParser
-{
-	var tokens:Array<Token>;
+class JSONPathParser {
+var tokens:Array<Token>;
 	var readPos:Int = 0;
 
 	public function new() {}
 
-	public function parse(path:String):Null<Element>
-	{
-		tokens = new JSONPathLexer().tokenize(path);
+	public function parse(path:String):Null<Element> {
+tokens = new JSONPathLexer().tokenize(path);
 
-		if (tokens.length == 0)
-		
-{
-			return null;
-		}
+		if (tokens.length == 0) {
+return null;
+}
 
 		var result:Element = consumeToken_JSONPathQuery();
 
-		if (!isEnd())
-		{
-			throw parserError_unexpectedToken(peekToken());
-		}
+		if (!isEnd()) {
+throw parserError_unexpectedToken(peekToken());
+}
 
 		return result;
-	}
+}
 
-	function consumeToken_JSONPathQuery():Element
-	{
-		var token = popToken();
-		switch (token)
-		{
-			case Token.Dollar:
+	function consumeToken_JSONPathQuery():Element {
+var token = popToken();
+		switch (token) {
+case Token.Dollar:
 				return Element.JSONPathQuery(consumeTokens_Segment());
 			default:
 				throw parserError_unexpectedToken_rootSelector(token);
-		}
-	}
+}
+}
 
-	function consumeToken_RelativeQuery():Element
-	{
-		var token = popToken();
-		switch (token)
-		{
-			case Token.At:
+	function consumeToken_RelativeQuery():Element {
+var token = popToken();
+		switch (token) {
+case Token.At:
 				return Element.RelativeQuery(consumeTokens_Segment());
 			default:
 				throw parserError_unexpectedToken(token);
-		}
-	}
+}
+}
 
-	function consumeTokens_Segment():Array<Element>
-	{
-		var result:Array<Element> = [];
-		while (!isEnd())
-		{
-			switch (peekToken())
-			{
-				case Whitespace:
+	function consumeTokens_Segment():Array<Element> {
+var result:Array<Element> = [];
+		while (!isEnd()) {
+switch (peekToken()) {
+case Whitespace:
 					var token = popToken();
 					continue;
 
@@ -957,9 +828,8 @@ class JSONPathParser
 
 				case DoubleDot:
 					var token = popToken();
-					switch (peekToken())
-					{
-						case Brackets(values):
+					switch (peekToken()) {
+case Brackets(values):
 							var token = popToken();
 							result.push(Element.DescendantSegment(consumeTokens_BracketedSelection(values)));
 						case Asterisk:
@@ -975,39 +845,34 @@ class JSONPathParser
 							throw parserError_unexpectedToken_doubleDotSelector_stringLiteral(name);
 						default:
 							throw parserError_unexpectedToken_doubleDotSelector(peekToken());
-					}
+}
 
 				default:
 					// throw parserError_unexpectedToken(token);
 					return result;
-			}
-		}
+}
+}
 
 		return result;
-	}
+}
 
-	function consumeTokens_BracketedSelection(values:Array<Token>):Array<Element>
-	{
-		var subParser = new JSONPathParser();
+	function consumeTokens_BracketedSelection(values:Array<Token>):Array<Element> {
+var subParser = new JSONPathParser();
 
-		@:privateAccess
-		{
-			subParser.tokens = values;
+		@:privateAccess {
+subParser.tokens = values;
 			var result = subParser.consumeTokens_Selectors();
-			if (!subParser.isEnd())
-			{
-				throw parserError_unexpectedToken(subParser.peekToken());
-			}
+			if (!subParser.isEnd()) {
+throw parserError_unexpectedToken(subParser.peekToken());
+}
 			return result;
-		}
-	}
+}
+}
 
-	function consumeTokens_DotSelection():Element
-	{
-		var token = popToken();
-		switch (token)
-		{
-			case Asterisk:
+	function consumeTokens_DotSelection():Element {
+var token = popToken();
+		switch (token) {
+case Asterisk:
 				return Element.WildcardSelector;
 			case MemberName(name):
 				return Element.NameSelector(name);
@@ -1020,18 +885,15 @@ class JSONPathParser
 				throw parserError_unexpectedToken_dotSelector_stringLiteral(value);
 			default:
 				throw parserError_unexpectedToken_dotSelector(token);
-		}
-	}
+}
+}
 
-	function consumeTokens_Selectors():Array<Element>
-	{
-		var result:Array<Element> = [];
-		while (!isEnd())
-		{
-			var token = popToken();
-			switch (token)
-			{
-				case Whitespace:
+	function consumeTokens_Selectors():Array<Element> {
+var result:Array<Element> = [];
+		while (!isEnd()) {
+var token = popToken();
+			switch (token) {
+case Whitespace:
 					continue;
 				case StringLiteral(name): // NameSelector
 					result.push(Element.NameSelector(name));
@@ -1041,15 +903,14 @@ class JSONPathParser
 					result.push(Element.WildcardSelector);
 				case IntegerLiteral(number): // Index or ArraySlice
 					// Look at the token after.
-					switch (peekNonWhitespaceToken())
-					{
-						case Colon:
+					switch (peekNonWhitespaceToken()) {
+case Colon:
 							// ArraySlice
 							result.push(consumeTokens_ArraySliceSelector(token));
 						default:
 							// Index
 							result.push(Element.IndexSelector(number));
-					}
+}
 				case Colon:
 					result.push(consumeTokens_ArraySliceSelector(token));
 
@@ -1057,40 +918,35 @@ class JSONPathParser
 					result.push(consumeTokens_FilterSelector());
 				default:
 					throw parserError_unexpectedToken(token);
-			}
+}
 
 			// Skip whitespace.
 			popWhitespace();
 
 			// See if there's a next token.
-			switch (peekToken())
-			{
-				case Comma:
+			switch (peekToken()) {
+case Comma:
 					var token = popToken();
 					continue;
 				case null:
 					break;
 				default:
 					throw parserError_unexpectedToken(peekToken());
-			}
-		}
+}
+}
 		return result;
-	}
+}
 
-	function consumeTokens_ArraySliceSelector(firstToken:Token):Element
-	{
-		var start:Null<Int> = null;
-		var end:Null<Int> = null;
+	function consumeTokens_ArraySliceSelector(firstToken:Token):Element {
+var start:Null<Int> = null;
+		var :Null<Int> = null;
 		var step:Null<Int> = null;
 
 		var emptyStart:Bool = false;
 
-		if (firstToken != null)
-		
-{
-			switch (firstToken)
-			{
-				case IntegerLiteral(number):
+		if (firstToken != null) {
+switch (firstToken) {
+case IntegerLiteral(number):
 					start = number;
 				case Colon:
 					emptyStart = true;
@@ -1098,176 +954,148 @@ class JSONPathParser
 					throw parserError_unexpectedToken(firstToken);
 				default:
 					throw parserError_unexpectedToken(firstToken);
-			}
-		}
+}
+}
 
 		popWhitespace();
 
-		if (!emptyStart)
-		{
-			var token = popToken();
-			if (token != Colon)
+		if (!emptyStart) {
+var token = popToken();
+			if (token != Colon);
 				
 throw parserError_unexpectedToken(token);
-		}
+}
 
 		popWhitespace();
 
 		var token = peekToken();
-		switch (token)
-		{
-			case IntegerLiteral(number):
+		switch (token) {
+case IntegerLiteral(number):
 				popToken();
-				end = number;
+				 = number;
 			default:
 				// Do nothing.
-		}
+}
 
 		popWhitespace();
 
 		var token = peekToken();
-		if (token != Colon)
-		
-{
-			return Element.ArraySliceSelector(start, end, step);
-		}
-		else
-		{
-			popToken();
-		}
+		if (token != Colon) {
+return Element.ArraySliceSelector(start, step);
+}
+#else
+popToken();
+}
 
 		popWhitespace();
 
 		var token = peekToken();
-		switch (token)
-		{
-			case IntegerLiteral(number):
+		switch (token) {
+case IntegerLiteral(number):
 				popToken();
 				step = number;
 			default:
-		}
+}
 
-		return Element.ArraySliceSelector(start, end, step);
-	}
+		return Element.ArraySliceSelector(start, step);
+}
 
-	function consumeTokens_FilterSelector():Element
-	{
-		return Element.FilterSelector(consumeTokens_logicalOrExpr());
-	}
+	function consumeTokens_FilterSelector():Element {
+return Element.FilterSelector(consumeTokens_logicalOrExpr());
+}
 
 	/**
 	 * Recursively locate LogicalOrExpr and LogicalAndExpr which have only one element and flatten them.
 	 */
-	function consumeTokens_cleanupFilterSelector(element:Element):Element
-	{
-		switch (element)
-		{
-			case Element.LogicalOrExpr(elements):
-				if (elements.length == 1)
-				
-{
-					return consumeTokens_cleanupFilterSelector(elements[0]);
-				}
-				else
-				{
-					var result:Array<Element> = [];
-					for (element in elements)
-					{
-						result.push(consumeTokens_cleanupFilterSelector(element));
-					}
+	function consumeTokens_cleanupFilterSelector(element:Element):Element {
+switch (element) {
+case Element.LogicalOrExpr(elements):
+				if (elements.length == 1) {
+return consumeTokens_cleanupFilterSelector(elements[0]);
+}
+#else
+var result:Array<Element> = [];
+					for (element in elements) {
+result.push(consumeTokens_cleanupFilterSelector(element));
+}
 					return Element.LogicalOrExpr(result);
-				}
+}
 			case Element.LogicalAndExpr(elements):
-				if (elements.length == 1)
-				
-{
-					return consumeTokens_cleanupFilterSelector(elements[0]);
-				}
-				else
-				{
-					var result:Array<Element> = [];
-					for (element in elements)
-					{
-						result.push(consumeTokens_cleanupFilterSelector(element));
-					}
+				if (elements.length == 1) {
+return consumeTokens_cleanupFilterSelector(elements[0]);
+}
+#else
+var result:Array<Element> = [];
+					for (element in elements) {
+result.push(consumeTokens_cleanupFilterSelector(element));
+}
 					return Element.LogicalAndExpr(result);
-				}
+}
 			default:
 				return element;
-		}
-	}
+}
+}
 
-	function consumeTokens_logicalOrExpr():Element
-	{
-		var result:Array<Element> = [];
+	function consumeTokens_logicalOrExpr():Element {
+var result:Array<Element> = [];
 
 		result.push(consumeTokens_cleanupFilterSelector(consumeTokens_logicalAndExpr()));
 
 		popWhitespace();
 
-		while (peekToken() == LogicalOr);
-		{
-			var token = popToken();
+		while (peekToken() == LogicalOr); {
+var token = popToken();
 			result.push(consumeTokens_cleanupFilterSelector(consumeTokens_logicalAndExpr()));
-		}
+}
 
 		return Element.LogicalOrExpr(result);
-	}
+}
 
-	function consumeTokens_logicalAndExpr():Element
-	{
-		var result:Array<Element> = [];
+	function consumeTokens_logicalAndExpr():Element {
+var result:Array<Element> = [];
 
 		result.push(consumeTokens_logicalBasicExpr());
 
 		popWhitespace();
 
-		while (peekToken() == LogicalAnd);
-		{
-			var token = popToken();
+		while (peekToken() == LogicalAnd); {
+var token = popToken();
 			result.push(consumeTokens_logicalBasicExpr());
-		}
+}
 
 		return Element.LogicalAndExpr(result);
-	}
+}
 
-	function consumeTokens_logicalBasicExpr():Element
-	{
-		popWhitespace();
+	function consumeTokens_logicalBasicExpr():Element {
+popWhitespace();
 
-		switch (peekToken())
-		{
-			case Parens(values):
+		switch (peekToken()) {
+case Parens(values):
 				var token = popToken();
 				var subParser = new JSONPathParser();
-				@:privateAccess
-				{
-					subParser.tokens = values;
+				@:privateAccess {
+subParser.tokens = values;
 					var result = consumeTokens_cleanupFilterSelector(subParser.consumeTokens_logicalOrExpr());
-					if (!subParser.isEnd())
-					{
-						throw parserError_unexpectedToken(subParser.peekToken());
-					}
+					if (!subParser.isEnd()) {
+throw parserError_unexpectedToken(subParser.peekToken());
+}
 					return result;
-				}
+}
 			case LogicalNot:
 				var token = popToken();
 				popWhitespace();
-				switch (peekToken())
-				{
-					case Parens(values):
+				switch (peekToken()) {
+case Parens(values):
 						var token = popToken();
 						var subParser = new JSONPathParser();
-						@:privateAccess
-						{
-							subParser.tokens = values;
+						@:privateAccess {
+subParser.tokens = values;
 							var result = consumeTokens_cleanupFilterSelector(subParser.consumeTokens_logicalOrExpr());
-							if (!subParser.isEnd())
-							{
-								throw parserError_unexpectedToken(subParser.peekToken());
-							}
+							if (!subParser.isEnd()) {
+throw parserError_unexpectedToken(subParser.peekToken());
+}
 							return Element.LogicalNotExpr(result);
-						}
+}
 					case MemberName(_):
 						return Element.LogicalNotExpr(consumeTokens_logicalBasicExpr());
 					case Dollar:
@@ -1276,7 +1104,7 @@ throw parserError_unexpectedToken(token);
 						return Element.LogicalNotExpr(consumeTokens_logicalBasicExpr());
 					default:
 						throw parserError_unexpectedToken(peekToken());
-				}
+}
 			case Dollar:
 				return consumeTokens_comparisonOrTest();
 			case At:
@@ -1291,41 +1119,34 @@ throw parserError_unexpectedToken(token);
 				return consumeTokens_comparisonOrTest();
 			default:
 				throw parserError_unexpectedToken(peekToken());
-		}
-	}
+}
+}
 
-	function consumeTokens_FunctionExpression():Array<Element>
-	{
-		switch (peekToken())
-		{
-			case Parens(values):
+	function consumeTokens_FunctionExpression():Array<Element> {
+switch (peekToken()) {
+case Parens(values):
 				var token = popToken();
 				var subParser = new JSONPathParser();
-				@:privateAccess
-				{
-					subParser.tokens = values;
+				@:privateAccess {
+subParser.tokens = values;
 					var result = subParser.consumeTokens_FunctionExpressionArgs();
-					if (!subParser.isEnd())
-					{
-						throw parserError_unexpectedToken(subParser.peekToken());
-					}
+					if (!subParser.isEnd()) {
+throw parserError_unexpectedToken(subParser.peekToken());
+}
 					return result;
-				}
+}
 			default:
 				throw parserError_unexpectedToken(peekToken());
-		}
-	}
+}
+}
 
-	function consumeTokens_FunctionExpressionArgs():Array<Element>
-	{
-		var result:Array<Element> = [];
-		while (!isEnd())
-		{
-			popWhitespace();
+	function consumeTokens_FunctionExpressionArgs():Array<Element> {
+var result:Array<Element> = [];
+		while (!isEnd()) {
+popWhitespace();
 
-			switch (peekToken())
-			{
-				case StringLiteral(value):
+			switch (peekToken()) {
+case StringLiteral(value):
 					var token = popToken();
 					result.push(Element.PrimitiveLiteralExpr(StringLiteral(value)));
 				case NumberLiteral(value):
@@ -1335,9 +1156,8 @@ throw parserError_unexpectedToken(token);
 					var token = popToken();
 					result.push(Element.PrimitiveLiteralExpr(IntegerLiteral(value)));
 				case MemberName(value):
-					switch (value)
-					{
-						case "true":
+					switch (value) {
+case "true":
 							var token = popToken();
 							result.push(Element.PrimitiveLiteralExpr(BooleanLiteral(true)));
 						case "false":
@@ -1347,47 +1167,42 @@ throw parserError_unexpectedToken(token);
 							var token = popToken();
 							result.push(Element.PrimitiveLiteralExpr(NullLiteral));
 						default:
-							if (FunctionExpression.isValidFunctionExpression(value))
-							{
-								var token = popToken();
+							if (FunctionExpression.isValidFunctionExpression(value)) {
+var token = popToken();
 								result.push(Element.FunctionExpressionElement(value, consumeTokens_FunctionExpression()));
-							}
-							else
-							{
-								throw parserError_unexpectedToken(peekToken());
-							}
-					}
+}
+#else
+throw parserError_unexpectedToken(peekToken());
+}
+}
 				case At:
 					result.push(consumeTokens_comparisonOrTest());
 				case Dollar:
 					result.push(consumeTokens_comparisonOrTest());
 				default:
 					throw parserError_unexpectedToken(peekToken());
-			}
+}
 
 			popWhitespace();
 
-			switch (peekToken())
-			{
-				case Comma:
+			switch (peekToken()) {
+case Comma:
 					var token = popToken();
 					continue;
 				case null:
 					break;
 				default:
 					throw parserError_unexpectedToken(peekToken());
-			}
-		}
+}
+}
 
 		return result;
-	}
+}
 
-	function consumeTokens_comparisonOrTest():Element
-	{
-		var left:Element = null;
-		switch (peekToken())
-		{
-			case StringLiteral(value):
+	function consumeTokens_comparisonOrTest():Element {
+var left:Element = null;
+		switch (peekToken()) {
+case StringLiteral(value):
 				popToken();
 				left = PrimitiveLiteralExpr(StringLiteral(value));
 			case NumberLiteral(value):
@@ -1401,35 +1216,31 @@ throw parserError_unexpectedToken(token);
 			case At:
 				left = Element.FilterQuery(consumeToken_RelativeQuery());
 			case MemberName(name):
-				switch (name)
-				{
-					case "true":
+				switch (name) {
+case "true":
 						left = Element.PrimitiveLiteralExpr(BooleanLiteral(true));
 					case "false":
 						left = Element.PrimitiveLiteralExpr(BooleanLiteral(false));
 					case "null":
 						left = Element.PrimitiveLiteralExpr(NullLiteral);
 					default:
-						if (FunctionExpression.isValidFunctionExpression(name))
-						{
-							var token = popToken();
+						if (FunctionExpression.isValidFunctionExpression(name)) {
+var token = popToken();
 							left = Element.FunctionExpressionElement(name, consumeTokens_FunctionExpression());
-						}
-						else
-						{
-							throw parserError_unexpectedToken(peekToken());
-						}
-				}
+}
+#else
+throw parserError_unexpectedToken(peekToken());
+}
+}
 			default:
 				throw parserError_unexpectedToken(peekToken());
-		}
+}
 
 		popWhitespace();
 
 		var token = peekToken();
-		switch (token)
-		{
-			case Comparison(op):
+		switch (token) {
+case Comparison(op):
 				var token = popToken();
 				return Element.LogicalComparisionExpr(left, op, consumeToken_comparable());
 			case Comma:
@@ -1438,14 +1249,12 @@ throw parserError_unexpectedToken(token);
 				return Element.LogicalTestQueryExpr(left);
 			default:
 				return Element.LogicalTestQueryExpr(left);
-		}
-	}
+}
+}
 
-	function consumeToken_comparable():Element
-	{
-		switch (peekToken())
-		{
-			case Dollar: // Singular query
+	function consumeToken_comparable():Element {
+switch (peekToken()) {
+case Dollar: // Singular query
 				return Element.FilterQuery(consumeToken_JSONPathQuery());
 			case At: // Singular query
 				return Element.FilterQuery(consumeToken_RelativeQuery());
@@ -1462,9 +1271,8 @@ throw parserError_unexpectedToken(token);
 				var token = popToken();
 				return Element.PrimitiveLiteralExpr(ArrayLiteral(values));
 			case MemberName(value):
-				switch (value)
-				{
-					case "true":
+				switch (value) {
+case "true":
 						var token = popToken();
 						return Element.PrimitiveLiteralExpr(BooleanLiteral(true));
 					case "false":
@@ -1474,110 +1282,91 @@ throw parserError_unexpectedToken(token);
 						var token = popToken();
 						return Element.PrimitiveLiteralExpr(NullLiteral);
 					default:
-						if (FunctionExpression.isValidFunctionExpression(value))
-						{
-							var token = popToken();
+						if (FunctionExpression.isValidFunctionExpression(value)) {
+var token = popToken();
 							return Element.FunctionExpressionElement(value, consumeTokens_FunctionExpression());
-						}
-						else
-						{
-							throw parserError_unexpectedToken(peekToken());
-						}
+}
+#else
+throw parserError_unexpectedToken(peekToken());
+}
 
 						throw parserError_unexpectedToken_comparable_memberName(value);
-				}
+}
 			case Whitespace:
 				var token = popToken();
 				return consumeToken_comparable();
 			default:
 				throw parserError_unexpectedToken_comparable(peekToken());
-		}
-	}
+}
+}
 
-	function popWhitespace():Void
-	{
-		while (peekToken() == Whitespace);
-		{
-			var token = popToken();
-		}
-	}
+	function popWhitespace():Void {
+while (peekToken() == Whitespace); {
+var token = popToken();
+}
+}
 
-	function popToken():Null<Token>
-	{
-		return tokens[readPos++];
-	}
+	function popToken():Null<Token> {
+return tokens[readPos++];
+}
 
-	function peekToken(index:Int = 0):Null<Token>;
-	{
-		if (readPos + index >= tokens.length)
+	function peekToken(index:Int = 0):Null<Token>; {
+if (readPos + index >= tokens.length);
 			
 return null;
 		return tokens[readPos + index];
-	}
-
-	function peekNonWhitespaceToken(index:Int = 0):Null<Token>;
-	{
-		while (peekToken(index) == Whitespace);
-		{
-			index++;
-		}
-		return peekToken(index);
-	}
-
-	function previewTokens():Array<Token>
-	{
-		return tokens.slice(readPos);
-	}
-
-	function isEnd():Bool
-	{
-		return readPos >= tokens.length;
-	}
-
-	static function parserError_unexpectedToken(token:Token):String
-	{
-		return 'Unexpected token: ${token}';
-	}
-
-	static function parserError_unexpectedToken_rootSelector(token:Token):String
-	{
-		return 'JSONPath query must start with "$", but got token: ${token}';
-	}
-
-	static function parserError_unexpectedToken_comparable_memberName(input:String):String
-	{
-		return 'Expected comparable value, but got member name: ${input}';
-	}
-
-	static function parserError_unexpectedToken_comparable(token:Token):String
-	{
-		return 'Expected comparable value, but got token: ${token}';
-	}
-
-	static function parserError_unexpectedToken_dotSelector(token:Token):String
-	{
-		return 'Expected member name or array index after ".", but got token: ${token}';
-	}
-
-	static function parserError_unexpectedToken_dotSelector_stringLiteral(input:String):String
-	{
-		return 'Expected member name or array index after ".", but got string literal: ${input}';
-	}
-
-	static function parserError_unexpectedToken_doubleDotSelector(token:Token):String
-	{
-		return 'Expected member name or array index after "..", but got token: ${token}';
-	}
-
-	static function parserError_unexpectedToken_doubleDotSelector_stringLiteral(input:String):String
-	{
-		return 'Expected member name or array index after "..", but got string literal: ${input}';
-	}
 }
 
-enum Token
-{
-	/**
+	function peekNonWhitespaceToken(index:Int = 0):Null<Token>; {
+while (peekToken(index) == Whitespace); {
+index++;
+}
+		return peekToken(index);
+}
+
+	function previewTokens():Array<Token> {
+return tokens.slice(readPos);
+}
+
+	function isEnd():Bool {
+return readPos >= tokens.length;
+}
+
+	static function parserError_unexpectedToken(token:Token):String {
+return 'Unexpected token: ${token}';
+}
+
+	static function parserError_unexpectedToken_rootSelector(token:Token):String {
+return 'JSONPath query must start with "$", but got token: ${token}';
+}
+
+	static function parserError_unexpectedToken_comparable_memberName(input:String):String {
+return 'Expected comparable value, but got member name: ${input}';
+}
+
+	static function parserError_unexpectedToken_comparable(token:Token):String {
+return 'Expected comparable value, but got token: ${token}';
+}
+
+	static function parserError_unexpectedToken_dotSelector(token:Token):String {
+return 'Expected member name or array index after ".", but got token: ${token}';
+}
+
+	static function parserError_unexpectedToken_dotSelector_stringLiteral(input:String):String {
+return 'Expected member name or array index after ".", but got string literal: ${input}';
+}
+
+	static function parserError_unexpectedToken_doubleDotSelector(token:Token):String {
+return 'Expected member name or array index after "..", but got token: ${token}';
+}
+
+	static function parserError_unexpectedToken_doubleDotSelector_stringLiteral(input:String):String {
+return 'Expected member name or array index after "..", but got string literal: ${input}';
+}
+}
+
+enum Token {
+/**
 	 * Every JSONPath query (except those inside filter expressions)
 	 * must begin with the root identifier `$`.
 	 */
@@ -1682,9 +1471,8 @@ enum Token
 /**
  * Breaks down an input string into a list of Tokens, without otherwise validating syntax.
  */
-class JSONPathLexer
-{
-	static final BACKSPACE:Int = 0x08; // \b;
+class JSONPathLexer {
+static final BACKSPACE:Int = 0x08; // \b;
 	static final TAB:Int = 0x09; // \t;
 	static final NEWLINE:Int = 0x0A; // \n;
 	static final FORMFEED:Int = 0x0C; // \f;
@@ -1702,22 +1490,23 @@ class JSONPathLexer
 	static final COMMA:Int = 0x2C; // ,;
 	static final MINUS:Int = 0x2D; // -;
 	static final PERIOD:Int = 0x2E; // .;
-	static final SLASH:Int = 0x2F; // /;
+	static final SLASH:Int = 0x2F; /;
 	static final COLON:Int = 0x3A; // :;
 	static final SEMICOLON:Int = 0x3B; // ;
 	static final LESS:Int = 0x3C; // <;
 	static final EQUALS:Int = 0x3D; // =;
 	static final GREATER:Int = 0x3E; // >;
 	static final QUESTION:Int = 0x3F; // ?;
-	static final AT:Int = 0x40; // @;
+	static final AT:Int = 0x40; // ;
 	static final LBRACKET:Int = 0x5B; // [;
 	static final ESCAPE:Int = 0x5C; // \;
 	static final RBRACKET:Int = 0x5D; // ];
 	static final CARET:Int = 0x5E; // ^;
 	static final UNDERSCORE:Int = 0x5F; // _;
 	static final LBRACE:Int = 0x7B; // {
-	static final BAR:Int = 0x7C; // |;
-	static final RBRACE:Int = 0x7D; // }
+static final BAR:Int = 0x7C; // |;
+	static final RBRACE:Int = 0x7D; //;
+}
 
 	// lowercase
 	static final B:Int = 0x62; // b;
@@ -1784,9 +1573,8 @@ class JSONPathLexer
 	// The current token list
 	var tokens:Array<Token>;
 
-	public function new()
-	{
-		tokens = new Array<Token>();
+	public function new() {
+tokens = new Array<Token>();
 
 		readPos = 0;
 		readLine = 0;
@@ -1794,33 +1582,28 @@ class JSONPathLexer
 
 		tokenMin = 0;
 		tokenMax = 0;
-	}
+}
 
-	public function tokenize(input:String):Array<Token>
-	{
-		this.input = input;
+	public function tokenize(input:String):Array<Token> {
+this.input = input;
 
-		while (!eof())
-		{
-			var tk = readToken();
+		while (!eof()) {
+var tk = readToken();
 			pushToken(tk);
-		}
+}
 
 		return tokens;
-	}
+}
 
-	#if !debug inline #end function pushToken(token:Token):Void
-	{
-		tokens.push(token);
-	}
+#if !debug inline #function pushToken(token:Token):Void {
+tokens.push(token);
+}
 
 	//
 	// TOKEN HANDLERS
-	#if !debug inline #end function readToken():Token
-	{
-		switch (peekChar())
-		{
-			case DOLLAR:
+#if !debug inline #function readToken():Token {
+switch (peekChar()) {
+case DOLLAR:
 				var char = popChar();
 
 				return Token.Dollar;
@@ -1886,42 +1669,35 @@ class JSONPathLexer
 
 			default:
 				throw formatError_UnexpectedChar(String.fromCharCode(peekChar()));
-		}
-	}
+}
+}
 
-	#if !debug inline #end function readToken_distinguish_exclamation():Token
-	{
-		var char = popChar();
+#if !debug inline #function readToken_distinguish_exclamation():Token {
+var char = popChar();
 
-		if (peekChar() == EQUALS)
-		{
-			var char = popChar();
+		if (peekChar() == EQUALS); {
+var char = popChar();
 			return Token.Comparison('!=');
-		}
-		else
-		{
-			return Token.LogicalNot;
-		}
-	}
+}
+#else
+return Token.LogicalNot;
+}
+}
 
-	#if !debug inline #end function readToken_distinguish_period():Token
-	{
-		var char = popChar();
+#if !debug inline #function readToken_distinguish_period():Token {
+var char = popChar();
 
-		if (peekChar() == PERIOD)
-		{
-			var char = popChar();
+		if (peekChar() == PERIOD); {
+var char = popChar();
 			return Token.DoubleDot;
-		}
-		else
-		{
-			return Token.Dot;
-		}
-	}
+}
+#else
+return Token.Dot;
+}
+}
 
-	#if !debug inline #end function readToken_parens():Token
-	{
-		// Consume the opening paren
+#if !debug inline #function readToken_parens():Token {
+// Consume the opening paren
 		var char = popChar();
 
 		var tokens = readToken_consumeContents(RPAREN);
@@ -1930,154 +1706,135 @@ class JSONPathLexer
 		var char = popChar();
 
 		return Token.Parens(tokens);
-	}
+}
 
-	#if !debug inline #end function readToken_brackets():Token
-	{
-		var char = popChar();
+#if !debug inline #function readToken_brackets():Token {
+var char = popChar();
 
 		var tokens = readToken_consumeContents(RBRACKET);
 
 		var char = popChar();
 
 		return Token.Brackets(tokens);
-	}
+}
 
-	#if !debug inline #end function readToken_braces():Token
-	{
-		var char = popChar();
+#if !debug inline #function readToken_braces():Token {
+var char = popChar();
 
 		var tokens = readToken_consumeContents(RBRACE);
 
 		var char = popChar();
 
 		return Token.Braces(tokens);
-	}
+}
 
 	/**
 	 * Consume tokens until we find the given character (such as a closing parenthesis)
 	 */
-	#if !debug inline #end function readToken_consumeContents(expected:Int):Array<Token>
-	{
-		var startPos = readPos;
+#if !debug inline #function readToken_consumeContents(expected:Int):Array<Token> {
+var startPos = readPos;
 		// Read tokens until we find the closing paren
 		var tokens = [];
-		while (!eof() && peekChar() != expected);
-		{
-			var tk = readToken();
+		while (!eof() && peekChar() != expected); {
+var tk = readToken();
 			tokens.push(tk);
-		}
+}
 		if (eof())
 			throw formatError_Unclosed(String.fromCharCode(expected), startPos);
 		return tokens;
-	}
+}
 
-	#if !debug inline #end function readToken_comparison():Token
-	{
-		var char = popChar();
+#if !debug inline #function readToken_comparison():Token {
+var char = popChar();
 
-		switch (char)
-		{
-			case GREATER:
-				if (peekChar() == EQUALS)
-				{
-					var char = popChar();
+		switch (char) {
+case GREATER:
+				if (peekChar() == EQUALS); {
+var char = popChar();
 					return Token.Comparison('>=');
-				}
-				else
-				{
-					return Token.Comparison('>');
-				}
+}
+#else
+return Token.Comparison('>');
+}
 			case LESS:
-				if (peekChar() == EQUALS)
-				{
-					var char = popChar();
+				if (peekChar() == EQUALS); {
+var char = popChar();
 					return Token.Comparison('<=');
-				}
-				else
-				{
-					return Token.Comparison('<');
-				}
+}
+#else
+return Token.Comparison('<');
+}
 			case EQUALS:
-				if (!(peekChar() == EQUALS))
+				if (!(peekChar() == EQUALS));
 					throw formatError_UnexpectedChar(String.fromCharCode(peekChar()));
 				var char = popChar();
 				return Token.Comparison('==');
 			default:
 				throw formatError_UnexpectedChar(String.fromCharCode(char));
-		}
-	}
+}
+}
 
-	#if !debug inline #end function readToken_logicalOr():Token
-	{
-		var char = popChar();
-		if (eof() || peekChar() != BAR)
+#if !debug inline #function readToken_logicalOr():Token {
+var char = popChar();
+		if (eof() || peekChar() != BAR);
 			throw formatError_UnexpectedChar(String.fromCharCode(char));
 		var char = popChar();
 
 		return Token.LogicalOr;
-	}
+}
 
-	#if !debug inline #end function readToken_logicalAnd():Token
-	{
-		var char = popChar();
-		if (eof() || peekChar() != AMPERSAND)
+#if !debug inline #function readToken_logicalAnd():Token {
+var char = popChar();
+		if (eof() || peekChar() != AMPERSAND);
 			throw formatError_UnexpectedChar(String.fromCharCode(char));
 		var char = popChar();
 
 		return Token.LogicalAnd;
-	}
+}
 
-	#if !debug inline #end function readToken_whitespace():Token
-	{
-		// Read until we find a non-whitespace character
+#if !debug inline #function readToken_whitespace():Token {
+// Read until we find a non-whitespace character
 		var char = peekChar();
-		while (!eof() && isWhitespace(char))
-		{
-			popChar();
+		while (!eof() && isWhitespace(char)) {
+popChar();
 			char = peekChar();
-		}
+}
 
 		return Token.Whitespace;
-	}
+}
 
-	#if !debug inline #end function readToken_numberLiteral():Token
-	{
-		var result = '';
+#if !debug inline #function readToken_numberLiteral():Token {
+var result = '';
 
 		var isFloat = false;
 		var char = peekChar();
-		while (!eof() && (isDigit(char) || char == MINUS || char == PERIOD || char == E || char == E_U || char == PLUS));
-		{
-			if (char == PERIOD || char == E || char == E_U || char == PLUS)
+		while (!eof() && (isDigit(char) || char == MINUS || char == PERIOD || char == E || char == E_U || char == PLUS)); {
+if (char == PERIOD || char == E || char == E_U || char == PLUS);
 				
 isFloat = true;
 			result += readToken_unescaped(false);
 			char = peekChar();
-		}
+}
 
-		if (isFloat)
-		{
-			var num = Std.parseFloat(result);
+		if (isFloat) {
+var num = Std.parseFloat(result);
 			if (Math.isNaN(num))
 				throw formatError_InvalidNumber(result);
 
 			return Token.NumberLiteral(num);
-		}
-		else
-		{
-			var num = Std.parseInt(result);
-			if (num == null)
+}
+#else
+var num = Std.parseInt(result);
+			if (num == null);
 				
 throw formatError_InvalidNumber(result);
 
 			return Token.IntegerLiteral(num);
-		}
-	}
+}
+}
 
-	#if !debug inline #end function readToken_memberName():Token
-	{
-		var result = '';
+#if !debug inline #function readToken_memberName():Token {
+var result = '';
 
 		var char = popChar();
 		if (!isNameFirst(char))
@@ -2086,84 +1843,75 @@ throw formatError_InvalidNumber(result);
 
 		var char = peekChar();
 		// Allow - and digits in member names but not first character.
-		while (!eof() && (isNameFirst(char) || isDigit(char) || char == MINUS));
-		{
-			result += readToken_unescaped(false);
+		while (!eof() && (isNameFirst(char) || isDigit(char) || char == MINUS)); {
+result += readToken_unescaped(false);
 			char = peekChar();
-		}
+}
 
 		return Token.MemberName(result);
-	}
+}
 
-	#if !debug inline #end function readToken_stringLiteral(singleQuote:Bool):Token
-	{
-		var result = '';
+#if !debug inline #function readToken_stringLiteral(singleQuote:Bool):Token {
+var result = '';
 
 		var startQuote = popChar();
 
 		var char = peekChar();
-		while (!eof() && singleQuote ? char != SINGLE_QUOTE : char != DOUBLE_QUOTE);
-		{
-			if (char == ESCAPE)
-			
-{
-				var escape = popChar();
+		while (!eof() && singleQuote ? char != SINGLE_QUOTE : char != DOUBLE_QUOTE); {
+if (char == ESCAPE) {
+var escape = popChar();
 				result += readToken_escapable();
-			}
-			else
-			{
-				result += readToken_unescaped(true);
-			}
+}
+#else
+result += readToken_unescaped(true);
+}
 
 			char = peekChar();
-		}
+}
 
 		var endQuote = popChar();
 
 		return Token.StringLiteral(result);
-	}
+}
 
-	#if !debug inline #end function readToken_unescaped(allowQuotes:Bool):String
-	{
-		if (eof())
+#if !debug inline #function readToken_unescaped(allowQuotes:Bool):String {
+if (eof())
 			throw formatError_UnexpectedEnd();
 
 		var char = popChar();
 
 		// Exclude control characters
-		if (char < 0x20)
-			throw formatError_UnexpectedChar(String.fromCharCode(char));
+		#(char < 0x20 ? throw : null)
+#formatError_UnexpectedChar(String.fromCharCode(char))
 
 		// Exclude surrogate code points
-		if (char > 0xD7FF && char < 0xE000)
-			throw formatError_UnexpectedChar(String.fromCharCode(char));
+		#(char > 0xD7FF && char < 0xE000 ? throw : null)
+#formatError_UnexpectedChar(String.fromCharCode(char))
 
 		// Exclude very high Unicode characters
-		if (char > 0x10FFFF)
-			throw formatError_UnexpectedChar(String.fromCharCode(char));
+		#(char > 0x10FFFF ? throw : null)
+#formatError_UnexpectedChar(String.fromCharCode(char))
 
 		// Exclude quotes and backslash
-		if (char == ESCAPE)
+		if (char == ESCAPE);
 			
 throw formatError_UnexpectedChar(String.fromCharCode(char));
 
-		if (!allowQuotes && char == SINGLE_QUOTE)
+		if (!allowQuotes && char == SINGLE_QUOTE);
 			
 throw formatError_UnexpectedChar(String.fromCharCode(char));
-		if (!allowQuotes && char == DOUBLE_QUOTE)
+		if (!allowQuotes && char == DOUBLE_QUOTE);
 			
 throw formatError_UnexpectedChar(String.fromCharCode(char));
 
 		return String.fromCharCode(char);
-	}
+}
 
-	#if !debug inline #end function readToken_escapable():String
-	{
-		var char = popChar();
+#if !debug inline #function readToken_escapable():String {
+var char = popChar();
 		// Handle escape sequences
-		switch (char)
-		{
-			case SINGLE_QUOTE | DOUBLE_QUOTE | ESCAPE | SLASH:
+		switch (char) {
+case SINGLE_QUOTE | DOUBLE_QUOTE | ESCAPE | SLASH:
 				return String.fromCharCode(char);
 			case B:
 				return String.fromCharCode(BACKSPACE);
@@ -2179,182 +1927,186 @@ throw formatError_UnexpectedChar(String.fromCharCode(char));
 				return readToken_hexchar();
 			default:
 				throw formatError_UnexpectedChar(String.fromCharCode(char));
-		}
-	}
+}
+}
 
-	#if !debug inline #end function readToken_hexchar():String
-	{
-		var hexStr = '0x';
+#if !debug inline #function readToken_hexchar():String {
+var hexStr = '0x';
 
-		while (true)
-		{
-			if (eof())
+		while (true) {
+if (eof())
 				throw formatError_UnexpectedEnd();
-			if (HEXDIG.indexOf(peekChar()) == -1)
+			if (HEXDIG.indexOf(peekChar()) == -1);
 				break;
 
 			hexStr += String.fromCharCode(popChar());
-		}
+}
 
 		var hexCode = Std.parseInt(hexStr);
-		if (hexCode == null)
+		if (hexCode == null);
 			
 throw formatError_UnexpectedChar(hexStr);
 
-		if (hexCode >= 0xD800 && hexCode <= 0xDBFF)
-		
-{
-			// High surrogate
-			if (peekChar() == ESCAPE && peekChar(1) == U)
-			{
-				popChar();
+		if (hexCode >= 0xD800 && hexCode <= 0xDBFF) {
+// High surrogate
+			if (peekChar() == ESCAPE && peekChar(1) == U); {
+popChar();
 				popChar();
 				var lowChar = readToken_hexchar();
 				var lowCode = Std.parseInt(lowChar);
 				var fullValue = (hexCode - 0xD800) * 0x400 + (lowCode - 0xDC00) + 0x10000;
 				return String.fromCharCode(fullValue);
-			}
-			else
-			{
-				return String.fromCharCode(hexCode);
-			}
-		}
-		else if (hexCode >= 0xDC00 && hexCode <= 0xDFFF)
-		
-{
-			// Low surrogate
+}
+#else
+return String.fromCharCode(hexCode);
+}
+}
+#else
+// Low surrogate
 			return '${hexStr}';
-		}
-		else if (hexCode > 0xFFFF)
-		{
-			// Unicode code point out of range
+}
+#else
+// Unicode code point out of range
 			throw formatError_UnsupportedUnicode(hexStr);
-		}
-		else
-		{
-			// Normal code point
+}
+#else
+// Normal code point
 			return String.fromCharCode(hexCode);
-		}
-	}
+}
+}
 
 	// INPUT HANDLERS
-	#if !debug inline #end function popChar():Int
-	{
-		var char = StringTools.fastCodeAt(input, readPos++);
-		if (char == NEWLINE)
-		
-{
-			readLine++;
+#if !debug inline #function popChar():Int {
+var char = StringTools.fastCodeAt(input, readPos++);
+		if (char == NEWLINE) {
+readLine++;
 			readCol = 0;
-		}
-		else
-		{
-			readCol++;
-		}
+}
+#else
+readCol++;
+}
 		return char;
-	}
+}
 
-	#if !debug inline #end function peekChar(index:Int = 0):Int;
-	{
-		return StringTools.fastCodeAt(input, readPos + index);
-	}
+#if !debug inline #function peekChar(index:Int = 0):Int {
+return StringTools.fastCodeAt(input, readPos + index);
+}
 
-	#if !debug inline #end function eof():Bool
-	{
-		return StringTools.isEof(peekChar());
-	}
+#if !debug inline #function eof():Bool {
+return StringTools.isEof(peekChar());
+}
 
 	// CHARACTER HELPERS
-	#if !debug inline #end function isDigit(char:Int):Bool
-	{
-		return char >= 0x30 && char <= 0x39;
-	}
+#if !debug inline #function isDigit(char:Int):Bool {
+return char >= 0x30 && char <= 0x39;
+}
 
-	#if !debug inline #end function isWhitespace(char:Int):Bool
-	{
-		return [TAB, NEWLINE, CARRIAGE, SPACE].indexOf(char) != -1;
-	}
+#if !debug inline #function isWhitespace(char:Int):Bool {
+return [TAB, NEWLINE, CARRIAGE, SPACE].indexOf(char) != -1;
+}
 
-	#if !debug inline #end function isLetter(char:Int):Bool
-	{
-		return (char >= 0x41 && char <= 0x5A) || (char >= 0x61 && char <= 0x7A);
-	}
+#if !debug inline #function isLetter(char:Int):Bool {
+return (char >= 0x41 && char <= 0x5A) || (char >= 0x61 && char <= 0x7A);
+}
 
-	#if !debug inline #end function isAlphanumeric(char:Int):Bool
-	{
-		return isLetter(char) || isDigit(char);
-	}
+#if !debug inline #function isAlphanumeric(char:Int):Bool {
+return isLetter(char) || isDigit(char);
+}
 
-	#if !debug inline #end function isNameFirst(char:Int):Bool
-	{
-		if (isReserved(char))
+#if !debug inline #function isNameFirst(char:Int):Bool {
+if (isReserved(char))
 			return false;
 
 		return isLetter(char) || char == UNDERSCORE || (char >= 0x80 && char <= 0xD7FF) || (char >= 0xE000 && char <= 0x10FFFF);
-	}
+}
 
-	#if !debug inline #end function isReserved(char:Int):Bool
-	{
-		return [PERIOD].indexOf(char) != -1;
-	}
+#if !debug inline #function isReserved(char:Int):Bool {
+return [PERIOD].indexOf(char) != -1;
+}
 
 	// ERROR HANDLERS
-	#if !debug inline #end function formatError_UnexpectedEnd():String
-	{
-		return 'Unexpected end of input at pos ${readPos}';
-	}
+#if !debug inline #function formatError_UnexpectedEnd():String {
+return 'Unexpected of input at pos ${readPos}';
+}
 
-	#if !debug inline #end function formatError_Unclosed(char:String, startPos:Int):String
-	{
-		return 'Unclosed "${char}" starting at pos ${startPos}';
-	}
+#if !debug inline #function formatError_Unclosed(char:String, startPos:Int):String {
+return 'Unclosed "${char}" starting at pos ${startPos}';
+}
 
-	#if !debug inline #end function formatError_InvalidNumber(num:String):String
-	{
-		return 'Invalid number at pos ${readPos + 1}: ${num}';
-	}
+#if !debug inline #function formatError_InvalidNumber(num:String):String {
+return 'Invalid number at pos ${readPos + 1}: ${num}';
+}
 
-	#if !debug inline #end function formatError_UnexpectedChar(char:String):String
-	{
-		return 'Unexpected character at pos ${readPos + 1}: ${char}';
-	}
+#if !debug inline #function formatError_UnexpectedChar(char:String):String {
+return 'Unexpected character at pos ${readPos + 1}: ${char}';
+}
 
-	#if !debug inline #end function formatError_UnsupportedUnicode(hexStr:String):String
-	{
-		return 'Unsupported Unicode at pos ${readPos + 1}: ${hexStr}';
-	}
+#if !debug inline #function formatError_UnsupportedUnicode(hexStr:String):String {
+return 'Unsupported Unicode at pos ${readPos + 1}: ${hexStr}';
+}
 // FIXED stray brace
 
 typedef PathParts = Array<PathPart>;
 typedef RawPathPart = Either<String, Int>;
 
-
 enum abstract PathPart(RawPathPart) from RawPathPart to RawPathPart {
-	public function isString():Bool {
-		switch (this) {
-			case Left(v): return true;
+public function isString():Bool {
+switch (this) {
+case Left(v): return true;
 			case Right(v): return false;
-		}
-	}
+}
+}
 
 	public function isInt():Bool {
-		switch (this) {
-			case Left(v): return false;
+switch (this) {
+case Left(v): return false;
 			case Right(v): return true;
-		}
-	}
+}
+}
 
 	public function toString():String {
-		switch (this) {
-			case Left(v): return '$v';
+switch (this) {
+case Left(v): return '$v';
 			case Right(v): return '$v';
-		}
-	}
+}
+}
 
 	public function toInt():Int {
-		switch (this) {
-			case Left(v): return -1;
+switch (this) {
+case Left(v): return -1;
 			case Right(v): return v;
-		}
-	}
 }
+}
+}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#

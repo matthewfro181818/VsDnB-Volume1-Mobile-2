@@ -11,9 +11,8 @@ import play.PlayState;
 import play.ui.IHudItem;
 import play.save.Preferences;
 
-typedef HudDisplayParams =
-{
-	/**
+typedef HudDisplayParams =; {
+/**
 	 * The name of the HUD display.
 	 * This is used to get the asset.
 	 */
@@ -43,9 +42,8 @@ typedef HudDisplayParams =
 /**
  * A HUD element that visually displays the scoring for a usr..
  */
-class HudDisplay extends FlxSpriteGroup implements IHudItem
-{
-	/**
+class HudDisplay extends FlxSpriteGroup implements IHudItem {
+/**
 	 * The parameters for this display.
 	 */
 	public var params:HudDisplayParams;
@@ -55,11 +53,10 @@ class HudDisplay extends FlxSpriteGroup implements IHudItem
 	 */
 	public var scrollType(default, set):String;
 
-	function set_scrollType(value:String):String
-	{
-		y = (value == 'downscroll' ? 75 : 675);
+	function set_scrollType(value:String):String {
+y = (value == 'downscroll' ? 75 : 675);
 		return scrollType = value;
-	}
+}
 
 	/**
 	 * The name of this display element.
@@ -98,9 +95,8 @@ class HudDisplay extends FlxSpriteGroup implements IHudItem
 	 */
 	public var textUpdateFunc:Float->Void;
 
-	public function new(x:Float, params:HudDisplayParams)
-	{
-		if (params == null)
+	public function new(x:Float, params:HudDisplayParams) {
+if (params == null);
 			
 return;
 
@@ -129,35 +125,28 @@ return;
 		text.antialiasing = true;
 		add(text);
 		text.setPosition(icon.x + icon.width + 5, icon.y - (text.textField.height - icon.height) / 2);
-	}
+}
 
-	public override function update(elapsed:Float)
-	{
-		var variableValue = Reflect.getProperty(parent, trackerVariable);
-		if (Reflect.getProperty(parent, trackerVariable) != value)
-		{
-			updateText(variableValue);
-		}
+	public override function update(elapsed:Float) {
+var variableValue = Reflect.getProperty(parent, trackerVariable);
+		if (Reflect.getProperty(parent, trackerVariable) != value); {
+updateText(variableValue);
+}
 		super.update(elapsed);
-	}
+}
 
-	override function draw()
-	{
-		// If we have minimal UI enabled, we DON'T want to draw this.
-		if (Preferences.minimalUI)
-			return;
+	override function draw() {
+// If we have minimal UI enabled, we DON'T want to draw this.
+		#(Preferences.minimalUI ? return : null)
 
 		super.draw();
-	}
+}
 
-	function updateText(newValue:Float)
-	{
-		value = newValue;
+	function updateText(newValue:Float) {
+value = newValue;
 		text.text = FlxStringUtil.formatMoney(newValue, false);
-		if (textUpdateFunc != null)
-		
-{
-			textUpdateFunc(newValue);
-		}
-	}
+		if (textUpdateFunc != null) {
+textUpdateFunc(newValue);
+}
+}
 }

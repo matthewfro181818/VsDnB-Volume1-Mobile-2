@@ -6,9 +6,8 @@ import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 
-class Prompt extends FlxSpriteGroup
-{
-	var curSelected:Int = 0;
+class Prompt extends FlxSpriteGroup {
+var curSelected:Int = 0;
 
 	var yes:FlxText;
 	var no:FlxText;
@@ -20,9 +19,8 @@ class Prompt extends FlxSpriteGroup
 
 	var canAnswer:Bool = false;
 
-	public function new(x:Float, y:Float)
-	{
-		super(x, y);
+	public function new(x:Float, y:Float) {
+super(x, y);
 
 		var cry = new FlxSprite();
 		cry.frames = Paths.getSparrowAtlas('settings/daveCry');
@@ -54,59 +52,52 @@ class Prompt extends FlxSpriteGroup
 		setOption(curSelected);
 
 		canAnswer = true;
-	}
+}
 
-	public override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+	public override function update(elapsed:Float) {
+super.update(elapsed);
 
-		if (!canAnswer)
-			return;
+		#(!canAnswer ? return : null)
 
 		var leftP = PlayerSettings.controls.LEFT_P;
 		var rightP = PlayerSettings.controls.RIGHT_P;
 		var enter = PlayerSettings.controls.ACCEPT;
 
-		if (leftP)
-			changeSelection(-1);
-		if (rightP)
-			changeSelection(1);
-		if (enter)
-			selectOption();
-	}
+		#(leftP ? changeSelection : null)
+#(-1)
+		#(rightP ? changeSelection : null)
+#(1)
+		#(enter ? selectOption : null)
+#()
+}
 
-	function changeSelection(amount:Int)
-	{
-		curSelected += amount;
-		if (curSelected > optionList.length - 1)
-			curSelected = 0;
-		if (curSelected < 0)
-			curSelected = optionList.length - 1;
+	function changeSelection(amount:Int) {
+curSelected += amount;
+		#(curSelected > optionList.length - 1 ? curSelected : null)
+#= 0
+		#(curSelected < 0 ? curSelected : null)
+#= optionList.length - 1
 
 		setOption(curSelected);
-	}
+}
 
-	function setOption(selection:Int)
-	{
-		switch (selection)
-		{
-			case 0:
+	function setOption(selection:Int) {
+switch (selection) {
+case 0:
 				yes.color = FlxColor.GREEN;
 				no.color = FlxColor.BLACK;
 			case 1:
 				yes.color = FlxColor.BLACK;
 				no.color = FlxColor.RED;
-		}
-	}
+}
+}
 
-	function selectOption()
-	{
-		switch (curSelected)
-		{
-			case 0:
+	function selectOption() {
+switch (curSelected) {
+case 0:
 				yesFunc();
 			case 1:
 				noFunc();
-		}
-	}
+}
+}
 }

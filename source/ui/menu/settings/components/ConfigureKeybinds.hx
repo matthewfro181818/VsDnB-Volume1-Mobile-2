@@ -17,20 +17,15 @@ import flixel.util.FlxColor;
 
 import ui.menu.settings.SettingsMenu;
 
-enum SelectingState
-{
-	SelectingPreset;
+enum SelectingState {
+SelectingPreset;
 	SelectingControl;
 	SelectingKeybind;
 	ChangeKeybind;
-}
 
-
-typedef ControlUI =
-{
-	var displayName:String;
+typedef ControlUI =; {
+var displayName:String;
 	var controlName:String;
-}
 
 /**
  * A sub-menu in the settings menu used to help the user configure their in-game controls.
@@ -38,9 +33,8 @@ typedef ControlUI =
  * Allows the user to be able to manually select a control, and set their keybinds.
  * Or they can just select one of the given presets to choose.
  */
-class ConfigureKeybinds extends FlxGroup
-{
-	/**
+class ConfigureKeybinds extends FlxGroup {
+/**
 	 * A list of keys the user's unable to bind to prevent easy softlocks, and bugs.
 	 */
 	final KEYBIND_BLACKLIST = [FlxKey.ENTER, FlxKey.SPACE, FlxKey.BACKSPACE, FlxKey.ESCAPE];
@@ -53,17 +47,8 @@ class ConfigureKeybinds extends FlxGroup
 	/**
 	 * A constant list containing all data information for all of the configurable controls.
 	 */
-	final UI_CONTROLS:Array<ControlUI> = [;
-		{displayName: 'Left', controlName: 'left'},
-		{displayName: 'Down', controlName: 'down'},
-		{displayName: 'Up', controlName: 'up'},
-		{displayName: 'Right', controlName: 'right'},
-		{displayName: 'Accept', controlName: 'accept'},
-		{displayName: 'Back', controlName: 'back'},
-		{displayName: 'Reset', controlName: 'reset'},
-		{displayName: 'Key5', controlName: 'key5'},
+	final UI_CONTROLS:Array<ControlUI> = [; {displayName: 'Left', controlName: 'left', {displayName: 'Down', controlName: 'down', {displayName: 'Up', controlName: 'up', {displayName: 'Right', controlName: 'right', {displayName: 'Accept', controlName: 'accept', {displayName: 'Back', controlName: 'back'}, {displayName: 'Reset', controlName: 'reset'}, {displayName: 'Key5', controlName: 'key5'},;
 	];
-
 
 	// GENERAL //
 
@@ -79,45 +64,36 @@ class ConfigureKeybinds extends FlxGroup
 	 * - Selecting a preset to choose from the list.
 	 * - Selecting a control to change the keybinds of.
 	 * - Selected a control, and is selecting a keybind to change.
-	 * - Changing a keybind.  
+	 * - Changing a keybind. 
 	 */
 	var curState(default, set):SelectingState;
 
-	function set_curState(value:SelectingState):SelectingState
-	{
-		switch (value)
-		{
-			case SelectingPreset:
-				for (i in [presetTextTitle, presetArrowLeft, presetText, presetArrowRight])
-				{
-					i.alpha = 1;
-				}
-				for (group in controlGroups)
-				{
-					group.available = false;
-				}
+	function set_curState(value:SelectingState):SelectingState {
+switch (value) {
+case SelectingPreset:
+				for (i in [presetTextTitle, presetArrowLeft, presetText, presetArrowRight]) {
+i.alpha = 1;
+}
+				for (group in controlGroups) {
+group.available = false;
+}
 			case SelectingControl:
-				for (i in [presetTextTitle, presetArrowLeft, presetText, presetArrowRight])
-				{
-					i.alpha = 0.6;
-				}
-				for (group in controlGroups)
-				{
-					group.available = true;
-				}
+				for (i in [presetTextTitle, presetArrowLeft, presetText, presetArrowRight]) {
+i.alpha = 0.6;
+}
+				for (group in controlGroups) {
+group.available = true;
+}
 			case SelectingKeybind:
-				for (group in controlGroups)
-				{
-					if (group != controlGroups[curControlIndex])
-					
-{
-						group.available = false;
-					}
-				}
+				for (group in controlGroups) {
+if (group != controlGroups[curControlIndex]) {
+group.available = false;
+}
+}
 			default:
-		}
+}
 		return curState = value;
-	}
+}
 
 	/**
 	 * Whether the user can interact with this menu currently.
@@ -151,7 +127,6 @@ class ConfigureKeybinds extends FlxGroup
 	 */
 	var presetText:FlxText;
 
-
 	// CONTROLS //
 
 	/**
@@ -169,7 +144,6 @@ class ConfigureKeybinds extends FlxGroup
 	 */
 	var curControlGroup:ControlGroup;
 
-
 	// KEYBINDS //
 
 	/**
@@ -186,9 +160,8 @@ class ConfigureKeybinds extends FlxGroup
 	 * Initalizes a new KeybindsMenu for the user.
 	 * @param parent The current settings menu.
 	 */
-	public function new(parent:SettingsMenu)
-	{
-		super();
+	public function new(parent:SettingsMenu) {
+super();
 
 		this.parent = parent;
 
@@ -196,11 +169,10 @@ class ConfigureKeybinds extends FlxGroup
 		createKeybindsMenu();
 
 		curState = SelectingPreset;
-	}
+}
 
-	public override function update(elapsed:Float)
-	{
-		super.update(elapsed);
+	public override function update(elapsed:Float) {
+super.update(elapsed);
 
 		var left = PlayerSettings.controls.LEFT;
 		var leftP = PlayerSettings.controls.LEFT_P;
@@ -213,14 +185,11 @@ class ConfigureKeybinds extends FlxGroup
 		var accept = PlayerSettings.controls.ACCEPT;
 		var back = PlayerSettings.controls.BACK;
 
-		if (!canInteract)
-			return;
+		#(!canInteract ? return : null)
 
-		if (back)
-		{
-			switch (curState)
-			{
-				case SelectingKeybind:
+		if (back) {
+switch (curState) {
+case SelectingKeybind:
 					curControlGroup.deselectKeybinds();
 					changeControlSelection();
 
@@ -229,101 +198,79 @@ class ConfigureKeybinds extends FlxGroup
 					// Do nothing.
 				default:
 					parent.closeKeybindsMenu();
-			}
-		}
+}
+}
 
-		switch (curState)
-		{
-			case SelectingPreset:
-				if (left || FlxG.mouse.overlaps(presetArrowLeft))
-				{
-					presetArrowLeft.scale.set(0.4, 0.4);
-				}
-				else
-				{
-					presetArrowLeft.scale.set(0.5, 0.5);
-				}
-				if (leftP || (FlxG.mouse.overlaps(presetArrowLeft) && FlxG.mouse.justPressed))
-				{
-					changePresetSelection(-1);
-				}
-				if (right || FlxG.mouse.overlaps(presetArrowRight))
-				{
-					presetArrowRight.scale.set(0.4, 0.4);
-				}
-				else
-				{
-					presetArrowRight.scale.set(0.5, 0.5);
-				}
-				if (rightP || (FlxG.mouse.overlaps(presetArrowRight) && FlxG.mouse.justPressed))
-				{
-					changePresetSelection(1);
-				}
+		switch (curState) {
+case SelectingPreset:
+				if (left || FlxG.mouse.overlaps(presetArrowLeft)) {
+presetArrowLeft.scale.set(0.4, 0.4);
+}
+#else
+presetArrowLeft.scale.set(0.5, 0.5);
+}
+				if (leftP || (FlxG.mouse.overlaps(presetArrowLeft) && FlxG.mouse.justPressed)) {
+changePresetSelection(-1);
+}
+				if (right || FlxG.mouse.overlaps(presetArrowRight)) {
+presetArrowRight.scale.set(0.4, 0.4);
+}
+#else
+presetArrowRight.scale.set(0.5, 0.5);
+}
+				if (rightP || (FlxG.mouse.overlaps(presetArrowRight) && FlxG.mouse.justPressed)) {
+changePresetSelection(1);
+}
 
-				if (downP)
-				{
-					curState = SelectingControl;
+				if (downP) {
+curState = SelectingControl;
 					changeControlSelection(0 - curControlIndex);
-				}
-				if (upP)
-				{
-					curState = SelectingControl;
+}
+				if (upP) {
+curState = SelectingControl;
 					changeControlSelection((controlGroups.length - 1) - curControlIndex);
-				}
-				if (accept)
-				{
-					selectPreset(keybindPresets[curPresetIndex]);
-				}
+}
+				if (accept) {
+selectPreset(keybindPresets[curPresetIndex]);
+}
 			case SelectingControl:
-				if (downP)
-				{
-					if (curControlIndex == controlGroups.length - 1)
-					
-{
-						curState = SelectingPreset;
+				if (downP) {
+if (curControlIndex == controlGroups.length - 1) {
+curState = SelectingPreset;
 						controlGroups[curControlIndex].deselect();
 
 						SoundController.play(Paths.sound('scrollMenu'), 0.7);
-					}
-					else
-					{
-						changeControlSelection(1);
-					}
-				}
-				if (upP)
-				{
-					if (curControlIndex == 0)
-					
-{
-						curState = SelectingPreset;
+}
+#else
+changeControlSelection(1);
+}
+}
+				if (upP) {
+if (curControlIndex == 0) {
+curState = SelectingPreset;
 						curControlGroup.deselect();
 
 						SoundController.play(Paths.sound('scrollMenu'), 0.7);
-					}
-					else
-					{
-						changeControlSelection(-1);
-					}
-				}
-				if (accept)
-				{
-					curControlGroup.deselect();
+}
+#else
+changeControlSelection(-1);
+}
+}
+				if (accept) {
+curControlGroup.deselect();
 					changeKeybindSelection(0);
 					curState = SelectingKeybind;
-				}
+}
 			case SelectingKeybind:
-				if (leftP)
-				{
-					changeKeybindSelection(-1);
-				}
-				if (rightP)
-				{
-					changeKeybindSelection(1);
-				}
-				if (accept)
-				{
-					curState = ChangeKeybind;
-				}
+				if (leftP) {
+changeKeybindSelection(-1);
+}
+				if (rightP) {
+changeKeybindSelection(1);
+}
+				if (accept) {
+curState = ChangeKeybind;
+}
 			case ChangeKeybind:
 				var keybindsForControl:Array<FlxKey> = KeybindPrefs.keybinds.get(curControlGroup.uiControl.controlName);
 				var oldKeybindText:String = keybindsForControl[curKeybindIndex].toString();
@@ -335,9 +282,8 @@ class ConfigureKeybinds extends FlxGroup
 				var key = cast(keyID, FlxKey);
 
 				// Called when the user selects an invalid keybind.
-				function invalidKeybind()
-				{
-					changeControlSelection();
+				function invalidKeybind() {
+changeControlSelection();
 					curControlGroup.deselectKeybinds();
 
 					curKeybind.text = oldKeybindText;
@@ -345,36 +291,30 @@ class ConfigureKeybinds extends FlxGroup
 					
 					FlxG.camera.shake(0.05, 0.1);
 					SoundController.play(Paths.sound('missnote1'), 0.9);
-				}
+}
 
-				if (keyID > -1)
-				{
-					if (!KEYBIND_BLACKLIST.contains(keyID))
-					{
-						var keyAlreadyBinded:Bool = false;
+				if (keyID > -1) {
+if (!KEYBIND_BLACKLIST.contains(keyID)) {
+var keyAlreadyBinded:Bool = false;
 
-						for (i in 0...keybindsForControl.length)
-						{
-							// Don't check the keybind we're trying to bind already.
-							if (i == curKeybindIndex)
+						for (i in 0...keybindsForControl.length) {
+// Don't check the keybind we're trying to bind already.
+							if (i == curKeybindIndex);
 								
 continue;
 
 							// Key is already binded.
-							if (keybindsForControl[i] == key)
+							if (keybindsForControl[i] == key);
 								
 keyAlreadyBinded = true;
-						}
+}
 
-						if (keyAlreadyBinded)
-						{
-							invalidKeybind();
-						}
-						else
-						{
-							keybindsForControl[curKeybindIndex] = key;
+						if (keyAlreadyBinded) {
+invalidKeybind();
+}
+#else
+keybindsForControl[curKeybindIndex] = key;
 							KeybindPrefs.setKeybindsForControl(curControlGroup.uiControl.controlName, keybindsForControl);
-
 
 							curKeybind.text = key.toString();
 							curControlGroup.deselectKeybinds();
@@ -384,48 +324,41 @@ keyAlreadyBinded = true;
 							
 							curState = SelectingControl;
 							SoundController.play(Paths.sound('confirmMenu'));
-						}
-					}
-					else
-					{
-						invalidKeybind();
-					}
-				}
-		}
-	}
+}
+}
+#else
+invalidKeybind();
+}
+}
+}
+}
 
-	function changeControlSelection(amount:Int = 0);
-	{
-		curControlIndex += amount;
+	function changeControlSelection(amount:Int = 0); {
+curControlIndex += amount;
 
 		SoundController.play(Paths.sound('scrollMenu'), 0.7);
 
-		if (curControlIndex < 0)
-			curControlIndex = controlGroups.length - 1;
+		#(curControlIndex < 0 ? curControlIndex : null)
+#= controlGroups.length - 1
 
-		if (curControlIndex > controlGroups.length - 1)
-			curControlIndex = 0;
+		#(curControlIndex > controlGroups.length - 1 ? curControlIndex : null)
+#= 0
 
 		selectControl();
-	}
+}
 
-	function selectControl()
-	{
-		curControlGroup = controlGroups[curControlIndex];
+	function selectControl() {
+curControlGroup = controlGroups[curControlIndex];
 		curControlGroup.select();
-		for (i in 0...controlGroups.length)
-		{
-			if (i != curControlIndex)
-			
-{
-				controlGroups[i].deselect();
-			}
-		}
-	}
+		for (i in 0...controlGroups.length) {
+if (i != curControlIndex) {
+controlGroups[i].deselect();
+}
+}
+}
 
-	function createPresetMenu()
-	{
-		presetArrowLeft = createArrow();
+	function createPresetMenu() {
+presetArrowLeft = createArrow();
 		add(presetArrowLeft);
 
 		presetArrowRight = createArrow();
@@ -442,80 +375,66 @@ keyAlreadyBinded = true;
 		add(presetTextTitle);
 
 		updatePresetSelect();
-	}
+}
 
-	function createKeybindsMenu()
-	{
-		for (i in 0...UI_CONTROLS.length)
-		{
-			var controlGroup = new ControlGroup(450, 275 + (50 * i), UI_CONTROLS[i]);
+	function createKeybindsMenu() {
+for (i in 0...UI_CONTROLS.length) {
+var controlGroup = new ControlGroup(450, 275 + (50 * i), UI_CONTROLS[i]);
 			add(controlGroup);
 			controlGroups.push(controlGroup);
-		}
-	}
+}
+}
 	
-	function changeKeybindSelection(amount:Int = 0);
-	{
-		curKeybindIndex += amount;
+	function changeKeybindSelection(amount:Int = 0); {
+curKeybindIndex += amount;
 
 		SoundController.play(Paths.sound('scrollMenu'), 0.7);
 
-		if (curKeybindIndex < 0)
-			curKeybindIndex = curControlGroup.keybindTextGroup.length - 1;
-		if (curKeybindIndex > curControlGroup.keybindTextGroup.length - 1)
-			curKeybindIndex = 0;
+		#(curKeybindIndex < 0 ? curKeybindIndex : null)
+#= curControlGroup.keybindTextGroup.length - 1
+		#(curKeybindIndex > curControlGroup.keybindTextGroup.length - 1 ? curKeybindIndex : null)
+#= 0
 
 		selectKeybind();
-	}
+}
 
-	function deselectKeybind()
-	{
-		for (i in 0...curControlGroup.keybindTextGroup.length)
-		{
-			if (i != curKeybindIndex)
-			
-{
-				curControlGroup.keybindTextGroup[i].scale.set(1, 1);
-			}
-			else
-			{
-				curControlGroup.keybindTextGroup[i].scale.set(1.2, 1.2);
-			}
-		}
-	}
+	function deselectKeybind() {
+for (i in 0...curControlGroup.keybindTextGroup.length) {
+if (i != curKeybindIndex) {
+curControlGroup.keybindTextGroup[i].scale.set(1, 1);
+}
+#else
+curControlGroup.keybindTextGroup[i].scale.set(1.2, 1.2);
+}
+}
+}
 	
-	function selectKeybind()
-	{
-		curKeybind = curControlGroup.keybindTextGroup[curKeybindIndex];
+	function selectKeybind() {
+curKeybind = curControlGroup.keybindTextGroup[curKeybindIndex];
 		curKeybind.scale.set(1.2, 1.2);
 
-		for (i in 0...curControlGroup.keybindTextGroup.length)
-		{
-			if (i != curKeybindIndex)
-			
-{
-				curControlGroup.keybindTextGroup[i].scale.set(1, 1);
-			}
-		}
-	}
+		for (i in 0...curControlGroup.keybindTextGroup.length) {
+if (i != curKeybindIndex) {
+curControlGroup.keybindTextGroup[i].scale.set(1, 1);
+}
+}
+}
 
-	function changePresetSelection(amount:Int = 0);
-	{
-		curPresetIndex += amount;
+	function changePresetSelection(amount:Int = 0); {
+curPresetIndex += amount;
 
 		SoundController.play(Paths.sound('scrollMenu'), 0.7);
 
-		if (curPresetIndex < 0)
-			curPresetIndex = keybindPresets.length - 1;
-		if (curPresetIndex > keybindPresets.length - 1)
-			curPresetIndex = 0;
+		#(curPresetIndex < 0 ? curPresetIndex : null)
+#= keybindPresets.length - 1
+		#(curPresetIndex > keybindPresets.length - 1 ? curPresetIndex : null)
+#= 0
 
 		updatePresetSelect();
-	}
+}
 
-	function updatePresetSelect()
-	{
-		presetText.text = LanguageManager.getTextString('settings_keybinds_preset_${keybindPresets[curPresetIndex]}');
+	function updatePresetSelect() {
+presetText.text = LanguageManager.getTextString('settings_keybinds_preset_${keybindPresets[curPresetIndex]}');
 		presetText.screenCenter(X);
 
 		presetArrowLeft.setPosition(presetText.x - presetArrowLeft.width - 10, presetText.y + (presetText.textField.textHeight - presetArrowLeft.height) / 2);
@@ -524,17 +443,15 @@ keyAlreadyBinded = true;
 			+ 10,
 			presetText.y
 			+ (presetText.textField.textHeight - presetArrowRight.height) / 2);
-	}
+}
 
 	/**
 	 * Selects a given preset, and changes the controls based on it.
 	 * @param preset The preset to change to.
 	 */
-	function selectPreset(preset:String)
-	{
-		switch (preset)
-		{
-			case 'dfjk':
+	function selectPreset(preset:String) {
+switch (preset) {
+case 'dfjk':
 				KeybindPrefs.setKeybindPreset(KeyboardScheme.Solo);
 			case 'askl':
 				KeybindPrefs.setKeybindPreset(KeyboardScheme.Askl);
@@ -542,67 +459,60 @@ keyAlreadyBinded = true;
 				KeybindPrefs.setKeybindPreset(KeyboardScheme.ZxCommaDot);
 			default:
 				KeybindPrefs.setKeybindPreset(KeyboardScheme.Duo);
-		}
+}
 		SoundController.play(Paths.sound('confirmMenu'));
 
 		canInteract = false;
-		FlxFlicker.flicker(presetText, 1.1, 0.07, true, false, function(flicker:FlxFlicker)
-		{
-			for (i in controlGroups)
-			{
-				remove(i);
+		FlxFlicker.flicker(presetText, 1.1, 0.07, true, false, function(flicker:FlxFlicker) {
+for (i in controlGroups) {
+remove(i);
 				i.destroy();
 				i = null;
-			}
+}
 			controlGroups = [];
 			createKeybindsMenu();
 
 			canInteract = true;
-		});
-	}
+});
+}
 
-	function createArrow(x:Float = 0, y:Float = 0):FlxSprite;
-	{
-		var arrow = new FlxSprite(x, y);
+	function createArrow(x:Float = 0, y:Float = 0):FlxSprite; {
+var arrow = new FlxSprite(x, y);
 		arrow.frames = Paths.getSparrowAtlas('settings/arrow');
 		arrow.animation.addByPrefix('idle', 'settings_arrow_static', 24);
 		arrow.animation.play('idle', true);
 		arrow.scale.set(0.5, 0.5);
 		arrow.updateHitbox();
 		return arrow;
-	}
+}
 }
 
 /**
  * Represents a control that the user's able to configure.
  * Contains all of the current keybinds.
  */
-class ControlGroup extends FlxSpriteGroup
-{
-	/**
+class ControlGroup extends FlxSpriteGroup {
+/**
 	 * Whether this control's able to be selected.
 	 */
 	public var available(default, set):Bool = true;
 
-	function set_available(value:Bool):Bool
-	{
-		var targetAlpha = value ? 1 : 0.6;
+	function set_available(value:Bool):Bool {
+var targetAlpha = value ? 1 : 0.6;
 		displayText.alpha = targetAlpha;
-		for (i in keybindTextGroup)
-		{
-			i.alpha = targetAlpha;
-		}
+		for (i in keybindTextGroup) {
+i.alpha = targetAlpha;
+}
 		return available = value;
-	}
+}
 
 	public var uiControl:ControlUI;
 	public var keybindTextGroup:Array<FlxText> = [];
 	
 	var displayText:FlxText;
 
-	public function new(x:Float, y:Float, uiControl:ControlUI)
-	{
-		super(x, y);
+	public function new(x:Float, y:Float, uiControl:ControlUI) {
+super(x, y);
 
 		this.uiControl = uiControl;
 
@@ -611,9 +521,8 @@ class ControlGroup extends FlxSpriteGroup
 		add(displayText);
 
 		var controlKeybinds = KeybindPrefs.keybinds.get(uiControl.controlName);
-		for (i in 0...controlKeybinds.length)
-		{
-			var lastKeybind = keybindTextGroup[i - 1];
+		for (i in 0...controlKeybinds.length) {
+var lastKeybind = keybindTextGroup[i - 1];
 			var xPos = lastKeybind != null ? ((lastKeybind.x - x) + lastKeybind.textField.textWidth + 50) : 200;
 
 			var keybindText = new FlxText(xPos, 0, 0, controlKeybinds[i].toString());
@@ -621,35 +530,29 @@ class ControlGroup extends FlxSpriteGroup
 			add(keybindText);
 			keybindText.y = displayText.y + (displayText.textField.textHeight - keybindText.textField.textHeight) / 2;
 			keybindTextGroup.push(keybindText);
-		}
-	}
+}
+}
 
-	public function repositionText():Void
-	{
-		for (i in 0...keybindTextGroup.length)
-		{
-			var lastKeybind = keybindTextGroup[i - 1];
+	public function repositionText():Void {
+for (i in 0...keybindTextGroup.length) {
+var lastKeybind = keybindTextGroup[i - 1];
 			var xPos = lastKeybind != null ? ((lastKeybind.x - x) + lastKeybind.textField.textWidth + 50) : 200;
 
 			keybindTextGroup[i].x = this.x + xPos;
-		}
-	}
+}
+}
 
-	public function select()
-	{
-		displayText.scale.set(1.2, 1.2);
-	}
+	public function select() {
+displayText.scale.set(1.2, 1.2);
+}
 
-	public function deselect()
-	{
-		displayText.scale.set(1.0, 1.0);
-	}
+	public function deselect() {
+displayText.scale.set(1.0, 1.0);
+}
 
-	public function deselectKeybinds()
-	{
-		for (i in keybindTextGroup)
-		{
-			i.scale.set(1.0, 1.0);
-		}
-	}
+	public function deselectKeybinds() {
+for (i in keybindTextGroup) {
+i.scale.set(1.0, 1.0);
+}
+}
 }

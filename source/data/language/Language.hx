@@ -5,9 +5,8 @@ import flixel.util.FlxColor;
 /**
  * A type definition that defines the properties for a language.
  */
-typedef Language = 
-{
-	/**
+typedef Language = ; {
+/**
 	 * The readable name of the language.
 	 */
 	var name:String;

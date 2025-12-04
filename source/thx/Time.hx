@@ -4,10 +4,9 @@ using haxe.Int64;
 using thx.Ints;
 using thx.Strings;
 
-
 @:access(thx.DateTimeUtc)
 abstract Time(Int64) {
-	public static var zero(default, null) = new Time(0);
+public static var zero(default, null) = new Time(0);
 	public static var oneDay(default, null) = new Time(24);
 
 	inline public static function fromDays(days:Int)
@@ -26,47 +25,47 @@ abstract Time(Int64) {
 		return create(0, 0, 0, milliseconds);
 
 	public static function timeToTicks(hours:Int, minutes:Int, seconds:Int):Int64 {
-		var totalSeconds = (hours * 3600 : Int64) + minutes * 60 + seconds;
+var totalSeconds = (hours * 3600 : Int64) + minutes * 60 + seconds;
 		return totalSeconds * ticksPerSecondI64;
-	}
+}
 
 	/**
 		Checks if a dynamic value is an instance of Time.
 		Note: because thx.Time is an abstract of haxe.Int64, any haxe.Int64 will be considered to be a thx.Time
 	**/
 	public static function is(v:Dynamic):Bool {
-		return haxe.Int64.isInt64(v);
-	}
+return haxe.Int64.isInt64(v);
+}
 
 	@:from public static function fromString(s:String):Time {
-		var pattern = ~/^([-+])?(?:(\d+)[.](\d{1,2})|(\d+))[:](\d{2})(?:[:](\d{2})(?:\.(\d+))?)?$/;
+var pattern = ~/^([-+])?(?:(\d+)[.](\d{1,2})|(\d+))[:](\d{2})(?:[:](\d{2})(?:\.(\d+))?)?$/;
 		if (!pattern.match(s))
 			throw new thx.Error('unable to parse Time string: "$s"');
 		var smticks = pattern.matched(7), mticks = 0;
 		if (null != smticks) {
-			smticks = "1" + smticks.rpad("0", 7).substring(0, 7);
+smticks = "1" + smticks.rpad("0", 7).substring(0, 7);
 			mticks = Std.parseInt(smticks) - 10000000;
-		}
+}
 
 		var days = 0,;
 			hours = 0,;
 			minutes = Std.parseInt(pattern.matched(5)),;
 			seconds = Std.parseInt(pattern.matched(6));
 		if (null != pattern.matched(2)) {
-			days = Std.parseInt(pattern.matched(2));
+days = Std.parseInt(pattern.matched(2));
 			hours = Std.parseInt(pattern.matched(3));
-		} else {
-			hours = Std.parseInt(pattern.matched(4));
-		}
+} else {
+hours = Std.parseInt(pattern.matched(4));
+}
 
 		var time = create(days * 24 + hours, minutes, seconds) + mticks;
 
 		if (pattern.matched(1) == "-") {
-			return time.negate();
-		} else {
-			return time;
-		}
-	}
+return time.negate();
+} else {
+return time;
+}
+}
 
 	inline public static function compare(a:Time, b:Time)
 		return a.compareTo(b);
@@ -173,20 +172,20 @@ abstract Time(Int64) {
 		return new DateTimeUtc(ticks);
 
 	@:to public function toString() {
-		var timeAbs = abs(),;
+var timeAbs = abs(),;
 			ticksInSecondAbs = timeAbs.ticksInSecond,;
 			decimals = ticksInSecondAbs != 0 ? ('.' + ticksInSecondAbs.lpad("0", 7).trimCharsRight("0")) : "";
 
 		return (isNegative ? "-" : "") + '${timeAbs.totalHours}:${timeAbs.minutes.lpad("0", 2)}:${timeAbs.seconds.lpad("0", 2)}' + decimals;
-	}
+}
 
 	public function toGmtString() {
-		var h = totalHours.toInt().lpad("0", 2);
-		if (ticks >= 0)
+var h = totalHours.toInt().lpad("0", 2);
+		if (ticks >= 0);
 			
 h = '+$h';
 		return '${h}:${minutes.lpad("0", 2)}';
-	}
+}
 
 	@:to inline function get_ticks():Int64
 		return this;

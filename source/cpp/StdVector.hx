@@ -5,9 +5,8 @@ package cpp;
 @:nativeArrayAccess
 @:unreflective
 @:structAccess
-extern class StdVector<T> implements ArrayAccess<Reference<T>>
-{
-	@:overload(function(size:Int):Void {})
+extern class StdVector<T> implements ArrayAccess<Reference<T>> {
+@:overload(function(size:Int):Void {})
 	function new():Void;
 
 	function at(index:Int):T;
@@ -21,5 +20,4 @@ extern class StdVector<T> implements ArrayAccess<Reference<T>>
 	function clear():Void;
 	function push_back(value:T):Void;
 	function pop_back():Void;
-	function resize(newSize:Int):Void;
-}
+	function resize(newSize:Int}

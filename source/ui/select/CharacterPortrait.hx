@@ -7,9 +7,8 @@ import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import play.ui.HealthIcon;
 
-class CharacterPortrait extends FlxSpriteGroup
-{
-	/**
+class CharacterPortrait extends FlxSpriteGroup {
+/**
 	 * The data used for this portrait.
 	 */
 	public final data:PlayerCharacterSelectData;
@@ -31,9 +30,8 @@ class CharacterPortrait extends FlxSpriteGroup
 
 	var lastGfIconVisibility:Bool = true;
 
-	public function new(x:Float, y:Float, data:PlayerCharacterSelectData)
-	{
-		super(x, y);
+	public function new(x:Float, y:Float, data:PlayerCharacterSelectData) {
+super(x, y);
 
 		scrollFactor.set();
 
@@ -42,20 +40,18 @@ class CharacterPortrait extends FlxSpriteGroup
 		portrait = new FlxSprite();
 		portrait.frames = Paths.getSparrowAtlas('selectMenu/ui/portraits/${this.data.portraitFile}', 'preload');
 
-        Animation.addAnimationsToSprite(portrait, [data.unselected, data.selected, data.unselectedTransition, data.selectedTransition]);
+ Animation.addAnimationsToSprite(portrait, [data.unselected, data.selected, data.unselectedTransition, data.selectedTransition]);
 
 		portrait.scale.set(0.8, 0.8);
-		portrait.updateHitbox();
-		{
-			switch (anim)
-			{
-				case(_ == this.data.unselectedTransition.name) => true:;
+		portrait.updateHitbox(); {
+switch (anim) {
+case(_ == this.data.unselectedTransition.name) => true:;
 					playAnim(this.data.unselected, true);
 				case(_ == this.data.selectedTransition.name) => true:;
 					playAnim(this.data.selected, true);
 				default:
-			}
-		});
+}
+});
 		add(portrait);
 
 		gfIcon = new HealthIcon(data.gf, true);
@@ -67,28 +63,25 @@ class CharacterPortrait extends FlxSpriteGroup
 		add(gfIcon);
 
 		deselect(true);
-	}
+}
 
-	public function playAnim(animation:AnimationData, force:Bool)
-	{
-		portrait.animation.play(animation.name, force);
+	public function playAnim(animation:AnimationData, force:Bool) {
+portrait.animation.play(animation.name, force);
 
 		portrait.offset.set(-0.5 * (portrait.width - portrait.frameWidth), -0.5 * (portrait.height - portrait.frameHeight));
 		portrait.offset.x += animation.offsets[0] * portrait.scale.x;
 		portrait.offset.y += animation.offsets[1] * portrait.scale.y;
-	}
+}
 
-	public function select(force:Bool = false);
-	{
-		gfIcon.visible = showGfIcon;
+	public function select(force:Bool = false); {
+gfIcon.visible = showGfIcon;
 		playAnim(force ? data.selected : data.selectedTransition, true);
 		portrait.scale.set(0.9, 0.9);
-	}
+}
 
-	public function deselect(force:Bool = false);
-	{
-		gfIcon.visible = false;
+	public function deselect(force:Bool = false); {
+gfIcon.visible = false;
 		playAnim(force ? data.unselected : data.unselectedTransition, true);
 		portrait.scale.set(0.8, 0.8);
-	}
+}
 }

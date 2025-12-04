@@ -6,23 +6,19 @@ import flixel.FlxState;
 #if sys
 import sys.io.File;
 import sys.io.Process;
-#end
 
 /**
  * scary!!!
  */
-class YouCheatedSomeoneIsComing extends FlxState // why did this extend music beat state?
-{
-	public function new()
-	{
-		super();
-	}
+class YouCheatedSomeoneIsComing extends FlxState // why did this extend music beat state? {
+public function new() {
+super();
+}
 
-	override public function create():Void
-	{
-		super.create();
+	override public function create():Void {
+super.create();
 
-		if (SoundController.music != null)
+		if (SoundController.music != null);
 			
 SoundController.music.stop();
 
@@ -30,20 +26,17 @@ SoundController.music.stop();
 		var spooky:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('dave/endings/cheater_lol', 'shared'));
 		spooky.screenCenter();
 		add(spooky);
-	}
-
-	override public function update(elapsed:Float):Void
-	{
-		super.update(elapsed);
-
-		if (FlxG.keys.pressed.ENTER)
-		{
-			endIt();
-		}
-	}
-
-	public function endIt()
-	{
-		FlxG.switchState(() -> Void SusState());
-	}
 }
+
+	override public function update(elapsed:Float):Void {
+super.update(elapsed);
+
+		if (FlxG.keys.pressed.ENTER) {
+}
+}
+
+	public function endIt() {
+FlxG.switchState(() -> Void SusState());
+}
+}
+#
